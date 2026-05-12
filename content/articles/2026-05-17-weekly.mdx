@@ -1,0 +1,46 @@
+---
+title: The week the inference layer took over.
+slug: 2026-05-17-weekly-the-inference-layer-takes-over
+date: "2026-05-17"
+type: weekly
+dek: Cheap long context, headless coding agents, three competing export-controls
+  drafts — and one centre of gravity underneath all of it.
+tags:
+  - weekly
+  - ai
+  - policy
+  - dev-tools
+sources: []
+illustration:
+  path: /illustrations/2026-05-17-weekly.webp
+  prompt: A horizon-wide stratified field seen from above, deep blue and violet
+    tones, a single vertical seam of pale cyan light running floor to ceiling.
+  alt: A wide horizontal field of pale phosphor strata seen from far above, with a
+    single bright vertical seam running through it.
+signal_strength: 84
+dispatches: []
+wire: []
+digest:
+  from: "2026-05-10"
+  to: "2026-05-12"
+  covered_slugs:
+    - 2026-05-10-the-weekend-the-context-windows-cracked-open
+    - 2026-05-11-the-quiet-rewiring-of-the-developer-stack
+    - 2026-05-12-export-controls-meet-open-weights
+---
+
+If one line had to sum the last seven days, it would be this: the labs spent the week making capacity cheap, and the developers and regulators spent it figuring out what to do with that.
+
+## Threads we kept pulling
+
+The week opened with [three labs shipping million-token context windows](/articles/2026-05-10-the-weekend-the-context-windows-cracked-open) inside a single weekend. The launches were less about raw capacity than about price — cheap-enough long context shifts the default architecture for everything downstream, and we suggested the next round of agent frameworks may stop shipping a retrieval module out of the box.
+
+The downstream shift showed up almost immediately. [By Monday the centre of gravity in the developer stack had quietly moved](/articles/2026-05-11-the-quiet-rewiring-of-the-developer-stack) from the editor to the headless agent and the inference cloud. Cursor and Zed are still good places to live, but the moat is moving up the stack: the agent's memory of your project, not the syntax highlighter that surfaces it.
+
+Then policy caught up. The week ended with [two governments colliding over open-weights export controls](/articles/2026-05-12-export-controls-meet-open-weights). The US, the EU, and (in a quieter draft) the UK each drew the line in a different place; the leverage, as Jack Clark pointed out, sits with the inference clouds rather than the labs or the regulators. Anthropic's responsible-scaling update read like preparation for exactly that world.
+
+Underneath those three pieces sat a smaller pattern: the inference layer is becoming the place where the action is. Cheap long context, headless agents, licensable endpoints — all of them move responsibility toward whichever vendor runs the model, not whichever vendor trained it.
+
+## Looking ahead
+
+Next week's open questions are mostly second-order: how editor vendors respond to the headless turn, whether the three regulatory drafts converge or diverge in committee, and whether the new "agent runtimes" (Vercel announced one on Monday) accrue lock-in faster than the rest of the stack catches up. We will keep watching the inference clouds.

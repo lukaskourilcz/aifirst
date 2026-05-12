@@ -19,9 +19,14 @@ export const metadata: Metadata = {
   },
 };
 
+const THEME_INIT = `(function(){try{var m=localStorage.getItem('mode');if(m==='term')document.documentElement.dataset.mode='term';}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body>
         <ScanlineOverlay />
         <Masthead />

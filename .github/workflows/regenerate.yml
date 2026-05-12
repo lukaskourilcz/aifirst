@@ -1,0 +1,68 @@
+name: regenerate
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date to regenerate (YYYY-MM-DD)"
+        required: true
+        type: string
+      kind:
+        description: "Kind of issue"
+        required: true
+        default: daily
+        type: choice
+        options:
+          - daily
+          - weekly
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Validate date
+        run: |
+          if ! [[ "${{ inputs.date }}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "Invalid date format: ${{ inputs.date }}" >&2
+            exit 1
+          fi
+
+      - name: Regenerate ${{ inputs.kind }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IMAGE_PROVIDER: ${{ vars.IMAGE_PROVIDER }}
+          FAL_KEY: ${{ secrets.FAL_KEY }}
+        run: |
+          if [ "${{ inputs.kind }}" = "weekly" ]; then
+            pnpm tsx scripts/generate-weekly.ts "${{ inputs.date }}"
+          else
+            pnpm tsx scripts/generate-daily.ts "${{ inputs.date }}"
+          fi
+
+      - name: Commit
+        run: |
+          git config user.name "aifirst-bot"
+          git config user.email "bot@aifirst"
+          git add content/articles public/illustrations
+          if git diff --cached --quiet; then
+            echo "nothing to commit (idempotent or failure)"
+            exit 0
+          fi
+          git commit -m "regenerate(${{ inputs.kind }}): ${{ inputs.date }}"
+          git push

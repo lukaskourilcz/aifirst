@@ -185,6 +185,30 @@ hr {
   color: var(--accent-cyan);
 }
 
+/* Term mode — a green-phosphor CRT alternate theme. Toggle via the
+   masthead button; the choice is stored in localStorage and applied
+   pre-paint by the inline script in app/layout.tsx, so there is no
+   flash of unstyled colours. */
+[data-mode="term"] {
+  --bg-void: #050a02;
+  --bg-deep: #061a08;
+  --bg-elev: #082912;
+  --grid: #0d3315;
+
+  --ink-primary: #b5ff66;
+  --ink-muted: #6ea84b;
+  --ink-dim: #3b6c28;
+
+  --accent-cyan: #7dff8a;
+  --accent-magenta: #ffe066;
+  --accent-amber: #ffd24a;
+
+  --hairline: rgba(125, 255, 138, 0.22);
+  --hairline-strong: rgba(125, 255, 138, 0.45);
+  --glow-cyan: 0 0 22px rgba(125, 255, 138, 0.55);
+  --glow-magenta: 0 0 22px rgba(255, 224, 102, 0.35);
+}
+
 /* Anchor links on headings */
 .anchored {
   position: relative;

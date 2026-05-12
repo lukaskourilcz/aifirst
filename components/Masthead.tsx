@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
+import { ThemeToggle } from "./ThemeToggle";
 import { buildSearchIndex } from "@/lib/content";
 
 function today(): string {
@@ -73,8 +74,10 @@ export async function Masthead() {
           <Link href="/tags" className="label">tags</Link>
           <Link href="/sources" className="label">sources</Link>
           <Link href="/stats" className="label">stats</Link>
+          <Link href="/trends" className="label">trends</Link>
           <Link href="/colophon" className="label">colophon</Link>
           <SearchPalette index={index} />
+          <ThemeToggle />
         </nav>
       </div>
     </header>

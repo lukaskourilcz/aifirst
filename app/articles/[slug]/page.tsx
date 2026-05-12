@@ -8,6 +8,7 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
 import { SourcesBlock } from "@/components/SourcesBlock";
 import { TagChip } from "@/components/TagChip";
+import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { Wire } from "@/components/Wire";
 import {
   getArticle,
@@ -60,6 +61,8 @@ export default async function ArticlePage({
     tags: article.frontmatter.tags,
   };
   const related = relatedArticles(summary, all, 3);
+  const isWeekly = (article.frontmatter.type ?? "daily") === "weekly";
+  const titlesBySlug = new Map(all.map((a) => [a.slug, a.title]));
 
   return (
     <>
@@ -80,7 +83,15 @@ export default async function ArticlePage({
           />
         </div>
         <div className="reading" style={{ paddingTop: 56, paddingBottom: 32 }}>
-          <p className="label label--accent">{article.frontmatter.date}</p>
+          <p
+            className="label label--accent"
+            style={{
+              color: isWeekly ? "var(--accent-magenta)" : undefined,
+            }}
+          >
+            {isWeekly ? "weekly digest" : ""}{" "}
+            {isWeekly ? "·" : ""} {article.frontmatter.date}
+          </p>
           <h1>{article.frontmatter.title}</h1>
           <p
             style={{
@@ -108,6 +119,14 @@ export default async function ArticlePage({
               </li>
             ))}
           </ul>
+          {isWeekly && article.frontmatter.digest && (
+            <WeeklyBadge
+              from={article.frontmatter.digest.from}
+              to={article.frontmatter.digest.to}
+              coveredSlugs={article.frontmatter.digest.covered_slugs}
+              titlesBySlug={titlesBySlug}
+            />
+          )}
           <Mdx source={article.mdx} />
           <Dispatches items={article.frontmatter.dispatches ?? []} />
           <Wire items={article.frontmatter.wire ?? []} />

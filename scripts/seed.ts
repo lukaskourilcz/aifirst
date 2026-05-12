@@ -6,6 +6,7 @@ import YAML from "yaml";
 
 type SeedDispatch = { title: string; body: string; source_url?: string };
 type SeedWire = { title: string; url: string; source: string };
+type SeedKind = "daily" | "weekly";
 
 type Seed = {
   date: string;
@@ -18,6 +19,9 @@ type Seed = {
   signal_strength: number;
   dispatches: SeedDispatch[];
   wire: SeedWire[];
+  kind?: SeedKind;
+  filenameSuffix?: string;
+  digest?: { from: string; to: string; covered_slugs: string[] };
 };
 
 const seeds: Seed[] = [
@@ -40,20 +44,9 @@ const seeds: Seed[] = [
       gradient: ["#0a1838", "#1a0d33"],
     },
     dispatches: [
-      {
-        title: "Anthropic deprecates two retired models",
-        body: "Anthropic quietly retired two pre-4.0 Claude models from the API this morning. Customers on enterprise tier received 90-day migration windows; everyone else has 30. The interesting part is what was kept: the smallest models in the family, which see surprisingly heavy use as fast filters in agentic pipelines and apparently were not expected to outlast their bigger siblings.",
-        source_url: "https://docs.anthropic.com/en/docs/about-claude/model-deprecations",
-      },
-      {
-        title: "Hugging Face crosses one million model uploads",
-        body: "Hugging Face announced its repository passed one million distinct model uploads. The headline number is mostly fine-tunes — 78 percent are derivatives of fewer than 200 base checkpoints — but the long tail keeps growing. The platform is now closer to a software distribution than a model zoo, and the company is starting to talk about it that way.",
-        source_url: "https://huggingface.co/blog/one-million",
-      },
-      {
-        title: "A new benchmark for tool-use reliability",
-        body: "A coalition of researchers from three labs released TURB, a benchmark for tool-use reliability that scores models on how often they retry broken tool calls without compounding errors. Early scores show a wide spread even among frontier models, and the authors note that capability and reliability are decoupling. The benchmark code is open-source under MIT.",
-      },
+      { title: "Anthropic deprecates two retired models", body: "Anthropic quietly retired two pre-4.0 Claude models from the API this morning. Customers on enterprise tier received 90-day migration windows; everyone else has 30. The interesting part is what was kept: the smallest models in the family, which see surprisingly heavy use as fast filters in agentic pipelines and apparently were not expected to outlast their bigger siblings.", source_url: "https://docs.anthropic.com/en/docs/about-claude/model-deprecations" },
+      { title: "Hugging Face crosses one million model uploads", body: "Hugging Face announced its repository passed one million distinct model uploads. The headline number is mostly fine-tunes — 78 percent are derivatives of fewer than 200 base checkpoints — but the long tail keeps growing. The platform is now closer to a software distribution than a model zoo, and the company is starting to talk about it that way.", source_url: "https://huggingface.co/blog/one-million" },
+      { title: "A new benchmark for tool-use reliability", body: "A coalition of researchers from three labs released TURB, a benchmark for tool-use reliability that scores models on how often they retry broken tool calls without compounding errors. Early scores show a wide spread even among frontier models, and the authors note that capability and reliability are decoupling. The benchmark code is open-source under MIT." },
     ],
     wire: [
       { title: "Mistral releases 12B sparse MoE checkpoint", url: "https://mistral.ai/news/sparse-12b", source: "hn-frontpage" },
@@ -83,20 +76,9 @@ const seeds: Seed[] = [
       gradient: ["#0a1f1e", "#330d2a"],
     },
     dispatches: [
-      {
-        title: "GitHub adds inference-cost panel to repo settings",
-        body: "GitHub rolled out a per-repo inference-cost panel to all paid plans. The number it shows is GitHub Actions plus any model-call billing routed through GitHub-managed proxies — not third-party API spend. The interesting framing is that GitHub is positioning itself as the cost-attribution layer for AI-heavy repos, which is a different role than 'place where your code lives'.",
-        source_url: "https://github.blog/2026-05-11-inference-cost-panel",
-      },
-      {
-        title: "VS Code ships agent host built into the editor",
-        body: "VS Code's May insider build includes a headless agent host that runs in the editor's own process. It speaks the same MCP dialect as the major CLI agents and shares their state. The official line is that this 'unifies the experience'; the read-between-the-lines version is that Microsoft does not want to be the diff viewer.",
-        source_url: "https://code.visualstudio.com/blogs/2026/05/11/agent-host",
-      },
-      {
-        title: "A small win for reproducible agent runs",
-        body: "An OSS project called replay-agent landed on Hacker News with a simple value proposition: deterministic replay of agent traces against pinned tool versions. It is rough, but it solves the audit problem that has quietly been blocking serious enterprise adoption. Expect this primitive to be subsumed into the major frameworks within two release cycles.",
-      },
+      { title: "GitHub adds inference-cost panel to repo settings", body: "GitHub rolled out a per-repo inference-cost panel to all paid plans. The number it shows is GitHub Actions plus any model-call billing routed through GitHub-managed proxies — not third-party API spend. The interesting framing is that GitHub is positioning itself as the cost-attribution layer for AI-heavy repos, which is a different role than 'place where your code lives'.", source_url: "https://github.blog/2026-05-11-inference-cost-panel" },
+      { title: "VS Code ships agent host built into the editor", body: "VS Code's May insider build includes a headless agent host that runs in the editor's own process. It speaks the same MCP dialect as the major CLI agents and shares their state. The official line is that this 'unifies the experience'; the read-between-the-lines version is that Microsoft does not want to be the diff viewer.", source_url: "https://code.visualstudio.com/blogs/2026/05/11/agent-host" },
+      { title: "A small win for reproducible agent runs", body: "An OSS project called replay-agent landed on Hacker News with a simple value proposition: deterministic replay of agent traces against pinned tool versions. It is rough, but it solves the audit problem that has quietly been blocking serious enterprise adoption. Expect this primitive to be subsumed into the major frameworks within two release cycles." },
     ],
     wire: [
       { title: "Zed announces Linux release", url: "https://zed.dev/blog/linux", source: "hn-frontpage" },
@@ -127,20 +109,9 @@ const seeds: Seed[] = [
       gradient: ["#1a0d33", "#0a1f3a"],
     },
     dispatches: [
-      {
-        title: "UK announces its own draft framework",
-        body: "Hours after the EU draft leaked, the UK's Department for Science, Innovation and Technology circulated a third, materially different framework. It sets thresholds at deployment scale rather than training compute and explicitly carves out academic releases. Whether the three frameworks converge in committee or compete in the wild is the question the rest of 2026 will turn on.",
-        source_url: "https://www.gov.uk/government/news/uk-ai-framework-2026",
-      },
-      {
-        title: "Inference clouds quietly add licence checks",
-        body: "Two of the three major inference-cloud providers added a licence-verification step to their model deployment APIs this week, with no announcement. Asked for comment, both pointed to standing terms-of-service. The change is small but consequential: enforcement is moving from the download to the endpoint, exactly where the analysts said it would.",
-      },
-      {
-        title: "Open-weights advocates publish a counter-draft",
-        body: "A coalition of academics and small labs published a counter-draft proposal that would treat compute-derived thresholds as evidence rather than dispositive. The draft has no legal standing but is being read carefully inside two governments. The signatories include three former regulators and a Turing Award winner.",
-        source_url: "https://openweights.org/counter-draft",
-      },
+      { title: "UK announces its own draft framework", body: "Hours after the EU draft leaked, the UK's Department for Science, Innovation and Technology circulated a third, materially different framework. It sets thresholds at deployment scale rather than training compute and explicitly carves out academic releases. Whether the three frameworks converge in committee or compete in the wild is the question the rest of 2026 will turn on.", source_url: "https://www.gov.uk/government/news/uk-ai-framework-2026" },
+      { title: "Inference clouds quietly add licence checks", body: "Two of the three major inference-cloud providers added a licence-verification step to their model deployment APIs this week, with no announcement. Asked for comment, both pointed to standing terms-of-service. The change is small but consequential: enforcement is moving from the download to the endpoint, exactly where the analysts said it would." },
+      { title: "Open-weights advocates publish a counter-draft", body: "A coalition of academics and small labs published a counter-draft proposal that would treat compute-derived thresholds as evidence rather than dispositive. The draft has no legal standing but is being read carefully inside two governments. The signatories include three former regulators and a Turing Award winner.", source_url: "https://openweights.org/counter-draft" },
     ],
     wire: [
       { title: "OpenAI publishes new evaluations on weapons-uplift risk", url: "https://openai.com/safety/weapons-uplift", source: "openai-blog" },
@@ -151,6 +122,33 @@ const seeds: Seed[] = [
       { title: "The Register: what the UK draft actually says", url: "https://www.theregister.com/2026/05/12/uk-ai-draft/", source: "the-register" },
       { title: "Reuters: industry response is muted", url: "https://www.reuters.com/technology/ai-regulation-response/", source: "the-verge" },
     ],
+  },
+  {
+    date: "2026-05-17",
+    filenameSuffix: "-weekly",
+    kind: "weekly",
+    slug: "2026-05-17-weekly-the-inference-layer-takes-over",
+    title: "The week the inference layer took over.",
+    dek: "Cheap long context, headless coding agents, three competing export-controls drafts — and one centre of gravity underneath all of it.",
+    tags: ["weekly", "ai", "policy", "dev-tools"],
+    signal_strength: 84,
+    sources: [],
+    illustration: {
+      alt: "A wide horizontal field of pale phosphor strata seen from far above, with a single bright vertical seam running through it.",
+      prompt: "A horizon-wide stratified field seen from above, deep blue and violet tones, a single vertical seam of pale cyan light running floor to ceiling.",
+      gradient: ["#0a1338", "#220a33"],
+    },
+    dispatches: [],
+    wire: [],
+    digest: {
+      from: "2026-05-10",
+      to: "2026-05-12",
+      covered_slugs: [
+        "2026-05-10-the-weekend-the-context-windows-cracked-open",
+        "2026-05-11-the-quiet-rewiring-of-the-developer-stack",
+        "2026-05-12-export-controls-meet-open-weights",
+      ],
+    },
   },
 ];
 
@@ -184,13 +182,13 @@ function illustrationSvg(seed: Seed): string {
     lines,
     '<circle cx="480" cy="380" r="180" fill="none" stroke="#5cf0ff" stroke-width="1.2" opacity="0.35"/>',
     '<circle cx="1180" cy="700" r="240" fill="none" stroke="#ff4fd8" stroke-width="1" opacity="0.25"/>',
-    `<text x="48" y="1000" font-family="monospace" font-size="22" fill="#8a93b8" opacity="0.8">aifirst · ${seed.date} · cover · placeholder</text>`,
+    `<text x="48" y="1000" font-family="monospace" font-size="22" fill="#8a93b8" opacity="0.8">aifirst · ${seed.date}${seed.filenameSuffix ?? ""} · cover · placeholder</text>`,
     "</svg>",
   ].join("");
 }
 
 async function makeIllustration(seed: Seed, dir: string) {
-  const file = path.join(dir, `${seed.date}.webp`);
+  const file = path.join(dir, `${seed.date}${seed.filenameSuffix ?? ""}.webp`);
   const buf = await sharp(Buffer.from(illustrationSvg(seed))).webp({ quality: 84 }).toBuffer();
   await fs.writeFile(file, buf);
   return file;
@@ -215,31 +213,35 @@ async function main() {
   await fs.mkdir(imagesDir, { recursive: true });
 
   for (const seed of seeds) {
-    const body = await fs.readFile(path.join(bodiesDir, `${seed.date}.mdx`), "utf8");
-    const fm = {
+    const bodyFile = `${seed.date}${seed.filenameSuffix ?? ""}.mdx`;
+    const body = await fs.readFile(path.join(bodiesDir, bodyFile), "utf8");
+    const isWeekly = seed.kind === "weekly";
+    const fm: Record<string, unknown> = {
       title: seed.title,
       slug: seed.slug,
       date: seed.date,
+      ...(isWeekly ? { type: "weekly" } : {}),
       dek: seed.dek,
       tags: seed.tags,
       sources: seed.sources,
       illustration: {
-        path: `/illustrations/${seed.date}.webp`,
+        path: `/illustrations/${seed.date}${seed.filenameSuffix ?? ""}.webp`,
         prompt: seed.illustration.prompt,
         alt: seed.illustration.alt,
       },
       signal_strength: seed.signal_strength,
       dispatches: seed.dispatches,
       wire: seed.wire,
+      ...(seed.digest ? { digest: seed.digest } : {}),
     };
     const yaml = YAML.stringify(fm)
       .trimEnd()
-      .replace(/^date: (\d{4}-\d{2}-\d{2})$/m, 'date: "$1"');
+      .replace(/^(\s*)(date|from|to): (\d{4}-\d{2}-\d{2})$/gm, '$1$2: "$3"');
     const mdx = `---\n${yaml}\n---\n\n${body.trim()}\n`;
-    const file = path.join(articlesDir, `${seed.date}.mdx`);
-    await fs.writeFile(file, mdx);
+    const outFile = path.join(articlesDir, `${seed.date}${seed.filenameSuffix ?? ""}.mdx`);
+    await fs.writeFile(outFile, mdx);
     const img = await makeIllustration(seed, imagesDir);
-    console.error(`[seed] ${seed.date} -> ${file} + ${img}`);
+    console.error(`[seed] ${seed.date}${seed.filenameSuffix ?? ""} -> ${outFile} + ${img}`);
   }
   await makePlaceholder(imagesDir);
   console.error("[seed] done");

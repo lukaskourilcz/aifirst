@@ -45,7 +45,7 @@ export default async function ArchivePage() {
                   padding: "16px 0",
                   borderBottom: "1px solid var(--hairline)",
                   display: "grid",
-                  gridTemplateColumns: "140px 1fr",
+                  gridTemplateColumns: "140px 1fr auto",
                   gap: 16,
                   alignItems: "baseline",
                 }}
@@ -56,6 +56,18 @@ export default async function ArchivePage() {
                 <Link href={`/articles/${a.slug}`} style={{ fontSize: "1.125rem" }}>
                   {a.title}
                 </Link>
+                {a.type === "weekly" && (
+                  <span
+                    className="label"
+                    style={{
+                      color: "var(--accent-magenta)",
+                      border: "1px solid var(--hairline)",
+                      padding: "2px 8px",
+                    }}
+                  >
+                    weekly
+                  </span>
+                )}
               </li>
             ))}
           </ul>

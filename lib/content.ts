@@ -16,6 +16,8 @@ export type WireItem = {
 
 export type SourceRef = { id: string; url: string; title: string };
 
+export type IssueType = "daily" | "weekly";
+
 export type ArticleFrontmatter = {
   title: string;
   slug: string;
@@ -27,6 +29,12 @@ export type ArticleFrontmatter = {
   signal_strength?: number;
   dispatches?: Dispatch[];
   wire?: WireItem[];
+  type?: IssueType;
+  digest?: {
+    from: string;
+    to: string;
+    covered_slugs: string[];
+  };
 };
 
 export type Article = {
@@ -42,6 +50,7 @@ export type ArticleSummary = {
   dek?: string;
   tags?: string[];
   signal_strength?: number;
+  type?: IssueType;
 };
 
 function defaultContentDir(): string {
@@ -74,6 +83,7 @@ export async function listArticles(
       dek: fm.dek,
       tags: fm.tags,
       signal_strength: fm.signal_strength,
+      type: fm.type ?? "daily",
     });
   }
   summaries.sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -205,6 +215,7 @@ export async function listArticlesBySource(
         dek: fm.dek,
         tags: fm.tags,
         signal_strength: fm.signal_strength,
+        type: fm.type ?? "daily",
       });
     }
   }
