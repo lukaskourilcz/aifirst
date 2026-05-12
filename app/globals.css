@@ -185,6 +185,30 @@ hr {
   color: var(--accent-cyan);
 }
 
+/* Anchor links on headings */
+.anchored {
+  position: relative;
+}
+.anchor-link {
+  position: absolute;
+  left: -1.4em;
+  top: 0.1em;
+  opacity: 0;
+  border-bottom: none;
+  color: var(--accent-magenta);
+  font-family: var(--font-display);
+  font-size: 0.7em;
+  text-shadow: none;
+  transition: opacity 150ms var(--ease-out);
+}
+.anchored:hover .anchor-link,
+.anchor-link:focus-visible {
+  opacity: 1;
+}
+.anchor-link:hover {
+  color: var(--accent-cyan);
+}
+
 /* Entrance animation */
 @media (prefers-reduced-motion: no-preference) {
   .enter {

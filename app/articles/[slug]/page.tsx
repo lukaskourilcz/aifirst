@@ -15,6 +15,7 @@ import {
   relatedArticles,
   type ArticleSummary,
 } from "@/lib/content";
+import { readingMinutes } from "@/lib/text";
 
 export const dynamic = "force-static";
 
@@ -68,6 +69,7 @@ export default async function ArticlePage({
         sourceCount={article.frontmatter.sources?.length ?? 0}
         tags={article.frontmatter.tags}
         signal={article.frontmatter.signal_strength}
+        readingMinutes={readingMinutes(article.mdx)}
       />
       <section className="container" style={{ paddingTop: 32 }}>
         <div className="enter enter-1">

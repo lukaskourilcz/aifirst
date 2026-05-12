@@ -183,6 +183,35 @@ export async function sourceCitationStats(
   return stats;
 }
 
+export async function listArticlesBySource(
+  sourceId: string,
+  dir: string = defaultContentDir(),
+): Promise<ArticleSummary[]> {
+  const files = await readMdxFiles(dir);
+  const summaries: ArticleSummary[] = [];
+  for (const file of files) {
+    const raw = await fs.readFile(path.join(dir, file), "utf8");
+    const { data } = matter(raw);
+    const fm = data as Partial<ArticleFrontmatter>;
+    if (!fm.slug || !fm.date || !fm.title) continue;
+    const cited = (fm.sources ?? []).some(
+      (s) => (s as { id?: string }).id === sourceId,
+    );
+    if (cited) {
+      summaries.push({
+        slug: fm.slug,
+        date: fm.date,
+        title: fm.title,
+        dek: fm.dek,
+        tags: fm.tags,
+        signal_strength: fm.signal_strength,
+      });
+    }
+  }
+  summaries.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return summaries;
+}
+
 export type SearchEntry = {
   slug: string;
   date: string;

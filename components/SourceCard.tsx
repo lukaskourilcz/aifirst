@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type Props = {
   id: string;
   name: string;
@@ -45,11 +47,15 @@ export function SourceCard({
               fontFamily: "var(--font-display)",
               fontSize: "1rem",
               margin: 0,
-              color: "var(--ink-primary)",
               wordBreak: "break-word",
             }}
           >
-            {name}
+            <Link
+              href={`/sources/${encodeURIComponent(id)}`}
+              style={{ color: "var(--ink-primary)", borderBottom: "none" }}
+            >
+              {name}
+            </Link>
           </h3>
           <p
             style={{

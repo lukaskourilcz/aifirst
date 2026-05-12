@@ -8,6 +8,7 @@ import { SourcesBlock } from "@/components/SourcesBlock";
 import { TagChip } from "@/components/TagChip";
 import { Wire } from "@/components/Wire";
 import { getLatestArticle, listArticles } from "@/lib/content";
+import { readingMinutes } from "@/lib/text";
 
 export const dynamic = "force-static";
 
@@ -36,6 +37,7 @@ export default async function HomePage() {
         sourceCount={latest.frontmatter.sources?.length ?? 0}
         tags={latest.frontmatter.tags}
         signal={latest.frontmatter.signal_strength}
+        readingMinutes={readingMinutes(latest.mdx)}
       />
       <section className="container" style={{ paddingTop: 32 }}>
         <div className="enter enter-1">

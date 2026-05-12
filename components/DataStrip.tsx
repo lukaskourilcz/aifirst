@@ -5,9 +5,16 @@ type Props = {
   sourceCount: number;
   tags?: string[];
   signal?: number;
+  readingMinutes?: number;
 };
 
-export function DataStrip({ date, sourceCount, tags, signal }: Props) {
+export function DataStrip({
+  date,
+  sourceCount,
+  tags,
+  signal,
+  readingMinutes,
+}: Props) {
   return (
     <div
       style={{
@@ -47,6 +54,9 @@ export function DataStrip({ date, sourceCount, tags, signal }: Props) {
           issue {date}
         </span>
         <span>sources {String(sourceCount).padStart(2, "0")}</span>
+        {typeof readingMinutes === "number" && (
+          <span>read {readingMinutes} min</span>
+        )}
         <span>model claude-opus-4-7</span>
         {tags?.length ? (
           <span style={{ color: "var(--accent-magenta)" }}>
