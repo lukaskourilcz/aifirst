@@ -3,6 +3,13 @@ import path from "node:path";
 import YAML from "yaml";
 import type { WrittenArticle } from "./write.js";
 
+// gray-matter parses YAML via js-yaml, which still uses YAML 1.1 schema
+// and so reads bare `2026-05-12` as a JS Date. Quote it on the way out
+// so readers get a string everywhere.
+function quoteDateScalar(yaml: string): string {
+  return yaml.replace(/^date: (\d{4}-\d{2}-\d{2})$/m, 'date: "$1"');
+}
+
 export type PersistInput = {
   article: WrittenArticle;
   illustrationPath: string;
@@ -25,7 +32,7 @@ export async function persist({
       alt: article.illustrationAlt,
     },
   };
-  const yaml = YAML.stringify(frontmatter).trimEnd();
+  const yaml = quoteDateScalar(YAML.stringify(frontmatter).trimEnd());
   const mdx = `---\n${yaml}\n---\n\n${article.bodyMdx.trim()}\n`;
   const dir = path.join(process.cwd(), "content", "articles");
   await fs.mkdir(dir, { recursive: true });

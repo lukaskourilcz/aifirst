@@ -1,0 +1,44 @@
+---
+title: The weekend the context windows cracked open
+slug: 2026-05-10-the-weekend-the-context-windows-cracked-open
+date: "2026-05-10"
+dek: Three labs shipped million-token models within forty-eight hours. The
+  interesting fight isn’t about size any more.
+tags:
+  - ai
+  - models
+  - infrastructure
+sources:
+  - id: "01"
+    url: https://www.anthropic.com/news/claude-opus-4-7-1m-context
+    title: Claude Opus 4.7 with 1M context
+  - id: "02"
+    url: https://openai.com/news/long-context-evals
+    title: OpenAI on long-context evals
+  - id: "03"
+    url: https://deepmind.google/blog/gemini-3-long-context
+    title: Gemini 3 long-context release notes
+  - id: "04"
+    url: https://www.interconnects.ai/p/long-context-isnt-memory
+    title: Long context isn’t memory
+illustration:
+  path: /illustrations/2026-05-10.webp
+  prompt: A vast dark observation deck looking out at a slowly opening iris of
+    cyan and magenta light against a starless sky, sense of scale and quiet.
+  alt: Concentric ribbons of cyan and magenta light unfurling from a dark horizon,
+    suggesting an expanding aperture.
+---
+
+Three frontier labs shipped models with million-token context windows inside a single weekend, and on the surface the story is one of scale: more tokens, longer documents, fewer chunks. Read the [release notes](https://deepmind.google/blog/gemini-3-long-context) closely, though, and a different story shows up underneath. Context length stopped being the headline a year ago. What changed this weekend is the cost curve.
+
+## A million tokens, but cheap
+
+The interesting line in [Anthropic’s post](https://www.anthropic.com/news/claude-opus-4-7-1m-context) is not the headline figure. It is the price per million input tokens at the long-context tier, which dropped enough to make whole-codebase prompts a default rather than a stunt. [OpenAI’s evaluation work](https://openai.com/news/long-context-evals) the same morning was the giveaway: when a lab spends a launch day publishing benchmarks rather than parameter counts, they think the next argument will be about reliability, not capacity.
+
+That argument is already in progress. [Nathan Lambert](https://www.interconnects.ai/p/long-context-isnt-memory) spent the weekend pointing out the obvious: long context is not memory, and pretending otherwise has been the quiet failure mode of every multi-day agent demo. Recall at 800K tokens is not recall at 8K with more rope. The labs that win the second half of this year will be the ones whose long-context retrieval degrades gracefully rather than dropping off a cliff at the 60 percent mark.
+
+## The second-order effect
+
+If a million tokens of input is suddenly cheap and reliable, the natural shape of a Claude or Gemini deployment shifts. The prompt becomes the database. Retrieval pipelines that exist to keep a 32K window honest start to look like premature optimisation, the way local-disk swap looked premature once RAM got cheap. That does not make vector stores obsolete — some workloads still want them — but it does change the default architecture diagram from "embed everything, retrieve a slice" to "drop everything in, let the model sort it out."
+
+We will know the shift has taken hold when the next round of agent frameworks stops shipping a retrieval module out of the box.

@@ -1,0 +1,17 @@
+On Friday, the US Commerce Department circulated a draft amendment that, for the first time, treats certain open-weights model releases as controlled exports. On Sunday, [the EU Commission’s draft licensing regime](https://restofworld.org/2026/eu-model-licensing/) leaked in full to Rest of World. The two documents do not agree on what should be controlled, who should do the controlling, or what counts as a release. They do agree on one thing: the era of "post the weights, retire to the beach" is ending.
+
+## The two pictures
+
+[The MIT Technology Review piece](https://www.technologyreview.com/2026/05/12/open-weights-export-controls/) is the most readable summary of what changes and what doesn’t. The American draft draws its line at a compute-derived threshold: anything trained above a 10^25 FLOP-class scale, plus a list of capability-derived sub-cases, becomes export-controlled. The European draft draws its line differently, at deployed capability and downstream use. The same model can be a routine release on one continent and a licensable artefact on the other.
+
+[Meta’s Friday update](https://ai.meta.com/blog/llama-4-distribution-update) was the immediate test. They published Llama 4 the same evening, with a geofenced download portal and a click-through that would have been laughable two years ago. The portal worked. The clickthrough was not laughable. The weights were on a major mirror by Saturday morning anyway, but the precedent landed.
+
+## Where the actual leverage is
+
+[Jack Clark’s bulletin](https://jack-clark.net/2026/05/12/import-ai-policy-bulletin/) makes the unpopular point: the leverage in this debate is not at the lab and not at the regulator. It is at the inference-cloud provider. If running a controlled model commercially requires a licensed endpoint, and the endpoints live with three vendors, the policy applies cleanly regardless of where the weights end up.
+
+[Anthropic’s responsible-scaling update](https://www.anthropic.com/news/responsible-scaling-policy-v3) reads as preparation for exactly that world. The interesting clauses are not the safety thresholds, which were widely expected. They are the distribution clauses — the explicit statement that some models will be available only through verified inference partners.
+
+## The likely shape
+
+The next twelve months will not produce a single regulatory regime. They will produce three or four, partially overlapping, mutually incompatible, all enforced at the API rather than at the download. That is workable for the labs. It is harder for researchers, harder for hobbyists, and a great deal harder for anyone running a model out of a country that does not show up in the partner list. Watch the partner lists.

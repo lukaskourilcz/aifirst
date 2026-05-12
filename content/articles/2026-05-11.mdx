@@ -1,0 +1,48 @@
+---
+title: The quiet rewiring of the developer stack
+slug: 2026-05-11-the-quiet-rewiring-of-the-developer-stack
+date: "2026-05-11"
+dek: Three tools you don’t hear about quietly replaced four you did. The IDE is
+  not the centre of gravity any more.
+tags:
+  - dev-tools
+  - ai
+  - ecosystem
+sources:
+  - id: "01"
+    url: https://huggingface.co/blog/local-coder-agents
+    title: Local coder agents, a benchmark
+  - id: "02"
+    url: https://simonwillison.net/2026/may/10/cli-first-coding-agents/
+    title: CLI-first coding agents
+  - id: "03"
+    url: https://stratechery.com/2026/the-ide-is-not-the-product/
+    title: The IDE is not the product
+  - id: "04"
+    url: https://www.theregister.com/2026/05/11/coding_agents_telemetry/
+    title: What coding agents send home
+illustration:
+  path: /illustrations/2026-05-11.webp
+  prompt: An overhead view of dozens of glowing cables routing toward a single
+    terminal prompt at the centre of a dark workbench, schematic feel.
+  alt: A wireframe of cables converging into a single glowing terminal prompt,
+    viewed from above.
+---
+
+If you had asked a developer six months ago where they expect AI to live, they would have pointed at their IDE. The honest answer in May 2026 is that the IDE is no longer the centre of gravity. The action has quietly moved to two places: a terminal multiplexer and a long-running daemon.
+
+## The CLI-first turn
+
+[Simon Willison’s recap](https://simonwillison.net/2026/may/10/cli-first-coding-agents/) of the past week captures the shift in a single screenshot: three coding agents, all running headless, all driven by the same Justfile, all writing to the same git tree. The IDE in the screenshot is incidental. He is using it to read diffs, not to write code.
+
+This is what [Hugging Face’s benchmark post](https://huggingface.co/blog/local-coder-agents) clarified yesterday. The state of the art on SWE-bench is no longer set by the model with the best autocomplete extension. It is set by the agent with the best policy for tool selection, file reads, and — quietly important — graceful failure when the test runner times out. That kind of orchestration belongs in the shell, not the editor.
+
+## The IDE is not the product
+
+[Ben Thompson’s essay](https://stratechery.com/2026/the-ide-is-not-the-product/) takes the same observation in a more uncomfortable direction. If the agent runs from a CLI, then the model provider — not the editor vendor — captures the relationship. Cursor and Zed are still pleasant places to live, but the moat is moving up the stack. The thing that locks a developer in is the agent’s memory of their project, not the syntax highlighter that surfaces it.
+
+The Register, in characteristic form, [pointed out the other end of this](https://www.theregister.com/2026/05/11/coding_agents_telemetry/): if the daemon is the product, the telemetry is the business model. Developers who would not paste a single file into a chat window are routinely letting an agent index their whole working tree. The shift is not just architectural. It is a quiet renegotiation of what a coding tool is allowed to know about you.
+
+## What to watch
+
+The next move belongs to the editor vendors. Either they ship a credible answer to the headless agent — a way to drive the same orchestration from inside the IDE, with the same policies and the same memory — or they accept the new role: a viewer for diffs the agent already wrote. Both outcomes are interesting. Only one of them keeps the editor at the centre.

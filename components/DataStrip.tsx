@@ -1,9 +1,10 @@
 type Props = {
   date: string;
   sourceCount: number;
+  tags?: string[];
 };
 
-export function DataStrip({ date, sourceCount }: Props) {
+export function DataStrip({ date, sourceCount, tags }: Props) {
   return (
     <div
       style={{
@@ -15,20 +16,39 @@ export function DataStrip({ date, sourceCount }: Props) {
         className="container"
         style={{
           display: "flex",
+          flexWrap: "wrap",
           gap: 32,
-          padding: "8px 24px",
+          padding: "10px 24px",
           fontFamily: "var(--font-display)",
-          fontSize: "0.75rem",
+          fontSize: "0.72rem",
           letterSpacing: "0.18em",
           textTransform: "uppercase",
           color: "var(--ink-muted)",
         }}
       >
         <span>
-          <span style={{ color: "var(--accent-cyan)" }}>●</span> issue {date}
+          <span
+            aria-hidden
+            style={{
+              display: "inline-block",
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "var(--accent-cyan)",
+              boxShadow: "var(--glow-cyan)",
+              marginRight: 10,
+              transform: "translateY(-1px)",
+            }}
+          />
+          issue {date}
         </span>
         <span>sources {String(sourceCount).padStart(2, "0")}</span>
         <span>model claude-opus-4-7</span>
+        {tags?.length ? (
+          <span style={{ color: "var(--accent-magenta)" }}>
+            {tags.slice(0, 4).map((t) => `#${t}`).join("  ")}
+          </span>
+        ) : null}
       </div>
     </div>
   );

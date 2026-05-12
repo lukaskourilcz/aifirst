@@ -2,6 +2,8 @@ import Link from "next/link";
 import { CoverFrame } from "@/components/CoverFrame";
 import { DataStrip } from "@/components/DataStrip";
 import { GlowLink } from "@/components/GlowLink";
+import { Mdx } from "@/components/Mdx";
+import { SourcesBlock } from "@/components/SourcesBlock";
 import { getLatestArticle, listArticles } from "@/lib/content";
 
 export const dynamic = "force-static";
@@ -12,11 +14,11 @@ export default async function HomePage() {
 
   if (!latest) {
     return (
-      <section className="container" style={{ padding: "120px 24px" }}>
-        <p className="label">Issue 000</p>
-        <h1>The first issue is being written.</h1>
+      <section className="container" style={{ padding: "160px 24px" }}>
+        <p className="label label--accent">issue 000</p>
+        <h1>The first transmission is being written.</h1>
         <p style={{ color: "var(--ink-muted)", maxWidth: "60ch" }}>
-          The daily pipeline will publish here once it&apos;s run. See{" "}
+          The daily pipeline publishes here once it has run. See{" "}
           <GlowLink href="https://github.com/lukaskourilcz/aifirst">the repo</GlowLink>{" "}
           for setup, or run <code>pnpm generate:daily</code> locally.
         </p>
@@ -29,40 +31,65 @@ export default async function HomePage() {
       <DataStrip
         date={latest.frontmatter.date}
         sourceCount={latest.frontmatter.sources?.length ?? 0}
+        tags={latest.frontmatter.tags}
       />
       <section className="container" style={{ paddingTop: 32 }}>
-        <CoverFrame
-          src={latest.frontmatter.illustration.path}
-          alt={latest.frontmatter.illustration.alt}
-        />
-        <div className="reading" style={{ paddingTop: 48, paddingBottom: 96 }}>
-          <p className="label">Today &mdash; {latest.frontmatter.date}</p>
-          <h1>{latest.frontmatter.title}</h1>
+        <div className="enter enter-1">
+          <CoverFrame
+            src={latest.frontmatter.illustration.path}
+            alt={latest.frontmatter.illustration.alt}
+            priority
+          />
+        </div>
+        <div className="reading" style={{ paddingTop: 56, paddingBottom: 32 }}>
+          <p className="label label--accent enter enter-1">
+            Today &mdash; {latest.frontmatter.date}
+          </p>
+          <h1 className="enter enter-2">{latest.frontmatter.title}</h1>
           <p
+            className="enter enter-3"
             style={{
-              fontSize: "1.25rem",
+              fontSize: "1.3rem",
               color: "var(--ink-muted)",
               marginBottom: "2.5em",
+              lineHeight: 1.45,
             }}
           >
             {latest.frontmatter.dek}
           </p>
-          <article dangerouslySetInnerHTML={{ __html: latest.html }} />
+          <Mdx source={latest.mdx} />
+          <SourcesBlock sources={latest.frontmatter.sources ?? []} />
         </div>
       </section>
 
       {archive.length > 1 && (
-        <section className="container" style={{ paddingBottom: 96 }}>
-          <p className="label" style={{ marginBottom: 16 }}>Recent issues</p>
+        <section className="container" style={{ paddingBottom: 32 }}>
+          <p className="label" style={{ marginBottom: 16 }}>
+            Recent issues
+          </p>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {archive
               .filter((a) => a.slug !== latest.slug)
               .map((a) => (
-                <li key={a.slug} style={{ padding: "12px 0", borderBottom: "1px solid var(--hairline)" }}>
-                  <Link href={`/articles/${a.slug}`} className="label" style={{ marginRight: 16 }}>
+                <li
+                  key={a.slug}
+                  style={{
+                    padding: "14px 0",
+                    borderBottom: "1px solid var(--hairline)",
+                    display: "grid",
+                    gridTemplateColumns: "140px 1fr",
+                    gap: 16,
+                  }}
+                >
+                  <Link
+                    href={`/articles/${a.slug}`}
+                    className="label"
+                  >
                     {a.date}
                   </Link>
-                  <Link href={`/articles/${a.slug}`}>{a.title}</Link>
+                  <Link href={`/articles/${a.slug}`} style={{ fontSize: "1.05rem" }}>
+                    {a.title}
+                  </Link>
                 </li>
               ))}
           </ul>
