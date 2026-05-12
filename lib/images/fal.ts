@@ -19,31 +19,37 @@ const provider: ImageProvider = {
 
     const [w, h] = opts.size.split("x").map((n) => parseInt(n, 10)) as [number, number];
 
-    const { body: submitBody } = await request(
-      `https://fal.run/${MODEL_PATH}`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Key ${key}`,
-        },
-        body: JSON.stringify({
-          prompt: prompt + STYLE_SUFFIX,
-          image_size: { width: w, height: h },
-          seed: opts.seed,
-          num_inference_steps: 4,
-        }),
-        signal: AbortSignal.timeout(60_000),
+    const submitRes = await request(`https://fal.run/${MODEL_PATH}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Key ${key}`,
       },
-    );
-    const result = (await submitBody.json()) as FalResponse;
+      body: JSON.stringify({
+        prompt: prompt + STYLE_SUFFIX,
+        image_size: { width: w, height: h },
+        seed: opts.seed,
+        num_inference_steps: 4,
+      }),
+      signal: AbortSignal.timeout(60_000),
+    });
+    if (submitRes.statusCode < 200 || submitRes.statusCode >= 300) {
+      const errBody = await submitRes.body.text().catch(() => "");
+      throw new Error(
+        `fal: submit returned ${submitRes.statusCode}: ${errBody.slice(0, 300)}`,
+      );
+    }
+    const result = (await submitRes.body.json()) as FalResponse;
     const imageUrl = result.images?.[0]?.url;
     if (!imageUrl) throw new Error("fal: no image url in response");
 
-    const { body: imageBody } = await request(imageUrl, {
+    const imageRes = await request(imageUrl, {
       signal: AbortSignal.timeout(30_000),
     });
-    const raw = Buffer.from(await imageBody.arrayBuffer());
+    if (imageRes.statusCode < 200 || imageRes.statusCode >= 300) {
+      throw new Error(`fal: image fetch returned ${imageRes.statusCode}`);
+    }
+    const raw = Buffer.from(await imageRes.body.arrayBuffer());
     const webp = await sharp(raw)
       .resize(w, h, { fit: "cover" })
       .webp({ quality: 82 })

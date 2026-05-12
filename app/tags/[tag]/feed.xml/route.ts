@@ -3,10 +3,9 @@ import {
   listArticlesByTag,
   listTagsByFrequency,
 } from "@/lib/content";
+import { siteUrl } from "@/lib/config";
 
 export const dynamic = "force-static";
-
-const BASE = "https://aifirst.example";
 
 function escapeXml(s: string): string {
   return s
@@ -28,6 +27,7 @@ export async function GET(
 ) {
   const { tag: raw } = await params;
   const tag = decodeURIComponent(raw);
+  const base = siteUrl();
   const issues = await listArticlesByTag(tag);
 
   const entries: string[] = [];
@@ -37,8 +37,8 @@ export async function GET(
     entries.push(
       `  <entry>
     <title>${escapeXml(article.frontmatter.title)}</title>
-    <link href="${BASE}/articles/${article.slug}"/>
-    <id>${BASE}/articles/${article.slug}</id>
+    <link href="${base}/articles/${article.slug}"/>
+    <id>${base}/articles/${article.slug}</id>
     <updated>${article.frontmatter.date}T06:00:00Z</updated>
     <summary>${escapeXml(article.frontmatter.dek)}</summary>
     <category term="${escapeXml(tag)}"/>
@@ -53,9 +53,9 @@ export async function GET(
   const atom = `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>aifirst — #${escapeXml(tag)}</title>
-  <link href="${BASE}/tags/${encodeURIComponent(tag)}" rel="alternate"/>
-  <link href="${BASE}/tags/${encodeURIComponent(tag)}/feed.xml" rel="self"/>
-  <id>${BASE}/tags/${encodeURIComponent(tag)}</id>
+  <link href="${base}/tags/${encodeURIComponent(tag)}" rel="alternate"/>
+  <link href="${base}/tags/${encodeURIComponent(tag)}/feed.xml" rel="self"/>
+  <id>${base}/tags/${encodeURIComponent(tag)}</id>
   <updated>${updated}</updated>
 ${entries.join("\n")}
 </feed>

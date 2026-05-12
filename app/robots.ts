@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: "https://aifirst.example/sitemap.xml",
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/health"] }],
+    sitemap: `${siteUrl()}/sitemap.xml`,
   };
 }

@@ -1,8 +1,7 @@
 import { listArticles, getArticle } from "@/lib/content";
+import { siteUrl } from "@/lib/config";
 
 export const dynamic = "force-static";
-
-const BASE = "https://aifirst.example";
 
 function escapeXml(s: string): string {
   return s
@@ -14,6 +13,7 @@ function escapeXml(s: string): string {
 }
 
 export async function GET() {
+  const base = siteUrl();
   const summaries = await listArticles();
   const items: string[] = [];
   for (const s of summaries.slice(0, 50)) {
@@ -22,8 +22,8 @@ export async function GET() {
     items.push(
       `  <entry>
     <title>${escapeXml(article.frontmatter.title)}</title>
-    <link href="${BASE}/articles/${article.slug}"/>
-    <id>${BASE}/articles/${article.slug}</id>
+    <link href="${base}/articles/${article.slug}"/>
+    <id>${base}/articles/${article.slug}</id>
     <updated>${article.frontmatter.date}T06:00:00Z</updated>
     <summary>${escapeXml(article.frontmatter.dek)}</summary>
   </entry>`,
@@ -37,9 +37,9 @@ export async function GET() {
   const atom = `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>aifirst — a daily AI tech magazine</title>
-  <link href="${BASE}/" rel="alternate"/>
-  <link href="${BASE}/feed.xml" rel="self"/>
-  <id>${BASE}/</id>
+  <link href="${base}/" rel="alternate"/>
+  <link href="${base}/feed.xml" rel="self"/>
+  <id>${base}/</id>
   <updated>${updated}</updated>
 ${items.join("\n")}
 </feed>

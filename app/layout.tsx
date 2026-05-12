@@ -4,6 +4,7 @@ import { Masthead } from "@/components/Masthead";
 import { Footer } from "@/components/Footer";
 import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { ScanlineOverlay } from "@/components/ScanlineOverlay";
+import { siteUrl } from "@/lib/config";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   },
   description:
     "An AI-written daily magazine covering the most interesting developments in AI and technology.",
-  metadataBase: new URL("https://aifirst.example"),
+  metadataBase: new URL(siteUrl()),
   openGraph: {
     type: "website",
     siteName: "aifirst",

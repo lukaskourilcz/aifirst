@@ -11,6 +11,7 @@ import { TagChip } from "@/components/TagChip";
 import { Wire } from "@/components/Wire";
 import { getLatestArticle, listArticles } from "@/lib/content";
 import { loadGlossary, lookupTerm } from "@/lib/glossary";
+import { githubRepo } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
 
 export const dynamic = "force-static";
@@ -19,6 +20,7 @@ export default async function HomePage() {
   const latest = await getLatestArticle();
   const archive = (await listArticles()).slice(0, 6);
   const glossary = await loadGlossary();
+  const repo = githubRepo();
 
   if (!latest) {
     return (
@@ -27,7 +29,7 @@ export default async function HomePage() {
         <h1>The first transmission is being written.</h1>
         <p style={{ color: "var(--ink-muted)", maxWidth: "60ch" }}>
           The daily pipeline publishes here once it has run. See{" "}
-          <GlowLink href="https://github.com/lukaskourilcz/aifirst">the repo</GlowLink>{" "}
+          <GlowLink href={`https://github.com/${repo}`}>the repo</GlowLink>{" "}
           for setup, or run <code>pnpm generate:daily</code> locally.
         </p>
       </section>

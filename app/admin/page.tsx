@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { CopyCommand } from "@/components/CopyCommand";
 import { listArticles } from "@/lib/content";
+import { githubRepo } from "@/lib/config";
 
 export const dynamic = "force-static";
 export const metadata = { title: "Admin", robots: { index: false } };
 
-const REPO = "lukaskourilcz/aifirst";
-
 export default async function AdminPage() {
   const all = await listArticles();
+  const REPO = githubRepo();
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
