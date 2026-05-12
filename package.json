@@ -9,7 +9,10 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "check:content": "tsx scripts/check-content.ts",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm check:content && pnpm build",
     "generate:daily": "tsx scripts/generate-daily.ts",
+    "generate:weekly": "tsx scripts/generate-weekly.ts",
     "scrape:dry": "tsx scripts/scrape-dry.ts",
     "seed": "tsx scripts/seed.ts",
     "test": "vitest run"
