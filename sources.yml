@@ -1,0 +1,89 @@
+# Tech & AI source registry consumed by lib/scraping/run.ts.
+# Add via `/add-source <url-or-name>` so URLs get verified before they land here.
+# See .claude/skills/tech-source-scraper/SKILL.md for the schema.
+
+sources:
+  - id: hn-frontpage
+    type: hn
+    name: Hacker News (front page)
+    weight: 0.8
+    tags: [general, tech]
+
+  - id: arxiv-cs-ai
+    type: arxiv
+    name: arXiv cs.AI
+    query: cat:cs.AI
+    weight: 0.6
+    tags: [ai, research]
+
+  - id: arxiv-cs-lg
+    type: arxiv
+    name: arXiv cs.LG
+    query: cat:cs.LG
+    weight: 0.6
+    tags: [ml, research]
+
+  # The following RSS URLs are starting guesses — run `/add-source` or
+  # verify with WebFetch before relying on them.
+  - id: ars-technica-ai
+    type: rss
+    name: Ars Technica
+    url: https://feeds.arstechnica.com/arstechnica/index
+    weight: 0.7
+    tags: [tech, news]
+
+  - id: the-verge
+    type: rss
+    name: The Verge
+    url: https://www.theverge.com/rss/index.xml
+    weight: 0.6
+    tags: [tech, news]
+
+  - id: mit-tech-review
+    type: rss
+    name: MIT Technology Review
+    url: https://www.technologyreview.com/feed/
+    weight: 0.75
+    tags: [tech, analysis]
+
+  - id: techcrunch-ai
+    type: rss
+    name: TechCrunch AI
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+    weight: 0.55
+    tags: [ai, business]
+
+  - id: anthropic-news
+    type: rss
+    name: Anthropic
+    url: https://www.anthropic.com/news/rss.xml
+    weight: 0.85
+    tags: [ai, primary-source]
+
+  - id: openai-blog
+    type: rss
+    name: OpenAI
+    url: https://openai.com/blog/rss.xml
+    weight: 0.8
+    tags: [ai, primary-source]
+
+  - id: deepmind-blog
+    type: rss
+    name: Google DeepMind
+    url: https://deepmind.google/blog/rss.xml
+    weight: 0.8
+    tags: [ai, primary-source]
+
+  - id: hf-blog
+    type: rss
+    name: Hugging Face
+    url: https://huggingface.co/blog/feed.xml
+    weight: 0.7
+    tags: [ai, oss]
+
+  - id: simonw
+    type: rss
+    name: Simon Willison
+    url: https://simonwillison.net/atom/everything/
+    weight: 0.75
+    tags: [ai, analysis]
