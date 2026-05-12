@@ -1,18 +1,10 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import YAML from "yaml";
 import type { Source, ScrapedItem } from "./types.js";
 import { fetchRss } from "./rss.js";
 import { fetchHn } from "./hn.js";
 import { fetchArxiv } from "./arxiv.js";
 import { fetchHtml } from "./html.js";
 
-export async function loadSources(): Promise<Source[]> {
-  const file = path.join(process.cwd(), "sources.yml");
-  const raw = await fs.readFile(file, "utf8");
-  const parsed = YAML.parse(raw) as { sources: Source[] };
-  return parsed.sources;
-}
+export { loadSources } from "./sources.js";
 
 async function fetchOne(source: Source): Promise<ScrapedItem[]> {
   switch (source.type) {

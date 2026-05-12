@@ -9,24 +9,66 @@ tags:
   - ai
   - ecosystem
 sources:
-  - id: "01"
+  - id: hf-blog
     url: https://huggingface.co/blog/local-coder-agents
     title: Local coder agents, a benchmark
-  - id: "02"
+  - id: simonw
     url: https://simonwillison.net/2026/may/10/cli-first-coding-agents/
     title: CLI-first coding agents
-  - id: "03"
+  - id: stratechery
     url: https://stratechery.com/2026/the-ide-is-not-the-product/
     title: The IDE is not the product
-  - id: "04"
+  - id: the-register
     url: https://www.theregister.com/2026/05/11/coding_agents_telemetry/
     title: What coding agents send home
 illustration:
   path: /illustrations/2026-05-11.webp
   prompt: An overhead view of dozens of glowing cables routing toward a single
-    terminal prompt at the centre of a dark workbench, schematic feel.
+    terminal prompt at the centre of a dark workbench.
   alt: A wireframe of cables converging into a single glowing terminal prompt,
     viewed from above.
+signal_strength: 78
+dispatches:
+  - title: GitHub adds inference-cost panel to repo settings
+    body: GitHub rolled out a per-repo inference-cost panel to all paid plans. The
+      number it shows is GitHub Actions plus any model-call billing routed
+      through GitHub-managed proxies — not third-party API spend. The
+      interesting framing is that GitHub is positioning itself as the
+      cost-attribution layer for AI-heavy repos, which is a different role than
+      'place where your code lives'.
+    source_url: https://github.blog/2026-05-11-inference-cost-panel
+  - title: VS Code ships agent host built into the editor
+    body: VS Code's May insider build includes a headless agent host that runs in
+      the editor's own process. It speaks the same MCP dialect as the major CLI
+      agents and shares their state. The official line is that this 'unifies the
+      experience'; the read-between-the-lines version is that Microsoft does not
+      want to be the diff viewer.
+    source_url: https://code.visualstudio.com/blogs/2026/05/11/agent-host
+  - title: A small win for reproducible agent runs
+    body: "An OSS project called replay-agent landed on Hacker News with a simple
+      value proposition: deterministic replay of agent traces against pinned
+      tool versions. It is rough, but it solves the audit problem that has
+      quietly been blocking serious enterprise adoption. Expect this primitive
+      to be subsumed into the major frameworks within two release cycles."
+wire:
+  - title: Zed announces Linux release
+    url: https://zed.dev/blog/linux
+    source: hn-frontpage
+  - title: Cursor revenue crosses $400M ARR
+    url: https://www.theinformation.com/cursor-arr
+    source: the-verge
+  - title: MCP servers reach 5000 entries on registry
+    url: https://modelcontextprotocol.io/registry-milestone
+    source: hf-blog
+  - title: JetBrains discontinues two plugins
+    url: https://blog.jetbrains.com/2026/05/sunset
+    source: the-register
+  - title: Replit adds agent-spend caps
+    url: https://blog.replit.com/agent-budgets
+    source: techcrunch-ai
+  - title: Vercel announces 'agent runtime' beta
+    url: https://vercel.com/blog/agent-runtime
+    source: techcrunch-ai
 ---
 
 If you had asked a developer six months ago where they expect AI to live, they would have pointed at their IDE. The honest answer in May 2026 is that the IDE is no longer the centre of gravity. The action has quietly moved to two places: a terminal multiplexer and a long-running daemon.

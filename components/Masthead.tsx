@@ -1,11 +1,14 @@
 import Link from "next/link";
+import { SearchPalette } from "./SearchPalette";
+import { buildSearchIndex } from "@/lib/content";
 
 function today(): string {
   const d = new Date();
   return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")}`;
 }
 
-export function Masthead() {
+export async function Masthead() {
+  const index = await buildSearchIndex();
   return (
     <header
       style={{
@@ -25,6 +28,7 @@ export function Masthead() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "14px 24px",
+          gap: 16,
         }}
       >
         <Link
@@ -57,12 +61,19 @@ export function Masthead() {
         </Link>
         <nav
           aria-label="primary"
-          style={{ display: "flex", gap: 28, alignItems: "center" }}
+          style={{
+            display: "flex",
+            gap: 20,
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
         >
           <span className="label">{today()}</span>
-          <Link href="/archive" className="label">
-            Archive
-          </Link>
+          <Link href="/archive" className="label">archive</Link>
+          <Link href="/tags" className="label">tags</Link>
+          <Link href="/sources" className="label">sources</Link>
+          <Link href="/stats" className="label">stats</Link>
+          <SearchPalette index={index} />
         </nav>
       </div>
     </header>

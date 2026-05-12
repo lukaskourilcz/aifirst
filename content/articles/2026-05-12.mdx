@@ -9,19 +9,19 @@ tags:
   - open-source
   - ai
 sources:
-  - id: "01"
+  - id: mit-tech-review
     url: https://www.technologyreview.com/2026/05/12/open-weights-export-controls/
     title: Open weights meet export controls
-  - id: "02"
+  - id: rest-of-world
     url: https://restofworld.org/2026/eu-model-licensing/
     title: Inside the EU’s model licensing draft
-  - id: "03"
+  - id: anthropic-news
     url: https://www.anthropic.com/news/responsible-scaling-policy-v3
     title: Responsible scaling, version three
-  - id: "04"
+  - id: meta-ai
     url: https://ai.meta.com/blog/llama-4-distribution-update
     title: Llama 4 distribution update
-  - id: "05"
+  - id: import-ai
     url: https://jack-clark.net/2026/05/12/import-ai-policy-bulletin/
     title: Import AI weekly policy bulletin
 illustration:
@@ -29,7 +29,53 @@ illustration:
   prompt: A single crystalline shard glowing cyan from within, suspended mid-air
     as it crosses a thin magenta plane that fades into starfield.
   alt: A glowing model checkpoint represented as a crystalline shard, half passing
-    through a thin red border line.
+    through a thin magenta border line.
+signal_strength: 91
+dispatches:
+  - title: UK announces its own draft framework
+    body: Hours after the EU draft leaked, the UK's Department for Science,
+      Innovation and Technology circulated a third, materially different
+      framework. It sets thresholds at deployment scale rather than training
+      compute and explicitly carves out academic releases. Whether the three
+      frameworks converge in committee or compete in the wild is the question
+      the rest of 2026 will turn on.
+    source_url: https://www.gov.uk/government/news/uk-ai-framework-2026
+  - title: Inference clouds quietly add licence checks
+    body: "Two of the three major inference-cloud providers added a
+      licence-verification step to their model deployment APIs this week, with
+      no announcement. Asked for comment, both pointed to standing
+      terms-of-service. The change is small but consequential: enforcement is
+      moving from the download to the endpoint, exactly where the analysts said
+      it would."
+  - title: Open-weights advocates publish a counter-draft
+    body: A coalition of academics and small labs published a counter-draft proposal
+      that would treat compute-derived thresholds as evidence rather than
+      dispositive. The draft has no legal standing but is being read carefully
+      inside two governments. The signatories include three former regulators
+      and a Turing Award winner.
+    source_url: https://openweights.org/counter-draft
+wire:
+  - title: OpenAI publishes new evaluations on weapons-uplift risk
+    url: https://openai.com/safety/weapons-uplift
+    source: openai-blog
+  - title: DeepMind's responsible-release framework v2
+    url: https://deepmind.google/safety/release-framework-v2
+    source: deepmind-blog
+  - title: Hugging Face adds region-aware hosting
+    url: https://huggingface.co/blog/regional-hosting
+    source: hf-blog
+  - title: "Stratechery: 'The compliance layer is the moat now'"
+    url: https://stratechery.com/2026/compliance-moat/
+    source: stratechery
+  - title: "Simon Willison: notes on the EU draft"
+    url: https://simonwillison.net/2026/may/12/eu-draft/
+    source: simonw
+  - title: "The Register: what the UK draft actually says"
+    url: https://www.theregister.com/2026/05/12/uk-ai-draft/
+    source: the-register
+  - title: "Reuters: industry response is muted"
+    url: https://www.reuters.com/technology/ai-regulation-response/
+    source: the-verge
 ---
 
 On Friday, the US Commerce Department circulated a draft amendment that, for the first time, treats certain open-weights model releases as controlled exports. On Sunday, [the EU Commission’s draft licensing regime](https://restofworld.org/2026/eu-model-licensing/) leaked in full to Rest of World. The two documents do not agree on what should be controlled, who should do the controlling, or what counts as a release. They do agree on one thing: the era of "post the weights, retire to the beach" is ending.

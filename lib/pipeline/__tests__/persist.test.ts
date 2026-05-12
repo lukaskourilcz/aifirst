@@ -16,6 +16,14 @@ const article: WrittenArticle = {
   illustrationPrompt: "A scene.",
   illustrationAlt: "Alt text.",
   sources: [{ id: "abc", url: "https://example.com/a", title: "A" }],
+  dispatches: [
+    { title: "Note one", body: "Short prose for the first dispatch.", source_url: "https://x.test/1" },
+    { title: "Note two", body: "Short prose for the second dispatch." },
+  ],
+  wire: [
+    { title: "Runner one", url: "https://x.test/r1", source: "the-verge" },
+    { title: "Runner two", url: "https://x.test/r2", source: "hf-blog" },
+  ],
 };
 
 let originalCwd: string;
@@ -56,6 +64,9 @@ describe("persist", () => {
       prompt: "A scene.",
       alt: "Alt text.",
     });
+    expect(data.dispatches).toHaveLength(2);
+    expect(data.wire).toHaveLength(2);
+    expect(typeof data.signal_strength).toBe("number");
     expect(content.trim()).toBe(article.bodyMdx.trim());
   });
 });

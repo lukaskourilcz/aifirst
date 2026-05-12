@@ -1,10 +1,13 @@
+import { SignalStrength } from "./SignalStrength";
+
 type Props = {
   date: string;
   sourceCount: number;
   tags?: string[];
+  signal?: number;
 };
 
-export function DataStrip({ date, sourceCount, tags }: Props) {
+export function DataStrip({ date, sourceCount, tags, signal }: Props) {
   return (
     <div
       style={{
@@ -17,7 +20,8 @@ export function DataStrip({ date, sourceCount, tags }: Props) {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          gap: 32,
+          alignItems: "center",
+          gap: 24,
           padding: "10px 24px",
           fontFamily: "var(--font-display)",
           fontSize: "0.72rem",
@@ -49,6 +53,11 @@ export function DataStrip({ date, sourceCount, tags }: Props) {
             {tags.slice(0, 4).map((t) => `#${t}`).join("  ")}
           </span>
         ) : null}
+        {typeof signal === "number" && (
+          <span style={{ marginLeft: "auto" }}>
+            <SignalStrength value={signal} />
+          </span>
+        )}
       </div>
     </div>
   );

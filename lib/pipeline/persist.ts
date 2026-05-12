@@ -2,10 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import YAML from "yaml";
 import type { WrittenArticle } from "./write.js";
+import { computeSignalStrength } from "./signal.js";
+import { loadSources } from "../scraping/sources.js";
 
-// gray-matter parses YAML via js-yaml, which still uses YAML 1.1 schema
-// and so reads bare `2026-05-12` as a JS Date. Quote it on the way out
-// so readers get a string everywhere.
 function quoteDateScalar(yaml: string): string {
   return yaml.replace(/^date: (\d{4}-\d{2}-\d{2})$/m, 'date: "$1"');
 }
@@ -19,6 +18,12 @@ export async function persist({
   article,
   illustrationPath,
 }: PersistInput): Promise<string> {
+  const registry = await loadSources().catch(() => []);
+  const signal_strength = computeSignalStrength({
+    cited: article.sources.map((s) => ({ id: s.id })),
+    registry,
+  });
+
   const frontmatter = {
     title: article.title,
     slug: article.slug,
@@ -31,6 +36,9 @@ export async function persist({
       prompt: article.illustrationPrompt,
       alt: article.illustrationAlt,
     },
+    signal_strength,
+    dispatches: article.dispatches,
+    wire: article.wire,
   };
   const yaml = quoteDateScalar(YAML.stringify(frontmatter).trimEnd());
   const mdx = `---\n${yaml}\n---\n\n${article.bodyMdx.trim()}\n`;

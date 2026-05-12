@@ -2,9 +2,19 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CoverFrame } from "@/components/CoverFrame";
 import { DataStrip } from "@/components/DataStrip";
+import { Dispatches } from "@/components/Dispatches";
 import { Mdx } from "@/components/Mdx";
+import { ReadingProgress } from "@/components/ReadingProgress";
+import { RelatedIssues } from "@/components/RelatedIssues";
 import { SourcesBlock } from "@/components/SourcesBlock";
-import { getArticle, listArticles } from "@/lib/content";
+import { TagChip } from "@/components/TagChip";
+import { Wire } from "@/components/Wire";
+import {
+  getArticle,
+  listArticles,
+  relatedArticles,
+  type ArticleSummary,
+} from "@/lib/content";
 
 export const dynamic = "force-static";
 
@@ -41,12 +51,23 @@ export default async function ArticlePage({
   const article = await getArticle(slug);
   if (!article) notFound();
 
+  const all = await listArticles();
+  const summary: ArticleSummary = {
+    slug: article.slug,
+    date: article.frontmatter.date,
+    title: article.frontmatter.title,
+    tags: article.frontmatter.tags,
+  };
+  const related = relatedArticles(summary, all, 3);
+
   return (
     <>
+      <ReadingProgress />
       <DataStrip
         date={article.frontmatter.date}
         sourceCount={article.frontmatter.sources?.length ?? 0}
         tags={article.frontmatter.tags}
+        signal={article.frontmatter.signal_strength}
       />
       <section className="container" style={{ paddingTop: 32 }}>
         <div className="enter enter-1">
@@ -56,21 +77,40 @@ export default async function ArticlePage({
             priority
           />
         </div>
-        <div className="reading" style={{ paddingTop: 56, paddingBottom: 64 }}>
+        <div className="reading" style={{ paddingTop: 56, paddingBottom: 32 }}>
           <p className="label label--accent">{article.frontmatter.date}</p>
           <h1>{article.frontmatter.title}</h1>
           <p
             style={{
               fontSize: "1.3rem",
               color: "var(--ink-muted)",
-              marginBottom: "2.5em",
+              marginBottom: "2em",
               lineHeight: 1.45,
             }}
           >
             {article.frontmatter.dek}
           </p>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 0,
+              margin: "0 0 2.5em",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 8,
+            }}
+          >
+            {(article.frontmatter.tags ?? []).map((t) => (
+              <li key={t}>
+                <TagChip tag={t} />
+              </li>
+            ))}
+          </ul>
           <Mdx source={article.mdx} />
+          <Dispatches items={article.frontmatter.dispatches ?? []} />
+          <Wire items={article.frontmatter.wire ?? []} />
           <SourcesBlock sources={article.frontmatter.sources ?? []} />
+          <RelatedIssues items={related} />
         </div>
       </section>
     </>
