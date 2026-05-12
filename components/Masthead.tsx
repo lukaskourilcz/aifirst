@@ -75,6 +75,7 @@ export async function Masthead() {
           <Link href="/sources" className="label">sources</Link>
           <Link href="/stats" className="label">stats</Link>
           <Link href="/trends" className="label">trends</Link>
+          <Link href="/glossary" className="label">glossary</Link>
           <Link href="/colophon" className="label">colophon</Link>
           <SearchPalette index={index} />
           <ThemeToggle />

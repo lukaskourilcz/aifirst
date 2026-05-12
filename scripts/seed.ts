@@ -19,6 +19,8 @@ type Seed = {
   signal_strength: number;
   dispatches: SeedDispatch[];
   wire: SeedWire[];
+  editors_note?: string;
+  glossary_terms?: string[];
   kind?: SeedKind;
   filenameSuffix?: string;
   digest?: { from: string; to: string; covered_slugs: string[] };
@@ -32,6 +34,8 @@ const seeds: Seed[] = [
     dek: "Three labs shipped million-token models within forty-eight hours. The interesting fight isn’t about size any more.",
     tags: ["ai", "models", "infrastructure"],
     signal_strength: 84,
+    editors_note: "Three frontier-lab launches inside a single weekend forced the lede. We chose the cost-curve angle over the parameter-count angle because nobody else on the wire was telling that story.",
+    glossary_terms: ["RAG", "prompt caching"],
     sources: [
       { id: "anthropic-news", url: "https://www.anthropic.com/news/claude-opus-4-7-1m-context", title: "Claude Opus 4.7 with 1M context" },
       { id: "openai-blog", url: "https://openai.com/news/long-context-evals", title: "OpenAI on long-context evals" },
@@ -64,6 +68,8 @@ const seeds: Seed[] = [
     dek: "Three tools you don’t hear about quietly replaced four you did. The IDE is not the centre of gravity any more.",
     tags: ["dev-tools", "ai", "ecosystem"],
     signal_strength: 78,
+    editors_note: "Simon Willison's screenshot did most of the work for us — it captured a transition we had been hedging about for two months. The feature reads more confidently than the items support, on purpose.",
+    glossary_terms: ["MCP", "SWE-bench", "tool use"],
     sources: [
       { id: "hf-blog", url: "https://huggingface.co/blog/local-coder-agents", title: "Local coder agents, a benchmark" },
       { id: "simonw", url: "https://simonwillison.net/2026/may/10/cli-first-coding-agents/", title: "CLI-first coding agents" },
@@ -96,6 +102,8 @@ const seeds: Seed[] = [
     dek: "Two governments, one weekend, one collision. The era of frictionless model distribution is ending; the question is how loudly.",
     tags: ["policy", "open-source", "ai"],
     signal_strength: 91,
+    editors_note: "Two competing regulatory drafts in 48 hours is a story even without Jack Clark's read on inference clouds. With it, it became the second-order argument we wrote.",
+    glossary_terms: ["FLOP"],
     sources: [
       { id: "mit-tech-review", url: "https://www.technologyreview.com/2026/05/12/open-weights-export-controls/", title: "Open weights meet export controls" },
       { id: "rest-of-world", url: "https://restofworld.org/2026/eu-model-licensing/", title: "Inside the EU’s model licensing draft" },
@@ -230,6 +238,8 @@ async function main() {
         alt: seed.illustration.alt,
       },
       signal_strength: seed.signal_strength,
+      ...(seed.editors_note ? { editors_note: seed.editors_note } : {}),
+      ...(seed.glossary_terms ? { glossary_terms: seed.glossary_terms } : {}),
       dispatches: seed.dispatches,
       wire: seed.wire,
       ...(seed.digest ? { digest: seed.digest } : {}),

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Masthead } from "@/components/Masthead";
 import { Footer } from "@/components/Footer";
+import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { ScanlineOverlay } from "@/components/ScanlineOverlay";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Masthead />
         <main>{children}</main>
         <Footer />
+        <KeyboardHelp />
       </body>
     </html>
   );

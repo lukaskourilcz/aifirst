@@ -2,12 +2,15 @@ import Link from "next/link";
 import { CoverFrame } from "@/components/CoverFrame";
 import { DataStrip } from "@/components/DataStrip";
 import { Dispatches } from "@/components/Dispatches";
+import { EditorsNote } from "@/components/EditorsNote";
+import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { GlowLink } from "@/components/GlowLink";
 import { Mdx } from "@/components/Mdx";
 import { SourcesBlock } from "@/components/SourcesBlock";
 import { TagChip } from "@/components/TagChip";
 import { Wire } from "@/components/Wire";
 import { getLatestArticle, listArticles } from "@/lib/content";
+import { loadGlossary, lookupTerm } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
 
 export const dynamic = "force-static";
@@ -15,6 +18,7 @@ export const dynamic = "force-static";
 export default async function HomePage() {
   const latest = await getLatestArticle();
   const archive = (await listArticles()).slice(0, 6);
+  const glossary = await loadGlossary();
 
   if (!latest) {
     return (
@@ -79,9 +83,15 @@ export default async function HomePage() {
               </li>
             ))}
           </ul>
+          <EditorsNote note={latest.frontmatter.editors_note} />
           <Mdx source={latest.mdx} />
           <Dispatches items={latest.frontmatter.dispatches ?? []} />
           <Wire items={latest.frontmatter.wire ?? []} />
+          <GlossaryBlock
+            terms={(latest.frontmatter.glossary_terms ?? [])
+              .map((n) => lookupTerm(n, glossary))
+              .filter((t): t is NonNullable<typeof t> => Boolean(t))}
+          />
           <SourcesBlock sources={latest.frontmatter.sources ?? []} />
         </div>
       </section>

@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { CoverFrame } from "@/components/CoverFrame";
 import { DataStrip } from "@/components/DataStrip";
 import { Dispatches } from "@/components/Dispatches";
+import { EditorsNote } from "@/components/EditorsNote";
+import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
@@ -16,6 +18,7 @@ import {
   relatedArticles,
   type ArticleSummary,
 } from "@/lib/content";
+import { loadGlossary, lookupTerm } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
 
 export const dynamic = "force-static";
@@ -63,6 +66,10 @@ export default async function ArticlePage({
   const related = relatedArticles(summary, all, 3);
   const isWeekly = (article.frontmatter.type ?? "daily") === "weekly";
   const titlesBySlug = new Map(all.map((a) => [a.slug, a.title]));
+  const glossary = await loadGlossary();
+  const issueGlossary = (article.frontmatter.glossary_terms ?? [])
+    .map((name) => lookupTerm(name, glossary))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (
     <>
@@ -127,10 +134,27 @@ export default async function ArticlePage({
               titlesBySlug={titlesBySlug}
             />
           )}
+          <EditorsNote note={article.frontmatter.editors_note} />
           <Mdx source={article.mdx} />
           <Dispatches items={article.frontmatter.dispatches ?? []} />
           <Wire items={article.frontmatter.wire ?? []} />
+          <GlossaryBlock terms={issueGlossary} />
           <SourcesBlock sources={article.frontmatter.sources ?? []} />
+          <p
+            style={{
+              marginTop: 32,
+              textAlign: "right",
+            }}
+          >
+            <a
+              href={`/articles/${article.slug}/print`}
+              className="label"
+              target="_blank"
+              rel="noopener"
+            >
+              ↗ print view
+            </a>
+          </p>
           <RelatedIssues items={related} />
         </div>
       </section>

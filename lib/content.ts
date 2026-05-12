@@ -30,6 +30,8 @@ export type ArticleFrontmatter = {
   dispatches?: Dispatch[];
   wire?: WireItem[];
   type?: IssueType;
+  editors_note?: string;
+  glossary_terms?: string[];
   digest?: {
     from: string;
     to: string;

@@ -1,0 +1,70 @@
+# Glossary for the magazine. Edited by hand; the writer pipeline does
+# not modify this file. See .claude/skills/magazine-features for the
+# contract.
+#
+# Each term:
+#   term:        canonical display form, case as it should appear
+#   aliases:     other strings that should resolve to this entry
+#   definition:  one or two sentences, plain prose
+#   first_seen:  ISO date of the issue that first introduced the term
+#   tags:        optional categorisation
+
+terms:
+  - term: MCP
+    aliases: [Model Context Protocol]
+    definition: >-
+      A protocol for letting language models call external tools through a
+      standard interface, originally introduced by Anthropic in 2024 and
+      since adopted across most major coding-agent platforms.
+    first_seen: 2026-05-11
+    tags: [dev-tools, protocols]
+
+  - term: RAG
+    aliases: [Retrieval-Augmented Generation, retrieval-augmented]
+    definition: >-
+      A pattern where a model is given relevant documents — usually fetched
+      from a vector store — as part of its prompt, instead of relying only
+      on its training data.
+    tags: [architecture]
+
+  - term: FLOP
+    aliases: [FLOPs, floating-point operation]
+    definition: >-
+      A floating-point operation. Training-compute thresholds in AI policy
+      are usually expressed as 10^N FLOP — the total number of arithmetic
+      operations used during model training.
+    first_seen: 2026-05-12
+    tags: [policy, compute]
+
+  - term: prompt caching
+    aliases: [cache_control, ephemeral cache]
+    definition: >-
+      An Anthropic API feature that lets repeated prefix tokens (typically
+      a system prompt or long style guide) be billed and processed once
+      across many calls, by marking that block with cache_control.
+    tags: [api]
+
+  - term: tool use
+    aliases: [tool-use, structured outputs]
+    definition: >-
+      An Anthropic API mode in which the model is given JSON-schema-typed
+      tools and emits structured calls instead of free text. The magazine's
+      curate and write steps both use it for typed output.
+    tags: [api]
+
+  - term: SWE-bench
+    aliases: []
+    definition: >-
+      A benchmark of real GitHub issues used to evaluate coding agents
+      end-to-end. The model is given a repository and an issue and asked
+      to produce a patch that the test suite accepts.
+    first_seen: 2026-05-11
+    tags: [benchmarks]
+
+  - term: signal strength
+    aliases: [signal]
+    definition: >-
+      A 0-100 integer per issue, computed deterministically from the
+      diversity and average editorial weight of the day's cited sources.
+      Surfaced in the masthead and at the foot of every article.
+    tags: [magazine-meta]
