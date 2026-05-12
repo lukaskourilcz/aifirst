@@ -47,9 +47,19 @@ export default async function TagPage({
           fontSize: "0.8rem",
           letterSpacing: "0.18em",
           textTransform: "uppercase",
+          display: "flex",
+          gap: 16,
+          alignItems: "center",
         }}
       >
-        {issues.length} issue{issues.length === 1 ? "" : "s"}
+        <span>{issues.length} issue{issues.length === 1 ? "" : "s"}</span>
+        <a
+          href={`/tags/${encodeURIComponent(tag)}/feed.xml`}
+          className="label"
+          style={{ color: "var(--accent-cyan)" }}
+        >
+          atom feed ↗
+        </a>
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {issues.map((a) => (
