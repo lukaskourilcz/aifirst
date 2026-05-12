@@ -1,13 +1,28 @@
 # Tech & AI source registry consumed by lib/scraping/run.ts.
 # Add via `/add-source <url-or-name>` so URLs get verified before they land here.
 # See .claude/skills/tech-source-scraper/SKILL.md for the schema.
+#
+# Weight tiers:
+#   0.85 — primary lab / first-party sources
+#   0.75 — top-tier independent analysis
+#   0.60 — general tech press
+#   0.50 — community feeds (HN, etc.)
+# Sorted by id.
 
 sources:
-  - id: hn-frontpage
-    type: hn
-    name: Hacker News (front page)
-    weight: 0.8
-    tags: [general, tech]
+  - id: anthropic-news
+    type: rss
+    name: Anthropic
+    url: https://www.anthropic.com/news/rss.xml
+    weight: 0.85
+    tags: [ai, primary-source]
+
+  - id: ars-technica
+    type: rss
+    name: Ars Technica
+    url: https://feeds.arstechnica.com/arstechnica/index
+    weight: 0.6
+    tags: [tech, news]
 
   - id: arxiv-cs-ai
     type: arxiv
@@ -23,55 +38,18 @@ sources:
     weight: 0.6
     tags: [ml, research]
 
-  # The following RSS URLs are starting guesses — run `/add-source` or
-  # verify with WebFetch before relying on them.
-  - id: ars-technica-ai
-    type: rss
-    name: Ars Technica
-    url: https://feeds.arstechnica.com/arstechnica/index
-    weight: 0.7
-    tags: [tech, news]
-
-  - id: the-verge
-    type: rss
-    name: The Verge
-    url: https://www.theverge.com/rss/index.xml
-    weight: 0.6
-    tags: [tech, news]
-
-  - id: mit-tech-review
-    type: rss
-    name: MIT Technology Review
-    url: https://www.technologyreview.com/feed/
-    weight: 0.75
-    tags: [tech, analysis]
-
-  - id: techcrunch-ai
-    type: rss
-    name: TechCrunch AI
-    url: https://techcrunch.com/category/artificial-intelligence/feed/
-    weight: 0.55
-    tags: [ai, business]
-
-  - id: anthropic-news
-    type: rss
-    name: Anthropic
-    url: https://www.anthropic.com/news/rss.xml
-    weight: 0.85
-    tags: [ai, primary-source]
-
-  - id: openai-blog
-    type: rss
-    name: OpenAI
-    url: https://openai.com/blog/rss.xml
-    weight: 0.8
-    tags: [ai, primary-source]
-
   - id: deepmind-blog
     type: rss
     name: Google DeepMind
     url: https://deepmind.google/blog/rss.xml
-    weight: 0.8
+    weight: 0.85
+    tags: [ai, primary-source]
+
+  - id: google-research
+    type: rss
+    name: Google Research
+    url: https://research.google/blog/rss/
+    weight: 0.85
     tags: [ai, primary-source]
 
   - id: hf-blog
@@ -81,9 +59,92 @@ sources:
     weight: 0.7
     tags: [ai, oss]
 
+  - id: hn-frontpage
+    type: hn
+    name: Hacker News (front page)
+    weight: 0.5
+    tags: [general, tech]
+
+  - id: import-ai
+    type: rss
+    name: Import AI (Jack Clark)
+    url: https://jack-clark.net/feed/
+    weight: 0.75
+    tags: [ai, analysis]
+
+  - id: interconnects
+    type: rss
+    name: Interconnects (Nathan Lambert)
+    url: https://www.interconnects.ai/feed
+    weight: 0.75
+    tags: [ai, analysis]
+
+  - id: meta-ai
+    type: rss
+    name: Meta AI
+    url: https://ai.meta.com/blog/rss/
+    weight: 0.85
+    tags: [ai, primary-source]
+
+  - id: mit-tech-review
+    type: rss
+    name: MIT Technology Review
+    url: https://www.technologyreview.com/feed/
+    weight: 0.75
+    tags: [tech, analysis]
+
+  - id: openai-blog
+    type: rss
+    name: OpenAI
+    url: https://openai.com/news/rss.xml
+    weight: 0.85
+    tags: [ai, primary-source]
+
+  - id: rest-of-world
+    type: rss
+    name: Rest of World
+    url: https://restofworld.org/feed/latest/
+    weight: 0.6
+    tags: [tech, global]
+
   - id: simonw
     type: rss
     name: Simon Willison
     url: https://simonwillison.net/atom/everything/
     weight: 0.75
     tags: [ai, analysis]
+
+  - id: stratechery
+    type: rss
+    name: Stratechery (Ben Thompson)
+    url: https://stratechery.com/feed/
+    weight: 0.75
+    tags: [tech, analysis]
+
+  - id: techcrunch-ai
+    type: rss
+    name: TechCrunch AI
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+    weight: 0.6
+    tags: [ai, business]
+
+  - id: the-register
+    type: rss
+    name: The Register
+    url: https://www.theregister.com/headlines.atom
+    weight: 0.6
+    tags: [tech, news, non-us]
+
+  - id: the-verge
+    type: rss
+    name: The Verge
+    url: https://www.theverge.com/rss/index.xml
+    weight: 0.6
+    tags: [tech, news]
+
+  - id: wired-ai
+    type: rss
+    name: Wired (AI)
+    url: https://www.wired.com/feed/tag/ai/latest/rss
+    weight: 0.6
+    tags: [tech, analysis]
