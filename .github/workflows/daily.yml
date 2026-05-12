@@ -1,0 +1,45 @@
+name: daily
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate today's article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IMAGE_PROVIDER: ${{ vars.IMAGE_PROVIDER }}
+          FAL_KEY: ${{ secrets.FAL_KEY }}
+        run: pnpm generate:daily
+
+      - name: Commit
+        run: |
+          git config user.name "aifirst-bot"
+          git config user.email "bot@aifirst"
+          git add content/articles public/illustrations
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "daily: $(date -u +%F)"
+            git push
+          fi
