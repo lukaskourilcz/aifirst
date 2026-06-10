@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { GlossaryTerm } from "@/lib/glossary";
-import { slugForTerm } from "@/lib/glossary";
+import { slugForTerm, glossaryDefinition } from "@/lib/glossary";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
@@ -49,7 +49,7 @@ export function GlossaryBlock({
               </Link>
             </dt>
             <dd style={{ margin: 0, color: "var(--ink-muted)" }}>
-              {t.definition}
+              {glossaryDefinition(t, locale)}
             </dd>
           </div>
         ))}

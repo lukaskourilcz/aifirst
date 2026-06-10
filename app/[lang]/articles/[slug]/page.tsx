@@ -20,7 +20,7 @@ import {
 } from "@/lib/content";
 import { loadGlossary, lookupTerm } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
-import { type Locale } from "@/lib/i18n/config";
+import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -38,9 +38,19 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   const article = await getArticle(slug, lang);
   if (!article) return {};
+  const articlePath = `/articles/${slug}`;
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
+    alternates: {
+      canonical: localePath(lang, articlePath),
+      languages: {
+        cs: localePath("cs", articlePath),
+        en: localePath("en", articlePath),
+        "x-default": localePath("cs", articlePath),
+      },
+      types: { "application/atom+xml": localePath(lang, "/feed.xml") },
+    },
     openGraph: {
       title: article.frontmatter.title,
       description: article.frontmatter.dek,
@@ -167,7 +177,7 @@ export default async function ArticlePage({
             }}
           >
             <a
-              href={`/articles/${article.slug}/print`}
+              href={`/articles/${article.slug}/print?lang=${locale}`}
               className="label"
               target="_blank"
               rel="noopener"

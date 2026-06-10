@@ -56,7 +56,7 @@ export default async function TagPage({
       >
         <span>{issues.length} {t.issues}</span>
         <a
-          href={`/tags/${encodeURIComponent(tag)}/feed.xml`}
+          href={lp(`/tags/${encodeURIComponent(tag)}/feed.xml`)}
           className="label"
           style={{ color: "var(--accent-cyan)" }}
         >

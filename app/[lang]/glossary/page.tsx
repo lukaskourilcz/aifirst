@@ -1,4 +1,4 @@
-import { loadGlossary, slugForTerm } from "@/lib/glossary";
+import { loadGlossary, slugForTerm, glossaryDefinition } from "@/lib/glossary";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -81,7 +81,7 @@ export default async function GlossaryPage({
                   )}
                 </dt>
                 <dd style={{ margin: 0, color: "var(--ink-muted)" }}>
-                  {t.definition}
+                  {glossaryDefinition(t, locale)}
                 </dd>
               </div>
             ))}

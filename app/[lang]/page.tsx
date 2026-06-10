@@ -13,10 +13,30 @@ import { getLatestArticle, listArticles } from "@/lib/content";
 import { loadGlossary, lookupTerm } from "@/lib/glossary";
 import { githubRepo } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
+import type { Metadata } from "next";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    alternates: {
+      canonical: localePath(lang, "/"),
+      languages: {
+        cs: localePath("cs", "/"),
+        en: localePath("en", "/"),
+        "x-default": localePath("cs", "/"),
+      },
+      types: { "application/atom+xml": localePath(lang, "/feed.xml") },
+    },
+  };
+}
 
 export default async function HomePage({
   params,

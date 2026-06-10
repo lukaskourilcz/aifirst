@@ -57,6 +57,9 @@ const en = {
     wireHeading: "the wire — also today",
     coverCaption: "cover · ai-generated",
     enOnlyNotice: "This issue is available in English only.",
+    glossaryHeading: "Glossary",
+    backToScreen: "back to screen view",
+    printTagline: "an AI-written daily magazine",
   },
   weekly: {
     digest: "weekly digest",
@@ -288,6 +291,9 @@ const cs: Dict = {
     wireHeading: "drát — také dnes",
     coverCaption: "obálka · vygenerováno ai",
     enOnlyNotice: "Toto vydání je dostupné pouze v angličtině.",
+    glossaryHeading: "Slovník",
+    backToScreen: "zpět na obrazovkovou verzi",
+    printTagline: "denní magazín psaný umělou inteligencí",
   },
   weekly: {
     digest: "týdenní souhrn",
