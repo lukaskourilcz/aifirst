@@ -1,23 +1,28 @@
 import { HealthRow } from "@/components/HealthRow";
 import { getHealthReport } from "@/lib/health";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 export const revalidate = 21600;
-export const metadata = { title: "Health", robots: { index: false } };
+export const metadata = { robots: { index: false } };
 
-export default async function HealthPage() {
+export default async function HealthPage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const t = dict(locale).health;
   const report = await getHealthReport();
   const generated = new Date(report.generatedAt);
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p
-        className="label"
-        style={{ color: "var(--accent-cyan)" }}
-      >
-        health · pipeline status
+      <p className="label" style={{ color: "var(--accent-cyan)" }}>
+        {t.kicker}
       </p>
-      <h1>Is the magazine alive?</h1>
+      <h1>{t.title}</h1>
       <p
         style={{
           color: "var(--ink-muted)",
@@ -25,10 +30,7 @@ export default async function HealthPage() {
           marginBottom: "2.5em",
         }}
       >
-        Live(ish) view of the GitHub Actions runs that produce daily and
-        weekly issues. Data is pulled from the GitHub REST API at build
-        time and cached for six hours. The success-rate number is over all
-        runs returned by the API (up to the most recent 30 per workflow).
+        {t.intro}
       </p>
 
       {report.status === "no-repo" && (
@@ -46,13 +48,9 @@ export default async function HealthPage() {
             className="label"
             style={{ color: "var(--accent-amber)", marginBottom: 8 }}
           >
-            no repo configured
+            {t.noRepoTitle}
           </p>
-          <p style={{ margin: 0, color: "var(--ink-muted)" }}>
-            Set <code>AIFIRST_REPO</code> (or rely on the{" "}
-            <code>GITHUB_REPOSITORY</code> env var set by Actions) so this
-            page knows which repo to query.
-          </p>
+          <p style={{ margin: 0, color: "var(--ink-muted)" }}>{t.noRepoBody}</p>
         </aside>
       )}
 
@@ -71,20 +69,15 @@ export default async function HealthPage() {
             className="label"
             style={{ color: "var(--accent-magenta)", marginBottom: 8 }}
           >
-            offline
+            {t.offlineTitle}
           </p>
-          <p style={{ margin: 0, color: "var(--ink-muted)" }}>
-            Couldn&rsquo;t reach the GitHub Actions API at build time.
-            Either the build environment has no outbound network access,
-            the rate limit was hit, or <code>GITHUB_TOKEN</code> is
-            missing.
-          </p>
+          <p style={{ margin: 0, color: "var(--ink-muted)" }}>{t.offlineBody}</p>
         </aside>
       )}
 
       <section>
         {report.workflows.map((w) => (
-          <HealthRow key={w.file} health={w} />
+          <HealthRow key={w.file} health={w} locale={locale} />
         ))}
       </section>
 
@@ -99,10 +92,10 @@ export default async function HealthPage() {
         }}
       >
         <span>
-          {report.repo ? `repo · ${report.repo}` : "repo · unset"}
+          {report.repo ? `${t.repo} · ${report.repo}` : `${t.repo} · ${t.unset}`}
         </span>
-        <span>generated · {generated.toISOString()}</span>
-        <span>cache · 6h</span>
+        <span>{t.generated} · {generated.toISOString()}</span>
+        <span>{t.cache} · 6h</span>
       </footer>
     </section>
   );

@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TagChip } from "@/components/TagChip";
-import {
-  listArticlesByTag,
-  listTagsByFrequency,
-} from "@/lib/content";
+import { listArticlesByTag, listTagsByFrequency } from "@/lib/content";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
@@ -25,16 +24,19 @@ export async function generateMetadata({
 export default async function TagPage({
   params,
 }: {
-  params: Promise<{ tag: string }>;
+  params: Promise<{ lang: Locale; tag: string }>;
 }) {
-  const { tag: raw } = await params;
+  const { lang: locale, tag: raw } = await params;
   const tag = decodeURIComponent(raw);
-  const issues = await listArticlesByTag(tag);
+  const t = dict(locale).tags;
+  const common = dict(locale).common;
+  const lp = (p: string) => localePath(locale, p);
+  const issues = await listArticlesByTag(tag, locale);
   if (issues.length === 0) notFound();
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label">tag</p>
+      <p className="label">{t.kicker}</p>
       <h1 style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
         <span style={{ color: "var(--accent-magenta)" }}>#</span>
         {tag}
@@ -52,13 +54,13 @@ export default async function TagPage({
           alignItems: "center",
         }}
       >
-        <span>{issues.length} issue{issues.length === 1 ? "" : "s"}</span>
+        <span>{issues.length} {t.issues}</span>
         <a
           href={`/tags/${encodeURIComponent(tag)}/feed.xml`}
           className="label"
           style={{ color: "var(--accent-cyan)" }}
         >
-          atom feed ↗
+          {common.atomFeed} ↗
         </a>
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -71,11 +73,11 @@ export default async function TagPage({
               borderBottom: "1px solid var(--hairline)",
             }}
           >
-            <Link href={`/articles/${a.slug}`} className="label">
+            <Link href={lp(`/articles/${a.slug}`)} className="label">
               {a.date}
             </Link>
             <Link
-              href={`/articles/${a.slug}`}
+              href={lp(`/articles/${a.slug}`)}
               style={{ fontSize: "1.05rem" }}
             >
               {a.title}
@@ -89,10 +91,10 @@ export default async function TagPage({
               }}
             >
               {(a.tags ?? [])
-                .filter((t) => t !== tag)
+                .filter((x) => x !== tag)
                 .slice(0, 2)
-                .map((t) => (
-                  <TagChip key={t} tag={t} />
+                .map((x) => (
+                  <TagChip key={x} tag={x} locale={locale} />
                 ))}
             </span>
           </li>

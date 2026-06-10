@@ -61,7 +61,7 @@ const en = {
   weekly: {
     digest: "weekly digest",
     covering: "covering",
-    dailyIssue: "daily issue",
+    dailyIssue: "daily issues",
   },
   footer: {
     description:
@@ -79,6 +79,7 @@ const en = {
     title: "By subject.",
     intro: "Every tag the magazine has used, by how often it has come up.",
     feedFor: "issues tagged",
+    issues: "issues",
   },
   sources: {
     kicker: "registry",
@@ -170,6 +171,32 @@ const en = {
     issues: "issues",
     sources: "sources",
     tags: "tags",
+    pipelineLabel: "pipeline",
+    pipelineTitle: "From feed to feature, in four steps.",
+    pipelineIntro: "A scheduled job runs each morning at 06:00 UTC. The four steps:",
+    pipelineScrape:
+      "Scrape. Adapters pull items from RSS feeds, the Hacker News API, the arXiv API, and a last-resort HTML scraper. Each adapter has a 10s timeout and tolerates partial failure.",
+    pipelineCurate:
+      "Curate. Sonnet reads the deduplicated pool and picks the day's biggest stories, with a one-line angle for each. Structured output via tool use.",
+    pipelineWrite:
+      "Write. Opus turns the brief into a feature article in Czech and English, plus dispatches and the wire — runner-up items the curator considered but didn't lead with.",
+    pipelineIllustrate:
+      "Illustrate. A pluggable provider generates a single sci-fi cover. The prompt is constrained server-side; no people, no logos, no text-in-image.",
+    modelsLabel: "models",
+    modelsTitle: "What Claude is reading and writing.",
+    modelsOpus: "feature writing.",
+    modelsSonnet: "curation and summarisation.",
+    modelsHaiku: "utility passes.",
+    modelsNote:
+      "System prompts and the style guide are passed with prompt caching; the variable items of the day live outside the cached region.",
+    signalLabel: "signal",
+    signalTitle: "What the bar in the masthead means.",
+    signalBody:
+      "Each issue carries a signal strength from 0 to 100, shown as a small segment bar. It's computed deterministically from the cited sources: half from how diverse the source pool is, half from their average editorial weight.",
+    languageLabel: "language",
+    languageTitle: "Czech first, English alongside.",
+    languageBody:
+      "Every issue is written natively in Czech and English in a single pass — not machine-translated. Czech is the default and serves at the root; English mirrors under /en. A handful of early demo issues exist in English only.",
   },
   admin: {
     kicker: "admin · operator console",
@@ -265,7 +292,7 @@ const cs: Dict = {
   weekly: {
     digest: "týdenní souhrn",
     covering: "pokrývá",
-    dailyIssue: "denní vydání",
+    dailyIssue: "denních vydání",
   },
   footer: {
     description:
@@ -283,6 +310,7 @@ const cs: Dict = {
     title: "Podle tématu.",
     intro: "Všechna témata, která magazín použil, podle četnosti výskytu.",
     feedFor: "vydání označená",
+    issues: "vydání",
   },
   sources: {
     kicker: "registr",
@@ -374,6 +402,32 @@ const cs: Dict = {
     issues: "vydání",
     sources: "zdroje",
     tags: "témata",
+    pipelineLabel: "pipeline",
+    pipelineTitle: "Od zdroje k článku ve čtyřech krocích.",
+    pipelineIntro: "Naplánovaná úloha běží každé ráno v 06:00 UTC. Čtyři kroky:",
+    pipelineScrape:
+      "Sběr. Adaptéry stahují položky z RSS kanálů, API Hacker News, API arXiv a záložního HTML scraperu. Každý adaptér má 10s limit a snese částečné selhání.",
+    pipelineCurate:
+      "Kurátorství. Sonnet přečte deduplikovaný soubor a vybere nejdůležitější příběhy dne, ke každému jednu větu úhlu pohledu. Strukturovaný výstup přes tool use.",
+    pipelineWrite:
+      "Psaní. Opus z briefu vytvoří hlavní článek v češtině i angličtině, plus depeše a drát — položky, které kurátor zvažoval, ale nedal je do čela.",
+    pipelineIllustrate:
+      "Ilustrace. Zásuvný poskytovatel vygeneruje jednu sci-fi obálku. Prompt je omezen na serveru; žádní lidé, žádná loga, žádný text v obrázku.",
+    modelsLabel: "modely",
+    modelsTitle: "Co Claude čte a píše.",
+    modelsOpus: "psaní hlavního článku.",
+    modelsSonnet: "kurátorství a sumarizace.",
+    modelsHaiku: "pomocné průchody.",
+    modelsNote:
+      "Systémové prompty a stylová příručka se předávají s prompt cachingem; proměnlivé položky dne leží mimo kešovanou oblast.",
+    signalLabel: "signál",
+    signalTitle: "Co znamená pruh v hlavičce.",
+    signalBody:
+      "Každé vydání nese sílu signálu 0 až 100, zobrazenou jako malý segmentový pruh. Počítá se deterministicky z citovaných zdrojů: polovina z rozmanitosti zdrojů, polovina z jejich průměrné redakční váhy.",
+    languageLabel: "jazyk",
+    languageTitle: "Čeština na prvním místě, angličtina po boku.",
+    languageBody:
+      "Každé vydání vzniká nativně v češtině i angličtině v jediném průchodu — nejde o strojový překlad. Čeština je výchozí a běží v kořeni; angličtina je zrcadlena pod /en. Několik prvních ukázkových vydání existuje jen v angličtině.",
   },
   admin: {
     kicker: "správa · konzole operátora",

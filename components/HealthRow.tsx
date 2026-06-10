@@ -1,5 +1,7 @@
 import type { WorkflowHealth, WorkflowRun } from "@/lib/health";
 import { fmtDuration } from "@/lib/health";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 function colorFor(run: WorkflowRun): string {
   if (run.status !== "completed") return "var(--accent-amber)";
@@ -21,7 +23,14 @@ function relativeTime(iso: string): string {
   return `${d}d ago`;
 }
 
-export function HealthRow({ health }: { health: WorkflowHealth }) {
+export function HealthRow({
+  health,
+  locale,
+}: {
+  health: WorkflowHealth;
+  locale: Locale;
+}) {
+  const t = dict(locale).health;
   const successRate =
     health.total > 0
       ? Math.round((health.successCount / health.total) * 100)
@@ -50,7 +59,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
             className="label"
             style={{ color: "var(--accent-cyan)", marginBottom: 4 }}
           >
-            workflow
+            {t.workflow}
           </p>
           <h3
             style={{
@@ -92,7 +101,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
           className="label"
           style={{ color: "var(--ink-dim)", margin: 0 }}
         >
-          no run data
+          {t.noRunData}
         </p>
       ) : (
         <>
@@ -143,7 +152,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
                 className="label"
                 style={{ marginBottom: 4 }}
               >
-                last success
+                {t.lastSuccess}
               </p>
               {health.lastSuccess ? (
                 <a
@@ -167,7 +176,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
                 className="label"
                 style={{ marginBottom: 4 }}
               >
-                last failure
+                {t.lastFailure}
               </p>
               {health.lastFailure ? (
                 <a
@@ -183,7 +192,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
                   {relativeTime(health.lastFailure.createdAt)}
                 </a>
               ) : (
-                <span style={{ color: "var(--ink-dim)" }}>none</span>
+                <span style={{ color: "var(--ink-dim)" }}>{t.none}</span>
               )}
             </div>
             <div>
@@ -191,7 +200,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
                 className="label"
                 style={{ marginBottom: 4 }}
               >
-                mean duration
+                {t.meanDuration}
               </p>
               <span
                 style={{
@@ -207,7 +216,7 @@ export function HealthRow({ health }: { health: WorkflowHealth }) {
                 className="label"
                 style={{ marginBottom: 4 }}
               >
-                total runs
+                {t.totalRuns}
               </p>
               <span
                 style={{

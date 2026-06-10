@@ -7,9 +7,10 @@ import {
 } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { groupBy } from "@/lib/helpers/group";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Stats" };
 
 function weeklyCadence(dates: string[]): { labels: string[]; counts: number[] } {
   const byMonth = groupBy([...dates].sort(), (d) => d.slice(0, 7)); // YYYY-MM
@@ -18,11 +19,17 @@ function weeklyCadence(dates: string[]): { labels: string[]; counts: number[] } 
   return { labels, counts };
 }
 
-export default async function StatsPage() {
+export default async function StatsPage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const t = dict(locale).stats;
   const [articles, tags, citations, sources] = await Promise.all([
-    listArticles(),
-    listTagsByFrequency(),
-    sourceCitationStats(),
+    listArticles(locale),
+    listTagsByFrequency(locale),
+    sourceCitationStats(locale),
     loadSources(),
   ]);
 
@@ -66,8 +73,8 @@ export default async function StatsPage() {
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">telemetry</p>
-      <h1>Stats from the broadcast log.</h1>
+      <p className="label label--accent">{t.kicker}</p>
+      <h1>{t.title}</h1>
 
       <div
         style={{
@@ -77,16 +84,16 @@ export default async function StatsPage() {
           margin: "2em 0 3em",
         }}
       >
-        {stat("issues published", String(total).padStart(3, "0"))}
-        {stat("avg signal", String(avgSignal).padStart(2, "0"))}
-        {stat("active sources", String(sources.length).padStart(2, "0"))}
-        {stat("tags in use", String(tags.length).padStart(2, "0"))}
+        {stat(t.issuesPublished, String(total).padStart(3, "0"))}
+        {stat(t.avgSignal, String(avgSignal).padStart(2, "0"))}
+        {stat(t.activeSources, String(sources.length).padStart(2, "0"))}
+        {stat(t.tagsInUse, String(tags.length).padStart(2, "0"))}
       </div>
 
       <div className="split-2">
         <section>
           <p className="label" style={{ marginBottom: 16 }}>
-            cadence · issues per month
+            {t.cadence}
           </p>
           <div
             style={{
@@ -111,7 +118,7 @@ export default async function StatsPage() {
 
         <section>
           <p className="label" style={{ marginBottom: 16 }}>
-            top tags
+            {t.topTags}
           </p>
           <ul
             style={{
@@ -125,9 +132,9 @@ export default async function StatsPage() {
               gap: 8,
             }}
           >
-            {tags.slice(0, 12).map((t) => (
-              <li key={t.tag}>
-                <TagChip tag={t.tag} count={t.count} />
+            {tags.slice(0, 12).map((tg) => (
+              <li key={tg.tag}>
+                <TagChip tag={tg.tag} count={tg.count} locale={locale} />
               </li>
             ))}
           </ul>
@@ -136,7 +143,7 @@ export default async function StatsPage() {
 
       <section style={{ marginTop: 48 }}>
         <p className="label" style={{ marginBottom: 16 }}>
-          most-cited sources
+          {t.mostCited}
         </p>
         <ul
           style={{
@@ -186,7 +193,7 @@ export default async function StatsPage() {
               className="label"
               style={{ padding: 16, color: "var(--ink-dim)" }}
             >
-              no citations yet.
+              {t.noCitations}
             </li>
           )}
         </ul>

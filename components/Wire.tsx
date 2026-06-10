@@ -1,6 +1,8 @@
 import type { WireItem } from "@/lib/content";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-export function Wire({ items }: { items: WireItem[] }) {
+export function Wire({ items, locale }: { items: WireItem[]; locale: Locale }) {
   if (!items?.length) return null;
   return (
     <section
@@ -34,7 +36,7 @@ export function Wire({ items }: { items: WireItem[] }) {
           }}
         />
         <p className="label label--accent" style={{ margin: 0 }}>
-          the wire — also today
+          {dict(locale).article.wireHeading}
         </p>
       </header>
       <ul

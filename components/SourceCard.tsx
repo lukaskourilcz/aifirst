@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 type Props = {
   id: string;
@@ -8,6 +10,7 @@ type Props = {
   tags?: string[];
   citations?: number;
   latestDate?: string | null;
+  locale: Locale;
 };
 
 export function SourceCard({
@@ -18,8 +21,10 @@ export function SourceCard({
   tags = [],
   citations = 0,
   latestDate,
+  locale,
 }: Props) {
   const pct = Math.round(weight * 100);
+  const t = dict(locale).sources;
   return (
     <article
       style={{
@@ -51,7 +56,7 @@ export function SourceCard({
             }}
           >
             <Link
-              href={`/sources/${encodeURIComponent(id)}`}
+              href={localePath(locale, `/sources/${encodeURIComponent(id)}`)}
               style={{ color: "var(--ink-primary)", borderBottom: "none" }}
             >
               {name}
@@ -131,8 +136,8 @@ export function SourceCard({
         className="label"
         style={{ margin: 0, color: "var(--ink-dim)" }}
       >
-        cited {String(citations).padStart(2, "0")} ×
-        {latestDate ? ` · last ${latestDate}` : " · never"}
+        {t.cited} {String(citations).padStart(2, "0")} ×
+        {latestDate ? ` · ${t.last} ${latestDate}` : ` · ${t.never}`}
       </p>
     </article>
   );

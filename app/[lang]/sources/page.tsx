@@ -1,14 +1,21 @@
 import { SourceCard } from "@/components/SourceCard";
 import { sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Sources" };
 
-export default async function SourcesPage() {
+export default async function SourcesPage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const t = dict(locale).sources;
   const [sources, stats] = await Promise.all([
     loadSources(),
-    sourceCitationStats(),
+    sourceCitationStats(locale),
   ]);
 
   const sorted = [...sources].sort(
@@ -17,13 +24,9 @@ export default async function SourcesPage() {
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">registry</p>
-      <h1>The sources.</h1>
-      <p style={{ color: "var(--ink-muted)", maxWidth: "62ch" }}>
-        Every feed the daily pipeline reads. Weight is the editorial prior the
-        curator uses, not a quality verdict. Citation counts are the number of
-        published issues that drew from each source.
-      </p>
+      <p className="label label--accent">{t.kicker}</p>
+      <h1>{t.title}</h1>
+      <p style={{ color: "var(--ink-muted)", maxWidth: "62ch" }}>{t.intro}</p>
 
       <ul
         style={{
@@ -47,6 +50,7 @@ export default async function SourcesPage() {
                 tags={s.tags ?? []}
                 citations={stat?.count ?? 0}
                 latestDate={stat?.latestDate ?? null}
+                locale={locale}
               />
             </li>
           );

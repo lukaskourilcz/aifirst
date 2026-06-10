@@ -10,8 +10,8 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
 import { SourcesBlock } from "@/components/SourcesBlock";
 import { TagChip } from "@/components/TagChip";
-import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { Wire } from "@/components/Wire";
+import { WeeklyBadge } from "@/components/WeeklyBadge";
 import {
   getArticle,
   listArticles,
@@ -20,6 +20,8 @@ import {
 } from "@/lib/content";
 import { loadGlossary, lookupTerm } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
@@ -31,10 +33,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: Locale; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const article = await getArticle(slug);
+  const { lang, slug } = await params;
+  const article = await getArticle(slug, lang);
   if (!article) return {};
   return {
     title: article.frontmatter.title,
@@ -50,13 +52,14 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: Locale; slug: string }>;
 }) {
-  const { slug } = await params;
-  const article = await getArticle(slug);
+  const { lang: locale, slug } = await params;
+  const article = await getArticle(slug, locale);
   if (!article) notFound();
 
-  const all = await listArticles();
+  const d = dict(locale);
+  const all = await listArticles(locale);
   const summary: ArticleSummary = {
     slug: article.slug,
     date: article.frontmatter.date,
@@ -80,6 +83,7 @@ export default async function ArticlePage({
         tags={article.frontmatter.tags}
         signal={article.frontmatter.signal_strength}
         readingMinutes={readingMinutes(article.mdx)}
+        locale={locale}
       />
       <section className="container" style={{ paddingTop: 32 }}>
         <div className="enter enter-1">
@@ -87,6 +91,7 @@ export default async function ArticlePage({
             src={article.frontmatter.illustration.path}
             alt={article.frontmatter.illustration.alt}
             priority
+            locale={locale}
           />
         </div>
         <div className="reading" style={{ paddingTop: 56, paddingBottom: 32 }}>
@@ -96,9 +101,23 @@ export default async function ArticlePage({
               color: isWeekly ? "var(--accent-magenta)" : undefined,
             }}
           >
-            {isWeekly ? "weekly digest" : ""}{" "}
+            {isWeekly ? d.article.weeklyDigest : ""}{" "}
             {isWeekly ? "·" : ""} {article.frontmatter.date}
           </p>
+          {article.fallback && (
+            <p
+              className="label"
+              style={{
+                color: "var(--accent-amber)",
+                border: "1px solid var(--hairline)",
+                borderLeft: "2px solid var(--accent-amber)",
+                padding: "8px 12px",
+                margin: "0 0 16px",
+              }}
+            >
+              {d.article.enOnlyNotice}
+            </p>
+          )}
           <h1>{article.frontmatter.title}</h1>
           <p
             style={{
@@ -122,7 +141,7 @@ export default async function ArticlePage({
           >
             {(article.frontmatter.tags ?? []).map((t) => (
               <li key={t}>
-                <TagChip tag={t} />
+                <TagChip tag={t} locale={locale} />
               </li>
             ))}
           </ul>
@@ -132,14 +151,15 @@ export default async function ArticlePage({
               to={article.frontmatter.digest.to}
               coveredSlugs={article.frontmatter.digest.covered_slugs}
               titlesBySlug={titlesBySlug}
+              locale={locale}
             />
           )}
-          <EditorsNote note={article.frontmatter.editors_note} />
+          <EditorsNote note={article.frontmatter.editors_note} locale={locale} />
           <Mdx source={article.mdx} />
-          <Dispatches items={article.frontmatter.dispatches ?? []} />
-          <Wire items={article.frontmatter.wire ?? []} />
-          <GlossaryBlock terms={issueGlossary} />
-          <SourcesBlock sources={article.frontmatter.sources ?? []} />
+          <Dispatches items={article.frontmatter.dispatches ?? []} locale={locale} />
+          <Wire items={article.frontmatter.wire ?? []} locale={locale} />
+          <GlossaryBlock terms={issueGlossary} locale={locale} />
+          <SourcesBlock sources={article.frontmatter.sources ?? []} locale={locale} />
           <p
             style={{
               marginTop: 32,
@@ -152,10 +172,10 @@ export default async function ArticlePage({
               target="_blank"
               rel="noopener"
             >
-              ↗ print view
+              ↗ {d.article.printView}
             </a>
           </p>
-          <RelatedIssues items={related} />
+          <RelatedIssues items={related} locale={locale} />
         </div>
       </section>
     </>

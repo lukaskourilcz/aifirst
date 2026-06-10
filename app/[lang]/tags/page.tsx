@@ -1,15 +1,22 @@
 import { TagChip } from "@/components/TagChip";
 import { listTagsByFrequency } from "@/lib/content";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Tags" };
 
-export default async function TagsIndex() {
-  const tags = await listTagsByFrequency();
+export default async function TagsIndex({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const t = dict(locale).tags;
+  const tags = await listTagsByFrequency(locale);
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">tags</p>
-      <h1>Topics under transmission.</h1>
+      <p className="label label--accent">{t.kicker}</p>
+      <h1>{t.title}</h1>
       <p
         style={{
           color: "var(--ink-muted)",
@@ -17,8 +24,7 @@ export default async function TagsIndex() {
           marginBottom: "3em",
         }}
       >
-        Every tag that has appeared in at least one issue. Larger counts mean
-        the magazine returned to that thread more often.
+        {t.intro}
       </p>
       <ul
         style={{
@@ -30,16 +36,11 @@ export default async function TagsIndex() {
           gap: 12,
         }}
       >
-        {tags.map((t) => (
-          <li key={t.tag}>
-            <TagChip tag={t.tag} count={t.count} />
+        {tags.map((tg) => (
+          <li key={tg.tag}>
+            <TagChip tag={tg.tag} count={tg.count} locale={locale} />
           </li>
         ))}
-        {tags.length === 0 && (
-          <li className="label" style={{ color: "var(--ink-muted)" }}>
-            no tags yet.
-          </li>
-        )}
       </ul>
     </section>
   );

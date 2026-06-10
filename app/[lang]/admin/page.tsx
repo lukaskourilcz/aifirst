@@ -2,12 +2,21 @@ import Link from "next/link";
 import { CopyCommand } from "@/components/CopyCommand";
 import { listArticles } from "@/lib/content";
 import { githubRepo } from "@/lib/config";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Admin", robots: { index: false } };
+export const metadata = { robots: { index: false } };
 
-export default async function AdminPage() {
-  const all = await listArticles();
+export default async function AdminPage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const t = dict(locale).admin;
+  const lp = (p: string) => localePath(locale, p);
+  const all = await listArticles(locale);
   const REPO = githubRepo();
 
   return (
@@ -16,9 +25,9 @@ export default async function AdminPage() {
         className="label"
         style={{ color: "var(--accent-magenta)", marginBottom: 8 }}
       >
-        admin · operator console
+        {t.kicker}
       </p>
-      <h1>Re-run the pipeline.</h1>
+      <h1>{t.title}</h1>
       <p
         style={{
           color: "var(--ink-muted)",
@@ -68,7 +77,7 @@ export default async function AdminPage() {
                 }}
               >
                 <Link
-                  href={`/articles/${a.slug}`}
+                  href={lp(`/articles/${a.slug}`)}
                   className="label"
                   style={{ borderBottom: "none" }}
                 >
@@ -80,7 +89,7 @@ export default async function AdminPage() {
                   )}
                 </Link>
                 <Link
-                  href={`/articles/${a.slug}`}
+                  href={lp(`/articles/${a.slug}`)}
                   style={{
                     fontSize: "0.95rem",
                     color: "var(--ink-primary)",

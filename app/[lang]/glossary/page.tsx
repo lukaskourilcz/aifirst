@@ -1,10 +1,17 @@
 import { loadGlossary, slugForTerm } from "@/lib/glossary";
 import { groupBy } from "@/lib/helpers/group";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Glossary" };
 
-export default async function GlossaryPage() {
+export default async function GlossaryPage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const tr = dict(locale).glossary;
   const terms = await loadGlossary();
   const grouped = groupBy(terms, (t) => (t.tags ?? [])[0] ?? "other");
   const groups = [...grouped.entries()].sort((a, b) =>
@@ -13,8 +20,8 @@ export default async function GlossaryPage() {
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">glossary</p>
-      <h1>Recurring terms in the magazine.</h1>
+      <p className="label label--accent">{tr.kicker}</p>
+      <h1>{tr.title}</h1>
       <p
         style={{
           color: "var(--ink-muted)",
@@ -22,9 +29,7 @@ export default async function GlossaryPage() {
           marginBottom: "3em",
         }}
       >
-        Terms that surface across multiple issues. Edited by hand. Each
-        issue can attach a per-issue glossary block via its{" "}
-        <code>glossary_terms</code> frontmatter field.
+        {tr.intro}
       </p>
 
       {groups.map(([group, items]) => (
@@ -63,7 +68,7 @@ export default async function GlossaryPage() {
                         color: "var(--ink-dim)",
                       }}
                     >
-                      aka {t.aliases.join(" · ")}
+                      {tr.aka} {t.aliases.join(" · ")}
                     </p>
                   )}
                   {t.first_seen && (
@@ -71,7 +76,7 @@ export default async function GlossaryPage() {
                       className="label"
                       style={{ margin: "4px 0 0", color: "var(--ink-dim)" }}
                     >
-                      first seen {t.first_seen}
+                      {tr.firstSeen} {t.first_seen}
                     </p>
                   )}
                 </dt>
@@ -86,7 +91,7 @@ export default async function GlossaryPage() {
 
       {terms.length === 0 && (
         <p className="label" style={{ color: "var(--ink-dim)" }}>
-          glossary is empty.
+          {tr.empty}
         </p>
       )}
     </section>

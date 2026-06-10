@@ -1,11 +1,15 @@
 import Link from "next/link";
 import type { GlossaryTerm } from "@/lib/glossary";
 import { slugForTerm } from "@/lib/glossary";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export function GlossaryBlock({
   terms,
+  locale,
 }: {
   terms: GlossaryTerm[];
+  locale: Locale;
 }) {
   if (!terms.length) return null;
   return (
@@ -18,7 +22,7 @@ export function GlossaryBlock({
       }}
     >
       <p className="label" style={{ marginBottom: 16 }}>
-        glossary for this issue
+        {dict(locale).article.glossaryForIssue}
       </p>
       <dl style={{ margin: 0 }}>
         {terms.map((t) => (
@@ -38,7 +42,7 @@ export function GlossaryBlock({
               }}
             >
               <Link
-                href={`/glossary#${slugForTerm(t.term)}`}
+                href={localePath(locale, `/glossary#${slugForTerm(t.term)}`)}
                 style={{ borderBottom: "none" }}
               >
                 {t.term}

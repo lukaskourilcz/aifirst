@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { TagChip } from "@/components/TagChip";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
@@ -26,24 +28,50 @@ export async function generateMetadata({
 export default async function SourceDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ lang: Locale; id: string }>;
 }) {
-  const { id } = await params;
+  const { lang: locale, id } = await params;
+  const t = dict(locale).sources;
+  const lp = (p: string) => localePath(locale, p);
   const sources = await loadSources();
   const source = sources.find((s) => s.id === id);
   if (!source) notFound();
 
   const [issues, stats] = await Promise.all([
-    listArticlesBySource(id),
-    sourceCitationStats(),
+    listArticlesBySource(id, locale),
+    sourceCitationStats(locale),
   ]);
   const stat = stats.get(id);
   const pct = Math.round((source.weight ?? 0.5) * 100);
 
+  const card = (label: string, value: string, big = "1.8rem") => (
+    <div
+      style={{
+        padding: 16,
+        border: "1px solid var(--hairline)",
+        background: "var(--bg-deep)",
+      }}
+    >
+      <p className="label" style={{ marginBottom: 6 }}>
+        {label}
+      </p>
+      <p
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: big,
+          margin: 0,
+          color: "var(--accent-cyan)",
+        }}
+      >
+        {value}
+      </p>
+    </div>
+  );
+
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
       <p className="label">
-        <Link href="/sources">↩ sources</Link>
+        <Link href={lp("/sources")}>↩ {t.back}</Link>
       </p>
       <h1 style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
         {source.name}
@@ -63,69 +91,9 @@ export default async function SourceDetailPage({
           margin: "32px 0",
         }}
       >
-        <div
-          style={{
-            padding: 16,
-            border: "1px solid var(--hairline)",
-            background: "var(--bg-deep)",
-          }}
-        >
-          <p className="label" style={{ marginBottom: 6 }}>
-            weight
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.8rem",
-              margin: 0,
-              color: "var(--accent-cyan)",
-            }}
-          >
-            {String(pct).padStart(2, "0")}
-          </p>
-        </div>
-        <div
-          style={{
-            padding: 16,
-            border: "1px solid var(--hairline)",
-            background: "var(--bg-deep)",
-          }}
-        >
-          <p className="label" style={{ marginBottom: 6 }}>
-            citations
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.8rem",
-              margin: 0,
-              color: "var(--accent-cyan)",
-            }}
-          >
-            ×{stat?.count ?? 0}
-          </p>
-        </div>
-        <div
-          style={{
-            padding: 16,
-            border: "1px solid var(--hairline)",
-            background: "var(--bg-deep)",
-          }}
-        >
-          <p className="label" style={{ marginBottom: 6 }}>
-            last cited
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.1rem",
-              margin: 0,
-              color: "var(--ink-primary)",
-            }}
-          >
-            {stat?.latestDate ?? "—"}
-          </p>
-        </div>
+        {card(t.weight, String(pct).padStart(2, "0"))}
+        {card(t.citations, `×${stat?.count ?? 0}`)}
+        {card(t.lastCited, stat?.latestDate ?? "—", "1.1rem")}
       </div>
 
       {source.tags?.length ? (
@@ -139,15 +107,15 @@ export default async function SourceDetailPage({
             gap: 8,
           }}
         >
-          {source.tags.map((t) => (
-            <li key={t}>
-              <TagChip tag={t} />
+          {source.tags.map((tg) => (
+            <li key={tg}>
+              <TagChip tag={tg} locale={locale} />
             </li>
           ))}
         </ul>
       ) : null}
 
-      <h2 style={{ marginTop: 48 }}>Issues that cited this source</h2>
+      <h2 style={{ marginTop: 48 }}>{t.citedBy}</h2>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {issues.map((a) => (
           <li
@@ -158,10 +126,10 @@ export default async function SourceDetailPage({
               borderBottom: "1px solid var(--hairline)",
             }}
           >
-            <Link href={`/articles/${a.slug}`} className="label">
+            <Link href={lp(`/articles/${a.slug}`)} className="label">
               {a.date}
             </Link>
-            <Link href={`/articles/${a.slug}`} style={{ fontSize: "1.05rem" }}>
+            <Link href={lp(`/articles/${a.slug}`)} style={{ fontSize: "1.05rem" }}>
               {a.title}
             </Link>
           </li>
@@ -171,7 +139,7 @@ export default async function SourceDetailPage({
             className="label"
             style={{ padding: 16, color: "var(--ink-dim)" }}
           >
-            no issues yet have cited this source.
+            {t.citedByEmpty}
           </li>
         )}
       </ul>

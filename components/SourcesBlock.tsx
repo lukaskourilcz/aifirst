@@ -1,6 +1,14 @@
 import type { SourceRef } from "@/lib/content";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-export function SourcesBlock({ sources }: { sources: SourceRef[] }) {
+export function SourcesBlock({
+  sources,
+  locale,
+}: {
+  sources: SourceRef[];
+  locale: Locale;
+}) {
   if (!sources?.length) return null;
   return (
     <section
@@ -12,7 +20,7 @@ export function SourcesBlock({ sources }: { sources: SourceRef[] }) {
       }}
     >
       <p className="label" style={{ marginBottom: 16 }}>
-        Sources
+        {dict(locale).article.sources}
       </p>
       <ol
         style={{

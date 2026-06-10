@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export default function NotFound() {
+  const t = dict(DEFAULT_LOCALE).notFound;
   return (
     <section
       className="container"
@@ -10,7 +13,7 @@ export default function NotFound() {
         className="label label--accent"
         style={{ letterSpacing: "0.4em" }}
       >
-        signal lost
+        {t.kicker}
       </p>
       <h1
         style={{
@@ -22,10 +25,10 @@ export default function NotFound() {
         404
       </h1>
       <p style={{ color: "var(--ink-muted)", marginBottom: "2em" }}>
-        That transmission isn&rsquo;t in our archive.
+        {t.body}
       </p>
       <Link href="/" className="label">
-        ⟵ return to the latest issue
+        ⟵ {t.home}
       </Link>
     </section>
   );

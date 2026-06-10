@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { ArticleSummary } from "@/lib/content";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-export function RelatedIssues({ items }: { items: ArticleSummary[] }) {
+export function RelatedIssues({
+  items,
+  locale,
+}: {
+  items: ArticleSummary[];
+  locale: Locale;
+}) {
   if (!items.length) return null;
   return (
     <section
@@ -13,7 +21,7 @@ export function RelatedIssues({ items }: { items: ArticleSummary[] }) {
       }}
     >
       <p className="label" style={{ marginBottom: 16 }}>
-        related transmissions
+        {dict(locale).article.related}
       </p>
       <ul
         style={{
@@ -36,7 +44,7 @@ export function RelatedIssues({ items }: { items: ArticleSummary[] }) {
           >
             <p className="label" style={{ marginBottom: 8 }}>{a.date}</p>
             <Link
-              href={`/articles/${a.slug}`}
+              href={localePath(locale, `/articles/${a.slug}`)}
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "0.95rem",

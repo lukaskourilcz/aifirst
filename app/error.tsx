@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export default function RouteError({
   error,
@@ -10,6 +12,7 @@ export default function RouteError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = dict(DEFAULT_LOCALE).error;
   useEffect(() => {
     // Surface in browser devtools; in production, hook a real logger here.
     console.error("[route-error]", error);
@@ -24,7 +27,7 @@ export default function RouteError({
         className="label label--accent"
         style={{ letterSpacing: "0.4em", color: "var(--accent-magenta)" }}
       >
-        transmission interrupted
+        {t.kicker}
       </p>
       <h1
         style={{
@@ -36,7 +39,7 @@ export default function RouteError({
         500
       </h1>
       <p style={{ color: "var(--ink-muted)", marginBottom: "1.5em" }}>
-        Something went wrong rendering this route.
+        {t.body}
       </p>
       {error.digest && (
         <p
@@ -66,10 +69,10 @@ export default function RouteError({
             fontFamily: "var(--font-display)",
           }}
         >
-          retry
+          {t.retry}
         </button>
         <Link href="/" className="label">
-          ⟵ home
+          ⟵ {t.home}
         </Link>
       </div>
     </section>

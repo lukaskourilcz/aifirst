@@ -1,15 +1,22 @@
 import { listArticles, listTagsByFrequency } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { MODELS } from "@/lib/anthropic/models";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Colophon" };
 
-export default async function ColophonPage() {
+export default async function ColophonPage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const c = dict(locale).colophon;
   const [articles, sources, tags] = await Promise.all([
-    listArticles(),
+    listArticles(locale),
     loadSources(),
-    listTagsByFrequency(),
+    listTagsByFrequency(locale),
   ]);
 
   const Section = ({
@@ -30,8 +37,8 @@ export default async function ColophonPage() {
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">colophon</p>
-      <h1>How this magazine is made.</h1>
+      <p className="label label--accent">{c.kicker}</p>
+      <h1>{c.title}</h1>
       <p
         style={{
           fontSize: "1.2rem",
@@ -41,11 +48,7 @@ export default async function ColophonPage() {
           marginBottom: "2em",
         }}
       >
-        aifirst is a daily magazine about AI and technology, edited by a
-        language model. Each morning a pipeline scrapes {sources.length}{" "}
-        sources, an LLM curates the most interesting items of the past 24
-        hours, and writes a single feature plus a constellation of shorter
-        pieces. {articles.length} issues have shipped so far.
+        {c.intro1} {sources.length} {c.intro2} {articles.length} {c.intro3}
       </p>
 
       <div
@@ -57,9 +60,9 @@ export default async function ColophonPage() {
         }}
       >
         {[
-          ["issues", articles.length],
-          ["sources", sources.length],
-          ["tags", tags.length],
+          [c.issues, articles.length],
+          [c.sources, sources.length],
+          [c.tags, tags.length],
         ].map(([label, value]) => (
           <div
             key={label as string}
@@ -84,100 +87,44 @@ export default async function ColophonPage() {
         ))}
       </div>
 
-      <Section label="pipeline" title="From feed to feature, in four steps.">
-        <p>
-          A scheduled job runs each morning at 06:00 UTC. The four steps:
-        </p>
+      <Section label={c.pipelineLabel} title={c.pipelineTitle}>
+        <p>{c.pipelineIntro}</p>
         <ol style={{ paddingLeft: "1.2em" }}>
-          <li>
-            <strong>Scrape.</strong> Adapters in <code>lib/scraping</code>{" "}
-            pull items from RSS feeds, the Hacker News API, the arXiv API,
-            and a last-resort HTML scraper. Each adapter has a 10s timeout
-            and tolerates partial failure.
-          </li>
-          <li>
-            <strong>Curate.</strong> Sonnet 4.6 reads the deduplicated pool
-            and picks 5–8 items, with a one-line angle for each. Structured
-            output via tool use.
-          </li>
-          <li>
-            <strong>Write.</strong> Opus 4.7 turns the brief into a feature
-            article, plus dispatches and the wire — runner-up items the
-            curator considered but didn&rsquo;t lead with.
-          </li>
-          <li>
-            <strong>Illustrate.</strong> A pluggable provider (fal.ai or a
-            placeholder) generates a single sci-fi cover. The illustration
-            prompt is constrained server-side; no people, no logos, no
-            text-in-image.
-          </li>
+          <li>{c.pipelineScrape}</li>
+          <li>{c.pipelineCurate}</li>
+          <li>{c.pipelineWrite}</li>
+          <li>{c.pipelineIllustrate}</li>
         </ol>
       </Section>
 
-      <Section label="models" title="What Claude is reading and writing.">
+      <Section label={c.modelsLabel} title={c.modelsTitle}>
         <ul style={{ paddingLeft: "1.2em" }}>
           <li>
-            <code>{MODELS.opus}</code> &mdash; feature writing.
+            <code>{MODELS.opus}</code> &mdash; {c.modelsOpus}
           </li>
           <li>
-            <code>{MODELS.sonnet}</code> &mdash; curation and
-            summarisation.
+            <code>{MODELS.sonnet}</code> &mdash; {c.modelsSonnet}
           </li>
           <li>
-            <code>{MODELS.haiku}</code> &mdash; utility passes.
+            <code>{MODELS.haiku}</code> &mdash; {c.modelsHaiku}
           </li>
         </ul>
-        <p>
-          System prompts and the style guide are passed with prompt caching;
-          the variable items of the day live outside the cached region. All
-          structured outputs use the Anthropic tool-use API.
-        </p>
+        <p>{c.modelsNote}</p>
       </Section>
 
-      <Section label="signal" title="What the bar in the masthead means.">
-        <p>
-          Each issue carries a <em>signal strength</em> from 0 to 100, shown
-          as a small segment bar. It&rsquo;s computed deterministically from
-          the cited sources for that issue: half from how diverse the source
-          pool is, half from the average editorial weight of those sources.
-          A high signal means the day&rsquo;s feature is grounded in many
-          independent, well-regarded outlets. A low signal means the
-          curator stretched.
-        </p>
+      <Section label={c.languageLabel} title={c.languageTitle}>
+        <p>{c.languageBody}</p>
       </Section>
 
-      <Section
-        label="design"
-        title="A dark room, a HUD, and one good serif away from a magazine."
-      >
-        <p>
-          The design language is documented in the{" "}
-          <code>.claude/skills/sci-fi-design-system</code> skill: a deep
-          space palette, cyan and magenta accents, a monospaced display
-          face, hairline rules, and no animation beyond what a heads-up
-          display would do. There&rsquo;s no JavaScript on the homepage
-          except the search palette and the reading-progress bar.
-        </p>
-      </Section>
-
-      <Section
-        label="standards"
-        title="What the magazine will and won't do."
-      >
-        <ul style={{ paddingLeft: "1.2em" }}>
-          <li>Cite only URLs present in the day&rsquo;s scrape.</li>
-          <li>No hype words (revolutionary, game-changer, unprecedented).</li>
-          <li>Refuse to publish if the curator returns fewer than three picks.</li>
-          <li>Overwrite, not append, when regenerating an existing date.</li>
-          <li>No live data fetches in the rendered site.</li>
-        </ul>
+      <Section label={c.signalLabel} title={c.signalTitle}>
+        <p>{c.signalBody}</p>
       </Section>
 
       <p
         className="label"
         style={{ marginTop: 64, color: "var(--ink-dim)" }}
       >
-        transmission · ongoing
+        {dict(locale).common.transmissionOngoing}
       </p>
     </section>
   );

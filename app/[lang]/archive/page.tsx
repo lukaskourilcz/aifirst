@@ -1,21 +1,28 @@
 import Link from "next/link";
 import { listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-export const metadata = {
-  title: "Archive",
-};
+export default async function ArchivePage({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const { lang: locale } = await params;
+  const t = dict(locale).archive;
+  const common = dict(locale).common;
+  const lp = (p: string) => localePath(locale, p);
 
-export default async function ArchivePage() {
-  const all = await listArticles();
+  const all = await listArticles(locale);
   const byYearMonth = groupBy(all, (a) => a.date.slice(0, 7));
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">archive</p>
-      <h1>Every issue.</h1>
+      <p className="label label--accent">{t.kicker}</p>
+      <h1>{t.title}</h1>
       <p
         style={{
           color: "var(--ink-muted)",
@@ -23,8 +30,7 @@ export default async function ArchivePage() {
           marginBottom: "3em",
         }}
       >
-        Each issue is a single feature written from the day&rsquo;s most
-        interesting tech and AI items.
+        {t.intro}
       </p>
 
       {[...byYearMonth.entries()].map(([month, issues]) => (
@@ -42,10 +48,10 @@ export default async function ArchivePage() {
                   borderBottom: "1px solid var(--hairline)",
                 }}
               >
-                <Link href={`/articles/${a.slug}`} className="label">
+                <Link href={lp(`/articles/${a.slug}`)} className="label">
                   {a.date}
                 </Link>
-                <Link href={`/articles/${a.slug}`} style={{ fontSize: "1.125rem" }}>
+                <Link href={lp(`/articles/${a.slug}`)} style={{ fontSize: "1.125rem" }}>
                   {a.title}
                 </Link>
                 {a.type === "weekly" && (
@@ -57,7 +63,7 @@ export default async function ArchivePage() {
                       padding: "2px 8px",
                     }}
                   >
-                    weekly
+                    {common.weekly}
                   </span>
                 )}
               </li>
@@ -67,7 +73,7 @@ export default async function ArchivePage() {
       ))}
 
       {all.length === 0 && (
-        <p style={{ color: "var(--ink-muted)" }}>No issues yet.</p>
+        <p style={{ color: "var(--ink-muted)" }}>{t.empty}</p>
       )}
     </section>
   );
