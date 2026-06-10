@@ -1,15 +1,21 @@
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { buildSearchIndex } from "@/lib/content";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 function today(): string {
   const d = new Date();
   return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")}`;
 }
 
-export async function Masthead() {
-  const index = await buildSearchIndex();
+export async function Masthead({ locale }: { locale: Locale }) {
+  const index = await buildSearchIndex(locale);
+  const t = dict(locale).nav;
+  const lp = (path: string) => localePath(locale, path);
+
   return (
     <header
       style={{
@@ -33,7 +39,7 @@ export async function Masthead() {
         }}
       >
         <Link
-          href="/"
+          href={lp("/")}
           aria-label="aifirst home"
           style={{
             display: "inline-flex",
@@ -63,15 +69,16 @@ export async function Masthead() {
         </Link>
         <nav aria-label="primary" className="masthead-nav">
           <span className="label masthead-date">{today()}</span>
-          <Link href="/archive" className="label">archive</Link>
-          <Link href="/tags" className="label">tags</Link>
-          <Link href="/sources" className="label">sources</Link>
-          <Link href="/stats" className="label">stats</Link>
-          <Link href="/trends" className="label">trends</Link>
-          <Link href="/glossary" className="label">glossary</Link>
-          <Link href="/colophon" className="label">colophon</Link>
-          <Link href="/health" className="label">health</Link>
-          <SearchPalette index={index} />
+          <Link href={lp("/archive")} className="label">{t.archive}</Link>
+          <Link href={lp("/tags")} className="label">{t.tags}</Link>
+          <Link href={lp("/sources")} className="label">{t.sources}</Link>
+          <Link href={lp("/stats")} className="label">{t.stats}</Link>
+          <Link href={lp("/trends")} className="label">{t.trends}</Link>
+          <Link href={lp("/glossary")} className="label">{t.glossary}</Link>
+          <Link href={lp("/colophon")} className="label">{t.colophon}</Link>
+          <Link href={lp("/health")} className="label">{t.health}</Link>
+          <SearchPalette index={index} locale={locale} />
+          <LanguageSwitcher locale={locale} />
           <ThemeToggle />
         </nav>
       </div>

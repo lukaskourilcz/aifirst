@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { isEditableTarget } from "@/lib/helpers/dom";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict, type Dict } from "@/lib/i18n/dictionaries";
 
 type Shortcut = {
   keys: string[];
@@ -9,30 +11,36 @@ type Shortcut = {
 };
 
 // The `g`-prefixed navigation chords. This list drives both the handler
-// and the help overlay, so the two can't drift apart.
-const NAV_CHORDS: Array<{ key: string; path: string; label: string }> = [
-  { key: "h", path: "/", label: "go home" },
-  { key: "a", path: "/archive", label: "go to archive" },
-  { key: "t", path: "/tags", label: "go to tags" },
-  { key: "s", path: "/sources", label: "go to sources" },
-  { key: "r", path: "/trends", label: "go to trends" },
-  { key: "g", path: "/glossary", label: "go to glossary" },
+// and the help overlay, so the two can't drift apart. Paths are base
+// (unprefixed); the active locale is applied when navigating.
+const NAV_CHORDS: Array<{
+  key: string;
+  path: string;
+  labelKey: keyof Dict["keyboard"];
+}> = [
+  { key: "h", path: "/", labelKey: "goHome" },
+  { key: "a", path: "/archive", labelKey: "goArchive" },
+  { key: "t", path: "/tags", labelKey: "goTags" },
+  { key: "s", path: "/sources", labelKey: "goSources" },
+  { key: "r", path: "/trends", labelKey: "goTrends" },
+  { key: "g", path: "/glossary", labelKey: "goGlossary" },
 ];
 
-const SHORTCUTS: Shortcut[] = [
-  { keys: ["⌘", "K"], label: "open search palette" },
-  { keys: ["/"], label: "open search palette (no modifier)" },
-  { keys: ["?"], label: "toggle this help overlay" },
-  { keys: ["Esc"], label: "close any overlay" },
-  ...NAV_CHORDS.map((c) => ({
-    keys: ["G", c.key.toUpperCase()],
-    label: c.label,
-  })),
-];
-
-export function KeyboardHelp() {
+export function KeyboardHelp({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
   const [chord, setChord] = useState<string | null>(null);
+  const k = dict(locale).keyboard;
+
+  const shortcuts: Shortcut[] = [
+    { keys: ["⌘", "K"], label: k.openSearch },
+    { keys: ["/"], label: k.openSearchNoMod },
+    { keys: ["?"], label: k.toggleHelp },
+    { keys: ["Esc"], label: k.closeOverlay },
+    ...NAV_CHORDS.map((c) => ({
+      keys: ["G", c.key.toUpperCase()],
+      label: k[c.labelKey],
+    })),
+  ];
 
   useEffect(() => {
     let chordTimer: ReturnType<typeof setTimeout> | null = null;
@@ -60,7 +68,7 @@ export function KeyboardHelp() {
       if (chord === "g") {
         clearChord();
         const match = NAV_CHORDS.find((c) => c.key === e.key.toLowerCase());
-        if (match) location.assign(match.path);
+        if (match) location.assign(localePath(locale, match.path));
         return;
       }
       if (e.key.toLowerCase() === "g" && !e.metaKey && !e.ctrlKey && !e.altKey) {
@@ -74,7 +82,7 @@ export function KeyboardHelp() {
       window.removeEventListener("keydown", onKey);
       if (chordTimer) clearTimeout(chordTimer);
     };
-  }, [open, chord]);
+  }, [open, chord, locale]);
 
   return (
     <>
@@ -141,7 +149,7 @@ export function KeyboardHelp() {
                 className="label"
                 style={{ color: "var(--accent-cyan)" }}
               >
-                keyboard shortcuts
+                {k.title}
               </span>
               <kbd
                 className="label"
@@ -154,7 +162,7 @@ export function KeyboardHelp() {
               </kbd>
             </header>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {SHORTCUTS.map((s) => (
+              {shortcuts.map((s) => (
                 <li
                   key={s.label}
                   style={{
@@ -172,9 +180,9 @@ export function KeyboardHelp() {
                       gap: 4,
                     }}
                   >
-                    {s.keys.map((k) => (
+                    {s.keys.map((key) => (
                       <kbd
-                        key={k}
+                        key={key}
                         style={{
                           fontFamily: "var(--font-display)",
                           fontSize: "0.75rem",
@@ -186,7 +194,7 @@ export function KeyboardHelp() {
                           textAlign: "center",
                         }}
                       >
-                        {k}
+                        {key}
                       </kbd>
                     ))}
                   </span>
@@ -203,7 +211,7 @@ export function KeyboardHelp() {
               }}
               className="label"
             >
-              tip · press <kbd style={{ padding: "2px 6px", border: "1px solid var(--hairline)" }}>g</kbd> then a letter to navigate
+              {k.tipBefore} <kbd style={{ padding: "2px 6px", border: "1px solid var(--hairline)" }}>g</kbd> {k.tipAfter}
             </footer>
           </div>
         </div>

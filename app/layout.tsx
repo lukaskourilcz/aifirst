@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Masthead } from "@/components/Masthead";
-import { Footer } from "@/components/Footer";
-import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { ScanlineOverlay } from "@/components/ScanlineOverlay";
 import { siteUrl } from "@/lib/config";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 import "./globals.css";
+
+const d = dict(DEFAULT_LOCALE);
 
 export const metadata: Metadata = {
   title: {
-    default: "aifirst — a daily AI tech magazine",
+    default: d.meta.siteTitle,
     template: "%s · aifirst",
   },
-  description:
-    "An AI-written daily magazine covering the most interesting developments in AI and technology.",
+  description: d.meta.siteDescription,
   metadataBase: new URL(siteUrl()),
   openGraph: {
     type: "website",
@@ -21,20 +21,20 @@ export const metadata: Metadata = {
   },
 };
 
+// The masthead, footer and shortcut overlay are locale-aware and live in
+// app/[lang]/layout.tsx. The root layout only owns <html>/<body>, the
+// pre-paint theme script, and the global scanline overlay.
 const THEME_INIT = `(function(){try{var m=localStorage.getItem('mode');if(m==='term')document.documentElement.dataset.mode='term';}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={DEFAULT_LOCALE}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
       <body>
         <ScanlineOverlay />
-        <Masthead />
-        <main>{children}</main>
-        <Footer />
-        <KeyboardHelp />
+        {children}
       </body>
     </html>
   );
