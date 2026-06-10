@@ -152,12 +152,10 @@ export default async function SourceDetailPage({
         {issues.map((a) => (
           <li
             key={a.slug}
+            className="entry-row"
             style={{
               padding: "14px 0",
               borderBottom: "1px solid var(--hairline)",
-              display: "grid",
-              gridTemplateColumns: "140px 1fr",
-              gap: 16,
             }}
           >
             <Link href={`/articles/${a.slug}`} className="label">

@@ -37,14 +37,11 @@ export default async function GlossaryPage() {
               <div
                 key={t.term}
                 id={slugForTerm(t.term)}
+                className="def-row"
                 style={{
                   scrollMarginTop: 80,
                   padding: "16px 0",
                   borderBottom: "1px solid var(--hairline)",
-                  display: "grid",
-                  gridTemplateColumns: "200px 1fr",
-                  gap: 24,
-                  alignItems: "baseline",
                 }}
               >
                 <dt>

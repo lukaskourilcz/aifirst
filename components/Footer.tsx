@@ -8,15 +8,7 @@ export function Footer() {
         background: "rgba(5, 7, 13, 0.6)",
       }}
     >
-      <div
-        className="container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: 24,
-          alignItems: "end",
-        }}
-      >
+      <div className="container footer-grid">
         <div>
           <p
             className="label"

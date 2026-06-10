@@ -26,12 +26,10 @@ export default async function SearchPage() {
           {index.map((e) => (
             <li
               key={e.slug}
+              className="entry-row"
               style={{
                 padding: "12px 0",
                 borderBottom: "1px solid var(--hairline)",
-                display: "grid",
-                gridTemplateColumns: "140px 1fr",
-                gap: 16,
               }}
             >
               <a

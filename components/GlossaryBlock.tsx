@@ -24,13 +24,10 @@ export function GlossaryBlock({
         {terms.map((t) => (
           <div
             key={t.term}
+            className="def-row def-row--tight"
             style={{
               padding: "14px 0",
               borderBottom: "1px solid var(--hairline)",
-              display: "grid",
-              gridTemplateColumns: "180px 1fr",
-              gap: 16,
-              alignItems: "baseline",
             }}
           >
             <dt

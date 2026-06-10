@@ -65,13 +65,10 @@ export default async function TagPage({
         {issues.map((a) => (
           <li
             key={a.slug}
+            className="entry-row entry-row--meta"
             style={{
               padding: "16px 0",
               borderBottom: "1px solid var(--hairline)",
-              display: "grid",
-              gridTemplateColumns: "140px 1fr auto",
-              gap: 16,
-              alignItems: "baseline",
             }}
           >
             <Link href={`/articles/${a.slug}`} className="label">

@@ -61,13 +61,10 @@ export default async function AdminPage() {
             return (
               <li
                 key={a.slug}
+                className="entry-row entry-row--cmd"
                 style={{
                   padding: "14px 0",
                   borderBottom: "1px solid var(--hairline)",
-                  display: "grid",
-                  gridTemplateColumns: "140px 1fr 2fr",
-                  gap: 16,
-                  alignItems: "center",
                 }}
               >
                 <Link

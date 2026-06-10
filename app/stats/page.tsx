@@ -83,14 +83,7 @@ export default async function StatsPage() {
         {stat("tags in use", String(tags.length).padStart(2, "0"))}
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 32,
-          alignItems: "start",
-        }}
-      >
+      <div className="split-2">
         <section>
           <p className="label" style={{ marginBottom: 16 }}>
             cadence · issues per month

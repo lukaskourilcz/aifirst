@@ -99,6 +99,11 @@ h3 {
   margin: 0 0 0.6em;
   color: var(--ink-primary);
   font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+p {
+  overflow-wrap: break-word;
 }
 
 h1 {
@@ -155,11 +160,11 @@ hr {
 .container {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 clamp(16px, 4vw, 24px);
 }
 
 .reading {
-  max-width: min(var(--reading), 100% - 48px);
+  max-width: min(var(--reading), 100% - 32px);
   margin: 0 auto;
 }
 
@@ -231,6 +236,149 @@ hr {
 }
 .anchor-link:hover {
   color: var(--accent-cyan);
+}
+
+/* No hover affordance on touch, and the negative offset can spill past
+   the viewport on narrow screens — hide the heading anchors there. */
+@media (max-width: 860px) {
+  .anchor-link {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive layout primitives                                        */
+/*                                                                     */
+/* Inline styles win over the cascade, so any grid that must collapse  */
+/* on small screens uses one of these classes instead of an inline     */
+/* `gridTemplateColumns`. Keep the per-element padding/border inline;  */
+/* these only own the column layout + gap so the media query can       */
+/* override them.                                                      */
+/* ------------------------------------------------------------------ */
+
+/* date | title (and a trailing badge) rows: archive, search, recent,  */
+/* tag and source listings.                                            */
+.entry-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.entry-row--meta {
+  grid-template-columns: 140px 1fr auto;
+}
+.entry-row--cmd {
+  grid-template-columns: 160px 1fr 2fr;
+  align-items: center;
+}
+
+/* Two equal panels that stack on phones. */
+.split-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* term | definition rows: glossary page + per-issue glossary block. */
+.def-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: baseline;
+}
+.def-row--tight {
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+}
+
+/* Footer: text block + tagline. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+}
+
+@media (max-width: 760px) {
+  .split-2 {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .entry-row,
+  .entry-row--meta,
+  .entry-row--cmd,
+  .def-row,
+  .def-row--tight {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: start;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  /* Trailing badge (e.g. "weekly") shouldn't stretch full width. */
+  .entry-row--meta > :last-child {
+    justify-self: start;
+  }
+}
+
+/* Masthead navigation: wraps on wide screens, becomes a single
+   swipeable strip on narrow ones so the header stays one row tall. */
+.masthead-nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .masthead-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .masthead-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .masthead-nav > * {
+    flex: 0 0 auto;
+  }
+  /* The live date is decorative; reclaim the space on phones. */
+  .masthead-date {
+    display: none;
+  }
+}
+
+/* Keep long-form content and embedded media inside the viewport. */
+.article-body img,
+.article-body video {
+  max-width: 100%;
+  height: auto;
+}
+.article-body pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.article-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+svg {
+  max-width: 100%;
 }
 
 /* Entrance animation */

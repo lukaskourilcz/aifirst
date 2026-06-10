@@ -94,7 +94,8 @@ export default async function HealthPage() {
           marginTop: 32,
           color: "var(--ink-dim)",
           display: "flex",
-          gap: 24,
+          flexWrap: "wrap",
+          gap: "8px 24px",
         }}
       >
         <span>

@@ -199,6 +199,20 @@ body.print-body ::selection {
   color: #555;
 }
 
+@media screen and (max-width: 640px) {
+  .print-layout {
+    margin: 24px auto;
+    padding: 0 16px 64px;
+  }
+  .print-title {
+    font-size: clamp(1.8rem, 8vw, 2.6rem);
+  }
+  .print-glossary-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
 @media print {
   body.print-body {
     background: #fff;

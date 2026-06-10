@@ -28,7 +28,7 @@ export async function Masthead() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "14px 24px",
+          padding: "12px clamp(16px, 4vw, 24px)",
           gap: 16,
         }}
       >
@@ -45,6 +45,7 @@ export async function Masthead() {
             textTransform: "uppercase",
             borderBottom: "none",
             color: "var(--ink-primary)",
+            flexShrink: 0,
           }}
         >
           <span
@@ -60,16 +61,8 @@ export async function Masthead() {
           />
           aifirst<span style={{ color: "var(--accent-magenta)" }}>.</span>
         </Link>
-        <nav
-          aria-label="primary"
-          style={{
-            display: "flex",
-            gap: 20,
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <span className="label">{today()}</span>
+        <nav aria-label="primary" className="masthead-nav">
+          <span className="label masthead-date">{today()}</span>
           <Link href="/archive" className="label">archive</Link>
           <Link href="/tags" className="label">tags</Link>
           <Link href="/sources" className="label">sources</Link>
