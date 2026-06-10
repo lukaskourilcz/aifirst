@@ -28,19 +28,21 @@ async function main() {
   );
 
   const article = await write(brief, itemsById);
-  console.error(`[generate] wrote: ${article.title} (slug=${article.slug})`);
+  console.error(
+    `[generate] wrote: ${article.byLocale.cs.title} (slug=${article.slug})`,
+  );
 
   const illustration = await illustrate(date, article.illustrationPrompt);
   console.error(`[generate] illustrated: ${illustration.path}`);
 
-  const file = await persist({ article, illustrationPath: illustration.path });
-  console.error(`[generate] persisted: ${file}`);
+  const files = await persist({ article, illustrationPath: illustration.path });
+  console.error(`[generate] persisted: ${files.join(", ")}`);
 
   // Stdout: machine-readable summary for the GH Action.
   console.log(JSON.stringify({
     date,
     slug: article.slug,
-    file,
+    files,
     illustration: illustration.path,
   }));
 }

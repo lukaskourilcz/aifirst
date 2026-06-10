@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { byDateDesc } from "./helpers/date";
+import { DEFAULT_LOCALE, isLocale, type Locale } from "./i18n/config";
 
 export type Dispatch = {
   title: string;
@@ -23,6 +24,7 @@ export type ArticleFrontmatter = {
   title: string;
   slug: string;
   date: string;
+  lang?: Locale;
   dek: string;
   tags: string[];
   sources: SourceRef[];
@@ -44,6 +46,10 @@ export type Article = {
   slug: string;
   frontmatter: ArticleFrontmatter;
   mdx: string;
+  // Language actually returned, and whether it fell back from the
+  // requested locale (e.g. a legacy English-only issue viewed in Czech).
+  lang: Locale;
+  fallback: boolean;
 };
 
 export type ArticleSummary = {
@@ -54,6 +60,8 @@ export type ArticleSummary = {
   tags?: string[];
   signal_strength?: number;
   type?: IssueType;
+  lang?: Locale;
+  fallback?: boolean;
 };
 
 function defaultContentDir(): string {
@@ -69,22 +77,79 @@ export async function readMdxFiles(dir: string): Promise<string[]> {
   }
 }
 
-// Read just the frontmatter of every MDX file in a directory.
-async function readArticleFrontmatter(
-  dir: string,
-): Promise<Array<Partial<ArticleFrontmatter>>> {
+type RawEntry = {
+  file: string;
+  fm: Partial<ArticleFrontmatter>;
+  lang: Locale;
+};
+
+// The content language of a file: explicit `lang` frontmatter wins, then
+// a `.cs.mdx` / `.en.mdx` filename suffix, else legacy files are English.
+function entryLang(file: string, fm: Partial<ArticleFrontmatter>): Locale {
+  if (fm.lang && isLocale(fm.lang)) return fm.lang;
+  if (file.endsWith(".cs.mdx")) return "cs";
+  if (file.endsWith(".en.mdx")) return "en";
+  return "en";
+}
+
+async function readEntries(dir: string): Promise<RawEntry[]> {
   const files = await readMdxFiles(dir);
-  const out: Array<Partial<ArticleFrontmatter>> = [];
+  const out: RawEntry[] = [];
   for (const file of files) {
     const raw = await fs.readFile(path.join(dir, file), "utf8");
     const { data } = matter(raw);
-    out.push(data as Partial<ArticleFrontmatter>);
+    const fm = data as Partial<ArticleFrontmatter>;
+    out.push({ file, fm, lang: entryLang(file, fm) });
   }
   return out;
 }
 
-// Project frontmatter to a list summary, or null if required fields are missing.
-function toSummary(fm: Partial<ArticleFrontmatter>): ArticleSummary | null {
+type ResolvedEntry = {
+  fm: Partial<ArticleFrontmatter>;
+  lang: Locale;
+  fallback: boolean;
+};
+
+// Pick the right file for each issue (one per slug) for a locale, falling
+// back to the English version when the requested language is missing.
+function pickForLocale(
+  candidates: RawEntry[],
+  locale: Locale,
+): { entry: RawEntry; fallback: boolean } | null {
+  const wanted = candidates.find((e) => e.lang === locale);
+  if (wanted) return { entry: wanted, fallback: false };
+  const english = candidates.find((e) => e.lang === "en");
+  if (english) return { entry: english, fallback: true };
+  const first = candidates[0];
+  return first ? { entry: first, fallback: first.lang !== locale } : null;
+}
+
+function resolveByLocale(
+  entries: RawEntry[],
+  locale: Locale,
+): ResolvedEntry[] {
+  const bySlug = new Map<string, RawEntry[]>();
+  for (const e of entries) {
+    if (!e.fm.slug) continue;
+    const bucket = bySlug.get(e.fm.slug);
+    if (bucket) bucket.push(e);
+    else bySlug.set(e.fm.slug, [e]);
+  }
+  const out: ResolvedEntry[] = [];
+  for (const candidates of bySlug.values()) {
+    const picked = pickForLocale(candidates, locale);
+    if (picked) {
+      out.push({ fm: picked.entry.fm, lang: picked.entry.lang, fallback: picked.fallback });
+    }
+  }
+  return out;
+}
+
+function toSummary(
+  fm: Partial<ArticleFrontmatter>,
+  lang: Locale,
+  fallback: boolean,
+): ArticleSummary | null {
   if (!fm.slug || !fm.date || !fm.title) return null;
   return {
     slug: fm.slug,
@@ -94,15 +159,18 @@ function toSummary(fm: Partial<ArticleFrontmatter>): ArticleSummary | null {
     tags: fm.tags,
     signal_strength: fm.signal_strength,
     type: fm.type ?? "daily",
+    lang,
+    fallback,
   };
 }
 
 export async function listArticles(
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<ArticleSummary[]> {
-  const fms = await readArticleFrontmatter(dir);
-  const summaries = fms
-    .map(toSummary)
+  const resolved = resolveByLocale(await readEntries(dir), locale);
+  const summaries = resolved
+    .map((r) => toSummary(r.fm, r.lang, r.fallback))
     .filter((s): s is ArticleSummary => s !== null);
   summaries.sort(byDateDesc);
   return summaries;
@@ -110,33 +178,38 @@ export async function listArticles(
 
 export async function getArticle(
   slug: string,
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<Article | null> {
-  const files = await readMdxFiles(dir);
-  for (const file of files) {
-    const raw = await fs.readFile(path.join(dir, file), "utf8");
-    const { data, content } = matter(raw);
-    const fm = data as ArticleFrontmatter;
-    if (fm.slug === slug) {
-      return { slug, frontmatter: fm, mdx: content };
-    }
-  }
-  return null;
+  const candidates = (await readEntries(dir)).filter((e) => e.fm.slug === slug);
+  const picked = pickForLocale(candidates, locale);
+  if (!picked) return null;
+  const raw = await fs.readFile(path.join(dir, picked.entry.file), "utf8");
+  const { data, content } = matter(raw);
+  return {
+    slug,
+    frontmatter: data as ArticleFrontmatter,
+    mdx: content,
+    lang: picked.entry.lang,
+    fallback: picked.fallback,
+  };
 }
 
 export async function getLatestArticle(
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<Article | null> {
-  const [first] = await listArticles(dir);
-  return first ? getArticle(first.slug, dir) : null;
+  const [first] = await listArticles(locale, dir);
+  return first ? getArticle(first.slug, locale, dir) : null;
 }
 
 export type TagCount = { tag: string; count: number };
 
 export async function listTagsByFrequency(
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<TagCount[]> {
-  const all = await listArticles(dir);
+  const all = await listArticles(locale, dir);
   const counts = new Map<string, number>();
   for (const a of all) {
     for (const t of a.tags ?? []) {
@@ -150,9 +223,10 @@ export async function listTagsByFrequency(
 
 export async function listArticlesByTag(
   tag: string,
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<ArticleSummary[]> {
-  const all = await listArticles(dir);
+  const all = await listArticles(locale, dir);
   return all.filter((a) => (a.tags ?? []).includes(tag));
 }
 
@@ -182,11 +256,12 @@ export type SourceCitationStats = {
 };
 
 export async function sourceCitationStats(
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<Map<string, SourceCitationStats>> {
-  const fms = await readArticleFrontmatter(dir);
+  const resolved = resolveByLocale(await readEntries(dir), locale);
   const stats = new Map<string, SourceCitationStats>();
-  for (const fm of fms) {
+  for (const { fm } of resolved) {
     if (!fm.date) continue;
     const seenInIssue = new Set<string>();
     for (const s of fm.sources ?? []) {
@@ -210,12 +285,13 @@ export async function sourceCitationStats(
 
 export async function listArticlesBySource(
   sourceId: string,
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<ArticleSummary[]> {
-  const fms = await readArticleFrontmatter(dir);
+  const resolved = resolveByLocale(await readEntries(dir), locale);
   const summaries: ArticleSummary[] = [];
-  for (const fm of fms) {
-    const summary = toSummary(fm);
+  for (const { fm, lang, fallback } of resolved) {
+    const summary = toSummary(fm, lang, fallback);
     if (!summary) continue;
     if ((fm.sources ?? []).some((s) => s.id === sourceId)) {
       summaries.push(summary);
@@ -234,9 +310,10 @@ export type SearchEntry = {
 };
 
 export async function buildSearchIndex(
+  locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<SearchEntry[]> {
-  const all = await listArticles(dir);
+  const all = await listArticles(locale, dir);
   return all.map((a) => ({
     slug: a.slug,
     date: a.date,

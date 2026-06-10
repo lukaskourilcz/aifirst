@@ -17,19 +17,22 @@ async function main() {
   const date = process.argv[2] ?? lastSundayUtc();
   console.error(`[weekly] date=${date}`);
 
-  const file = await generateWeekly(date);
-  console.error(`[weekly] wrote ${file}`);
+  const files = await generateWeekly(date);
+  console.error(`[weekly] wrote ${files.join(", ")}`);
 
-  const raw = await fs.readFile(file, "utf8");
-  const { data } = matter(raw);
-  const prompt = (data as { illustration?: { prompt?: string } }).illustration
-    ?.prompt;
-  if (prompt) {
-    const result = await illustrate(`${date}-weekly`, prompt);
-    console.error(`[weekly] illustrated -> ${result.path}`);
+  const primary = files[0];
+  if (primary) {
+    const raw = await fs.readFile(primary, "utf8");
+    const { data } = matter(raw);
+    const prompt = (data as { illustration?: { prompt?: string } }).illustration
+      ?.prompt;
+    if (prompt) {
+      const result = await illustrate(`${date}-weekly`, prompt);
+      console.error(`[weekly] illustrated -> ${result.path}`);
+    }
   }
 
-  console.log(JSON.stringify({ date, file }));
+  console.log(JSON.stringify({ date, files }));
 }
 
 main().catch((err) => {

@@ -47,36 +47,36 @@ beforeAll(async () => {
 
 describe("listArticles", () => {
   it("returns articles sorted newest first", async () => {
-    const list = await listArticles(dir);
+    const list = await listArticles("en", dir);
     expect(list.map((a) => a.slug)).toEqual(["b-newer", "a-older"]);
   });
 
   it("ignores non-mdx files", async () => {
-    const list = await listArticles(dir);
+    const list = await listArticles("en", dir);
     expect(list).toHaveLength(2);
   });
 
   it("returns an empty list if the directory does not exist", async () => {
-    const list = await listArticles(path.join(dir, "missing"));
+    const list = await listArticles("en", path.join(dir, "missing"));
     expect(list).toEqual([]);
   });
 });
 
 describe("getArticle", () => {
   it("finds an article by slug", async () => {
-    const article = await getArticle("a-older", dir);
+    const article = await getArticle("a-older", "en", dir);
     expect(article?.frontmatter.title).toBe("A older");
     expect(article?.mdx.trim()).toBe("Body of A.");
   });
 
   it("returns null for an unknown slug", async () => {
-    expect(await getArticle("missing", dir)).toBeNull();
+    expect(await getArticle("missing", "en", dir)).toBeNull();
   });
 });
 
 describe("getLatestArticle", () => {
   it("returns the newest article", async () => {
-    const latest = await getLatestArticle(dir);
+    const latest = await getLatestArticle("en", dir);
     expect(latest?.slug).toBe("b-newer");
   });
 });

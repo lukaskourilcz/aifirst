@@ -2,51 +2,65 @@ import { getAnthropic, MODELS } from "../anthropic/client.js";
 import { WRITE_SYSTEM } from "../anthropic/prompts/write.js";
 import type { ScrapedItem } from "../scraping/types.js";
 import type { CuratedBrief } from "./curate.js";
-import type { Dispatch, WireItem } from "../content.js";
+import type { Dispatch, WireItem, SourceRef } from "../content.js";
+import { LOCALES, type Locale } from "../i18n/config.js";
 
 export type { Dispatch, WireItem } from "../content.js";
 
-export type WrittenArticle = {
+// The per-language part of a written issue.
+export type LocalizedContent = {
   title: string;
+  dek: string;
+  bodyMdx: string;
+  illustrationAlt: string;
+  dispatches: Dispatch[];
+};
+
+export type WrittenArticle = {
   slug: string;
   date: string;
-  dek: string;
   tags: string[];
-  bodyMdx: string;
   illustrationPrompt: string;
-  illustrationAlt: string;
-  sources: Array<{ id: string; url: string; title: string }>;
-  dispatches: Dispatch[];
   wire: WireItem[];
+  sources: SourceRef[];
+  byLocale: Record<Locale, LocalizedContent>;
 };
+
+const localeObjectSchema = {
+  type: "object",
+  properties: {
+    title: { type: "string" },
+    dek: { type: "string" },
+    body_mdx: { type: "string" },
+    illustration_alt: { type: "string" },
+    dispatches: {
+      type: "array",
+      minItems: 2,
+      maxItems: 4,
+      items: {
+        type: "object",
+        properties: {
+          title: { type: "string" },
+          body: { type: "string", description: "60-100 words of prose." },
+          source_url: { type: "string" },
+        },
+        required: ["title", "body"],
+      },
+    },
+  },
+  required: ["title", "dek", "body_mdx", "illustration_alt", "dispatches"],
+} as const;
 
 const TOOL = {
   name: "emit_article",
-  description: "Emit the day's feature article plus dispatches and wire.",
+  description:
+    "Emit the day's feature article in Czech and English, plus shared metadata and the wire.",
   input_schema: {
     type: "object",
     properties: {
-      title: { type: "string" },
       slug: { type: "string" },
-      dek: { type: "string" },
       tags: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 6 },
-      body_mdx: { type: "string" },
       illustration_prompt: { type: "string" },
-      illustration_alt: { type: "string" },
-      dispatches: {
-        type: "array",
-        minItems: 2,
-        maxItems: 4,
-        items: {
-          type: "object",
-          properties: {
-            title: { type: "string" },
-            body: { type: "string", description: "60-100 words of prose." },
-            source_url: { type: "string" },
-          },
-          required: ["title", "body"],
-        },
-      },
       wire: {
         type: "array",
         minItems: 4,
@@ -62,20 +76,39 @@ const TOOL = {
           required: ["title", "url", "source"],
         },
       },
+      cs: localeObjectSchema,
+      en: localeObjectSchema,
     },
-    required: [
-      "title",
-      "slug",
-      "dek",
-      "tags",
-      "body_mdx",
-      "illustration_prompt",
-      "illustration_alt",
-      "dispatches",
-      "wire",
-    ],
+    required: ["slug", "tags", "illustration_prompt", "wire", "cs", "en"],
   },
 } as const;
+
+type LocaleOut = {
+  title: string;
+  dek: string;
+  body_mdx: string;
+  illustration_alt: string;
+  dispatches: Dispatch[];
+};
+
+type ToolOut = {
+  slug: string;
+  tags: string[];
+  illustration_prompt: string;
+  wire: WireItem[];
+  cs: LocaleOut;
+  en: LocaleOut;
+};
+
+function toLocalized(out: LocaleOut): LocalizedContent {
+  return {
+    title: out.title,
+    dek: out.dek,
+    bodyMdx: out.body_mdx,
+    illustrationAlt: out.illustration_alt,
+    dispatches: out.dispatches,
+  };
+}
 
 export async function write(
   brief: CuratedBrief,
@@ -113,7 +146,7 @@ export async function write(
   const client = getAnthropic();
   const response = await client.messages.create({
     model: MODELS.opus,
-    max_tokens: 5000,
+    max_tokens: 8000,
     system: [{ type: "text", text: WRITE_SYSTEM, cache_control: { type: "ephemeral" } }],
     tools: [TOOL],
     tool_choice: { type: "tool", name: "emit_article" },
@@ -124,29 +157,20 @@ export async function write(
   if (!toolUse || toolUse.type !== "tool_use") {
     throw new Error("write: model did not call emit_article");
   }
-  const out = toolUse.input as {
-    title: string;
-    slug: string;
-    dek: string;
-    tags: string[];
-    body_mdx: string;
-    illustration_prompt: string;
-    illustration_alt: string;
-    dispatches: Dispatch[];
-    wire: WireItem[];
-  };
+  const out = toolUse.input as ToolOut;
+
+  const byLocale = {} as Record<Locale, LocalizedContent>;
+  for (const locale of LOCALES) {
+    byLocale[locale] = toLocalized(out[locale]);
+  }
 
   return {
-    title: out.title,
     slug: out.slug,
     date: brief.date,
-    dek: out.dek,
     tags: out.tags,
-    bodyMdx: out.body_mdx,
     illustrationPrompt: out.illustration_prompt,
-    illustrationAlt: out.illustration_alt,
-    sources: pickedItems.map((i) => ({ id: i.id, url: i.url, title: i.title })),
-    dispatches: out.dispatches,
     wire: out.wire,
+    sources: pickedItems.map((i) => ({ id: i.id, url: i.url, title: i.title })),
+    byLocale,
   };
 }
