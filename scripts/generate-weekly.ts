@@ -3,13 +3,14 @@ import fs from "node:fs/promises";
 import matter from "gray-matter";
 import { generateWeekly } from "../lib/pipeline/weekly.js";
 import { illustrate } from "../lib/pipeline/illustrate.js";
+import { toIsoDate } from "../lib/helpers/date.js";
 
 function lastSundayUtc(): string {
   const d = new Date();
   const day = d.getUTCDay();
   const offset = day === 0 ? 0 : day; // step back to the most recent Sunday
   d.setUTCDate(d.getUTCDate() - offset);
-  return d.toISOString().slice(0, 10);
+  return toIsoDate(d);
 }
 
 async function main() {

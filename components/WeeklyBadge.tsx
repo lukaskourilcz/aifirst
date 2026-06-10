@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { plural } from "@/lib/helpers/format";
 
 type Props = {
   from: string;
@@ -34,8 +35,7 @@ export function WeeklyBadge({
         className="label"
         style={{ color: "var(--ink-muted)", marginBottom: 12 }}
       >
-        covering {coveredSlugs.length} daily issue
-        {coveredSlugs.length === 1 ? "" : "s"}
+        covering {coveredSlugs.length} {plural(coveredSlugs.length, "daily issue")}
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {coveredSlugs.map((slug) => (

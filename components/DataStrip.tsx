@@ -1,4 +1,5 @@
 import { SignalStrength } from "./SignalStrength";
+import { MODELS } from "@/lib/anthropic/models";
 
 type Props = {
   date: string;
@@ -57,7 +58,7 @@ export function DataStrip({
         {typeof readingMinutes === "number" && (
           <span>read {readingMinutes} min</span>
         )}
-        <span>model claude-opus-4-7</span>
+        <span>model {MODELS.opus}</span>
         {tags?.length ? (
           <span style={{ color: "var(--accent-magenta)" }}>
             {tags.slice(0, 4).map((t) => `#${t}`).join("  ")}

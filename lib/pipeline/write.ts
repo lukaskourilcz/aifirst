@@ -2,18 +2,9 @@ import { getAnthropic, MODELS } from "../anthropic/client.js";
 import { WRITE_SYSTEM } from "../anthropic/prompts/write.js";
 import type { ScrapedItem } from "../scraping/types.js";
 import type { CuratedBrief } from "./curate.js";
+import type { Dispatch, WireItem } from "../content.js";
 
-export type Dispatch = {
-  title: string;
-  body: string;
-  source_url?: string;
-};
-
-export type WireItem = {
-  title: string;
-  url: string;
-  source: string;
-};
+export type { Dispatch, WireItem } from "../content.js";
 
 export type WrittenArticle = {
   title: string;

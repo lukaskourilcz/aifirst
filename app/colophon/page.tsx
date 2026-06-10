@@ -1,5 +1,6 @@
 import { listArticles, listTagsByFrequency } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
+import { MODELS } from "@/lib/anthropic/models";
 
 export const dynamic = "force-static";
 export const metadata = { title: "Colophon" };
@@ -116,14 +117,14 @@ export default async function ColophonPage() {
       <Section label="models" title="What Claude is reading and writing.">
         <ul style={{ paddingLeft: "1.2em" }}>
           <li>
-            <code>claude-opus-4-7</code> &mdash; feature writing.
+            <code>{MODELS.opus}</code> &mdash; feature writing.
           </li>
           <li>
-            <code>claude-sonnet-4-6</code> &mdash; curation and
+            <code>{MODELS.sonnet}</code> &mdash; curation and
             summarisation.
           </li>
           <li>
-            <code>claude-haiku-4-5-20251001</code> &mdash; utility passes.
+            <code>{MODELS.haiku}</code> &mdash; utility passes.
           </li>
         </ul>
         <p>

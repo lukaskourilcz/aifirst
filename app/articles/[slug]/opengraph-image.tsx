@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getArticle, listArticles } from "@/lib/content";
+import { OG } from "@/lib/og-theme";
+import { signalBars } from "@/lib/helpers/signal";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -23,11 +25,7 @@ export default async function Image({
   const date = article?.frontmatter.date ?? "";
   const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
   const signal = article?.frontmatter.signal_strength ?? 0;
-
-  const bars = 12;
-  const filled = Math.round(
-    (Math.max(0, Math.min(100, signal)) / 100) * bars,
-  );
+  const { clamped, filled, bars } = signalBars(signal);
 
   return new ImageResponse(
     (
@@ -39,12 +37,10 @@ export default async function Image({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 64,
-          backgroundColor: "#05070d",
-          backgroundImage:
-            "radial-gradient(1200px 600px at 80% -10%, rgba(92,240,255,0.18), transparent 60%), radial-gradient(1000px 500px at -10% 110%, rgba(255,79,216,0.15), transparent 60%)",
-          color: "#e8ecff",
-          fontFamily:
-            "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+          backgroundColor: OG.bg,
+          backgroundImage: OG.backgroundImage,
+          color: OG.ink,
+          fontFamily: OG.fontMono,
         }}
       >
         <div
@@ -60,7 +56,7 @@ export default async function Image({
                 display: "flex",
                 width: 14,
                 height: 14,
-                backgroundColor: "#5cf0ff",
+                backgroundColor: OG.cyan,
                 transform: "rotate(45deg)",
                 boxShadow: "0 0 20px rgba(92,240,255,0.7)",
               }}
@@ -74,7 +70,7 @@ export default async function Image({
               }}
             >
               <span>aifirst</span>
-              <span style={{ color: "#ff4fd8" }}>.</span>
+              <span style={{ color: OG.magenta }}>.</span>
             </div>
           </div>
           <div
@@ -83,7 +79,7 @@ export default async function Image({
               fontSize: 18,
               letterSpacing: 4,
               textTransform: "uppercase",
-              color: "#8a93b8",
+              color: OG.muted,
             }}
           >
             issue {date}
@@ -97,7 +93,7 @@ export default async function Image({
               fontSize: 16,
               letterSpacing: 5,
               textTransform: "uppercase",
-              color: "#5cf0ff",
+              color: OG.cyan,
             }}
           >
             feature
@@ -108,7 +104,7 @@ export default async function Image({
               fontSize: 64,
               lineHeight: 1.05,
               letterSpacing: -1,
-              color: "#e8ecff",
+              color: OG.ink,
               maxWidth: 1050,
             }}
           >
@@ -120,7 +116,7 @@ export default async function Image({
                 display: "flex",
                 fontSize: 26,
                 lineHeight: 1.3,
-                color: "#8a93b8",
+                color: OG.muted,
                 maxWidth: 1000,
                 fontFamily:
                   "system-ui, -apple-system, Segoe UI, sans-serif",
@@ -139,10 +135,10 @@ export default async function Image({
             fontSize: 16,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#4c5680",
+            color: OG.dim,
           }}
         >
-          <div style={{ display: "flex", gap: 18, color: "#ff4fd8" }}>
+          <div style={{ display: "flex", gap: 18, color: OG.magenta }}>
             {tags.map((t) => (
               <span key={t}>#{t}</span>
             ))}
@@ -163,13 +159,13 @@ export default async function Image({
                     display: "flex",
                     width: 5,
                     height: 14,
-                    backgroundColor: i < filled ? "#5cf0ff" : "#121933",
+                    backgroundColor: i < filled ? OG.cyan : OG.panel,
                   }}
                 />
               ))}
             </div>
-            <span style={{ color: "#e8ecff" }}>
-              {String(signal).padStart(2, "0")}
+            <span style={{ color: OG.ink }}>
+              {String(clamped).padStart(2, "0")}
             </span>
           </div>
         </div>

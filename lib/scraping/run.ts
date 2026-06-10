@@ -6,7 +6,7 @@ import { fetchHtml } from "./html.js";
 
 export { loadSources } from "./sources.js";
 
-async function fetchOne(source: Source): Promise<ScrapedItem[]> {
+export async function fetchOne(source: Source): Promise<ScrapedItem[]> {
   switch (source.type) {
     case "rss":   return fetchRss(source);
     case "hn":    return fetchHn(source);

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
-import YAML from "yaml";
+import { serializeMdx } from "../lib/content-write.js";
 
 type SeedDispatch = { title: string; body: string; source_url?: string };
 type SeedWire = { title: string; url: string; source: string };
@@ -244,10 +244,7 @@ async function main() {
       wire: seed.wire,
       ...(seed.digest ? { digest: seed.digest } : {}),
     };
-    const yaml = YAML.stringify(fm)
-      .trimEnd()
-      .replace(/^(\s*)(date|from|to): (\d{4}-\d{2}-\d{2})$/gm, '$1$2: "$3"');
-    const mdx = `---\n${yaml}\n---\n\n${body.trim()}\n`;
+    const mdx = serializeMdx(fm, body);
     const outFile = path.join(articlesDir, `${seed.date}${seed.filenameSuffix ?? ""}.mdx`);
     await fs.writeFile(outFile, mdx);
     const img = await makeIllustration(seed, imagesDir);

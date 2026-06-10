@@ -6,19 +6,15 @@ import {
   sourceCitationStats,
 } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
+import { groupBy } from "@/lib/helpers/group";
 
 export const dynamic = "force-static";
 export const metadata = { title: "Stats" };
 
 function weeklyCadence(dates: string[]): { labels: string[]; counts: number[] } {
-  const sorted = [...dates].sort();
-  const buckets = new Map<string, number>();
-  for (const d of sorted) {
-    const key = d.slice(0, 7); // YYYY-MM
-    buckets.set(key, (buckets.get(key) ?? 0) + 1);
-  }
-  const labels = [...buckets.keys()];
-  const counts = labels.map((k) => buckets.get(k) ?? 0);
+  const byMonth = groupBy([...dates].sort(), (d) => d.slice(0, 7)); // YYYY-MM
+  const labels = [...byMonth.keys()];
+  const counts = labels.map((k) => byMonth.get(k)?.length ?? 0);
   return { labels, counts };
 }
 

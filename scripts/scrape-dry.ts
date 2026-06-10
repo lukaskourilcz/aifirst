@@ -1,10 +1,5 @@
 #!/usr/bin/env tsx
-import { loadSources } from "../lib/scraping/run.js";
-import { fetchRss } from "../lib/scraping/rss.js";
-import { fetchHn } from "../lib/scraping/hn.js";
-import { fetchArxiv } from "../lib/scraping/arxiv.js";
-import { fetchHtml } from "../lib/scraping/html.js";
-import type { Source } from "../lib/scraping/types.js";
+import { loadSources, fetchOne } from "../lib/scraping/run.js";
 
 async function main() {
   const id = process.argv[2];
@@ -21,15 +16,6 @@ async function main() {
       console.log(`  - ${item.title}`);
       console.log(`    ${item.url}`);
     }
-  }
-}
-
-function fetchOne(source: Source) {
-  switch (source.type) {
-    case "rss":   return fetchRss(source);
-    case "hn":    return fetchHn(source);
-    case "arxiv": return fetchArxiv(source);
-    case "html":  return fetchHtml(source);
   }
 }
 

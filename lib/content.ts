@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import { byDateDesc } from "./helpers/date";
 
 export type Dispatch = {
   title: string;
@@ -59,7 +60,7 @@ function defaultContentDir(): string {
   return path.join(process.cwd(), "content", "articles");
 }
 
-async function readMdxFiles(dir: string): Promise<string[]> {
+export async function readMdxFiles(dir: string): Promise<string[]> {
   try {
     const all = await fs.readdir(dir);
     return all.filter((f) => f.endsWith(".mdx"));
@@ -68,27 +69,42 @@ async function readMdxFiles(dir: string): Promise<string[]> {
   }
 }
 
-export async function listArticles(
-  dir: string = defaultContentDir(),
-): Promise<ArticleSummary[]> {
+// Read just the frontmatter of every MDX file in a directory.
+async function readArticleFrontmatter(
+  dir: string,
+): Promise<Array<Partial<ArticleFrontmatter>>> {
   const files = await readMdxFiles(dir);
-  const summaries: ArticleSummary[] = [];
+  const out: Array<Partial<ArticleFrontmatter>> = [];
   for (const file of files) {
     const raw = await fs.readFile(path.join(dir, file), "utf8");
     const { data } = matter(raw);
-    const fm = data as Partial<ArticleFrontmatter>;
-    if (!fm.slug || !fm.date || !fm.title) continue;
-    summaries.push({
-      slug: fm.slug,
-      date: fm.date,
-      title: fm.title,
-      dek: fm.dek,
-      tags: fm.tags,
-      signal_strength: fm.signal_strength,
-      type: fm.type ?? "daily",
-    });
+    out.push(data as Partial<ArticleFrontmatter>);
   }
-  summaries.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return out;
+}
+
+// Project frontmatter to a list summary, or null if required fields are missing.
+function toSummary(fm: Partial<ArticleFrontmatter>): ArticleSummary | null {
+  if (!fm.slug || !fm.date || !fm.title) return null;
+  return {
+    slug: fm.slug,
+    date: fm.date,
+    title: fm.title,
+    dek: fm.dek,
+    tags: fm.tags,
+    signal_strength: fm.signal_strength,
+    type: fm.type ?? "daily",
+  };
+}
+
+export async function listArticles(
+  dir: string = defaultContentDir(),
+): Promise<ArticleSummary[]> {
+  const fms = await readArticleFrontmatter(dir);
+  const summaries = fms
+    .map(toSummary)
+    .filter((s): s is ArticleSummary => s !== null);
+  summaries.sort(byDateDesc);
   return summaries;
 }
 
@@ -168,16 +184,13 @@ export type SourceCitationStats = {
 export async function sourceCitationStats(
   dir: string = defaultContentDir(),
 ): Promise<Map<string, SourceCitationStats>> {
-  const files = await readMdxFiles(dir);
+  const fms = await readArticleFrontmatter(dir);
   const stats = new Map<string, SourceCitationStats>();
-  for (const file of files) {
-    const raw = await fs.readFile(path.join(dir, file), "utf8");
-    const { data } = matter(raw);
-    const fm = data as Partial<ArticleFrontmatter>;
+  for (const fm of fms) {
     if (!fm.date) continue;
     const seenInIssue = new Set<string>();
     for (const s of fm.sources ?? []) {
-      const sourceId = (s as { id?: string }).id;
+      const sourceId = s.id;
       if (!sourceId || seenInIssue.has(sourceId)) continue;
       seenInIssue.add(sourceId);
       const existing = stats.get(sourceId) ?? {
@@ -199,29 +212,16 @@ export async function listArticlesBySource(
   sourceId: string,
   dir: string = defaultContentDir(),
 ): Promise<ArticleSummary[]> {
-  const files = await readMdxFiles(dir);
+  const fms = await readArticleFrontmatter(dir);
   const summaries: ArticleSummary[] = [];
-  for (const file of files) {
-    const raw = await fs.readFile(path.join(dir, file), "utf8");
-    const { data } = matter(raw);
-    const fm = data as Partial<ArticleFrontmatter>;
-    if (!fm.slug || !fm.date || !fm.title) continue;
-    const cited = (fm.sources ?? []).some(
-      (s) => (s as { id?: string }).id === sourceId,
-    );
-    if (cited) {
-      summaries.push({
-        slug: fm.slug,
-        date: fm.date,
-        title: fm.title,
-        dek: fm.dek,
-        tags: fm.tags,
-        signal_strength: fm.signal_strength,
-        type: fm.type ?? "daily",
-      });
+  for (const fm of fms) {
+    const summary = toSummary(fm);
+    if (!summary) continue;
+    if ((fm.sources ?? []).some((s) => s.id === sourceId)) {
+      summaries.push(summary);
     }
   }
-  summaries.sort((a, b) => (a.date < b.date ? 1 : -1));
+  summaries.sort(byDateDesc);
   return summaries;
 }
 

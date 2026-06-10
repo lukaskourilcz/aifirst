@@ -1,9 +1,7 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import YAML from "yaml";
 import { getAnthropic, MODELS } from "../anthropic/client.js";
 import { STYLE_GUIDE } from "../anthropic/style-guide.js";
 import { listArticles, getArticle, type ArticleSummary } from "../content.js";
+import { writeMdxFile } from "../content-write.js";
 
 export type WeeklyDigest = {
   title: string;
@@ -73,13 +71,6 @@ export async function coverageFor(
       const d = new Date(a.date);
       return d >= start && d <= end;
     });
-}
-
-function quoteDate(yaml: string): string {
-  return yaml.replace(
-    /^(\s*)(date|from|to): (\d{4}-\d{2}-\d{2})$/gm,
-    '$1$2: "$3"',
-  );
 }
 
 export async function generateWeekly(date: string): Promise<string> {
@@ -162,11 +153,5 @@ export async function generateWeekly(date: string): Promise<string> {
       covered_slugs: covered.map((c) => c.slug),
     },
   };
-  const yaml = quoteDate(YAML.stringify(frontmatter).trimEnd());
-  const mdx = `---\n${yaml}\n---\n\n${out.body_mdx.trim()}\n`;
-  const dir = path.join(process.cwd(), "content", "articles");
-  await fs.mkdir(dir, { recursive: true });
-  const file = path.join(dir, `${date}-weekly.mdx`);
-  await fs.writeFile(file, mdx);
-  return file;
+  return writeMdxFile(`${date}-weekly.mdx`, frontmatter, out.body_mdx);
 }

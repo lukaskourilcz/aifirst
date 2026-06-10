@@ -1,13 +1,7 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import YAML from "yaml";
 import type { WrittenArticle } from "./write.js";
 import { computeSignalStrength } from "./signal.js";
 import { loadSources } from "../scraping/sources.js";
-
-function quoteDateScalar(yaml: string): string {
-  return yaml.replace(/^date: (\d{4}-\d{2}-\d{2})$/m, 'date: "$1"');
-}
+import { writeMdxFile } from "../content-write.js";
 
 export type PersistInput = {
   article: WrittenArticle;
@@ -40,11 +34,5 @@ export async function persist({
     dispatches: article.dispatches,
     wire: article.wire,
   };
-  const yaml = quoteDateScalar(YAML.stringify(frontmatter).trimEnd());
-  const mdx = `---\n${yaml}\n---\n\n${article.bodyMdx.trim()}\n`;
-  const dir = path.join(process.cwd(), "content", "articles");
-  await fs.mkdir(dir, { recursive: true });
-  const file = path.join(dir, `${article.date}.mdx`);
-  await fs.writeFile(file, mdx);
-  return file;
+  return writeMdxFile(`${article.date}.mdx`, frontmatter, article.bodyMdx);
 }

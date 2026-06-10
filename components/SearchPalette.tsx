@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { SearchEntry } from "@/lib/content";
+import { isEditableTarget } from "@/lib/helpers/dom";
 
 type Props = { index: SearchEntry[] };
 
@@ -23,12 +24,7 @@ export function SearchPalette({ index }: Props) {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      const target = e.target as HTMLElement | null;
-      const inField =
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.isContentEditable);
+      const inField = isEditableTarget(e.target);
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen((v) => !v);

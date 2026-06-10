@@ -1,21 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isEditableTarget } from "@/lib/helpers/dom";
 
 type Shortcut = {
   keys: string[];
   label: string;
 };
 
+// The `g`-prefixed navigation chords. This list drives both the handler
+// and the help overlay, so the two can't drift apart.
+const NAV_CHORDS: Array<{ key: string; path: string; label: string }> = [
+  { key: "h", path: "/", label: "go home" },
+  { key: "a", path: "/archive", label: "go to archive" },
+  { key: "t", path: "/tags", label: "go to tags" },
+  { key: "s", path: "/sources", label: "go to sources" },
+  { key: "r", path: "/trends", label: "go to trends" },
+  { key: "g", path: "/glossary", label: "go to glossary" },
+];
+
 const SHORTCUTS: Shortcut[] = [
   { keys: ["⌘", "K"], label: "open search palette" },
   { keys: ["/"], label: "open search palette (no modifier)" },
   { keys: ["?"], label: "toggle this help overlay" },
   { keys: ["Esc"], label: "close any overlay" },
-  { keys: ["G", "H"], label: "go home" },
-  { keys: ["G", "A"], label: "go to archive" },
-  { keys: ["G", "T"], label: "go to tags" },
-  { keys: ["G", "S"], label: "go to sources" },
+  ...NAV_CHORDS.map((c) => ({
+    keys: ["G", c.key.toUpperCase()],
+    label: c.label,
+  })),
 ];
 
 export function KeyboardHelp() {
@@ -32,13 +44,7 @@ export function KeyboardHelp() {
     }
 
     function onKey(e: KeyboardEvent) {
-      const target = e.target as HTMLElement | null;
-      const inField =
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.isContentEditable);
-      if (inField) return;
+      if (isEditableTarget(e.target)) return;
 
       if (e.key === "?" && !e.metaKey && !e.ctrlKey) {
         e.preventDefault();
@@ -53,13 +59,8 @@ export function KeyboardHelp() {
       // `g` chord navigation
       if (chord === "g") {
         clearChord();
-        const k = e.key.toLowerCase();
-        if (k === "h") location.assign("/");
-        else if (k === "a") location.assign("/archive");
-        else if (k === "t") location.assign("/tags");
-        else if (k === "s") location.assign("/sources");
-        else if (k === "r") location.assign("/trends");
-        else if (k === "g") location.assign("/glossary");
+        const match = NAV_CHORDS.find((c) => c.key === e.key.toLowerCase());
+        if (match) location.assign(match.path);
         return;
       }
       if (e.key.toLowerCase() === "g" && !e.metaKey && !e.ctrlKey && !e.altKey) {

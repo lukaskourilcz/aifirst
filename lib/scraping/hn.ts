@@ -1,6 +1,6 @@
 import { request } from "undici";
 import type { Source, ScrapedItem } from "./types.js";
-import { clampSummary, stableId, withTimeout } from "./util.js";
+import { makeItem } from "./util.js";
 
 const BASE = "https://hacker-news.firebaseio.com/v0";
 
@@ -20,7 +20,7 @@ async function getJson<T>(url: string): Promise<T> {
 
 export async function fetchHn(source: Source): Promise<ScrapedItem[]> {
   try {
-    const ids = await withTimeout(getJson<number[]>(`${BASE}/topstories.json`), 10_000);
+    const ids = await getJson<number[]>(`${BASE}/topstories.json`);
     const top = ids.slice(0, 30);
     const items = await Promise.all(
       top.map((id) => getJson<HnItem>(`${BASE}/item/${id}.json`).catch(() => null)),
@@ -29,15 +29,17 @@ export async function fetchHn(source: Source): Promise<ScrapedItem[]> {
     for (const item of items) {
       if (!item || item.type !== "story") continue;
       const url = item.url ?? `https://news.ycombinator.com/item?id=${item.id}`;
-      out.push({
-        id: stableId(url),
-        url,
-        title: (item.title ?? "").trim(),
-        summary: clampSummary(item.text),
-        publishedAt: new Date((item.time ?? 0) * 1000).toISOString(),
-        source: source.id,
-        tags: source.tags ?? [],
-      });
+      out.push(
+        makeItem(
+          url,
+          {
+            title: item.title,
+            summary: item.text,
+            publishedAt: new Date((item.time ?? 0) * 1000).toISOString(),
+          },
+          source,
+        ),
+      );
     }
     return out;
   } catch (err) {

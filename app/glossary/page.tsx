@@ -1,17 +1,12 @@
 import { loadGlossary, slugForTerm } from "@/lib/glossary";
+import { groupBy } from "@/lib/helpers/group";
 
 export const dynamic = "force-static";
 export const metadata = { title: "Glossary" };
 
 export default async function GlossaryPage() {
   const terms = await loadGlossary();
-  const grouped = new Map<string, typeof terms>();
-  for (const t of terms) {
-    const tag = (t.tags ?? [])[0] ?? "other";
-    const bucket = grouped.get(tag) ?? [];
-    bucket.push(t);
-    grouped.set(tag, bucket);
-  }
+  const grouped = groupBy(terms, (t) => (t.tags ?? [])[0] ?? "other");
   const groups = [...grouped.entries()].sort((a, b) =>
     a[0].localeCompare(b[0]),
   );

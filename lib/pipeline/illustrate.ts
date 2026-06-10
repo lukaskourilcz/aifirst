@@ -4,7 +4,6 @@ import { getImageProvider } from "../images/provider.js";
 
 export type IllustrationResult = {
   path: string; // public path
-  absPath: string; // filesystem path
 };
 
 export async function illustrate(
@@ -17,5 +16,5 @@ export async function illustrate(
   const absPath = path.join(process.cwd(), "public", "illustrations", filename);
   await fs.mkdir(path.dirname(absPath), { recursive: true });
   await fs.writeFile(absPath, bytes);
-  return { path: `/illustrations/${filename}`, absPath };
+  return { path: `/illustrations/${filename}` };
 }

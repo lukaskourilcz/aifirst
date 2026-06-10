@@ -4,13 +4,10 @@ import { curate } from "../lib/pipeline/curate.js";
 import { write } from "../lib/pipeline/write.js";
 import { illustrate } from "../lib/pipeline/illustrate.js";
 import { persist } from "../lib/pipeline/persist.js";
-
-function todayUtc(): string {
-  return new Date().toISOString().slice(0, 10);
-}
+import { todayIso } from "../lib/helpers/date.js";
 
 async function main() {
-  const date = process.argv[2] ?? todayUtc();
+  const date = process.argv[2] ?? todayIso();
   console.error(`[generate] date=${date}`);
 
   const sources = await loadSources();

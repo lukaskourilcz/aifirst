@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { listArticles } from "@/lib/content";
+import { groupBy } from "@/lib/helpers/group";
 
 export const dynamic = "force-static";
 
@@ -9,13 +10,7 @@ export const metadata = {
 
 export default async function ArchivePage() {
   const all = await listArticles();
-  const byYearMonth = new Map<string, typeof all>();
-  for (const a of all) {
-    const key = a.date.slice(0, 7);
-    const bucket = byYearMonth.get(key) ?? [];
-    bucket.push(a);
-    byYearMonth.set(key, bucket);
-  }
+  const byYearMonth = groupBy(all, (a) => a.date.slice(0, 7));
 
   return (
     <section className="container" style={{ padding: "48px 24px 96px" }}>

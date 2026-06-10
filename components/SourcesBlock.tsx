@@ -1,6 +1,6 @@
-type Source = { id: string; url: string; title: string };
+import type { SourceRef } from "@/lib/content";
 
-export function SourcesBlock({ sources }: { sources: Source[] }) {
+export function SourcesBlock({ sources }: { sources: SourceRef[] }) {
   if (!sources?.length) return null;
   return (
     <section
@@ -24,7 +24,7 @@ export function SourcesBlock({ sources }: { sources: Source[] }) {
           counterReset: "src",
         }}
       >
-        {sources.map((s) => (
+        {sources.map((s, i) => (
           <li
             key={s.id}
             style={{
@@ -44,7 +44,7 @@ export function SourcesBlock({ sources }: { sources: Source[] }) {
                 letterSpacing: "0.18em",
               }}
             >
-              [{String(sources.indexOf(s) + 1).padStart(2, "0")}]
+              [{String(i + 1).padStart(2, "0")}]
             </span>
             <a href={s.url} target="_blank" rel="noreferrer noopener">
               {s.title}

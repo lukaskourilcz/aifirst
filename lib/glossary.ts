@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import YAML from "yaml";
+import { slugify } from "./text";
 
 export type GlossaryTerm = {
   term: string;
@@ -45,9 +46,7 @@ export function lookupTerm(
   return null;
 }
 
+// Glossary anchor id for a term — the same slug rules as headings.
 export function slugForTerm(term: string): string {
-  return term
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+  return slugify(term);
 }

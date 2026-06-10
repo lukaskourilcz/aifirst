@@ -2,6 +2,7 @@ import { TrendsChart } from "@/components/TrendsChart";
 import { TagChip } from "@/components/TagChip";
 import { listArticles } from "@/lib/content";
 import { buildTrends } from "@/lib/trends";
+import { plural } from "@/lib/helpers/format";
 
 export const dynamic = "force-static";
 export const metadata = { title: "Trends" };
@@ -22,7 +23,7 @@ export default async function TrendsPage() {
         }}
       >
         The top {matrix.tags.length} tags from the past {matrix.months.length}{" "}
-        month{matrix.months.length === 1 ? "" : "s"}, stacked. Heights show
+        {plural(matrix.months.length, "month")}, stacked. Heights show
         how many issues touched each tag. Hover a segment for the exact
         count.
       </p>
