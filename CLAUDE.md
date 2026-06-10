@@ -48,13 +48,66 @@ space. Performance-first: no heavy WebGL unless behind a reduced-motion check.
 
 ## Conventions
 
-- TypeScript strict, no `any`.
+- TypeScript strict, no `any`. `noUncheckedIndexedAccess` is on — index
+  access and `.split()`/destructuring yield `T | undefined`; narrow or cast
+  at the boundary (see `parseSize` in `lib/images/provider.ts`).
 - Server components by default; only opt into `'use client'` for interactive
   pieces.
 - Content is immutable once committed — regenerating a day overwrites the same
   filename and is reviewed via PR.
 - Never commit API keys. Use `.env.local` and document required vars in
   `.env.example`.
+
+## Foundation & shared helpers
+
+Before writing a transformation inline, check whether one of these already
+covers it. New cross-cutting logic belongs in `lib/helpers/` or a focused
+`lib/*` module, not copy-pasted into a route or component.
+
+- **`lib/helpers/`** — small, pure, single-purpose utilities:
+  - `group.ts` `groupBy(items, keyFn)` — bucket into a `Map`; use instead of
+    the hand-rolled `map.get(k) ?? []; push` idiom (archive/glossary/stats).
+  - `date.ts` `toIsoDate(d?)`, `todayIso()`, `byDateDesc` — date formatting and
+    the newest-first comparator used by content listings and the scripts.
+  - `format.ts` `plural(n, word)` — pluralisation in copy.
+  - `dom.ts` `isEditableTarget(target)` — "is the event inside a text field"
+    guard shared by all global keyboard handlers.
+  - `signal.ts` `signalBars(value)` + `SIGNAL_BARS` — the clamp/fill maths for
+    the signal-strength segment bar (component **and** OG image).
+- **`lib/content.ts`** is the single source of truth for the frontmatter
+  contract and the `ArticleSummary` projection (`toSummary`). Read MDX through
+  `readMdxFiles` / the internal frontmatter iterator — don't re-`readdir`.
+- **`lib/content-write.ts`** `serializeMdx` / `writeMdxFile` / `quoteYamlDates`
+  — the one way to render frontmatter + body to an MDX file (daily, weekly,
+  seed). gray-matter coerces unquoted ISO dates to `Date`, so dates stay
+  quoted; never re-implement this regex.
+- **`lib/feed.ts`** `atomDocument` / `atomEntry` / `escapeXml` / `feedUpdated`
+  / `PUBLISH_TIME` — all Atom feeds (site + per-tag) build through these.
+- **`lib/anthropic/models.ts`** `MODELS` — the only place model ids live.
+  Import it (not a string literal) anywhere a model id is shown or sent;
+  `client.ts` re-exports it for the pipeline. Keep it SDK-free so UI/display
+  code can import it without pulling in `@anthropic-ai/sdk`.
+- **`lib/og-theme.ts`** `OG` — palette/background/font for the OpenGraph
+  images (mirrors the CSS custom properties, which `next/og` can't read).
+- **Scrapers** build items via `makeItem(url, fields, source)` in
+  `lib/scraping/util.ts`; RSS-shaped adapters project through
+  `projectRssItem` / `projectFeedItems` (`rss.ts`). Source dispatch is the
+  exported `fetchOne` in `run.ts` — the dry-run script reuses it.
+- **`lib/config.ts`** `resolveRepo()` (nullable) / `githubRepo()` (with
+  fallback) — the canonical owner/repo resolution; don't read the repo env
+  vars directly.
+
+### Import specifiers (build gotcha)
+
+- Relative **value** imports in lib modules that are reached from `app/`
+  (server components, routes) must be **extensionless** (`./text`,
+  `./helpers/date`) — Next's webpack will not resolve a `.js` specifier to a
+  `.ts` source for a runtime import, and the build fails.
+- `import type` is erased before bundling, so type-only relative imports may
+  keep the repo's `.js` suffix.
+- Script-only and pipeline modules (run via `tsx`/vitest) tolerate `.js`
+  specifiers; the existing `.js`-suffixed imports there are fine. When in
+  doubt, prefer extensionless relative or the `@/` alias for UI code.
 
 ## Common tasks
 

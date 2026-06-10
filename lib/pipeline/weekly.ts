@@ -1,25 +1,15 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import YAML from "yaml";
 import { getAnthropic, MODELS } from "../anthropic/client.js";
 import { STYLE_GUIDE } from "../anthropic/style-guide.js";
 import { listArticles, getArticle, type ArticleSummary } from "../content.js";
-
-export type WeeklyDigest = {
-  title: string;
-  slug: string;
-  dek: string;
-  tags: string[];
-  bodyMdx: string;
-  illustrationPrompt: string;
-  illustrationAlt: string;
-};
+import { writeMdxFile } from "../content-write.js";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "../i18n/config.js";
 
 const WEEKLY_SYSTEM = `${STYLE_GUIDE}
 
-You are writing the Sunday weekly digest for aifirst. Inputs are the
-last seven daily briefs (title, date, dek, slug). Produce a single
-600-900 word digest with three sections:
+You are writing the Sunday weekly digest for aifirst, in BOTH Czech and
+English. Inputs are the last seven daily briefs (title, date, dek, slug).
+Produce, for each language, a single 600-900 word digest with three
+sections:
 
 1. The throughline of the week (one paragraph).
 2. Three to five "threads" — each a short paragraph anchored by a
@@ -27,33 +17,35 @@ last seven daily briefs (title, date, dek, slug). Produce a single
    slugs given to you.
 3. One short "Looking ahead" paragraph.
 
-Output via the emit_digest tool. Do not invent topics that weren't
-covered in the daily issues. Do not list sources — the digest
+Write idiomatic, native Czech (cs) and idiomatic English (en) — not a
+translation. Output via the emit_digest tool. Do not invent topics that
+weren't covered in the daily issues. Do not list sources — the digest
 references daily issues, not external URLs.`;
+
+const localeObjectSchema = {
+  type: "object",
+  properties: {
+    title: { type: "string" },
+    dek: { type: "string" },
+    body_mdx: { type: "string" },
+    illustration_alt: { type: "string" },
+  },
+  required: ["title", "dek", "body_mdx", "illustration_alt"],
+} as const;
 
 const TOOL = {
   name: "emit_digest",
-  description: "Emit the Sunday weekly digest.",
+  description: "Emit the Sunday weekly digest in Czech and English.",
   input_schema: {
     type: "object",
     properties: {
-      title: { type: "string" },
       slug: { type: "string" },
-      dek: { type: "string" },
       tags: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 5 },
-      body_mdx: { type: "string" },
       illustration_prompt: { type: "string" },
-      illustration_alt: { type: "string" },
+      cs: localeObjectSchema,
+      en: localeObjectSchema,
     },
-    required: [
-      "title",
-      "slug",
-      "dek",
-      "body_mdx",
-      "illustration_prompt",
-      "illustration_alt",
-      "tags",
-    ],
+    required: ["slug", "tags", "illustration_prompt", "cs", "en"],
   },
 } as const;
 
@@ -61,7 +53,7 @@ export async function coverageFor(
   endDate: string,
   contentDir?: string,
 ): Promise<ArticleSummary[]> {
-  const all = await listArticles(contentDir);
+  const all = await listArticles(DEFAULT_LOCALE, contentDir);
   // Window covers the seven calendar days preceding (and including)
   // the Sunday end date — i.e. the prior Sunday through this Sunday.
   const end = new Date(endDate);
@@ -75,14 +67,14 @@ export async function coverageFor(
     });
 }
 
-function quoteDate(yaml: string): string {
-  return yaml.replace(
-    /^(\s*)(date|from|to): (\d{4}-\d{2}-\d{2})$/gm,
-    '$1$2: "$3"',
-  );
-}
+type LocaleOut = {
+  title: string;
+  dek: string;
+  body_mdx: string;
+  illustration_alt: string;
+};
 
-export async function generateWeekly(date: string): Promise<string> {
+export async function generateWeekly(date: string): Promise<string[]> {
   const covered = await coverageFor(date);
   if (covered.length < 4) {
     throw new Error(
@@ -112,7 +104,7 @@ export async function generateWeekly(date: string): Promise<string> {
   const client = getAnthropic();
   const response = await client.messages.create({
     model: MODELS.opus,
-    max_tokens: 3500,
+    max_tokens: 6000,
     system: [
       { type: "text", text: WEEKLY_SYSTEM, cache_control: { type: "ephemeral" } },
     ],
@@ -126,13 +118,11 @@ export async function generateWeekly(date: string): Promise<string> {
     throw new Error("weekly: model did not call emit_digest");
   }
   const out = toolUse.input as {
-    title: string;
     slug: string;
-    dek: string;
     tags: string[];
-    body_mdx: string;
     illustration_prompt: string;
-    illustration_alt: string;
+    cs: LocaleOut;
+    en: LocaleOut;
   };
 
   const fromDate = covered[covered.length - 1]?.date ?? date;
@@ -140,33 +130,35 @@ export async function generateWeekly(date: string): Promise<string> {
   const meanSignal =
     signalCount > 0 ? Math.round(totalSignal / signalCount) : 0;
 
-  const frontmatter = {
-    title: out.title,
-    slug: out.slug,
-    date,
-    type: "weekly" as const,
-    dek: out.dek,
-    tags: ["weekly", ...out.tags.filter((t) => t !== "weekly")].slice(0, 5),
-    sources: [],
-    illustration: {
-      path: `/illustrations/${date}-weekly.webp`,
-      prompt: out.illustration_prompt,
-      alt: out.illustration_alt,
-    },
-    signal_strength: meanSignal,
-    dispatches: [],
-    wire: [],
-    digest: {
-      from: fromDate,
-      to: toDate,
-      covered_slugs: covered.map((c) => c.slug),
-    },
-  };
-  const yaml = quoteDate(YAML.stringify(frontmatter).trimEnd());
-  const mdx = `---\n${yaml}\n---\n\n${out.body_mdx.trim()}\n`;
-  const dir = path.join(process.cwd(), "content", "articles");
-  await fs.mkdir(dir, { recursive: true });
-  const file = path.join(dir, `${date}-weekly.mdx`);
-  await fs.writeFile(file, mdx);
-  return file;
+  const files: string[] = [];
+  for (const locale of LOCALES) {
+    const loc = out[locale];
+    const frontmatter = {
+      title: loc.title,
+      slug: out.slug,
+      date,
+      lang: locale,
+      type: "weekly" as const,
+      dek: loc.dek,
+      tags: ["weekly", ...out.tags.filter((t) => t !== "weekly")].slice(0, 5),
+      sources: [],
+      illustration: {
+        path: `/illustrations/${date}-weekly.webp`,
+        prompt: out.illustration_prompt,
+        alt: loc.illustration_alt,
+      },
+      signal_strength: meanSignal,
+      dispatches: [],
+      wire: [],
+      digest: {
+        from: fromDate,
+        to: toDate,
+        covered_slugs: covered.map((c) => c.slug),
+      },
+    };
+    files.push(
+      await writeMdxFile(`${date}-weekly.${locale}.mdx`, frontmatter, loc.body_mdx),
+    );
+  }
+  return files;
 }

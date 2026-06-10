@@ -1,7 +1,10 @@
 import type { Dispatch } from "@/lib/content";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-export function Dispatches({ items }: { items: Dispatch[] }) {
+export function Dispatches({ items, locale }: { items: Dispatch[]; locale: Locale }) {
   if (!items?.length) return null;
+  const t = dict(locale).article;
   return (
     <section
       aria-label="Dispatches"
@@ -13,10 +16,10 @@ export function Dispatches({ items }: { items: Dispatch[] }) {
     >
       <header style={{ marginBottom: 24 }}>
         <p className="label label--accent" style={{ margin: 0 }}>
-          dispatches
+          {t.dispatchesLabel}
         </p>
         <h2 style={{ margin: "6px 0 0", color: "var(--ink-primary)" }}>
-          Notes from elsewhere on the field.
+          {t.dispatchesHeading}
         </h2>
       </header>
       <ul
@@ -68,7 +71,7 @@ export function Dispatches({ items }: { items: Dispatch[] }) {
               className="label"
               style={{ color: "var(--accent-cyan)", marginBottom: 8 }}
             >
-              dispatch · 0{i + 1}
+              {t.dispatchesLabel} · 0{i + 1}
             </p>
             <h3
               style={{
@@ -99,7 +102,7 @@ export function Dispatches({ items }: { items: Dispatch[] }) {
                   className="label"
                   style={{ color: "var(--accent-cyan)" }}
                 >
-                  source ↗
+                  {t.dispatchSource} ↗
                 </a>
               </p>
             )}

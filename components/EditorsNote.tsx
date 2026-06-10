@@ -1,4 +1,7 @@
-export function EditorsNote({ note }: { note?: string }) {
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
+
+export function EditorsNote({ note, locale }: { note?: string; locale: Locale }) {
   if (!note) return null;
   return (
     <aside
@@ -17,7 +20,7 @@ export function EditorsNote({ note }: { note?: string }) {
         className="label"
         style={{ color: "var(--accent-amber)", marginBottom: 8 }}
       >
-        editor&rsquo;s note
+        {dict(locale).article.editorsNote}
       </p>
       <p
         style={{

@@ -1,9 +1,9 @@
+import { signalBars } from "@/lib/helpers/signal";
+
 type Props = { value: number; label?: string };
 
 export function SignalStrength({ value, label = "signal" }: Props) {
-  const clamped = Math.max(0, Math.min(100, value));
-  const bars = 12;
-  const filled = Math.round((clamped / 100) * bars);
+  const { clamped, filled, bars } = signalBars(value);
   return (
     <div
       style={{

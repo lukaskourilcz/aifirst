@@ -25,13 +25,20 @@ export function siteUrl(): string {
   return FALLBACK_SITE;
 }
 
-export function githubRepo(): string {
+// Resolve the configured owner/repo from env, or null if none is set.
+// Callers that need a guaranteed value use githubRepo(); the health page
+// uses this to distinguish "no repo configured" from a real repo.
+export function resolveRepo(): string | null {
   return (
     process.env.NEXT_PUBLIC_GITHUB_REPO?.trim() ||
     process.env.AIFIRST_REPO?.trim() ||
     process.env.GITHUB_REPOSITORY?.trim() ||
-    FALLBACK_REPO
+    null
   );
+}
+
+export function githubRepo(): string {
+  return resolveRepo() ?? FALLBACK_REPO;
 }
 
 function stripTrailingSlash(s: string): string {

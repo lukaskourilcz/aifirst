@@ -1,7 +1,11 @@
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
+
 type Props = {
   src: string;
   alt: string;
   priority?: boolean;
+  locale: Locale;
 };
 
 const corner: React.CSSProperties = {
@@ -13,7 +17,7 @@ const corner: React.CSSProperties = {
   pointerEvents: "none",
 };
 
-export function CoverFrame({ src, alt, priority }: Props) {
+export function CoverFrame({ src, alt, priority, locale }: Props) {
   return (
     <figure
       style={{
@@ -71,7 +75,7 @@ export function CoverFrame({ src, alt, priority }: Props) {
           zIndex: 2,
         }}
       >
-        cover · ai-generated
+        {dict(locale).article.coverCaption}
       </figcaption>
     </figure>
   );

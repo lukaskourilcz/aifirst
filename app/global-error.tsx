@@ -16,7 +16,7 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <html lang="en">
+    <html lang="cs">
       <body
         style={{
           margin: 0,
@@ -42,13 +42,13 @@ export default function GlobalError({
               marginBottom: 16,
             }}
           >
-            critical failure
+            kritická chyba
           </p>
           <h1 style={{ fontSize: 64, margin: "0 0 16px", color: "#ff4fd8" }}>
             500
           </h1>
           <p style={{ color: "#8a93b8", marginBottom: 24 }}>
-            The magazine failed to load. Reload the page or come back later.
+            Magazín se nepodařilo načíst. Obnovte stránku nebo se vraťte později.
           </p>
           {error.digest && (
             <p
@@ -78,7 +78,7 @@ export default function GlobalError({
               textTransform: "uppercase",
             }}
           >
-            retry
+            zkusit znovu
           </button>
         </div>
       </body>

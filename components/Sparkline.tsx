@@ -24,6 +24,7 @@ export function Sparkline({ data, width = 320, height = 60, label }: Props) {
         height={height}
         role="img"
         aria-label={label ?? "sparkline"}
+        style={{ width: "100%", height: "auto", maxWidth: width, display: "block" }}
       >
         <defs>
           <linearGradient id="spark-grad" x1="0" y1="0" x2="1" y2="0">

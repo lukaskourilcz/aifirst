@@ -1,6 +1,7 @@
 import { request } from "undici";
 import sharp from "sharp";
 import type { ImageProvider, ImageSize } from "./provider.js";
+import { parseSize } from "./provider.js";
 import { STYLE_SUFFIX } from "./style.js";
 
 // Minimal fal.ai (FLUX) provider. Replace the model id / endpoint to taste.
@@ -17,7 +18,7 @@ const provider: ImageProvider = {
     const key = process.env.FAL_KEY;
     if (!key) throw new Error("FAL_KEY is not set");
 
-    const [w, h] = opts.size.split("x").map((n) => parseInt(n, 10)) as [number, number];
+    const [w, h] = parseSize(opts.size);
 
     const submitRes = await request(`https://fal.run/${MODEL_PATH}`, {
       method: "POST",

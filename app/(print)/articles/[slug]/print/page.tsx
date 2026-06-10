@@ -2,24 +2,30 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Mdx } from "@/components/Mdx";
-import { getArticle, listArticles } from "@/lib/content";
-import { loadGlossary, lookupTerm } from "@/lib/glossary";
+import { getArticle } from "@/lib/content";
+import { loadGlossary, lookupTerm, glossaryDefinition } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
+import { DEFAULT_LOCALE, isLocale, localePath, type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-export const dynamic = "force-static";
+// Rendered on demand (low-traffic, opened in a new tab) so it can read the
+// ?lang= the article page links with.
+export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-  const all = await listArticles();
-  return all.map((a) => ({ slug: a.slug }));
+function resolveLocale(lang?: string): Locale {
+  return lang && isLocale(lang) ? lang : DEFAULT_LOCALE;
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ lang?: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = await getArticle(slug);
+  const locale = resolveLocale((await searchParams).lang);
+  const article = await getArticle(slug, locale);
   if (!article) return {};
   return {
     title: `${article.frontmatter.title} (print)`,
@@ -30,30 +36,35 @@ export async function generateMetadata({
 
 export default async function PrintArticlePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ lang?: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticle(slug);
+  const locale = resolveLocale((await searchParams).lang);
+  const article = await getArticle(slug, locale);
   if (!article) notFound();
 
+  const t = dict(locale).article;
+  const common = dict(locale).common;
   const glossary = await loadGlossary();
   const issueGlossary = (article.frontmatter.glossary_terms ?? [])
     .map((n) => lookupTerm(n, glossary))
-    .filter((t): t is NonNullable<typeof t> => Boolean(t));
+    .filter((g): g is NonNullable<typeof g> => Boolean(g));
 
   return (
     <article className="print-layout">
       <header className="print-masthead">
         <div className="print-masthead-row">
           <span>aifirst.</span>
-          <span>issue {article.frontmatter.date}</span>
+          <span>{common.issue} {article.frontmatter.date}</span>
         </div>
         <div className="print-masthead-row">
           <span>
             {article.frontmatter.tags?.slice(0, 4).join(" · ")}
           </span>
-          <span>{readingMinutes(article.mdx)} min read</span>
+          <span>{readingMinutes(article.mdx)} {common.minutesShort}</span>
         </div>
       </header>
 
@@ -72,7 +83,7 @@ export default async function PrintArticlePage({
 
       {article.frontmatter.editors_note && (
         <aside className="print-note">
-          <strong>Editor&rsquo;s note.</strong>{" "}
+          <strong>{t.editorsNote}.</strong>{" "}
           {article.frontmatter.editors_note}
         </aside>
       )}
@@ -83,12 +94,12 @@ export default async function PrintArticlePage({
 
       {issueGlossary.length > 0 && (
         <section className="print-glossary">
-          <h2>Glossary</h2>
+          <h2>{t.glossaryHeading}</h2>
           <dl>
-            {issueGlossary.map((t) => (
-              <div key={t.term} className="print-glossary-row">
-                <dt>{t.term}</dt>
-                <dd>{t.definition}</dd>
+            {issueGlossary.map((g) => (
+              <div key={g.term} className="print-glossary-row">
+                <dt>{g.term}</dt>
+                <dd>{glossaryDefinition(g, locale)}</dd>
               </div>
             ))}
           </dl>
@@ -97,7 +108,7 @@ export default async function PrintArticlePage({
 
       {article.frontmatter.sources && article.frontmatter.sources.length > 0 && (
         <section className="print-sources">
-          <h2>Sources</h2>
+          <h2>{t.sources}</h2>
           <ol>
             {article.frontmatter.sources.map((s) => (
               <li key={s.id}>
@@ -111,11 +122,13 @@ export default async function PrintArticlePage({
 
       <footer className="print-footer">
         <p>
-          aifirst &middot; an AI-written daily magazine &middot;{" "}
-          /articles/{article.slug}
+          aifirst &middot; {t.printTagline} &middot;{" "}
+          {localePath(locale, `/articles/${article.slug}`)}
         </p>
         <p className="screen-only">
-          <Link href={`/articles/${article.slug}`}>← back to screen view</Link>
+          <Link href={localePath(locale, `/articles/${article.slug}`)}>
+            ← {t.backToScreen}
+          </Link>
         </p>
       </footer>
     </article>

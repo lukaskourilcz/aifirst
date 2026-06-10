@@ -5,6 +5,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import { readMdxFiles } from "../lib/content.js";
 
 type Issue = { file: string; problem: string };
 
@@ -32,11 +33,9 @@ function expectArray(
 
 async function main() {
   const dir = path.join(process.cwd(), "content", "articles");
-  let files: string[] = [];
-  try {
-    files = (await fs.readdir(dir)).filter((f) => f.endsWith(".mdx"));
-  } catch {
-    console.log("[check] content/articles missing — nothing to validate");
+  const files = await readMdxFiles(dir);
+  if (files.length === 0) {
+    console.log("[check] no MDX files under content/articles — nothing to validate");
     return;
   }
 

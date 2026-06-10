@@ -1,5 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 
+export { MODELS } from "./models.js";
+
 let client: Anthropic | null = null;
 
 export function getAnthropic(): Anthropic {
@@ -10,9 +12,3 @@ export function getAnthropic(): Anthropic {
   }
   return client;
 }
-
-export const MODELS = {
-  opus: "claude-opus-4-7",
-  sonnet: "claude-sonnet-4-6",
-  haiku: "claude-haiku-4-5-20251001",
-} as const;

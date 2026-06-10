@@ -1,3 +1,5 @@
+import { resolveRepo } from "./config";
+
 // Build-time fetcher for GitHub Actions workflow runs. The result is
 // rendered on /health. If the API is unreachable or unauthenticated and
 // rate-limited, the page renders an offline state — we never throw.
@@ -52,14 +54,6 @@ const WORKFLOWS: Array<{ file: string; label: string }> = [
   { file: "weekly.yml", label: "weekly" },
   { file: "regenerate.yml", label: "regenerate" },
 ];
-
-function repoFromEnv(): string | null {
-  return (
-    process.env.AIFIRST_REPO ??
-    process.env.GITHUB_REPOSITORY ??
-    null
-  );
-}
 
 function projectRun(raw: {
   id: number;
@@ -149,7 +143,7 @@ async function fetchWorkflowRuns(
 }
 
 export async function getHealthReport(): Promise<HealthReport> {
-  const repo = repoFromEnv();
+  const repo = resolveRepo();
   const generatedAt = new Date().toISOString();
   if (!repo) {
     return {

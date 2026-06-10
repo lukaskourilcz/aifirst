@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 type Props = {
   from: string;
   to: string;
   coveredSlugs: string[];
   titlesBySlug?: Map<string, string>;
+  locale: Locale;
 };
 
 export function WeeklyBadge({
@@ -12,7 +15,9 @@ export function WeeklyBadge({
   to,
   coveredSlugs,
   titlesBySlug,
+  locale,
 }: Props) {
+  const t = dict(locale).weekly;
   return (
     <aside
       style={{
@@ -28,14 +33,13 @@ export function WeeklyBadge({
         className="label"
         style={{ color: "var(--accent-magenta)", marginBottom: 8 }}
       >
-        weekly digest · {from} → {to}
+        {t.digest} · {from} → {to}
       </p>
       <p
         className="label"
         style={{ color: "var(--ink-muted)", marginBottom: 12 }}
       >
-        covering {coveredSlugs.length} daily issue
-        {coveredSlugs.length === 1 ? "" : "s"}
+        {t.covering} {coveredSlugs.length} {t.dailyIssue}
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {coveredSlugs.map((slug) => (
@@ -47,7 +51,7 @@ export function WeeklyBadge({
             }}
           >
             <Link
-              href={`/articles/${slug}`}
+              href={localePath(locale, `/articles/${slug}`)}
               style={{
                 color: "var(--ink-primary)",
                 borderBottom: "1px dashed var(--hairline)",

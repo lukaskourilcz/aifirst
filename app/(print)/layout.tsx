@@ -4,7 +4,7 @@ import "./print.css";
 
 export default function PrintLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="cs">
       <body className="print-body">{children}</body>
     </html>
   );

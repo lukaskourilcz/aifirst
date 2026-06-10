@@ -3,8 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { SearchEntry } from "@/lib/content";
+import { isEditableTarget } from "@/lib/helpers/dom";
+import { type Locale, localePath } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-type Props = { index: SearchEntry[] };
+type Props = { index: SearchEntry[]; locale: Locale };
 
 function score(entry: SearchEntry, q: string): number {
   if (!q) return 0;
@@ -17,18 +20,14 @@ function score(entry: SearchEntry, q: string): number {
   return s;
 }
 
-export function SearchPalette({ index }: Props) {
+export function SearchPalette({ index, locale }: Props) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
+  const t = dict(locale).search;
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      const target = e.target as HTMLElement | null;
-      const inField =
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.isContentEditable);
+      const inField = isEditableTarget(e.target);
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen((v) => !v);
@@ -69,7 +68,7 @@ export function SearchPalette({ index }: Props) {
           fontFamily: "var(--font-display)",
         }}
       >
-        search · <span style={{ color: "var(--accent-cyan)" }}>⌘K</span>
+        {t.open} · <span style={{ color: "var(--accent-cyan)" }}>⌘K</span>
       </button>
 
       {open && (
@@ -118,7 +117,7 @@ export function SearchPalette({ index }: Props) {
                 autoFocus
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="title, dek, tag, slug…"
+                placeholder={t.placeholder}
                 style={{
                   flex: 1,
                   background: "transparent",
@@ -145,7 +144,7 @@ export function SearchPalette({ index }: Props) {
                   className="label"
                   style={{ padding: 16, color: "var(--ink-dim)" }}
                 >
-                  no transmissions match.
+                  {t.noMatch}
                 </li>
               )}
               {results.map((r) => (
@@ -154,7 +153,7 @@ export function SearchPalette({ index }: Props) {
                   style={{ borderBottom: "1px solid var(--hairline)" }}
                 >
                   <Link
-                    href={`/articles/${r.slug}`}
+                    href={localePath(locale, `/articles/${r.slug}`)}
                     onClick={() => setOpen(false)}
                     style={{
                       display: "block",

@@ -1,6 +1,14 @@
-type Source = { id: string; url: string; title: string };
+import type { SourceRef } from "@/lib/content";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
-export function SourcesBlock({ sources }: { sources: Source[] }) {
+export function SourcesBlock({
+  sources,
+  locale,
+}: {
+  sources: SourceRef[];
+  locale: Locale;
+}) {
   if (!sources?.length) return null;
   return (
     <section
@@ -12,7 +20,7 @@ export function SourcesBlock({ sources }: { sources: Source[] }) {
       }}
     >
       <p className="label" style={{ marginBottom: 16 }}>
-        Sources
+        {dict(locale).article.sources}
       </p>
       <ol
         style={{
@@ -24,7 +32,7 @@ export function SourcesBlock({ sources }: { sources: Source[] }) {
           counterReset: "src",
         }}
       >
-        {sources.map((s) => (
+        {sources.map((s, i) => (
           <li
             key={s.id}
             style={{
@@ -44,7 +52,7 @@ export function SourcesBlock({ sources }: { sources: Source[] }) {
                 letterSpacing: "0.18em",
               }}
             >
-              [{String(sources.indexOf(s) + 1).padStart(2, "0")}]
+              [{String(i + 1).padStart(2, "0")}]
             </span>
             <a href={s.url} target="_blank" rel="noreferrer noopener">
               {s.title}

@@ -16,6 +16,11 @@ terms:
       A protocol for letting language models call external tools through a
       standard interface, originally introduced by Anthropic in 2024 and
       since adopted across most major coding-agent platforms.
+    definition_cs: >-
+      Protokol, který jazykovým modelům umožňuje volat externí nástroje
+      přes standardní rozhraní. Původně jej v roce 2024 představil
+      Anthropic a od té doby jej přijala většina hlavních platforem pro
+      kódovací agenty.
     first_seen: 2026-05-11
     tags: [dev-tools, protocols]
 
@@ -25,6 +30,10 @@ terms:
       A pattern where a model is given relevant documents — usually fetched
       from a vector store — as part of its prompt, instead of relying only
       on its training data.
+    definition_cs: >-
+      Postup, při kterém model dostane relevantní dokumenty — obvykle
+      načtené z vektorové databáze — jako součást promptu, místo aby se
+      spoléhal pouze na svá trénovací data.
     tags: [architecture]
 
   - term: FLOP
@@ -33,6 +42,10 @@ terms:
       A floating-point operation. Training-compute thresholds in AI policy
       are usually expressed as 10^N FLOP — the total number of arithmetic
       operations used during model training.
+    definition_cs: >-
+      Operace v pohyblivé řádové čárce. Prahy výpočetního výkonu pro trénink
+      se v regulaci AI obvykle vyjadřují jako 10^N FLOP — celkový počet
+      aritmetických operací použitých při tréninku modelu.
     first_seen: 2026-05-12
     tags: [policy, compute]
 
@@ -42,6 +55,11 @@ terms:
       An Anthropic API feature that lets repeated prefix tokens (typically
       a system prompt or long style guide) be billed and processed once
       across many calls, by marking that block with cache_control.
+    definition_cs: >-
+      Funkce API Anthropic, která umožňuje opakované úvodní tokeny (typicky
+      systémový prompt nebo dlouhou stylovou příručku) zpracovat a účtovat
+      jen jednou napříč mnoha voláními, a to označením daného bloku pomocí
+      cache_control.
     tags: [api]
 
   - term: tool use
@@ -50,6 +68,10 @@ terms:
       An Anthropic API mode in which the model is given JSON-schema-typed
       tools and emits structured calls instead of free text. The magazine's
       curate and write steps both use it for typed output.
+    definition_cs: >-
+      Režim API Anthropic, ve kterém model dostane nástroje typované podle
+      JSON schématu a místo volného textu vrací strukturovaná volání. Kroky
+      kurátorství i psaní v tomto magazínu jej používají pro typovaný výstup.
     tags: [api]
 
   - term: SWE-bench
@@ -58,6 +80,10 @@ terms:
       A benchmark of real GitHub issues used to evaluate coding agents
       end-to-end. The model is given a repository and an issue and asked
       to produce a patch that the test suite accepts.
+    definition_cs: >-
+      Benchmark složený ze skutečných GitHub issues, který komplexně
+      hodnotí kódovací agenty. Model dostane repozitář a issue a má vytvořit
+      záplatu, kterou přijme testovací sada.
     first_seen: 2026-05-11
     tags: [benchmarks]
 
@@ -67,4 +93,8 @@ terms:
       A 0-100 integer per issue, computed deterministically from the
       diversity and average editorial weight of the day's cited sources.
       Surfaced in the masthead and at the foot of every article.
+    definition_cs: >-
+      Celé číslo 0–100 pro každé vydání, vypočítané deterministicky z
+      rozmanitosti a průměrné redakční váhy zdrojů citovaných daný den.
+      Zobrazuje se v hlavičce a pod každým článkem.
     tags: [magazine-meta]

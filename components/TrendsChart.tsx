@@ -1,4 +1,6 @@
 import type { TrendsMatrix } from "@/lib/trends";
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 const PALETTE = [
   "#5cf0ff",
@@ -11,14 +13,14 @@ const PALETTE = [
   "#c1e667",
 ];
 
-type Props = { matrix: TrendsMatrix };
+type Props = { matrix: TrendsMatrix; locale: Locale };
 
-export function TrendsChart({ matrix }: Props) {
+export function TrendsChart({ matrix, locale }: Props) {
   const { months, tags, cells, byMonthTotals } = matrix;
   if (months.length === 0 || tags.length === 0) {
     return (
       <p className="label" style={{ color: "var(--ink-dim)" }}>
-        not enough data yet.
+        {dict(locale).trends.notEnoughData}
       </p>
     );
   }

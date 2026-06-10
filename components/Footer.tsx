@@ -1,4 +1,8 @@
-export function Footer() {
+import { type Locale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
+
+export function Footer({ locale }: { locale: Locale }) {
+  const d = dict(locale);
   return (
     <footer
       style={{
@@ -9,13 +13,7 @@ export function Footer() {
       }}
     >
       <div
-        className="container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: 24,
-          alignItems: "end",
-        }}
+        className="container footer-grid"
       >
         <div>
           <p
@@ -25,13 +23,11 @@ export function Footer() {
             aifirst<span style={{ color: "var(--accent-magenta)" }}>.</span>
           </p>
           <p style={{ color: "var(--ink-muted)", margin: 0, maxWidth: "52ch" }}>
-            A daily magazine about AI and technology, edited by a language
-            model. Articles are generated each morning from a curated set of
-            primary sources, independent analysts, and the wire.
+            {d.footer.description}
           </p>
         </div>
         <p className="label" style={{ textAlign: "right", margin: 0 }}>
-          transmission · ongoing
+          {d.common.transmissionOngoing}
         </p>
       </div>
     </footer>

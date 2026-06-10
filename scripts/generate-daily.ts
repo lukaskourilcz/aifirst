@@ -4,13 +4,10 @@ import { curate } from "../lib/pipeline/curate.js";
 import { write } from "../lib/pipeline/write.js";
 import { illustrate } from "../lib/pipeline/illustrate.js";
 import { persist } from "../lib/pipeline/persist.js";
-
-function todayUtc(): string {
-  return new Date().toISOString().slice(0, 10);
-}
+import { todayIso } from "../lib/helpers/date.js";
 
 async function main() {
-  const date = process.argv[2] ?? todayUtc();
+  const date = process.argv[2] ?? todayIso();
   console.error(`[generate] date=${date}`);
 
   const sources = await loadSources();
@@ -31,19 +28,21 @@ async function main() {
   );
 
   const article = await write(brief, itemsById);
-  console.error(`[generate] wrote: ${article.title} (slug=${article.slug})`);
+  console.error(
+    `[generate] wrote: ${article.byLocale.cs.title} (slug=${article.slug})`,
+  );
 
   const illustration = await illustrate(date, article.illustrationPrompt);
   console.error(`[generate] illustrated: ${illustration.path}`);
 
-  const file = await persist({ article, illustrationPath: illustration.path });
-  console.error(`[generate] persisted: ${file}`);
+  const files = await persist({ article, illustrationPath: illustration.path });
+  console.error(`[generate] persisted: ${files.join(", ")}`);
 
   // Stdout: machine-readable summary for the GH Action.
   console.log(JSON.stringify({
     date,
     slug: article.slug,
-    file,
+    files,
     illustration: illustration.path,
   }));
 }

@@ -1,11 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import YAML from "yaml";
+import { slugify } from "./text";
+import { type Locale } from "./i18n/config";
 
 export type GlossaryTerm = {
   term: string;
   aliases: string[];
-  definition: string;
+  definition: string; // English (canonical)
+  definition_cs?: string; // Czech
   first_seen?: string;
   tags?: string[];
 };
@@ -23,6 +26,7 @@ export async function loadGlossary(
       term: t.term,
       aliases: t.aliases ?? [],
       definition: t.definition,
+      definition_cs: t.definition_cs,
       first_seen: t.first_seen,
       tags: t.tags ?? [],
     }));
@@ -31,6 +35,13 @@ export async function loadGlossary(
     cache = [];
     return cache;
   }
+}
+
+// The definition in the requested locale, falling back to English.
+export function glossaryDefinition(term: GlossaryTerm, locale: Locale): string {
+  return locale === "cs" && term.definition_cs
+    ? term.definition_cs
+    : term.definition;
 }
 
 export function lookupTerm(
@@ -45,9 +56,7 @@ export function lookupTerm(
   return null;
 }
 
+// Glossary anchor id for a term — the same slug rules as headings.
 export function slugForTerm(term: string): string {
-  return term
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+  return slugify(term);
 }
