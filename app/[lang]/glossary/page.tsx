@@ -1,3 +1,4 @@
+import { PageShell } from "@/components/PageShell";
 import { loadGlossary, slugForTerm, glossaryDefinition } from "@/lib/glossary";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale } from "@/lib/i18n/config";
@@ -19,19 +20,7 @@ export default async function GlossaryPage({
   );
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{tr.kicker}</p>
-      <h1>{tr.title}</h1>
-      <p
-        style={{
-          color: "var(--ink-muted)",
-          maxWidth: "62ch",
-          marginBottom: "3em",
-        }}
-      >
-        {tr.intro}
-      </p>
-
+    <PageShell kicker={tr.kicker} title={tr.title} intro={tr.intro}>
       {groups.map(([group, items]) => (
         <section key={group} style={{ marginBottom: 48 }}>
           <p className="label" style={{ marginBottom: 16 }}>
@@ -63,10 +52,7 @@ export default async function GlossaryPage({
                   {t.aliases.length > 0 && (
                     <p
                       className="label"
-                      style={{
-                        margin: 0,
-                        color: "var(--ink-dim)",
-                      }}
+                      style={{ margin: 0, color: "var(--ink-dim)" }}
                     >
                       {tr.aka} {t.aliases.join(" · ")}
                     </p>
@@ -94,6 +80,6 @@ export default async function GlossaryPage({
           {tr.empty}
         </p>
       )}
-    </section>
+    </PageShell>
   );
 }

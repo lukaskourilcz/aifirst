@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { byDateDesc } from "./helpers/date";
+import { groupBy } from "./helpers/group";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "./i18n/config";
 
 export type Dispatch = {
@@ -128,13 +129,11 @@ function resolveByLocale(
   entries: RawEntry[],
   locale: Locale,
 ): ResolvedEntry[] {
-  const bySlug = new Map<string, RawEntry[]>();
-  for (const e of entries) {
-    if (!e.fm.slug) continue;
-    const bucket = bySlug.get(e.fm.slug);
-    if (bucket) bucket.push(e);
-    else bySlug.set(e.fm.slug, [e]);
-  }
+  // One bucket of language variants per slug.
+  const bySlug = groupBy(
+    entries.filter((e) => e.fm.slug),
+    (e) => e.fm.slug as string,
+  );
   const out: ResolvedEntry[] = [];
   for (const candidates of bySlug.values()) {
     const picked = pickForLocale(candidates, locale);

@@ -1,4 +1,5 @@
 import { SourceCard } from "@/components/SourceCard";
+import { PageShell } from "@/components/PageShell";
 import { sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { type Locale } from "@/lib/i18n/config";
@@ -23,9 +24,7 @@ export default async function SourcesPage({
   );
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{t.kicker}</p>
-      <h1>{t.title}</h1>
+    <PageShell kicker={t.kicker} title={t.title}>
       <p style={{ color: "var(--ink-muted)", maxWidth: "62ch" }}>{t.intro}</p>
 
       <ul
@@ -56,6 +55,6 @@ export default async function SourcesPage({
           );
         })}
       </ul>
-    </section>
+    </PageShell>
   );
 }

@@ -3,18 +3,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Mdx } from "@/components/Mdx";
 import { getArticle } from "@/lib/content";
-import { loadGlossary, lookupTerm, glossaryDefinition } from "@/lib/glossary";
+import { loadGlossary, resolveGlossaryTerms, glossaryDefinition } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
-import { DEFAULT_LOCALE, isLocale, localePath, type Locale } from "@/lib/i18n/config";
+import { localePath, resolveLocale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 // Rendered on demand (low-traffic, opened in a new tab) so it can read the
 // ?lang= the article page links with.
 export const dynamic = "force-dynamic";
-
-function resolveLocale(lang?: string): Locale {
-  return lang && isLocale(lang) ? lang : DEFAULT_LOCALE;
-}
 
 export async function generateMetadata({
   params,
@@ -49,9 +45,10 @@ export default async function PrintArticlePage({
   const t = dict(locale).article;
   const common = dict(locale).common;
   const glossary = await loadGlossary();
-  const issueGlossary = (article.frontmatter.glossary_terms ?? [])
-    .map((n) => lookupTerm(n, glossary))
-    .filter((g): g is NonNullable<typeof g> => Boolean(g));
+  const issueGlossary = resolveGlossaryTerms(
+    article.frontmatter.glossary_terms,
+    glossary,
+  );
 
   return (
     <article className="print-layout">

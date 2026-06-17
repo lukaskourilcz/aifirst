@@ -3,7 +3,7 @@ import { SearchPalette } from "./SearchPalette";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { buildSearchIndex } from "@/lib/content";
-import { type Locale, localePath } from "@/lib/i18n/config";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 function today(): string {
@@ -14,7 +14,7 @@ function today(): string {
 export async function Masthead({ locale }: { locale: Locale }) {
   const index = await buildSearchIndex(locale);
   const t = dict(locale).nav;
-  const lp = (path: string) => localePath(locale, path);
+  const lp = localePrefixer(locale);
 
   return (
     <header

@@ -11,8 +11,9 @@ function nodeText(children: ReactNode): string {
     return children.map(nodeText).join("");
   }
   if (children && typeof children === "object" && "props" in (children as object)) {
-    const c = (children as { props?: { children?: ReactNode } }).props?.children;
-    return c ? nodeText(c) : "";
+    const nested = (children as { props?: { children?: ReactNode } }).props
+      ?.children;
+    return nested ? nodeText(nested) : "";
   }
   return "";
 }

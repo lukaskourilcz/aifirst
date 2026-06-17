@@ -1,4 +1,5 @@
 import { HealthRow } from "@/components/HealthRow";
+import { PageShell } from "@/components/PageShell";
 import { getHealthReport } from "@/lib/health";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -18,21 +19,7 @@ export default async function HealthPage({
   const generated = new Date(report.generatedAt);
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label" style={{ color: "var(--accent-cyan)" }}>
-        {t.kicker}
-      </p>
-      <h1>{t.title}</h1>
-      <p
-        style={{
-          color: "var(--ink-muted)",
-          maxWidth: "62ch",
-          marginBottom: "2.5em",
-        }}
-      >
-        {t.intro}
-      </p>
-
+    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       {report.status === "no-repo" && (
         <aside
           style={{
@@ -97,6 +84,6 @@ export default async function HealthPage({
         <span>{t.generated} · {generated.toISOString()}</span>
         <span>{t.cache} · 6h</span>
       </footer>
-    </section>
+    </PageShell>
   );
 }
