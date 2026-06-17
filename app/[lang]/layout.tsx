@@ -5,7 +5,7 @@ import { Masthead } from "@/components/Masthead";
 import { Footer } from "@/components/Footer";
 import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { HtmlLang } from "@/components/HtmlLang";
-import { LOCALES, isLocale, localePath, DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { LOCALES, isLocale, localePath, resolveLocale } from "@/lib/i18n/config";
 
 export const dynamicParams = false;
 
@@ -19,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  const locale = resolveLocale(lang);
   // Per-locale Atom autodiscovery for every page in this tree.
   return {
     alternates: {

@@ -1,56 +1,55 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { SearchEntry } from "@/lib/content";
 import { isEditableTarget } from "@/lib/helpers/dom";
+import { useWindowEvent } from "@/lib/hooks/useWindowEvent";
+import { ModalOverlay } from "./ModalOverlay";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 type Props = { index: SearchEntry[]; locale: Locale };
 
-function score(entry: SearchEntry, q: string): number {
-  if (!q) return 0;
-  const needle = q.toLowerCase();
-  let s = 0;
-  if (entry.title.toLowerCase().includes(needle)) s += 3;
-  if (entry.dek.toLowerCase().includes(needle)) s += 2;
-  if (entry.tags.some((t) => t.toLowerCase().includes(needle))) s += 1;
-  if (entry.slug.toLowerCase().includes(needle)) s += 0.5;
-  return s;
+// How well an entry matches the query: title hits weigh most, then the dek,
+// then tags, then the slug. Returns 0 for no match so it can be filtered out.
+function scoreEntry(entry: SearchEntry, query: string): number {
+  if (!query) return 0;
+  const needle = query.toLowerCase();
+  let points = 0;
+  if (entry.title.toLowerCase().includes(needle)) points += 3;
+  if (entry.dek.toLowerCase().includes(needle)) points += 2;
+  if (entry.tags.some((t) => t.toLowerCase().includes(needle))) points += 1;
+  if (entry.slug.toLowerCase().includes(needle)) points += 0.5;
+  return points;
 }
 
 export function SearchPalette({ index, locale }: Props) {
   const [open, setOpen] = useState(false);
-  const [q, setQ] = useState("");
+  const [query, setQuery] = useState("");
   const t = dict(locale).search;
 
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      const inField = isEditableTarget(e.target);
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setOpen((v) => !v);
-      } else if (e.key === "/" && !open && !inField) {
-        e.preventDefault();
-        setOpen(true);
-      } else if (e.key === "Escape" && open) {
-        setOpen(false);
-      }
+  // ⌘/Ctrl-K toggles the palette anywhere; "/" opens it unless the user is
+  // typing in a field. (Escape-to-close is handled by ModalOverlay.)
+  useWindowEvent("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      setOpen((v) => !v);
+    } else if (e.key === "/" && !open && !isEditableTarget(e.target)) {
+      e.preventDefault();
+      setOpen(true);
     }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  });
 
   const results = useMemo(() => {
-    if (!q.trim()) return index.slice(0, 8);
+    if (!query.trim()) return index.slice(0, 8);
     return index
-      .map((e) => ({ e, s: score(e, q) }))
-      .filter((r) => r.s > 0)
-      .sort((a, b) => b.s - a.s || (a.e.date < b.e.date ? 1 : -1))
+      .map((entry) => ({ entry, score: scoreEntry(entry, query) }))
+      .filter((r) => r.score > 0)
+      .sort((a, b) => b.score - a.score || (a.entry.date < b.entry.date ? 1 : -1))
       .slice(0, 12)
-      .map((r) => r.e);
-  }, [q, index]);
+      .map((r) => r.entry);
+  }, [query, index]);
 
   return (
     <>
@@ -72,117 +71,82 @@ export function SearchPalette({ index, locale }: Props) {
       </button>
 
       {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="search"
-          onClick={() => setOpen(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 20,
-            background: "rgba(5, 7, 13, 0.7)",
-            backdropFilter: "blur(8px)",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            padding: "10vh 24px",
-          }}
+        <ModalOverlay
+          onClose={() => setOpen(false)}
+          ariaLabel="search"
+          align="start"
+          zIndex={20}
+          width={640}
         >
           <div
-            onClick={(e) => e.stopPropagation()}
             style={{
-              width: "min(640px, 100%)",
-              border: "1px solid var(--hairline-strong)",
-              background: "var(--bg-deep)",
-              boxShadow: "0 30px 80px -20px rgba(92, 240, 255, 0.25)",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              padding: "12px 16px",
+              borderBottom: "1px solid var(--hairline)",
             }}
           >
-            <div
+            <span className="label" style={{ color: "var(--accent-cyan)" }}>
+              query &gt;
+            </span>
+            <input
+              autoFocus
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t.placeholder}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "12px 16px",
-                borderBottom: "1px solid var(--hairline)",
+                flex: 1,
+                background: "transparent",
+                border: "none",
+                outline: "none",
+                color: "var(--ink-primary)",
+                fontFamily: "var(--font-display)",
+                fontSize: "1rem",
               }}
+            />
+            <kbd
+              className="label"
+              style={{ border: "1px solid var(--hairline)", padding: "2px 8px" }}
             >
-              <span
-                className="label"
-                style={{ color: "var(--accent-cyan)" }}
-              >
-                query &gt;
-              </span>
-              <input
-                autoFocus
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder={t.placeholder}
-                style={{
-                  flex: 1,
-                  background: "transparent",
-                  border: "none",
-                  outline: "none",
-                  color: "var(--ink-primary)",
-                  fontFamily: "var(--font-display)",
-                  fontSize: "1rem",
-                }}
-              />
-              <kbd
-                className="label"
-                style={{
-                  border: "1px solid var(--hairline)",
-                  padding: "2px 8px",
-                }}
-              >
-                esc
-              </kbd>
-            </div>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {results.length === 0 && (
-                <li
-                  className="label"
-                  style={{ padding: 16, color: "var(--ink-dim)" }}
+              esc
+            </kbd>
+          </div>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {results.length === 0 && (
+              <li className="label" style={{ padding: 16, color: "var(--ink-dim)" }}>
+                {t.noMatch}
+              </li>
+            )}
+            {results.map((r) => (
+              <li key={r.slug} style={{ borderBottom: "1px solid var(--hairline)" }}>
+                <Link
+                  href={localePath(locale, `/articles/${r.slug}`)}
+                  onClick={() => setOpen(false)}
+                  style={{
+                    display: "block",
+                    padding: "12px 16px",
+                    borderBottom: "none",
+                    color: "var(--ink-primary)",
+                  }}
                 >
-                  {t.noMatch}
-                </li>
-              )}
-              {results.map((r) => (
-                <li
-                  key={r.slug}
-                  style={{ borderBottom: "1px solid var(--hairline)" }}
-                >
-                  <Link
-                    href={localePath(locale, `/articles/${r.slug}`)}
-                    onClick={() => setOpen(false)}
+                  <p className="label" style={{ marginBottom: 4 }}>
+                    {r.date} · {r.tags.slice(0, 2).join(" · ")}
+                  </p>
+                  <p
                     style={{
-                      display: "block",
-                      padding: "12px 16px",
-                      borderBottom: "none",
-                      color: "var(--ink-primary)",
+                      margin: 0,
+                      fontFamily: "var(--font-display)",
+                      fontSize: "0.95rem",
                     }}
                   >
-                    <p
-                      className="label"
-                      style={{ marginBottom: 4 }}
-                    >
-                      {r.date} · {r.tags.slice(0, 2).join(" · ")}
-                    </p>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontFamily: "var(--font-display)",
-                        fontSize: "0.95rem",
-                      }}
-                    >
-                      {r.title}
-                    </p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+                    {r.title}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </ModalOverlay>
       )}
     </>
   );

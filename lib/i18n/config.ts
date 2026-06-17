@@ -9,6 +9,13 @@ export function isLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);
 }
 
+// Coerce an untrusted route/query value into a Locale, falling back to the
+// default. Use this wherever a `lang` segment or `?lang=` param arrives as a
+// raw string (feed routes, the print view, the locale layout).
+export function resolveLocale(value: string | undefined): Locale {
+  return value && isLocale(value) ? value : DEFAULT_LOCALE;
+}
+
 // Prefix a site-absolute path for a locale. The default locale (Czech)
 // is unprefixed; English is served under /en.
 export function localePath(locale: Locale, path = "/"): string {
@@ -17,8 +24,8 @@ export function localePath(locale: Locale, path = "/"): string {
   return `/en${clean}`;
 }
 
-// The opposite path for the language switcher: given the current locale
-// and the current unprefixed path, produce the same page in `to`.
-export function switchLocalePath(to: Locale, unprefixedPath: string): string {
-  return localePath(to, unprefixedPath);
+// Returns a `localePath` bound to one locale — the `lp` shorthand pages use to
+// build several locale-prefixed links without repeating the locale each time.
+export function localePrefixer(locale: Locale): (path: string) => string {
+  return (path) => localePath(locale, path);
 }

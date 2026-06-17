@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { CopyCommand } from "@/components/CopyCommand";
+import { IssueRow } from "@/components/IssueRow";
+import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
 import { githubRepo } from "@/lib/config";
-import { type Locale, localePath } from "@/lib/i18n/config";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -15,19 +17,12 @@ export default async function AdminPage({
 }) {
   const { lang: locale } = await params;
   const t = dict(locale).admin;
-  const lp = (p: string) => localePath(locale, p);
+  const lp = localePrefixer(locale);
   const all = await listArticles(locale);
-  const REPO = githubRepo();
+  const repo = githubRepo();
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p
-        className="label"
-        style={{ color: "var(--accent-magenta)", marginBottom: 8 }}
-      >
-        {t.kicker}
-      </p>
-      <h1>{t.title}</h1>
+    <PageShell kicker={t.kicker} title={t.title} kickerTone="magenta">
       <p
         style={{
           color: "var(--ink-muted)",
@@ -39,7 +34,7 @@ export default async function AdminPage({
         browser. To regenerate an issue, run the gh CLI snippet for that
         date, or trigger the workflow_dispatch from the GitHub Actions
         page. Both routes use the same{" "}
-        <Link href={`https://github.com/${REPO}/actions/workflows/regenerate.yml`}>
+        <Link href={`https://github.com/${repo}/actions/workflows/regenerate.yml`}>
           regenerate workflow
         </Link>
         , which calls the Anthropic API on the server and commits the new
@@ -50,14 +45,14 @@ export default async function AdminPage({
         <p className="label" style={{ marginBottom: 12 }}>
           regenerate a new date (daily)
         </p>
-        <CopyCommand command={`gh workflow run regenerate.yml -R ${REPO} -f date=$(date -u +%F) -f kind=daily`} />
+        <CopyCommand command={`gh workflow run regenerate.yml -R ${repo} -f date=$(date -u +%F) -f kind=daily`} />
       </section>
 
       <section style={{ marginTop: 32 }}>
         <p className="label" style={{ marginBottom: 12 }}>
           regenerate Sunday digest
         </p>
-        <CopyCommand command={`gh workflow run regenerate.yml -R ${REPO} -f date=$(date -u +%F) -f kind=weekly`} />
+        <CopyCommand command={`gh workflow run regenerate.yml -R ${repo} -f date=$(date -u +%F) -f kind=weekly`} />
       </section>
 
       <section style={{ marginTop: 48 }}>
@@ -68,39 +63,25 @@ export default async function AdminPage({
           {all.map((a) => {
             const kind = a.type === "weekly" ? "weekly" : "daily";
             return (
-              <li
+              <IssueRow
                 key={a.slug}
-                className="entry-row entry-row--cmd"
-                style={{
-                  padding: "14px 0",
-                  borderBottom: "1px solid var(--hairline)",
-                }}
-              >
-                <Link
-                  href={lp(`/articles/${a.slug}`)}
-                  className="label"
-                  style={{ borderBottom: "none" }}
-                >
-                  {a.date}{" "}
-                  {a.type === "weekly" && (
-                    <span style={{ color: "var(--accent-magenta)" }}>
-                      ·w
-                    </span>
-                  )}
-                </Link>
-                <Link
-                  href={lp(`/articles/${a.slug}`)}
-                  style={{
-                    fontSize: "0.95rem",
-                    color: "var(--ink-primary)",
-                  }}
-                >
-                  {a.title}
-                </Link>
-                <CopyCommand
-                  command={`gh workflow run regenerate.yml -R ${REPO} -f date=${a.date} -f kind=${kind}`}
-                />
-              </li>
+                href={lp(`/articles/${a.slug}`)}
+                date={a.date}
+                title={a.title}
+                titleSize="0.95rem"
+                titleColor="var(--ink-primary)"
+                variant="cmd"
+                dateSuffix={
+                  a.type === "weekly" ? (
+                    <span style={{ color: "var(--accent-magenta)" }}> ·w</span>
+                  ) : undefined
+                }
+                trailing={
+                  <CopyCommand
+                    command={`gh workflow run regenerate.yml -R ${repo} -f date=${a.date} -f kind=${kind}`}
+                  />
+                }
+              />
             );
           })}
         </ul>
@@ -131,6 +112,6 @@ export default async function AdminPage({
           </li>
         </ul>
       </section>
-    </section>
+    </PageShell>
   );
 }

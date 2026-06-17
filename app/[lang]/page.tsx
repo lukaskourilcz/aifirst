@@ -1,20 +1,21 @@
-import Link from "next/link";
 import { CoverFrame } from "@/components/CoverFrame";
 import { DataStrip } from "@/components/DataStrip";
 import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { GlowLink } from "@/components/GlowLink";
+import { IssueRow } from "@/components/IssueRow";
 import { Mdx } from "@/components/Mdx";
 import { SourcesBlock } from "@/components/SourcesBlock";
 import { TagChip } from "@/components/TagChip";
 import { Wire } from "@/components/Wire";
 import { getLatestArticle, listArticles } from "@/lib/content";
-import { loadGlossary, lookupTerm } from "@/lib/glossary";
+import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
 import { githubRepo } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
 import type { Metadata } from "next";
-import { type Locale, localePath } from "@/lib/i18n/config";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
+import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -25,17 +26,7 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  return {
-    alternates: {
-      canonical: localePath(lang, "/"),
-      languages: {
-        cs: localePath("cs", "/"),
-        en: localePath("en", "/"),
-        "x-default": localePath("cs", "/"),
-      },
-      types: { "application/atom+xml": localePath(lang, "/feed.xml") },
-    },
-  };
+  return { alternates: localeAlternates(lang, "/") };
 }
 
 export default async function HomePage({
@@ -45,7 +36,7 @@ export default async function HomePage({
 }) {
   const { lang: locale } = await params;
   const d = dict(locale);
-  const lp = (p: string) => localePath(locale, p);
+  const lp = localePrefixer(locale);
 
   const latest = await getLatestArticle(locale);
   const archive = (await listArticles(locale)).slice(0, 6);
@@ -125,9 +116,7 @@ export default async function HomePage({
           <Dispatches items={latest.frontmatter.dispatches ?? []} locale={locale} />
           <Wire items={latest.frontmatter.wire ?? []} locale={locale} />
           <GlossaryBlock
-            terms={(latest.frontmatter.glossary_terms ?? [])
-              .map((n) => lookupTerm(n, glossary))
-              .filter((t): t is NonNullable<typeof t> => Boolean(t))}
+            terms={resolveGlossaryTerms(latest.frontmatter.glossary_terms, glossary)}
             locale={locale}
           />
           <SourcesBlock sources={latest.frontmatter.sources ?? []} locale={locale} />
@@ -143,21 +132,12 @@ export default async function HomePage({
             {archive
               .filter((a) => a.slug !== latest.slug)
               .map((a) => (
-                <li
+                <IssueRow
                   key={a.slug}
-                  className="entry-row"
-                  style={{
-                    padding: "14px 0",
-                    borderBottom: "1px solid var(--hairline)",
-                  }}
-                >
-                  <Link href={lp(`/articles/${a.slug}`)} className="label">
-                    {a.date}
-                  </Link>
-                  <Link href={lp(`/articles/${a.slug}`)} style={{ fontSize: "1.05rem" }}>
-                    {a.title}
-                  </Link>
-                </li>
+                  href={lp(`/articles/${a.slug}`)}
+                  date={a.date}
+                  title={a.title}
+                />
               ))}
           </ul>
         </section>

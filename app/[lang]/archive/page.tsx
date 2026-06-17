@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { IssueRow } from "@/components/IssueRow";
+import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
-import { type Locale, localePath } from "@/lib/i18n/config";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -14,25 +15,13 @@ export default async function ArchivePage({
   const { lang: locale } = await params;
   const t = dict(locale).archive;
   const common = dict(locale).common;
-  const lp = (p: string) => localePath(locale, p);
+  const lp = localePrefixer(locale);
 
   const all = await listArticles(locale);
   const byYearMonth = groupBy(all, (a) => a.date.slice(0, 7));
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{t.kicker}</p>
-      <h1>{t.title}</h1>
-      <p
-        style={{
-          color: "var(--ink-muted)",
-          maxWidth: "60ch",
-          marginBottom: "3em",
-        }}
-      >
-        {t.intro}
-      </p>
-
+    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       {[...byYearMonth.entries()].map(([month, issues]) => (
         <section key={month} style={{ marginBottom: 48 }}>
           <p className="label" style={{ marginBottom: 16 }}>
@@ -40,33 +29,29 @@ export default async function ArchivePage({
           </p>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {issues.map((a) => (
-              <li
+              <IssueRow
                 key={a.slug}
-                className="entry-row entry-row--meta"
-                style={{
-                  padding: "16px 0",
-                  borderBottom: "1px solid var(--hairline)",
-                }}
-              >
-                <Link href={lp(`/articles/${a.slug}`)} className="label">
-                  {a.date}
-                </Link>
-                <Link href={lp(`/articles/${a.slug}`)} style={{ fontSize: "1.125rem" }}>
-                  {a.title}
-                </Link>
-                {a.type === "weekly" && (
-                  <span
-                    className="label"
-                    style={{
-                      color: "var(--accent-magenta)",
-                      border: "1px solid var(--hairline)",
-                      padding: "2px 8px",
-                    }}
-                  >
-                    {common.weekly}
-                  </span>
-                )}
-              </li>
+                href={lp(`/articles/${a.slug}`)}
+                date={a.date}
+                title={a.title}
+                titleSize="1.125rem"
+                padding="16px 0"
+                variant="meta"
+                trailing={
+                  a.type === "weekly" ? (
+                    <span
+                      className="label"
+                      style={{
+                        color: "var(--accent-magenta)",
+                        border: "1px solid var(--hairline)",
+                        padding: "2px 8px",
+                      }}
+                    >
+                      {common.weekly}
+                    </span>
+                  ) : undefined
+                }
+              />
             ))}
           </ul>
         </section>
@@ -75,6 +60,6 @@ export default async function ArchivePage({
       {all.length === 0 && (
         <p style={{ color: "var(--ink-muted)" }}>{t.empty}</p>
       )}
-    </section>
+    </PageShell>
   );
 }

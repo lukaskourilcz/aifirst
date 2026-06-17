@@ -69,11 +69,15 @@ covers it. New cross-cutting logic belongs in `lib/helpers/` or a focused
     the hand-rolled `map.get(k) ?? []; push` idiom (archive/glossary/stats).
   - `date.ts` `toIsoDate(d?)`, `todayIso()`, `byDateDesc` — date formatting and
     the newest-first comparator used by content listings and the scripts.
-  - `format.ts` `plural(n, word)` — pluralisation in copy.
   - `dom.ts` `isEditableTarget(target)` — "is the event inside a text field"
     guard shared by all global keyboard handlers.
   - `signal.ts` `signalBars(value)` + `SIGNAL_BARS` — the clamp/fill maths for
     the signal-strength segment bar (component **and** OG image).
+- **`lib/hooks/`** — client-only React hooks:
+  - `useWindowEvent.ts` `useWindowEvent(type, handler, options?)` — subscribe to
+    one or more `window` events with automatic cleanup; the latest handler is
+    always invoked, so callers pass no dependency array. Shared by the search
+    palette, keyboard-help overlay and reading-progress bar.
 - **`lib/content.ts`** is the single source of truth for the frontmatter
   contract and the `ArticleSummary` projection (`toSummary`). Read MDX through
   `readMdxFiles` / the internal frontmatter iterator — don't re-`readdir`.
@@ -96,6 +100,20 @@ covers it. New cross-cutting logic belongs in `lib/helpers/` or a focused
 - **`lib/config.ts`** `resolveRepo()` (nullable) / `githubRepo()` (with
   fallback) — the canonical owner/repo resolution; don't read the repo env
   vars directly.
+- **`lib/i18n/config.ts`** `localePath(locale, path)` builds locale-prefixed
+  URLs; `localePrefixer(locale)` returns the `lp` shorthand pages bind once and
+  reuse; `resolveLocale(value)` coerces a raw `lang` segment/param to a `Locale`
+  (use it in route handlers and the print view). `lib/i18n/metadata.ts`
+  `localeAlternates(locale, path)` builds the canonical + hreflang + Atom block
+  shared by the home and article `generateMetadata`.
+- **`lib/glossary.ts`** `resolveGlossaryTerms(names, terms)` turns an issue's
+  `glossary_terms` name list into resolved `GlossaryTerm`s (home/article/print).
+- **Shared presentational components** (`components/`): `PageShell` (the
+  `.container` section + kicker/title/intro every secondary page opens with),
+  `IssueRow` (the `entry-row` date + title list item), `StatCard` (the bordered
+  label + big-number tile) and `ModalOverlay` (the click-out backdrop + panel
+  behind the search and keyboard-help dialogs). Reach for these before hand-
+  rolling the same markup again.
 
 ### Import specifiers (build gotcha)
 

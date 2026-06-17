@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { IssueRow } from "@/components/IssueRow";
 import { TagChip } from "@/components/TagChip";
 import { listArticlesByTag, listTagsByFrequency } from "@/lib/content";
-import { type Locale, localePath } from "@/lib/i18n/config";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -30,7 +30,7 @@ export default async function TagPage({
   const tag = decodeURIComponent(raw);
   const t = dict(locale).tags;
   const common = dict(locale).common;
-  const lp = (p: string) => localePath(locale, p);
+  const lp = localePrefixer(locale);
   const issues = await listArticlesByTag(tag, locale);
   if (issues.length === 0) notFound();
 
@@ -65,39 +65,31 @@ export default async function TagPage({
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {issues.map((a) => (
-          <li
+          <IssueRow
             key={a.slug}
-            className="entry-row entry-row--meta"
-            style={{
-              padding: "16px 0",
-              borderBottom: "1px solid var(--hairline)",
-            }}
-          >
-            <Link href={lp(`/articles/${a.slug}`)} className="label">
-              {a.date}
-            </Link>
-            <Link
-              href={lp(`/articles/${a.slug}`)}
-              style={{ fontSize: "1.05rem" }}
-            >
-              {a.title}
-            </Link>
-            <span
-              style={{
-                display: "flex",
-                gap: 6,
-                flexWrap: "wrap",
-                justifyContent: "flex-end",
-              }}
-            >
-              {(a.tags ?? [])
-                .filter((x) => x !== tag)
-                .slice(0, 2)
-                .map((x) => (
-                  <TagChip key={x} tag={x} locale={locale} />
-                ))}
-            </span>
-          </li>
+            href={lp(`/articles/${a.slug}`)}
+            date={a.date}
+            title={a.title}
+            padding="16px 0"
+            variant="meta"
+            trailing={
+              <span
+                style={{
+                  display: "flex",
+                  gap: 6,
+                  flexWrap: "wrap",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {(a.tags ?? [])
+                  .filter((x) => x !== tag)
+                  .slice(0, 2)
+                  .map((x) => (
+                    <TagChip key={x} tag={x} locale={locale} />
+                  ))}
+              </span>
+            }
+          />
         ))}
       </ul>
     </section>

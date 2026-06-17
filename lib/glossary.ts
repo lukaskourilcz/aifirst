@@ -56,6 +56,18 @@ export function lookupTerm(
   return null;
 }
 
+// Resolve an issue's `glossary_terms` (a list of term names/aliases) into the
+// matching GlossaryTerm objects, dropping any names that don't resolve. Shared
+// by the home page, the article page and the print view.
+export function resolveGlossaryTerms(
+  names: string[] | undefined,
+  terms: GlossaryTerm[],
+): GlossaryTerm[] {
+  return (names ?? [])
+    .map((name) => lookupTerm(name, terms))
+    .filter((term): term is GlossaryTerm => term !== null);
+}
+
 // Glossary anchor id for a term — the same slug rules as headings.
 export function slugForTerm(term: string): string {
   return slugify(term);

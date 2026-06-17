@@ -70,6 +70,7 @@ async function main() {
       !fm.illustration ||
       typeof fm.illustration !== "object" ||
       typeof (fm.illustration as { path?: string }).path !== "string" ||
+      typeof (fm.illustration as { prompt?: string }).prompt !== "string" ||
       typeof (fm.illustration as { alt?: string }).alt !== "string"
     ) {
       issues.push({
@@ -114,8 +115,8 @@ async function main() {
 
   if (issues.length > 0) {
     console.error(`[check] ${issues.length} issue(s) found:\n`);
-    for (const i of issues) {
-      console.error(`  ${i.file}: ${i.problem}`);
+    for (const issue of issues) {
+      console.error(`  ${issue.file}: ${issue.problem}`);
     }
     process.exit(1);
   }
