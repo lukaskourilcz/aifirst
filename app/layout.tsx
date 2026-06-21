@@ -41,14 +41,9 @@ export const metadata: Metadata = {
   },
 };
 
-const THEME_INIT = `(function(){try{var m=localStorage.getItem('mode');if(m==='dark')document.documentElement.dataset.mode='dark';}catch(e){}})();`;
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${sans.variable}`}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
-      </head>
       <body>{children}</body>
     </html>
   );

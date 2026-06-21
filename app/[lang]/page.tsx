@@ -25,8 +25,8 @@ export async function generateMetadata({
   return { alternates: localeAlternates(lang, "/") };
 }
 
-function tagLabel(tags?: string[]): string {
-  return (tags?.[0] ?? "today").replace(/-/g, " ").toUpperCase();
+function eyebrow(tags?: string[]): string {
+  return (tags?.[0] ?? "today").replace(/-/g, " ");
 }
 
 export default async function HomePage({
@@ -45,10 +45,10 @@ export default async function HomePage({
 
   if (!latest) {
     return (
-      <section className="container" style={{ padding: "160px 24px" }}>
-        <p className="label">{d.home.emptyKicker}</p>
+      <section style={{ padding: "120px 0" }}>
+        <p className="eyebrow">{d.home.emptyKicker}</p>
         <h1>{d.home.emptyTitle}</h1>
-        <p style={{ color: "var(--color-caption-gray)", maxWidth: "60ch" }}>
+        <p style={{ color: "var(--color-slate)", maxWidth: "60ch" }}>
           {d.home.emptyBodyBefore}
           <GlowLink href={`https://github.com/${repo}`}>
             {d.home.emptyBodyRepo}
@@ -64,114 +64,128 @@ export default async function HomePage({
   const resolvedGlossary = resolveGlossaryTerms(fm.glossary_terms, glossary);
   const hasGlossary = resolvedGlossary.length > 0;
   const hasSources = (fm.sources?.length ?? 0) > 0;
-  const dispatches = fm.dispatches ?? [];
-  const back = archive.filter((a) => a.slug !== latest.slug).slice(0, 8);
-  const sidebarIssues = back.slice(0, 4);
-  const featureIssues = back.slice(0, 4);
+  const dispatches = (fm.dispatches ?? []).slice(0, 6);
+  const back = archive.filter((a) => a.slug !== latest.slug).slice(0, 6);
   const reading = readingMinutes(latest.mdx);
 
   return (
     <>
-      <section className="container" style={{ paddingTop: 24, paddingBottom: 32 }}>
-        <div className="edit-grid">
-          {/* Lead article */}
-          <article className="lead enter enter-1">
-            <p className="lead__eyebrow">{tagLabel(fm.tags)}</p>
-            <h1 className="lead__title">{fm.title}</h1>
-            <p className="lead__dek">{fm.dek}</p>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={fm.illustration.path}
-              alt={fm.illustration.alt}
-              className="lead__photo"
-              loading="eager"
-              decoding="async"
-            />
-            <div className="lead__meta">
-              <span>{fm.date}</span>
-              <span aria-hidden>·</span>
-              <span>{reading} {d.common.minutesShort} {d.common.readMinutes}</span>
-            </div>
-            <a href="#briefing" className="lead__cta">
-              {d.home.readIssue}
-            </a>
-          </article>
+      {/* Hero panel — today's lead */}
+      <section className="hero enter enter-1">
+        <div>
+          <p className="hero__eyebrow">{eyebrow(fm.tags)}</p>
+          <h1 className="hero__title">{fm.title}</h1>
+          <p className="hero__dek">{fm.dek}</p>
+          <div className="hero__meta">
+            <span>{fm.date}</span>
+            <span aria-hidden>·</span>
+            <span>{reading} {d.common.minutesShort} {d.common.readMinutes}</span>
+            {(fm.tags ?? []).slice(0, 3).map((t) => (
+              <span key={t} className="chip">{t}</span>
+            ))}
+          </div>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={fm.illustration.path}
+          alt={fm.illustration.alt}
+          className="hero__photo"
+          loading="eager"
+          decoding="async"
+        />
+      </section>
 
-          {/* Secondary column — dispatches as small magazine cards */}
-          <div className="column enter enter-2">
-            <p className="label" style={{ margin: 0 }}>{d.article.dispatchesLabel}</p>
-            {dispatches.length === 0 ? (
-              <p style={{ color: "var(--color-caption-gray)", margin: 0 }}>—</p>
-            ) : (
-              dispatches.slice(0, 4).map((dp, i) => (
-                <article key={i} className="tile">
-                  <p className="tile__eyebrow">{d.article.dispatchesLabel} · 0{i + 1}</p>
-                  <h3 className="tile__title">{dp.title}</h3>
-                  <p className="tile__body">{dp.body}</p>
+      {/* Article body + dispatches sidebar (sidebar's grid cell ends with the
+          article's intrinsic height, so the sticky sidebar releases at the
+          article's lowest point — no overflow below the body). */}
+      <section className="article-with-aside enter enter-2">
+        <article className="article-with-aside__main" id="briefing">
+          <EditorsNote note={fm.editors_note} locale={locale} />
+          <div className="article-body">
+            <Mdx source={latest.mdx} />
+          </div>
+        </article>
+
+        {dispatches.length > 0 && (
+          <aside
+            className="article-with-aside__side"
+            aria-label={d.article.dispatchesLabel}
+          >
+            <p className="eyebrow" style={{ marginBottom: 12 }}>
+              {d.article.dispatchesLabel}
+            </p>
+            <div className="dispatches--aside">
+              {dispatches.map((dp, i) => (
+                <article key={i} className="dispatch-card">
+                  <p className="dispatch-card__eyebrow">
+                    {d.article.dispatchesLabel} · 0{i + 1}
+                  </p>
+                  <h3 className="dispatch-card__title">{dp.title}</h3>
+                  <p className="dispatch-card__body">{dp.body}</p>
                   {dp.source_url && (
-                    <p className="tile__meta">
-                      <a href={dp.source_url} target="_blank" rel="noreferrer noopener">
-                        {d.article.dispatchSource} ↗
-                      </a>
-                    </p>
+                    <a
+                      href={dp.source_url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="dispatch-card__source"
+                    >
+                      {d.article.dispatchSource} ↗
+                    </a>
                   )}
                 </article>
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          </aside>
+        )}
+      </section>
 
-          {/* Right sidebar — Back issues list */}
-          <aside className="column enter enter-3">
-            <p className="label" style={{ margin: 0 }}>{d.home.backIssues}</p>
-            {sidebarIssues.map((a) => (
-              <article key={a.slug} className="tile">
-                <p className="tile__eyebrow">{a.date}</p>
-                <h3 className="tile__title">
-                  <Link href={lp(`/articles/${a.slug}`)}>{a.title}</Link>
-                </h3>
-              </article>
-            ))}
-            <Link href={lp("/archive")} className="label" style={{ marginTop: 4 }}>
+      {/* Secondary blocks (Wire + Glossary + Sources) */}
+      <section style={{ marginTop: 32 }}>
+        <Wire items={fm.wire ?? []} locale={locale} />
+        {hasGlossary && (
+          <GlossaryBlock terms={resolvedGlossary} locale={locale} />
+        )}
+        {hasSources && (
+          <SourcesBlock sources={fm.sources ?? []} locale={locale} />
+        )}
+      </section>
+
+      {/* Recent issues feed */}
+      {back.length > 0 && (
+        <section style={{ marginTop: 48 }}>
+          <div className="section-head">
+            <h2 className="section-head__title">{d.home.recentIssues}</h2>
+            <Link href={lp("/archive")} className="label">
               {d.nav.archive} →
             </Link>
-          </aside>
-        </div>
-      </section>
-
-      {/* Feature row — wider grid of recent issues */}
-      {featureIssues.length > 0 && (
-        <section className="container">
-          <div className="feature-row">
-            <header className="feature-row__title">
-              <p className="label" style={{ margin: 0 }}>{d.home.recentIssues}</p>
-              <Link href={lp("/archive")} className="label">{d.nav.archive} →</Link>
-            </header>
-            {featureIssues.map((a) => (
-              <Link key={a.slug} href={lp(`/articles/${a.slug}`)} className="feature-tile">
-                <span aria-hidden className="feature-tile__photo" />
-                <span className="feature-tile__date">{a.date}</span>
-                <span className="feature-tile__title">{a.title}</span>
-              </Link>
-            ))}
           </div>
+          <ul
+            className="card-grid card-grid--feed"
+            style={{ listStyle: "none", padding: 0, margin: 0 }}
+          >
+            {back.map((a) => (
+              <li key={a.slug}>
+                <Link href={lp(`/articles/${a.slug}`)} className="post-card">
+                  <div className="post-card__top">
+                    <span aria-hidden className="post-card__thumb" />
+                    <div>
+                      <p className="post-card__meta">{a.date}</p>
+                      <h3 className="post-card__title">{a.title}</h3>
+                    </div>
+                  </div>
+                  {a.tags?.length ? (
+                    <div className="post-card__chips">
+                      {a.tags.slice(0, 3).map((t) => (
+                        <span key={t} className="chip">{t}</span>
+                      ))}
+                    </div>
+                  ) : null}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
-
-      {/* Briefing — full article body, with secondary blocks below */}
-      <section className="container" style={{ paddingTop: 64, paddingBottom: 32 }}>
-        <div className="reading" id="briefing" style={{ scrollMarginTop: 80 }}>
-          <p className="label" style={{ marginBottom: 8 }}>{d.home.briefing}</p>
-          <EditorsNote note={fm.editors_note} locale={locale} />
-          <Mdx source={latest.mdx} />
-          <Wire items={fm.wire ?? []} locale={locale} />
-          {hasGlossary && (
-            <GlossaryBlock terms={resolvedGlossary} locale={locale} />
-          )}
-          {hasSources && (
-            <SourcesBlock sources={fm.sources ?? []} locale={locale} />
-          )}
-        </div>
-      </section>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Masthead } from "@/components/Masthead";
+import { Sidebar } from "@/components/Sidebar";
 import { Footer } from "@/components/Footer";
 import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { HtmlLang } from "@/components/HtmlLang";
@@ -41,9 +41,13 @@ export default async function LangLayout({
   return (
     <>
       <HtmlLang locale={lang} />
-      <Masthead locale={lang} />
-      <main>{children}</main>
-      <Footer locale={lang} />
+      <div className="shell">
+        <Sidebar locale={lang} />
+        <main className="shell__main">
+          {children}
+          <Footer locale={lang} />
+        </main>
+      </div>
       <KeyboardHelp locale={lang} />
     </>
   );

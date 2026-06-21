@@ -8,12 +8,14 @@ const provider: ImageProvider = {
   id: "none",
   async generate(_prompt: string, opts: { size: ImageSize; seed?: number }) {
     const [w, h] = parseSize(opts.size);
+    // Paper-toned placeholder so the cream canvas reads consistently when no
+    // real provider is wired. Matches the Hashnode --color-paper token.
     const buf = await sharp({
       create: {
         width: w,
         height: h,
         channels: 4,
-        background: { r: 10, g: 15, b: 31, alpha: 1 },
+        background: { r: 244, g: 245, b: 247, alpha: 1 },
       },
     })
       .webp({ quality: 82 })
