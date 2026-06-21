@@ -313,12 +313,59 @@ hr {
   gap: 16px;
 }
 
-/* Footer: text block + tagline. */
+/* Footer: text block + nav list. */
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: end;
+  gap: 32px;
+  align-items: start;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  text-align: right;
+}
+
+/* Article body + dispatches sidebar — the right column wraps below the
+   body on narrow screens. */
+.article-with-aside {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 22vw, 280px);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.article-with-aside__main {
+  max-width: min(var(--reading), 100%);
+  min-width: 0;
+}
+
+.article-with-aside__side {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+
+@media (max-width: 1000px) {
+  .article-with-aside {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .article-with-aside__main {
+    max-width: min(var(--reading), 100%);
+    margin: 0 auto;
+  }
+  .article-with-aside__side {
+    position: static;
+    max-width: min(var(--reading), 100%);
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
 @media (max-width: 760px) {
@@ -340,8 +387,12 @@ hr {
   }
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 24px;
     align-items: start;
+  }
+  .footer-nav {
+    align-items: flex-start;
+    text-align: left;
   }
   /* Trailing badge (e.g. "weekly") shouldn't stretch full width. */
   .entry-row--meta > :last-child {

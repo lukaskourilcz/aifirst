@@ -1,4 +1,3 @@
-import { DataStrip } from "@/components/DataStrip";
 import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
@@ -12,7 +11,6 @@ import { Wire } from "@/components/Wire";
 import { getLatestArticle, listArticles } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
 import { githubRepo } from "@/lib/config";
-import { readingMinutes } from "@/lib/text";
 import type { Metadata } from "next";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -71,15 +69,6 @@ export default async function HomePage({
 
   return (
     <>
-      <DataStrip
-        date={fm.date}
-        sourceCount={fm.sources?.length ?? 0}
-        tags={fm.tags}
-        signal={fm.signal_strength}
-        readingMinutes={readingMinutes(latest.mdx)}
-        locale={locale}
-      />
-
       <HomeCover
         date={fm.date}
         title={fm.title}
@@ -102,16 +91,24 @@ export default async function HomePage({
       />
 
       <section className="container" style={{ paddingTop: 48, paddingBottom: 32 }}>
-        <div className="reading">
-          <div id="briefing" style={{ scrollMarginTop: 80 }}>
+        <div className="article-with-aside">
+          <article className="article-with-aside__main" id="briefing" style={{ scrollMarginTop: 80 }}>
             <EditorsNote note={fm.editors_note} locale={locale} />
             <Mdx source={latest.mdx} />
-          </div>
+          </article>
           {hasDispatches && (
-            <div id="dispatches" style={{ scrollMarginTop: 80 }}>
-              <Dispatches items={fm.dispatches ?? []} locale={locale} />
-            </div>
+            <aside
+              className="article-with-aside__side"
+              id="dispatches"
+              style={{ scrollMarginTop: 80 }}
+              aria-label={d.article.dispatchesLabel}
+            >
+              <Dispatches items={fm.dispatches ?? []} locale={locale} variant="aside" />
+            </aside>
           )}
+        </div>
+
+        <div className="reading">
           {hasWire && (
             <div id="wire" style={{ scrollMarginTop: 80 }}>
               <Wire items={fm.wire ?? []} locale={locale} />

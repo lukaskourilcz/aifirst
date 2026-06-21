@@ -69,12 +69,9 @@ export async function Masthead({ locale }: { locale: Locale }) {
         </Link>
         <nav aria-label="primary" className="masthead-nav">
           <span className="label masthead-date">{today()}</span>
-          <Link href={lp("/archive")} className="label">{t.archive}</Link>
           <Link href={lp("/tags")} className="label">{t.tags}</Link>
           <Link href={lp("/sources")} className="label">{t.sources}</Link>
-          <Link href={lp("/glossary")} className="label">{t.glossary}</Link>
           <Link href={lp("/colophon")} className="label">{t.colophon}</Link>
-          <Link href={lp("/health")} className="label">{t.health}</Link>
           <SearchPalette index={index} locale={locale} />
           <LanguageSwitcher locale={locale} />
           <ThemeToggle />

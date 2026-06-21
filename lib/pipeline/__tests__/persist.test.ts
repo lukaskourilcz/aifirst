@@ -61,12 +61,13 @@ describe("persist", () => {
       illustrationPath: "/illustrations/2026-05-12.webp",
     });
 
-    expect(files).toEqual([
+    expect(files.sort()).toEqual([
       path.join(tempCwd, "content", "articles", "2026-05-12.cs.mdx"),
       path.join(tempCwd, "content", "articles", "2026-05-12.en.mdx"),
     ]);
 
-    const csRaw = await fs.readFile(files[0]!, "utf8");
+    const csPath = files.find((f) => f.endsWith(".cs.mdx"))!;
+    const csRaw = await fs.readFile(csPath, "utf8");
     const cs = matter(csRaw);
     expect(cs.data.lang).toBe("cs");
     expect(cs.data.title).toBe("Testovací článek");
