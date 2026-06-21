@@ -55,7 +55,8 @@ export function SearchPalette({ index, locale }: Props) {
     <>
       <button
         type="button"
-        aria-label="open search"
+        aria-label={t.open}
+        title={t.open}
         onClick={() => setOpen(true)}
         className="nav-item"
         style={{
@@ -67,7 +68,7 @@ export function SearchPalette({ index, locale }: Props) {
         }}
       >
         <span aria-hidden className="nav-item__glyph">⌕</span>
-        {t.open}
+        <span className="nav-item__label">{t.open}</span>
       </button>
 
       {open && (

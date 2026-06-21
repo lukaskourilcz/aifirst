@@ -145,41 +145,45 @@ export default async function ArticlePage({
           </div>
         </article>
 
-        {dispatches.length > 0 && (
+        {(dispatches.length > 0 || (fm.wire ?? []).length > 0) && (
           <aside
             className="article-with-aside__side"
             aria-label={d.article.dispatchesLabel}
           >
-            <p className="eyebrow" style={{ marginBottom: 12 }}>
-              {d.article.dispatchesLabel}
-            </p>
-            <div className="dispatches--aside">
-              {dispatches.map((dp, i) => (
-                <article key={i} className="dispatch-card">
-                  <p className="dispatch-card__eyebrow">
-                    {d.article.dispatchesLabel} · 0{i + 1}
-                  </p>
-                  <h3 className="dispatch-card__title">{dp.title}</h3>
-                  <p className="dispatch-card__body">{dp.body}</p>
-                  {dp.source_url && (
-                    <a
-                      href={dp.source_url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="dispatch-card__source"
-                    >
-                      {d.article.dispatchSource} ↗
-                    </a>
-                  )}
-                </article>
-              ))}
-            </div>
+            {dispatches.length > 0 && (
+              <>
+                <p className="eyebrow" style={{ marginBottom: 12 }}>
+                  {d.article.dispatchesLabel}
+                </p>
+                <div className="dispatches--aside">
+                  {dispatches.map((dp, i) => (
+                    <article key={i} className="dispatch-card">
+                      <p className="dispatch-card__eyebrow">
+                        {d.article.dispatchesLabel} · 0{i + 1}
+                      </p>
+                      <h3 className="dispatch-card__title">{dp.title}</h3>
+                      <p className="dispatch-card__body">{dp.body}</p>
+                      {dp.source_url && (
+                        <a
+                          href={dp.source_url}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="dispatch-card__source"
+                        >
+                          {d.article.dispatchSource} ↗
+                        </a>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              </>
+            )}
+            <Wire items={fm.wire ?? []} locale={locale} variant="aside" />
           </aside>
         )}
       </section>
 
       <section style={{ marginTop: 32 }}>
-        <Wire items={fm.wire ?? []} locale={locale} />
         <GlossaryBlock terms={issueGlossary} locale={locale} />
         <SourcesBlock sources={fm.sources ?? []} locale={locale} />
         <p style={{ marginTop: 24, textAlign: "right" }}>

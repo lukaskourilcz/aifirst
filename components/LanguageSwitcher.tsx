@@ -19,10 +19,11 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
       href={href}
       hrefLang={other}
       aria-label={`switch language to ${dict(other).meta.name}`}
+      title={dict(locale).meta.switchTo}
       className="nav-item"
     >
       <span aria-hidden className="nav-item__glyph">⇄</span>
-      {dict(locale).meta.switchTo}
+      <span className="nav-item__label">{dict(locale).meta.switchTo}</span>
     </Link>
   );
 }

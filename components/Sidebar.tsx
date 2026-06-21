@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { SidebarToggle } from "./SidebarToggle";
 import { buildSearchIndex, listArticles } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -45,23 +46,38 @@ export async function Sidebar({ locale }: { locale: Locale }) {
 
   return (
     <aside className="sidebar" aria-label="primary">
-      <Link href={lp("/")} className="sidebar__brand" aria-label="aifirst home">
-        <span className="sidebar__brand-dot" />
-        aifirst
-      </Link>
+      <div className="sidebar__head">
+        <Link href={lp("/")} className="sidebar__brand" aria-label="aifirst home">
+          <span className="sidebar__brand-dot" />
+          <span className="sidebar__brand-word">aifirst</span>
+        </Link>
+        <SidebarToggle />
+      </div>
 
       <nav className="nav-rail" aria-label="primary">
         {primary.map((item) => (
-          <Link key={item.key} href={item.href} className="nav-item">
+          <Link
+            key={item.key}
+            href={item.href}
+            className="nav-item"
+            title={item.label}
+            aria-label={item.label}
+          >
             <span aria-hidden className="nav-item__glyph">{GLYPHS[item.key]}</span>
-            {item.label}
+            <span className="nav-item__label">{item.label}</span>
           </Link>
         ))}
         <div className="nav-divider" aria-hidden />
         {ops.map((item) => (
-          <Link key={item.key} href={item.href} className="nav-item">
+          <Link
+            key={item.key}
+            href={item.href}
+            className="nav-item"
+            title={item.label}
+            aria-label={item.label}
+          >
             <span aria-hidden className="nav-item__glyph">{GLYPHS[item.key]}</span>
-            {item.label}
+            <span className="nav-item__label">{item.label}</span>
           </Link>
         ))}
         <div className="nav-divider" aria-hidden />
