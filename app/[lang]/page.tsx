@@ -5,10 +5,11 @@ import { GlowLink } from "@/components/GlowLink";
 import { Mdx } from "@/components/Mdx";
 import { SourcesBlock } from "@/components/SourcesBlock";
 import { Wire } from "@/components/Wire";
-import { getLatestArticle, listArticles } from "@/lib/content";
+import { getArticle, getLatestArticle, listArticles } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
 import { githubRepo } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
+import { ogImageFor } from "@/lib/og";
 import type { Metadata } from "next";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -43,7 +44,46 @@ export default async function HomePage({
   const glossary = await loadGlossary();
   const repo = githubRepo();
 
-  if (!latest) {
+  // The hero panel must always carry a real picture. The local illustration
+  // is a flat placeholder until a real image provider is wired, so we look
+  // for a cached og:image among the article's own sources first, then fall
+  // back to a recent issue that does have one.
+  async function pickHeroPhoto(
+    article: NonNullable<typeof latest>,
+  ): Promise<string | null> {
+    for (const s of article.frontmatter.sources ?? []) {
+      const img = ogImageFor(s.url);
+      if (img) return img;
+    }
+    for (const w of article.frontmatter.wire ?? []) {
+      const img = ogImageFor(w.url);
+      if (img) return img;
+    }
+    return null;
+  }
+
+  async function pickLead(): Promise<{
+    article: NonNullable<typeof latest>;
+    heroPhoto: string;
+  } | null> {
+    if (!latest) return null;
+    const own = await pickHeroPhoto(latest);
+    if (own) return { article: latest, heroPhoto: own };
+    // Walk back through the archive (newest first) for an issue with a
+    // usable picture, so the home page never opens with a blank hero.
+    const candidates = await listArticles(locale);
+    for (const summary of candidates.slice(1)) {
+      const a = await getArticle(summary.slug, locale);
+      if (!a) continue;
+      const img = await pickHeroPhoto(a);
+      if (img) return { article: a, heroPhoto: img };
+    }
+    return null;
+  }
+
+  const lead = await pickLead();
+
+  if (!latest || !lead) {
     return (
       <section style={{ padding: "120px 0" }}>
         <p className="eyebrow">{d.home.emptyKicker}</p>
@@ -60,13 +100,14 @@ export default async function HomePage({
     );
   }
 
-  const fm = latest.frontmatter;
+  const fm = lead.article.frontmatter;
+  const heroPhoto = lead.heroPhoto;
   const resolvedGlossary = resolveGlossaryTerms(fm.glossary_terms, glossary);
   const hasGlossary = resolvedGlossary.length > 0;
   const hasSources = (fm.sources?.length ?? 0) > 0;
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
-  const back = archive.filter((a) => a.slug !== latest.slug).slice(0, 6);
-  const reading = readingMinutes(latest.mdx);
+  const back = archive.filter((a) => a.slug !== lead.article.slug).slice(0, 6);
+  const reading = readingMinutes(lead.article.mdx);
 
   return (
     <>
@@ -87,8 +128,8 @@ export default async function HomePage({
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={fm.illustration.path}
-          alt={fm.illustration.alt}
+          src={heroPhoto}
+          alt={fm.illustration.alt || fm.title}
           className="hero__photo"
           loading="eager"
           decoding="async"
@@ -102,7 +143,7 @@ export default async function HomePage({
         <article className="article-with-aside__main" id="briefing">
           <EditorsNote note={fm.editors_note} locale={locale} />
           <div className="article-body">
-            <Mdx source={latest.mdx} />
+            <Mdx source={lead.article.mdx} />
           </div>
         </article>
 

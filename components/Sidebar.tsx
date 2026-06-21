@@ -4,7 +4,6 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { buildSearchIndex, listArticles } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { githubRepo } from "@/lib/config";
 
 const GLYPHS: Record<string, string> = {
   home: "◉",
@@ -28,7 +27,6 @@ export async function Sidebar({ locale }: { locale: Locale }) {
     listArticles(locale),
   ]);
   const latest = all[0];
-  const repo = githubRepo();
 
   const primary: Array<{ key: string; label: string; href: string }> = [
     { key: "home",     label: home.briefing,  href: lp("/") },
@@ -66,19 +64,14 @@ export async function Sidebar({ locale }: { locale: Locale }) {
             {item.label}
           </Link>
         ))}
+        <div className="nav-divider" aria-hidden />
+        <SearchPalette index={index} locale={locale} />
+        <LanguageSwitcher locale={locale} />
       </nav>
 
-      <div>
-        <p className="sidebar__heading">Tools</p>
-        <div className="nav-rail">
-          <SearchPalette index={index} locale={locale} />
-          <LanguageSwitcher locale={locale} />
-        </div>
-      </div>
-
-      <div className="sidebar__card">
+      <div className="sidebar__card" style={{ marginTop: "auto" }}>
         <p className="sidebar__heading" style={{ marginBottom: 8 }}>
-          What&apos;s new
+          Latest
         </p>
         <p className="sidebar__card-title">
           {latest?.title ?? "Today’s issue is being written."}
@@ -92,20 +85,9 @@ export async function Sidebar({ locale }: { locale: Locale }) {
             className="cta"
             style={{ marginTop: 12 }}
           >
-            Read the issue →
+            Read →
           </Link>
         )}
-      </div>
-
-      <div style={{ marginTop: "auto" }}>
-        <a
-          href={`https://github.com/${repo}`}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="label"
-        >
-          github ↗
-        </a>
       </div>
     </aside>
   );

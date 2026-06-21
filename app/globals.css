@@ -88,7 +88,7 @@
 
   /* Layout */
   --container: 1200px;
-  --sidebar-width: 264px;
+  --sidebar-width: 196px;
   --reading: 68ch;
   --card-padding: 16px;
   --element-gap: 8px;
@@ -294,7 +294,7 @@ hr {
 
 .sidebar {
   border-right: 1px solid var(--color-fog);
-  padding: 24px 24px 32px 0;
+  padding: 20px 16px 24px 0;
   position: sticky;
   top: 0;
   align-self: start;
@@ -302,7 +302,13 @@ hr {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+  font-size: var(--text-body-sm);
+}
+
+.sidebar .nav-item {
+  padding: 6px 10px;
+  font-size: var(--text-body-sm);
 }
 
 @media (max-width: 960px) {
