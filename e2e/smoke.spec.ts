@@ -115,15 +115,14 @@ test("language switcher reaches the Czech mirror of the home page", async ({ pag
   await expect(page.locator(".hero__title")).toBeVisible();
 });
 
-test("the single CTA uses Blueprint Blue (#1d52de)", async ({ page, viewport }) => {
-  // The "Read the issue" CTA lives in the sidebar's What's-New card, which is
-  // hidden on the mobile/tablet collapsed shell. Run this lock-in on desktop.
-  test.skip((viewport?.width ?? 0) < 1000, "sidebar card visible only on desktop");
+test("inline links carry the Blueprint Blue (#1d52de)", async ({ page }) => {
   await page.goto("/");
-  const cta = page.locator(".sidebar .cta").first();
-  await expect(cta).toBeVisible();
-  const bg = await cta.evaluate((el) => getComputedStyle(el).backgroundColor);
-  expect(bg, "CTA should use blueprint blue rgb(29,82,222)").toBe(
+  // The first <a> inside .article-body is the heading-anchor link (slate by
+  // design); the editorial in-body links come right after.
+  const link = page.locator(".article-body a:not(.anchor-link)").first();
+  await expect(link).toBeVisible();
+  const color = await link.evaluate((el) => getComputedStyle(el).color);
+  expect(color, "article links should use blueprint blue rgb(29,82,222)").toBe(
     "rgb(29, 82, 222)",
   );
 });

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { SidebarToggle } from "./SidebarToggle";
-import { buildSearchIndex, listArticles } from "@/lib/content";
+import { buildSearchIndex } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
@@ -23,11 +23,7 @@ export async function Sidebar({ locale }: { locale: Locale }) {
   const t = dict(locale).nav;
   const home = dict(locale).home;
   const lp = localePrefixer(locale);
-  const [index, all] = await Promise.all([
-    buildSearchIndex(locale),
-    listArticles(locale),
-  ]);
-  const latest = all[0];
+  const index = await buildSearchIndex(locale);
 
   const primary: Array<{ key: string; label: string; href: string }> = [
     { key: "home",     label: home.briefing,  href: lp("/") },
@@ -84,27 +80,6 @@ export async function Sidebar({ locale }: { locale: Locale }) {
         <SearchPalette index={index} locale={locale} />
         <LanguageSwitcher locale={locale} />
       </nav>
-
-      <div className="sidebar__card" style={{ marginTop: "auto" }}>
-        <p className="sidebar__heading" style={{ marginBottom: 8 }}>
-          Latest
-        </p>
-        <p className="sidebar__card-title">
-          {latest?.title ?? "Today’s issue is being written."}
-        </p>
-        <p className="sidebar__card-body">
-          {latest?.date ?? "—"}
-        </p>
-        {latest && (
-          <Link
-            href={lp(`/articles/${latest.slug}`)}
-            className="cta"
-            style={{ marginTop: 12 }}
-          >
-            Read →
-          </Link>
-        )}
-      </div>
     </aside>
   );
 }

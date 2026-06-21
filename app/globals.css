@@ -88,8 +88,8 @@
 
   /* Layout */
   --container: 1200px;
-  --sidebar-width: 196px;
-  --sidebar-rail-width: 64px;
+  --sidebar-width: 112px;
+  --sidebar-rail-width: 56px;
   --reading: 68ch;
   --card-padding: 16px;
   --element-gap: 8px;
@@ -295,7 +295,7 @@ hr {
 
 .sidebar {
   border-right: 1px solid var(--color-fog);
-  padding: 20px 16px 24px 0;
+  padding: 16px 8px 24px 0;
   position: sticky;
   top: 0;
   align-self: start;
@@ -303,8 +303,8 @@ hr {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  font-size: var(--text-body-sm);
+  gap: 16px;
+  font-size: 13px;
 }
 
 .sidebar__head {
@@ -332,8 +332,23 @@ hr {
 }
 
 .sidebar .nav-item {
-  padding: 6px 10px;
-  font-size: var(--text-body-sm);
+  padding: 6px 8px;
+  font-size: 13px;
+  gap: 8px;
+}
+
+.sidebar .nav-item__glyph {
+  width: 14px;
+  font-size: 13px;
+}
+
+.sidebar__brand {
+  font-size: 16px;
+}
+
+.sidebar__brand-dot {
+  width: 8px;
+  height: 8px;
 }
 
 /* Rail mode — icon-only sidebar, persisted via data-sidebar="rail". */
