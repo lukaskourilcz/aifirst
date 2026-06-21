@@ -14,7 +14,7 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <html lang="cs">
+    <html lang="en">
       <body
         style={{
           margin: 0,
@@ -34,11 +34,11 @@ export default function GlobalError({
             className="label"
             style={{ color: "var(--accent-magenta)", marginBottom: 16 }}
           >
-            kritická chyba
+            critical error
           </p>
           <h1 style={{ margin: "0 0 16px" }}>500</h1>
           <p style={{ color: "var(--ink-muted)", marginBottom: 24 }}>
-            Magazín se nepodařilo načíst. Obnovte stránku nebo se vraťte později.
+            Couldn’t load the magazine. Reload, or come back in a moment.
           </p>
           <button
             type="button"
@@ -52,7 +52,7 @@ export default function GlobalError({
               cursor: "pointer",
             }}
           >
-            zkusit znovu
+            try again
           </button>
         </div>
       </body>

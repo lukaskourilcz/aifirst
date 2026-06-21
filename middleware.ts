@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-// Czech is the default locale and is served unprefixed. We internally
-// rewrite unprefixed paths to /cs/* so they resolve under app/[lang];
-// English already carries its /en prefix and is left alone. Feeds,
+// English is the default locale and is served unprefixed. We internally
+// rewrite unprefixed paths to /en/* so they resolve under app/[lang];
+// Czech already carries its /cs prefix and is left alone. Feeds,
 // sitemap, the print view, API routes and static files are excluded.
 const HAS_EXTENSION = /\.[^/]+$/;
 
@@ -10,9 +10,9 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (
-    pathname === "/en" ||
-    pathname.startsWith("/en/") ||
-    pathname.startsWith("/cs") ||
+    pathname === "/cs" ||
+    pathname.startsWith("/cs/") ||
+    pathname.startsWith("/en") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.endsWith("/print") ||
@@ -22,7 +22,7 @@ export function middleware(req: NextRequest) {
   }
 
   const url = req.nextUrl.clone();
-  url.pathname = `/cs${pathname === "/" ? "" : pathname}`;
+  url.pathname = `/en${pathname === "/" ? "" : pathname}`;
   return NextResponse.rewrite(url);
 }
 

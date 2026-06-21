@@ -1,8 +1,12 @@
-import { type Locale } from "@/lib/i18n/config";
+import Link from "next/link";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export function Footer({ locale }: { locale: Locale }) {
   const d = dict(locale);
+  const t = d.nav;
+  const lp = localePrefixer(locale);
+
   return (
     <footer
       style={{
@@ -12,9 +16,7 @@ export function Footer({ locale }: { locale: Locale }) {
         background: "var(--surface-soft)",
       }}
     >
-      <div
-        className="container footer-grid"
-      >
+      <div className="container footer-grid">
         <div>
           <p
             className="label"
@@ -25,10 +27,17 @@ export function Footer({ locale }: { locale: Locale }) {
           <p style={{ color: "var(--ink-muted)", margin: 0, maxWidth: "52ch" }}>
             {d.footer.description}
           </p>
+          <p className="label" style={{ marginTop: 16 }}>
+            {d.common.transmissionOngoing}
+          </p>
         </div>
-        <p className="label" style={{ textAlign: "right", margin: 0 }}>
-          {d.common.transmissionOngoing}
-        </p>
+        <nav aria-label="footer" className="footer-nav">
+          <Link href={lp("/archive")} className="label">{t.archive}</Link>
+          <Link href={lp("/glossary")} className="label">{t.glossary}</Link>
+          <Link href={lp("/stats")} className="label">{t.stats}</Link>
+          <Link href={lp("/trends")} className="label">{t.trends}</Link>
+          <Link href={lp("/health")} className="label">{t.health}</Link>
+        </nav>
       </div>
     </footer>
   );

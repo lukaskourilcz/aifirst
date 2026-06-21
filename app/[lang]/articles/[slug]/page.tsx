@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CoverFrame } from "@/components/CoverFrame";
-import { DataStrip } from "@/components/DataStrip";
 import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
@@ -19,7 +18,6 @@ import {
   type ArticleSummary,
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
-import { readingMinutes } from "@/lib/text";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -77,99 +75,101 @@ export default async function ArticlePage({
     article.frontmatter.glossary_terms,
     glossary,
   );
+  const fm = article.frontmatter;
+  const hasDispatches = (fm.dispatches?.length ?? 0) > 0;
 
   return (
     <>
       <ReadingProgress />
-      <DataStrip
-        date={article.frontmatter.date}
-        sourceCount={article.frontmatter.sources?.length ?? 0}
-        tags={article.frontmatter.tags}
-        signal={article.frontmatter.signal_strength}
-        readingMinutes={readingMinutes(article.mdx)}
-        locale={locale}
-      />
       <section className="container" style={{ paddingTop: 32 }}>
         <div className="enter enter-1">
           <CoverFrame
-            src={article.frontmatter.illustration.path}
-            alt={article.frontmatter.illustration.alt}
+            src={fm.illustration.path}
+            alt={fm.illustration.alt}
             priority
             locale={locale}
           />
         </div>
-        <div className="reading" style={{ paddingTop: 56, paddingBottom: 32 }}>
-          <p
-            className="label label--accent"
-            style={{
-              color: isWeekly ? "var(--accent-magenta)" : undefined,
-            }}
-          >
-            {isWeekly ? d.article.weeklyDigest : ""}{" "}
-            {isWeekly ? "·" : ""} {article.frontmatter.date}
-          </p>
-          {article.fallback && (
+      </section>
+
+      <section className="container" style={{ paddingTop: 48, paddingBottom: 32 }}>
+        <div className="article-with-aside">
+          <article className="article-with-aside__main">
             <p
-              className="label"
+              className="label label--accent"
+              style={{ color: isWeekly ? "var(--accent-magenta)" : undefined }}
+            >
+              {isWeekly ? d.article.weeklyDigest : ""}{" "}
+              {isWeekly ? "·" : ""} {fm.date}
+            </p>
+            {article.fallback && (
+              <p
+                className="label"
+                style={{
+                  color: "var(--accent-amber)",
+                  border: "1px solid var(--hairline)",
+                  borderLeft: "2px solid var(--accent-amber)",
+                  padding: "8px 12px",
+                  margin: "0 0 16px",
+                }}
+              >
+                {d.article.enOnlyNotice}
+              </p>
+            )}
+            <h1>{fm.title}</h1>
+            <p
               style={{
-                color: "var(--accent-amber)",
-                border: "1px solid var(--hairline)",
-                borderLeft: "2px solid var(--accent-amber)",
-                padding: "8px 12px",
-                margin: "0 0 16px",
+                fontSize: "1.15rem",
+                color: "var(--ink-muted)",
+                marginBottom: "2em",
+                lineHeight: 1.45,
               }}
             >
-              {d.article.enOnlyNotice}
+              {fm.dek}
             </p>
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                margin: "0 0 2.5em",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 8,
+              }}
+            >
+              {(fm.tags ?? []).map((t) => (
+                <li key={t}>
+                  <TagChip tag={t} locale={locale} />
+                </li>
+              ))}
+            </ul>
+            {isWeekly && fm.digest && (
+              <WeeklyBadge
+                from={fm.digest.from}
+                to={fm.digest.to}
+                coveredSlugs={fm.digest.covered_slugs}
+                titlesBySlug={titlesBySlug}
+                locale={locale}
+              />
+            )}
+            <EditorsNote note={fm.editors_note} locale={locale} />
+            <Mdx source={article.mdx} />
+          </article>
+          {hasDispatches && (
+            <aside
+              className="article-with-aside__side"
+              aria-label={d.article.dispatchesLabel}
+            >
+              <Dispatches items={fm.dispatches ?? []} locale={locale} variant="aside" />
+            </aside>
           )}
-          <h1>{article.frontmatter.title}</h1>
-          <p
-            style={{
-              fontSize: "1.3rem",
-              color: "var(--ink-muted)",
-              marginBottom: "2em",
-              lineHeight: 1.45,
-            }}
-          >
-            {article.frontmatter.dek}
-          </p>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: "0 0 2.5em",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 8,
-            }}
-          >
-            {(article.frontmatter.tags ?? []).map((t) => (
-              <li key={t}>
-                <TagChip tag={t} locale={locale} />
-              </li>
-            ))}
-          </ul>
-          {isWeekly && article.frontmatter.digest && (
-            <WeeklyBadge
-              from={article.frontmatter.digest.from}
-              to={article.frontmatter.digest.to}
-              coveredSlugs={article.frontmatter.digest.covered_slugs}
-              titlesBySlug={titlesBySlug}
-              locale={locale}
-            />
-          )}
-          <EditorsNote note={article.frontmatter.editors_note} locale={locale} />
-          <Mdx source={article.mdx} />
-          <Dispatches items={article.frontmatter.dispatches ?? []} locale={locale} />
-          <Wire items={article.frontmatter.wire ?? []} locale={locale} />
+        </div>
+
+        <div className="reading">
+          <Wire items={fm.wire ?? []} locale={locale} />
           <GlossaryBlock terms={issueGlossary} locale={locale} />
-          <SourcesBlock sources={article.frontmatter.sources ?? []} locale={locale} />
-          <p
-            style={{
-              marginTop: 32,
-              textAlign: "right",
-            }}
-          >
+          <SourcesBlock sources={fm.sources ?? []} locale={locale} />
+          <p style={{ marginTop: 32, textAlign: "right" }}>
             <a
               href={`/articles/${article.slug}/print?lang=${locale}`}
               className="label"

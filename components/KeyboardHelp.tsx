@@ -24,6 +24,7 @@ const NAV_CHORDS: Array<{
   { key: "a", path: "/archive", labelKey: "goArchive" },
   { key: "t", path: "/tags", labelKey: "goTags" },
   { key: "s", path: "/sources", labelKey: "goSources" },
+  { key: "r", path: "/trends", labelKey: "goTrends" },
   { key: "g", path: "/glossary", labelKey: "goGlossary" },
 ];
 
