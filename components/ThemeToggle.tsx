@@ -39,16 +39,14 @@ export function ThemeToggle() {
       className="label"
       style={{
         background: "transparent",
-        color: "var(--ink-muted)",
-        border: "1px solid var(--hairline)",
-        padding: "6px 10px",
+        color: "var(--color-folio-black)",
+        border: "0",
+        padding: "0",
         cursor: "pointer",
-        fontFamily: "var(--font-display)",
-        minWidth: 64,
-        textAlign: "center",
+        fontFamily: "var(--font-chrome)",
       }}
     >
-      {ready ? (mode === "dark" ? "dark ☾" : "light ☀") : "◐"}
+      {ready ? (mode === "dark" ? "Dark" : "Light") : "·"}
     </button>
   );
 }

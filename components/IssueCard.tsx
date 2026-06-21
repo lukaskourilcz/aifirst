@@ -4,18 +4,22 @@ type Props = {
   href: string;
   date: string;
   title: string;
-  index: number;
+  index?: number;
 };
 
-export function IssueCard({ href, date, title, index }: Props) {
+// Editorial tile: date eyebrow, headline, hairline divider. No accent border,
+// no chevron, no number. Photo space is reserved by the parent layout.
+export function IssueCard({ href, date, title }: Props) {
   return (
-    <Link href={href} className="issue-card" aria-label={`${date} — ${title}`}>
-      <span aria-hidden className="issue-card__num">
-        {String(index).padStart(2, "0")}
-      </span>
-      <span className="label issue-card__date">{date}</span>
-      <span className="issue-card__title">{title}</span>
-      <span aria-hidden className="issue-card__arrow">↗</span>
+    <Link
+      href={href}
+      className="feature-tile"
+      aria-label={`${date} — ${title}`}
+      style={{ borderBottom: "none" }}
+    >
+      <span aria-hidden className="feature-tile__photo" />
+      <span className="feature-tile__date">{date}</span>
+      <span className="feature-tile__title">{title}</span>
     </Link>
   );
 }

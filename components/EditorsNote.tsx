@@ -7,25 +7,19 @@ export function EditorsNote({ note, locale }: { note?: string; locale: Locale })
     <aside
       aria-label="editor's note"
       style={{
-        position: "relative",
         margin: "0 0 32px",
-        padding: "16px 20px 16px 28px",
-        border: "1px solid var(--hairline)",
-        borderLeft: "2px solid var(--accent-amber)",
-        background:
-          "linear-gradient(180deg, rgba(255,181,71,0.04), transparent)",
+        padding: "16px 20px",
+        borderLeft: "2px solid var(--color-signal-yellow)",
+        background: "var(--color-margin-white)",
       }}
     >
-      <p
-        className="label"
-        style={{ color: "var(--accent-amber)", marginBottom: 8 }}
-      >
+      <p className="label" style={{ marginBottom: 8 }}>
         {dict(locale).article.editorsNote}
       </p>
       <p
         style={{
           fontStyle: "italic",
-          color: "var(--ink-primary)",
+          color: "var(--color-folio-black)",
           margin: 0,
           lineHeight: 1.55,
         }}

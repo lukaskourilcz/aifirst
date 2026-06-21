@@ -1,6 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
 
-// English is now the default locale (unprefixed); Czech mirrors under /cs.
 const ROUTES = [
   "/",
   "/cs",
@@ -16,10 +15,9 @@ const ROUTES = [
   "/search",
 ];
 
-// Some React errors in dev mode are noise that doesn't reach prod:
-// dev SSR + client revival differs on SVG `<title>` text in the trends
-// chart, but the page is fully static-prerendered in production so there
-// is no hydration to mismatch. We probe for real errors only.
+// Dev-only React warnings the prod static build can't produce. The page is
+// fully prerendered so there's no hydration to mismatch on. We still fail on
+// any other console error.
 const IGNORED_PATTERNS = [
   /Hydration failed because the server rendered HTML didn't match the client/i,
   /There was an error while hydrating/i,
@@ -60,19 +58,18 @@ for (const route of ROUTES) {
   });
 }
 
-test("home: cover, TOC, dispatches sidebar, back-issues all render", async ({ page }) => {
+test("home: masthead wordmark, lead, 3-col grid, feature row render", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".home-cover__title")).toBeVisible();
-  await expect(page.locator(".home-cover__art")).toBeVisible();
-  await expect(page.locator(".home-contents__link").first()).toBeVisible();
-  await expect(page.locator(".article-with-aside__main").first()).toBeVisible();
-  // Dispatches present in today's issue => render as aside.
-  await expect(page.locator(".dispatches--aside")).toBeVisible();
+  await expect(page.locator(".masthead__wordmark")).toBeVisible();
+  await expect(page.locator(".lead__title")).toBeVisible();
+  await expect(page.locator(".lead__photo")).toBeVisible();
+  await expect(page.locator(".edit-grid")).toBeVisible();
+  await expect(page.locator(".feature-row").first()).toBeVisible();
 });
 
-test("home: TOC anchor scrolls to the briefing section", async ({ page }) => {
+test("home: read-issue CTA jumps to the briefing section", async ({ page }) => {
   await page.goto("/");
-  await page.locator(`.home-contents__link[href="#briefing"]`).click();
+  await page.locator(".lead__cta").click();
   await expect(page.locator("#briefing")).toBeInViewport();
 });
 
@@ -87,15 +84,20 @@ test("light theme is the default; toggling flips to dark and persists", async ({
   await expect(page.locator("html")).not.toHaveAttribute("data-mode", "dark");
 });
 
-test("masthead no longer carries archive / glossary / health / stats / trends", async ({ page }) => {
+test("primary nav is the editorial categories; stats/trends/health are footer-only", async ({ page }) => {
   await page.goto("/");
-  const nav = page.locator("nav.masthead-nav");
-  for (const path of ["/archive", "/glossary", "/health", "/stats", "/trends"]) {
-    await expect(nav.locator(`a[href$="${path}"]`)).toHaveCount(0);
+  const primary = page.locator("nav.primary-nav");
+  // Editorial categories in primary nav
+  for (const path of ["/archive", "/tags", "/sources", "/glossary", "/colophon"]) {
+    await expect(primary.locator(`a[href$="${path}"]`)).toHaveCount(1);
+  }
+  // Operational/meta pages live only in the footer
+  for (const path of ["/stats", "/trends", "/health"]) {
+    await expect(primary.locator(`a[href$="${path}"]`)).toHaveCount(0);
   }
 });
 
-test("footer hosts the secondary links (archive, glossary, stats, trends, health)", async ({ page }) => {
+test("footer hosts the operational links (archive, glossary, stats, trends, health)", async ({ page }) => {
   await page.goto("/");
   const footer = page.locator("nav.footer-nav");
   for (const path of ["/archive", "/glossary", "/stats", "/trends", "/health"]) {
@@ -107,5 +109,16 @@ test("language switcher reaches the Czech mirror of the home page", async ({ pag
   await page.goto("/");
   await page.getByRole("link", { name: /čeština/i }).first().click();
   await expect(page).toHaveURL(/\/cs\/?$/);
-  await expect(page.locator(".home-cover__title")).toBeVisible();
+  await expect(page.locator(".lead__title")).toBeVisible();
+});
+
+test("only signal yellow appears in the chrome", async ({ page }) => {
+  // The CTA button is the one place chrome carries yellow.
+  await page.goto("/");
+  const cta = page.locator(".lead__cta").first();
+  await expect(cta).toBeVisible();
+  const bg = await cta.evaluate((el) => getComputedStyle(el).backgroundColor);
+  expect(bg, "lead CTA should use signal yellow #ffc500 (rgb(255,197,0))").toBe(
+    "rgb(255, 197, 0)",
+  );
 });
