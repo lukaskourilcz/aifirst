@@ -1,5 +1,5 @@
 import { buildTagFeed, tagFeedParams, atomResponse } from "@/lib/feeds";
-import { isLocale, DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { resolveLocale } from "@/lib/i18n/config";
 
 export const dynamic = "force-static";
 
@@ -12,6 +12,5 @@ export async function GET(
   { params }: { params: Promise<{ lang: string; tag: string }> },
 ) {
   const { lang, tag } = await params;
-  const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
-  return atomResponse(await buildTagFeed(locale, tag));
+  return atomResponse(await buildTagFeed(resolveLocale(lang), tag));
 }

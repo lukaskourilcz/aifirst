@@ -1,5 +1,6 @@
 import { TrendsChart } from "@/components/TrendsChart";
 import { TagChip } from "@/components/TagChip";
+import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
 import { buildTrends } from "@/lib/trends";
 import { type Locale } from "@/lib/i18n/config";
@@ -18,21 +19,17 @@ export default async function TrendsPage({
   const matrix = buildTrends(articles, 8);
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{t.kicker}</p>
-      <h1>{t.title}</h1>
-      <p
-        style={{
-          color: "var(--ink-muted)",
-          maxWidth: "62ch",
-          marginBottom: "2.5em",
-        }}
-      >
-        {t.introBefore} {matrix.tags.length} {t.introMiddle}{" "}
-        {matrix.months.length} {t.month}
-        {t.introAfter}
-      </p>
-
+    <PageShell
+      kicker={t.kicker}
+      title={t.title}
+      intro={
+        <>
+          {t.introBefore} {matrix.tags.length} {t.introMiddle}{" "}
+          {matrix.months.length} {t.month}
+          {t.introAfter}
+        </>
+      }
+    >
       <div
         style={{
           padding: 20,
@@ -64,6 +61,6 @@ export default async function TrendsPage({
           ))}
         </ul>
       </section>
-    </section>
+    </PageShell>
   );
 }

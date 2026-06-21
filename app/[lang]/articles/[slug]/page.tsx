@@ -18,9 +18,10 @@ import {
   relatedArticles,
   type ArticleSummary,
 } from "@/lib/content";
-import { loadGlossary, lookupTerm } from "@/lib/glossary";
+import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
-import { type Locale, localePath } from "@/lib/i18n/config";
+import { type Locale } from "@/lib/i18n/config";
+import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -42,15 +43,7 @@ export async function generateMetadata({
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
-    alternates: {
-      canonical: localePath(lang, articlePath),
-      languages: {
-        cs: localePath("cs", articlePath),
-        en: localePath("en", articlePath),
-        "x-default": localePath("cs", articlePath),
-      },
-      types: { "application/atom+xml": localePath(lang, "/feed.xml") },
-    },
+    alternates: localeAlternates(lang, articlePath),
     openGraph: {
       title: article.frontmatter.title,
       description: article.frontmatter.dek,
@@ -80,9 +73,10 @@ export default async function ArticlePage({
   const isWeekly = (article.frontmatter.type ?? "daily") === "weekly";
   const titlesBySlug = new Map(all.map((a) => [a.slug, a.title]));
   const glossary = await loadGlossary();
-  const issueGlossary = (article.frontmatter.glossary_terms ?? [])
-    .map((name) => lookupTerm(name, glossary))
-    .filter((t): t is NonNullable<typeof t> => Boolean(t));
+  const issueGlossary = resolveGlossaryTerms(
+    article.frontmatter.glossary_terms,
+    glossary,
+  );
 
   return (
     <>

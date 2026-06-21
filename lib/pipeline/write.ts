@@ -5,9 +5,7 @@ import type { CuratedBrief } from "./curate.js";
 import type { Dispatch, WireItem, SourceRef } from "../content.js";
 import { LOCALES, type Locale } from "../i18n/config.js";
 
-export type { Dispatch, WireItem } from "../content.js";
-
-// The per-language part of a written issue.
+// The per-language part of a written article.
 export type LocalizedContent = {
   title: string;
   dek: string;

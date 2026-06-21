@@ -1,3 +1,5 @@
+import { StatCard } from "@/components/StatCard";
+import { PageShell } from "@/components/PageShell";
 import { listArticles, listTagsByFrequency } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { MODELS } from "@/lib/anthropic/models";
@@ -19,6 +21,12 @@ export default async function ColophonPage({
     listTagsByFrequency(locale),
   ]);
 
+  const counts: Array<[string, number]> = [
+    [c.issues, articles.length],
+    [c.sources, sources.length],
+    [c.tags, tags.length],
+  ];
+
   const Section = ({
     label,
     title,
@@ -36,9 +44,7 @@ export default async function ColophonPage({
   );
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{c.kicker}</p>
-      <h1>{c.title}</h1>
+    <PageShell kicker={c.kicker} title={c.title}>
       <p
         style={{
           fontSize: "1.2rem",
@@ -59,31 +65,12 @@ export default async function ColophonPage({
           margin: "2em 0",
         }}
       >
-        {[
-          [c.issues, articles.length],
-          [c.sources, sources.length],
-          [c.tags, tags.length],
-        ].map(([label, value]) => (
-          <div
-            key={label as string}
-            style={{
-              padding: 16,
-              border: "1px solid var(--hairline)",
-              background: "var(--bg-deep)",
-            }}
-          >
-            <p className="label">{label as string}</p>
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "1.8rem",
-                margin: 0,
-                color: "var(--accent-cyan)",
-              }}
-            >
-              {String(value as number).padStart(3, "0")}
-            </p>
-          </div>
+        {counts.map(([label, value]) => (
+          <StatCard
+            key={label}
+            label={label}
+            value={String(value).padStart(3, "0")}
+          />
         ))}
       </div>
 
@@ -120,12 +107,9 @@ export default async function ColophonPage({
         <p>{c.signalBody}</p>
       </Section>
 
-      <p
-        className="label"
-        style={{ marginTop: 64, color: "var(--ink-dim)" }}
-      >
+      <p className="label" style={{ marginTop: 64, color: "var(--ink-dim)" }}>
         {dict(locale).common.transmissionOngoing}
       </p>
-    </section>
+    </PageShell>
   );
 }

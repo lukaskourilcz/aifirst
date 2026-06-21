@@ -1,4 +1,5 @@
 import { TagChip } from "@/components/TagChip";
+import { PageShell } from "@/components/PageShell";
 import { listTagsByFrequency } from "@/lib/content";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -14,18 +15,7 @@ export default async function TagsIndex({
   const t = dict(locale).tags;
   const tags = await listTagsByFrequency(locale);
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{t.kicker}</p>
-      <h1>{t.title}</h1>
-      <p
-        style={{
-          color: "var(--ink-muted)",
-          maxWidth: "60ch",
-          marginBottom: "3em",
-        }}
-      >
-        {t.intro}
-      </p>
+    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       <ul
         style={{
           listStyle: "none",
@@ -42,6 +32,6 @@ export default async function TagsIndex({
           </li>
         ))}
       </ul>
-    </section>
+    </PageShell>
   );
 }

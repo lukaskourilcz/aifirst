@@ -1,5 +1,7 @@
 import { Sparkline } from "@/components/Sparkline";
+import { StatCard } from "@/components/StatCard";
 import { TagChip } from "@/components/TagChip";
+import { PageShell } from "@/components/PageShell";
 import {
   listArticles,
   listTagsByFrequency,
@@ -12,7 +14,10 @@ import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-function weeklyCadence(dates: string[]): { labels: string[]; counts: number[] } {
+function publishingCadence(dates: string[]): {
+  labels: string[];
+  counts: number[];
+} {
   const byMonth = groupBy([...dates].sort(), (d) => d.slice(0, 7)); // YYYY-MM
   const labels = [...byMonth.keys()];
   const counts = labels.map((k) => byMonth.get(k)?.length ?? 0);
@@ -34,7 +39,7 @@ export default async function StatsPage({
   ]);
 
   const total = articles.length;
-  const cadence = weeklyCadence(articles.map((a) => a.date));
+  const cadence = publishingCadence(articles.map((a) => a.date));
   const avgSignal =
     articles.length > 0
       ? Math.round(
@@ -48,34 +53,8 @@ export default async function StatsPage({
     .slice(0, 8);
   const sourceById = new Map(sources.map((s) => [s.id, s]));
 
-  const stat = (label: string, value: string) => (
-    <div
-      style={{
-        padding: 20,
-        border: "1px solid var(--hairline)",
-        background: "var(--bg-deep)",
-      }}
-    >
-      <p className="label" style={{ marginBottom: 6 }}>{label}</p>
-      <p
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "2.4rem",
-          margin: 0,
-          color: "var(--accent-cyan)",
-          lineHeight: 1,
-        }}
-      >
-        {value}
-      </p>
-    </div>
-  );
-
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label label--accent">{t.kicker}</p>
-      <h1>{t.title}</h1>
-
+    <PageShell kicker={t.kicker} title={t.title}>
       <div
         style={{
           display: "grid",
@@ -84,10 +63,30 @@ export default async function StatsPage({
           margin: "2em 0 3em",
         }}
       >
-        {stat(t.issuesPublished, String(total).padStart(3, "0"))}
-        {stat(t.avgSignal, String(avgSignal).padStart(2, "0"))}
-        {stat(t.activeSources, String(sources.length).padStart(2, "0"))}
-        {stat(t.tagsInUse, String(tags.length).padStart(2, "0"))}
+        <StatCard
+          label={t.issuesPublished}
+          value={String(total).padStart(3, "0")}
+          valueSize="2.4rem"
+          padding={20}
+        />
+        <StatCard
+          label={t.avgSignal}
+          value={String(avgSignal).padStart(2, "0")}
+          valueSize="2.4rem"
+          padding={20}
+        />
+        <StatCard
+          label={t.activeSources}
+          value={String(sources.length).padStart(2, "0")}
+          valueSize="2.4rem"
+          padding={20}
+        />
+        <StatCard
+          label={t.tagsInUse}
+          value={String(tags.length).padStart(2, "0")}
+          valueSize="2.4rem"
+          padding={20}
+        />
       </div>
 
       <div className="split-2">
@@ -198,6 +197,6 @@ export default async function StatsPage({
           )}
         </ul>
       </section>
-    </section>
+    </PageShell>
   );
 }
