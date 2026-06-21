@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
         borderTop: "1px solid var(--hairline)",
         marginTop: 96,
         padding: "48px 0 64px",
-        background: "rgba(5, 7, 13, 0.6)",
+        background: "var(--surface-soft)",
       }}
     >
       <div

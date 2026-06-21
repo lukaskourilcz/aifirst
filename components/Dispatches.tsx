@@ -39,8 +39,7 @@ export function Dispatches({ items, locale }: { items: Dispatch[]; locale: Local
               position: "relative",
               padding: 20,
               border: "1px solid var(--hairline)",
-              background:
-                "linear-gradient(180deg, rgba(18,25,51,0.55), rgba(10,15,31,0.4))",
+              background: "var(--surface-soft)",
             }}
           >
             <span

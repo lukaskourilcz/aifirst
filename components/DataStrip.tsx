@@ -25,7 +25,7 @@ export function DataStrip({
     <div
       style={{
         borderBottom: "1px solid var(--hairline)",
-        background: "rgba(10, 15, 31, 0.5)",
+        background: "var(--surface-soft)",
       }}
     >
       <div

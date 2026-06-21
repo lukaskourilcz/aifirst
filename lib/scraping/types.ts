@@ -1,4 +1,4 @@
-export type SourceType = "rss" | "html" | "hn" | "arxiv";
+export type SourceType = "rss" | "html" | "hn" | "arxiv" | "bluesky";
 
 export type Source = {
   id: string;
@@ -8,7 +8,7 @@ export type Source = {
   tags?: string[];
   // type-specific
   url?: string;     // rss, html
-  query?: string;   // arxiv
+  query?: string;   // arxiv, bluesky
 };
 
 export type ScrapedItem = {

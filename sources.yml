@@ -38,6 +38,17 @@ sources:
     weight: 0.6
     tags: [ml, research]
 
+  - id: bluesky-language-models
+    type: bluesky
+    # Bluesky's searchPosts treats multiple terms as AND, not OR — keep
+    # queries to a single keyword or short phrase. Add more bluesky sources
+    # for other angles (e.g. "AI research", "AI safety") rather than trying
+    # to OR them in one query.
+    name: Bluesky · language models
+    query: language model
+    weight: 0.55
+    tags: [social, ai]
+
   - id: deepmind-blog
     type: rss
     name: Google DeepMind

@@ -24,7 +24,7 @@ export async function Masthead({ locale }: { locale: Locale }) {
         zIndex: 10,
         backdropFilter: "blur(14px) saturate(140%)",
         WebkitBackdropFilter: "blur(14px) saturate(140%)",
-        background: "rgba(5, 7, 13, 0.72)",
+        background: "var(--surface-elev)",
         borderBottom: "1px solid var(--hairline)",
       }}
     >
@@ -72,8 +72,6 @@ export async function Masthead({ locale }: { locale: Locale }) {
           <Link href={lp("/archive")} className="label">{t.archive}</Link>
           <Link href={lp("/tags")} className="label">{t.tags}</Link>
           <Link href={lp("/sources")} className="label">{t.sources}</Link>
-          <Link href={lp("/stats")} className="label">{t.stats}</Link>
-          <Link href={lp("/trends")} className="label">{t.trends}</Link>
           <Link href={lp("/glossary")} className="label">{t.glossary}</Link>
           <Link href={lp("/colophon")} className="label">{t.colophon}</Link>
           <Link href={lp("/health")} className="label">{t.health}</Link>
