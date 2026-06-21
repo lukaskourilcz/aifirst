@@ -2,22 +2,28 @@
 
 import { useEffect, useState } from "react";
 
-type Mode = "night" | "term";
+type Mode = "light" | "dark";
+
+function readMode(): Mode {
+  return document.documentElement.dataset.mode === "dark" ? "dark" : "light";
+}
 
 export function ThemeToggle() {
-  const [mode, setMode] = useState<Mode>("night");
+  const [mode, setMode] = useState<Mode>("light");
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const current =
-      (document.documentElement.dataset.mode as Mode) || "night";
-    setMode(current);
+    setMode(readMode());
     setReady(true);
   }, []);
 
   function cycle() {
-    const next: Mode = mode === "night" ? "term" : "night";
-    document.documentElement.dataset.mode = next;
+    const next: Mode = mode === "light" ? "dark" : "light";
+    if (next === "dark") {
+      document.documentElement.dataset.mode = "dark";
+    } else {
+      delete document.documentElement.dataset.mode;
+    }
     try {
       localStorage.setItem("mode", next);
     } catch {}
@@ -28,8 +34,8 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={cycle}
-      aria-label={`switch to ${mode === "night" ? "term" : "night"} mode`}
-      title={`switch to ${mode === "night" ? "term" : "night"} mode`}
+      aria-label={`switch to ${mode === "light" ? "dark" : "light"} mode`}
+      title={`switch to ${mode === "light" ? "dark" : "light"} mode`}
       className="label"
       style={{
         background: "transparent",
@@ -42,7 +48,7 @@ export function ThemeToggle() {
         textAlign: "center",
       }}
     >
-      {ready ? (mode === "term" ? "term ✸" : "night ◐") : "◐"}
+      {ready ? (mode === "dark" ? "dark ☾" : "light ☀") : "◐"}
     </button>
   );
 }

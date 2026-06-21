@@ -4,6 +4,15 @@
 // content from outside origins. If you start embedding tweets,
 // videos, or analytics, loosen the CSP accordingly.
 
+const isDev = process.env.NODE_ENV !== "production";
+
+// Next's dev server (webpack HMR + React Refresh) uses `eval()` to load
+// modules, so the strict prod CSP that omits 'unsafe-eval' would break
+// hydration on every page in dev. Allow it only in development.
+const scriptSrc = isDev
+  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+  : "script-src 'self' 'unsafe-inline'";
+
 const securityHeaders = [
   // Tell browsers to keep using HTTPS for two years, including subdomains.
   // Safe to ship: this domain is HTTPS-only on Vercel by default.
@@ -37,7 +46,7 @@ const securityHeaders = [
       "default-src 'self'",
       "img-src 'self' data: blob:",
       "style-src 'self' 'unsafe-inline'",
-      "script-src 'self' 'unsafe-inline'",
+      scriptSrc,
       "font-src 'self' data:",
       "connect-src 'self'",
       "form-action 'self'",

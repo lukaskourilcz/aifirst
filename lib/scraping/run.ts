@@ -3,20 +3,29 @@ import { fetchRss } from "./rss.js";
 import { fetchHn } from "./hn.js";
 import { fetchArxiv } from "./arxiv.js";
 import { fetchHtml } from "./html.js";
+import { fetchBluesky } from "./bluesky.js";
 
 export { loadSources } from "./sources.js";
 
 export async function fetchOne(source: Source): Promise<ScrapedItem[]> {
   switch (source.type) {
-    case "rss":   return fetchRss(source);
-    case "hn":    return fetchHn(source);
-    case "arxiv": return fetchArxiv(source);
-    case "html":  return fetchHtml(source);
+    case "rss":     return fetchRss(source);
+    case "hn":      return fetchHn(source);
+    case "arxiv":   return fetchArxiv(source);
+    case "html":    return fetchHtml(source);
+    case "bluesky": return fetchBluesky(source);
     default:
       console.warn(`[run] ${source.id}: unknown type ${source.type}`);
       return [];
   }
 }
+
+// Cap on items kept per source after fetch. Adapters often expose full
+// archive feeds (HF/OpenAI blog ship 800-1000+ items in a single RSS pull);
+// curate only ever picks the day's top stories so paying for the rest in
+// the LLM prompt is wasted spend. Trim to the most recent N per source
+// before merging.
+const PER_SOURCE_CAP = 10;
 
 export async function runScrapers(sources: Source[]): Promise<ScrapedItem[]> {
   const CONCURRENCY = 6;
@@ -28,14 +37,21 @@ export async function runScrapers(sources: Source[]): Promise<ScrapedItem[]> {
       if (!source) break;
       const started = Date.now();
       const items = await fetchOne(source);
+      const kept = newestFirst(items).slice(0, PER_SOURCE_CAP);
       console.error(
-        `[scrape] ${source.id}: ${items.length} items in ${Date.now() - started}ms`,
+        `[scrape] ${source.id}: ${items.length} fetched, kept ${kept.length} in ${Date.now() - started}ms`,
       );
-      out.push(...items);
+      out.push(...kept);
     }
   });
   await Promise.all(workers);
   return dedupe(out);
+}
+
+function newestFirst(items: ScrapedItem[]): ScrapedItem[] {
+  return [...items].sort((a, b) =>
+    a.publishedAt < b.publishedAt ? 1 : a.publishedAt > b.publishedAt ? -1 : 0,
+  );
 }
 
 function dedupe(items: ScrapedItem[]): ScrapedItem[] {

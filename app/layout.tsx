@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { ScanlineOverlay } from "@/components/ScanlineOverlay";
 import { siteUrl } from "@/lib/config";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
 // The masthead, footer and shortcut overlay are locale-aware and live in
 // app/[lang]/layout.tsx. The root layout only owns <html>/<body>, the
 // pre-paint theme script, and the global scanline overlay.
-const THEME_INIT = `(function(){try{var m=localStorage.getItem('mode');if(m==='term')document.documentElement.dataset.mode='term';}catch(e){}})();`;
+const THEME_INIT = `(function(){try{var m=localStorage.getItem('mode');if(m==='dark')document.documentElement.dataset.mode='dark';}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -32,10 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
-      <body>
-        <ScanlineOverlay />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
