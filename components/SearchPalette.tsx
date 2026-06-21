@@ -57,16 +57,16 @@ export function SearchPalette({ index, locale }: Props) {
         type="button"
         aria-label="open search"
         onClick={() => setOpen(true)}
-        className="label"
+        className="nav-item"
         style={{
           background: "transparent",
-          color: "var(--color-folio-black)",
-          border: "0",
-          padding: 0,
+          border: 0,
           cursor: "pointer",
-          fontFamily: "var(--font-chrome)",
+          width: "100%",
+          textAlign: "left",
         }}
       >
+        <span aria-hidden className="nav-item__glyph">⌕</span>
         {t.open}
       </button>
 

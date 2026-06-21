@@ -10,30 +10,33 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer
       style={{
-        marginTop: 96,
-        padding: "48px 0 64px",
-        background: "var(--color-newsprint-cream)",
-        borderTop: "1px solid var(--color-folio-black)",
+        marginTop: 64,
       }}
     >
-      <div className="container footer-grid">
+      <div className="footer-grid">
         <div>
           <p
             style={{
-              fontFamily: "var(--font-plantin)",
+              fontFamily: "var(--font-suisse-intl)",
               fontWeight: 700,
-              fontSize: 22,
-              letterSpacing: "-0.02em",
-              textTransform: "uppercase",
-              margin: "0 0 12px",
+              fontSize: 18,
+              letterSpacing: "-0.025em",
+              margin: "0 0 8px",
             }}
           >
-            AIFIRST<span style={{ color: "var(--color-signal-yellow)" }}>.</span>
+            aifirst<span style={{ color: "var(--color-blueprint-blue)" }}>.</span>
           </p>
-          <p style={{ color: "var(--color-caption-gray)", margin: 0, maxWidth: "52ch" }}>
+          <p
+            style={{
+              color: "var(--color-slate)",
+              margin: 0,
+              maxWidth: "52ch",
+              fontSize: "var(--text-body-sm)",
+            }}
+          >
             {d.footer.description}
           </p>
-          <p className="label label--muted" style={{ marginTop: 16 }}>
+          <p className="label" style={{ marginTop: 12 }}>
             {d.common.transmissionOngoing}
           </p>
         </div>

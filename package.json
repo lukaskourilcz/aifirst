@@ -14,6 +14,7 @@
     "generate:daily": "tsx scripts/generate-daily.ts",
     "generate:weekly": "tsx scripts/generate-weekly.ts",
     "scrape:dry": "tsx scripts/scrape-dry.ts",
+    "scrape:og": "tsx scripts/scrape-og-images.ts",
     "seed": "tsx scripts/seed.ts",
     "test": "vitest run",
     "e2e": "playwright test"

@@ -58,47 +58,50 @@ for (const route of ROUTES) {
   });
 }
 
-test("home: masthead wordmark, lead, 3-col grid, feature row render", async ({ page }) => {
+test("home: shell sidebar, hero panel, article body, recent feed render", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".masthead__wordmark")).toBeVisible();
-  await expect(page.locator(".lead__title")).toBeVisible();
-  await expect(page.locator(".lead__photo")).toBeVisible();
-  await expect(page.locator(".edit-grid")).toBeVisible();
-  await expect(page.locator(".feature-row").first()).toBeVisible();
+  await expect(page.locator(".sidebar").first()).toBeVisible();
+  await expect(page.locator(".sidebar__brand").first()).toBeVisible();
+  await expect(page.locator(".hero").first()).toBeVisible();
+  await expect(page.locator(".hero__title").first()).toBeVisible();
+  await expect(page.locator(".article-with-aside__main").first()).toBeVisible();
+  // Recent issues are rendered as post cards
+  await expect(page.locator(".post-card").first()).toBeVisible();
 });
 
-test("home: read-issue CTA jumps to the briefing section", async ({ page }) => {
+test("dispatches sidebar exists and is bounded to the article column", async ({ page, viewport }) => {
+  // Below 1000px the two columns stack vertically, so the bounded-bottom
+  // invariant only applies on desktop.
+  test.skip((viewport?.width ?? 0) < 1000, "two-column layout only ≥1000px");
   await page.goto("/");
-  await page.locator(".lead__cta").click();
-  await expect(page.locator("#briefing")).toBeInViewport();
+  const main = page.locator(".article-with-aside__main").first();
+  const side = page.locator(".article-with-aside__side").first();
+  await expect(side).toBeVisible();
+  const [mainBox, sideBox] = await Promise.all([
+    main.boundingBox(),
+    side.boundingBox(),
+  ]);
+  if (!mainBox || !sideBox) throw new Error("could not measure article columns");
+  expect(
+    sideBox.y + sideBox.height,
+    "dispatches bottom must not exceed article body bottom",
+  ).toBeLessThanOrEqual(mainBox.y + mainBox.height + 2);
 });
 
-test("light theme is the default; toggling flips to dark and persists", async ({ page }) => {
+test("article body renders inline — no CTA gate", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("html")).not.toHaveAttribute("data-mode", "dark");
-  await page.getByRole("button", { name: /switch to dark mode/i }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-mode", "dark");
-  await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-mode", "dark");
-  await page.getByRole("button", { name: /switch to light mode/i }).click();
-  await expect(page.locator("html")).not.toHaveAttribute("data-mode", "dark");
+  // The first article paragraph (Mdx output) should be visible without any
+  // additional click.
+  const body = page.locator(".article-body p").first();
+  await expect(body).toBeVisible();
 });
 
-test("primary nav is the editorial categories; stats/trends/health are footer-only", async ({ page }) => {
+test("primary nav lives in the sidebar; ops links in the footer", async ({ page }) => {
   await page.goto("/");
-  const primary = page.locator("nav.primary-nav");
-  // Editorial categories in primary nav
+  const sidebar = page.locator(".sidebar");
   for (const path of ["/archive", "/tags", "/sources", "/glossary", "/colophon"]) {
-    await expect(primary.locator(`a[href$="${path}"]`)).toHaveCount(1);
+    await expect(sidebar.locator(`a[href$="${path}"]`).first()).toBeVisible();
   }
-  // Operational/meta pages live only in the footer
-  for (const path of ["/stats", "/trends", "/health"]) {
-    await expect(primary.locator(`a[href$="${path}"]`)).toHaveCount(0);
-  }
-});
-
-test("footer hosts the operational links (archive, glossary, stats, trends, health)", async ({ page }) => {
-  await page.goto("/");
   const footer = page.locator("nav.footer-nav");
   for (const path of ["/archive", "/glossary", "/stats", "/trends", "/health"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
@@ -109,16 +112,18 @@ test("language switcher reaches the Czech mirror of the home page", async ({ pag
   await page.goto("/");
   await page.getByRole("link", { name: /čeština/i }).first().click();
   await expect(page).toHaveURL(/\/cs\/?$/);
-  await expect(page.locator(".lead__title")).toBeVisible();
+  await expect(page.locator(".hero__title")).toBeVisible();
 });
 
-test("only signal yellow appears in the chrome", async ({ page }) => {
-  // The CTA button is the one place chrome carries yellow.
+test("the single CTA uses Blueprint Blue (#1d52de)", async ({ page, viewport }) => {
+  // The "Read the issue" CTA lives in the sidebar's What's-New card, which is
+  // hidden on the mobile/tablet collapsed shell. Run this lock-in on desktop.
+  test.skip((viewport?.width ?? 0) < 1000, "sidebar card visible only on desktop");
   await page.goto("/");
-  const cta = page.locator(".lead__cta").first();
+  const cta = page.locator(".sidebar .cta").first();
   await expect(cta).toBeVisible();
   const bg = await cta.evaluate((el) => getComputedStyle(el).backgroundColor);
-  expect(bg, "lead CTA should use signal yellow #ffc500 (rgb(255,197,0))").toBe(
-    "rgb(255, 197, 0)",
+  expect(bg, "CTA should use blueprint blue rgb(29,82,222)").toBe(
+    "rgb(29, 82, 222)",
   );
 });
