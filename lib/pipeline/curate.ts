@@ -9,43 +9,51 @@ export type CuratedBrief = {
   picks: Array<{ itemId: string; why: string }>;
 };
 
-const TOOL = {
-  name: "emit_brief",
-  description: "Emit the curated daily brief.",
-  input_schema: {
-    type: "object",
-    properties: {
-      headline: { type: "string" },
-      angle: { type: "string" },
-      picks: {
-        type: "array",
-        minItems: 3,
-        maxItems: 8,
-        items: {
-          type: "object",
-          properties: {
-            itemId: { type: "string" },
-            why: { type: "string" },
+function buildTool(maxIndex: number) {
+  return {
+    name: "emit_brief",
+    description: "Emit the curated daily brief.",
+    input_schema: {
+      type: "object",
+      properties: {
+        headline: { type: "string" },
+        angle: { type: "string" },
+        picks: {
+          type: "array",
+          minItems: 3,
+          maxItems: 8,
+          items: {
+            type: "object",
+            properties: {
+              index: { type: "integer", minimum: 0, maximum: maxIndex },
+              why: { type: "string" },
+            },
+            required: ["index", "why"],
           },
-          required: ["itemId", "why"],
         },
       },
+      required: ["headline", "angle", "picks"],
     },
-    required: ["headline", "angle", "picks"],
-  },
-} as const;
+  } as const;
+}
 
 function compact(items: ScrapedItem[]): string {
   return items
     .map(
       (i, idx) =>
-        `[${idx}] id=${i.id} src=${i.source} weight-tag=${i.tags.join(",")}\n` +
+        `[${idx}] src=${i.source} tags=${i.tags.join(",")}\n` +
         `    title: ${i.title}\n` +
         `    url: ${i.url}\n` +
         `    summary: ${i.summary}`,
     )
     .join("\n\n");
 }
+
+type ToolInput = {
+  headline: string;
+  angle: string;
+  picks: Array<{ index: number; why: string }>;
+};
 
 export async function curate(
   items: ScrapedItem[],
@@ -56,7 +64,7 @@ export async function curate(
     model: MODELS.sonnet,
     max_tokens: 1500,
     system: [{ type: "text", text: CURATE_SYSTEM, cache_control: { type: "ephemeral" } }],
-    tools: [TOOL],
+    tools: [buildTool(items.length - 1)],
     tool_choice: { type: "tool", name: "emit_brief" },
     messages: [
       {
@@ -70,9 +78,15 @@ export async function curate(
   if (!toolUse || toolUse.type !== "tool_use") {
     throw new Error("curate: model did not call emit_brief");
   }
-  const input = toolUse.input as Omit<CuratedBrief, "date">;
-  if (input.picks.length < 3) {
-    throw new Error(`curate: only ${input.picks.length} picks (min 3)`);
+  const input = toolUse.input as ToolInput;
+  const picks = input.picks
+    .map((p) => {
+      const item = items[p.index];
+      return item ? { itemId: item.id, why: p.why } : null;
+    })
+    .filter((p): p is { itemId: string; why: string } => p !== null);
+  if (picks.length < 3) {
+    throw new Error(`curate: only ${picks.length} pickable picks (min 3)`);
   }
-  return { date, ...input };
+  return { date, headline: input.headline, angle: input.angle, picks };
 }

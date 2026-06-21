@@ -44,7 +44,8 @@ let tempCwd: string;
 
 beforeAll(async () => {
   originalCwd = process.cwd();
-  tempCwd = await fs.mkdtemp(path.join(os.tmpdir(), "aifirst-persist-"));
+  const raw = await fs.mkdtemp(path.join(os.tmpdir(), "aifirst-persist-"));
+  tempCwd = await fs.realpath(raw);
   process.chdir(tempCwd);
 });
 
