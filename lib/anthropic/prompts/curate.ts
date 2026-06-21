@@ -17,5 +17,6 @@ Output
 - Use the provided tool \`emit_brief\` to return a structured brief.
 - \`headline\` is a working title, not the final article title.
 - \`angle\` is a single-paragraph thesis tying the picks together.
-- \`picks\` references items by their \`id\` from the input.
+- \`picks\` references items by their bracketed \`index\` from the input
+  (e.g. the \`5\` in \`[5] src=…\`).
 `;
