@@ -60,14 +60,14 @@ export function SearchPalette({ index, locale }: Props) {
         className="label"
         style={{
           background: "transparent",
-          color: "var(--ink-muted)",
-          border: "1px solid var(--hairline)",
-          padding: "6px 12px",
+          color: "var(--color-folio-black)",
+          border: "0",
+          padding: 0,
           cursor: "pointer",
-          fontFamily: "var(--font-display)",
+          fontFamily: "var(--font-chrome)",
         }}
       >
-        {t.open} · <span style={{ color: "var(--accent-cyan)" }}>⌘K</span>
+        {t.open}
       </button>
 
       {open && (

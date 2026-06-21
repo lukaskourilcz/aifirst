@@ -9,33 +9,12 @@ export function Wire({ items, locale }: { items: WireItem[]; locale: Locale }) {
       aria-label="The wire"
       style={{
         margin: "64px 0",
-        padding: "20px 24px",
-        background:
-          "linear-gradient(90deg, rgba(92,240,255,0.04), rgba(255,79,216,0.04))",
-        border: "1px solid var(--hairline)",
-        borderLeft: "2px solid var(--accent-cyan)",
+        paddingTop: 24,
+        borderTop: "1px solid var(--color-folio-black)",
       }}
     >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          marginBottom: 16,
-        }}
-      >
-        <span
-          aria-hidden
-          style={{
-            display: "inline-block",
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            background: "var(--accent-cyan)",
-            boxShadow: "var(--glow-cyan)",
-          }}
-        />
-        <p className="label label--accent" style={{ margin: 0 }}>
+      <header style={{ marginBottom: 16 }}>
+        <p className="label" style={{ margin: 0 }}>
           {dict(locale).article.wireHeading}
         </p>
       </header>
@@ -46,7 +25,8 @@ export function Wire({ items, locale }: { items: WireItem[]; locale: Locale }) {
           margin: 0,
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: "12px 24px",
+          rowGap: 0,
+          columnGap: 32,
         }}
       >
         {items.map((item, i) => (
@@ -55,18 +35,16 @@ export function Wire({ items, locale }: { items: WireItem[]; locale: Locale }) {
             style={{
               display: "grid",
               gridTemplateColumns: "auto 1fr",
-              gap: 10,
+              gap: 12,
               alignItems: "baseline",
+              padding: "12px 0",
+              borderTop: "1px solid var(--color-rule-gray)",
             }}
           >
             <span
               aria-hidden
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "0.7rem",
-                color: "var(--ink-dim)",
-                letterSpacing: "0.18em",
-              }}
+              className="label"
+              style={{ color: "var(--color-mute-gray)" }}
             >
               {String(i + 1).padStart(2, "0")}
             </span>
@@ -75,20 +53,13 @@ export function Wire({ items, locale }: { items: WireItem[]; locale: Locale }) {
                 href={item.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                style={{ borderBottom: "1px dashed var(--hairline)" }}
+                style={{ borderBottom: "1px solid var(--color-rule-gray)" }}
               >
                 {item.title}
               </a>
               <span
-                style={{
-                  display: "block",
-                  fontFamily: "var(--font-display)",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "var(--ink-dim)",
-                  marginTop: 2,
-                }}
+                className="label label--muted"
+                style={{ display: "block", marginTop: 4 }}
               >
                 {item.source}
               </span>

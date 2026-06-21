@@ -8,43 +8,12 @@ type Props = {
   locale: Locale;
 };
 
-const corner: React.CSSProperties = {
-  position: "absolute",
-  width: 28,
-  height: 28,
-  borderColor: "var(--accent-cyan)",
-  borderStyle: "solid",
-  pointerEvents: "none",
-};
-
+// Photo-led cover: a clean photograph with an editorial caption below.
+// 0 radius on the figure, 8px on the photo (per Monocle photo card rule).
+// No corner brackets, no glow — just paper.
 export function CoverFrame({ src, alt, priority, locale }: Props) {
   return (
-    <figure
-      style={{
-        position: "relative",
-        margin: 0,
-        padding: 12,
-        border: "1px solid var(--hairline)",
-        background: "var(--bg-deep)",
-        boxShadow: "0 30px 80px -40px rgba(92, 240, 255, 0.45)",
-      }}
-    >
-      <span style={{ ...corner, top: -1, left: -1, borderWidth: "1px 0 0 1px" }} />
-      <span style={{ ...corner, top: -1, right: -1, borderWidth: "1px 1px 0 0" }} />
-      <span style={{ ...corner, bottom: -1, left: -1, borderWidth: "0 0 1px 1px" }} />
-      <span style={{ ...corner, bottom: -1, right: -1, borderWidth: "0 1px 1px 0" }} />
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 12,
-          background:
-            "linear-gradient(135deg, rgba(92,240,255,0.08), transparent 35%, transparent 65%, rgba(255,79,216,0.08))",
-          mixBlendMode: "screen",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      />
+    <figure style={{ margin: 0 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
@@ -56,23 +25,18 @@ export function CoverFrame({ src, alt, priority, locale }: Props) {
           width: "100%",
           aspectRatio: "3 / 2",
           objectFit: "cover",
-          filter: "saturate(1.05) contrast(1.05)",
+          borderRadius: "var(--radius-photo)",
+          background: "var(--color-pull-quote-gray)",
         }}
       />
       <figcaption
         style={{
-          position: "absolute",
-          left: 24,
-          bottom: 24,
-          padding: "6px 10px",
-          fontFamily: "var(--font-display)",
-          fontSize: "0.7rem",
-          letterSpacing: "0.18em",
+          marginTop: 8,
+          fontFamily: "var(--font-plantin)",
+          fontSize: "var(--text-caption)",
+          letterSpacing: "0.075em",
           textTransform: "uppercase",
-          color: "var(--ink-primary)",
-          background: "rgba(5, 7, 13, 0.65)",
-          border: "1px solid var(--hairline-strong)",
-          zIndex: 2,
+          color: "var(--color-caption-gray)",
         }}
       >
         {dict(locale).article.coverCaption}

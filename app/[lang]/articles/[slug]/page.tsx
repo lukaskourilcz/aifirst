@@ -18,6 +18,7 @@ import {
   type ArticleSummary,
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
+import { readingMinutes } from "@/lib/text";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -50,6 +51,10 @@ export async function generateMetadata({
   };
 }
 
+function eyebrow(tags?: string[]): string {
+  return (tags?.[0] ?? "today").replace(/-/g, " ").toUpperCase();
+}
+
 export default async function ArticlePage({
   params,
 }: {
@@ -77,72 +82,83 @@ export default async function ArticlePage({
   );
   const fm = article.frontmatter;
   const hasDispatches = (fm.dispatches?.length ?? 0) > 0;
+  const reading = readingMinutes(article.mdx);
 
   return (
     <>
       <ReadingProgress />
-      <section className="container" style={{ paddingTop: 32 }}>
-        <div className="enter enter-1">
-          <CoverFrame
-            src={fm.illustration.path}
-            alt={fm.illustration.alt}
-            priority
-            locale={locale}
-          />
+
+      {/* Lead: eyebrow + headline + dek + photo, full container width */}
+      <section className="container" style={{ paddingTop: 24, paddingBottom: 24 }}>
+        <p className="lead__eyebrow">
+          {isWeekly ? d.article.weeklyDigest.toUpperCase() : eyebrow(fm.tags)}
+        </p>
+        <h1
+          style={{
+            fontSize: "clamp(32px, 5vw, 56px)",
+            lineHeight: 1.05,
+            letterSpacing: "-0.025em",
+            margin: "12px 0 16px",
+          }}
+        >
+          {fm.title}
+        </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-plantin)",
+            fontSize: "clamp(18px, 1.8vw, 22px)",
+            lineHeight: 1.4,
+            color: "var(--color-caption-gray)",
+            margin: "0 0 24px",
+            maxWidth: "70ch",
+          }}
+        >
+          {fm.dek}
+        </p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            marginBottom: 32,
+            fontFamily: "var(--font-plantin)",
+            fontSize: "var(--text-caption)",
+            color: "var(--color-mute-gray)",
+          }}
+        >
+          <span>{fm.date}</span>
+          <span aria-hidden>·</span>
+          <span>{reading} {d.common.minutesShort} {d.common.readMinutes}</span>
+          {(fm.tags ?? []).slice(0, 4).map((t) => (
+            <TagChip key={t} tag={t} locale={locale} />
+          ))}
         </div>
+        <CoverFrame
+          src={fm.illustration.path}
+          alt={fm.illustration.alt}
+          priority
+          locale={locale}
+        />
       </section>
 
-      <section className="container" style={{ paddingTop: 48, paddingBottom: 32 }}>
+      {/* Article body with dispatches sidebar */}
+      <section className="container" style={{ paddingTop: 32, paddingBottom: 32 }}>
         <div className="article-with-aside">
           <article className="article-with-aside__main">
-            <p
-              className="label label--accent"
-              style={{ color: isWeekly ? "var(--accent-magenta)" : undefined }}
-            >
-              {isWeekly ? d.article.weeklyDigest : ""}{" "}
-              {isWeekly ? "·" : ""} {fm.date}
-            </p>
             {article.fallback && (
               <p
                 className="label"
                 style={{
-                  color: "var(--accent-amber)",
-                  border: "1px solid var(--hairline)",
-                  borderLeft: "2px solid var(--accent-amber)",
                   padding: "8px 12px",
-                  margin: "0 0 16px",
+                  margin: "0 0 24px",
+                  borderLeft: "2px solid var(--color-signal-yellow)",
+                  background: "var(--color-margin-white)",
+                  color: "var(--color-folio-black)",
                 }}
               >
                 {d.article.enOnlyNotice}
               </p>
             )}
-            <h1>{fm.title}</h1>
-            <p
-              style={{
-                fontSize: "1.15rem",
-                color: "var(--ink-muted)",
-                marginBottom: "2em",
-                lineHeight: 1.45,
-              }}
-            >
-              {fm.dek}
-            </p>
-            <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                margin: "0 0 2.5em",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 8,
-              }}
-            >
-              {(fm.tags ?? []).map((t) => (
-                <li key={t}>
-                  <TagChip tag={t} locale={locale} />
-                </li>
-              ))}
-            </ul>
             {isWeekly && fm.digest && (
               <WeeklyBadge
                 from={fm.digest.from}

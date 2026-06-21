@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import { SearchPalette } from "./SearchPalette";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -16,67 +17,55 @@ export async function Masthead({ locale }: { locale: Locale }) {
   const t = dict(locale).nav;
   const lp = localePrefixer(locale);
 
+  // Pipe-separated primary nav, broadsheet style. Sources of section labels
+  // tracked in the dictionary so the order also reflects in the footer.
+  const primary: Array<{ label: string; href: string }> = [
+    { label: t.archive, href: lp("/archive") },
+    { label: t.tags, href: lp("/tags") },
+    { label: t.sources, href: lp("/sources") },
+    { label: t.glossary, href: lp("/glossary") },
+    { label: t.colophon, href: lp("/colophon") },
+  ];
+
   return (
-    <header
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-        backdropFilter: "blur(14px) saturate(140%)",
-        WebkitBackdropFilter: "blur(14px) saturate(140%)",
-        background: "var(--surface-elev)",
-        borderBottom: "1px solid var(--hairline)",
-      }}
-    >
-      <div
-        className="container"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "12px clamp(16px, 4vw, 24px)",
-          gap: 16,
-        }}
-      >
-        <Link
-          href={lp("/")}
-          aria-label="aifirst home"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            fontFamily: "var(--font-display)",
-            fontSize: "1.05rem",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            borderBottom: "none",
-            color: "var(--ink-primary)",
-            flexShrink: 0,
-          }}
-        >
-          <span
-            aria-hidden
-            style={{
-              display: "inline-block",
-              width: 10,
-              height: 10,
-              background: "var(--accent-cyan)",
-              boxShadow: "var(--glow-cyan)",
-              transform: "rotate(45deg)",
-            }}
-          />
-          aifirst<span style={{ color: "var(--accent-magenta)" }}>.</span>
-        </Link>
-        <nav aria-label="primary" className="masthead-nav">
-          <span className="label masthead-date">{today()}</span>
-          <Link href={lp("/tags")} className="label">{t.tags}</Link>
-          <Link href={lp("/sources")} className="label">{t.sources}</Link>
-          <Link href={lp("/colophon")} className="label">{t.colophon}</Link>
-          <SearchPalette index={index} locale={locale} />
-          <LanguageSwitcher locale={locale} />
-          <ThemeToggle />
-        </nav>
+    <header>
+      {/* Utility bar — sticky top with date + actions */}
+      <div className="utility-bar">
+        <div className="container utility-bar__inner">
+          <div className="utility-bar__links">
+            <span aria-label="issue date">{today()}</span>
+          </div>
+          <div className="utility-bar__actions">
+            <SearchPalette index={index} locale={locale} />
+            <LanguageSwitcher locale={locale} />
+            <ThemeToggle />
+          </div>
+        </div>
       </div>
+
+      {/* Wordmark — centred broadsheet masthead */}
+      <div className="masthead">
+        <Link href={lp("/")} className="masthead__wordmark" aria-label="aifirst home">
+          AIFIRST<span className="masthead__dot">.</span>
+        </Link>
+        <p className="masthead__tagline">{dict(locale).meta.tagline}</p>
+      </div>
+
+      {/* Primary nav — pipe-separated category links */}
+      <nav aria-label="primary" className="primary-nav">
+        <div className="container primary-nav__inner">
+          {primary.map((item, i) => (
+            <Fragment key={item.href}>
+              {i > 0 && (
+                <span aria-hidden className="primary-nav__pipe">
+                  |
+                </span>
+              )}
+              <Link href={item.href}>{item.label}</Link>
+            </Fragment>
+          ))}
+        </div>
+      </nav>
     </header>
   );
 }

@@ -43,8 +43,7 @@ export function ModalOverlay({
         position: "fixed",
         inset: 0,
         zIndex,
-        background: "rgba(5, 7, 13, 0.72)",
-        backdropFilter: "blur(8px)",
+        background: "rgba(0, 0, 0, 0.4)",
         display: "flex",
         alignItems: align === "start" ? "flex-start" : "center",
         justifyContent: "center",
@@ -55,9 +54,8 @@ export function ModalOverlay({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: `min(${width}px, 100%)`,
-          border: "1px solid var(--hairline-strong)",
-          background: "var(--bg-deep)",
-          boxShadow: "0 30px 80px -20px rgba(92, 240, 255, 0.25)",
+          border: "1px solid var(--color-folio-black)",
+          background: "var(--color-newsprint-cream)",
         }}
       >
         {children}
