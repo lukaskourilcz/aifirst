@@ -60,6 +60,17 @@ The masthead links to every browseable surface. Keyboard:
 
 ---
 
+## Documentation
+
+- **[`stack-and-scaling.md`](stack-and-scaling.md)** — the production
+  stack, current monthly cost, and a scaling analysis: where the first
+  bottleneck is, and what 100 active users would actually cost and require.
+- **[`DOCS.md`](DOCS.md)** — the full architecture reference: every
+  subsystem, the deployment surface, the editorial contract, the caching
+  and static-generation model, and the operational runbook.
+
+---
+
 ## Develop
 
 ```bash
