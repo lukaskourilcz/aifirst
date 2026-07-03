@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { SidebarToggle } from "./SidebarToggle";
 import { buildSearchIndex } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -49,7 +48,6 @@ export async function Sidebar({ locale }: { locale: Locale }) {
           <span className="sidebar__brand-dot" />
           <span className="sidebar__brand-word">aifirst</span>
         </Link>
-        <SidebarToggle />
       </div>
 
       <nav className="nav-rail" aria-label="primary">
