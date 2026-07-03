@@ -41,11 +41,15 @@ jobs:
           STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
         run: pnpm generate:daily
 
+      - name: Refresh AI pulse (model pricing, service status, npm momentum)
+        # Keyless; resilient — failures leave the previous pulse.json in place.
+        run: pnpm pulse:refresh
+
       - name: Commit
         run: |
           git config user.name "aifirst-bot"
           git config user.email "bot@aifirst"
-          git add content/articles public/illustrations
+          git add content/articles public/illustrations public/data
           if git diff --cached --quiet; then
             echo "nothing to commit"
           else
