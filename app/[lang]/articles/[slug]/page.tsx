@@ -15,6 +15,7 @@ import {
   type ArticleSummary,
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
+import { relatedBySimilarity } from "@/lib/embeddings";
 import { readingMinutes } from "@/lib/text";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -69,7 +70,11 @@ export default async function ArticlePage({
     title: article.frontmatter.title,
     tags: article.frontmatter.tags,
   };
-  const related = relatedArticles(summary, all, 3);
+  // Prefer semantic similarity when article embeddings are present; fall back
+  // to tag overlap otherwise (no Jina key / not embedded yet).
+  const related =
+    relatedBySimilarity(summary, all, locale, 3) ??
+    relatedArticles(summary, all, 3);
   const isWeekly = (article.frontmatter.type ?? "daily") === "weekly";
   const titlesBySlug = new Map(all.map((a) => [a.slug, a.title]));
   const glossary = await loadGlossary();

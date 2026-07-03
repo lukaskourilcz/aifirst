@@ -59,6 +59,24 @@ Nothing here touches the site's runtime or CSP: all calls happen in the daily
 GitHub Actions pipeline, and images are downloaded + committed to
 `public/illustrations/`, so there are **no new client-side hosts to allow-list**.
 
+### Semantic "related issues" (Jina) — optional
+The "related issues" on each article now rank by **meaning** (embedding
+similarity) instead of tag overlap — but only once you add a free Jina key:
+
+- Add `JINA_API_KEY` as an Actions secret (free 1M-token key, no card, at
+  https://jina.ai/embeddings). The daily pipeline then embeds new articles
+  (incrementally — a couple of short requests/day) and commits the vectors to
+  `public/data/embeddings.<locale>.json`.
+- **Without the key it's a clean no-op** — related issues keep working via tag
+  overlap, exactly as before. Vectors are computed at build only and never
+  reach the browser, so there's no runtime key exposure or CSP change.
+
+> Scope note: I deliberately did **not** wire semantic *search-as-you-type*.
+> The search palette is a client component on a static site, so query-time
+> embedding would either expose the API key in the browser or require a new
+> serverless endpoint — both wrong for this architecture. Semantic ranking is
+> applied where it fits cleanly: the build-time "related issues".
+
 ---
 
 ## 1. ⚠️ Make sure Vercel actually deploys `main` (most important)

@@ -45,6 +45,12 @@ jobs:
         # Keyless; resilient — failures leave the previous pulse.json in place.
         run: pnpm pulse:refresh
 
+      - name: Embed new articles for semantic related issues
+        # No-op when JINA_API_KEY is unset; related issues fall back to tags.
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: pnpm embed:refresh
+
       - name: Commit
         run: |
           git config user.name "aifirst-bot"
