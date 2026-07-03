@@ -108,6 +108,7 @@ export default async function ArticlePage({
           alt={fm.illustration.alt}
           className="hero__photo"
           loading="eager"
+          fetchPriority="high"
           decoding="async"
         />
       </section>

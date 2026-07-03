@@ -57,6 +57,14 @@ space. Performance-first: no heavy WebGL unless behind a reduced-motion check.
   filename and is reviewed via PR.
 - Never commit API keys. Use `.env.local` and document required vars in
   `.env.example`.
+- Observability: `<SpeedInsights />` + `<Analytics />` (Vercel) mount once in
+  `app/layout.tsx`. The CSP in `next.config.mjs` allow-lists their two
+  first-party hosts — `va.vercel-scripts.com` (collector script) and
+  `vitals.vercel-insights.com` (vitals beacon); extend the CSP there, not
+  inline, if you add any other third-party script.
+- `pnpm analyze` (`ANALYZE=true next build`) opens a bundle treemap via
+  `@next/bundle-analyzer` to catch client-JS regressions. It's dev-only and
+  ships nothing; watch the build's first-load column for jumps over +10 KB.
 
 ## Foundation & shared helpers
 

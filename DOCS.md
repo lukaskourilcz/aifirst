@@ -675,6 +675,16 @@ in an input/textarea/contentEditable element.
 The build prints a route table after every successful build. Watch the
 first-load column for regressions over +10 KB.
 
+To inspect what ships, run `pnpm analyze` — it sets `ANALYZE=true` and
+builds, then `@next/bundle-analyzer` opens an interactive treemap of the
+client and server bundles. The plugin is dev-only and gated behind the env
+var, so a normal `pnpm build` is unaffected and nothing extra reaches users.
+
+The hero illustration is the LCP element on the home and article pages. Its
+`<img>` carries `loading="eager"` + `fetchPriority="high"` so the browser
+fetches it ahead of lower-priority requests, and `.hero__photo` reserves
+space with `aspect-ratio: 4 / 3`, so the priority hint costs no layout shift.
+
 ---
 
 ## Security
@@ -689,9 +699,11 @@ Referrer-Policy: strict-origin-when-cross-origin
 Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
 Content-Security-Policy:
   default-src 'self'; img-src 'self' data: blob:;
-  style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';
-  font-src 'self' data:; connect-src 'self'; form-action 'self';
-  frame-ancestors 'none'; base-uri 'self'
+  style-src 'self' 'unsafe-inline';
+  script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com;
+  font-src 'self' data:;
+  connect-src 'self' https://vitals.vercel-insights.com;
+  form-action 'self'; frame-ancestors 'none'; base-uri 'self'
 ```
 
 `X-Powered-By` is removed (`poweredByHeader: false`).
@@ -702,7 +714,18 @@ The CSP allows `'unsafe-inline'` for `style` and `script` because:
 - A single inline `<script>` reads `localStorage` to apply the theme
   pre-paint without flash
 
-If you add third-party scripts (analytics, embeds), tighten this.
+Two first-party Vercel hosts are allow-listed for Speed Insights + Web
+Analytics (mounted in `app/layout.tsx`):
+
+- `script-src https://va.vercel-scripts.com` — the collector script. It's
+  same-origin once deployed on Vercel; the external host keeps preview and
+  local working too.
+- `connect-src https://vitals.vercel-insights.com` — the Web Vitals beacon.
+
+Both are inert off Vercel, so they cost nothing locally. In development the
+CSP additionally allows `'unsafe-eval'` in `script-src` for webpack HMR. If
+you add other third-party scripts (embeds, other analytics), extend the CSP
+the same way in `next.config.mjs` rather than inlining.
 
 Other:
 
@@ -868,6 +891,10 @@ Full list. Every variable is also documented in `.env.example`.
 3. Click Deploy. Every static route, every per-issue OG image, every
    per-tag feed, every JSON endpoint, every per-source detail page is
    prerendered. Build time ~2 minutes.
+4. Enable **Speed Insights** and **Web Analytics** for the project (their
+   tabs under the Vercel project). The `<SpeedInsights />` and `<Analytics />`
+   components in `app/layout.tsx` already emit the beacons — the dashboards
+   only populate once the features are toggled on and a deploy is live.
 
 ### GitHub Actions
 
@@ -889,7 +916,8 @@ prompted. Let's Encrypt cert issuance is automatic.
 
 ### Costs (rough)
 
-- **Vercel** — free hobby tier covers a static site like this.
+- **Vercel** — free hobby tier covers a static site like this, including
+  Speed Insights and Web Analytics within the hobby event limits.
 - **Anthropic** — one daily run is ~$0.10–$0.30 depending on item
   count and article size. ~$5/month at one per day. The weekly digest
   is one extra Opus call per week.
@@ -911,13 +939,13 @@ prompted. Let's Encrypt cert issuance is automatic.
 ├── .eslintrc.json
 ├── package.json
 ├── tsconfig.json
-├── next.config.mjs               # security headers + reactStrictMode
+├── next.config.mjs               # security headers + CSP + bundle analyzer
 ├── vitest.config.ts
 ├── sources.yml                   # the scraping registry
 ├── glossary.yml                  # recurring magazine terms
 │
 ├── app/                          # Next.js App Router
-│   ├── layout.tsx                # root layout + theme-init script
+│   ├── layout.tsx                # root layout + theme-init + Vercel insights
 │   ├── globals.css               # design tokens + term-mode overrides
 │   ├── page.tsx                  # home: latest issue
 │   ├── error.tsx                 # route-level 500

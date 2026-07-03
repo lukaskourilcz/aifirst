@@ -132,6 +132,7 @@ export default async function HomePage({
           alt={fm.illustration.alt || fm.title}
           className="hero__photo"
           loading="eager"
+          fetchPriority="high"
           decoding="async"
         />
       </section>

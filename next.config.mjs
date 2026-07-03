@@ -1,17 +1,23 @@
 // Security headers applied to every response. The values lean
-// conservative because the magazine is a static site with no
-// authenticated state, no third-party scripts, and no embedded
-// content from outside origins. If you start embedding tweets,
-// videos, or analytics, loosen the CSP accordingly.
+// conservative: the magazine is a static site with no authenticated
+// state and no embedded outside content. The only third-party traffic
+// is Vercel Speed Insights + Web Analytics, served from first-party
+// Vercel hosts that are allow-listed in the CSP below. If you embed
+// tweets, videos, or other analytics, loosen the CSP accordingly.
+
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const isDev = process.env.NODE_ENV !== "production";
 
 // Next's dev server (webpack HMR + React Refresh) uses `eval()` to load
 // modules, so the strict prod CSP that omits 'unsafe-eval' would break
 // hydration on every page in dev. Allow it only in development.
+// Vercel Speed Insights / Analytics pull their collector script from
+// va.vercel-scripts.com (same-origin once deployed on Vercel, but the
+// external host covers preview/local), so allow it in script-src.
 const scriptSrc = isDev
-  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
-  : "script-src 'self' 'unsafe-inline'";
+  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com"
+  : "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com";
 
 const securityHeaders = [
   // Tell browsers to keep using HTTPS for two years, including subdomains.
@@ -36,8 +42,8 @@ const securityHeaders = [
   //   default-src 'self'    — only same-origin by default
   //   img-src                — own + data: for inline SVG, blob: for clients
   //   style-src 'unsafe-inline' — Next.js injects inline styles
-  //   script-src 'unsafe-inline' — the theme-init script is inline
-  //   connect-src 'self'    — no XHR to other origins from the site
+  //   script-src 'unsafe-inline' — inline theme-init script + Vercel insights
+  //   connect-src           — own origin + Vercel Speed Insights vitals beacon
   //   form-action 'self'
   //   frame-ancestors 'none'
   {
@@ -48,7 +54,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       scriptSrc,
       "font-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' https://vitals.vercel-insights.com",
       "form-action 'self'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
@@ -70,4 +76,10 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// `pnpm analyze` (ANALYZE=true) emits an interactive bundle report; a
+// normal build leaves the plugin inert, so nothing extra ships to users.
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(nextConfig);
