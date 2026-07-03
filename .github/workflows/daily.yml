@@ -30,6 +30,15 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           IMAGE_PROVIDER: ${{ vars.IMAGE_PROVIDER }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+          # Auto-provided by Actions; raises the github-ai-releases source's
+          # rate limit and is ignored by the other adapters.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional news-source keys — each source self-skips when unset.
+          GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
+          NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
         run: pnpm generate:daily
 
       - name: Commit
