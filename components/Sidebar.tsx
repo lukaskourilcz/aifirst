@@ -15,6 +15,7 @@ const GLYPHS: Record<string, string> = {
   colophon: "❀",
   stats: "▦",
   trends: "↑",
+  pulse: "∿",
   health: "♥",
   search: "⌕",
 };
@@ -37,6 +38,7 @@ export async function Sidebar({ locale }: { locale: Locale }) {
   const ops: Array<{ key: string; label: string; href: string }> = [
     { key: "stats",  label: t.stats,  href: lp("/stats") },
     { key: "trends", label: t.trends, href: lp("/trends") },
+    { key: "pulse",  label: t.pulse,  href: lp("/pulse") },
     { key: "health", label: t.health, href: lp("/health") },
   ];
 
