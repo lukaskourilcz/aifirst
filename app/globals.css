@@ -89,7 +89,6 @@
   /* Layout */
   --container: 1200px;
   --sidebar-width: 112px;
-  --sidebar-rail-width: 56px;
   --reading: 68ch;
   --card-padding: 16px;
   --element-gap: 8px;
@@ -314,23 +313,6 @@ hr {
   gap: 8px;
 }
 
-.sidebar__toggle {
-  background: transparent;
-  border: 1px solid var(--color-fog);
-  border-radius: var(--radius-lg);
-  padding: 4px 8px;
-  cursor: pointer;
-  font-family: var(--font-suisse-intl);
-  font-size: 14px;
-  color: var(--color-slate);
-  line-height: 1;
-}
-
-.sidebar__toggle:hover {
-  background: var(--color-paper);
-  color: var(--color-ink-black);
-}
-
 .sidebar .nav-item {
   padding: 6px 8px;
   font-size: 13px;
@@ -349,53 +331,6 @@ hr {
 .sidebar__brand-dot {
   width: 8px;
   height: 8px;
-}
-
-/* Rail mode — icon-only sidebar, persisted via data-sidebar="rail". */
-.shell {
-  transition: grid-template-columns var(--dur-medium) var(--ease-out);
-}
-
-[data-sidebar="rail"] .shell {
-  grid-template-columns: var(--sidebar-rail-width) minmax(0, 1fr);
-}
-
-[data-sidebar="rail"] .sidebar {
-  padding: 20px 8px 24px 0;
-  gap: 14px;
-}
-
-[data-sidebar="rail"] .sidebar__brand-word,
-[data-sidebar="rail"] .nav-item__label,
-[data-sidebar="rail"] .sidebar__heading,
-[data-sidebar="rail"] .sidebar__card-title,
-[data-sidebar="rail"] .sidebar__card-body,
-[data-sidebar="rail"] .sidebar__card .cta,
-[data-sidebar="rail"] .nav-divider {
-  display: none;
-}
-
-[data-sidebar="rail"] .sidebar__card {
-  padding: 8px;
-  border: 0;
-  text-align: center;
-}
-
-[data-sidebar="rail"] .sidebar__head {
-  flex-direction: column;
-  gap: 12px;
-}
-
-[data-sidebar="rail"] .sidebar .nav-item {
-  justify-content: center;
-  padding: 8px 4px;
-  width: 100%;
-}
-
-[data-sidebar="rail"] .sidebar .nav-item__glyph {
-  font-size: 18px;
-  width: auto;
-  opacity: 1;
 }
 
 @media (max-width: 960px) {
