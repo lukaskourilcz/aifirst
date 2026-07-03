@@ -1,4 +1,15 @@
-export type SourceType = "rss" | "html" | "hn" | "arxiv" | "bluesky";
+export type SourceType =
+  | "rss"
+  | "html"
+  | "hn"
+  | "arxiv"
+  | "bluesky"
+  | "spaceflight"
+  | "github"
+  | "stackexchange"
+  | "guardian"
+  | "nytimes"
+  | "gnews";
 
 export type Source = {
   id: string;
@@ -8,7 +19,10 @@ export type Source = {
   tags?: string[];
   // type-specific
   url?: string;     // rss, html
-  query?: string;   // arxiv, bluesky
+  query?: string;   // arxiv, bluesky, guardian, nytimes, gnews, stackexchange (tag)
+  repos?: string[]; // github — "owner/repo" list to pull releases from
+  section?: string; // guardian — section slug (e.g. "technology")
+  site?: string;    // stackexchange — site slug (e.g. "stackoverflow")
 };
 
 export type ScrapedItem = {

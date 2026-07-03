@@ -18,6 +18,10 @@ export async function getImageProvider(): Promise<ImageProvider> {
   switch (which) {
     case "fal":
       return (await import("./fal.js")).default;
+    case "nasa":
+      return (await import("./nasa.js")).default;
+    case "picsum":
+      return (await import("./picsum.js")).default;
     case "none":
       return (await import("./none.js")).default;
     default:

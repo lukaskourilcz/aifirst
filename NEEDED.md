@@ -2,11 +2,62 @@
 
 This file lists everything **you** need to do that I can't do from inside the
 coding environment. It covers the three UX changes (route transitions, hero
-mesh gradient, spring reading bar) and getting them live.
+mesh gradient, spring reading bar), the new **public-API integrations** (new
+scraping sources + keyless image providers), and getting it all live.
 
-Short version: **the code is merged into `main` and is safe to ship. The only
-thing that might block the deploy is a Vercel branch-configuration mismatch —
-see item 1.** Nothing else is strictly required.
+Short version: **all the code is merged into `main` and is safe to ship as-is —
+everything degrades gracefully with no keys.** The only hard blocker for the
+deploy is a Vercel branch-configuration mismatch (item 1). The API keys in
+item 6 are all **optional**: add them to light up the paywalled sources.
+
+---
+
+## 6. API integrations — everything works with ZERO keys, keys are optional
+
+I added new scraping sources and image providers from the public-apis list.
+**None of them are required for the pipeline to run** — each source self-skips
+when its key is missing, and the image providers fall back to a flat panel on
+any failure. Here's what's live and what a key unlocks.
+
+### Works right now, no key needed ✅ (verified against the live APIs)
+- **TensorFeed** (`tensorfeed`) — AI-ecosystem news via its Atom feed. Returned
+  129 items in my test.
+- **Spaceflight News** (`spaceflight-news`) — 20 items, no key.
+- **GitHub releases** (`github-ai-releases`) — new releases from tracked AI
+  libraries. Works unauthenticated at 60 req/hr; in GitHub Actions the built-in
+  `secrets.GITHUB_TOKEN` (already wired) raises it to 5000 req/hr. Verified: 3
+  releases from `ollama/ollama`.
+- **NASA APOD image provider** (`IMAGE_PROVIDER=nasa`) — verified, real space
+  photo. Uses `DEMO_KEY` unless you set `NASA_API_KEY`.
+- **Lorem Picsum image provider** (`IMAGE_PROVIDER=picsum`) — verified, keyless.
+
+To switch the daily illustration to one of the new providers, set the Vercel/
+Actions **variable** `IMAGE_PROVIDER` to `nasa` or `picsum` (it's a repo/vars
+value, not a secret). Currently `none` (flat panel).
+
+### Optional — add these free keys as GitHub Actions **secrets** to enable
+The corresponding source stays dormant (logs "…not set, skipping") until you
+add its secret in **GitHub repo → Settings → Secrets and variables → Actions**:
+
+| Secret | Source | Free tier | Get it at |
+| --- | --- | --- | --- |
+| `GUARDIAN_API_KEY` | `guardian-tech` | generous | https://open-platform.theguardian.com/access/ |
+| `NYTIMES_API_KEY` | `nytimes-tech` | 500 req/day | https://developer.nytimes.com/ |
+| `GNEWS_API_KEY` | `gnews-ai` | 100 req/day, 10 results | https://gnews.io/ |
+| `STACKEXCHANGE_KEY` | `stackexchange-ml` | 10k req/day | https://stackapps.com/apps/oauth/register |
+
+> **StackExchange note:** the anonymous API returns **HTTP 403 from cloud/CI
+> IPs** (I hit this in testing), so `stackexchange-ml` will yield nothing on the
+> Actions runner **until you add `STACKEXCHANGE_KEY`**. A free registered app
+> key fixes both the block and the quota. All the others simply have richer
+> coverage once keyed but never error without one.
+
+Also add `NASA_API_KEY` (optional) if you run `IMAGE_PROVIDER=nasa` heavily and
+want to exceed DEMO_KEY's 50 req/day — irrelevant for a once-daily job.
+
+Nothing here touches the site's runtime or CSP: all calls happen in the daily
+GitHub Actions pipeline, and images are downloaded + committed to
+`public/illustrations/`, so there are **no new client-side hosts to allow-list**.
 
 ---
 
