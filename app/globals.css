@@ -549,6 +549,36 @@ hr {
   .hero { grid-template-columns: 1fr; }
 }
 
+/* Baked mesh-gradient backdrop for the lead panel — a static Colorflow-style
+   export, not a runtime library: three OKLab radial stops layered over the
+   canvas. Zero JS, zero images, zero WebGL. It evokes the sci-fi "aurora"
+   depth from the design system while staying light enough that ink-black
+   copy keeps its AA contrast. Dial the whole effect with --hero-mesh: 0
+   removes it, 2 roughly doubles the tint. Guarded by @supports so browsers
+   without color-mix() fall back to the flat --color-canvas set above. */
+@supports (background: radial-gradient(1px 1px at 0 0, color-mix(in oklab, red 10%, transparent), transparent)) {
+  .hero {
+    --hero-mesh: 1;
+    background:
+      radial-gradient(
+        62% 84% at 10% 6%,
+        color-mix(in oklab, var(--color-blueprint-blue) calc(9% * var(--hero-mesh)), transparent),
+        transparent 62%
+      ),
+      radial-gradient(
+        54% 72% at 94% 2%,
+        color-mix(in oklab, var(--color-mint) calc(6% * var(--hero-mesh)), transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        72% 92% at 82% 104%,
+        color-mix(in oklab, var(--color-blueprint-blue) calc(7% * var(--hero-mesh)), transparent),
+        transparent 60%
+      ),
+      var(--color-canvas);
+  }
+}
+
 .hero__eyebrow {
   display: inline-flex;
   align-items: center;
@@ -1019,5 +1049,48 @@ svg { max-width: 100%; }
   @keyframes enter {
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Route transitions (native View Transitions API)                     */
+/*                                                                     */
+/* Enabled by experimental.viewTransition in next.config.mjs and the   */
+/* <PageTransition> wrapper in app/[lang]/layout.tsx. React drives the  */
+/* browser's startViewTransition on navigation; we only tune the       */
+/* default crossfade to the magazine's motion tokens. Adds zero client  */
+/* JS of our own and no-ops where the API is unsupported.              */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--dur-medium);
+    animation-timing-function: var(--ease-in-out);
+  }
+}
+
+/* Anchor the sidebar so it stays put while the content crossfades —
+   one fixed reference point reads as "content changed", not "page
+   reloaded". A stable name pulls it out of the root snapshot; killing
+   its animation swaps it instantly (active-item highlight included). */
+.sidebar {
+  view-transition-name: site-sidebar;
+}
+::view-transition-group(site-sidebar),
+::view-transition-old(site-sidebar),
+::view-transition-new(site-sidebar) {
+  animation: none;
+}
+
+/* Directional slides are the biggest motion-sensitivity trigger; a hard
+   off-switch drops every route transition back to the browser's instant
+   swap for readers who ask for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }
