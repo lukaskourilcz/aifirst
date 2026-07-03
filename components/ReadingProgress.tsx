@@ -1,24 +1,37 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { useWindowEvent } from "@/lib/hooks/useWindowEvent";
+import { useEffect, useRef } from "react";
+import { useReducedMotion, useScroll, useSpring } from "motion/react";
 
 export function ReadingProgress() {
-  const [pct, setPct] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
-  // Portion of the page scrolled, 0–100.
-  const update = useCallback(() => {
-    const doc = document.documentElement;
-    const scrollable = doc.scrollHeight - doc.clientHeight;
-    setPct(
-      scrollable > 0
-        ? Math.min(100, Math.max(0, (doc.scrollTop / scrollable) * 100))
-        : 0,
-    );
-  }, []);
+  // scrollYProgress is the document scroll position normalised to 0–1.
+  const { scrollYProgress } = useScroll();
 
-  useWindowEvent(["scroll", "resize"], update, { passive: true });
-  useEffect(update, [update]); // measure once on mount
+  // A spring gives the bar weight — it eases toward the scroll position
+  // instead of tracking it 1:1, which reads as smoother on fast flicks and
+  // trackpad momentum. Honour reduced-motion by binding straight to the raw
+  // progress (no spring lag) for readers who opt out of animation.
+  const reduceMotion = useReducedMotion();
+  const spring = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 24,
+    restDelta: 0.001,
+  });
+
+  // Drive the transform through a ref rather than a <motion.div> so we avoid
+  // pulling Motion's full component runtime into the bundle — the hooks alone
+  // are the lean part of the library.
+  useEffect(() => {
+    const source = reduceMotion ? scrollYProgress : spring;
+    const apply = (v: number) => {
+      const el = barRef.current;
+      if (el) el.style.transform = `scaleX(${v})`;
+    };
+    apply(source.get());
+    return source.on("change", apply);
+  }, [reduceMotion, scrollYProgress, spring]);
 
   return (
     <div
@@ -35,13 +48,14 @@ export function ReadingProgress() {
       }}
     >
       <div
+        ref={barRef}
         style={{
           height: "100%",
-          width: `${pct}%`,
+          transformOrigin: "left",
+          transform: "scaleX(0)",
           background:
-            "linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta))",
-          boxShadow: "0 0 12px rgba(92, 240, 255, 0.6)",
-          transition: "width 80ms linear",
+            "linear-gradient(90deg, var(--color-blueprint-blue), var(--color-mint))",
+          boxShadow: "0 0 12px rgba(29, 82, 222, 0.5)",
         }}
       />
     </div>
