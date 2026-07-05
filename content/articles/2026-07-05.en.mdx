@@ -1,25 +1,22 @@
 ---
-title: "The AI Power Race: Chips, Models, and the Politics of Control"
-slug: 2026-07-05-ai-power-race-chips-models-control
+title: "Two Modes of AGI: DeepMind Ships, Anthropic Negotiates"
+slug: 2026-07-05-deepmind-blitz-anthropic-reckoning
 date: "2026-07-05"
 lang: en
-dek: OpenAI previews GPT-5.6 Sol and its own silicon, the White House quietly
-  lets Anthropic back into global markets, and the labs themselves start funding
-  the safety work they can no longer do alone.
+dek: Google DeepMind flooded the week with agents, translation and a safety
+  roadmap; Anthropic won back an export license, lost an Alibaba account, and
+  watched Claude help a researcher forge festival tickets.
 tags:
-  - openai
+  - google-deepmind
   - anthropic
-  - deepmind
-  - chips
   - ai-safety
-  - geopolitics
+  - policy
+  - agents
+  - gemini
 sources:
-  - id: adbd50c1b1db1eb7
-    url: https://openai.com/index/previewing-gpt-5-6-sol
-    title: "Previewing GPT-5.6 Sol: a next-generation model"
-  - id: 1a015f5dfa42958d
-    url: https://openai.com/index/openai-broadcom-jalapeno-inference-chip
-    title: OpenAI and Broadcom unveil LLM-optimized inference chip
+  - id: 0ce8c6adc247f334
+    url: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
+    title: Introducing computer use in Gemini 3.5 Flash
   - id: f190adaee18f192e
     url: https://www.wired.com/story/trump-administration-lifts-export-controls-on-anthropics-mythos-and-fable-ai-models/
     title: The Trump Administration Is Lifting Its Export Controls on Anthropic’s
@@ -28,96 +25,108 @@ sources:
     url: https://www.wired.com/story/anthropic-added-a-new-security-measure-to-get-back-into-the-trump-administrations-good-graces/
     title: Anthropic Added a New Security Measure to Get Back Into the Trump
       Administration’s Good Graces
-  - id: 0ce8c6adc247f334
-    url: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-    title: Introducing computer use in Gemini 3.5 Flash
-  - id: 90b62352ebbd8dd2
-    url: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
-    title: Investing in multi-agent AI safety research
   - id: 75062d920e0fbeb1
     url: https://www.wired.com/story/claude-helped-a-hacker-find-a-way-to-issue-tickets-to-almost-every-us-music-festival/
     title: Claude Helped a Hacker Find a Way to Issue Tickets to Almost Every US
       Music Festival
-  - id: 287d978300723b23
-    url: https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/
-    title: Anthropic is discussing a new custom chip with Samsung
+  - id: 7a350947a7988282
+    url: https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/
+    title: Alibaba reportedly bans employees from using Claude Code
+  - id: 90b62352ebbd8dd2
+    url: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
+    title: Investing in multi-agent AI safety research
+  - id: ae74216dee389070
+    url: https://deepmind.google/blog/securing-the-future-of-ai-agents/
+    title: Securing the future of AI agents
+  - id: 8065dada88d89276
+    url: https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/
+    title: Fluid, natural voice translation with Gemini 3.5 Live Translate
 illustration:
-  path: /illustrations/2026-07-05.webp
-  prompt: A vast circuit-board landscape at dusk where three obelisks — one etched
-    with a sun, one with a mythic beast, one with a shifting geometric bloom —
-    rise above tangled data cables, while small human figures negotiate at their
-    bases. Cool cobalt light spills from the chips into a rising fog of static.
-  alt: Three obelisks marked with distinct symbols rise from a circuit-board
-    landscape while small figures negotiate at their bases.
+  prompt: "A cavernous glass control room at dusk where one wall streams cascading
+    product demos and another wall shows a locked diplomatic vault, with a lone
+    engineer standing between them on a narrow catwalk. The lighting is split:
+    warm amber on the product side, cool blue on the vault side."
+  alt: "A split scene: on one side a brightly lit product wall streaming live
+    agent demos, on the other a darkened diplomatic vault, connected by a narrow
+    catwalk."
 signal_strength: 78
 dispatches:
-  - title: Gemini 3.5 Flash learns to drive a computer
-    body: DeepMind is extending its lightest frontier-tier Gemini with the ability
-      to operate a computer directly — clicking, typing, navigating interfaces.
-      Combined with the Flash line's low latency, it produces an agent practical
-      enough for routine web tasks, from filling forms to searching internal
-      systems. The open question is how enterprises will constrain such an agent
-      so it does only what it is told and not what a prompt injection instructs
-      it to do next.
+  - title: Gemini 3.5 Flash learns to use a computer
+    body: DeepMind extended computer use to the faster, cheaper Gemini variant,
+      letting the model drive browsers and desktop applications, fill forms,
+      click, drag and navigate as an agent. The capability itself is not new in
+      the market; rivals shipped versions months ago. What matters is the choice
+      of tier. By putting it in Flash rather than Pro, Google signals that
+      agentic computer use is meant to be a mass feature baked into Workspace,
+      not a premium curiosity reserved for a handful of enterprise pilots.
     source_url: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-  - title: Anthropic in chip talks with Samsung
-    body: "About a week after OpenAI's Jalapeño announcement with Broadcom, word
-      emerges that Anthropic is in discussions with Samsung about a custom AI
-      chip of its own. Details are thin, but the direction is clear: frontier
-      labs are graduating from being NVIDIA customers to building a vertical
-      stack from model down to physical silicon. For Samsung it is a chance to
-      reenter the fight with TSMC in the segment where the largest money in
-      semiconductors is currently sitting."
-    source_url: https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/
-  - title: Ten million dollars for multi-agent safety
-    body: "Google DeepMind and partners are opening a ten-million-dollar grant
-      program aimed at the safety of systems in which multiple AI agents
-      interact. The timing is not accidental: the same week, the company is
-      shipping computer use in Gemini 3.5 Flash. The lab is publicly
-      acknowledging that its internal safety team cannot alone cover the
-      scenarios its own products create, and is opening the door to academia to
-      help."
+  - title: Live Translate lands in Meet
+    body: Gemini 3.5 Live Translate brings near real-time voice translation into
+      Google AI Studio, Translate and Google Meet, with DeepMind emphasising
+      natural cadence and intonation rather than literal transcription. The
+      practical impact is clearest in distributed teams, where synchronous
+      English meetings have long functioned as a filter on who gets heard. If
+      the translation really does sound human, the shift will not just be about
+      language coverage but about which voices actually carry in a call.
+    source_url: https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/
+  - title: $10M for multi-agent safety
+    body: "DeepMind and partners opened a $10M funding call for research into the
+      safety of systems where dozens or hundreds of agents interact. It is a
+      domain academia is only beginning to understand: emergent behaviour,
+      collaborative failure, cascading exploits. The sum is small next to
+      DeepMind's internal spend, but symbolically it moves the conversation from
+      the single agent to the ecosystem — which is precisely the layer at which
+      the first production incidents are now appearing."
     source_url: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
+  - title: Alibaba flags Claude Code as high-risk
+    body: According to TechCrunch, Alibaba has internally banned employees from
+      using Claude Code and classified the tool as high-risk software. The
+      motive is likely a mix of code-leak concerns and the recent tightening of
+      export rules. For Anthropic this means that while it fights to get back
+      into Washington's good books, one of its largest potential enterprise
+      customers in China has just written it out. The geopolitical fragmentation
+      of developer tooling continues, quietly but steadily.
+    source_url: https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/
 wire:
   - title: Introducing computer use in Gemini 3.5 Flash
     url: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
     source: deepmind-blog
-  - title: Anthropic is discussing a new custom chip with Samsung
-    url: https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/
-    source: techcrunch-ai
+  - title: Fluid, natural voice translation with Gemini 3.5 Live Translate
+    url: https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/
+    source: deepmind-blog
   - title: Investing in multi-agent AI safety research
     url: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
     source: deepmind-blog
-  - title: Claude Helped a Hacker Find a Way to Issue Tickets to Almost Every US
-      Music Festival
-    url: https://www.wired.com/story/claude-helped-a-hacker-find-a-way-to-issue-tickets-to-almost-every-us-music-festival/
-    source: wired-ai
-  - title: Anthropic Added a New Security Measure to Get Back Into the Trump
-      Administration's Good Graces
-    url: https://www.wired.com/story/anthropic-added-a-new-security-measure-to-get-back-into-the-trump-administrations-good-graces/
-    source: wired-ai
+  - title: Securing the future of AI agents
+    url: https://deepmind.google/blog/securing-the-future-of-ai-agents/
+    source: deepmind-blog
+  - title: Alibaba reportedly bans employees from using Claude Code
+    url: https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/
+    source: techcrunch-ai
 ---
 
-## The day the lines crossed
+This week is not about a single model. It is a study in contrast between the two largest Western labs and how each is trying to survive an era in which capability is outrunning regulation. Google DeepMind ran a saturation campaign: new products, new safety program, new money for outside researchers. Anthropic spent its week on politics, incidents and export law — and did so on the front page.
 
-Some days the AI industry looks like a single press conference. Today looked like a cross-section of the whole business at once. OpenAI unveiled a next-generation model and a custom chip. Google DeepMind pushed new Gemini capabilities and simultaneously opened a ten-million-dollar fund for multi-agent safety research. The Trump administration handed Anthropic back its global market in exchange for a security concession. And somewhere in the middle of it all, a researcher demonstrated that with Claude Opus 4.7 he could issue tickets to almost any major US music festival. Capability, geopolitics, and risk collided in a single news cycle, and it is no longer possible to treat them as three separate stories.
+## Saturation from Mountain View
 
-The order matters. Capability first, response second. OpenAI [previewed GPT-5.6 Sol](https://openai.com/index/previewing-gpt-5-6-sol) as a model with stronger performance in coding, science and, notably explicitly, cybersecurity. In the same breath the company [announced Jalapeño with Broadcom](https://openai.com/index/openai-broadcom-jalapeno-inference-chip), a custom inference chip designed specifically for large language models. Anthropic, meanwhile, is [in talks with Samsung](https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/) about its own silicon. The era in which frontier labs merely rented someone else's GPUs is closing. If you want to set the pace, you now have to own the layer beneath the model.
+DeepMind unveiled [computer use in Gemini 3.5 Flash](https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/), giving the cheaper, faster Gemini variant the ability to drive a browser and desktop applications as an agent. At the same time it shipped [Gemini 3.5 Live Translate](https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/), bringing near real-time natural voice translation to Google AI Studio, Translate and Meet. What is interesting is less any single release than the density of them. DeepMind has clearly decided that distribution — folding agents directly into Meet, Chrome and Workspace — matters more than waiting for the perfect model.
 
-## Sovereignty in silicon
+To prevent all of this from reading as pure product velocity, the lab published an [AI Control Roadmap for securing agent systems](https://deepmind.google/blog/securing-the-future-of-ai-agents/), pairing traditional safeguards with real-time behavioural monitoring, and opened a [$10M funding call for multi-agent safety research](https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/). The timing is not coincidental: if you are pushing an agent into the world that will click wherever you tell it, you also need to be seen thinking about what happens when someone other than the account holder does the telling.
 
-Vertical integration is not new — Google has had TPUs for years, Amazon has Trainium — but at OpenAI and Anthropic it carries a different flavor. These companies existed until recently as software entities parked on someone else's infrastructure, mostly NVIDIA. Moving to custom chips is an admission that inference has become a larger line item than training and that Jensen Huang's margins are simply too rich to pay forever. It is also a geopolitical move. Once a lab has its own design team, its own manufacturing partner, and its own distribution, it starts to behave like a quasi-state actor. And the state notices.
+## Anthropic between Washington and Front Gate
 
-Which is exactly the second story of the day. Wired [reports](https://www.wired.com/story/trump-administration-lifts-export-controls-on-anthropics-mythos-and-fable-ai-models/) that the White House is lifting the export controls it imposed only weeks ago on Anthropic's most advanced Mythos and Fable models. The company had been ordered to suspend access for foreign nationals; now it is back in the game. The price? A [new security measure](https://www.wired.com/story/anthropic-added-a-new-security-measure-to-get-back-into-the-trump-administrations-good-graces/) adopted specifically to repair the relationship with the administration. Wired is blunt: there were strings attached. A frontier lab today is not just a technology company but also an object of licensing policy, where security architecture is negotiated as a commercial concession.
+Anthropic is living a very different week. After the White House ordered the company to suspend foreign-national access to its most advanced models, the [Trump administration has now lifted export controls on Fable 5 and Mythos 5](https://www.wired.com/story/trump-administration-lifts-export-controls-on-anthropics-mythos-and-fable-ai-models/). The re-entry ticket was not free: according to Wired, Anthropic had to [add a new security measure to get back into the administration's good graces](https://www.wired.com/story/anthropic-added-a-new-security-measure-to-get-back-into-the-trump-administrations-good-graces/). The specifics remain private, but the precedent is not: the safety architecture of frontier models is now a bargaining chip between labs and the executive branch.
 
-## Claude as an attack surface
+As if to underline the risk, Wired also reported that [a researcher used Claude Opus 4.7 to break into Front Gate](https://www.wired.com/story/claude-helped-a-hacker-find-a-way-to-issue-tickets-to-almost-every-us-music-festival/), the ticketing platform behind essentially every major US festival from Lollapalooza to Bonnaroo, and could issue any ticket he wanted. The model did nothing malicious in the abstract; it was simply good enough to find a hole in someone else's code faster than the vendor's own security team. That is exactly the flavour of incident that keeps policy leads awake, because it is very hard to explain to a senator.
 
-And then the sobering moment arrives. While Anthropic negotiates with Washington and courts Samsung, another Wired reporter [shows](https://www.wired.com/story/claude-helped-a-hacker-find-a-way-to-issue-tickets-to-almost-every-us-music-festival/) that a researcher used Claude Opus 4.7 to break into the website of Front Gate — the ticketing provider for nearly every major US festival, from Lollapalooza to Bonnaroo — and could freely issue any ticket he wanted. This is not a hypothetical red-team scenario. It is a real failure of a real product against real infrastructure. The model the state just cleared for export served as an offensive-security copilot against a system underpinning a sizable chunk of the American entertainment economy.
-
-Add to this Gemini 3.5 Flash, which [can now operate a computer](https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/) — clicking, typing, navigating pages. The same capability that turns a model into a useful assistant also turns it into an autonomous user of any interface it is pointed at. Which is precisely why DeepMind, on the same day, [opened a ten-million-dollar fund](https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/) for multi-agent safety research. When one of the largest labs on the planet starts writing grant checks so that academia can study what happens when its own agents interact, that is a signal. Not panic, but a clear admission that internal capacity is no longer enough.
+And then a third beat: [Alibaba has reportedly banned employees from using Claude Code](https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/), classifying it as high-risk software. In a single week Anthropic won an export reprieve in Washington, an internal ban in Hangzhou, and a security embarrassment in Austin. It is hard to imagine a cleaner illustration that model safety is no longer a technical category but a geopolitical one.
 
 ## Second-order effects
 
-It is worth pausing on what all these stories mean together. 2026 is starting to feel different from the previous years not because models are faster but because so many different kinds of risk are maturing at once. Economic — chip sovereignty is moving from slide decks to fabs. Geopolitical — the export of a frontier model has become a lever. Security — agentic capabilities and computer use are shifting the attack surface from the model to the entire internet. Institutional — labs themselves are now sponsoring the research that will tell them what their products do in environments where multiple agents act at once. Any of these forces could define a year on its own. Today they merged into a single 24-hour cycle.
+The overlap is more interesting than either story alone. DeepMind is betting that trust comes from combining distribution with visible safety investment: a published roadmap, a public grant, agents embedded in products people already use. Anthropic is betting on a tighter, deeper relationship with the state: fewer product headlines, more meetings behind closed doors. Both strategies have a price. DeepMind risks agent incidents arriving before its monitoring stack matures. Anthropic risks becoming a vendor whose safety roadmap is effectively written in the White House.
 
-The lesson for readers deploying this technology is unpleasantly practical. First, assume your model vendor will be different tomorrow — or will be running on different silicon — and write your integrations to survive that. Second, if you plan to deploy an agent with browser or terminal access, assume someone will try to turn it against your own infrastructure rather than someone else's. And third, watch the regulatory line as it moves — because as the Mythos and Fable case shows, a ban today can be a quiet deal three weeks later, revealed only in an investigation. The industry is ceasing to be technological. It is becoming political. And a day like today is the textbook example.
+The second-order effect worth watching is the coupling between safety and access. If the emerging pattern is that labs pay for export licenses in the currency of new security layers, we end up in a world where the most capable models have the tightest political tether to the government that let them out. For US customers that may be acceptable. For European buyers weighing Gemini against Claude, it starts to look less like a pricing question and more like a sovereignty one.
+
+## What to watch next
+
+Three things. First, whether DeepMind publishes any measurable data from computer use pilots — error rates, prompt-hijack incidents, kill-switch actions. Without numbers the AI Control Roadmap is just a document. Second, what exactly Anthropic's "new security measure" for the administration turns out to be; if it involves something like mandatory logging of foreign queries, that reshapes the enterprise Claude market in Europe overnight. And third, how Front Gate and Anthropic explain the ticketing incident, together or separately. If Claude Opus 4.7 can reliably surface vulnerabilities in production sites, agent misuse stops being a hypothetical and becomes a line item on cyber insurance forms.
