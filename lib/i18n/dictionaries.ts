@@ -39,6 +39,9 @@ const en = {
   home: {
     emptyKicker: "no issue yet",
     emptyTitle: "The first issue is being written.",
+    emptyBody:
+      "The daily pipeline publishes here once it has run. Check the repository for setup or trigger the workflow manually.",
+    emptyRepoCta: "Open the repository",
     emptyBodyBefore: "The daily pipeline publishes here once it has run. See ",
     emptyBodyRepo: "the repo",
     emptyBodyAfter: " for setup, or run ",
@@ -46,6 +49,7 @@ const en = {
     dailyIssue: "daily issue",
     contents: "In this issue",
     briefing: "Briefing",
+    todaysBriefing: "today's briefing",
     dispatches: "Dispatches",
     wire: "Also today",
     glossary: "Glossary",
@@ -149,6 +153,7 @@ const en = {
     noMatch: "no issues match.",
     placeholder: "title, dek, tag, slug…",
     open: "search",
+    suggestedTags: "try a tag",
   },
   health: {
     kicker: "health · pipeline status",
@@ -282,6 +287,9 @@ const cs: Dict = {
   home: {
     emptyKicker: "zatím žádné vydání",
     emptyTitle: "První vydání se právě připravuje.",
+    emptyBody:
+      "Jakmile denní pipeline proběhne, vyjde tady. Pro nastavení nebo ruční spuštění mrkni do repozitáře.",
+    emptyRepoCta: "Otevřít repozitář",
     emptyBodyBefore: "Jakmile denní pipeline proběhne, vyjde tady. Pro nastavení viz ",
     emptyBodyRepo: "repozitář",
     emptyBodyAfter: ", nebo lokálně spusťte ",
@@ -289,6 +297,7 @@ const cs: Dict = {
     dailyIssue: "denní vydání",
     contents: "V tomto vydání",
     briefing: "Úvodník",
+    todaysBriefing: "dnešní úvodník",
     dispatches: "Depeše",
     wire: "Také dnes",
     glossary: "Slovník",
@@ -392,6 +401,7 @@ const cs: Dict = {
     noMatch: "žádné vydání neodpovídá.",
     placeholder: "titulek, perex, téma, slug…",
     open: "hledat",
+    suggestedTags: "zkuste téma",
   },
   health: {
     kicker: "pipeline · provozní stav",

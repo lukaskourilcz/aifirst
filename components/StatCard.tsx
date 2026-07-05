@@ -22,8 +22,8 @@ export function StatCard({
     <div
       style={{
         padding,
-        border: "1px solid var(--hairline)",
-        background: "var(--bg-deep)",
+        border: "1px solid var(--color-fog)",
+        background: "var(--color-canvas)",
       }}
     >
       <p className="label" style={{ marginBottom: 6 }}>
@@ -34,7 +34,7 @@ export function StatCard({
           fontFamily: "var(--font-display)",
           fontSize: valueSize,
           margin: 0,
-          color: "var(--accent-cyan)",
+          color: "var(--color-blueprint-blue)",
           lineHeight: 1,
         }}
       >

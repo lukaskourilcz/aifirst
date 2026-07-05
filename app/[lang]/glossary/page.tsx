@@ -35,14 +35,14 @@ export default async function GlossaryPage({
                 style={{
                   scrollMarginTop: 80,
                   padding: "16px 0",
-                  borderBottom: "1px solid var(--hairline)",
+                  borderBottom: "1px solid var(--color-fog)",
                 }}
               >
                 <dt>
                   <p
                     style={{
                       fontFamily: "var(--font-display)",
-                      color: "var(--accent-cyan)",
+                      color: "var(--color-blueprint-blue)",
                       fontSize: "1.05rem",
                       margin: "0 0 4px",
                     }}

@@ -30,9 +30,9 @@ export function SignalStrength({ value, label = "signal" }: Props) {
               background:
                 i < filled
                   ? i < bars - 3
-                    ? "var(--accent-cyan)"
-                    : "var(--accent-magenta)"
-                  : "var(--bg-elev)",
+                    ? "var(--color-blueprint-blue)"
+                    : "var(--color-blueprint-blue)"
+                  : "var(--color-paper)",
               boxShadow:
                 i < filled ? "0 0 6px rgba(92, 240, 255, 0.55)" : "none",
             }}

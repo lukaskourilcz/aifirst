@@ -22,11 +22,11 @@ export default async function SearchPage({
       <p style={{ color: "var(--ink-muted)", maxWidth: "60ch" }}>
         {t.introBefore} <kbd>⌘K</kbd> (<kbd>/</kbd>) {t.introAfter}
       </p>
-      <div style={{ marginTop: 32, display: "flex", gap: 16 }}>
+      <div style={{ marginTop: "var(--block-gap)", display: "flex", gap: 16 }}>
         <SearchPalette index={index} locale={locale} />
       </div>
 
-      <section style={{ marginTop: 64 }}>
+      <section style={{ marginTop: "var(--gutter-gap)" }}>
         <p className="label" style={{ marginBottom: 16 }}>
           {t.fullIndex} ({index.length})
         </p>

@@ -107,7 +107,7 @@ export default async function ColophonPage({
         <p>{c.signalBody}</p>
       </Section>
 
-      <p className="label" style={{ marginTop: 64, color: "var(--ink-dim)" }}>
+      <p className="label" style={{ marginTop: "var(--gutter-gap)", color: "var(--ink-dim)" }}>
         {dict(locale).common.transmissionOngoing}
       </p>
     </PageShell>

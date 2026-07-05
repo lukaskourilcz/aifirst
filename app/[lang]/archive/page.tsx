@@ -42,8 +42,8 @@ export default async function ArchivePage({
                     <span
                       className="label"
                       style={{
-                        color: "var(--accent-magenta)",
-                        border: "1px solid var(--hairline)",
+                        color: "var(--color-blueprint-blue)",
+                        border: "1px solid var(--color-fog)",
                         padding: "2px 8px",
                       }}
                     >

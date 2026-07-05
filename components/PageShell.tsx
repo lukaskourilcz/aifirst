@@ -29,7 +29,7 @@ export function PageShell({
         className={kickerTone === "cyan" ? "label label--accent" : "label"}
         style={
           kickerTone === "magenta"
-            ? { color: "var(--accent-magenta)", marginBottom: 8 }
+            ? { color: "var(--color-blueprint-blue)", marginBottom: 8 }
             : undefined
         }
       >

@@ -20,28 +20,10 @@
   --color-canvas: #f9fafb;
   --color-mint: #00bc7d;
 
-  /* Compatibility aliases — legacy components still reference these names. */
-  --bg-void: var(--color-canvas);
-  --bg-deep: var(--color-canvas);
-  --bg-elev: var(--color-paper);
-  --grid: var(--color-fog);
-
+  /* Semantic ink aliases — communicate role, not colour. */
   --ink-primary: var(--color-ink-black);
   --ink-muted: var(--color-slate);
   --ink-dim: var(--color-slate);
-
-  --accent-cyan: var(--color-blueprint-blue);
-  --accent-magenta: var(--color-blueprint-blue);
-  --accent-amber: var(--color-blueprint-blue);
-
-  --hairline: var(--color-fog);
-  --hairline-strong: var(--color-fog);
-
-  --glow-cyan: none;
-  --glow-magenta: none;
-
-  --surface-soft: var(--color-paper);
-  --surface-elev: var(--color-stone);
   --numeric-ghost: rgba(22, 25, 28, 0.04);
 
   /* Typography — Suisse Int'l ≈ Inter */
@@ -52,9 +34,6 @@
 
   --font-display: var(--font-suisse-intl);
   --font-body: var(--font-suisse-intl);
-  --font-chrome: var(--font-suisse-intl);
-  --font-plantin: var(--font-suisse-intl);
-  --font-helvetica-neue: var(--font-suisse-intl);
 
   /* Type scale (Hashnode reference) */
   --text-caption: 12px;
@@ -69,14 +48,9 @@
   --text-subheading: 18px;
   --leading-subheading: 1.38;
 
-  --text-heading-sm: 20px;
-  --leading-heading-sm: 1.33;
-
   --text-heading: 30px;
   --leading-heading: 1.2;
   --tracking-heading: -0.75px;
-
-  --text-display: 30px;
 
   /* Motion */
   --dur-instant: 80ms;
@@ -93,7 +67,12 @@
   --reading: 68ch;
   --card-padding: 16px;
   --element-gap: 8px;
+  --block-gap: 32px;
   --section-gap: 48px;
+  --gutter-gap: 64px;
+
+  /* Surface elevation for interactive cards (hover reads as pressable). */
+  --surface-hover: #fafbfd;
 
   /* Radii */
   --radius-md: 4px;
@@ -170,10 +149,10 @@ h1 {
 }
 
 h2 {
-  font-size: var(--text-heading-sm);
-  line-height: var(--leading-heading-sm);
-  letter-spacing: -0.4px;
-  font-weight: 600;
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  letter-spacing: -0.3px;
+  font-weight: 700;
   margin-top: 1.6em;
 }
 
@@ -365,12 +344,30 @@ hr {
   gap: 14px;
 }
 
+.sidebar__brand-word,
+.nav-item__label,
+.sidebar__heading,
+.sidebar__card-title,
+.sidebar__card-body,
+.sidebar__card .cta {
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    max-width var(--dur-medium) var(--ease-out);
+}
+
 [data-sidebar="rail"] .sidebar__brand-word,
 [data-sidebar="rail"] .nav-item__label,
 [data-sidebar="rail"] .sidebar__heading,
 [data-sidebar="rail"] .sidebar__card-title,
 [data-sidebar="rail"] .sidebar__card-body,
-[data-sidebar="rail"] .sidebar__card .cta,
+[data-sidebar="rail"] .sidebar__card .cta {
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 [data-sidebar="rail"] .nav-divider {
   display: none;
 }
@@ -447,6 +444,10 @@ hr {
   border-radius: var(--radius-lg);
   position: relative;
   border-left: 3px solid transparent;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-left-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
 }
 
 .nav-item:hover {
@@ -462,12 +463,22 @@ hr {
 }
 
 .nav-item__glyph {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 18px;
-  text-align: center;
-  font-size: 14px;
+  height: 18px;
   color: inherit;
   opacity: 0.85;
+}
+.nav-item__glyph svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.nav-item:hover .nav-item__glyph,
+.nav-item--active .nav-item__glyph {
+  opacity: 1;
 }
 
 .nav-divider {
@@ -545,6 +556,14 @@ hr {
   margin: 0 0 var(--section-gap);
 }
 
+.hero--no-photo {
+  grid-template-columns: 1fr;
+  padding: clamp(28px, 4vw, 56px) clamp(24px, 3vw, 44px);
+}
+
+.hero--no-photo .hero__title { max-width: 22ch; }
+.hero--no-photo .hero__dek { max-width: 62ch; }
+
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; }
 }
@@ -575,6 +594,7 @@ hr {
   letter-spacing: -0.025em;
   font-weight: 700;
   margin: 0 0 12px;
+  max-width: 20ch;
 }
 
 .hero__dek {
@@ -589,10 +609,18 @@ hr {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  column-gap: 12px;
+  row-gap: 8px;
   margin: 0 0 16px;
   font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--color-slate);
+}
+.hero__meta .chip {
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
 }
 
 .hero__photo {
@@ -632,11 +660,14 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: background var(--dur-fast) var(--ease-out);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
 }
 
 .post-card:hover {
-  background: var(--color-paper);
+  background: var(--surface-hover);
+  border-color: var(--color-slate);
   color: var(--color-ink-black);
 }
 
@@ -645,6 +676,10 @@ hr {
   grid-template-columns: 56px 1fr;
   gap: 12px;
   align-items: start;
+}
+
+.post-card--no-thumb .post-card__top {
+  grid-template-columns: 1fr;
 }
 
 .post-card__thumb {
@@ -807,6 +842,19 @@ input[type="search"]:focus {
   max-width: min(var(--reading), 100%);
 }
 
+/* Broadsheet drop-cap on the first paragraph of the article body — anchors
+   the eye after the wider hero panel and signals "start reading here". */
+.article-body > p:first-of-type::first-letter,
+.article-with-aside__main .article-body > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-suisse-intl);
+  font-size: 3.4em;
+  line-height: 0.9;
+  font-weight: 700;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--color-blueprint-blue);
+}
+
 .article-with-aside__side {
   align-self: start;
 }
@@ -838,6 +886,13 @@ input[type="search"]:focus {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+.dispatch-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--color-slate);
 }
 
 .dispatch-card__eyebrow {

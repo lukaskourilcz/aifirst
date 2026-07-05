@@ -16,9 +16,9 @@ export function GlossaryBlock({
     <section
       aria-label="Glossary for this issue"
       style={{
-        marginTop: 64,
+        marginTop: "var(--gutter-gap)",
         paddingTop: 32,
-        borderTop: "1px solid var(--hairline)",
+        borderTop: "1px solid var(--color-fog)",
       }}
     >
       <p className="label" style={{ marginBottom: 16 }}>
@@ -31,13 +31,13 @@ export function GlossaryBlock({
             className="def-row def-row--tight"
             style={{
               padding: "14px 0",
-              borderBottom: "1px solid var(--hairline)",
+              borderBottom: "1px solid var(--color-fog)",
             }}
           >
             <dt
               style={{
                 fontFamily: "var(--font-display)",
-                color: "var(--accent-cyan)",
+                color: "var(--color-blueprint-blue)",
                 letterSpacing: "0.04em",
               }}
             >

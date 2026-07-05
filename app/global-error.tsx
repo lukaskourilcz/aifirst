@@ -22,7 +22,7 @@ export default function GlobalError({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "var(--bg-void)",
+          background: "var(--color-canvas)",
           color: "var(--ink-primary)",
           fontFamily: "var(--font-body)",
           padding: 24,
@@ -32,7 +32,7 @@ export default function GlobalError({
         <div style={{ maxWidth: 480 }}>
           <p
             className="label"
-            style={{ color: "var(--accent-magenta)", marginBottom: 16 }}
+            style={{ color: "var(--color-blueprint-blue)", marginBottom: 16 }}
           >
             critical error
           </p>
@@ -46,8 +46,8 @@ export default function GlobalError({
             className="label"
             style={{
               background: "transparent",
-              color: "var(--accent-cyan)",
-              border: "1px solid var(--hairline-strong)",
+              color: "var(--color-blueprint-blue)",
+              border: "1px solid var(--color-fog)",
               padding: "8px 16px",
               cursor: "pointer",
             }}

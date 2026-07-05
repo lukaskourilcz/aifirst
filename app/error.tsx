@@ -25,7 +25,7 @@ export default function RouteError({
     >
       <p
         className="label label--accent"
-        style={{ letterSpacing: "0.4em", color: "var(--accent-magenta)" }}
+        style={{ letterSpacing: "0.4em", color: "var(--color-blueprint-blue)" }}
       >
         {t.kicker}
       </p>
@@ -33,7 +33,7 @@ export default function RouteError({
         style={{
           fontSize: "clamp(2.5rem, 8vw, 5rem)",
           marginTop: "0.5em",
-          color: "var(--accent-magenta)",
+          color: "var(--color-blueprint-blue)",
         }}
       >
         500
@@ -62,8 +62,8 @@ export default function RouteError({
           className="label"
           style={{
             background: "transparent",
-            color: "var(--accent-cyan)",
-            border: "1px solid var(--hairline)",
+            color: "var(--color-blueprint-blue)",
+            border: "1px solid var(--color-fog)",
             padding: "8px 16px",
             cursor: "pointer",
             fontFamily: "var(--font-display)",

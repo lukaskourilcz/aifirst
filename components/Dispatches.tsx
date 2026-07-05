@@ -15,52 +15,76 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
   const t = dict(locale).article;
   const isAside = variant === "aside";
 
+  if (isAside) {
+    return (
+      <>
+        <p className="eyebrow" style={{ marginBottom: 12 }}>
+          {t.dispatchesLabel}
+        </p>
+        <div className="dispatches--aside">
+          {items.slice(0, 6).map((d, i) => (
+            <article key={i} className="dispatch-card">
+              <p className="dispatch-card__eyebrow">
+                {t.dispatchesLabel} · 0{i + 1}
+              </p>
+              <h3 className="dispatch-card__title">{d.title}</h3>
+              <p className="dispatch-card__body">{d.body}</p>
+              {d.source_url && (
+                <a
+                  href={d.source_url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="dispatch-card__source"
+                >
+                  {t.dispatchSource} ↗
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </>
+    );
+  }
+
   return (
-    <section aria-label="Dispatches" className={isAside ? "dispatches--aside" : "dispatches"}>
+    <section aria-label="Dispatches" className="dispatches">
       <header style={{ marginBottom: 16 }}>
         <p className="label" style={{ margin: 0 }}>{t.dispatchesLabel}</p>
-        {!isAside && (
-          <h2 style={{ marginTop: 6, marginBottom: 0 }}>{t.dispatchesHeading}</h2>
-        )}
+        <h2 style={{ marginTop: 6, marginBottom: 0 }}>{t.dispatchesHeading}</h2>
       </header>
       <ul
-        style={
-          isAside
-            ? { listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 24 }
-            : {
-                listStyle: "none",
-                padding: 0,
-                margin: 0,
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                gap: 32,
-              }
-        }
+        style={{
+          listStyle: "none",
+          padding: 0,
+          margin: 0,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 32,
+        }}
       >
         {items.map((d, i) => (
           <li
             key={i}
             style={{
-              borderTop: i === 0 ? "none" : "1px solid var(--color-rule-gray)",
+              borderTop: i === 0 ? "none" : "1px solid var(--color-fog)",
               paddingTop: i === 0 ? 0 : 24,
               display: "flex",
               flexDirection: "column",
               gap: 8,
             }}
           >
-            <p className="tile__eyebrow">{t.dispatchesLabel} · 0{i + 1}</p>
-            <h3 className="tile__title">{d.title}</h3>
-            <p className="tile__body">{d.body}</p>
+            <p className="dispatch-card__eyebrow">{t.dispatchesLabel} · 0{i + 1}</p>
+            <h3 className="dispatch-card__title">{d.title}</h3>
+            <p className="dispatch-card__body">{d.body}</p>
             {d.source_url && (
-              <p className="tile__meta">
-                <a
-                  href={d.source_url}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {t.dispatchSource} ↗
-                </a>
-              </p>
+              <a
+                href={d.source_url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="dispatch-card__source"
+              >
+                {t.dispatchSource} ↗
+              </a>
             )}
           </li>
         ))}

@@ -4,10 +4,10 @@ import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 function colorFor(run: WorkflowRun): string {
-  if (run.status !== "completed") return "var(--accent-amber)";
-  if (run.conclusion === "success") return "var(--accent-cyan)";
+  if (run.status !== "completed") return "var(--color-blueprint-blue)";
+  if (run.conclusion === "success") return "var(--color-blueprint-blue)";
   if (run.conclusion === "failure" || run.conclusion === "timed_out")
-    return "var(--accent-magenta)";
+    return "var(--color-blueprint-blue)";
   return "var(--ink-dim)";
 }
 
@@ -40,8 +40,8 @@ export function HealthRow({
     <article
       style={{
         padding: 20,
-        border: "1px solid var(--hairline)",
-        background: "var(--bg-deep)",
+        border: "1px solid var(--color-fog)",
+        background: "var(--color-canvas)",
         marginBottom: 16,
       }}
     >
@@ -57,7 +57,7 @@ export function HealthRow({
         <div>
           <p
             className="label"
-            style={{ color: "var(--accent-cyan)", marginBottom: 4 }}
+            style={{ color: "var(--color-blueprint-blue)", marginBottom: 4 }}
           >
             {t.workflow}
           </p>
@@ -86,10 +86,10 @@ export function HealthRow({
               successRate === null
                 ? "var(--ink-dim)"
                 : successRate >= 90
-                ? "var(--accent-cyan)"
+                ? "var(--color-blueprint-blue)"
                 : successRate >= 50
-                ? "var(--accent-amber)"
-                : "var(--accent-magenta)",
+                ? "var(--color-blueprint-blue)"
+                : "var(--color-blueprint-blue)",
           }}
         >
           {successRate === null ? "—" : `${successRate}%`}
@@ -161,7 +161,7 @@ export function HealthRow({
                   rel="noreferrer noopener"
                   style={{
                     color: "var(--ink-primary)",
-                    borderBottom: "1px dashed var(--hairline)",
+                    borderBottom: "1px dashed var(--color-fog)",
                   }}
                 >
                   #{health.lastSuccess.runNumber} ·{" "}
@@ -184,8 +184,8 @@ export function HealthRow({
                   target="_blank"
                   rel="noreferrer noopener"
                   style={{
-                    color: "var(--accent-magenta)",
-                    borderBottom: "1px dashed var(--hairline)",
+                    color: "var(--color-blueprint-blue)",
+                    borderBottom: "1px dashed var(--color-fog)",
                   }}
                 >
                   #{health.lastFailure.runNumber} ·{" "}

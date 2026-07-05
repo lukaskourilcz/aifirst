@@ -24,8 +24,8 @@ export default async function HealthPage({
         <aside
           style={{
             padding: 16,
-            border: "1px solid var(--hairline)",
-            borderLeft: "2px solid var(--accent-amber)",
+            border: "1px solid var(--color-fog)",
+            borderLeft: "2px solid var(--color-blueprint-blue)",
             background: "rgba(255,181,71,0.05)",
             marginBottom: 24,
             color: "var(--ink-primary)",
@@ -33,7 +33,7 @@ export default async function HealthPage({
         >
           <p
             className="label"
-            style={{ color: "var(--accent-amber)", marginBottom: 8 }}
+            style={{ color: "var(--color-blueprint-blue)", marginBottom: 8 }}
           >
             {t.noRepoTitle}
           </p>
@@ -45,8 +45,8 @@ export default async function HealthPage({
         <aside
           style={{
             padding: 16,
-            border: "1px solid var(--hairline)",
-            borderLeft: "2px solid var(--accent-magenta)",
+            border: "1px solid var(--color-fog)",
+            borderLeft: "2px solid var(--color-blueprint-blue)",
             background: "rgba(255,79,216,0.05)",
             marginBottom: 24,
             color: "var(--ink-primary)",
@@ -54,7 +54,7 @@ export default async function HealthPage({
         >
           <p
             className="label"
-            style={{ color: "var(--accent-magenta)", marginBottom: 8 }}
+            style={{ color: "var(--color-blueprint-blue)", marginBottom: 8 }}
           >
             {t.offlineTitle}
           </p>
@@ -71,7 +71,7 @@ export default async function HealthPage({
       <footer
         className="label"
         style={{
-          marginTop: 32,
+          marginTop: "var(--block-gap)",
           color: "var(--ink-dim)",
           display: "flex",
           flexWrap: "wrap",

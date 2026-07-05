@@ -56,7 +56,7 @@ export function TrendsChart({ matrix, locale }: Props) {
           x2={width - padRight}
           y1={height - padBottom + 0.5}
           y2={height - padBottom + 0.5}
-          stroke="var(--hairline)"
+          stroke="var(--color-fog)"
         />
         {/* gridline at half height */}
         <line
@@ -64,7 +64,7 @@ export function TrendsChart({ matrix, locale }: Props) {
           x2={width - padRight}
           y1={padTop + plotH / 2}
           y2={padTop + plotH / 2}
-          stroke="var(--hairline)"
+          stroke="var(--color-fog)"
           strokeDasharray="2 4"
         />
 

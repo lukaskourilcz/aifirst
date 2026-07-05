@@ -97,7 +97,7 @@ export default async function SourceDetailPage({
         </ul>
       ) : null}
 
-      <h2 style={{ marginTop: 48 }}>{t.citedBy}</h2>
+      <h2 style={{ marginTop: "var(--section-gap)" }}>{t.citedBy}</h2>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {issues.map((a) => (
           <IssueRow

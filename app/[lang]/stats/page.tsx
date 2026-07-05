@@ -1,15 +1,18 @@
+import Link from "next/link";
 import { Sparkline } from "@/components/Sparkline";
 import { StatCard } from "@/components/StatCard";
 import { TagChip } from "@/components/TagChip";
+import { TrendsChart } from "@/components/TrendsChart";
 import { PageShell } from "@/components/PageShell";
 import {
   listArticles,
   listTagsByFrequency,
   sourceCitationStats,
 } from "@/lib/content";
+import { buildTrends } from "@/lib/trends";
 import { loadSources } from "@/lib/scraping/sources";
 import { groupBy } from "@/lib/helpers/group";
-import { type Locale } from "@/lib/i18n/config";
+import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
@@ -31,12 +34,16 @@ export default async function StatsPage({
 }) {
   const { lang: locale } = await params;
   const t = dict(locale).stats;
+  const trendsT = dict(locale).trends;
+  const nav = dict(locale).nav;
+  const lp = localePrefixer(locale);
   const [articles, tags, citations, sources] = await Promise.all([
     listArticles(locale),
     listTagsByFrequency(locale),
     sourceCitationStats(locale),
     loadSources(),
   ]);
+  const trends = buildTrends(articles, 6);
 
   const total = articles.length;
   const cadence = publishingCadence(articles.map((a) => a.date));
@@ -97,8 +104,8 @@ export default async function StatsPage({
           <div
             style={{
               padding: 16,
-              border: "1px solid var(--hairline)",
-              background: "var(--bg-deep)",
+              border: "1px solid var(--color-fog)",
+              background: "var(--color-canvas)",
             }}
           >
             <Sparkline
@@ -124,8 +131,8 @@ export default async function StatsPage({
               listStyle: "none",
               padding: 16,
               margin: 0,
-              border: "1px solid var(--hairline)",
-              background: "var(--bg-deep)",
+              border: "1px solid var(--color-fog)",
+              background: "var(--color-canvas)",
               display: "flex",
               flexWrap: "wrap",
               gap: 8,
@@ -140,7 +147,7 @@ export default async function StatsPage({
         </section>
       </div>
 
-      <section style={{ marginTop: 48 }}>
+      <section style={{ marginTop: "var(--section-gap)" }}>
         <p className="label" style={{ marginBottom: 16 }}>
           {t.mostCited}
         </p>
@@ -149,8 +156,8 @@ export default async function StatsPage({
             listStyle: "none",
             padding: 0,
             margin: 0,
-            border: "1px solid var(--hairline)",
-            background: "var(--bg-deep)",
+            border: "1px solid var(--color-fog)",
+            background: "var(--color-canvas)",
           }}
         >
           {topSources.map((s) => {
@@ -164,7 +171,7 @@ export default async function StatsPage({
                   alignItems: "baseline",
                   gap: 16,
                   padding: "12px 16px",
-                  borderTop: "1px solid var(--hairline)",
+                  borderTop: "1px solid var(--color-fog)",
                 }}
               >
                 <span
@@ -179,7 +186,7 @@ export default async function StatsPage({
                 <span
                   style={{
                     fontFamily: "var(--font-display)",
-                    color: "var(--accent-cyan)",
+                    color: "var(--color-blueprint-blue)",
                   }}
                 >
                   ×{s.count}
@@ -197,6 +204,27 @@ export default async function StatsPage({
           )}
         </ul>
       </section>
+
+      {trends.tags.length > 0 && (
+        <section style={{ marginTop: "var(--section-gap)" }}>
+          <div className="section-head">
+            <h2 className="section-head__title">{trendsT.title}</h2>
+            <Link href={lp("/trends")} className="label">
+              {nav.trends} →
+            </Link>
+          </div>
+          <div
+            style={{
+              padding: 20,
+              border: "1px solid var(--color-fog)",
+              background: "var(--color-canvas)",
+              borderRadius: "var(--radius-cards)",
+            }}
+          >
+            <TrendsChart matrix={trends} locale={locale} />
+          </div>
+        </section>
+      )}
     </PageShell>
   );
 }

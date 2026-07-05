@@ -41,21 +41,21 @@ export default async function AdminPage({
         MDX back to the branch.
       </p>
 
-      <section style={{ marginTop: 32 }}>
+      <section style={{ marginTop: "var(--block-gap)" }}>
         <p className="label" style={{ marginBottom: 12 }}>
           regenerate a new date (daily)
         </p>
         <CopyCommand command={`gh workflow run regenerate.yml -R ${repo} -f date=$(date -u +%F) -f kind=daily`} />
       </section>
 
-      <section style={{ marginTop: 32 }}>
+      <section style={{ marginTop: "var(--block-gap)" }}>
         <p className="label" style={{ marginBottom: 12 }}>
           regenerate Sunday digest
         </p>
         <CopyCommand command={`gh workflow run regenerate.yml -R ${repo} -f date=$(date -u +%F) -f kind=weekly`} />
       </section>
 
-      <section style={{ marginTop: 48 }}>
+      <section style={{ marginTop: "var(--section-gap)" }}>
         <p className="label" style={{ marginBottom: 16 }}>
           per-issue regenerate commands
         </p>
@@ -73,7 +73,7 @@ export default async function AdminPage({
                 variant="cmd"
                 dateSuffix={
                   a.type === "weekly" ? (
-                    <span style={{ color: "var(--accent-magenta)" }}> ·w</span>
+                    <span style={{ color: "var(--color-blueprint-blue)" }}> ·w</span>
                   ) : undefined
                 }
                 trailing={
@@ -87,7 +87,7 @@ export default async function AdminPage({
         </ul>
       </section>
 
-      <section style={{ marginTop: 48 }}>
+      <section style={{ marginTop: "var(--section-gap)" }}>
         <p className="label" style={{ marginBottom: 12 }}>
           notes
         </p>

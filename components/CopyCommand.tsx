@@ -22,8 +22,8 @@ export function CopyCommand({ command }: { command: string }) {
         alignItems: "center",
         gap: 8,
         padding: "8px 12px",
-        border: "1px solid var(--hairline)",
-        background: "var(--bg-elev)",
+        border: "1px solid var(--color-fog)",
+        background: "var(--color-paper)",
         fontFamily: "var(--font-display)",
         fontSize: "0.8rem",
         color: "var(--ink-primary)",
@@ -31,7 +31,7 @@ export function CopyCommand({ command }: { command: string }) {
         whiteSpace: "nowrap",
       }}
     >
-      <span style={{ color: "var(--accent-cyan)" }}>$</span>
+      <span style={{ color: "var(--color-blueprint-blue)" }}>$</span>
       <code style={{ background: "transparent", border: "none", padding: 0 }}>
         {command}
       </code>
@@ -43,8 +43,8 @@ export function CopyCommand({ command }: { command: string }) {
         style={{
           marginLeft: "auto",
           background: "transparent",
-          color: copied ? "var(--accent-cyan)" : "var(--ink-muted)",
-          border: "1px solid var(--hairline)",
+          color: copied ? "var(--color-blueprint-blue)" : "var(--ink-muted)",
+          border: "1px solid var(--color-fog)",
           padding: "2px 8px",
           cursor: "pointer",
         }}

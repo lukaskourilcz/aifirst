@@ -1,6 +1,6 @@
 import { SourceCard } from "@/components/SourceCard";
 import { PageShell } from "@/components/PageShell";
-import { sourceCitationStats } from "@/lib/content";
+import { sourceCitationStats, sourceCitationsByMonth } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -14,9 +14,10 @@ export default async function SourcesPage({
 }) {
   const { lang: locale } = await params;
   const t = dict(locale).sources;
-  const [sources, stats] = await Promise.all([
+  const [sources, stats, cadence] = await Promise.all([
     loadSources(),
     sourceCitationStats(locale),
+    sourceCitationsByMonth(6, locale),
   ]);
 
   const sorted = [...sources].sort(
@@ -49,6 +50,7 @@ export default async function SourcesPage({
                 tags={s.tags ?? []}
                 citations={stat?.count ?? 0}
                 latestDate={stat?.latestDate ?? null}
+                cadence={cadence.get(s.id)}
                 locale={locale}
               />
             </li>

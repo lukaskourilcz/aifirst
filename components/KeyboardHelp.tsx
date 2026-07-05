@@ -97,13 +97,13 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
             left: 16,
             zIndex: 19,
             padding: "6px 10px",
-            border: "1px solid var(--hairline-strong)",
-            background: "var(--bg-deep)",
+            border: "1px solid var(--color-fog)",
+            background: "var(--color-canvas)",
             fontFamily: "var(--font-display)",
             fontSize: "0.75rem",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "var(--accent-cyan)",
+            color: "var(--color-blueprint-blue)",
           }}
         >
           g _
@@ -121,18 +121,18 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
           <header
             style={{
               padding: "12px 16px",
-              borderBottom: "1px solid var(--hairline)",
+              borderBottom: "1px solid var(--color-fog)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
             }}
           >
-            <span className="label" style={{ color: "var(--accent-cyan)" }}>
+            <span className="label" style={{ color: "var(--color-blueprint-blue)" }}>
               {t.title}
             </span>
             <kbd
               className="label"
-              style={{ border: "1px solid var(--hairline)", padding: "2px 8px" }}
+              style={{ border: "1px solid var(--color-fog)", padding: "2px 8px" }}
             >
               esc
             </kbd>
@@ -147,7 +147,7 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
                   gap: 16,
                   alignItems: "center",
                   padding: "10px 16px",
-                  borderBottom: "1px solid var(--hairline)",
+                  borderBottom: "1px solid var(--color-fog)",
                 }}
               >
                 <span style={{ display: "inline-flex", gap: 4 }}>
@@ -158,8 +158,8 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
                         fontFamily: "var(--font-display)",
                         fontSize: "0.75rem",
                         padding: "2px 8px",
-                        border: "1px solid var(--hairline)",
-                        background: "var(--bg-elev)",
+                        border: "1px solid var(--color-fog)",
+                        background: "var(--color-paper)",
                         color: "var(--ink-primary)",
                         minWidth: 24,
                         textAlign: "center",
@@ -178,7 +178,7 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
             className="label"
           >
             {t.tipBefore}{" "}
-            <kbd style={{ padding: "2px 6px", border: "1px solid var(--hairline)" }}>
+            <kbd style={{ padding: "2px 6px", border: "1px solid var(--color-fog)" }}>
               g
             </kbd>{" "}
             {t.tipAfter}
