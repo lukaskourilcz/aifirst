@@ -66,6 +66,14 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Opt into React's <ViewTransition> so route changes can animate through the
+  // browser's native View Transitions API — zero client JS of our own, and it
+  // silently no-ops where the browser doesn't support it. The transitions
+  // themselves are defined in app/globals.css and gated behind
+  // prefers-reduced-motion. See components/PageTransition.tsx.
+  experimental: {
+    viewTransition: true,
+  },
   async headers() {
     return [
       {

@@ -4,16 +4,28 @@ import { fetchHn } from "./hn.js";
 import { fetchArxiv } from "./arxiv.js";
 import { fetchHtml } from "./html.js";
 import { fetchBluesky } from "./bluesky.js";
+import { fetchSpaceflight } from "./spaceflight.js";
+import { fetchGithub } from "./github.js";
+import { fetchStackExchange } from "./stackexchange.js";
+import { fetchGuardian } from "./guardian.js";
+import { fetchNytimes } from "./nytimes.js";
+import { fetchGnews } from "./gnews.js";
 
 export { loadSources } from "./sources.js";
 
 export async function fetchOne(source: Source): Promise<ScrapedItem[]> {
   switch (source.type) {
-    case "rss":     return fetchRss(source);
-    case "hn":      return fetchHn(source);
-    case "arxiv":   return fetchArxiv(source);
-    case "html":    return fetchHtml(source);
-    case "bluesky": return fetchBluesky(source);
+    case "rss":           return fetchRss(source);
+    case "hn":            return fetchHn(source);
+    case "arxiv":         return fetchArxiv(source);
+    case "html":          return fetchHtml(source);
+    case "bluesky":       return fetchBluesky(source);
+    case "spaceflight":   return fetchSpaceflight(source);
+    case "github":        return fetchGithub(source);
+    case "stackexchange": return fetchStackExchange(source);
+    case "guardian":      return fetchGuardian(source);
+    case "nytimes":       return fetchNytimes(source);
+    case "gnews":         return fetchGnews(source);
     default:
       console.warn(`[run] ${source.id}: unknown type ${source.type}`);
       return [];

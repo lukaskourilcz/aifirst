@@ -43,16 +43,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Apply the persisted sidebar state before the first paint so collapsed
-// sessions don't briefly show the expanded sidebar.
-const SIDEBAR_INIT = `(function(){try{var s=localStorage.getItem('sidebar');if(s==='rail')document.documentElement.dataset.sidebar='rail';}catch(e){}})();`;
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${sans.variable}`}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: SIDEBAR_INIT }} />
-      </head>
       <body>
         {children}
         <SpeedInsights />

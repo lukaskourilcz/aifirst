@@ -30,13 +30,32 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           IMAGE_PROVIDER: ${{ vars.IMAGE_PROVIDER }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+          # Auto-provided by Actions; raises the github-ai-releases source's
+          # rate limit and is ignored by the other adapters.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional news-source keys — each source self-skips when unset.
+          GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
+          NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
         run: pnpm generate:daily
+
+      - name: Refresh AI pulse (model pricing, service status, npm momentum)
+        # Keyless; resilient — failures leave the previous pulse.json in place.
+        run: pnpm pulse:refresh
+
+      - name: Embed new articles for semantic related issues
+        # No-op when JINA_API_KEY is unset; related issues fall back to tags.
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: pnpm embed:refresh
 
       - name: Commit
         run: |
           git config user.name "aifirst-bot"
           git config user.email "bot@aifirst"
-          git add content/articles public/illustrations
+          git add content/articles public/illustrations public/data
           if git diff --cached --quiet; then
             echo "nothing to commit"
           else

@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { SidebarToggle } from "./SidebarToggle";
 import { buildSearchIndex } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -73,6 +72,11 @@ const ICONS: Record<string, ReactNode> = {
       <path d="M9.5 5h4v4" />
     </svg>
   ),
+  pulse: (
+    <svg {...S.props}>
+      <path d="M2 8.5h3l1.5-4 3 8L11 8.5h3" />
+    </svg>
+  ),
   health: (
     <svg {...S.props}>
       <path d="M2 8.5h2.5L6 6l2 5 2-3.5 1.5 1H14" />
@@ -104,6 +108,7 @@ export async function Sidebar({ locale }: { locale: Locale }) {
   const ops: Array<{ key: string; label: string; href: string }> = [
     { key: "stats",  label: t.stats,  href: lp("/stats") },
     { key: "trends", label: t.trends, href: lp("/trends") },
+    { key: "pulse",  label: t.pulse,  href: lp("/pulse") },
     { key: "health", label: t.health, href: lp("/health") },
   ];
 
@@ -114,7 +119,6 @@ export async function Sidebar({ locale }: { locale: Locale }) {
           <span className="sidebar__brand-dot" />
           <span className="sidebar__brand-word">aifirst</span>
         </Link>
-        <SidebarToggle />
       </div>
 
       <nav className="nav-rail" aria-label="primary">

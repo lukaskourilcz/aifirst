@@ -16,6 +16,8 @@
     "generate:weekly": "tsx scripts/generate-weekly.ts",
     "scrape:dry": "tsx scripts/scrape-dry.ts",
     "scrape:og": "tsx scripts/scrape-og-images.ts",
+    "pulse:refresh": "tsx scripts/refresh-pulse.ts",
+    "embed:refresh": "tsx scripts/embed-articles.ts",
     "seed": "tsx scripts/seed.ts",
     "test": "vitest run",
     "e2e": "playwright test"
@@ -26,6 +28,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "cheerio": "^1.0.0",
     "gray-matter": "^4.0.3",
+    "motion": "^12.42.2",
     "next": "^15.0.0",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.0.0",
