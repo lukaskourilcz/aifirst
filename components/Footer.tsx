@@ -10,7 +10,7 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer
       style={{
-        marginTop: 64,
+        marginTop: "var(--gutter-gap)",
       }}
     >
       <div className="footer-grid">

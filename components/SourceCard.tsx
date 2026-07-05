@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Sparkline } from "./Sparkline";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
@@ -10,6 +11,7 @@ type Props = {
   tags?: string[];
   citations?: number;
   latestDate?: string | null;
+  cadence?: number[];
   locale: Locale;
 };
 
@@ -21,6 +23,7 @@ export function SourceCard({
   tags = [],
   citations = 0,
   latestDate,
+  cadence,
   locale,
 }: Props) {
   const pct = Math.round(weight * 100);
@@ -30,8 +33,8 @@ export function SourceCard({
       style={{
         position: "relative",
         padding: 20,
-        border: "1px solid var(--hairline)",
-        background: "var(--bg-deep)",
+        border: "1px solid var(--color-fog)",
+        background: "var(--color-canvas)",
       }}
     >
       <header
@@ -78,7 +81,7 @@ export function SourceCard({
           style={{
             fontFamily: "var(--font-display)",
             fontSize: "1.4rem",
-            color: "var(--accent-cyan)",
+            color: "var(--color-blueprint-blue)",
           }}
         >
           {String(pct).padStart(2, "0")}
@@ -89,8 +92,8 @@ export function SourceCard({
         aria-label={`weight ${pct} of 100`}
         style={{
           height: 4,
-          background: "var(--bg-elev)",
-          border: "1px solid var(--hairline)",
+          background: "var(--color-paper)",
+          border: "1px solid var(--color-fog)",
           overflow: "hidden",
           marginBottom: 16,
         }}
@@ -100,7 +103,7 @@ export function SourceCard({
             height: "100%",
             width: `${pct}%`,
             background:
-              "linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta))",
+              "linear-gradient(90deg, var(--color-blueprint-blue), var(--color-blueprint-blue))",
             boxShadow: "0 0 8px rgba(92, 240, 255, 0.45)",
           }}
         />
@@ -123,7 +126,7 @@ export function SourceCard({
             className="label"
             style={{
               padding: "2px 8px",
-              border: "1px solid var(--hairline)",
+              border: "1px solid var(--color-fog)",
               color: "var(--ink-muted)",
             }}
           >
@@ -139,6 +142,12 @@ export function SourceCard({
         {t.cited} {String(citations).padStart(2, "0")} ×
         {latestDate ? ` · ${t.last} ${latestDate}` : ` · ${t.never}`}
       </p>
+
+      {cadence && cadence.some((n) => n > 0) && (
+        <div style={{ marginTop: 12, opacity: 0.9 }}>
+          <Sparkline data={cadence} width={240} height={28} compact />
+        </div>
+      )}
     </article>
   );
 }

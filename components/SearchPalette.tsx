@@ -51,6 +51,21 @@ export function SearchPalette({ index, locale }: Props) {
       .map((r) => r.entry);
   }, [query, index]);
 
+  // Top tags used across the archive — surfaced as launchers when the query
+  // returns nothing (or on a fresh open) so the palette doubles as browse.
+  const suggestedTags = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const entry of index) {
+      for (const tag of entry.tags) {
+        counts.set(tag, (counts.get(tag) ?? 0) + 1);
+      }
+    }
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 8)
+      .map(([tag]) => tag);
+  }, [index]);
+
   return (
     <>
       <button
@@ -67,7 +82,22 @@ export function SearchPalette({ index, locale }: Props) {
           textAlign: "left",
         }}
       >
-        <span aria-hidden className="nav-item__glyph">⌕</span>
+        <span aria-hidden className="nav-item__glyph">
+          <svg
+            width={16}
+            height={16}
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <circle cx="7" cy="7" r="4" />
+            <path d="m10 10 3.5 3.5" />
+          </svg>
+        </span>
         <span className="nav-item__label">{t.open}</span>
       </button>
 
@@ -85,10 +115,10 @@ export function SearchPalette({ index, locale }: Props) {
               alignItems: "center",
               gap: 12,
               padding: "12px 16px",
-              borderBottom: "1px solid var(--hairline)",
+              borderBottom: "1px solid var(--color-fog)",
             }}
           >
-            <span className="label" style={{ color: "var(--accent-cyan)" }}>
+            <span className="label" style={{ color: "var(--color-blueprint-blue)" }}>
               query &gt;
             </span>
             <input
@@ -108,19 +138,56 @@ export function SearchPalette({ index, locale }: Props) {
             />
             <kbd
               className="label"
-              style={{ border: "1px solid var(--hairline)", padding: "2px 8px" }}
+              style={{ border: "1px solid var(--color-fog)", padding: "2px 8px" }}
             >
               esc
             </kbd>
           </div>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {results.length === 0 && (
-              <li className="label" style={{ padding: 16, color: "var(--ink-dim)" }}>
-                {t.noMatch}
+              <li style={{ padding: "16px 16px 8px" }}>
+                <p
+                  className="label"
+                  style={{ marginBottom: 12, color: "var(--ink-dim)" }}
+                >
+                  {t.noMatch}
+                </p>
+                {suggestedTags.length > 0 && (
+                  <>
+                    <p
+                      className="label"
+                      style={{
+                        marginBottom: 8,
+                        color: "var(--color-blueprint-blue)",
+                      }}
+                    >
+                      {t.suggestedTags}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 6,
+                      }}
+                    >
+                      {suggestedTags.map((tag) => (
+                        <Link
+                          key={tag}
+                          href={localePath(locale, `/tags/${tag}`)}
+                          onClick={() => setOpen(false)}
+                          className="chip"
+                          style={{ borderBottom: "none" }}
+                        >
+                          {tag}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
               </li>
             )}
             {results.map((r) => (
-              <li key={r.slug} style={{ borderBottom: "1px solid var(--hairline)" }}>
+              <li key={r.slug} style={{ borderBottom: "1px solid var(--color-fog)" }}>
                 <Link
                   href={localePath(locale, `/articles/${r.slug}`)}
                   onClick={() => setOpen(false)}

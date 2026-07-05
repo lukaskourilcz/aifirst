@@ -38,7 +38,7 @@ export default async function TagPage({
     <section className="container" style={{ padding: "48px 24px 96px" }}>
       <p className="label">{t.kicker}</p>
       <h1 style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
-        <span style={{ color: "var(--accent-magenta)" }}>#</span>
+        <span style={{ color: "var(--color-blueprint-blue)" }}>#</span>
         {tag}
       </h1>
       <p
@@ -58,7 +58,7 @@ export default async function TagPage({
         <a
           href={lp(`/tags/${encodeURIComponent(tag)}/feed.xml`)}
           className="label"
-          style={{ color: "var(--accent-cyan)" }}
+          style={{ color: "var(--color-blueprint-blue)" }}
         >
           {common.atomFeed} ↗
         </a>

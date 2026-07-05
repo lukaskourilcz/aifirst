@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Mdx } from "@/components/Mdx";
-import { getArticle } from "@/lib/content";
+import { getArticle, resolveHeroPhoto } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms, glossaryDefinition } from "@/lib/glossary";
 import { readingMinutes } from "@/lib/text";
 import { localePath, resolveLocale } from "@/lib/i18n/config";
@@ -68,15 +68,23 @@ export default async function PrintArticlePage({
       <h1 className="print-title">{article.frontmatter.title}</h1>
       <p className="print-dek">{article.frontmatter.dek}</p>
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={article.frontmatter.illustration.path}
-        alt={article.frontmatter.illustration.alt}
-        className="print-illustration"
-      />
-      <p className="print-caption">
-        {article.frontmatter.illustration.alt}
-      </p>
+      {(() => {
+        const heroPhoto = resolveHeroPhoto(article.frontmatter);
+        if (!heroPhoto) return null;
+        return (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={heroPhoto}
+              alt={article.frontmatter.illustration.alt}
+              className="print-illustration"
+            />
+            <p className="print-caption">
+              {article.frontmatter.illustration.alt}
+            </p>
+          </>
+        );
+      })()}
 
       {article.frontmatter.editors_note && (
         <aside className="print-note">

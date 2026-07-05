@@ -15,9 +15,9 @@ export function RelatedIssues({
     <section
       aria-label="Related issues"
       style={{
-        marginTop: 64,
+        marginTop: "var(--gutter-gap)",
         paddingTop: 32,
-        borderTop: "1px solid var(--hairline)",
+        borderTop: "1px solid var(--color-fog)",
       }}
     >
       <p className="label" style={{ marginBottom: 16 }}>
@@ -38,8 +38,8 @@ export function RelatedIssues({
             key={a.slug}
             style={{
               padding: 16,
-              border: "1px solid var(--hairline)",
-              background: "var(--bg-deep)",
+              border: "1px solid var(--color-fog)",
+              background: "var(--color-canvas)",
             }}
           >
             <p className="label" style={{ marginBottom: 8 }}>{a.date}</p>

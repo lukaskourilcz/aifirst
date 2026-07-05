@@ -24,8 +24,8 @@ export function DataStrip({
   return (
     <div
       style={{
-        borderBottom: "1px solid var(--hairline)",
-        background: "var(--surface-soft)",
+        borderBottom: "1px solid var(--color-fog)",
+        background: "var(--color-paper)",
       }}
     >
       <div
@@ -51,8 +51,7 @@ export function DataStrip({
               width: 6,
               height: 6,
               borderRadius: "50%",
-              background: "var(--accent-cyan)",
-              boxShadow: "var(--glow-cyan)",
+              background: "var(--color-blueprint-blue)",
               marginRight: 10,
               transform: "translateY(-1px)",
             }}
@@ -65,7 +64,7 @@ export function DataStrip({
         )}
         <span>{t.model} {MODELS.opus}</span>
         {tags?.length ? (
-          <span style={{ color: "var(--accent-magenta)" }}>
+          <span style={{ color: "var(--color-blueprint-blue)" }}>
             {tags.slice(0, 4).map((t) => `#${t}`).join("  ")}
           </span>
         ) : null}

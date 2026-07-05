@@ -23,15 +23,15 @@ export function WeeklyBadge({
       style={{
         margin: "0 0 32px",
         padding: 16,
-        border: "1px solid var(--hairline)",
-        borderLeft: "2px solid var(--accent-magenta)",
+        border: "1px solid var(--color-fog)",
+        borderLeft: "2px solid var(--color-blueprint-blue)",
         background:
           "linear-gradient(180deg, rgba(255,79,216,0.05), transparent)",
       }}
     >
       <p
         className="label"
-        style={{ color: "var(--accent-magenta)", marginBottom: 8 }}
+        style={{ color: "var(--color-blueprint-blue)", marginBottom: 8 }}
       >
         {t.digest} · {from} → {to}
       </p>
@@ -54,7 +54,7 @@ export function WeeklyBadge({
               href={localePath(locale, `/articles/${slug}`)}
               style={{
                 color: "var(--ink-primary)",
-                borderBottom: "1px dashed var(--hairline)",
+                borderBottom: "1px dashed var(--color-fog)",
               }}
             >
               {titlesBySlug?.get(slug) ?? slug}

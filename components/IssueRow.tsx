@@ -39,7 +39,7 @@ export function IssueRow({
   return (
     <li
       className={variant ? `entry-row entry-row--${variant}` : "entry-row"}
-      style={{ padding, borderBottom: "1px solid var(--hairline)" }}
+      style={{ padding, borderBottom: "1px solid var(--color-fog)" }}
     >
       <Link href={href} className="label">
         {date}

@@ -6,7 +6,7 @@ import { LOCALES } from "../i18n/config.js";
 
 export type PersistInput = {
   article: WrittenArticle;
-  illustrationPath: string;
+  illustrationPath: string | null;
 };
 
 // Writes one MDX file per locale (<date>.cs.mdx, <date>.en.mdx) sharing
@@ -24,6 +24,16 @@ export async function persist({
   const files: string[] = [];
   for (const locale of LOCALES) {
     const loc = article.byLocale[locale];
+    const illustration = illustrationPath
+      ? {
+          path: illustrationPath,
+          prompt: article.illustrationPrompt,
+          alt: loc.illustrationAlt,
+        }
+      : {
+          prompt: article.illustrationPrompt,
+          alt: loc.illustrationAlt,
+        };
     const frontmatter = {
       title: loc.title,
       slug: article.slug,
@@ -32,11 +42,7 @@ export async function persist({
       dek: loc.dek,
       tags: article.tags,
       sources: article.sources,
-      illustration: {
-        path: illustrationPath,
-        prompt: article.illustrationPrompt,
-        alt: loc.illustrationAlt,
-      },
+      illustration,
       signal_strength,
       dispatches: loc.dispatches,
       wire: article.wire,

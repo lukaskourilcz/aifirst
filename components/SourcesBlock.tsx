@@ -15,7 +15,7 @@ export function SourcesBlock({
     <section
       aria-label="Sources"
       style={{
-        marginTop: 48,
+        marginTop: "var(--section-gap)",
         paddingTop: 24,
         borderTop: "1px solid var(--color-fog)",
       }}
@@ -40,7 +40,7 @@ export function SourcesBlock({
               key={s.id}
               style={{
                 display: "grid",
-                gridTemplateColumns: "64px 1fr",
+                gridTemplateColumns: thumb ? "64px 1fr" : "1fr",
                 gap: 12,
                 alignItems: "start",
                 padding: 12,
@@ -64,19 +64,7 @@ export function SourcesBlock({
                     display: "block",
                   }}
                 />
-              ) : (
-                <span
-                  aria-hidden
-                  style={{
-                    width: 64,
-                    height: 64,
-                    borderRadius: "var(--radius-lg)",
-                    border: "1px solid var(--color-fog)",
-                    background: "var(--color-paper)",
-                    display: "inline-block",
-                  }}
-                />
-              )}
+              ) : null}
               <div style={{ minWidth: 0 }}>
                 <p
                   className="label"

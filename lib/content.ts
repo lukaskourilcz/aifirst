@@ -1,9 +1,11 @@
 import fs from "node:fs/promises";
+import { existsSync, statSync } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { byDateDesc } from "./helpers/date";
 import { groupBy } from "./helpers/group";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "./i18n/config";
+import { ogImageFor } from "./og";
 
 export type Dispatch = {
   title: string;
@@ -29,7 +31,7 @@ export type ArticleFrontmatter = {
   dek: string;
   tags: string[];
   sources: SourceRef[];
-  illustration: { path: string; prompt: string; alt: string };
+  illustration: { path?: string; prompt: string; alt: string };
   signal_strength?: number;
   dispatches?: Dispatch[];
   wire?: WireItem[];
@@ -63,10 +65,56 @@ export type ArticleSummary = {
   type?: IssueType;
   lang?: Locale;
   fallback?: boolean;
+  // Resolved cover thumbnail — real illustration or a cached og:image from
+  // the article's sources. Absent when the article has no real picture, so
+  // the UI can render text-only cards instead of an empty tile.
+  heroPhoto?: string;
 };
 
 function defaultContentDir(): string {
   return path.join(process.cwd(), "content", "articles");
+}
+
+// Placeholder illustrations from IMAGE_PROVIDER=none are ~3 KB flat panels.
+// Anything above this threshold is treated as a real generated image.
+const REAL_ILLUSTRATION_MIN_BYTES = 8_192;
+const illustrationRealCache = new Map<string, boolean>();
+
+// Returns true when the illustration path points to a real image file — not
+// the flat paper placeholder written by the `none` image provider.
+export function hasRealIllustration(illustrationPath?: string): boolean {
+  if (!illustrationPath) return false;
+  if (illustrationPath.endsWith("/placeholder.webp")) return false;
+  const cached = illustrationRealCache.get(illustrationPath);
+  if (cached !== undefined) return cached;
+  const abs = path.join(process.cwd(), "public", illustrationPath.replace(/^\//, ""));
+  let real = false;
+  if (existsSync(abs)) {
+    try {
+      real = statSync(abs).size >= REAL_ILLUSTRATION_MIN_BYTES;
+    } catch {
+      real = false;
+    }
+  }
+  illustrationRealCache.set(illustrationPath, real);
+  return real;
+}
+
+// Best available cover for a frontmatter: prefer a real generated
+// illustration, otherwise a cached og:image from one of the article's own
+// sources or wire items. Returns null when nothing usable is available.
+export function resolveHeroPhoto(fm: Partial<ArticleFrontmatter>): string | null {
+  const own = fm.illustration?.path;
+  if (hasRealIllustration(own)) return own ?? null;
+  for (const s of fm.sources ?? []) {
+    const img = ogImageFor(s.url);
+    if (img) return img;
+  }
+  for (const w of fm.wire ?? []) {
+    const img = ogImageFor(w.url);
+    if (img) return img;
+  }
+  return null;
 }
 
 export async function readMdxFiles(dir: string): Promise<string[]> {
@@ -150,6 +198,7 @@ function toSummary(
   fallback: boolean,
 ): ArticleSummary | null {
   if (!fm.slug || !fm.date || !fm.title) return null;
+  const heroPhoto = resolveHeroPhoto(fm) ?? undefined;
   return {
     slug: fm.slug,
     date: fm.date,
@@ -160,6 +209,7 @@ function toSummary(
     type: fm.type ?? "daily",
     lang,
     fallback,
+    heroPhoto,
   };
 }
 
@@ -280,6 +330,46 @@ export async function sourceCitationStats(
     }
   }
   return stats;
+}
+
+// Citations per month over the last `months` months, for each source. The
+// caller passes this to the source card sparkline. Returns a bucket of
+// integers ordered oldest → newest so the sparkline reads left-to-right.
+export async function sourceCitationsByMonth(
+  months = 6,
+  locale: Locale = DEFAULT_LOCALE,
+  dir: string = defaultContentDir(),
+): Promise<Map<string, number[]>> {
+  const resolved = resolveByLocale(await readEntries(dir), locale);
+  const today = new Date();
+  const buckets: string[] = [];
+  for (let i = months - 1; i >= 0; i--) {
+    const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+    buckets.push(
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
+    );
+  }
+  const bucketIndex = new Map(buckets.map((b, i) => [b, i]));
+  const out = new Map<string, number[]>();
+  for (const { fm } of resolved) {
+    if (!fm.date) continue;
+    const month = fm.date.slice(0, 7);
+    const idx = bucketIndex.get(month);
+    if (idx === undefined) continue;
+    const seenInIssue = new Set<string>();
+    for (const s of fm.sources ?? []) {
+      const sourceId = s.id;
+      if (!sourceId || seenInIssue.has(sourceId)) continue;
+      seenInIssue.add(sourceId);
+      let arr = out.get(sourceId);
+      if (!arr) {
+        arr = new Array(months).fill(0);
+        out.set(sourceId, arr);
+      }
+      arr[idx] = (arr[idx] ?? 0) + 1;
+    }
+  }
+  return out;
 }
 
 export async function listArticlesBySource(

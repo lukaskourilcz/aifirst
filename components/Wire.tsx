@@ -25,7 +25,7 @@ export function Wire({ items, locale, variant = "default" }: Props) {
               borderTop: "1px solid var(--color-fog)",
             }
           : {
-              marginTop: 48,
+              marginTop: "var(--section-gap)",
               background: "var(--color-canvas)",
               border: "1px solid var(--color-fog)",
               borderRadius: "var(--radius-xl)",

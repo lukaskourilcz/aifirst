@@ -33,14 +33,14 @@ export default async function TrendsPage({
       <div
         style={{
           padding: 20,
-          border: "1px solid var(--hairline)",
-          background: "var(--bg-deep)",
+          border: "1px solid var(--color-fog)",
+          background: "var(--color-canvas)",
         }}
       >
         <TrendsChart matrix={matrix} locale={locale} />
       </div>
 
-      <section style={{ marginTop: 48 }}>
+      <section style={{ marginTop: "var(--section-gap)" }}>
         <p className="label" style={{ marginBottom: 16 }}>
           {t.jumpToTag}
         </p>

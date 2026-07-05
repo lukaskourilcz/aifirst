@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
@@ -12,6 +13,7 @@ import {
   getArticle,
   listArticles,
   relatedArticles,
+  resolveHeroPhoto,
   type ArticleSummary,
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
@@ -37,6 +39,7 @@ export async function generateMetadata({
   const article = await getArticle(slug, lang);
   if (!article) return {};
   const articlePath = `/articles/${slug}`;
+  const heroPhoto = resolveHeroPhoto(article.frontmatter);
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
@@ -44,14 +47,11 @@ export async function generateMetadata({
     openGraph: {
       title: article.frontmatter.title,
       description: article.frontmatter.dek,
-      images: [{ url: article.frontmatter.illustration.path }],
+      ...(heroPhoto ? { images: [{ url: heroPhoto }] } : {}),
     },
   };
 }
 
-function eyebrow(tags?: string[]): string {
-  return (tags?.[0] ?? "today").replace(/-/g, " ");
-}
 
 export default async function ArticlePage({
   params,
@@ -85,16 +85,17 @@ export default async function ArticlePage({
   const fm = article.frontmatter;
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
   const reading = readingMinutes(article.mdx);
+  const heroPhoto = resolveHeroPhoto(fm);
 
   return (
     <>
       <ReadingProgress />
 
       {/* Hero panel */}
-      <section className="hero enter enter-1">
+      <section className={heroPhoto ? "hero enter enter-1" : "hero hero--no-photo enter enter-1"}>
         <div>
           <p className="hero__eyebrow">
-            {isWeekly ? d.article.weeklyDigest : eyebrow(fm.tags)}
+            {isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
           </p>
           <h1 className="hero__title">{fm.title}</h1>
           <p className="hero__dek">{fm.dek}</p>
@@ -107,15 +108,17 @@ export default async function ArticlePage({
             ))}
           </div>
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={fm.illustration.path}
-          alt={fm.illustration.alt}
-          className="hero__photo"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
+        {heroPhoto ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={heroPhoto}
+            alt={fm.illustration.alt}
+            className="hero__photo"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        ) : null}
       </section>
 
       {/* Body + dispatches sidebar */}
@@ -156,40 +159,13 @@ export default async function ArticlePage({
             className="article-with-aside__side"
             aria-label={d.article.dispatchesLabel}
           >
-            {dispatches.length > 0 && (
-              <>
-                <p className="eyebrow" style={{ marginBottom: 12 }}>
-                  {d.article.dispatchesLabel}
-                </p>
-                <div className="dispatches--aside">
-                  {dispatches.map((dp, i) => (
-                    <article key={i} className="dispatch-card">
-                      <p className="dispatch-card__eyebrow">
-                        {d.article.dispatchesLabel} · 0{i + 1}
-                      </p>
-                      <h3 className="dispatch-card__title">{dp.title}</h3>
-                      <p className="dispatch-card__body">{dp.body}</p>
-                      {dp.source_url && (
-                        <a
-                          href={dp.source_url}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="dispatch-card__source"
-                        >
-                          {d.article.dispatchSource} ↗
-                        </a>
-                      )}
-                    </article>
-                  ))}
-                </div>
-              </>
-            )}
+            <Dispatches items={dispatches} locale={locale} variant="aside" />
             <Wire items={fm.wire ?? []} locale={locale} variant="aside" />
           </aside>
         )}
       </section>
 
-      <section style={{ marginTop: 32 }}>
+      <section style={{ marginTop: "var(--block-gap)" }}>
         <GlossaryBlock terms={issueGlossary} locale={locale} />
         <SourcesBlock sources={fm.sources ?? []} locale={locale} />
         <p style={{ marginTop: 24, textAlign: "right" }}>

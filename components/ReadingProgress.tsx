@@ -41,10 +41,10 @@ export function ReadingProgress() {
         top: 0,
         left: 0,
         right: 0,
-        height: 2,
+        height: 3,
         zIndex: 11,
         pointerEvents: "none",
-        background: "transparent",
+        background: "var(--color-stone)",
       }}
     >
       <div
@@ -53,9 +53,7 @@ export function ReadingProgress() {
           height: "100%",
           transformOrigin: "left",
           transform: "scaleX(0)",
-          background:
-            "linear-gradient(90deg, var(--color-blueprint-blue), var(--color-mint))",
-          boxShadow: "0 0 12px rgba(29, 82, 222, 0.5)",
+          background: "var(--color-blueprint-blue)",
         }}
       />
     </div>
