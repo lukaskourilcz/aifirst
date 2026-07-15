@@ -107,7 +107,69 @@ Say the word and I'll switch it — one isolated component.
 
 ---
 
-## 5. How to verify once deployed
+## 5. NEW — AI-tools catalogue items (all optional, all degrade to no-ops)
+
+These came from the catalogue review. Every one is wired but dormant until you
+add the relevant key/secret — the pipeline behaves exactly as before otherwise.
+
+### 5a. Firecrawl / Jina reader fallback for the generic HTML source *(High)*
+
+The generic `html` adapter now has a resilient fallback: if the raw cheerio pass
+finds nothing (JS-rendered pages, odd markup), it asks a reader service for
+clean main-content markdown and mines its links (`lib/scraping/reader.ts`).
+
+- **Jina Reader** is **keyless** and already active — nothing to do. Add
+  `JINA_API_KEY` (same key as the embeddings one, §2) as an Actions secret to
+  raise its rate limits.
+- **Firecrawl** (more robust) turns on when you add `FIRECRAWL_API_KEY` — free
+  tier at <https://firecrawl.dev>. Already referenced in `daily.yml`.
+
+No-op today; the fallback only ever *adds* items when the normal pass returns
+zero, so it can't regress existing sources.
+
+### 5b. Better Stack / UptimeRobot heartbeat on the daily cron *(High)*
+
+`daily.yml` ends with a heartbeat ping that runs **only if the whole run
+succeeded** — so a failed daily generation sends *no* ping and your monitor
+alerts you (silent cron failure was the risk: no issue that day, nothing tells
+you).
+
+1. Create a **heartbeat/cron monitor** at <https://betterstack.com> (or
+   UptimeRobot) — expected period 1 day, with grace.
+2. Add its ping URL as the Actions secret **`HEARTBEAT_URL`**
+   (repo → Settings → Secrets and variables → Actions).
+
+Until you add it, the step logs "skipping" and does nothing.
+
+### 5c. Richer FLUX covers via fal *(Medium)*
+
+Cover generation already uses **FLUX on fal.ai**. The model is now overridable
+without a code change: set the Actions **variable** `FAL_MODEL_PATH` to e.g.
+`fal-ai/flux/dev` or `fal-ai/flux-pro/v1.1` for higher-fidelity covers (default
+stays the fast/cheap `fal-ai/flux/schnell`). Needs `IMAGE_PROVIDER=fal` + `FAL_KEY`.
+
+### 5d. LLM cost/fallback — Anthropic gateway seam *(Medium)*
+
+`getAnthropic()` now honours an optional **`ANTHROPIC_BASE_URL`**, so you can
+route the whole pipeline through an Anthropic-compatible gateway (cost caps,
+caching, fallback) with no code change. Unset = talk to Anthropic directly.
+
+> Fully offloading the cheap **utility-tier** calls to **Groq**, **Google AI
+> Studio**, or **OpenRouter** free tiers (to cut the ~$5–10/mo Anthropic spend)
+> is a larger change — it needs a second SDK and per-call routing, which risks
+> curation quality. I scoped it out of this pass deliberately; say the word and
+> I'll add a provider abstraction for the Haiku-tier steps only.
+
+### 5e. Context7 MCP for Claude Code *(Medium)*
+
+Added `.mcp.json` registering **Context7** so that when you edit this repo with
+Claude Code it pulls **version-accurate Next.js 15 / React 19 docs** instead of
+relying on training data. It activates automatically in Claude Code; no keys.
+(Purely a dev-tooling aid — it ships nothing to the site.)
+
+---
+
+## 6. How to verify once deployed
 
 1. **Route transitions** — in Chrome/Edge, navigate Home → article → Archive:
    content crossfades while the sidebar stays fixed. Safari may swap instantly
@@ -125,7 +187,7 @@ Say the word and I'll switch it — one isolated component.
 
 ---
 
-## 6. Summary checklist
+## 7. Summary checklist
 
 - [ ] **Confirm/set Vercel Production Branch = `main`** (§1) — the only real blocker.
 - [ ] (Recommended) Align the GitHub default branch + daily-pipeline push branch to `main`.
@@ -133,4 +195,8 @@ Say the word and I'll switch it — one isolated component.
 - [ ] (Optional) Add `GUARDIAN_API_KEY` / `NYTIMES_API_KEY` / `GNEWS_API_KEY` / `JINA_API_KEY`.
 - [ ] (Optional) Set `IMAGE_PROVIDER=nasa` or `picsum` to enable cover images.
 - [ ] (Optional) Decide: keep the ~13 kB Motion spring bar, or have me swap to 0-KB CSS (§4).
-- [ ] Verify the deploy and the checks in §5.
+- [ ] (Optional, catalogue) Add `FIRECRAWL_API_KEY` to strengthen the HTML-source fallback (§5a).
+- [ ] (Optional, catalogue) Add `HEARTBEAT_URL` secret + a Better Stack/UptimeRobot cron monitor (§5b).
+- [ ] (Optional, catalogue) Set `FAL_MODEL_PATH` for richer FLUX covers (§5c).
+- [ ] (Optional, catalogue) Set `ANTHROPIC_BASE_URL` if routing via a gateway (§5d).
+- [ ] Verify the deploy and the checks in §6.
