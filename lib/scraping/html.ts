@@ -2,6 +2,7 @@ import { request } from "undici";
 import * as cheerio from "cheerio";
 import type { Source, ScrapedItem } from "./types.js";
 import { makeItem } from "./util.js";
+import { fetchReadable, linksFromMarkdown } from "./reader.js";
 
 // Generic last-resort HTML adapter. Only used when nothing else works.
 // Pulls `<a>` tags inside `<article>` blocks. Configure with care.
@@ -31,6 +32,20 @@ export async function fetchHtml(source: Source): Promise<ScrapedItem[]> {
         ),
       );
     });
+
+    // When the raw markup yields nothing (JS-rendered pages, unusual
+    // structure), fall back to a reader service (Firecrawl/Jina) that returns
+    // clean main-content markdown, and mine its links. No-op unless configured
+    // to help — Jina is keyless, Firecrawl needs FIRECRAWL_API_KEY.
+    if (out.length === 0) {
+      const md = await fetchReadable(source.url);
+      if (md) {
+        for (const { title, url } of linksFromMarkdown(md)) {
+          out.push(makeItem(url, { title, summary: "" }, source));
+        }
+      }
+    }
+
     return out.slice(0, 25);
   } catch (err) {
     console.warn(`[html] ${source.id}: ${(err as Error).message}`);
