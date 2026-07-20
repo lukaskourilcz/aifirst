@@ -4,9 +4,11 @@ import type { ImageProvider, ImageSize } from "./provider.js";
 import { parseSize } from "./provider.js";
 import { STYLE_SUFFIX } from "./style.js";
 
-// Minimal fal.ai (FLUX) provider. Replace the model id / endpoint to taste.
-// Docs: https://fal.ai/models — typical path is `fal-ai/flux/schnell`.
-const MODEL_PATH = "fal-ai/flux/schnell";
+// Minimal fal.ai (FLUX) provider. The model is overridable via FAL_MODEL_PATH
+// so you can trade speed for quality without a code change — e.g.
+// `fal-ai/flux/dev` or `fal-ai/flux-pro/v1.1` for richer covers, default
+// `fal-ai/flux/schnell` for the fast/cheap path. Docs: https://fal.ai/models
+const MODEL_PATH = process.env.FAL_MODEL_PATH ?? "fal-ai/flux/schnell";
 
 type FalResponse = {
   images?: Array<{ url: string }>;
