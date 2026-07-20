@@ -4,6 +4,8 @@ import { curate } from "../lib/pipeline/curate.js";
 import { write } from "../lib/pipeline/write.js";
 import { illustrate } from "../lib/pipeline/illustrate.js";
 import { persist } from "../lib/pipeline/persist.js";
+import { promote } from "../lib/pipeline/promote.js";
+import { writePromotionFile } from "../lib/promotion-store.js";
 import { todayIso } from "../lib/helpers/date.js";
 
 async function main() {
@@ -38,12 +40,26 @@ async function main() {
   const files = await persist({ article, illustrationPath: illustration.path });
   console.error(`[generate] persisted: ${files.join(", ")}`);
 
+  // Social promotion: derive the IG / Threads captions (cs + en) from the
+  // written issue and save them for the secret /promotion page. Non-fatal —
+  // the article is already on disk, so a promotion hiccup shouldn't fail the
+  // whole run.
+  let promotionFile: string | null = null;
+  try {
+    const post = await promote(article, illustration.path);
+    promotionFile = await writePromotionFile(post);
+    console.error(`[generate] promotion: ${promotionFile}`);
+  } catch (err) {
+    console.error("[generate] promotion FAILED (non-fatal):", err);
+  }
+
   // Stdout: machine-readable summary for the GH Action.
   console.log(JSON.stringify({
     date,
     slug: article.slug,
     files,
     illustration: illustration.path,
+    promotion: promotionFile,
   }));
 }
 

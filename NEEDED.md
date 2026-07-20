@@ -17,6 +17,35 @@ momentum) · semantic "related issues".
 
 ---
 
+## 🔎 Audit — importance of every item (1 = skip-able, 5 = do it)
+
+Scored against the actual code on 2026-07-20. **Importance = real value/risk to
+you**, not effort. Status is what I verified in the repo (branch/Vercel items
+are external config I can't inspect).
+
+| # | Item | Imp | Why it's needed | Status (verified in code) |
+| --- | --- | --- | --- | --- |
+| 1 | **Vercel Production Branch = `main`** (§1) | **5** | If Vercel builds a different branch than the one your work + the daily job push to, none of it goes live and no daily issue ever appears. This is the whole site. | External config; **can't verify from repo.** GitHub default is a `claude/*` branch, so this genuinely needs checking. |
+| 2 | **Align GitHub default + daily-push branch to `main`** (§1) | **4** | `daily.yml` commits generated content; if it pushes to a branch Vercel doesn't deploy, new issues never show. Same root cause as #1. | `daily.yml` present; branch target is a config choice. |
+| 3 | **`IMAGE_PROVIDER=nasa` or `picsum`** (§3) | **3** | Default is `none` → every article ships with a flat placeholder, no real cover. Both alternatives are keyless. Visible quality gap. | ✅ Confirmed default `none` in `.env.example`; providers verified. |
+| 4 | **`HEARTBEAT_URL` + cron monitor** (§5b) | **3** | A silent daily-pipeline failure means **no issue that day and nothing tells you** — the core failure mode for a daily magazine. | ✅ `daily.yml` pings only on success; no-op until set. |
+| 5 | **`STACKEXCHANGE_KEY`** (§2) | **3** | The anonymous StackExchange API returns **HTTP 403 from CI IPs**, so that source yields nothing on the runner until keyed. The one key that's actively broken without it. | ✅ Source self-skips; verified in `daily.yml`. |
+| 6 | **`JINA_API_KEY`** (§2 / §5a) | **2** | Turns "related issues" from tag-overlap → embedding similarity, and raises the reader-fallback rate limit. Keyless fallback works. | ✅ Reader keyless-active; embeddings degrade gracefully. |
+| 7 | **`GUARDIAN` / `NYTIMES` / `GNEWS` keys** (§2) | **2** | Pure extra source coverage; each self-skips and never errors without a key. | ✅ Sources self-skip. |
+| 8 | **Reading-bar bundle decision** (§4) | **2** | The Motion spring bar adds ~13 kB, over this repo's own +10 kB budget. Keep it or swap to 0 kB CSS. | ✅ Code present; a one-component swap. |
+| 9 | **`FIRECRAWL_API_KEY`** (§5a) | **2** | Strengthens the generic-HTML source fallback for JS-rendered pages; Jina keyless fallback already covers most cases. | ✅ `reader.ts` present, wired in `daily.yml`. |
+| 10 | **`FAL_MODEL_PATH`** (§5c) | **1** | Higher-fidelity FLUX covers — only relevant once `IMAGE_PROVIDER=fal` + `FAL_KEY` are set. | ✅ Overridable; default schnell. |
+| 11 | **`ANTHROPIC_BASE_URL`** (§5d) | **1** | Route the pipeline through a gateway for cost caps/caching. Unset = talk to Anthropic directly. | ✅ Seam present in `client.ts`. |
+| 12 | **Context7 MCP** (§5e) | **1** | Version-accurate Next/React docs when editing with Claude Code. Auto-activates. | ✅ `.mcp.json` present; no action. |
+| 13 | **`PROMOTION_TOKEN`** *(new — promotion console)* | **1** | Optional gate for the secret `/promotion` page. Unset = reachable by direct URL only (already unlisted, noindex, robots-disallowed). | ✅ Wired in `app/promotion/page.tsx`. |
+
+**Bottom line:** **#1–#2 (branch/Vercel wiring)** are the only true blockers —
+everything else is graceful. **#3–#5** meaningfully improve output (covers,
+failure alerts, one broken-without-key source); the rest is nice-to-have. All
+the keys are free-tier and self-skip, so there's no harm in skipping any.
+
+---
+
 ## 1. ⚠️ Make sure Vercel actually deploys `main` (the only hard blocker)
 
 All work is merged into **`main`**, but two things about this repo matter:

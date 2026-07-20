@@ -26,13 +26,17 @@ app/                       # Next.js routes
   page.tsx                 # latest article (today)
   archive/page.tsx         # archive index
   articles/[slug]/page.tsx # individual article
+  promotion/page.tsx       # secret IG/Threads console (direct URL only)
 components/                # React components (sci-fi UI)
 content/articles/          # generated MDX articles
+content/promotion/         # generated IG/Threads copy (one JSON per date)
 lib/
   scraping/                # source adapters + runners
-  pipeline/                # curate -> write -> illustrate
+  pipeline/                # curate -> write -> illustrate -> promote
   images/                  # image provider interface
   anthropic/               # SDK client + shared prompts
+  promotion.ts             # promotion types + guard (browser-safe)
+  promotion-store.ts       # promotion JSON read/write (server only)
 public/illustrations/      # generated illustrations
 sources.yml                # configured sources
 scripts/
