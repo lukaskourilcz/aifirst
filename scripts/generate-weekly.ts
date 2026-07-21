@@ -29,10 +29,25 @@ const inputs = parseWorkflowInputs(
 );
 const reporter = new RunReporter(process.env.GENERATION_WORKFLOW === "regenerate" ? "regenerate" : "weekly", "weekly", inputs.date, inputs.publishMode);
 
+async function applyGuardrailMode(result: ReturnType<typeof evaluateGuardrails>, config: Awaited<ReturnType<typeof loadEditorialConfig>>) {
+  if (!result.enforced || result.recommendedPublishMode !== "pull_request") return;
+  reporter.setPublishMode("pull_request");
+  process.env.PUBLISH_MODE = "pull_request";
+  if (process.env.GITHUB_ENV) await fs.appendFile(process.env.GITHUB_ENV, "PUBLISH_MODE=pull_request\n", "utf8");
+  reporter.warn(`publish_mode_overridden:${config.quality.failureAction}`);
+}
+
 async function main() {
   const date = inputs.date;
   const config = await reporter.stage("load_configuration", loadEditorialConfig);
-  applyModelProfile(config, inputs.modelProfile);
+  const scheduled = process.env.GITHUB_EVENT_NAME === "schedule";
+  applyModelProfile(config, scheduled ? config.models.profile : inputs.modelProfile);
+  const configuredMode = config.review.defaultMode === "review" ? "pull_request" : config.publishing.publishMode;
+  if (scheduled) {
+    reporter.setPublishMode(configuredMode);
+    process.env.PUBLISH_MODE = configuredMode;
+    if (process.env.GITHUB_ENV) await fs.appendFile(process.env.GITHUB_ENV, `PUBLISH_MODE=${configuredMode}\n`, "utf8");
+  }
   if (!config.publishing.weeklyEnabled) {
     const report = reporter.build({ status: "skipped" });
     console.log(JSON.stringify({ date, status: "skipped", report: await writeRunReport(report) }));
@@ -49,7 +64,12 @@ async function main() {
     console.log(JSON.stringify({ date, status: "skipped", report: await writeRunReport(report) }));
     return;
   }
-  const generated = await reporter.stage("weekly_write", () => generateWeekly(date, requestedLocales, Math.min(6000, config.article.maximumOutputTokens)));
+  const generated = await reporter.stage("weekly_write", () => generateWeekly(
+    date,
+    requestedLocales,
+    Math.min(6000, config.article.maximumOutputTokens),
+    requestedLocales.length > 1 ? config.models.profiles[config.translation.modelProfile]?.writing : undefined,
+  ));
   generated.usage.forEach((line) => reporter.addUsage(line));
   const measuredCost = totalUsageCost(generated.usage)?.amount;
   if (requestedLocales.length > 1 && config.translation.budgetPerRun !== null && measuredCost !== undefined && measuredCost > config.translation.budgetPerRun) {
@@ -58,14 +78,21 @@ async function main() {
   }
   const costGuardrail = evaluateGuardrails({ costPerRun: measuredCost }, config);
   costGuardrail.violations.forEach((violation) => reporter.warn(`guardrail:${violation}`));
-  if (costGuardrail.recommendedPublishMode === "skip") throw new Error("weekly hard cost limit exceeded before publication");
+  await applyGuardrailMode(costGuardrail, config);
+  if (costGuardrail.enforced && costGuardrail.recommendedPublishMode === "skip") throw new Error("weekly hard cost limit exceeded before publication");
   const primary = generated.files[0];
   let illustration = { path: null as string | null, provider: process.env.IMAGE_PROVIDER ?? "none" };
   if (primary) {
     const raw = await fs.readFile(primary, "utf8");
     const { data } = matter(raw);
     const prompt = (data as { illustration?: { prompt?: string } }).illustration?.prompt;
-    if (prompt) illustration = await reporter.stage("illustrate", () => illustrate(`${date}-weekly`, prompt));
+    if (prompt) {
+      try {
+        illustration = await reporter.stage("illustrate", () => illustrate(`${date}-weekly`, prompt));
+      } catch (error) {
+        reporter.warn(`optional_illustration_failed:${error instanceof Error ? error.message : "unknown"}`);
+      }
+    }
   }
   const paidImageCostUnavailable = illustration.provider === "fal" && Boolean(illustration.path);
   if (config.budgets.hardCostPerRun !== null && paidImageCostUnavailable) {
@@ -89,8 +116,16 @@ async function main() {
   for (const locale of requestedLocales) {
     const article = await getArticle(generated.slug, locale);
     if (article) {
-      newsletterFiles.push(...await reporter.stage(`newsletter_${locale}`, () => writeNewsletterArtifact(article, locale)));
-      shareFiles.push(await reporter.stage(`distribution_${locale}`, () => writeArticleDistributionPack(article, locale)));
+      try {
+        newsletterFiles.push(...await reporter.stage(`newsletter_${locale}`, () => writeNewsletterArtifact(article, locale)));
+      } catch (error) {
+        reporter.warn(`optional_newsletter_failed:${locale}:${error instanceof Error ? error.message : "unknown"}`);
+      }
+      try {
+        shareFiles.push(await reporter.stage(`distribution_${locale}`, () => writeArticleDistributionPack(article, locale)));
+      } catch (error) {
+        reporter.warn(`optional_distribution_failed:${locale}:${error instanceof Error ? error.message : "unknown"}`);
+      }
     }
   }
   const primaryArticle = await getArticle(generated.slug, requestedLocales[0]);

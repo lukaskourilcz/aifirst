@@ -191,16 +191,18 @@ Publishing modes:
 - `dry_run` — generate, verify and upload private artifacts without commit.
 
 Every workflow uploads reports and relevant artifacts with `if: always()`.
-Article persistence/validation/build failure fails the job. Optional promotion,
-embeddings, heartbeat and dashboard delivery do not make the reader dependent
-on those services.
+Article persistence/validation/build failure fails the job. Optional
+illustration, distribution, promotion, embeddings, heartbeat and dashboard
+delivery do not make the reader dependent on those services. Dry-run artifacts
+include the complete validation log.
 
 ## Telemetry and cost
 
 `GenerationRunReport` schema v1 records identity, timing, status, repository
-references, every stage, scrape counts, editorial metrics, token/cache usage,
-image state, cost and warnings. `examples/generation-run-report.v1.json` is a
-fixture; TypeScript is authoritative in `lib/telemetry/types.ts`.
+references, every stage, bounded per-source scrape results, editorial metrics,
+token/cache usage, image state, cost, compatibility warnings and structured
+events. `examples/generation-run-report.v1.json` is a fixture; TypeScript is
+authoritative in `lib/telemetry/types.ts`.
 
 Anthropic usage comes from actual API response counters. A versioned pricing
 registry converts input, output, five-minute cache-write and cache-read tokens

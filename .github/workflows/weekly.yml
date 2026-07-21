@@ -73,7 +73,10 @@ jobs:
           OWNDASHBOARD_RUN_REPORT_TOKEN: ${{ secrets.OWNDASHBOARD_RUN_REPORT_TOKEN }}
         run: pnpm generate:weekly
       - name: Verify generated publication
-        run: pnpm verify
+        run: |
+          mkdir -p generated
+          set -o pipefail
+          pnpm verify 2>&1 | tee generated/validation.log
       - name: Upload weekly artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -82,6 +85,7 @@ jobs:
           if-no-files-found: warn
           path: |
             generated/run-reports/*.json
+            generated/validation.log
             generated/newsletters/**
             public/data/share/${{ env.ISSUE_DATE }}.weekly.*.json
             content/articles/${{ env.ISSUE_DATE }}-weekly*.mdx
@@ -110,4 +114,6 @@ jobs:
           git push --set-upstream origin "$branch"
           report=$(find generated/run-reports -name '*.json' -print -quit)
           cost=$(jq -r '.totalCost.amount // "unavailable"' "$report")
-          gh pr create --title "Weekly edition: $ISSUE_DATE" --body "Generated Caught Up weekly edition. Language: $ISSUE_LANGUAGE. Cost: $cost USD. Newsletter artifacts and run report are attached to the workflow. Validation: pnpm verify passed."
+          signal=$(jq -r '.editorial.signalStrength // "unavailable"' "$report")
+          sources=$(jq -r '.editorial.citedSources' "$report")
+          gh pr create --title "Weekly edition: $ISSUE_DATE" --body "Generated Caught Up weekly edition. Language: $ISSUE_LANGUAGE. Cost: $cost USD. Signal: $signal. Cited sources: $sources. Newsletter, preview data, and the private run report are attached to the workflow. Validation: pnpm verify passed."

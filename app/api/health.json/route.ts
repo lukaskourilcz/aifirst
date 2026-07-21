@@ -6,6 +6,7 @@
 import { listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { classifyPublicHealth } from "@/lib/public-health";
+import { localePath } from "@/lib/i18n/config";
 
 export const dynamic = "force-static";
 
@@ -14,11 +15,14 @@ export async function GET() {
   const latest = all[0];
   const latestDaily = all.find((article) => (article.type ?? "daily") === "daily");
   const latestWeekly = all.find((article) => article.type === "weekly");
-  const ageHours = latest
-    ? Math.floor((Date.now() - new Date(latest.date).getTime()) / 36e5)
+  const ageHours = latestDaily
+    ? Math.floor((Date.now() - new Date(`${latestDaily.date}T06:00:00Z`).getTime()) / 36e5)
     : null;
   const weeklyAgeDays = latestWeekly
     ? Math.floor((Date.now() - new Date(latestWeekly.date).getTime()) / 86_400_000)
+    : null;
+  const latestAgeHours = latest
+    ? Math.floor((Date.now() - new Date(`${latest.date}T06:00:00Z`).getTime()) / 36e5)
     : null;
 
   const status = classifyPublicHealth(ageHours, weeklyAgeDays === null || weeklyAgeDays > 10);
@@ -36,8 +40,8 @@ export async function GET() {
             slug: latest.slug,
             date: latest.date,
             type: latest.type ?? "daily",
-            age_hours: ageHours,
-            url: `${siteUrl()}/articles/${latest.slug}`,
+            age_hours: latestAgeHours,
+            url: `${siteUrl()}${localePath(latest.lang ?? "en", `/articles/${latest.slug}`)}`,
           }
         : null,
       total_issues: all.length,

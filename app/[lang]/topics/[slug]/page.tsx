@@ -53,6 +53,16 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
   const majorSources = [...sourceCounts.values()].sort((a, b) => b.count - a.count).slice(0, 6);
   const glossaryTerms = glossary.filter((term) => (term.tags ?? []).some((tag) => topic.tags.includes(tag)));
   const related = published.filter(({ topic: candidate }) => candidate.slug !== topic.slug && candidate.tags.some((tag) => topic.tags.includes(tag))).slice(0, 4);
+  const entityCounts = new Map<string, number>();
+  for (const article of articles) {
+    for (const tag of new Set(article.tags ?? [])) {
+      if (tag === "weekly" || topic.tags.includes(tag)) continue;
+      entityCounts.set(tag, (entityCounts.get(tag) ?? 0) + 1);
+    }
+  }
+  const recurringEntities = [...entityCounts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 8);
 
   return (
     <PageShell kicker={t.kicker} title={topic.title[locale]} intro={topic.description[locale]}>
@@ -82,11 +92,23 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
       <section style={{ marginTop: "var(--section-gap)" }}>
         <h2>{t.latest}</h2>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          {articles.map((article) => (
+          {articles.slice(0, 3).map((article) => (
             <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.date} title={article.title} variant="meta" />
           ))}
         </ul>
       </section>
+      <section style={{ marginTop: "var(--section-gap)" }}>
+        <h2>{t.timeline}</h2>
+        <ol className="topic-timeline">
+          {articles.map((article) => <li key={article.slug}><time dateTime={article.date}>{article.date}</time><Link href={localePath(locale, `/articles/${article.slug}`)}>{article.title}</Link></li>)}
+        </ol>
+      </section>
+      {recurringEntities.length ? (
+        <section style={{ marginTop: "var(--section-gap)" }}>
+          <h2>{t.entities}</h2>
+          <ul className="entity-list">{recurringEntities.map(([entity, count]) => <li key={entity}><Link href={localePath(locale, `/tags/${encodeURIComponent(entity)}`)}>{entity}</Link> <span className="label">{count}</span></li>)}</ul>
+        </section>
+      ) : null}
       {majorSources.length ? (
         <section style={{ marginTop: "var(--section-gap)" }}>
           <h2>{t.sources}</h2>

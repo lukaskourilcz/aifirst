@@ -5,6 +5,7 @@ import { writeMdxFile } from "../content-write.js";
 import type { Locale } from "../i18n/config.js";
 import { modelFor } from "../anthropic/models.js";
 import { totalUsageCost } from "../telemetry/pricing.js";
+import type { UsageLine } from "../telemetry/types.js";
 
 export type PersistInput = {
   article: WrittenArticle;
@@ -12,6 +13,7 @@ export type PersistInput = {
   sourceCandidates?: number;
   imageProvider?: string;
   generatedAt?: string;
+  usage?: UsageLine[];
 };
 
 // Writes one MDX file per locale (<date>.cs.mdx, <date>.en.mdx) sharing
@@ -22,6 +24,7 @@ export async function persist({
   sourceCandidates,
   imageProvider,
   generatedAt,
+  usage,
 }: PersistInput): Promise<string[]> {
   const registry = await loadSources().catch(() => []);
   const signal_strength = computeSignalStrength({
@@ -31,7 +34,9 @@ export async function persist({
   const resolvedImageProvider = imageProvider ?? process.env.IMAGE_PROVIDER ?? "none";
   const measuredCost = resolvedImageProvider === "fal" && illustrationPath
     ? null
-    : totalUsageCost(article.usage);
+    : totalUsageCost(usage ?? article.usage);
+  const actualUsage = usage ?? article.usage;
+  const modelUsed = (stage: string) => actualUsage.find((line) => line.stage === stage)?.model;
   const locales = Object.keys(article.byLocale) as Locale[];
 
   const files: string[] = [];
@@ -70,8 +75,9 @@ export async function persist({
         generated_at: generatedAt ?? new Date().toISOString(),
         human_reviewed: false,
         models: {
-          curation: modelFor("curation"),
-          writing: modelFor("writing"),
+          curation: modelUsed("curate") ?? modelFor("curation"),
+          writing: modelUsed("write") ?? modelFor("writing"),
+          ...(modelUsed("promotion") ? { utility: modelUsed("promotion") } : {}),
         },
         source_candidates: sourceCandidates,
         cited_sources: article.sources.length,

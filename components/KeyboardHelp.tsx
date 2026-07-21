@@ -113,7 +113,7 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
       {open && (
         <ModalOverlay
           onClose={() => setOpen(false)}
-          ariaLabel="keyboard shortcuts"
+          ariaLabel={t.title}
           align="center"
           zIndex={21}
           width={520}

@@ -3,6 +3,7 @@ import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueRow } from "@/components/IssueRow";
 import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
+import { getArticle } from "@/lib/content";
 import type { Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -22,7 +23,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 export default async function WeeklyPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).weekly;
-  const issues = (await listArticles(locale)).filter((article) => article.type === "weekly");
+  const summaries = (await listArticles(locale)).filter((article) => article.type === "weekly");
+  const issues = await Promise.all(summaries.map(async (summary) => ({
+    ...summary,
+    digest: (await getArticle(summary.slug, locale))?.frontmatter.digest,
+  })));
+  const latest = issues[0];
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       <StructuredData data={{
@@ -36,14 +42,28 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
         hasPart: issues.map((issue) => ({ "@type": "Article", headline: issue.title, datePublished: issue.date, url: `${siteUrl()}${localePath(locale, `/articles/${issue.slug}`)}` })),
       }} />
       <FeedActions locale={locale} weekly />
-      {issues.length ? (
+      {latest ? (
+        <section style={{ marginTop: "var(--section-gap)" }}>
+          <p className="label label--accent">{t.latest}</p>
+          <h2><a href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</a></h2>
+          {latest.dek ? <p style={{ maxWidth: "68ch", color: "var(--color-slate)" }}>{latest.dek}</p> : null}
+          <p className="label">
+            {latest.digest ? `${t.dateRange}: ${latest.digest.from} → ${latest.digest.to}` : latest.date}
+            {(latest.tags ?? []).filter((tag) => tag !== "weekly").length
+              ? ` · ${t.topics}: ${(latest.tags ?? []).filter((tag) => tag !== "weekly").join(", ")}`
+              : ""}
+          </p>
+        </section>
+      ) : null}
+      {issues.length > 1 ? (
         <section style={{ marginTop: "var(--section-gap)" }}>
           <h2>{t.archive}</h2>
           <ul style={{ listStyle: "none", padding: 0 }}>
-            {issues.map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.date} title={article.title} variant="meta" trailing={<span className="label">{(article.tags ?? []).filter((tag) => tag !== "weekly").slice(0, 2).join(" · ")}</span>} />)}
+            {issues.slice(1).map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.digest ? `${article.digest.from} → ${article.digest.to}` : article.date} title={article.title} variant="meta" trailing={<span className="label">{(article.tags ?? []).filter((tag) => tag !== "weekly").slice(0, 2).join(" · ")}</span>} />)}
           </ul>
         </section>
-      ) : <p style={{ marginTop: 32 }}>{t.empty}</p>}
+      ) : null}
+      {!latest ? <p style={{ marginTop: 32 }}>{t.empty}</p> : null}
     </PageShell>
   );
 }

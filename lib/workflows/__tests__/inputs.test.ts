@@ -12,6 +12,7 @@ describe("workflow inputs", () => {
 
   it("rejects invalid dates and modes before paid work", () => {
     expect(() => parseWorkflowInputs({ ISSUE_DATE: "today" }, "2026-07-21")).toThrow(/YYYY-MM-DD/);
+    expect(() => parseWorkflowInputs({ ISSUE_DATE: "2026-02-31" }, "2026-07-21")).toThrow(/real YYYY-MM-DD/);
     expect(() => parseWorkflowInputs({ PUBLISH_MODE: "ship" }, "2026-07-21")).toThrow(/PUBLISH_MODE/);
   });
 });

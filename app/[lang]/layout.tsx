@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { HtmlLang } from "@/components/HtmlLang";
 import { LOCALES, isLocale, localePath, resolveLocale } from "@/lib/i18n/config";
+import { dict } from "@/lib/i18n/dictionaries";
 
 export const dynamicParams = false;
 
@@ -41,9 +42,10 @@ export default async function LangLayout({
   return (
     <>
       <HtmlLang locale={lang} />
+      <a className="skip-link" href="#main-content">{dict(lang).common.skipToContent}</a>
       <div className="shell">
         <Sidebar locale={lang} />
-        <main className="shell__main">
+        <main className="shell__main" id="main-content" tabIndex={-1}>
           {children}
           <Footer locale={lang} />
         </main>

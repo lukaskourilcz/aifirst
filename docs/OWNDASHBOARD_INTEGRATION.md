@@ -35,7 +35,8 @@ Recommended dashboard tables store telemetry and references, not article bodies:
 - `ai_generation_runs`: report header, status, issue reference and totals
 - `ai_generation_stages`: one row per timed pipeline stage
 - `ai_usage_lines`: provider/model/token/cost lines
-- `source_run_results`: per-source attempt, success and candidate count
+- `source_run_results`: per-source status, duration, candidate count and bounded error metadata
+- `ai_generation_events`: structured warning/event codes for alerting; free-form warning strings remain for schema-v1 compatibility
 
 ## Triggering workflows
 
@@ -119,5 +120,7 @@ Create structured dashboard events for stale content, consecutive failures,
 low source success, validation/build/deployment failures, duplicate attempts,
 provider unavailability, translation drift and cost thresholds. Committed
 `config/editorial.yml` supplies local hard limits even when OwnDashboard is
-offline. Initial quality enforcement is `report_only`; operators can later
-enable enforcement through a reviewed configuration PR.
+offline. Quality enforcement starts in `report_only`. When changed to
+`enforce`, the committed `failureAction` is applied locally: ordinary quality
+failures switch the run to a review pull request or skip it, while hard-cost
+failures always fail closed before persistence.

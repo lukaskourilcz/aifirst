@@ -102,9 +102,7 @@ export function SourceCard({
           style={{
             height: "100%",
             width: `${pct}%`,
-            background:
-              "linear-gradient(90deg, var(--color-blueprint-blue), var(--color-blueprint-blue))",
-            boxShadow: "0 0 8px rgba(92, 240, 255, 0.45)",
+            background: "var(--color-blueprint-blue)",
           }}
         />
       </div>

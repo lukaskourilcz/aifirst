@@ -15,6 +15,7 @@
     "check:bundle": "tsx scripts/check-bundle.ts",
     "generate:daily": "tsx scripts/generate-daily.ts",
     "generate:weekly": "tsx scripts/generate-weekly.ts",
+    "regeneration:check": "tsx scripts/check-regeneration-budget.ts",
     "generate:artifacts": "tsx scripts/generate-static-artifacts.ts",
     "scrape:dry": "tsx scripts/scrape-dry.ts",
     "scrape:og": "tsx scripts/scrape-og-images.ts",

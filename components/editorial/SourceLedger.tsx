@@ -31,11 +31,13 @@ export function SourceLedger({
       <h2 id="source-ledger-heading">{t.sourceLedger}</h2>
       <div className="table-scroll" tabIndex={0} role="region" aria-label={t.sourceLedger}>
         <table>
+          <caption className="sr-only">{t.sourceLedger}</caption>
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">{locale === "cs" ? "Zdroj" : "Source"}</th>
               <th scope="col">{locale === "cs" ? "Typ" : "Type"}</th>
+              <th scope="col">{locale === "cs" ? "Třída důkazu" : "Evidence class"}</th>
               <th scope="col">{t.sourceSupports}</th>
             </tr>
           </thead>
@@ -44,7 +46,9 @@ export function SourceLedger({
               const registered = registryById.get(source.source_id ?? source.id);
               const publisher = source.publisher ?? registered?.name ?? hostname(source.url);
               const classification = source.classification ??
-                (registered?.tags?.includes("primary-source") ? "primary" : "secondary");
+                (registered?.tags?.includes("primary-source")
+                  ? "primary"
+                  : locale === "cs" ? "neurčeno" : "unclassified");
               return (
                 <tr key={`${source.id}-${source.url}`}>
                   <td>{String(index + 1).padStart(2, "0")}</td>
@@ -59,7 +63,8 @@ export function SourceLedger({
                       </Link>
                     ) : null}
                   </td>
-                  <td>{source.source_type ?? registered?.type ?? classification}</td>
+                  <td>{source.source_type ?? registered?.type ?? "—"}</td>
+                  <td>{classification}</td>
                   <td>{source.supports?.join("; ") || "—"}</td>
                 </tr>
               );

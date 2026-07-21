@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 import { useWindowEvent } from "@/lib/hooks/useWindowEvent";
 
 type Props = {
@@ -15,6 +15,7 @@ type Props = {
   zIndex?: number;
   // Max panel width in px.
   width?: number;
+  returnFocusRef?: RefObject<HTMLElement | null>;
   children: ReactNode;
 };
 
@@ -27,10 +28,41 @@ export function ModalOverlay({
   align = "center",
   zIndex = 20,
   width = 640,
+  returnFocusRef,
   children,
 }: Props) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const previous = returnFocusRef?.current ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
+    const panel = panelRef.current;
+    const first = panel?.querySelector<HTMLElement>(
+      'input:not([disabled]), button:not([disabled]), a[href], select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    requestAnimationFrame(() => (first ?? panel)?.focus());
+    return () => previous?.focus();
+  }, [returnFocusRef]);
+
   useWindowEvent("keydown", (e) => {
     if (e.key === "Escape") onClose();
+    if (e.key !== "Tab") return;
+    const focusable = [...(panelRef.current?.querySelectorAll<HTMLElement>(
+      'input:not([disabled]), button:not([disabled]), a[href], select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ) ?? [])].filter((item) => item.getClientRects().length > 0);
+    if (!focusable.length) {
+      e.preventDefault();
+      panelRef.current?.focus();
+      return;
+    }
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last?.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first?.focus();
+    }
   });
 
   return (
@@ -51,6 +83,8 @@ export function ModalOverlay({
       }}
     >
       <div
+        ref={panelRef}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         style={{
           width: `min(${width}px, 100%)`,

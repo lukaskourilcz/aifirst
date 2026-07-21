@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
+import { githubRepo } from "@/lib/config";
 
 export const dynamic = "force-static";
 
@@ -21,6 +22,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
     ["problem", t.problemTitle, t.problemBody],
     ["methodology", t.methodTitle, t.methodBody],
     ["automation", t.automationTitle, t.automationBody],
+    ["models", t.modelsTitle, t.modelsBody],
     ["sources", t.sourcesTitle, t.sourcesBody],
     ["editorial", t.editorialTitle, t.editorialBody],
     ["corrections-policy", t.correctionsTitle, t.correctionsBody],
@@ -36,6 +38,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
         <Link href={localePath(locale, "/sources")}>{t.sourceDirectory} →</Link>
         <Link href={localePath(locale, "/corrections")}>{t.corrections} →</Link>
         <Link href={localePath(locale, "/glossary")}>{dict(locale).nav.glossary} →</Link>
+        <a href={`https://github.com/${githubRepo()}`} target="_blank" rel="noreferrer noopener">{t.repository} ↗</a>
       </nav>
     </PageShell>
   );

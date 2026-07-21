@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 import type { GenerationRunReport, RunStatus, StageStatus, UsageLine, WorkflowKind } from "./types";
+import type { SourceScrapeResult } from "../scraping/run";
 import { totalUsageCost } from "./pricing";
 
 export class RunReporter {
@@ -9,13 +10,20 @@ export class RunReporter {
   private readonly stages: GenerationRunReport["stages"] = [];
   readonly usage: UsageLine[] = [];
   readonly warnings: string[] = [];
+  readonly events: NonNullable<GenerationRunReport["events"]> = [];
+  readonly sourceResults: SourceScrapeResult[] = [];
+  private currentPublishMode: GenerationRunReport["publishMode"];
 
   constructor(
     readonly workflow: WorkflowKind,
     readonly issueKind: "daily" | "weekly",
     readonly issueDate: string,
-    readonly publishMode: GenerationRunReport["publishMode"],
-  ) {}
+    publishMode: GenerationRunReport["publishMode"],
+  ) { this.currentPublishMode = publishMode; }
+
+  get publishMode() { return this.currentPublishMode; }
+  setPublishMode(mode: GenerationRunReport["publishMode"]) { this.currentPublishMode = mode; }
+  setSourceResults(results: SourceScrapeResult[]) { this.sourceResults.splice(0, this.sourceResults.length, ...results); }
 
   async stage<T>(name: string, operation: () => Promise<T>): Promise<T> {
     const started = new Date();
@@ -32,7 +40,11 @@ export class RunReporter {
   skip(name: string) { this.addStage(name, "skipped", new Date()); }
   addUsage(line: UsageLine | undefined) { if (line) this.usage.push(line); }
   warn(message: string) {
-    if (!this.warnings.includes(message)) this.warnings.push(message);
+    if (!this.warnings.includes(message)) {
+      this.warnings.push(message);
+      const [code, ...detail] = message.split(":");
+      this.events.push({ level: "warning", code: code || "warning", ...(detail.length ? { message: detail.join(":") } : {}), at: new Date().toISOString() });
+    }
   }
 
   private addStage(name: string, status: StageStatus, started: Date, error?: unknown) {
@@ -96,6 +108,7 @@ export class RunReporter {
         successfulSources: input.successfulSources ?? 0,
         failedSources: Math.max(0, (input.attemptedSources ?? 0) - (input.successfulSources ?? 0)),
         candidateItems: input.candidateItems ?? 0,
+        ...(this.sourceResults.length ? { sourceResults: [...this.sourceResults] } : {}),
       },
       editorial: {
         selectedItems: input.selectedItems ?? 0,
@@ -107,6 +120,7 @@ export class RunReporter {
       image: input.image,
       ...(totalCost ? { totalCost } : {}),
       warnings: [...this.warnings],
+      ...(this.events.length ? { events: [...this.events] } : {}),
     };
   }
 }

@@ -6,6 +6,7 @@ import { buildSearchIndex } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
+import { NavLink } from "./NavLink";
 
 // One coherent 16px stroked icon set — hand-drawn to sit on the same
 // baseline as Suisse Intl at 13/14px in the sidebar. Uses currentColor so
@@ -102,6 +103,8 @@ export async function Sidebar({ locale }: { locale: Locale }) {
   const home = dict(locale).home;
   const lp = localePrefixer(locale);
   const index = await buildSearchIndex(locale);
+  const primaryLabel = locale === "cs" ? "Hlavní navigace" : "Primary navigation";
+  const homeLabel = locale === "cs" ? `${brand.name} – domů` : `${brand.name} home`;
 
   const primary: Array<{ key: string; label: string; href: string }> = [
     { key: "today",   label: t.today,   href: lp("/") },
@@ -113,26 +116,22 @@ export async function Sidebar({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <aside className="sidebar" aria-label="primary">
+    <aside className="sidebar" aria-label={primaryLabel}>
       <div className="sidebar__head">
-        <Link href={lp("/")} className="sidebar__brand" aria-label={`${brand.name} home`}>
+        <Link href={lp("/")} className="sidebar__brand" aria-label={homeLabel}>
           <span className="sidebar__brand-dot" />
           <span className="sidebar__brand-word">{brand.name}</span>
         </Link>
       </div>
 
-      <nav className="nav-rail" aria-label="primary">
+      <nav className="nav-rail" aria-label={primaryLabel}>
         {primary.map((item) => (
-          <Link
+          <NavLink
             key={item.key}
             href={item.href}
-            className="nav-item"
-            title={item.label}
-            aria-label={item.label}
-          >
-            <span aria-hidden className="nav-item__glyph">{ICONS[item.key]}</span>
-            <span className="nav-item__label">{item.label}</span>
-          </Link>
+            label={item.label}
+            icon={ICONS[item.key]}
+          />
         ))}
         <div className="nav-divider" aria-hidden />
         <SearchPalette index={index} locale={locale} />

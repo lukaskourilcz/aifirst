@@ -58,7 +58,7 @@ export async function buildRadar(locale: Locale): Promise<RadarData> {
     if (watchlist.length >= 8) break;
   }
   return {
-    generatedAt: new Date().toISOString(),
+    generatedAt: articles[0]?.date ? `${articles[0].date}T06:00:00Z` : "1970-01-01T00:00:00Z",
     rising: comparison.filter((topic) => topic.delta > 0).slice(0, 8),
     recurring: [...comparison].sort((a, b) => b.recent - a.recent || b.previous - a.previous).filter((topic) => topic.recent + topic.previous > 1).slice(0, 8),
     cooled: comparison.filter((topic) => topic.delta < 0).sort((a, b) => a.delta - b.delta).slice(0, 8),

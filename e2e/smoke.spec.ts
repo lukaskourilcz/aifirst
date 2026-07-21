@@ -155,3 +155,72 @@ test("inline links carry the Blueprint Blue (#1d52de)", async ({ page }) => {
     "rgb(29, 82, 222)",
   );
 });
+
+test("active navigation is exposed and mobile targets are large enough", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/weekly");
+  const active = page.locator('.nav-rail a[aria-current="page"]');
+  await expect(active).toHaveAttribute("href", /\/weekly$/);
+  for (const item of await page.locator(".nav-rail .nav-item").all()) {
+    const box = await item.boundingBox();
+    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+  }
+});
+
+test("skip link and keyboard search work, trap focus, and restore the trigger", async ({ page }) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+  const skip = page.locator(".skip-link");
+  await expect(skip).toBeFocused();
+  await skip.press("Enter");
+  await expect(page.locator("#main-content")).toBeFocused();
+
+  const trigger = page.getByRole("button", { name: /search|hledat/i }).first();
+  await trigger.click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  const input = dialog.getByRole("textbox");
+  await expect(input).toBeFocused();
+  const lastLink = dialog.getByRole("link").last();
+  await lastLink.focus();
+  await page.keyboard.press("Tab");
+  await expect(input).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+
+  await page.keyboard.press("/");
+  await expect(page.getByRole("dialog").getByRole("textbox")).toBeFocused();
+});
+
+test("topic detail separates latest coverage, timeline and recurring entities", async ({ page }) => {
+  await page.goto("/topics/ai-models");
+  await expect(page.getByRole("heading", { name: /latest coverage/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /^timeline$/i })).toBeVisible();
+  const entities = page.getByRole("heading", { name: /recurring entities/i });
+  if (await entities.count()) await expect(entities).toBeVisible();
+});
+
+test("feeds expose language, entry links, publication time and categories", async ({ request }) => {
+  for (const route of ["/feed.xml", "/weekly/feed.xml", "/topics/ai-models/feed.xml"]) {
+    const response = await request.get(route);
+    expect(response.ok(), route).toBe(true);
+    const xml = await response.text();
+    expect(xml).toContain('xml:lang="en"');
+    expect(xml).toContain("<published>");
+    expect(xml).toContain("<category");
+    expect(xml).toMatch(/<link href="[^"]+\/articles\/[^"]+"\/>/);
+  }
+  const czech = await request.get("/cs/feed.xml");
+  expect(czech.ok()).toBe(true);
+  expect(await czech.text()).toContain('xml:lang="cs"');
+});
+
+test("source evidence class stays separate and reduced motion disables entrances", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const headers = await page.locator(".source-ledger th").allTextContents();
+  expect(headers.join(" ")).toMatch(/evidence class|třída důkazu/i);
+  const animationName = await page.locator(".enter").first().evaluate((element) => getComputedStyle(element).animationName);
+  expect(animationName).toBe("none");
+});

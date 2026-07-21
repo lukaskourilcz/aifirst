@@ -154,6 +154,7 @@ export async function write(
   briefsMaximum = 4,
   watchlistMaximum = 8,
   targetWords = 1100,
+  writingModel?: string,
 ): Promise<WrittenArticle> {
   if (locales.length === 0) throw new Error("write: at least one output locale is required");
   const pickedItems = brief.picks
@@ -189,7 +190,7 @@ export async function write(
 
   const client = getAnthropic();
   const tool = toolFor(locales, briefsMaximum, watchlistMaximum);
-  const model = modelFor("writing");
+  const model = writingModel ?? modelFor("writing");
   const response = await client.messages.create({
     model,
     max_tokens: maximumOutputTokens,

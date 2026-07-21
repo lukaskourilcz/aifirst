@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { SearchEntry } from "@/lib/content";
 import { isEditableTarget } from "@/lib/helpers/dom";
@@ -27,6 +27,7 @@ function scoreEntry(entry: SearchEntry, query: string): number {
 export function SearchPalette({ index, locale }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const t = dict(locale).search;
 
   // ⌘/Ctrl-K toggles the palette anywhere; "/" opens it unless the user is
@@ -69,6 +70,7 @@ export function SearchPalette({ index, locale }: Props) {
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         aria-label={t.open}
         title={t.open}
@@ -104,10 +106,11 @@ export function SearchPalette({ index, locale }: Props) {
       {open && (
         <ModalOverlay
           onClose={() => setOpen(false)}
-          ariaLabel="search"
+          ariaLabel={t.open}
           align="start"
           zIndex={20}
           width={640}
+          returnFocusRef={triggerRef}
         >
           <div
             style={{
@@ -123,6 +126,7 @@ export function SearchPalette({ index, locale }: Props) {
             </span>
             <input
               autoFocus
+              aria-label={t.placeholder}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t.placeholder}

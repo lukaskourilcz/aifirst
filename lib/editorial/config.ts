@@ -5,6 +5,7 @@ import { isLocale, type Locale } from "../i18n/config";
 
 export type PublishMode = "auto" | "pull_request" | "dry_run";
 export type GuardrailMode = "report_only" | "enforce";
+export type QualityFailureAction = "pull_request" | "skip";
 
 export type EditorialConfig = {
   schemaVersion: 1;
@@ -22,7 +23,13 @@ export type EditorialConfig = {
     minimumCandidateItems: number;
     minimumCitedSources: number;
     maximumSingleSourceShare: number;
+    minimumSourceDiversity: number;
+    maximumDuplicateStorySimilarity: number;
+    maximumRepeatedTopicFrequency: number;
+    requirePrimarySourceWhenRelevant: boolean;
+    maximumUnsupportedWatchlistItems: number;
     enforcement: GuardrailMode;
+    failureAction: QualityFailureAction;
   };
   article: {
     targetWords: number;
@@ -101,6 +108,7 @@ export function validateEditorialConfig(value: unknown): string[] {
       if (!isRecord(profile)) { errors.push(`models.profiles.${name} must be an object`); continue; }
       for (const role of ["curation", "writing", "utility"] as const) if (typeof profile[role] !== "string" || !profile[role]) errors.push(`models.profiles.${name}.${role} is required`);
     }
+    if (isRecord(translation) && typeof translation.modelProfile === "string" && !isRecord(value.models.profiles[translation.modelProfile])) errors.push("translation.modelProfile must name a committed profile");
   }
   if (!isRecord(value.illustration) || typeof value.illustration.provider !== "string" || !value.illustration.provider.trim()) errors.push("illustration.provider is required");
   const quality = value.quality;
@@ -112,12 +120,17 @@ export function validateEditorialConfig(value: unknown): string[] {
         errors.push(`quality.${key} must be a non-negative number`);
       }
     }
-    if (typeof quality.maximumSingleSourceShare !== "number" || quality.maximumSingleSourceShare <= 0 || quality.maximumSingleSourceShare > 1) {
-      errors.push("quality.maximumSingleSourceShare must be within (0, 1]");
+    for (const key of ["maximumSingleSourceShare", "minimumSourceDiversity", "maximumDuplicateStorySimilarity", "maximumRepeatedTopicFrequency"] as const) {
+      if (typeof quality[key] !== "number" || quality[key] < 0 || quality[key] > 1) {
+        errors.push(`quality.${key} must be within [0, 1]`);
+      }
     }
+    if (typeof quality.requirePrimarySourceWhenRelevant !== "boolean") errors.push("quality.requirePrimarySourceWhenRelevant must be boolean");
+    if (!Number.isInteger(quality.maximumUnsupportedWatchlistItems) || Number(quality.maximumUnsupportedWatchlistItems) < 0) errors.push("quality.maximumUnsupportedWatchlistItems must be a non-negative integer");
     if (!["report_only", "enforce"].includes(String(quality.enforcement))) {
       errors.push("quality.enforcement must be report_only or enforce");
     }
+    if (!["pull_request", "skip"].includes(String(quality.failureAction))) errors.push("quality.failureAction must be pull_request or skip");
   }
   const budgets = value.budgets;
   if (!isRecord(budgets)) {

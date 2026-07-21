@@ -300,6 +300,19 @@ export async function getArticle(
   };
 }
 
+/** Locales backed by a real committed file for an issue (never fallbacks). */
+export async function getArticleLocales(
+  slug: string,
+  dir: string = defaultContentDir(),
+): Promise<Locale[]> {
+  const locales = new Set(
+    (await readEntries(dir))
+      .filter((entry) => entry.fm.slug === slug)
+      .map((entry) => entry.lang),
+  );
+  return (["en", "cs"] as const).filter((locale) => locales.has(locale));
+}
+
 export async function listCorrections(
   locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),

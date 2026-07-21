@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { listArticles } from "@/lib/content";
+import { getArticle, listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { LOCALES, localePath } from "@/lib/i18n/config";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
@@ -7,11 +7,13 @@ import { loadSources } from "@/lib/scraping/sources";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
-  const [articles, topicsConfig, sources] = await Promise.all([
-    listArticles(),
+  const [englishArticles, czechArticles, topicsConfig, sources] = await Promise.all([
+    listArticles("en"),
+    listArticles("cs"),
     loadTopicsConfig(),
     loadSources(),
   ]);
+  const articles = englishArticles;
   const topics = publishedTopics(topicsConfig, articles);
 
   const staticPaths: Array<{
@@ -31,18 +33,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/search", changeFrequency: "weekly", priority: 0.4 },
   ];
 
-  // Emit every page in both locales (English unprefixed, Czech under /cs).
-  return LOCALES.flatMap((locale) => [
+  const articleVariants = await Promise.all(
+    LOCALES.flatMap((locale) => {
+      const localeArticles = locale === "en" ? englishArticles : czechArticles;
+      return localeArticles
+        .filter((article) => !article.fallback)
+        .map(async (summary) => {
+          const article = await getArticle(summary.slug, locale);
+          const lastCorrection = [...(article?.frontmatter.corrections ?? [])]
+            .sort((a, b) => b.date.localeCompare(a.date))[0];
+          return {
+            url: `${base}${localePath(locale, `/articles/${summary.slug}`)}`,
+            lastModified: lastCorrection?.date ?? article?.frontmatter.generation?.generated_at ?? summary.date,
+            changeFrequency: "yearly" as const,
+            priority: 0.6,
+          };
+        });
+    }),
+  );
+
+  return [
+    ...LOCALES.flatMap((locale) => [
     ...staticPaths.map((p) => ({
       url: `${base}${localePath(locale, p.path)}`,
       changeFrequency: p.changeFrequency,
       priority: p.priority,
-    })),
-    ...articles.map((a) => ({
-      url: `${base}${localePath(locale, `/articles/${a.slug}`)}`,
-      lastModified: a.date,
-      changeFrequency: "yearly" as const,
-      priority: 0.6,
     })),
     ...topics.map(({ topic }) => ({
       url: `${base}${localePath(locale, `/topics/${topic.slug}`)}`,
@@ -54,5 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.3,
     })),
-  ]);
+    ]),
+    ...articleVariants,
+  ];
 }

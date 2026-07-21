@@ -34,4 +34,20 @@ describe("generation pricing", () => {
     expect(report.totalCost).toBeUndefined();
     expect(report.warnings).toContain("Image cost unavailable");
   });
+
+  it("records structured warning events and per-source results", () => {
+    const reporter = new RunReporter("daily", "daily", "2026-07-21", "auto");
+    reporter.setPublishMode("pull_request");
+    reporter.setSourceResults([{ sourceId: "example", status: "failed", candidateItems: 0, durationMs: 12, errorCode: "TimeoutError" }]);
+    reporter.warn("source_failed:example");
+    const report = reporter.build({ status: "degraded", attemptedSources: 1, successfulSources: 0 });
+    expect(report.publishMode).toBe("pull_request");
+    expect(report.scraping.sourceResults?.[0]?.sourceId).toBe("example");
+    expect(report.events?.[0]).toMatchObject({ level: "warning", code: "source_failed", message: "example" });
+  });
+
+  it("rejects calendar dates that merely match the date pattern", () => {
+    const reporter = new RunReporter("daily", "daily", "2026-02-31", "dry_run");
+    expect(validateRunReport(reporter.build({ status: "failed" }))).toContain("issueDate must be a real YYYY-MM-DD date");
+  });
 });
