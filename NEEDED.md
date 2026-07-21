@@ -7,35 +7,18 @@ section, where you can filter tasks by that priority.
 
 ## Tasks
 
-- [ ] **Set Vercel Production Branch = `main`** — if Vercel builds a different
-  branch than the one your work + the daily job push to, nothing goes live and
-  no daily issue appears. This is the whole site. `[imp:5]`
-- [ ] **Align the GitHub default + daily-push branch to `main`** — `daily.yml`
-  commits generated content; if it pushes to a branch Vercel doesn't deploy, new
-  issues never show. `[imp:4]`
-- [ ] **Set `IMAGE_PROVIDER=nasa` or `picsum`** — default is `none` → every
-  article ships a flat placeholder, no real cover. Both alternatives are keyless.
-  `[imp:3]`
-- [ ] **Add `HEARTBEAT_URL` + a cron monitor** — a silent daily-pipeline failure
-  means no issue that day and nothing tells you. `[imp:3]`
-- [ ] **Add `STACKEXCHANGE_KEY`** (Actions secret) — the anonymous StackExchange
-  API returns HTTP 403 from CI IPs, so that source yields nothing until keyed.
-  `[imp:3]`
-- [ ] **Add `JINA_API_KEY`** — turns "related issues" from tag-overlap into
-  embedding similarity, and raises the reader-fallback rate limit. `[imp:2]`
-- [ ] **Add `GUARDIAN` / `NYTIMES` / `GNEWS` keys** — extra source coverage; each
-  self-skips and never errors without a key. `[imp:2]`
-- [ ] **Decide the reading-bar bundle** — the Motion spring bar adds ~13 kB, over
-  the repo's +10 kB budget. Keep it, or swap to 0 kB CSS. `[imp:2]`
-- [ ] **Add `FIRECRAWL_API_KEY`** — strengthens the generic-HTML source fallback
-  for JS-rendered pages; Jina keyless fallback already covers most cases.
-  `[imp:2]`
-- [ ] **Set `FAL_MODEL_PATH`** — higher-fidelity FLUX covers; only relevant once
-  `IMAGE_PROVIDER=fal` + `FAL_KEY` are set. `[imp:1]`
-- [ ] **Set `ANTHROPIC_BASE_URL`** — route the pipeline through a gateway for
-  cost caps/caching. Unset = talk to Anthropic directly. `[imp:1]`
-- [ ] **Set `PROMOTION_TOKEN`** — optional gate for the secret `/promotion` page
-  (already unlisted, noindex, robots-disallowed). `[imp:1]`
+- [ ] **Set Vercel Production Branch = `main`** — if Vercel builds a different branch than the one your work + the daily job push to, nothing goes live and no daily issue appears. `[imp:5]`
+- [ ] **Align the GitHub default + daily-push branch to `main`** — `daily.yml` commits generated content; if it pushes to a branch Vercel doesn't deploy, new issues never show. `[imp:4]`
+- [ ] **Set `IMAGE_PROVIDER=nasa` or `picsum`** — default `none` ships a flat placeholder, no real cover; both alternatives are keyless. `[imp:3]`
+- [ ] **Add `HEARTBEAT_URL` + a cron monitor** — a silent daily-pipeline failure means no issue that day and nothing tells you. `[imp:3]`
+- [ ] **Add `STACKEXCHANGE_KEY`** (Actions secret) — the anonymous StackExchange API returns HTTP 403 from CI IPs, so that source yields nothing until keyed. `[imp:3]`
+- [ ] **Add `JINA_API_KEY`** — turns "related issues" from tag-overlap into embedding similarity and raises the reader-fallback rate limit. `[imp:2]`
+- [ ] **Add `GUARDIAN` / `NYTIMES` / `GNEWS` keys** — extra source coverage; each self-skips and never errors without a key. `[imp:2]`
+- [ ] **Decide the reading-bar bundle** — the Motion spring bar adds ~13 kB, over the repo's +10 kB budget; keep it or swap to 0 kB CSS. `[imp:2]`
+- [ ] **Add `FIRECRAWL_API_KEY`** — strengthens the generic-HTML source fallback for JS-rendered pages (Jina keyless fallback already covers most cases). `[imp:2]`
+- [ ] **Set `FAL_MODEL_PATH`** — higher-fidelity FLUX covers; only relevant once `IMAGE_PROVIDER=fal` + `FAL_KEY` are set. `[imp:1]`
+- [ ] **Set `ANTHROPIC_BASE_URL`** — route the pipeline through a gateway for cost caps/caching; unset = talk to Anthropic directly. `[imp:1]`
+- [ ] **Set `PROMOTION_TOKEN`** — optional gate for the secret `/promotion` page (already unlisted, noindex, robots-disallowed). `[imp:1]`
 
 ## Details
 
