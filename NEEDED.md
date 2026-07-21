@@ -7,16 +7,16 @@ section, where you can filter tasks by that priority.
 
 ## Tasks
 
-- [ ] **Set `IMAGE_PROVIDER=nasa` or `picsum`** — default `none` ships a flat placeholder, no real cover; both alternatives are keyless. `[imp:3]`
-- [ ] **Add `HEARTBEAT_URL` + a cron monitor** — a silent daily-pipeline failure means no issue that day and nothing tells you. `[imp:3]`
-- [ ] **Add `STACKEXCHANGE_KEY`** (Actions secret) — the anonymous StackExchange API returns HTTP 403 from CI IPs, so that source yields nothing until keyed. `[imp:3]`
-- [ ] **Add `JINA_API_KEY`** — turns "related issues" from tag-overlap into embedding similarity and raises the reader-fallback rate limit. `[imp:2]`
-- [ ] **Add `GUARDIAN` / `NYTIMES` / `GNEWS` keys** — extra source coverage; each self-skips and never errors without a key. `[imp:2]`
-- [ ] **Decide the reading-bar bundle** — the Motion spring bar adds ~13 kB, over the repo's +10 kB budget; keep it or swap to 0 kB CSS. `[imp:2]`
-- [ ] **Add `FIRECRAWL_API_KEY`** — strengthens the generic-HTML source fallback for JS-rendered pages (Jina keyless fallback already covers most cases). `[imp:2]`
-- [ ] **Set `FAL_MODEL_PATH`** — higher-fidelity FLUX covers; only relevant once `IMAGE_PROVIDER=fal` + `FAL_KEY` are set. `[imp:1]`
-- [ ] **Set `ANTHROPIC_BASE_URL`** — route the pipeline through a gateway for cost caps/caching; unset = talk to Anthropic directly. `[imp:1]`
-- [ ] **Set `PROMOTION_TOKEN`** — optional gate for the secret `/promotion` page (already unlisted, noindex, robots-disallowed). `[imp:1]`
+- [ ] **Set `IMAGE_PROVIDER=nasa` or `picsum`** — default `none` ships a flat placeholder, no real cover; both alternatives are keyless. `[imp:3]` `[owner:me]`
+- [ ] **Add `HEARTBEAT_URL` + a cron monitor** — a silent daily-pipeline failure means no issue that day and nothing tells you. `[imp:3]` `[owner:me]`
+- [ ] **Add `STACKEXCHANGE_KEY`** (Actions secret) — the anonymous StackExchange API returns HTTP 403 from CI IPs, so that source yields nothing until keyed. `[imp:3]` `[owner:me]`
+- [ ] **Add `JINA_API_KEY`** — turns "related issues" from tag-overlap into embedding similarity and raises the reader-fallback rate limit. `[imp:2]` `[owner:me]`
+- [ ] **Add `GUARDIAN` / `NYTIMES` / `GNEWS` keys** — extra source coverage; each self-skips and never errors without a key. `[imp:2]` `[owner:me]`
+- [ ] **Decide the reading-bar bundle** — the Motion spring bar adds ~13 kB, over the repo's +10 kB budget; keep it or swap to 0 kB CSS. `[imp:2]` `[owner:ai]`
+- [ ] **Add `FIRECRAWL_API_KEY`** — strengthens the generic-HTML source fallback for JS-rendered pages (Jina keyless fallback already covers most cases). `[imp:2]` `[owner:me]`
+- [ ] **Set `FAL_MODEL_PATH`** — higher-fidelity FLUX covers; only relevant once `IMAGE_PROVIDER=fal` + `FAL_KEY` are set. `[imp:1]` `[owner:me]`
+- [ ] **Set `ANTHROPIC_BASE_URL`** — route the pipeline through a gateway for cost caps/caching; unset = talk to Anthropic directly. `[imp:1]` `[owner:me]`
+- [ ] **Set `PROMOTION_TOKEN`** — optional gate for the secret `/promotion` page (already unlisted, noindex, robots-disallowed). `[imp:1]` `[owner:me]`
 
 ## Details
 
