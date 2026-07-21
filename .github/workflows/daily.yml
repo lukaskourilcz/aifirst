@@ -55,6 +55,9 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+      NEXT_PUBLIC_GITHUB_REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -69,17 +72,18 @@ jobs:
           REQUESTED_LANGUAGE: ${{ inputs.language }}
           REQUESTED_MODE: ${{ inputs.publish_mode }}
           REQUESTED_IMAGE: ${{ inputs.image_provider }}
-          SCHEDULED_IMAGE: ${{ vars.IMAGE_PROVIDER }}
+          SCHEDULED_IMAGE_OVERRIDE: ${{ vars.IMAGE_PROVIDER }}
           REQUESTED_PROFILE: ${{ inputs.model_profile }}
           REQUESTED_FORCE: ${{ inputs.force }}
           REQUESTED_SKIP_EMBEDDINGS: ${{ inputs.skip_embeddings }}
         run: |
           issue_date="${REQUESTED_DATE:-$(date -u +%F)}"
-          image_provider="${REQUESTED_IMAGE:-${SCHEDULED_IMAGE:-none}}"
+          image_provider="${REQUESTED_IMAGE:-none}"
           echo "ISSUE_DATE=$issue_date" >> "$GITHUB_ENV"
           echo "ISSUE_LANGUAGE=${REQUESTED_LANGUAGE:-en}" >> "$GITHUB_ENV"
           echo "PUBLISH_MODE=${REQUESTED_MODE:-auto}" >> "$GITHUB_ENV"
           echo "IMAGE_PROVIDER=$image_provider" >> "$GITHUB_ENV"
+          echo "SCHEDULED_IMAGE_PROVIDER_OVERRIDE=$SCHEDULED_IMAGE_OVERRIDE" >> "$GITHUB_ENV"
           echo "MODEL_PROFILE=${REQUESTED_PROFILE:-standard}" >> "$GITHUB_ENV"
           echo "FORCE_GENERATION=${REQUESTED_FORCE:-false}" >> "$GITHUB_ENV"
           echo "SKIP_EMBEDDINGS=${REQUESTED_SKIP_EMBEDDINGS:-true}" >> "$GITHUB_ENV"
@@ -87,8 +91,11 @@ jobs:
       - name: Generate daily edition
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
+          FAL_MODEL_PATH: ${{ vars.FAL_MODEL_PATH }}
           NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+          GENERATE_PROMOTION: ${{ vars.GENERATE_PROMOTION }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
           NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
@@ -122,6 +129,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: daily-${{ env.ISSUE_DATE }}-${{ github.run_id }}
+          retention-days: 30
           if-no-files-found: warn
           path: |
             generated/run-reports/*.json

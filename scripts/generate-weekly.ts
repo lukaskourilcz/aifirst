@@ -6,7 +6,7 @@ import { generateWeekly } from "../lib/pipeline/weekly.js";
 import { illustrate } from "../lib/pipeline/illustrate.js";
 import { toIsoDate } from "../lib/helpers/date.js";
 import { parseWorkflowInputs } from "../lib/workflows/inputs.js";
-import { applyModelProfile, loadEditorialConfig } from "../lib/editorial/config.js";
+import { applyIllustrationProvider, applyModelProfile, loadEditorialConfig } from "../lib/editorial/config.js";
 import { RunReporter, sendRunReport, writeRunReport } from "../lib/telemetry/report.js";
 import { getArticle } from "../lib/content.js";
 import { writeNewsletterArtifact } from "../lib/distribution/newsletter.js";
@@ -41,6 +41,7 @@ async function main() {
   const date = inputs.date;
   const config = await reporter.stage("load_configuration", loadEditorialConfig);
   const scheduled = process.env.GITHUB_EVENT_NAME === "schedule";
+  applyIllustrationProvider(config, inputs.imageProvider, scheduled, process.env.SCHEDULED_IMAGE_PROVIDER_OVERRIDE);
   applyModelProfile(config, scheduled ? config.models.profile : inputs.modelProfile);
   const configuredMode = config.review.defaultMode === "review" ? "pull_request" : config.publishing.publishMode;
   if (scheduled) {

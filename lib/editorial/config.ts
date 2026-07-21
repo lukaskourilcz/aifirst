@@ -6,6 +6,8 @@ import { isLocale, type Locale } from "../i18n/config";
 export type PublishMode = "auto" | "pull_request" | "dry_run";
 export type GuardrailMode = "report_only" | "enforce";
 export type QualityFailureAction = "pull_request" | "skip";
+export const ILLUSTRATION_PROVIDERS = ["none", "fal", "nasa", "picsum"] as const;
+export type IllustrationProvider = (typeof ILLUSTRATION_PROVIDERS)[number];
 
 export type EditorialConfig = {
   schemaVersion: 1;
@@ -49,7 +51,7 @@ export type EditorialConfig = {
     profile: string;
     profiles: Record<string, { curation: string; writing: string; utility: string }>;
   };
-  illustration: { provider: string };
+  illustration: { provider: IllustrationProvider };
   budgets: {
     warningCostPerRun: number | null;
     hardCostPerRun: number | null;
@@ -110,7 +112,9 @@ export function validateEditorialConfig(value: unknown): string[] {
     }
     if (isRecord(translation) && typeof translation.modelProfile === "string" && !isRecord(value.models.profiles[translation.modelProfile])) errors.push("translation.modelProfile must name a committed profile");
   }
-  if (!isRecord(value.illustration) || typeof value.illustration.provider !== "string" || !value.illustration.provider.trim()) errors.push("illustration.provider is required");
+  if (!isRecord(value.illustration) || !ILLUSTRATION_PROVIDERS.includes(value.illustration.provider as IllustrationProvider)) {
+    errors.push("illustration.provider must be none, fal, nasa or picsum");
+  }
   const quality = value.quality;
   if (!isRecord(quality)) {
     errors.push("quality must be an object");
@@ -164,4 +168,20 @@ export function applyModelProfile(config: EditorialConfig, requested: string): E
   process.env.AIFIRST_WRITING_MODEL = profile.writing;
   process.env.AIFIRST_UTILITY_MODEL = profile.utility;
   return profile;
+}
+
+export function applyIllustrationProvider(
+  config: EditorialConfig,
+  requested: IllustrationProvider,
+  scheduled: boolean,
+  scheduledOverride?: string,
+): IllustrationProvider {
+  const candidate = scheduled
+    ? scheduledOverride?.trim() || config.illustration.provider
+    : requested;
+  if (!ILLUSTRATION_PROVIDERS.includes(candidate as IllustrationProvider)) {
+    throw new Error(`Unknown IMAGE_PROVIDER: ${candidate}`);
+  }
+  process.env.IMAGE_PROVIDER = candidate;
+  return candidate as IllustrationProvider;
 }

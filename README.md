@@ -3,54 +3,84 @@
 **The AI stories that actually mattered today.** One edition and you’re caught
 up on AI.
 
-Caught Up is a bilingual, Git-native publication. A scheduled newsroom pipeline
-scrapes a curated source registry, selects the strongest developments, writes a
-daily edition and optional weekly digest, and commits MDX plus static artifacts.
-Next.js materializes the complete reader experience at build time.
+Caught Up is a bilingual, Git-native AI publication. A scheduled newsroom
+pipeline gathers a curated source registry, selects the strongest developments,
+writes daily and weekly editions, and commits MDX plus static distribution
+artifacts. Next.js materializes the complete reader experience at build time.
 
-The repository and package deliberately remain `aifirst`; that is a technical
-identifier, not the public publication name.
+The repository and package deliberately remain `aifirst`; that is a stable
+technical identifier, not the public publication name.
 
-## Product map
+## What the app can do
+
+- Publish a complete daily edition with a lead story, Why it matters, Briefs,
+  Watchlist, uncertainty, signal strength, corrections and a source ledger.
+- Publish a bilingual weekly digest derived only from the preceding committed
+  daily editions.
+- Turn the archive’s existing tags, statistics, trends and pulse data into
+  curated Topics and a static Radar view.
+- Serve English at unprefixed URLs and Czech under `/cs`, while exposing only
+  real locale files in canonicals, hreflang, sitemaps and feeds.
+- Preserve legacy MDX, article URLs, tag URLs and feed consumers while
+  redirecting renamed reader surfaces to the new product structure.
+- Generate Atom feeds, static JSON contracts, share packs, newsletter files,
+  Open Graph images, print pages, sitemap entries and structured metadata.
+- Provide static search, related issues, glossary disclosures, keyboard
+  shortcuts, a command palette, accessible navigation and reduced-motion
+  behavior without a client-side state framework.
+- Run daily, weekly and regeneration workflows in `auto`, `pull_request` or
+  `dry_run` mode with idempotency, concurrency controls, quality guardrails,
+  regeneration limits and private telemetry artifacts.
+- Measure Anthropic token cost per stage, keep unknown cost unavailable rather
+  than reporting a false zero, and optionally send bounded non-fatal run reports
+  to OwnDashboard.
+
+No database, CMS, reader login or runtime model call sits in the public path.
+Reader growth increases static delivery, not editorial model usage.
+
+## Reader and compatibility routes
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Today’s complete edition: lead, Why it matters, Briefs, Watchlist, source ledger and completion state |
-| `/articles/[slug]` | Static issue with provenance, corrections, topics, glossary disclosures and adjacent/related issues |
-| `/radar` | Static signals composed from the existing archive, trend and pulse data |
-| `/topics` and `/topics/[slug]` | Curated topic destinations backed by the existing tag metadata |
-| `/weekly` | Weekly retention product and localized weekly feed entry point |
-| `/archive` | Context-rich issue archive with dek, topics, signal, type, language and reading time |
-| `/about` | Methodology, source policy, review, corrections, cost and static-architecture trust center |
-| `/corrections` | Public corrections index |
-| `/sources`, `/glossary`, `/search` | Secondary trust, reference and discovery surfaces |
-| `/feed.xml`, `/weekly/feed.xml`, `/topics/[slug]/feed.xml` | Localized Atom feeds |
-| `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json` | Static syndication contracts |
-| `/api/health.json` | Sanitized public publication health |
+| `/` | Today’s full edition and completion state |
+| `/articles/[slug]` | Static issue, provenance, corrections, topics and related reading |
+| `/weekly` | Current weekly digest, archive and localized feed entry point |
+| `/radar` | Static signals, trend movement, timelines and pulse data |
+| `/topics`, `/topics/[slug]` | Curated destinations backed by existing tag metadata |
+| `/archive` | Filterable context-rich issue history |
+| `/about`, `/sources`, `/glossary`, `/corrections` | Methodology and trust surfaces |
+| `/search` | Static client-side discovery over committed content |
+| `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
+| `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json` | Build-time JSON contracts |
+| `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
 
-English is unprefixed. Czech mirrors supported routes under `/cs`. Existing
-article and tag-detail URLs remain valid. `/stats` and `/trends` permanently
-redirect to `/radar`, `/tags` to `/topics`, and `/colophon` to `/about`.
-`/admin` is a noindex migration notice; repository operations belong in GitHub
-Actions and the optional OwnDashboard control plane.
+English is unprefixed and Czech mirrors supported routes under `/cs`.
+`/stats` and `/trends` permanently redirect to `/radar`, `/tags` to `/topics`,
+and `/colophon` to `/about`. Legacy article and tag-detail URLs remain valid.
+`/admin` is a noindex migration notice; operations belong in GitHub Actions and
+the optional OwnDashboard control plane.
 
-## Architecture
+## Tech stack
 
-- Next.js 15 App Router, React 19 and strict TypeScript
-- MDX in `content/articles/`; Git is the canonical content store
-- Server components and static route generation for the public read path
-- Anthropic structured tool outputs for curation and writing
-- YAML configuration in `sources.yml`, `config/editorial.yml` and
-  `config/topics.yml`
-- Pluggable illustration provider; `IMAGE_PROVIDER=none` by default
-- GitHub Actions for daily, weekly and regeneration workflows
-- Vitest, content validation and Playwright
+| Layer | Current implementation |
+| --- | --- |
+| Web | Next.js 15 App Router, React 19, server components and static route generation |
+| Language/runtime | Strict TypeScript 5.6, Node.js 22, pnpm 10 |
+| Content | Git-tracked MDX, `gray-matter`, `next-mdx-remote`; Git is canonical |
+| Editorial AI | Anthropic SDK with structured tool output and standard/economical model profiles |
+| Collection | YAML source registry, `rss-parser`, Cheerio and Undici adapters with per-source failure isolation |
+| Images | Sharp plus `none`, NASA, Picsum and fal.ai provider adapters |
+| Delivery | Vercel static output, Web Analytics and Speed Insights |
+| Automation | GitHub Actions for CI, daily, weekly and controlled regeneration |
+| Quality | ESLint, TypeScript, Vitest, schema/content validation, bundle checks and Playwright |
+| Operations | Versioned run reports, cost registry, static health, heartbeat and optional OwnDashboard callback |
 
-There is no runtime reader database, public authentication, per-request model
-call or public dependency on OwnDashboard. Reader traffic is served from static
-output and does not increase model-generation cost.
+There is intentionally no runtime content database, Supabase dependency,
+public authentication, queue, advertising SDK or per-request AI generation.
 
-## Develop
+## Local development
+
+Requirements: Node.js 22 and pnpm 10.
 
 ```bash
 pnpm install --frozen-lockfile
@@ -59,15 +89,17 @@ pnpm verify
 pnpm e2e
 ```
 
-`pnpm verify` runs lint, TypeScript, unit tests, content/config validation and a
-production build. `pnpm generate:artifacts` regenerates committed static share
-packs and workflow-only weekly newsletter files without invoking a model.
+`pnpm verify` runs lint, TypeScript, all unit tests, content/config validation, a
+production build and the compressed-JavaScript guard. The current measured
+shared Next.js/React runtime is about 104 kB gzip and the enforced ceiling is
+110 kB; the original 80 kB product target is documented as a framework-level
+constraint in `docs/CAUGHT_UP_IMPLEMENTATION.md`.
 
-## Generate content
+## Generate content locally
 
 ```bash
 cp .env.example .env.local
-# add ANTHROPIC_API_KEY; keep IMAGE_PROVIDER=none for the no-cost image path
+# Add ANTHROPIC_API_KEY. Keep IMAGE_PROVIDER=none for the zero-image-cost path.
 
 pnpm generate:daily
 pnpm generate:daily 2026-07-21
@@ -75,16 +107,20 @@ ISSUE_LANGUAGE=all pnpm generate:weekly
 pnpm generate:artifacts
 ```
 
-Generation is idempotent by default. Existing dates are skipped unless the
-validated `force` control is explicit. Workflows support `auto`, `pull_request`
-and `dry_run` publishing modes plus date, language, image-provider, model-profile
-and embedding controls. Concurrency groups prevent two runs from publishing the
-same issue kind/date simultaneously.
+Generation is idempotent unless `FORCE_GENERATION=true` is explicit. Scheduled
+runs take their publishing, language, model, review, quality, budget and
+illustration defaults from `config/editorial.yml`. Validated manual workflow
+inputs can override them. `sources.yml` and `config/topics.yml` provide the
+other committed editorial controls.
 
-## Editorial schema
+The scheduled defaults currently produce English daily editions and bilingual
+weekly editions, use the standard model profile, publish automatically, report
+quality violations without blocking, and generate no paid image.
 
-Legacy MDX remains valid. Newly generated schema-v2 issues add structured
-editorial and operational fields:
+## Content and provenance
+
+Legacy MDX remains supported. New schema-v2 issues add structured editorial and
+operational fields; a shortened example is below.
 
 ```yaml
 ---
@@ -94,11 +130,10 @@ slug: "..."
 date: "YYYY-MM-DD"
 lang: en
 translation_of: "shared-slug"
-dek: "..."
-alternative_headlines: ["...", "..."]
-tags: [ai, developer-tools]
 type: daily # or weekly
-signal_strength: 0
+dek: "..."
+tags: [ai, developer-tools]
+signal_strength: 72
 why_it_matters: ["..."]
 what_changed: ["..."]
 uncertainty: ["..."]
@@ -107,9 +142,8 @@ sources:
     source_id: registered-source-id
     title: "..."
     url: "https://..."
-    publisher: "..."
     source_type: rss
-    classification: primary # or secondary
+    classification: primary
     published_at: "2026-07-21T05:00:00Z"
     supports: ["claim or section"]
 illustration:
@@ -122,90 +156,60 @@ generation:
   source_candidates: 40
   cited_sources: 5
   image_provider: none
-  cost: { amount: 0.1234, currency: USD } # only when measured
+  cost: { amount: 0.1234, currency: USD }
 corrections:
   - date: "2026-07-22"
     description: "..."
-    section: "optional section"
-sponsor: # optional and disabled unless content supplies it
-  name: "..."
-  url: "https://..."
-  label: "Sponsored"
-  copy: "..."
 ---
 ```
 
-Weekly issues also require `digest.from`, `digest.to` and
-`digest.covered_slugs`. `pnpm check:content` validates legacy compatibility,
+Weekly issues additionally require `digest.from`, `digest.to` and
+`digest.covered_slugs`. Content validation covers legacy compatibility,
 schema-v2 bounds, registered source IDs, translations, provenance, correction
-dates, sponsorship safety, weekly linkage and both typed YAML files.
+dates, sponsorship safety and weekly linkage.
 
-## Static distribution
+## Distribution and operations
 
 Every generated issue writes provider-independent JSON under
-`public/data/share/`. Packs contain canonical URL, primary and alternate
-headline slots, platform-ready copy, newsletter excerpt, quote-card text,
-topics, illustration metadata and source count. Weekly generation also writes
-HTML, plain-text and metadata newsletter artifacts under `generated/`; that
-directory is uploaded privately by Actions and ignored by Git.
+`public/data/share/`. Weekly runs also produce private HTML, text and metadata
+newsletter artifacts under `generated/`. The repository does not automatically
+send newsletters or social posts.
 
-No social post or newsletter is sent automatically. Sending remains an optional
-operator action outside the reader build.
+Each generation run records stage timings, per-source outcomes, editorial
+metrics, structured warnings, model usage, illustration state and repository
+references. Official Anthropic list prices are versioned in
+`lib/telemetry/pricing.ts`. Per-run hard budgets can block persistence;
+cross-run monthly enforcement requires an external ledger such as
+OwnDashboard.
 
-## Telemetry, cost and guardrails
+OwnDashboard remains optional. If `OWNDASHBOARD_RUN_REPORT_URL` and
+`OWNDASHBOARD_RUN_REPORT_TOKEN` are configured, the same report is sent with an
+idempotency key, short timeout and one bounded retry. A callback failure never
+blocks scheduled publishing.
 
-Each generation workflow writes a versioned private run report with stage
-timings, per-source scrape results, editorial metrics, structured warning
-events, provider usage, image state and repository references. Anthropic response usage is converted centrally to
-USD using the versioned registry in `lib/telemetry/pricing.ts`. Unknown models
-or incomplete usage produce an unavailable cost—not a fabricated zero.
+## Deployment setup
 
-`config/editorial.yml` controls publishing, languages, output limits, source
-diversity, duplicate/repetition and evidence quality thresholds,
-standard/economical model profiles, illustration defaults and warning/hard
-budgets. Quality starts in `report_only` mode; `enforce` applies the committed
-review-or-skip failure action. Per-run hard cost limits can block persistence when
-configured; monthly aggregation belongs in the optional dashboard because
-ephemeral Actions runners do not hold a canonical ledger.
+Required to generate new content:
 
-When `OWNDASHBOARD_RUN_REPORT_URL` and `OWNDASHBOARD_RUN_REPORT_TOKEN` are set,
-the same report is sent with an idempotency key, an eight-second timeout and one
-bounded retry. Callback failure never blocks scheduled publishing; the local
-Actions artifact remains canonical for the run. See
-[`docs/OWNDASHBOARD_INTEGRATION.md`](docs/OWNDASHBOARD_INTEGRATION.md).
+- GitHub Actions secret `ANTHROPIC_API_KEY`.
+- GitHub Actions variable `NEXT_PUBLIC_SITE_URL`.
 
-## Environment and deployment
+Recommended in Vercel:
 
-Required for generated content:
+- `NEXT_PUBLIC_SITE_URL` — canonical HTTPS origin without a trailing slash.
+- `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/aifirst`.
+- Production Branch set to `main`.
 
-- `ANTHROPIC_API_KEY`
+Optional provider and operations values are documented in `.env.example`.
+GitHub workflows already request contents and pull-request write permissions;
+review-mode PR creation also needs the repository setting that allows Actions
+to create pull requests. No database migration is required.
 
-Recommended deployment values:
-
-- `NEXT_PUBLIC_SITE_URL` — canonical HTTPS origin, no trailing slash
-- `NEXT_PUBLIC_GITHUB_REPO` — `owner/repo`
-- `IMAGE_PROVIDER` — `none` by default; an enabled provider requires its secret
-
-Optional operations:
-
-- `FAL_KEY` for fal.ai illustrations
-- `NASA_API_KEY` for the NASA illustration provider (otherwise `DEMO_KEY`)
-- `GUARDIAN_API_KEY`, `NYTIMES_API_KEY`, `GNEWS_API_KEY` and
-  `STACKEXCHANGE_KEY` for their optional source adapters
-- `FIRECRAWL_API_KEY` for the optional article-extraction fallback
-- `JINA_API_KEY` for optional embeddings
-- `GITHUB_TOKEN` for workflow publication and optional dashboard-triggered runs
-- `PROMOTION_TOKEN` to expose the otherwise-404 internal promotion console
-- `GENERATE_PROMOTION=true` to enable the optional model-written promotion pack
-- `OWNDASHBOARD_RUN_REPORT_URL` and `OWNDASHBOARD_RUN_REPORT_TOKEN` for callbacks
-
-On GitHub, give Actions contents write permission for `auto`, plus pull-request
-write permission for `pull_request`. Vercel needs no database migration: import
-the repository, set the canonical URL and deploy.
+See [`NEEDED.md`](NEEDED.md) for the exact remaining operator checklist.
 
 ## Documentation
 
-- [`DOCS.md`](DOCS.md) — detailed current architecture and operational reference
-- [`docs/CAUGHT_UP_IMPLEMENTATION.md`](docs/CAUGHT_UP_IMPLEMENTATION.md) — audit, migration decisions and completion checklist
-- [`docs/OWNDASHBOARD_INTEGRATION.md`](docs/OWNDASHBOARD_INTEGRATION.md) — control-plane contract
-- [`stack-and-scaling.md`](stack-and-scaling.md) — cost and scaling model
+- [`DOCS.md`](DOCS.md) — detailed architecture and operational reference
+- [`docs/CAUGHT_UP_IMPLEMENTATION.md`](docs/CAUGHT_UP_IMPLEMENTATION.md) — rebrand audit, compatibility decisions and validation record
+- [`docs/OWNDASHBOARD_INTEGRATION.md`](docs/OWNDASHBOARD_INTEGRATION.md) — optional control-plane contract
+- [`stack-and-scaling.md`](stack-and-scaling.md) — current cost baseline, formulas and growth scenarios

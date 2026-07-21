@@ -127,3 +127,23 @@ runtime alone is approximately 102 kB; the repository keeps the explicit
 110 kB measured guard and records the 80 kB target as an architectural blocker.
 OwnDashboard implementation and live paid-provider generation remain external
 blockers because their repository, endpoints and credentials were not supplied.
+
+## Operator-readiness follow-up (2026-07-21)
+
+- Scheduled daily and weekly runs now resolve illustration defaults from the
+  committed editorial configuration, while retaining an optional validated
+  Actions-variable override. This closes the last committed-default mismatch.
+- Generation workflows receive the canonical site/repository identity, so
+  committed share packs no longer depend on the example URL when the Actions
+  variable is configured.
+- Regeneration now receives the same optional Firecrawl and promotion controls
+  as daily generation. Anthropic gateway and fal model overrides are wired into
+  all relevant workflows.
+- Private workflow artifacts have an explicit 30-day retention period, and the
+  official Anthropic rate registry was reverified against the live pricing page.
+- Print routes now participate in the single App Router document layout instead
+  of nesting a second `<html>/<body>` pair, eliminating React hydration warnings
+  while preserving the dedicated print stylesheet and localized document lang.
+- `NEEDED.md`, the GitHub README and `stack-and-scaling.md` now distinguish
+  completed implementation from required operator credentials, deployment
+  settings and optional paid services.

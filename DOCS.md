@@ -155,9 +155,11 @@ Committed model profiles:
 - `standard`: Sonnet curation, Opus writing, Haiku utility
 - `economical`: Haiku curation, Sonnet writing, Haiku utility
 
-`IMAGE_PROVIDER=none` is the default. fal.ai is paid and requires `FAL_KEY`;
-NASA and Picsum are optional non-generative image sources. Model-written
-promotion and Jina embeddings are opt-in for scheduled dailies.
+The committed illustration default is `none`. Scheduled runs resolve that value
+from `config/editorial.yml`, with an optional validated `IMAGE_PROVIDER` Actions
+variable override; manual runs use their workflow input. fal.ai is paid and
+requires `FAL_KEY`; NASA and Picsum are optional non-generative image sources.
+Model-written promotion and Jina embeddings are opt-in for scheduled dailies.
 
 ## Configuration
 
@@ -190,7 +192,8 @@ Publishing modes:
 - `pull_request` — create a generated branch and review PR after verification.
 - `dry_run` — generate, verify and upload private artifacts without commit.
 
-Every workflow uploads reports and relevant artifacts with `if: always()`.
+Every workflow uploads reports and relevant artifacts with `if: always()` and a
+30-day retention period.
 Article persistence/validation/build failure fails the job. Optional
 illustration, distribution, promotion, embeddings, heartbeat and dashboard
 delivery do not make the reader dependent on those services. Dry-run artifacts
