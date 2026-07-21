@@ -6,8 +6,8 @@ import { listPromotions } from "@/lib/promotion-store";
 
 // Secret promotion console: reachable only by typing the URL directly. It is
 // not linked from any page, is excluded from the sitemap, disallowed in
-// robots.txt, and marked noindex here. When PROMOTION_TOKEN is set it also
-// requires ?key=<token>. Read at request time so a fresh daily commit shows
+// robots.txt, and marked noindex here. PROMOTION_TOKEN and a matching
+// ?key=<token> are required. Read at request time so a fresh daily commit shows
 // up without a rebuild, and so the token check can run.
 export const dynamic = "force-dynamic";
 
@@ -22,11 +22,10 @@ export default async function PromotionPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const expected = process.env.PROMOTION_TOKEN;
-  if (expected) {
-    const { key } = await searchParams;
-    const provided = Array.isArray(key) ? key[0] : key;
-    if (provided !== expected) notFound();
-  }
+  if (!expected) notFound();
+  const { key } = await searchParams;
+  const provided = Array.isArray(key) ? key[0] : key;
+  if (provided !== expected) notFound();
 
   const posts = await listPromotions();
 

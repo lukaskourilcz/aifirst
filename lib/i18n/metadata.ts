@@ -14,7 +14,7 @@ export function localeAlternates(
     languages: {
       cs: localePath("cs", path),
       en: localePath("en", path),
-      "x-default": localePath("cs", path),
+      "x-default": localePath("en", path),
     },
     types: { "application/atom+xml": localePath(locale, "/feed.xml") },
   };

@@ -1,0 +1,69 @@
+schemaVersion: 1
+minimumIssues: 1
+topics:
+  - id: ai-models
+    slug: ai-models
+    title: { en: AI Models, cs: AI modely }
+    description:
+      en: Model releases, capabilities, evaluations and the practical changes behind the benchmarks.
+      cs: Vydání modelů, jejich schopnosti, hodnocení a praktické změny za benchmarky.
+    tags: [ai, models, llm, gemini, openai, anthropic]
+    aliases: [language-models]
+    featured: true
+    order: 10
+    enabled: true
+  - id: ai-regulation
+    slug: ai-regulation
+    title: { en: AI Regulation, cs: Regulace AI }
+    description:
+      en: Rules, policy decisions and governance changes that alter how AI can be built or deployed.
+      cs: Pravidla, politická rozhodnutí a změny správy, které ovlivňují vývoj a nasazení AI.
+    tags: [policy, ai-policy, regulation]
+    aliases: [policy]
+    featured: true
+    order: 20
+    enabled: true
+  - id: open-source
+    slug: open-source
+    title: { en: Open Source, cs: Open source }
+    description:
+      en: Open models, tooling and communities changing who can build with AI.
+      cs: Otevřené modely, nástroje a komunity, které mění, kdo může stavět s AI.
+    tags: [open-source, oss]
+    aliases: [oss]
+    featured: true
+    order: 30
+    enabled: true
+  - id: developer-tools
+    slug: developer-tools
+    title: { en: Developer Tools, cs: Nástroje pro vývojáře }
+    description:
+      en: Coding agents, APIs and infrastructure that change day-to-day software work.
+      cs: Programovací agenti, API a infrastruktura, které mění každodenní vývoj softwaru.
+    tags: [developer-tools, coding, agents, releases]
+    aliases: [agents]
+    featured: true
+    order: 40
+    enabled: true
+  - id: research
+    slug: research
+    title: { en: Research, cs: Výzkum }
+    description:
+      en: Research results, safety work and evidence that may shape the next generation of systems.
+      cs: Výsledky výzkumu, bezpečnost a důkazy, které mohou ovlivnit další generaci systémů.
+    tags: [research, agi, ai-safety, ml]
+    aliases: [ai-safety]
+    featured: true
+    order: 50
+    enabled: true
+  - id: ai-companies
+    slug: ai-companies
+    title: { en: AI Companies, cs: AI firmy }
+    description:
+      en: The labs and companies whose decisions materially shape the AI market.
+      cs: Laboratoře a firmy, jejichž rozhodnutí podstatně formují trh s AI.
+    tags: [anthropic, openai, google-deepmind, startups]
+    aliases: [companies]
+    featured: true
+    order: 60
+    enabled: true

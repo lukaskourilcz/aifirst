@@ -1,13 +1,22 @@
 import { ImageResponse } from "next/og";
 import { OG } from "@/lib/og-theme";
 import { MODELS } from "@/lib/anthropic/models";
+import { brand } from "@/lib/brand";
+import { localizedBrand } from "@/lib/brand";
+import { LOCALES, type Locale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "aifirst — a daily AI tech magazine";
+export const alt = "Caught Up — The AI stories that actually mattered today";
 
-export default async function Image() {
+export function generateStaticParams() {
+  return LOCALES.map((lang) => ({ lang }));
+}
+
+export default async function Image({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const publication = localizedBrand(lang);
   return new ImageResponse(
     (
       <div
@@ -19,7 +28,6 @@ export default async function Image() {
           justifyContent: "space-between",
           padding: 64,
           backgroundColor: OG.bg,
-          backgroundImage: OG.backgroundImage,
           color: OG.ink,
           fontFamily: OG.fontMono,
         }}
@@ -29,10 +37,8 @@ export default async function Image() {
             style={{
               display: "flex",
               width: 18,
-              height: 18,
+              height: 4,
               backgroundColor: OG.cyan,
-              transform: "rotate(45deg)",
-              boxShadow: "0 0 24px rgba(92,240,255,0.7)",
             }}
           />
           <div
@@ -43,7 +49,7 @@ export default async function Image() {
               textTransform: "uppercase",
             }}
           >
-            <span>aifirst</span>
+            <span>{brand.name}</span>
             <span style={{ color: OG.magenta }}>.</span>
           </div>
         </div>
@@ -64,7 +70,7 @@ export default async function Image() {
               color: OG.muted,
             }}
           >
-            a daily ai tech magazine
+            {publication.tagline}
           </div>
           <div
             style={{
@@ -76,7 +82,7 @@ export default async function Image() {
               maxWidth: 1000,
             }}
           >
-            Signals from the frontier, every morning.
+            {publication.promise}
           </div>
         </div>
 

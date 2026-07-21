@@ -1,53 +1,63 @@
-import { getAnthropic, MODELS } from "../anthropic/client.js";
+import { getAnthropic } from "../anthropic/client.js";
 import { STYLE_GUIDE } from "../anthropic/style-guide.js";
 import { listArticles, getArticle, type ArticleSummary } from "../content.js";
 import { writeMdxFile } from "../content-write.js";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "../i18n/config.js";
+import { anthropicUsageLine } from "../telemetry/anthropic.js";
+import type { UsageLine } from "../telemetry/types.js";
+import { totalUsageCost } from "../telemetry/pricing.js";
+import { modelFor } from "../anthropic/models.js";
 
-const WEEKLY_SYSTEM = `${STYLE_GUIDE}
+function weeklySystemFor(locales: readonly Locale[]): string {
+  return `${STYLE_GUIDE}
 
-You are writing the Sunday weekly digest for aifirst, in BOTH Czech and
-English. Inputs are the last seven daily briefs (title, date, dek, slug).
-Produce, for each language, a single 600-900 word digest with three
-sections:
+You are writing the weekly edition of Caught Up in ${locales.join(" and ")}. Inputs
+are the last seven daily editions. Produce a 600-900 word digest covering:
+1. The week's defining story.
+2. Up to five developments that genuinely mattered; never pad to five.
+3. What actually changed.
+4. What did not live up to the hype.
+5. What to watch next week.
+Every development must link to a supplied /articles/<slug> URL.
 
-1. The throughline of the week (one paragraph).
-2. Three to five "threads" — each a short paragraph anchored by a
-   Markdown link to /articles/<slug-of-the-daily-issue>. Use only the
-   slugs given to you.
-3. One short "Looking ahead" paragraph.
-
-Write idiomatic, native Czech (cs) and idiomatic English (en) — not a
-translation. Output via the emit_digest tool. Do not invent topics that
+Write idiomatic, native prose in every requested language. If two languages
+are requested, preserve names, numbers, dates, links, claim strength and
+uncertainty between them. Output via the emit_digest tool. Do not invent topics that
 weren't covered in the daily issues. Do not list sources — the digest
 references daily issues, not external URLs.`;
+}
 
 const localeObjectSchema = {
   type: "object",
   properties: {
     title: { type: "string" },
     dek: { type: "string" },
+    alternative_headlines: { type: "array", minItems: 2, maxItems: 3, items: { type: "string" } },
     body_mdx: { type: "string" },
     illustration_alt: { type: "string" },
+    why_it_matters: { type: "array", minItems: 1, maxItems: 3, items: { type: "string" } },
+    what_changed: { type: "array", minItems: 1, maxItems: 4, items: { type: "string" } },
+    uncertainty: { type: "array", minItems: 1, maxItems: 3, items: { type: "string" } },
   },
-  required: ["title", "dek", "body_mdx", "illustration_alt"],
+  required: ["title", "dek", "alternative_headlines", "body_mdx", "illustration_alt", "why_it_matters", "what_changed", "uncertainty"],
 } as const;
 
-const TOOL = {
-  name: "emit_digest",
-  description: "Emit the Sunday weekly digest in Czech and English.",
-  input_schema: {
+function toolFor(locales: readonly Locale[]) {
+  return {
+    name: "emit_digest",
+    description: `Emit the Sunday weekly digest in ${locales.join(" and ")}.`,
+    input_schema: {
     type: "object",
     properties: {
       slug: { type: "string" },
       tags: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 5 },
       illustration_prompt: { type: "string" },
-      cs: localeObjectSchema,
-      en: localeObjectSchema,
+      ...Object.fromEntries(locales.map((locale) => [locale, localeObjectSchema])),
     },
-    required: ["slug", "tags", "illustration_prompt", "cs", "en"],
-  },
-} as const;
+    required: ["slug", "tags", "illustration_prompt", ...locales],
+    },
+  } as const;
+}
 
 export async function coverageFor(
   endDate: string,
@@ -70,11 +80,18 @@ export async function coverageFor(
 type LocaleOut = {
   title: string;
   dek: string;
+  alternative_headlines: string[];
   body_mdx: string;
   illustration_alt: string;
+  why_it_matters: string[];
+  what_changed: string[];
+  uncertainty: string[];
 };
 
-export async function generateWeekly(date: string): Promise<string[]> {
+export type WeeklyGenerationResult = { files: string[]; slug: string; usage: UsageLine[] };
+
+export async function generateWeekly(date: string, locales: readonly Locale[] = LOCALES, maximumOutputTokens = 6000): Promise<WeeklyGenerationResult> {
+  if (locales.length === 0) throw new Error("weekly: at least one output locale is required");
   const covered = await coverageFor(date);
   if (covered.length < 4) {
     throw new Error(
@@ -102,13 +119,15 @@ export async function generateWeekly(date: string): Promise<string[]> {
     `Daily issues covered (oldest first):\n${briefBlock.reverse().join("\n")}`;
 
   const client = getAnthropic();
+  const tool = toolFor(locales);
+  const model = modelFor("writing");
   const response = await client.messages.create({
-    model: MODELS.opus,
-    max_tokens: 6000,
+    model,
+    max_tokens: maximumOutputTokens,
     system: [
-      { type: "text", text: WEEKLY_SYSTEM, cache_control: { type: "ephemeral" } },
+      { type: "text", text: weeklySystemFor(locales), cache_control: { type: "ephemeral" } },
     ],
-    tools: [TOOL],
+    tools: [tool],
     tool_choice: { type: "tool", name: "emit_digest" },
     messages: [{ role: "user", content: userPrompt }],
   });
@@ -121,9 +140,11 @@ export async function generateWeekly(date: string): Promise<string[]> {
     slug: string;
     tags: string[];
     illustration_prompt: string;
-    cs: LocaleOut;
-    en: LocaleOut;
+    cs?: LocaleOut;
+    en?: LocaleOut;
   };
+  const usage = [anthropicUsageLine(model, "weekly_write", response.usage)];
+  const measuredCost = process.env.IMAGE_PROVIDER === "fal" ? null : totalUsageCost(usage);
 
   const fromDate = covered[covered.length - 1]?.date ?? date;
   const toDate = covered[0]?.date ?? date;
@@ -131,15 +152,19 @@ export async function generateWeekly(date: string): Promise<string[]> {
     signalCount > 0 ? Math.round(totalSignal / signalCount) : 0;
 
   const files: string[] = [];
-  for (const locale of LOCALES) {
+  for (const locale of locales) {
     const loc = out[locale];
+    if (!loc) throw new Error(`weekly: model omitted requested ${locale} output`);
     const frontmatter = {
+      schema_version: 2,
       title: loc.title,
       slug: out.slug,
       date,
       lang: locale,
+      ...(locales.length > 1 ? { translation_of: out.slug } : {}),
       type: "weekly" as const,
       dek: loc.dek,
+      alternative_headlines: loc.alternative_headlines,
       tags: ["weekly", ...out.tags.filter((t) => t !== "weekly")].slice(0, 5),
       sources: [],
       illustration: {
@@ -148,6 +173,9 @@ export async function generateWeekly(date: string): Promise<string[]> {
         alt: loc.illustration_alt,
       },
       signal_strength: meanSignal,
+      why_it_matters: loc.why_it_matters,
+      what_changed: loc.what_changed,
+      uncertainty: loc.uncertainty,
       dispatches: [],
       wire: [],
       digest: {
@@ -155,10 +183,19 @@ export async function generateWeekly(date: string): Promise<string[]> {
         to: toDate,
         covered_slugs: covered.map((c) => c.slug),
       },
+      generation: {
+        generated_at: new Date().toISOString(),
+        human_reviewed: false,
+        models: { writing: model },
+        source_candidates: covered.length,
+        cited_sources: 0,
+        image_provider: process.env.IMAGE_PROVIDER ?? "none",
+        ...(measuredCost ? { cost: measuredCost } : {}),
+      },
     };
     files.push(
       await writeMdxFile(`${date}-weekly.${locale}.mdx`, frontmatter, loc.body_mdx),
     );
   }
-  return files;
+  return { files, slug: out.slug, usage };
 }

@@ -10,13 +10,14 @@ import fs from "node:fs/promises";
 const ROUTES = [
   "/",
   "/archive",
-  "/tags",
+  "/topics",
+  "/radar",
+  "/weekly",
   "/sources",
   "/glossary",
-  "/colophon",
+  "/about",
+  "/corrections",
   "/health",
-  "/stats",
-  "/trends",
 ];
 
 const OUT_DIR = path.join(process.cwd(), "audit-screens");

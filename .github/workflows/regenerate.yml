@@ -3,64 +3,109 @@ name: regenerate
 on:
   workflow_dispatch:
     inputs:
-      date:
-        description: "Date to regenerate (YYYY-MM-DD)"
-        required: true
-        type: string
+      date: { description: "Date to regenerate (YYYY-MM-DD)", required: true, type: string }
       kind:
-        description: "Kind of issue"
+        description: "Issue kind"
         required: true
         default: daily
         type: choice
-        options:
-          - daily
-          - weekly
+        options: [daily, weekly]
+      language:
+        description: "Language output"
+        required: true
+        default: all
+        type: choice
+        options: [all, en, cs]
+      publish_mode:
+        description: "Publishing mode"
+        required: true
+        default: pull_request
+        type: choice
+        options: [auto, pull_request, dry_run]
+      image_provider:
+        description: "Illustration provider"
+        required: true
+        default: none
+        type: choice
+        options: [none, fal, nasa, picsum]
+      model_profile: { description: "Committed model profile", required: true, default: standard, type: string }
+      force: { description: "Overwrite existing issue", required: true, default: true, type: boolean }
+      skip_embeddings: { description: "Skip semantic embeddings", required: true, default: false, type: boolean }
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: regenerate-${{ inputs.kind }}-${{ inputs.date }}-${{ inputs.language }}
+  cancel-in-progress: false
 
 jobs:
   regenerate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-
+        with: { fetch-depth: 0 }
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
+        with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-
-      - name: Validate date
-        run: |
-          if ! [[ "${{ inputs.date }}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-            echo "Invalid date format: ${{ inputs.date }}" >&2
-            exit 1
-          fi
-
-      - name: Regenerate ${{ inputs.kind }}
+      - name: Regenerate issue
         env:
+          ISSUE_DATE: ${{ inputs.date }}
+          ISSUE_LANGUAGE: ${{ inputs.language }}
+          PUBLISH_MODE: ${{ inputs.publish_mode }}
+          IMAGE_PROVIDER: ${{ inputs.image_provider }}
+          MODEL_PROFILE: ${{ inputs.model_profile }}
+          FORCE_GENERATION: ${{ inputs.force }}
+          SKIP_EMBEDDINGS: ${{ inputs.skip_embeddings }}
+          GENERATION_WORKFLOW: regenerate
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          IMAGE_PROVIDER: ${{ vars.IMAGE_PROVIDER }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
-        run: |
-          if [ "${{ inputs.kind }}" = "weekly" ]; then
-            pnpm tsx scripts/generate-weekly.ts "${{ inputs.date }}"
-          else
-            pnpm tsx scripts/generate-daily.ts "${{ inputs.date }}"
-          fi
-
-      - name: Commit
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
+          NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+          OWNDASHBOARD_RUN_REPORT_URL: ${{ secrets.OWNDASHBOARD_RUN_REPORT_URL }}
+          OWNDASHBOARD_RUN_REPORT_TOKEN: ${{ secrets.OWNDASHBOARD_RUN_REPORT_TOKEN }}
+        run: pnpm ${{ inputs.kind == 'weekly' && 'generate:weekly' || 'generate:daily' }}
+      - name: Refresh semantic related issues
+        if: inputs.kind == 'daily' && !inputs.skip_embeddings
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: pnpm embed:refresh
+      - name: Verify regenerated publication
+        run: pnpm verify
+      - name: Upload regeneration artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regenerate-${{ inputs.kind }}-${{ inputs.date }}-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            generated/**
+            public/data/share/${{ inputs.date }}.*.json
+            content/articles/${{ inputs.date }}*.mdx
+            public/illustrations/${{ inputs.date }}*.webp
+      - name: Publish changes
+        if: inputs.publish_mode != 'dry_run'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "aifirst-bot"
           git config user.email "bot@aifirst"
-          git add content/articles public/illustrations
-          if git diff --cached --quiet; then
-            echo "nothing to commit (idempotent or failure)"
-            exit 0
-          fi
+          git add content/articles public/illustrations public/data
+          if git diff --cached --quiet; then exit 0; fi
           git commit -m "regenerate(${{ inputs.kind }}): ${{ inputs.date }}"
-          git push
+          if [ "${{ inputs.publish_mode }}" = "auto" ]; then
+            git push
+          else
+            branch="generated/regenerate-${{ inputs.kind }}-${{ inputs.date }}-${GITHUB_RUN_ID}"
+            git branch -m "$branch"
+            git push --set-upstream origin "$branch"
+            gh pr create --title "Regenerate ${{ inputs.kind }}: ${{ inputs.date }}" --body "Caught Up regeneration in review mode. Validation passed; private run report is attached to the workflow."
+          fi

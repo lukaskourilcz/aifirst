@@ -1,8 +1,8 @@
-# aifirst — AI Tech Magazine
+# Caught Up (`aifirst` repository)
 
 A daily AI-generated magazine about Tech and AI. Each day a pipeline scrapes
 configured sources, curates the most interesting items, and uses Claude to
-write a single feature article along with a generated sci-fi illustration.
+write a single selective feature article with an optional restrained editorial illustration.
 
 ## Stack
 
@@ -27,7 +27,7 @@ app/                       # Next.js routes
   archive/page.tsx         # archive index
   articles/[slug]/page.tsx # individual article
   promotion/page.tsx       # secret IG/Threads console (direct URL only)
-components/                # React components (sci-fi UI)
+components/                # React components (editorial UI)
 content/articles/          # generated MDX articles
 content/promotion/         # generated IG/Threads copy (one JSON per date)
 lib/
@@ -45,8 +45,8 @@ scripts/
 
 ## Design language
 
-Sci-fi / futuristic. See `.claude/skills/sci-fi-design-system`.
-Highlights: deep space backgrounds, neon cyan + magenta accents, glass / CRT
+Calm editorial design. Reuse the existing typographic, paper, slate and blueprint
+tokens; avoid neon, robots, glowing brains, generic circuits and sci-fi clichés.
 scanline textures, monospaced display type for headlines, generous negative
 space. Performance-first: no heavy WebGL unless behind a reduced-motion check.
 

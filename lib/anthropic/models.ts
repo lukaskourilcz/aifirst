@@ -6,3 +6,11 @@ export const MODELS = {
   sonnet: "claude-sonnet-4-6",
   haiku: "claude-haiku-4-5-20251001",
 } as const;
+
+export type ModelRole = "curation" | "writing" | "utility";
+
+export function modelFor(role: ModelRole): string {
+  if (role === "curation") return process.env.AIFIRST_CURATION_MODEL?.trim() || MODELS.sonnet;
+  if (role === "writing") return process.env.AIFIRST_WRITING_MODEL?.trim() || MODELS.opus;
+  return process.env.AIFIRST_UTILITY_MODEL?.trim() || MODELS.haiku;
+}

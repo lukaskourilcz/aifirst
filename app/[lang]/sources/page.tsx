@@ -1,11 +1,19 @@
 import { SourceCard } from "@/components/SourceCard";
+import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import { sourceCitationStats, sourceCitationsByMonth } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { localeAlternates } from "@/lib/i18n/metadata";
 
 export const dynamic = "force-static";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const t = dict(lang).sources;
+  return { title: t.title, description: t.intro, alternates: localeAlternates(lang, "/sources") };
+}
 
 export default async function SourcesPage({
   params,

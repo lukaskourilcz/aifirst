@@ -2,11 +2,13 @@ import { ImageResponse } from "next/og";
 import { getArticle, listArticles } from "@/lib/content";
 import { OG } from "@/lib/og-theme";
 import { signalBars } from "@/lib/helpers/signal";
+import { brand } from "@/lib/brand";
+import type { Locale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "aifirst issue";
+export const alt = "Caught Up issue";
 
 export async function generateStaticParams() {
   const all = await listArticles();
@@ -16,11 +18,11 @@ export async function generateStaticParams() {
 export default async function Image({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: Locale; slug: string }>;
 }) {
-  const { slug } = await params;
-  const article = await getArticle(slug);
-  const title = article?.frontmatter.title ?? "aifirst";
+  const { lang, slug } = await params;
+  const article = await getArticle(slug, lang);
+  const title = article?.frontmatter.title ?? brand.name;
   const dek = article?.frontmatter.dek ?? "";
   const date = article?.frontmatter.date ?? "";
   const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
@@ -38,7 +40,6 @@ export default async function Image({
           justifyContent: "space-between",
           padding: 64,
           backgroundColor: OG.bg,
-          backgroundImage: OG.backgroundImage,
           color: OG.ink,
           fontFamily: OG.fontMono,
         }}
@@ -55,10 +56,8 @@ export default async function Image({
               style={{
                 display: "flex",
                 width: 14,
-                height: 14,
+                height: 4,
                 backgroundColor: OG.cyan,
-                transform: "rotate(45deg)",
-                boxShadow: "0 0 20px rgba(92,240,255,0.7)",
               }}
             />
             <div
@@ -69,7 +68,7 @@ export default async function Image({
                 textTransform: "uppercase",
               }}
             >
-              <span>aifirst</span>
+              <span>{brand.name}</span>
               <span style={{ color: OG.magenta }}>.</span>
             </div>
           </div>

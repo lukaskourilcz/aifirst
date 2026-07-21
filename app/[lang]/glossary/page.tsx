@@ -1,10 +1,18 @@
 import { PageShell } from "@/components/PageShell";
+import type { Metadata } from "next";
 import { loadGlossary, slugForTerm, glossaryDefinition } from "@/lib/glossary";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { localeAlternates } from "@/lib/i18n/metadata";
 
 export const dynamic = "force-static";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const t = dict(lang).glossary;
+  return { title: t.title, description: t.intro, alternates: localeAlternates(lang, "/glossary") };
+}
 
 export default async function GlossaryPage({
   params,

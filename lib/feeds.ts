@@ -8,9 +8,11 @@ import { siteUrl } from "./config";
 import { atomDocument, atomEntry, feedUpdated } from "./feed";
 import { localePath, type Locale } from "./i18n/config";
 import { dict } from "./i18n/dictionaries";
+import { brand } from "./brand";
+import { articlesForTopic, loadTopicsConfig } from "./topics/config";
 
-// Build the site-wide Atom feed for a locale. Czech feeds live at
-// /feed.xml, English at /en/feed.xml; entries link to the same-locale
+// Build the site-wide Atom feed for a locale. English lives at /feed.xml and
+// Czech under /cs/feed.xml; entries link to the same-locale
 // article URLs.
 export async function buildSiteFeed(locale: Locale): Promise<string> {
   const base = siteUrl();
@@ -69,10 +71,60 @@ export async function buildTagFeed(
 
   const tagPath = `/tags/${encodeURIComponent(tag)}`;
   return atomDocument({
-    title: `aifirst — #${tag}`,
+    title: `${brand.name} — #${tag}`,
     alternateHref: `${base}${localePath(locale, tagPath)}`,
     selfHref: `${base}${localePath(locale, `${tagPath}/feed.xml`)}`,
     id: `${base}${localePath(locale, tagPath)}`,
+    updated: feedUpdated(issues[0]?.date),
+    entries,
+  });
+}
+
+export async function buildWeeklyFeed(locale: Locale): Promise<string> {
+  const base = siteUrl();
+  const issues = (await listArticles(locale)).filter((article) => article.type === "weekly");
+  const entries = issues.slice(0, 50).map((article) => atomEntry({
+    title: article.title,
+    url: `${base}${localePath(locale, `/articles/${article.slug}`)}`,
+    date: article.date,
+    summary: article.dek ?? "",
+    category: "weekly",
+  }));
+  return atomDocument({
+    title: `${brand.name} — ${dict(locale).weekly.kicker}`,
+    alternateHref: `${base}${localePath(locale, "/weekly")}`,
+    selfHref: `${base}${localePath(locale, "/weekly/feed.xml")}`,
+    id: `${base}${localePath(locale, "/weekly")}`,
+    updated: feedUpdated(issues[0]?.date),
+    entries,
+  });
+}
+
+export async function topicFeedParams() {
+  const [config, articles] = await Promise.all([loadTopicsConfig(), listArticles()]);
+  return config.topics
+    .filter((topic) => topic.enabled && articlesForTopic(topic, articles).length >= config.minimumIssues)
+    .map((topic) => ({ slug: topic.slug }));
+}
+
+export async function buildTopicFeed(locale: Locale, slug: string): Promise<string> {
+  const base = siteUrl();
+  const [config, all] = await Promise.all([loadTopicsConfig(), listArticles(locale)]);
+  const topic = config.topics.find((item) => item.slug === slug && item.enabled);
+  const issues = topic ? articlesForTopic(topic, all) : [];
+  const entries = issues.slice(0, 50).map((article) => atomEntry({
+    title: article.title,
+    url: `${base}${localePath(locale, `/articles/${article.slug}`)}`,
+    date: article.date,
+    summary: article.dek ?? "",
+    category: topic?.title[locale],
+  }));
+  const topicPath = `/topics/${slug}`;
+  return atomDocument({
+    title: `${brand.name} — ${topic?.title[locale] ?? slug}`,
+    alternateHref: `${base}${localePath(locale, topicPath)}`,
+    selfHref: `${base}${localePath(locale, `${topicPath}/feed.xml`)}`,
+    id: `${base}${localePath(locale, topicPath)}`,
     updated: feedUpdated(issues[0]?.date),
     entries,
   });

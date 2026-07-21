@@ -1,12 +1,21 @@
-import { getAnthropic, MODELS } from "../anthropic/client.js";
+import { getAnthropic } from "../anthropic/client.js";
 import { CURATE_SYSTEM } from "../anthropic/prompts/curate.js";
 import type { ScrapedItem } from "../scraping/types.js";
+import type { UsageLine } from "../telemetry/types.js";
+import { anthropicUsageLine } from "../telemetry/anthropic.js";
+import { modelFor } from "../anthropic/models.js";
 
 export type CuratedBrief = {
   date: string;
   headline: string;
   angle: string;
-  picks: Array<{ itemId: string; why: string }>;
+  picks: Array<{
+    itemId: string;
+    why: string;
+    evidence: "confirmed_fact" | "company_claim" | "analysis" | "speculation" | "open_question";
+    topic?: string;
+  }>;
+  usage?: UsageLine;
 };
 
 function buildTool(maxIndex: number) {
@@ -27,8 +36,13 @@ function buildTool(maxIndex: number) {
             properties: {
               index: { type: "integer", minimum: 0, maximum: maxIndex },
               why: { type: "string" },
+              evidence: {
+                type: "string",
+                enum: ["confirmed_fact", "company_claim", "analysis", "speculation", "open_question"],
+              },
+              topic: { type: "string" },
             },
-            required: ["index", "why"],
+            required: ["index", "why", "evidence"],
           },
         },
       },
@@ -52,7 +66,12 @@ function compact(items: ScrapedItem[]): string {
 type ToolInput = {
   headline: string;
   angle: string;
-  picks: Array<{ index: number; why: string }>;
+  picks: Array<{
+    index: number;
+    why: string;
+    evidence: CuratedBrief["picks"][number]["evidence"];
+    topic?: string;
+  }>;
 };
 
 export async function curate(
@@ -60,8 +79,9 @@ export async function curate(
   date: string,
 ): Promise<CuratedBrief> {
   const client = getAnthropic();
+  const model = modelFor("curation");
   const response = await client.messages.create({
-    model: MODELS.sonnet,
+    model,
     max_tokens: 1500,
     system: [{ type: "text", text: CURATE_SYSTEM, cache_control: { type: "ephemeral" } }],
     tools: [buildTool(items.length - 1)],
@@ -82,11 +102,19 @@ export async function curate(
   const picks = input.picks
     .map((p) => {
       const item = items[p.index];
-      return item ? { itemId: item.id, why: p.why } : null;
+      return item
+        ? { itemId: item.id, why: p.why, evidence: p.evidence, topic: p.topic }
+        : null;
     })
-    .filter((p): p is { itemId: string; why: string } => p !== null);
+    .filter((p) => p !== null) as CuratedBrief["picks"];
   if (picks.length < 3) {
     throw new Error(`curate: only ${picks.length} pickable picks (min 3)`);
   }
-  return { date, headline: input.headline, angle: input.angle, picks };
+  return {
+    date,
+    headline: input.headline,
+    angle: input.angle,
+    picks,
+    usage: anthropicUsageLine(model, "curate", response.usage),
+  };
 }

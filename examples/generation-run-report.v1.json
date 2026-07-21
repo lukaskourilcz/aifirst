@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "runId": "123456789",
+  "workflow": "daily",
+  "issueKind": "daily",
+  "issueDate": "2026-07-21",
+  "language": "multilingual",
+  "publishMode": "dry_run",
+  "startedAt": "2026-07-21T06:00:00.000Z",
+  "completedAt": "2026-07-21T06:01:12.000Z",
+  "durationMs": 72000,
+  "status": "success",
+  "repository": { "articleSlug": "2026-07-21-example" },
+  "stages": [],
+  "scraping": { "configuredSources": 24, "attemptedSources": 24, "successfulSources": 20, "failedSources": 4, "candidateItems": 68 },
+  "editorial": { "selectedItems": 6, "citedSources": 6, "signalStrength": 78, "outputWords": 1090 },
+  "usage": [
+    { "provider": "anthropic", "model": "claude-sonnet-4-6", "stage": "curate", "inputTokens": 10000, "outputTokens": 800, "cacheReadTokens": 2000, "cacheWriteTokens": 1000, "cost": { "amount": 0.04735, "currency": "USD" } }
+  ],
+  "image": { "provider": "none", "generated": false },
+  "totalCost": { "amount": 0.04735, "currency": "USD" },
+  "warnings": []
+}

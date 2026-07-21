@@ -3,77 +3,160 @@ name: daily
 on:
   schedule:
     - cron: "0 6 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Issue date (YYYY-MM-DD; blank = today UTC)"
+        required: false
+        type: string
+      language:
+        description: "Language output"
+        required: true
+        default: en
+        type: choice
+        options: [all, en, cs]
+      publish_mode:
+        description: "How generated files leave the workflow"
+        required: true
+        default: auto
+        type: choice
+        options: [auto, pull_request, dry_run]
+      image_provider:
+        description: "Illustration provider"
+        required: true
+        default: none
+        type: choice
+        options: [none, fal, nasa, picsum]
+      model_profile:
+        description: "Committed model profile"
+        required: true
+        default: standard
+        type: string
+      force:
+        description: "Overwrite an existing issue"
+        required: true
+        default: false
+        type: boolean
+      skip_embeddings:
+        description: "Skip optional semantic embeddings"
+        required: true
+        default: true
+        type: boolean
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: daily-${{ github.event_name == 'schedule' && 'scheduled' || inputs.date }}-${{ inputs.language || 'all' }}
+  cancel-in-progress: false
 
 jobs:
   generate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-
+        with: { fetch-depth: 0 }
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
+        with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
 
-      - name: Generate today's article
+      - name: Resolve and validate inputs
+        env:
+          REQUESTED_DATE: ${{ inputs.date }}
+          REQUESTED_LANGUAGE: ${{ inputs.language }}
+          REQUESTED_MODE: ${{ inputs.publish_mode }}
+          REQUESTED_IMAGE: ${{ inputs.image_provider }}
+          SCHEDULED_IMAGE: ${{ vars.IMAGE_PROVIDER }}
+          REQUESTED_PROFILE: ${{ inputs.model_profile }}
+          REQUESTED_FORCE: ${{ inputs.force }}
+          REQUESTED_SKIP_EMBEDDINGS: ${{ inputs.skip_embeddings }}
+        run: |
+          issue_date="${REQUESTED_DATE:-$(date -u +%F)}"
+          image_provider="${REQUESTED_IMAGE:-${SCHEDULED_IMAGE:-none}}"
+          echo "ISSUE_DATE=$issue_date" >> "$GITHUB_ENV"
+          echo "ISSUE_LANGUAGE=${REQUESTED_LANGUAGE:-en}" >> "$GITHUB_ENV"
+          echo "PUBLISH_MODE=${REQUESTED_MODE:-auto}" >> "$GITHUB_ENV"
+          echo "IMAGE_PROVIDER=$image_provider" >> "$GITHUB_ENV"
+          echo "MODEL_PROFILE=${REQUESTED_PROFILE:-standard}" >> "$GITHUB_ENV"
+          echo "FORCE_GENERATION=${REQUESTED_FORCE:-false}" >> "$GITHUB_ENV"
+          echo "SKIP_EMBEDDINGS=${REQUESTED_SKIP_EMBEDDINGS:-true}" >> "$GITHUB_ENV"
+
+      - name: Generate daily edition
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          IMAGE_PROVIDER: ${{ vars.IMAGE_PROVIDER }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
           NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
-          # Auto-provided by Actions; raises the github-ai-releases source's
-          # rate limit and is ignored by the other adapters.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Optional news-source keys — each source self-skips when unset.
           GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
           NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
-          # Optional reader fallback for the generic HTML adapter. Jina is
-          # keyless; Firecrawl uses this key when present. Both no-op otherwise.
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+          OWNDASHBOARD_RUN_REPORT_URL: ${{ secrets.OWNDASHBOARD_RUN_REPORT_URL }}
+          OWNDASHBOARD_RUN_REPORT_TOKEN: ${{ secrets.OWNDASHBOARD_RUN_REPORT_TOKEN }}
         run: pnpm generate:daily
 
-      - name: Refresh AI pulse (model pricing, service status, npm momentum)
-        # Keyless; resilient — failures leave the previous pulse.json in place.
+      - name: Refresh static intelligence data
         run: pnpm pulse:refresh
 
-      - name: Embed new articles for semantic related issues
-        # No-op when JINA_API_KEY is unset; related issues fall back to tags.
+      - name: Refresh semantic related issues
+        if: env.SKIP_EMBEDDINGS != 'true'
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: pnpm embed:refresh
 
-      - name: Commit
+      - name: Verify generated publication
+        run: pnpm verify
+
+      - name: Upload dry-run and telemetry artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-${{ env.ISSUE_DATE }}-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            generated/run-reports/*.json
+            generated/newsletters/**
+            public/data/share/${{ env.ISSUE_DATE }}.*.json
+            content/articles/${{ env.ISSUE_DATE }}*.mdx
+            public/illustrations/${{ env.ISSUE_DATE }}*.webp
+
+      - name: Commit and push automatically
+        if: env.PUBLISH_MODE == 'auto'
         run: |
           git config user.name "aifirst-bot"
           git config user.email "bot@aifirst"
           git add content/articles public/illustrations public/data
-          if git diff --cached --quiet; then
-            echo "nothing to commit"
-          else
-            git commit -m "daily: $(date -u +%F)"
-            git push
-          fi
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "daily: $ISSUE_DATE"
+          git push
 
-      # Uptime heartbeat (Better Stack / UptimeRobot). Runs only if every step
-      # above succeeded, so a failed daily run sends NO ping and the monitor
-      # alerts you. No-op until you add the HEARTBEAT_URL secret — see NEEDED.md.
+      - name: Open review pull request
+        if: env.PUBLISH_MODE == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "aifirst-bot"
+          git config user.email "bot@aifirst"
+          branch="generated/daily-${ISSUE_DATE}-${ISSUE_LANGUAGE}-${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+          git add content/articles public/illustrations public/data
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "daily(review): $ISSUE_DATE"
+          git push --set-upstream origin "$branch"
+          report=$(find generated/run-reports -name '*.json' -print -quit)
+          cost=$(jq -r '.totalCost.amount // "unavailable"' "$report")
+          signal=$(jq -r '.editorial.signalStrength // "unavailable"' "$report")
+          sources=$(jq -r '.editorial.citedSources' "$report")
+          gh pr create --title "Daily edition: $ISSUE_DATE" --body "Generated Caught Up daily edition. Language: $ISSUE_LANGUAGE. Cost: $cost USD. Signal: $signal. Cited sources: $sources. Validation: pnpm verify passed."
+
       - name: Ping uptime heartbeat
+        if: success() && env.PUBLISH_MODE == 'auto'
         env:
           HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
         run: |
-          if [ -n "$HEARTBEAT_URL" ]; then
-            curl -fsS --max-time 10 "$HEARTBEAT_URL" && echo "heartbeat sent"
-          else
-            echo "HEARTBEAT_URL not set; skipping heartbeat"
-          fi
+          if [ -n "$HEARTBEAT_URL" ]; then curl -fsS --max-time 10 "$HEARTBEAT_URL"; fi

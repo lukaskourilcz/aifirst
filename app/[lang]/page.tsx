@@ -3,11 +3,16 @@ import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
-import { SourcesBlock } from "@/components/SourcesBlock";
 import { Wire } from "@/components/Wire";
+import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
+import { FeedActions } from "@/components/editorial/FeedActions";
+import { IssueNavigation } from "@/components/editorial/IssueNavigation";
+import { SourceLedger } from "@/components/editorial/SourceLedger";
+import { SponsorBlock } from "@/components/editorial/SponsorBlock";
+import { StructuredData } from "@/components/editorial/StructuredData";
 import {
+  adjacentIssues,
   getArticle,
-  getLatestArticle,
   listArticles,
   resolveHeroPhoto,
 } from "@/lib/content";
@@ -18,6 +23,9 @@ import type { Metadata } from "next";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
+import { localizedBrand } from "@/lib/brand";
+import { loadSources } from "@/lib/scraping/sources";
+import { siteUrl } from "@/lib/config";
 
 export const dynamic = "force-static";
 
@@ -38,37 +46,17 @@ export default async function HomePage({
 }) {
   const { lang: locale } = await params;
   const d = dict(locale);
+  const publication = localizedBrand(locale);
   const lp = localePrefixer(locale);
 
-  const latest = await getLatestArticle(locale);
-  const archive = (await listArticles(locale)).slice(0, 9);
-  const glossary = await loadGlossary();
+  const allArticles = await listArticles(locale);
+  const leadSummary = allArticles.find((article) => (article.type ?? "daily") === "daily") ?? allArticles[0];
+  const latest = leadSummary ? await getArticle(leadSummary.slug, locale) : null;
+  const archive = allArticles.slice(0, 9);
+  const [glossary, sourceRegistry] = await Promise.all([loadGlossary(), loadSources()]);
   const repo = githubRepo();
 
-  // The hero panel must always carry a real picture. `resolveHeroPhoto`
-  // prefers the article's own generated illustration, then a cached og:image
-  // from its sources; we walk back through the archive as a last resort so
-  // the home page never opens with a blank hero.
-  async function pickLead(): Promise<{
-    article: NonNullable<typeof latest>;
-    heroPhoto: string;
-  } | null> {
-    if (!latest) return null;
-    const own = resolveHeroPhoto(latest.frontmatter);
-    if (own) return { article: latest, heroPhoto: own };
-    const candidates = await listArticles(locale);
-    for (const summary of candidates.slice(1)) {
-      const a = await getArticle(summary.slug, locale);
-      if (!a) continue;
-      const img = resolveHeroPhoto(a.frontmatter);
-      if (img) return { article: a, heroPhoto: img };
-    }
-    return null;
-  }
-
-  const lead = await pickLead();
-
-  if (!latest || !lead) {
+  if (!latest) {
     return (
       <section style={{ padding: "120px 0" }}>
         <p className="eyebrow">{d.home.emptyKicker}</p>
@@ -89,19 +77,61 @@ export default async function HomePage({
     );
   }
 
-  const fm = lead.article.frontmatter;
-  const heroPhoto = lead.heroPhoto;
+  const fm = latest.frontmatter;
+  const heroPhoto = resolveHeroPhoto(fm);
   const resolvedGlossary = resolveGlossaryTerms(fm.glossary_terms, glossary);
   const hasGlossary = resolvedGlossary.length > 0;
   const hasSources = (fm.sources?.length ?? 0) > 0;
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
-  const back = archive.filter((a) => a.slug !== lead.article.slug).slice(0, 6);
-  const reading = readingMinutes(lead.article.mdx);
+  const back = archive.filter((a) => a.slug !== latest.slug).slice(0, 6);
+  const reading = readingMinutes(latest.mdx);
+  const adjacent = adjacentIssues(latest.slug, allArticles);
+  const base = siteUrl();
+  const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const modifiedTime = lastCorrection
+    ? `${lastCorrection.date}T00:00:00Z`
+    : fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`;
 
   return (
     <>
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": `${base}/#organization`,
+            name: publication.name,
+            url: base,
+          },
+          {
+            "@type": "WebSite",
+            "@id": `${base}/#website`,
+            name: publication.name,
+            description: publication.promise,
+            url: `${base}${lp("/")}`,
+            inLanguage: locale,
+            publisher: { "@id": `${base}/#organization` },
+          },
+          {
+            "@type": "NewsArticle",
+            headline: fm.title,
+            description: fm.dek,
+            datePublished: fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`,
+            dateModified: modifiedTime,
+            inLanguage: latest.lang,
+            mainEntityOfPage: `${base}${lp(`/articles/${latest.slug}`)}`,
+            author: { "@id": `${base}/#organization` },
+            publisher: { "@id": `${base}/#organization` },
+            ...(heroPhoto ? { image: `${base}${heroPhoto}` } : {}),
+          },
+        ],
+      }} />
+      <header style={{ padding: "20px 0 28px", borderBottom: "1px solid var(--color-fog)", marginBottom: 24 }}>
+        <p className="eyebrow">{publication.name} · {d.common.today}</p>
+        <p style={{ margin: 0, color: "var(--color-slate)" }}>{publication.promise}</p>
+      </header>
       {/* Hero panel — today's lead */}
-      <section className="hero enter enter-1">
+      <section className={heroPhoto ? "hero enter enter-1" : "hero hero--no-photo enter enter-1"}>
         <div>
           <p className="hero__eyebrow">
             {(fm.type ?? "daily") === "weekly"
@@ -119,16 +149,14 @@ export default async function HomePage({
             ))}
           </div>
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={heroPhoto}
-          alt={fm.illustration.alt || fm.title}
-          className="hero__photo"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
+        {heroPhoto ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={heroPhoto} alt={fm.illustration.alt || fm.title} className="hero__photo" loading="eager" fetchPriority="high" decoding="async" />
+        ) : null}
       </section>
+
+      <SponsorBlock sponsor={fm.sponsor} />
+      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} locale={locale} />
 
       {/* Article body + dispatches sidebar (sidebar's grid cell ends with the
           article's intrinsic height, so the sticky sidebar releases at the
@@ -137,7 +165,7 @@ export default async function HomePage({
         <article className="article-with-aside__main" id="briefing">
           <EditorsNote note={fm.editors_note} locale={locale} />
           <div className="article-body">
-            <Mdx source={lead.article.mdx} />
+            <Mdx source={latest.mdx} />
           </div>
         </article>
 
@@ -157,10 +185,12 @@ export default async function HomePage({
         {hasGlossary && (
           <GlossaryBlock terms={resolvedGlossary} locale={locale} />
         )}
-        {hasSources && (
-          <SourcesBlock sources={fm.sources ?? []} locale={locale} />
-        )}
+        {hasSources && <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />}
       </section>
+
+      <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
+      <p className="caught-up-completion">{publication.completion}</p>
+      <FeedActions locale={locale} />
 
       {/* Recent issues feed */}
       {back.length > 0 && (

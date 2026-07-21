@@ -5,7 +5,6 @@ import { Sidebar } from "@/components/Sidebar";
 import { Footer } from "@/components/Footer";
 import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { HtmlLang } from "@/components/HtmlLang";
-import { PageTransition } from "@/components/PageTransition";
 import { LOCALES, isLocale, localePath, resolveLocale } from "@/lib/i18n/config";
 
 export const dynamicParams = false;
@@ -45,7 +44,7 @@ export default async function LangLayout({
       <div className="shell">
         <Sidebar locale={lang} />
         <main className="shell__main">
-          <PageTransition>{children}</PageTransition>
+          {children}
           <Footer locale={lang} />
         </main>
       </div>

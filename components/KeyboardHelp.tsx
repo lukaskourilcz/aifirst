@@ -22,9 +22,9 @@ const NAV_CHORDS: Array<{
 }> = [
   { key: "h", path: "/", labelKey: "goHome" },
   { key: "a", path: "/archive", labelKey: "goArchive" },
-  { key: "t", path: "/tags", labelKey: "goTags" },
+  { key: "t", path: "/topics", labelKey: "goTags" },
   { key: "s", path: "/sources", labelKey: "goSources" },
-  { key: "r", path: "/trends", labelKey: "goTrends" },
+  { key: "r", path: "/radar", labelKey: "goTrends" },
   { key: "g", path: "/glossary", labelKey: "goGlossary" },
 ];
 
