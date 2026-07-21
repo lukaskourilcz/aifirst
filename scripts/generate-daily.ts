@@ -10,7 +10,7 @@ import { promote } from "../lib/pipeline/promote.js";
 import { writePromotionFile } from "../lib/promotion-store.js";
 import { todayIso } from "../lib/helpers/date.js";
 import { parseWorkflowInputs } from "../lib/workflows/inputs.js";
-import { applyModelProfile, loadEditorialConfig } from "../lib/editorial/config.js";
+import { applyIllustrationProvider, applyModelProfile, loadEditorialConfig } from "../lib/editorial/config.js";
 import { evaluateGuardrails, maximumTitleSimilarity, sourceDiversity } from "../lib/editorial/guardrails.js";
 import { writeDistributionPacks } from "../lib/distribution/share.js";
 import { RunReporter, sendRunReport, writeRunReport } from "../lib/telemetry/report.js";
@@ -46,6 +46,7 @@ async function main() {
 
   const config = await reporter.stage("load_configuration", loadEditorialConfig);
   const scheduled = process.env.GITHUB_EVENT_NAME === "schedule";
+  applyIllustrationProvider(config, inputs.imageProvider, scheduled, process.env.SCHEDULED_IMAGE_PROVIDER_OVERRIDE);
   const requestedProfile = scheduled ? config.models.profile : inputs.modelProfile;
   applyModelProfile(config, requestedProfile);
   const configuredMode = config.review.defaultMode === "review" ? "pull_request" : config.publishing.publishMode;

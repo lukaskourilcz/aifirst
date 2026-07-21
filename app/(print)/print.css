@@ -1,7 +1,9 @@
 /* Print-optimised view. Render with @media screen for the in-browser
    preview, and @media print as a clean PDF when the user saves. */
 
-body.print-body {
+.print-route {
+  display: flow-root;
+  min-height: 100vh;
   background: #fff;
   color: #111;
   font-family: Georgia, "Source Serif Pro", "Iowan Old Style", serif;
@@ -10,7 +12,7 @@ body.print-body {
   background-image: none;
 }
 
-body.print-body ::selection {
+.print-route ::selection {
   background: #fbe8a6;
   color: #111;
 }
@@ -214,7 +216,8 @@ body.print-body ::selection {
 }
 
 @media print {
-  body.print-body {
+  body,
+  .print-route {
     background: #fff;
   }
   .print-layout {

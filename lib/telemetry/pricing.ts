@@ -7,10 +7,10 @@ export type TokenPricing = {
   cacheRead: number;
 };
 
-// USD per million tokens. Verified against Anthropic's official list-price
-// document effective 2026-05-12. Unknown models deliberately remain unpriced.
-export const PRICING_VERSION = "anthropic-2026-05-12";
-export const PRICING_SOURCE = "https://www-cdn.anthropic.com/files/4zrzovbb/website/5678bc2f5978e5bcd4f1fe7c14b2c72284dcf9f8.pdf";
+// USD per million tokens. Reverified against Anthropic's live official pricing
+// documentation on 2026-07-21. Unknown models deliberately remain unpriced.
+export const PRICING_VERSION = "anthropic-2026-07-21";
+export const PRICING_SOURCE = "https://platform.claude.com/docs/en/about-claude/pricing";
 
 export const TOKEN_PRICING: Record<string, TokenPricing> = {
   "claude-opus-4-7": { input: 5, output: 25, cacheWrite5m: 6.25, cacheRead: 0.5 },

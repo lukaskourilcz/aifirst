@@ -44,6 +44,9 @@ jobs:
   regenerate:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+      NEXT_PUBLIC_GITHUB_REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -72,14 +75,18 @@ jobs:
           SKIP_EMBEDDINGS: ${{ inputs.skip_embeddings }}
           GENERATION_WORKFLOW: regenerate
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
+          FAL_MODEL_PATH: ${{ vars.FAL_MODEL_PATH }}
           NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
           NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+          GENERATE_PROMOTION: ${{ vars.GENERATE_PROMOTION }}
           OWNDASHBOARD_RUN_REPORT_URL: ${{ secrets.OWNDASHBOARD_RUN_REPORT_URL }}
           OWNDASHBOARD_RUN_REPORT_TOKEN: ${{ secrets.OWNDASHBOARD_RUN_REPORT_TOKEN }}
         run: pnpm ${{ inputs.kind == 'weekly' && 'generate:weekly' || 'generate:daily' }}
@@ -99,6 +106,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: regenerate-${{ inputs.kind }}-${{ inputs.date }}-${{ github.run_id }}
+          retention-days: 30
           if-no-files-found: warn
           path: |
             generated/**
