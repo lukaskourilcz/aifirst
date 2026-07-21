@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 import { OG } from "@/lib/og-theme";
-import { MODELS } from "@/lib/anthropic/models";
 import { brand } from "@/lib/brand";
 import { localizedBrand } from "@/lib/brand";
 import { LOCALES, type Locale } from "@/lib/i18n/config";
@@ -97,8 +96,8 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
             color: OG.dim,
           }}
         >
-          <span>model · {MODELS.opus}</span>
-          <span>transmission · ongoing</span>
+          <span>{lang === "cs" ? "výběrová denní publikace" : "a selective daily publication"}</span>
+          <span>{lang === "cs" ? "vychází denně" : "published daily"}</span>
         </div>
       </div>
     ),

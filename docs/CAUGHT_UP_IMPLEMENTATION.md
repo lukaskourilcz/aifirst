@@ -91,3 +91,39 @@
 - Provider prices were verified against Anthropic's official list-price document
   effective 2026-05-12. The registry records that effective date and unknown
   models return unavailable cost instead of zero.
+
+## Completion re-audit (2026-07-21)
+
+The post-merge audit rechecked the requested acceptance criteria against the
+rendered product and the scheduled workflows. The follow-up closes gaps that
+were not covered by the first implementation:
+
+- Accessibility now includes a focusable skip link, route-aware
+  `aria-current`, localized dialog/navigation names, 44px navigation targets,
+  modal focus containment and trigger-focus restoration.
+- Source type and evidence class are separate fields. Legacy issues no longer
+  invent generation timestamps, review status, model names or source counts.
+- Weekly and topic destinations expose a current edition, date range, archive,
+  timeline and recurring entities as distinct reader concepts.
+- Article canonicals, hreflang and sitemap variants now reflect committed
+  locale files rather than fallback pages. Corrections advance article sitemap
+  and Atom update times.
+- Atom output carries language, published/updated timestamps, all categories,
+  image metadata and source/sponsor attribution. Empty-feed timestamps and
+  Radar generation timestamps are deterministic.
+- Scraping tolerates individual source failures and reports bounded per-source
+  telemetry. Structured events accompany compatibility warning strings.
+- Diversity, duplicate-story similarity, repeated-topic frequency,
+  primary-source relevance and unsupported-Watchlist thresholds are executable.
+  Enforced failures can switch the workflow to review mode or skip it.
+- Translation and utility model roles are applied, all measured usage reaches
+  issue cost provenance, optional distribution/image/embedding/heartbeat work
+  is non-fatal, dry runs preserve validation logs, and regeneration attempts
+  have a committed-history circuit breaker.
+
+The only in-repository acceptance target still not met is the requested 80 kB
+compressed JavaScript ceiling. The measured Next.js 15/React App Router shared
+runtime alone is approximately 102 kB; the repository keeps the explicit
+110 kB measured guard and records the 80 kB target as an architectural blocker.
+OwnDashboard implementation and live paid-provider generation remain external
+blockers because their repository, endpoints and credentials were not supplied.

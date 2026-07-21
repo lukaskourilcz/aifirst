@@ -16,7 +16,13 @@ quality:
   minimumCandidateItems: 10
   minimumCitedSources: 3
   maximumSingleSourceShare: 0.5
+  minimumSourceDiversity: 0.5
+  maximumDuplicateStorySimilarity: 0.85
+  maximumRepeatedTopicFrequency: 0.6
+  requirePrimarySourceWhenRelevant: true
+  maximumUnsupportedWatchlistItems: 0
   enforcement: report_only
+  failureAction: pull_request
 
 article:
   targetWords: 1100

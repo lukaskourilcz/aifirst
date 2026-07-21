@@ -10,20 +10,20 @@ export function Provenance({ article, locale }: { article: Article; locale: Loca
   const lastCorrection = [...(article.frontmatter.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
   const modifiedAt = lastCorrection
     ? `${lastCorrection.date}T00:00:00Z`
-    : generation?.generated_at ?? `${article.frontmatter.date}T06:00:00Z`;
+    : generation?.generated_at;
   const rows: Array<[string, string]> = [
-    [t.generatedAt, generation?.generated_at ?? `${article.frontmatter.date}T06:00:00Z`],
-    [t.modifiedAt, modifiedAt],
-    [t.humanReviewed, generation ? (generation.human_reviewed ? t.yes : t.no) : t.no],
-    [t.sourceCandidates, generation?.source_candidates?.toString() ?? "—"],
     [t.citedSources, (generation?.cited_sources ?? article.frontmatter.sources.length).toString()],
-    [t.imageProvider, generation?.image_provider ?? "—"],
     [t.issueType, article.frontmatter.type ?? "daily"],
     [t.language, article.lang],
     [t.measuredCost, generation?.cost
       ? `${generation.cost.amount.toFixed(4)} ${generation.cost.currency}`
       : t.costUnavailable],
   ];
+  if (generation?.image_provider) rows.unshift([t.imageProvider, generation.image_provider]);
+  if (generation?.source_candidates !== undefined) rows.unshift([t.sourceCandidates, generation.source_candidates.toString()]);
+  if (generation) rows.unshift([t.humanReviewed, generation.human_reviewed ? t.yes : t.no]);
+  if (modifiedAt) rows.unshift([t.modifiedAt, modifiedAt]);
+  if (generation?.generated_at) rows.unshift([t.generatedAt, generation.generated_at]);
   const models = generation?.models;
   if (models && Object.values(models).some(Boolean)) {
     rows.splice(2, 0, [dict(locale).common.model, Object.values(models).filter(Boolean).join(", ")]);

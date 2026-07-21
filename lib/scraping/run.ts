@@ -39,25 +39,49 @@ export async function fetchOne(source: Source): Promise<ScrapedItem[]> {
 // before merging.
 const PER_SOURCE_CAP = 10;
 
+export type SourceScrapeResult = {
+  sourceId: string;
+  status: "success" | "failed";
+  candidateItems: number;
+  durationMs: number;
+  errorCode?: string;
+  errorMessage?: string;
+};
+
+export type ScrapeRunResult = { items: ScrapedItem[]; sources: SourceScrapeResult[] };
+
 export async function runScrapers(sources: Source[]): Promise<ScrapedItem[]> {
+  return (await runScrapersDetailed(sources)).items;
+}
+
+export async function runScrapersDetailed(sources: Source[]): Promise<ScrapeRunResult> {
   const CONCURRENCY = 6;
   const queue = [...sources];
   const out: ScrapedItem[] = [];
+  const results: SourceScrapeResult[] = [];
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (queue.length) {
       const source = queue.shift();
       if (!source) break;
       const started = Date.now();
-      const items = await fetchOne(source);
-      const kept = newestFirst(items).slice(0, PER_SOURCE_CAP);
-      console.error(
-        `[scrape] ${source.id}: ${items.length} fetched, kept ${kept.length} in ${Date.now() - started}ms`,
-      );
-      out.push(...kept);
+      try {
+        const items = await fetchOne(source);
+        const kept = newestFirst(items).slice(0, PER_SOURCE_CAP);
+        const durationMs = Date.now() - started;
+        console.error(`[scrape] ${source.id}: ${items.length} fetched, kept ${kept.length} in ${durationMs}ms`);
+        out.push(...kept);
+        results.push({ sourceId: source.id, status: "success", candidateItems: kept.length, durationMs });
+      } catch (error) {
+        const durationMs = Date.now() - started;
+        const errorCode = error instanceof Error ? error.name : "unknown";
+        const errorMessage = error instanceof Error ? error.message.slice(0, 300) : "unknown error";
+        console.error(`[scrape] ${source.id}: failed in ${durationMs}ms (${errorCode})`);
+        results.push({ sourceId: source.id, status: "failed", candidateItems: 0, durationMs, errorCode, errorMessage });
+      }
     }
   });
   await Promise.all(workers);
-  return dedupe(out);
+  return { items: dedupe(out), sources: results.sort((a, b) => a.sourceId.localeCompare(b.sourceId)) };
 }
 
 function newestFirst(items: ScrapedItem[]): ScrapedItem[] {

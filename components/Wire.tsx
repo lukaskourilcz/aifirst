@@ -16,7 +16,7 @@ export function Wire({ items, locale, variant = "default" }: Props) {
   const heading = dict(locale).article.wireHeading;
   return (
     <section
-      aria-label="The wire"
+      aria-label={heading}
       style={
         isAside
           ? {

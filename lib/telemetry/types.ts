@@ -43,6 +43,14 @@ export type GenerationRunReport = {
     successfulSources: number;
     failedSources: number;
     candidateItems: number;
+    sourceResults?: Array<{
+      sourceId: string;
+      status: "success" | "failed";
+      candidateItems: number;
+      durationMs: number;
+      errorCode?: string;
+      errorMessage?: string;
+    }>;
   };
   editorial: {
     selectedItems: number;
@@ -54,13 +62,19 @@ export type GenerationRunReport = {
   image?: { provider: string; generated: boolean; cost?: Money };
   totalCost?: Money;
   warnings: string[];
+  events?: Array<{
+    level: "warning" | "info";
+    code: string;
+    message?: string;
+    at: string;
+  }>;
 };
 
 export function validateRunReport(report: GenerationRunReport): string[] {
   const errors: string[] = [];
   if (report.schemaVersion !== 1) errors.push("schemaVersion must be 1");
   if (!report.runId) errors.push("runId is required");
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(report.issueDate)) errors.push("issueDate must be YYYY-MM-DD");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(report.issueDate) || Number.isNaN(Date.parse(`${report.issueDate}T00:00:00Z`)) || new Date(`${report.issueDate}T00:00:00Z`).toISOString().slice(0, 10) !== report.issueDate) errors.push("issueDate must be a real YYYY-MM-DD date");
   if (new Date(report.completedAt).getTime() < new Date(report.startedAt).getTime()) errors.push("completedAt precedes startedAt");
   if (report.durationMs < 0) errors.push("durationMs must be non-negative");
   for (const [index, line] of report.usage.entries()) {

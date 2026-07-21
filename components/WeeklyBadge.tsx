@@ -25,8 +25,7 @@ export function WeeklyBadge({
         padding: 16,
         border: "1px solid var(--color-fog)",
         borderLeft: "2px solid var(--color-blueprint-blue)",
-        background:
-          "linear-gradient(180deg, rgba(255,79,216,0.05), transparent)",
+        background: "var(--color-canvas)",
       }}
     >
       <p

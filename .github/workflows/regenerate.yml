@@ -51,6 +51,16 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      - name: Resolve and check regeneration budget
+        env:
+          REQUESTED_DATE: ${{ inputs.date }}
+          REQUESTED_KIND: ${{ inputs.kind }}
+          REQUESTED_MODE: ${{ inputs.publish_mode }}
+        run: |
+          echo "ISSUE_DATE=$REQUESTED_DATE" >> "$GITHUB_ENV"
+          echo "ISSUE_KIND=$REQUESTED_KIND" >> "$GITHUB_ENV"
+          echo "PUBLISH_MODE=$REQUESTED_MODE" >> "$GITHUB_ENV"
+          ISSUE_DATE="$REQUESTED_DATE" ISSUE_KIND="$REQUESTED_KIND" pnpm regeneration:check
       - name: Regenerate issue
         env:
           ISSUE_DATE: ${{ inputs.date }}
@@ -75,11 +85,15 @@ jobs:
         run: pnpm ${{ inputs.kind == 'weekly' && 'generate:weekly' || 'generate:daily' }}
       - name: Refresh semantic related issues
         if: inputs.kind == 'daily' && !inputs.skip_embeddings
+        continue-on-error: true
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: pnpm embed:refresh
       - name: Verify regenerated publication
-        run: pnpm verify
+        run: |
+          mkdir -p generated
+          set -o pipefail
+          pnpm verify 2>&1 | tee generated/validation.log
       - name: Upload regeneration artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -92,7 +106,7 @@ jobs:
             content/articles/${{ inputs.date }}*.mdx
             public/illustrations/${{ inputs.date }}*.webp
       - name: Publish changes
-        if: inputs.publish_mode != 'dry_run'
+        if: env.PUBLISH_MODE != 'dry_run'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -101,11 +115,15 @@ jobs:
           git add content/articles public/illustrations public/data
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "regenerate(${{ inputs.kind }}): ${{ inputs.date }}"
-          if [ "${{ inputs.publish_mode }}" = "auto" ]; then
+          if [ "$PUBLISH_MODE" = "auto" ]; then
             git push
           else
             branch="generated/regenerate-${{ inputs.kind }}-${{ inputs.date }}-${GITHUB_RUN_ID}"
             git branch -m "$branch"
             git push --set-upstream origin "$branch"
-            gh pr create --title "Regenerate ${{ inputs.kind }}: ${{ inputs.date }}" --body "Caught Up regeneration in review mode. Validation passed; private run report is attached to the workflow."
+            report=$(find generated/run-reports -name '*.json' -print -quit)
+            cost=$(jq -r '.totalCost.amount // "unavailable"' "$report")
+            signal=$(jq -r '.editorial.signalStrength // "unavailable"' "$report")
+            sources=$(jq -r '.editorial.citedSources' "$report")
+            gh pr create --title "Regenerate ${{ inputs.kind }}: ${{ inputs.date }}" --body "Caught Up regeneration in review mode. Cost: $cost USD. Signal: $signal. Cited sources: $sources. Validation passed; preview data and the private run report are attached to the workflow."
           fi

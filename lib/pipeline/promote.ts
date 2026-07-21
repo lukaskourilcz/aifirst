@@ -98,7 +98,7 @@ export async function promote(
     (article.byLocale.cs ? `${localeBlock("Czech (cs)", article.byLocale.cs)}\n` : "");
 
   const client = getAnthropic();
-  const model = modelFor("curation");
+  const model = modelFor("utility");
   const response = await client.messages.create({
     model,
     max_tokens: 2000,

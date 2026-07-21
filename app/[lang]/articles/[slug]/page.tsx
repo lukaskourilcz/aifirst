@@ -19,6 +19,7 @@ import { StructuredData } from "@/components/editorial/StructuredData";
 import {
   adjacentIssues,
   getArticle,
+  getArticleLocales,
   listArticles,
   relatedArticles,
   resolveHeroPhoto,
@@ -53,6 +54,7 @@ export async function generateMetadata({
   const article = await getArticle(slug, lang);
   if (!article) return {};
   const articlePath = `/articles/${slug}`;
+  const availableLocales = await getArticleLocales(slug);
   const heroPhoto = resolveHeroPhoto(article.frontmatter);
   const lastCorrection = [...(article.frontmatter.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
   const modifiedTime = lastCorrection
@@ -61,7 +63,7 @@ export async function generateMetadata({
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
-    alternates: localeAlternates(lang, articlePath),
+    alternates: localeAlternates(lang, articlePath, availableLocales),
     openGraph: {
       type: "article",
       title: article.frontmatter.title,

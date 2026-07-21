@@ -90,7 +90,7 @@ type LocaleOut = {
 
 export type WeeklyGenerationResult = { files: string[]; slug: string; usage: UsageLine[] };
 
-export async function generateWeekly(date: string, locales: readonly Locale[] = LOCALES, maximumOutputTokens = 6000): Promise<WeeklyGenerationResult> {
+export async function generateWeekly(date: string, locales: readonly Locale[] = LOCALES, maximumOutputTokens = 6000, writingModel?: string): Promise<WeeklyGenerationResult> {
   if (locales.length === 0) throw new Error("weekly: at least one output locale is required");
   const covered = await coverageFor(date);
   if (covered.length < 4) {
@@ -120,7 +120,7 @@ export async function generateWeekly(date: string, locales: readonly Locale[] = 
 
   const client = getAnthropic();
   const tool = toolFor(locales);
-  const model = modelFor("writing");
+  const model = writingModel ?? modelFor("writing");
   const response = await client.messages.create({
     model,
     max_tokens: maximumOutputTokens,

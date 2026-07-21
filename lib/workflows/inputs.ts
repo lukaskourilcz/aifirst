@@ -17,7 +17,8 @@ function bool(value: string | undefined): boolean {
 
 export function parseWorkflowInputs(env: Record<string, string | undefined>, fallbackDate: string): WorkflowInputs {
   const date = env.ISSUE_DATE?.trim() || fallbackDate;
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(new Date(`${date}T00:00:00Z`).getTime())) throw new Error("ISSUE_DATE must be YYYY-MM-DD");
+  const parsedDate = new Date(`${date}T00:00:00Z`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) throw new Error("ISSUE_DATE must be a real YYYY-MM-DD date");
   const language = env.ISSUE_LANGUAGE?.trim() || "all";
   if (!["en", "cs", "all"].includes(language)) throw new Error("ISSUE_LANGUAGE must be en, cs or all");
   const publishMode = env.PUBLISH_MODE?.trim() || "auto";

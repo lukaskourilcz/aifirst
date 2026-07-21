@@ -47,7 +47,7 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
   }
 
   return (
-    <section aria-label="Dispatches" className="dispatches">
+    <section aria-label={t.dispatchesLabel} className="dispatches">
       <header style={{ marginBottom: 16 }}>
         <p className="label" style={{ margin: 0 }}>{t.dispatchesLabel}</p>
         <h2 style={{ marginTop: 6, marginBottom: 0 }}>{t.dispatchesHeading}</h2>

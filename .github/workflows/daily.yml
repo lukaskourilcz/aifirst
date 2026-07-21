@@ -101,16 +101,21 @@ jobs:
         run: pnpm generate:daily
 
       - name: Refresh static intelligence data
+        continue-on-error: true
         run: pnpm pulse:refresh
 
       - name: Refresh semantic related issues
         if: env.SKIP_EMBEDDINGS != 'true'
+        continue-on-error: true
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: pnpm embed:refresh
 
       - name: Verify generated publication
-        run: pnpm verify
+        run: |
+          mkdir -p generated
+          set -o pipefail
+          pnpm verify 2>&1 | tee generated/validation.log
 
       - name: Upload dry-run and telemetry artifacts
         if: always()
@@ -120,6 +125,7 @@ jobs:
           if-no-files-found: warn
           path: |
             generated/run-reports/*.json
+            generated/validation.log
             generated/newsletters/**
             public/data/share/${{ env.ISSUE_DATE }}.*.json
             content/articles/${{ env.ISSUE_DATE }}*.mdx
@@ -156,6 +162,7 @@ jobs:
 
       - name: Ping uptime heartbeat
         if: success() && env.PUBLISH_MODE == 'auto'
+        continue-on-error: true
         env:
           HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
         run: |

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localePath, type Locale } from "./config";
+import { DEFAULT_LOCALE, localePath, type Locale } from "./config";
 
 // The canonical + hreflang + Atom-autodiscovery block for a page that exists
 // in both locales. `path` is the unprefixed site path (e.g. "/" or
@@ -8,14 +8,23 @@ import { localePath, type Locale } from "./config";
 export function localeAlternates(
   locale: Locale,
   path: string,
+  availableLocales: readonly Locale[] = ["en", "cs"],
 ): NonNullable<Metadata["alternates"]> {
+  const available: readonly Locale[] = availableLocales.length ? availableLocales : [DEFAULT_LOCALE];
+  const firstAvailable = available[0] ?? DEFAULT_LOCALE;
+  const canonicalLocale: Locale = available.includes(locale) ? locale : firstAvailable;
+  const languages = Object.fromEntries(
+    available.map((availableLocale) => [availableLocale, localePath(availableLocale, path)]),
+  );
   return {
-    canonical: localePath(locale, path),
+    canonical: localePath(canonicalLocale, path),
     languages: {
-      cs: localePath("cs", path),
-      en: localePath("en", path),
-      "x-default": localePath("en", path),
+      ...languages,
+      "x-default": localePath(
+        available.includes(DEFAULT_LOCALE) ? DEFAULT_LOCALE : firstAvailable,
+        path,
+      ),
     },
-    types: { "application/atom+xml": localePath(locale, "/feed.xml") },
+    types: { "application/atom+xml": localePath(canonicalLocale, "/feed.xml") },
   };
 }

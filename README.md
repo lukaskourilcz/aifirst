@@ -155,15 +155,16 @@ operator action outside the reader build.
 ## Telemetry, cost and guardrails
 
 Each generation workflow writes a versioned private run report with stage
-timings, scrape counts, editorial metrics, provider usage, image state, warnings
-and repository references. Anthropic response usage is converted centrally to
+timings, per-source scrape results, editorial metrics, structured warning
+events, provider usage, image state and repository references. Anthropic response usage is converted centrally to
 USD using the versioned registry in `lib/telemetry/pricing.ts`. Unknown models
 or incomplete usage produce an unavailable cost—not a fabricated zero.
 
-`config/editorial.yml` controls publishing, languages, output limits, quality
-thresholds, standard/economical model profiles, illustration defaults and
-warning/hard budgets. Quality starts
-in `report_only` mode. Per-run hard cost limits can block persistence when
+`config/editorial.yml` controls publishing, languages, output limits, source
+diversity, duplicate/repetition and evidence quality thresholds,
+standard/economical model profiles, illustration defaults and warning/hard
+budgets. Quality starts in `report_only` mode; `enforce` applies the committed
+review-or-skip failure action. Per-run hard cost limits can block persistence when
 configured; monthly aggregation belongs in the optional dashboard because
 ephemeral Actions runners do not hold a canonical ledger.
 
@@ -193,7 +194,7 @@ Optional operations:
   `STACKEXCHANGE_KEY` for their optional source adapters
 - `FIRECRAWL_API_KEY` for the optional article-extraction fallback
 - `JINA_API_KEY` for optional embeddings
-- `GITHUB_TOKEN`/`AIFIRST_REPO` for the existing build-time health view
+- `GITHUB_TOKEN` for workflow publication and optional dashboard-triggered runs
 - `PROMOTION_TOKEN` to expose the otherwise-404 internal promotion console
 - `GENERATE_PROMOTION=true` to enable the optional model-written promotion pack
 - `OWNDASHBOARD_RUN_REPORT_URL` and `OWNDASHBOARD_RUN_REPORT_TOKEN` for callbacks

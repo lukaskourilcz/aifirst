@@ -2,7 +2,8 @@ import { describe, it, expect, beforeAll } from "vitest";
 import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import { listArticles, getArticle, getLatestArticle } from "../content.js";
+import { listArticles, getArticle, getArticleLocales, getLatestArticle } from "../content.js";
+import { localeAlternates } from "../i18n/metadata.js";
 
 const fixtureA = `---
 title: A older
@@ -71,6 +72,14 @@ describe("getArticle", () => {
 
   it("returns null for an unknown slug", async () => {
     expect(await getArticle("missing", "en", dir)).toBeNull();
+  });
+
+  it("reports only committed locales and canonicalizes fallback pages", async () => {
+    expect(await getArticleLocales("a-older", dir)).toEqual(["en"]);
+    expect(localeAlternates("cs", "/articles/a-older", ["en"])).toEqual(expect.objectContaining({
+      canonical: "/articles/a-older",
+      languages: { en: "/articles/a-older", "x-default": "/articles/a-older" },
+    }));
   });
 });
 
