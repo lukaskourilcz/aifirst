@@ -7,8 +7,6 @@ section, where you can filter tasks by that priority.
 
 ## Tasks
 
-- [ ] **Set Vercel Production Branch = `main`** — if Vercel builds a different branch than the one your work + the daily job push to, nothing goes live and no daily issue appears. `[imp:5]`
-- [ ] **Align the GitHub default + daily-push branch to `main`** — `daily.yml` commits generated content; if it pushes to a branch Vercel doesn't deploy, new issues never show. `[imp:4]`
 - [ ] **Set `IMAGE_PROVIDER=nasa` or `picsum`** — default `none` ships a flat placeholder, no real cover; both alternatives are keyless. `[imp:3]`
 - [ ] **Add `HEARTBEAT_URL` + a cron monitor** — a silent daily-pipeline failure means no issue that day and nothing tells you. `[imp:3]`
 - [ ] **Add `STACKEXCHANGE_KEY`** (Actions secret) — the anonymous StackExchange API returns HTTP 403 from CI IPs, so that source yields nothing until keyed. `[imp:3]`
