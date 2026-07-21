@@ -6,9 +6,11 @@ import { Analytics } from "@vercel/analytics/next";
 import { siteUrl } from "@/lib/config";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { brand } from "@/lib/brand";
 import "./globals.css";
 
 const d = dict(DEFAULT_LOCALE);
+const vercelTelemetryEnabled = process.env.VERCEL === "1";
 
 // Source Serif 4 stands in for Plantin (the brand serif). It's the only
 // editorial typeface — used for the wordmark, headlines, body, eyebrows,
@@ -33,13 +35,20 @@ const sans = Inter({
 export const metadata: Metadata = {
   title: {
     default: d.meta.siteTitle,
-    template: "%s · aifirst",
+    template: `%s · ${brand.name}`,
   },
   description: d.meta.siteDescription,
   metadataBase: new URL(siteUrl()),
   openGraph: {
     type: "website",
-    siteName: "aifirst",
+    siteName: brand.name,
+    title: d.meta.siteTitle,
+    description: d.meta.siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: d.meta.siteTitle,
+    description: d.meta.siteDescription,
   },
 };
 
@@ -48,8 +57,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${sans.variable}`}>
       <body>
         {children}
-        <SpeedInsights />
-        <Analytics />
+        {vercelTelemetryEnabled ? <SpeedInsights /> : null}
+        {vercelTelemetryEnabled ? <Analytics /> : null}
       </body>
     </html>
   );

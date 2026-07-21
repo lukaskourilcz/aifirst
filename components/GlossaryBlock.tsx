@@ -24,9 +24,9 @@ export function GlossaryBlock({
       <p className="label" style={{ marginBottom: 16 }}>
         {dict(locale).article.glossaryForIssue}
       </p>
-      <dl style={{ margin: 0 }}>
+      <div style={{ margin: 0 }}>
         {terms.map((t) => (
-          <div
+          <details
             key={t.term}
             className="def-row def-row--tight"
             style={{
@@ -34,26 +34,25 @@ export function GlossaryBlock({
               borderBottom: "1px solid var(--color-fog)",
             }}
           >
-            <dt
+            <summary
               style={{
                 fontFamily: "var(--font-display)",
                 color: "var(--color-blueprint-blue)",
                 letterSpacing: "0.04em",
+                cursor: "pointer",
               }}
             >
-              <Link
-                href={localePath(locale, `/glossary#${slugForTerm(t.term)}`)}
-                style={{ borderBottom: "none" }}
-              >
-                {t.term}
+              <dfn style={{ fontStyle: "normal" }}>{t.term}</dfn>
+            </summary>
+            <p style={{ margin: "10px 0 0", color: "var(--ink-muted)" }}>
+              {glossaryDefinition(t, locale)}{" "}
+              <Link href={localePath(locale, `/glossary#${slugForTerm(t.term)}`)}>
+                {dict(locale).article.fullGlossaryEntry} →
               </Link>
-            </dt>
-            <dd style={{ margin: 0, color: "var(--ink-muted)" }}>
-              {glossaryDefinition(t, locale)}
-            </dd>
-          </div>
+            </p>
+          </details>
         ))}
-      </dl>
+      </div>
     </section>
   );
 }

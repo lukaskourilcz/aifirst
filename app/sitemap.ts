@@ -1,14 +1,18 @@
 import type { MetadataRoute } from "next";
-import { listArticles, listTagsByFrequency } from "@/lib/content";
+import { listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { LOCALES, localePath } from "@/lib/i18n/config";
+import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
+import { loadSources } from "@/lib/scraping/sources";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
-  const [articles, tags] = await Promise.all([
+  const [articles, topicsConfig, sources] = await Promise.all([
     listArticles(),
-    listTagsByFrequency(),
+    loadTopicsConfig(),
+    loadSources(),
   ]);
+  const topics = publishedTopics(topicsConfig, articles);
 
   const staticPaths: Array<{
     path: string;
@@ -16,18 +20,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: number;
   }> = [
     { path: "/", changeFrequency: "daily", priority: 1 },
+    { path: "/radar", changeFrequency: "daily", priority: 0.8 },
+    { path: "/topics", changeFrequency: "weekly", priority: 0.8 },
+    { path: "/weekly", changeFrequency: "weekly", priority: 0.8 },
     { path: "/archive", changeFrequency: "daily", priority: 0.8 },
-    { path: "/tags", changeFrequency: "weekly", priority: 0.5 },
     { path: "/sources", changeFrequency: "weekly", priority: 0.5 },
-    { path: "/stats", changeFrequency: "weekly", priority: 0.5 },
-    { path: "/trends", changeFrequency: "weekly", priority: 0.5 },
-    { path: "/pulse", changeFrequency: "daily", priority: 0.5 },
     { path: "/glossary", changeFrequency: "monthly", priority: 0.4 },
-    { path: "/colophon", changeFrequency: "monthly", priority: 0.3 },
+    { path: "/about", changeFrequency: "monthly", priority: 0.5 },
+    { path: "/corrections", changeFrequency: "weekly", priority: 0.4 },
     { path: "/search", changeFrequency: "weekly", priority: 0.4 },
   ];
 
-  // Emit every page in both locales (Czech unprefixed, English under /en).
+  // Emit every page in both locales (English unprefixed, Czech under /cs).
   return LOCALES.flatMap((locale) => [
     ...staticPaths.map((p) => ({
       url: `${base}${localePath(locale, p.path)}`,
@@ -40,10 +44,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),
-    ...tags.map((t) => ({
-      url: `${base}${localePath(locale, `/tags/${encodeURIComponent(t.tag)}`)}`,
+    ...topics.map(({ topic }) => ({
+      url: `${base}${localePath(locale, `/topics/${topic.slug}`)}`,
       changeFrequency: "weekly" as const,
-      priority: 0.4,
+      priority: 0.6,
+    })),
+    ...sources.map((source) => ({
+      url: `${base}${localePath(locale, `/sources/${source.id}`)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.3,
     })),
   ]);
 }

@@ -1,0 +1,58 @@
+schemaVersion: 1
+
+brand:
+  name: Caught Up
+
+publishing:
+  dailyEnabled: true
+  weeklyEnabled: true
+  publishMode: auto
+  primaryLanguage: en
+  enabledLanguages: [en, cs]
+
+quality:
+  minimumSignalStrength: 45
+  minimumSuccessfulSources: 10
+  minimumCandidateItems: 10
+  minimumCitedSources: 3
+  maximumSingleSourceShare: 0.5
+  enforcement: report_only
+
+article:
+  targetWords: 1100
+  briefsMaximum: 4
+  watchlistMaximum: 6
+  maximumOutputTokens: 8000
+  maximumCurationCandidates: 80
+
+translation:
+  weeklyEnabled: true
+  selectedDailyEnabled: true
+  fullDailyEnabled: false
+  modelProfile: standard
+  budgetPerRun: null
+
+models:
+  profile: standard
+  profiles:
+    standard:
+      curation: claude-sonnet-4-6
+      writing: claude-opus-4-7
+      utility: claude-haiku-4-5-20251001
+    economical:
+      curation: claude-haiku-4-5-20251001
+      writing: claude-sonnet-4-6
+      utility: claude-haiku-4-5-20251001
+
+illustration:
+  provider: none
+
+budgets:
+  warningCostPerRun: null
+  hardCostPerRun: null
+  monthlyWarning: null
+  monthlyHardLimit: null
+  maximumRegenerationAttemptsPerDate: 2
+
+review:
+  defaultMode: auto

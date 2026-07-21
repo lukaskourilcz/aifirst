@@ -5,6 +5,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { buildSearchIndex } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { brand } from "@/lib/brand";
 
 // One coherent 16px stroked icon set — hand-drawn to sit on the same
 // baseline as Suisse Intl at 13/14px in the sidebar. Uses currentColor so
@@ -90,6 +91,12 @@ const ICONS: Record<string, ReactNode> = {
   ),
 };
 
+ICONS.today = ICONS.home;
+ICONS.radar = ICONS.trends;
+ICONS.topics = ICONS.tags;
+ICONS.weekly = ICONS.archive;
+ICONS.about = ICONS.colophon;
+
 export async function Sidebar({ locale }: { locale: Locale }) {
   const t = dict(locale).nav;
   const home = dict(locale).home;
@@ -97,45 +104,25 @@ export async function Sidebar({ locale }: { locale: Locale }) {
   const index = await buildSearchIndex(locale);
 
   const primary: Array<{ key: string; label: string; href: string }> = [
-    { key: "home",     label: home.briefing,  href: lp("/") },
-    { key: "archive",  label: t.archive,      href: lp("/archive") },
-    { key: "tags",     label: t.tags,         href: lp("/tags") },
-    { key: "sources",  label: t.sources,      href: lp("/sources") },
-    { key: "glossary", label: t.glossary,     href: lp("/glossary") },
-    { key: "colophon", label: t.colophon,     href: lp("/colophon") },
-  ];
-
-  const ops: Array<{ key: string; label: string; href: string }> = [
-    { key: "stats",  label: t.stats,  href: lp("/stats") },
-    { key: "trends", label: t.trends, href: lp("/trends") },
-    { key: "pulse",  label: t.pulse,  href: lp("/pulse") },
-    { key: "health", label: t.health, href: lp("/health") },
+    { key: "today",   label: t.today,   href: lp("/") },
+    { key: "radar",   label: t.radar,   href: lp("/radar") },
+    { key: "topics",  label: t.topics,  href: lp("/topics") },
+    { key: "weekly",  label: t.weekly,  href: lp("/weekly") },
+    { key: "archive", label: t.archive, href: lp("/archive") },
+    { key: "about",   label: t.about,   href: lp("/about") },
   ];
 
   return (
     <aside className="sidebar" aria-label="primary">
       <div className="sidebar__head">
-        <Link href={lp("/")} className="sidebar__brand" aria-label="aifirst home">
+        <Link href={lp("/")} className="sidebar__brand" aria-label={`${brand.name} home`}>
           <span className="sidebar__brand-dot" />
-          <span className="sidebar__brand-word">aifirst</span>
+          <span className="sidebar__brand-word">{brand.name}</span>
         </Link>
       </div>
 
       <nav className="nav-rail" aria-label="primary">
         {primary.map((item) => (
-          <Link
-            key={item.key}
-            href={item.href}
-            className="nav-item"
-            title={item.label}
-            aria-label={item.label}
-          >
-            <span aria-hidden className="nav-item__glyph">{ICONS[item.key]}</span>
-            <span className="nav-item__label">{item.label}</span>
-          </Link>
-        ))}
-        <div className="nav-divider" aria-hidden />
-        {ops.map((item) => (
           <Link
             key={item.key}
             href={item.href}

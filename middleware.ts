@@ -9,6 +9,15 @@ const HAS_EXTENSION = /\.[^/]+$/;
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // Compatibility for the former query-based localized print URL. The final
+  // English and Czech print documents are now independently prerendered.
+  if (pathname.startsWith("/articles/") && pathname.endsWith("/print") && req.nextUrl.searchParams.get("lang") === "cs") {
+    const url = req.nextUrl.clone();
+    url.pathname = `/cs${pathname}`;
+    url.searchParams.delete("lang");
+    return NextResponse.redirect(url, 308);
+  }
+
   if (
     pathname === "/cs" ||
     pathname.startsWith("/cs/") ||

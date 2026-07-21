@@ -1,8 +1,11 @@
-import { getAnthropic, MODELS } from "../anthropic/client.js";
+import { getAnthropic } from "../anthropic/client.js";
 import { PROMOTE_SYSTEM } from "../anthropic/prompts/promote.js";
 import { LOCALES, type Locale } from "../i18n/config.js";
 import type { WrittenArticle } from "./write.js";
 import type { PromotionLocaleContent, PromotionPost } from "../promotion.js";
+import { modelFor } from "../anthropic/models.js";
+import { anthropicUsageLine } from "../telemetry/anthropic.js";
+import type { UsageLine } from "../telemetry/types.js";
 
 // Shape the model returns per language.
 type LocaleOut = {
@@ -77,6 +80,7 @@ export function toPromotionPost(
 }
 
 function localeBlock(label: string, c: WrittenArticle["byLocale"][Locale]): string {
+  if (!c) return "";
   const dispatches = c.dispatches
     .map((d) => `- ${d.title}: ${d.body}`)
     .join("\n");
@@ -87,15 +91,16 @@ export async function promote(
   article: WrittenArticle,
   illustrationPath: string | null,
   now: () => string = () => new Date().toISOString(),
-): Promise<PromotionPost> {
+): Promise<{ post: PromotionPost; usage: UsageLine }> {
   const userPrompt =
     `Date: ${article.date}\nTags: ${article.tags.join(", ")}\n\n` +
-    `${localeBlock("English (en)", article.byLocale.en)}\n\n` +
-    `${localeBlock("Czech (cs)", article.byLocale.cs)}\n`;
+    (article.byLocale.en ? `${localeBlock("English (en)", article.byLocale.en)}\n\n` : "") +
+    (article.byLocale.cs ? `${localeBlock("Czech (cs)", article.byLocale.cs)}\n` : "");
 
   const client = getAnthropic();
+  const model = modelFor("curation");
   const response = await client.messages.create({
-    model: MODELS.sonnet,
+    model,
     max_tokens: 2000,
     system: [
       { type: "text", text: PROMOTE_SYSTEM, cache_control: { type: "ephemeral" } },
@@ -111,10 +116,13 @@ export async function promote(
   }
   const out = toolUse.input as ToolOut;
 
-  return toPromotionPost(out, {
-    date: article.date,
-    slug: article.slug,
-    image: illustrationPath,
-    generatedAt: now(),
-  });
+  return {
+    post: toPromotionPost(out, {
+      date: article.date,
+      slug: article.slug,
+      image: illustrationPath,
+      generatedAt: now(),
+    }),
+    usage: anthropicUsageLine(model, "promotion", response.usage),
+  };
 }

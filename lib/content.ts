@@ -11,6 +11,7 @@ export type Dispatch = {
   title: string;
   body: string;
   source_url?: string;
+  topic?: string;
 };
 
 export type WireItem = {
@@ -19,7 +20,46 @@ export type WireItem = {
   source: string;
 };
 
-export type SourceRef = { id: string; url: string; title: string };
+export type SourceRef = {
+  id: string;
+  url: string;
+  title: string;
+  source_id?: string;
+  publisher?: string;
+  source_type?: string;
+  classification?: "primary" | "secondary";
+  published_at?: string;
+  supports?: string[];
+};
+
+export type Correction = {
+  date: string;
+  description: string;
+  section?: string;
+};
+
+export type GenerationProvenance = {
+  generated_at: string;
+  human_reviewed: boolean;
+  models: {
+    curation?: string;
+    writing?: string;
+    utility?: string;
+  };
+  source_candidates?: number;
+  cited_sources?: number;
+  image_provider?: string;
+  cost?: { amount: number; currency: string };
+};
+
+export type Sponsor = {
+  name: string;
+  url: string;
+  label: string;
+  copy: string;
+  image?: string;
+  image_alt?: string;
+};
 
 export type IssueType = "daily" | "weekly";
 
@@ -29,10 +69,19 @@ export type ArticleFrontmatter = {
   date: string;
   lang?: Locale;
   dek: string;
+  alternative_headlines?: string[];
   tags: string[];
   sources: SourceRef[];
   illustration: { path?: string; prompt: string; alt: string };
   signal_strength?: number;
+  schema_version?: number;
+  why_it_matters?: string[];
+  what_changed?: string[];
+  uncertainty?: string[];
+  corrections?: Correction[];
+  generation?: GenerationProvenance;
+  translation_of?: string;
+  sponsor?: Sponsor;
   dispatches?: Dispatch[];
   wire?: WireItem[];
   type?: IssueType;
@@ -53,6 +102,7 @@ export type Article = {
   // requested locale (e.g. a legacy English-only issue viewed in Czech).
   lang: Locale;
   fallback: boolean;
+  modifiedAt?: string;
 };
 
 export type ArticleSummary = {
@@ -69,6 +119,10 @@ export type ArticleSummary = {
   // the article's sources. Absent when the article has no real picture, so
   // the UI can render text-only cards instead of an empty tile.
   heroPhoto?: string;
+};
+
+export type CorrectionRecord = Correction & {
+  article: ArticleSummary;
 };
 
 function defaultContentDir(): string {
@@ -234,6 +288,7 @@ export async function getArticle(
   const picked = pickForLocale(candidates, locale);
   if (!picked) return null;
   const raw = await fs.readFile(path.join(dir, picked.entry.file), "utf8");
+  const fileStat = await fs.stat(path.join(dir, picked.entry.file)).catch(() => null);
   const { data, content } = matter(raw);
   return {
     slug,
@@ -241,6 +296,38 @@ export async function getArticle(
     mdx: content,
     lang: picked.entry.lang,
     fallback: picked.fallback,
+    modifiedAt: fileStat?.mtime.toISOString(),
+  };
+}
+
+export async function listCorrections(
+  locale: Locale = DEFAULT_LOCALE,
+  dir: string = defaultContentDir(),
+): Promise<CorrectionRecord[]> {
+  const summaries = await listArticles(locale, dir);
+  const records: CorrectionRecord[] = [];
+  for (const summary of summaries) {
+    const article = await getArticle(summary.slug, locale, dir);
+    for (const correction of article?.frontmatter.corrections ?? []) {
+      records.push({ ...correction, article: summary });
+    }
+  }
+  return records.sort((a, b) =>
+    a.date === b.date
+      ? b.article.date.localeCompare(a.article.date)
+      : b.date.localeCompare(a.date),
+  );
+}
+
+export function adjacentIssues(
+  currentSlug: string,
+  all: ArticleSummary[],
+): { previous: ArticleSummary | null; next: ArticleSummary | null } {
+  const index = all.findIndex((article) => article.slug === currentSlug);
+  if (index < 0) return { previous: null, next: null };
+  return {
+    previous: all[index + 1] ?? null,
+    next: all[index - 1] ?? null,
   };
 }
 

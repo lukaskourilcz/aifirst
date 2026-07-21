@@ -6,10 +6,18 @@ import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
-import { SourcesBlock } from "@/components/SourcesBlock";
 import { Wire } from "@/components/Wire";
 import { WeeklyBadge } from "@/components/WeeklyBadge";
+import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
+import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
+import { FeedActions } from "@/components/editorial/FeedActions";
+import { IssueNavigation } from "@/components/editorial/IssueNavigation";
+import { Provenance } from "@/components/editorial/Provenance";
+import { SourceLedger } from "@/components/editorial/SourceLedger";
+import { SponsorBlock } from "@/components/editorial/SponsorBlock";
+import { StructuredData } from "@/components/editorial/StructuredData";
 import {
+  adjacentIssues,
   getArticle,
   listArticles,
   relatedArticles,
@@ -22,6 +30,12 @@ import { readingMinutes } from "@/lib/text";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
+import { loadSources } from "@/lib/scraping/sources";
+import { siteUrl } from "@/lib/config";
+import { localizedBrand } from "@/lib/brand";
+import { loadTopicsConfig, topicsForArticle } from "@/lib/topics/config";
+import Link from "next/link";
+import { localePath } from "@/lib/i18n/config";
 
 export const dynamic = "force-static";
 
@@ -40,13 +54,20 @@ export async function generateMetadata({
   if (!article) return {};
   const articlePath = `/articles/${slug}`;
   const heroPhoto = resolveHeroPhoto(article.frontmatter);
+  const lastCorrection = [...(article.frontmatter.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const modifiedTime = lastCorrection
+    ? `${lastCorrection.date}T00:00:00Z`
+    : article.frontmatter.generation?.generated_at ?? `${article.frontmatter.date}T06:00:00Z`;
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
     alternates: localeAlternates(lang, articlePath),
     openGraph: {
+      type: "article",
       title: article.frontmatter.title,
       description: article.frontmatter.dek,
+      publishedTime: `${article.frontmatter.date}T06:00:00Z`,
+      modifiedTime,
       ...(heroPhoto ? { images: [{ url: heroPhoto }] } : {}),
     },
   };
@@ -78,6 +99,7 @@ export default async function ArticlePage({
   const isWeekly = (article.frontmatter.type ?? "daily") === "weekly";
   const titlesBySlug = new Map(all.map((a) => [a.slug, a.title]));
   const glossary = await loadGlossary();
+  const [sourceRegistry, topicsConfig] = await Promise.all([loadSources(), loadTopicsConfig()]);
   const issueGlossary = resolveGlossaryTerms(
     article.frontmatter.glossary_terms,
     glossary,
@@ -86,10 +108,50 @@ export default async function ArticlePage({
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
   const reading = readingMinutes(article.mdx);
   const heroPhoto = resolveHeroPhoto(fm);
+  const adjacent = adjacentIssues(article.slug, all);
+  const topics = topicsForArticle(topicsConfig, summary);
+  const base = siteUrl();
+  const publication = localizedBrand(locale);
+  const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const modifiedTime = lastCorrection
+    ? `${lastCorrection.date}T00:00:00Z`
+    : fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`;
 
   return (
     <>
       <ReadingProgress />
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": `${base}/#organization`,
+            name: publication.name,
+            url: base,
+          },
+          {
+            "@type": isWeekly ? "Article" : "NewsArticle",
+            headline: fm.title,
+            description: fm.dek,
+            datePublished: fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`,
+            dateModified: modifiedTime,
+            inLanguage: article.lang,
+            mainEntityOfPage: `${base}${localePath(locale, `/articles/${article.slug}`)}`,
+            author: { "@id": `${base}/#organization` },
+            publisher: { "@id": `${base}/#organization` },
+            about: topics.map((topic) => topic.title[locale]),
+            ...(heroPhoto ? { image: `${base}${heroPhoto}` } : {}),
+          },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: publication.name, item: `${base}${localePath(locale, "/")}` },
+              { "@type": "ListItem", position: 2, name: isWeekly ? d.nav.weekly : d.nav.archive, item: `${base}${localePath(locale, isWeekly ? "/weekly" : "/archive")}` },
+              { "@type": "ListItem", position: 3, name: fm.title, item: `${base}${localePath(locale, `/articles/${article.slug}`)}` },
+            ],
+          },
+        ],
+      }} />
 
       {/* Hero panel */}
       <section className={heroPhoto ? "hero enter enter-1" : "hero hero--no-photo enter enter-1"}>
@@ -120,6 +182,9 @@ export default async function ArticlePage({
           />
         ) : null}
       </section>
+
+      <SponsorBlock sponsor={fm.sponsor} />
+      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} locale={locale} />
 
       {/* Body + dispatches sidebar */}
       <section className="article-with-aside enter enter-2">
@@ -166,11 +231,18 @@ export default async function ArticlePage({
       </section>
 
       <section style={{ marginTop: "var(--block-gap)" }}>
+        <CorrectionsNotice corrections={fm.corrections} locale={locale} />
         <GlossaryBlock terms={issueGlossary} locale={locale} />
-        <SourcesBlock sources={fm.sources ?? []} locale={locale} />
+        {topics.length ? (
+          <nav aria-label={locale === "cs" ? "Témata článku" : "Article topics"} style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 32 }}>
+            {topics.map((topic) => <Link key={topic.slug} className="chip" href={localePath(locale, `/topics/${topic.slug}`)}>{topic.title[locale]}</Link>)}
+          </nav>
+        ) : null}
+        <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />
+        <Provenance article={article} locale={locale} />
         <p style={{ marginTop: 24, textAlign: "right" }}>
           <a
-            href={`/articles/${article.slug}/print?lang=${locale}`}
+            href={localePath(locale, `/articles/${article.slug}/print`)}
             className="label"
             target="_blank"
             rel="noopener"
@@ -179,6 +251,8 @@ export default async function ArticlePage({
           </a>
         </p>
         <RelatedIssues items={related} locale={locale} />
+        <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
+        <FeedActions locale={locale} />
       </section>
     </>
   );

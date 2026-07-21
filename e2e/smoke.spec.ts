@@ -5,14 +5,18 @@ const ROUTES = [
   "/cs",
   "/archive",
   "/cs/archive",
-  "/tags",
+  "/topics",
+  "/cs/topics",
+  "/radar",
+  "/weekly",
+  "/about",
+  "/corrections",
   "/sources",
   "/glossary",
-  "/colophon",
   "/health",
-  "/stats",
-  "/trends",
   "/search",
+  "/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
+  "/cs/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
 ];
 
 // Dev-only React warnings the prod static build can't produce. The page is
@@ -99,13 +103,38 @@ test("article body renders inline — no CTA gate", async ({ page }) => {
 test("primary nav lives in the sidebar; ops links in the footer", async ({ page }) => {
   await page.goto("/");
   const sidebar = page.locator(".sidebar");
-  for (const path of ["/archive", "/tags", "/sources", "/glossary", "/colophon"]) {
+  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about"]) {
     await expect(sidebar.locator(`a[href$="${path}"]`).first()).toBeVisible();
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/archive", "/glossary", "/stats", "/trends", "/health"]) {
+  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
+  await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
+});
+
+for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
+  test(`${legacy} permanently resolves to ${current}`, async ({ page }) => {
+    await page.goto(legacy);
+    await expect(page).toHaveURL(new RegExp(`${current}/?$`));
+  });
+}
+
+test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
+  const glossary = page.locator("details").first();
+  if (await glossary.count()) {
+    await glossary.locator("summary").focus();
+    await page.keyboard.press("Enter");
+    await expect(glossary).toHaveAttribute("open", "");
+    await expect(glossary.getByRole("link")).toBeVisible();
+  }
+});
+
+test("legacy Czech print query resolves to the static Czech route", async ({ page }) => {
+  await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print?lang=cs");
+  await expect(page).toHaveURL(/\/cs\/articles\/2026-07-05-deepmind-blitz-anthropic-reckoning\/print$/);
 });
 
 test("language switcher reaches the Czech mirror of the home page", async ({ page }) => {

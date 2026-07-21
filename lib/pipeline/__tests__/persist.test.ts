@@ -21,20 +21,29 @@ const article: WrittenArticle = {
     { title: "Runner one", url: "https://x.test/r1", source: "the-verge" },
     { title: "Runner two", url: "https://x.test/r2", source: "hf-blog" },
   ],
+  usage: [],
   byLocale: {
     cs: {
       title: "Testovací článek",
+      alternativeHeadlines: ["Alternativa jedna", "Alternativa dvě"],
       dek: "Perex.",
       bodyMdx: "První odstavec.\n\n## Sekce\n\nDalší text.",
       illustrationAlt: "Popisek.",
       dispatches,
+      whyItMatters: ["Důvod jedna.", "Důvod dva."],
+      whatChanged: ["Změna."],
+      uncertainty: ["Nejistota."],
     },
     en: {
       title: "Test feature",
+      alternativeHeadlines: ["Alternative one", "Alternative two"],
       dek: "A dek.",
       bodyMdx: "First paragraph.\n\n## A section\n\nMore prose.",
       illustrationAlt: "Alt text.",
       dispatches,
+      whyItMatters: ["Reason one.", "Reason two."],
+      whatChanged: ["A change."],
+      uncertainty: ["An uncertainty."],
     },
   },
 };
@@ -74,13 +83,26 @@ describe("persist", () => {
     expect(cs.data.slug).toBe("2026-05-12-test-feature");
     expect(cs.data.illustration.alt).toBe("Popisek.");
     expect(typeof cs.data.signal_strength).toBe("number");
-    expect(cs.content.trim()).toBe(article.byLocale.cs.bodyMdx.trim());
+    expect(cs.content.trim()).toBe(article.byLocale.cs!.bodyMdx.trim());
 
     const enRaw = await fs.readFile(files[1]!, "utf8");
     const en = matter(enRaw);
     expect(en.data.lang).toBe("en");
     expect(en.data.title).toBe("Test feature");
     expect(en.data.slug).toBe("2026-05-12-test-feature");
-    expect(en.content.trim()).toBe(article.byLocale.en.bodyMdx.trim());
+    expect(en.content.trim()).toBe(article.byLocale.en!.bodyMdx.trim());
+  });
+
+  it("persists only explicitly generated locales", async () => {
+    const englishOnly: WrittenArticle = {
+      ...article,
+      date: "2026-05-13",
+      slug: "2026-05-13-english-only",
+      byLocale: { en: article.byLocale.en! },
+    };
+    const files = await persist({ article: englishOnly, illustrationPath: null });
+    expect(files).toEqual([path.join(tempCwd, "content", "articles", "2026-05-13.en.mdx")]);
+    const parsed = matter(await fs.readFile(files[0]!, "utf8"));
+    expect(parsed.data.translation_of).toBeUndefined();
   });
 });

@@ -90,6 +90,109 @@
   --shadow-subtle: 0 0 0 1px rgba(22, 25, 28, 0.06) inset;
 }
 
+/* Caught Up editorial modules. These stay server-rendered and use the existing
+   paper/ink tokens so the rebrand adds no client-side bundle cost. */
+.editorial-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.editorial-highlights section {
+  border-top: 3px solid var(--color-blueprint-blue);
+  padding: 18px 20px;
+  background: var(--color-canvas);
+}
+
+.editorial-highlights h2,
+.source-ledger h2,
+.corrections-notice h2 {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  margin: 0 0 12px;
+}
+
+.editorial-highlights ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.editorial-highlights li + li { margin-top: 8px; }
+
+.source-ledger {
+  margin-top: var(--section-gap);
+  padding-top: 24px;
+  border-top: 1px solid var(--color-fog);
+}
+
+.table-scroll { overflow-x: auto; }
+.table-scroll:focus-visible { outline-offset: 3px; }
+.source-ledger table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.source-ledger th,
+.source-ledger td { padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-fog); }
+.source-ledger th { font-family: var(--font-sans-loaded), sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-slate); }
+.source-ledger td:first-child { color: var(--color-slate); font-variant-numeric: tabular-nums; }
+.source-ledger td span,
+.source-ledger td a + a { display: block; margin-top: 4px; font-size: var(--text-caption); color: var(--color-slate); }
+
+.provenance {
+  margin-top: 32px;
+  border: 1px solid var(--color-fog);
+  background: var(--color-canvas);
+}
+.provenance summary { cursor: pointer; padding: 14px 16px; font-weight: 700; }
+.provenance dl { margin: 0; padding: 0 16px 12px; }
+.provenance dl div { display: grid; grid-template-columns: minmax(130px, 0.5fr) 1fr; gap: 16px; padding: 8px 0; border-top: 1px solid var(--color-fog); }
+.provenance dt { color: var(--color-slate); }
+.provenance dd { margin: 0; overflow-wrap: anywhere; }
+.provenance > a { display: inline-block; margin: 0 16px 16px; }
+
+.corrections-notice { margin: 32px 0; padding: 20px; border-left: 4px solid #a54829; background: var(--color-canvas); }
+.corrections-notice ul { list-style: none; margin: 0; padding: 0; }
+.corrections-notice li { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; }
+.corrections-notice li + li { margin-top: 14px; }
+.corrections-notice time { color: var(--color-slate); font-variant-numeric: tabular-nums; }
+.corrections-notice strong,
+.corrections-notice span { grid-column: 2; }
+
+.sponsor-block { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 24px 0; padding: 16px; border: 1px solid var(--color-fog); background: var(--color-canvas); }
+.sponsor-block > .label { grid-column: 1 / -1; margin: 0; }
+.sponsor-block img { width: 72px; height: 72px; object-fit: contain; }
+.sponsor-block p { margin: 4px 0; color: var(--color-slate); }
+
+.issue-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: var(--section-gap); }
+.issue-navigation a { display: flex; flex-direction: column; gap: 6px; padding: 16px; border: 1px solid var(--color-fog); background: var(--color-canvas); }
+.issue-navigation a:last-child { text-align: right; }
+.issue-navigation span { font-size: var(--text-caption); color: var(--color-slate); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.feed-actions { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 32px; padding: 20px; border: 1px solid var(--color-fog); background: var(--color-canvas); }
+.feed-actions p { margin: 0 0 4px; }
+
+.topic-grid { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.topic-card { display: flex; height: 100%; flex-direction: column; gap: 10px; padding: 22px; border: 1px solid var(--color-fog); background: var(--color-canvas); }
+.topic-card h2 { margin: 0; font-size: 1.35rem; }
+.topic-card p { margin: 0; color: var(--color-slate); }
+.topic-card .label { margin-top: auto; padding-top: 12px; color: var(--color-blueprint-blue); }
+
+.radar-bars { list-style: none; padding: 0; margin: 0; }
+.radar-bars li { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(140px, 3fr) auto; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--color-fog); }
+.radar-bar { height: 8px; background: var(--color-fog); }
+.radar-bar span { display: block; height: 100%; background: var(--color-blueprint-blue); }
+
+.caught-up-completion { margin: var(--section-gap) 0 0; padding: 32px; text-align: center; border-top: 1px solid var(--color-fog); border-bottom: 1px solid var(--color-fog); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; }
+
+.reading-progress { position: fixed; inset: 0 0 auto; height: 3px; z-index: 11; pointer-events: none; background: var(--color-stone); }
+.reading-progress > div { height: 100%; transform-origin: left; transform: scaleX(0); background: var(--color-blueprint-blue); }
+
+@media (max-width: 640px) {
+  .issue-navigation { grid-template-columns: 1fr; }
+  .issue-navigation a:last-child { text-align: left; }
+  .feed-actions { align-items: flex-start; flex-direction: column; }
+  .radar-bars li { grid-template-columns: 1fr auto; }
+  .radar-bar { grid-column: 1 / -1; }
+  .provenance dl div { grid-template-columns: 1fr; gap: 2px; }
+}
+
 *,
 *::before,
 *::after {
@@ -483,36 +586,6 @@ hr {
 
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; }
-}
-
-/* Baked mesh-gradient backdrop for the lead panel — a static Colorflow-style
-   export, not a runtime library: three OKLab radial stops layered over the
-   canvas. Zero JS, zero images, zero WebGL. It evokes the sci-fi "aurora"
-   depth from the design system while staying light enough that ink-black
-   copy keeps its AA contrast. Dial the whole effect with --hero-mesh: 0
-   removes it, 2 roughly doubles the tint. Guarded by @supports so browsers
-   without color-mix() fall back to the flat --color-canvas set above. */
-@supports (background: radial-gradient(1px 1px at 0 0, color-mix(in oklab, red 10%, transparent), transparent)) {
-  .hero {
-    --hero-mesh: 1;
-    background:
-      radial-gradient(
-        62% 84% at 10% 6%,
-        color-mix(in oklab, var(--color-blueprint-blue) calc(9% * var(--hero-mesh)), transparent),
-        transparent 62%
-      ),
-      radial-gradient(
-        54% 72% at 94% 2%,
-        color-mix(in oklab, var(--color-mint) calc(6% * var(--hero-mesh)), transparent),
-        transparent 58%
-      ),
-      radial-gradient(
-        72% 92% at 82% 104%,
-        color-mix(in oklab, var(--color-blueprint-blue) calc(7% * var(--hero-mesh)), transparent),
-        transparent 60%
-      ),
-      var(--color-canvas);
-  }
 }
 
 .hero__eyebrow {
@@ -1024,45 +1097,48 @@ svg { max-width: 100%; }
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Route transitions (native View Transitions API)                     */
-/*                                                                     */
-/* Enabled by experimental.viewTransition in next.config.mjs and the   */
-/* <PageTransition> wrapper in app/[lang]/layout.tsx. React drives the  */
-/* browser's startViewTransition on navigation; we only tune the       */
-/* default crossfade to the magazine's motion tokens. Adds zero client  */
-/* JS of our own and no-ops where the API is unsupported.              */
-/* ------------------------------------------------------------------ */
-
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: var(--dur-medium);
-    animation-timing-function: var(--ease-in-out);
-  }
+/* Editorial archive cards carry enough context to evaluate an issue without
+   turning the archive into a second homepage. */
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
 }
 
-/* Anchor the sidebar so it stays put while the content crossfades —
-   one fixed reference point reads as "content changed", not "page
-   reloaded". A stable name pulls it out of the root snapshot; killing
-   its animation swaps it instantly (active-item highlight included). */
-.sidebar {
-  view-transition-name: site-sidebar;
-}
-::view-transition-group(site-sidebar),
-::view-transition-old(site-sidebar),
-::view-transition-new(site-sidebar) {
-  animation: none;
+.archive-card {
+  display: block;
+  padding: 20px;
+  color: inherit;
+  border: 1px solid var(--color-fog);
+  background: var(--color-paper);
+  text-decoration: none;
 }
 
-/* Directional slides are the biggest motion-sensitivity trigger; a hard
-   off-switch drops every route transition back to the browser's instant
-   swap for readers who ask for reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
+.archive-card:hover {
+  border-color: var(--color-blueprint-blue);
+}
+
+.archive-card h2 {
+  margin: 8px 0;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+}
+
+.archive-card p {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--color-slate);
+}
+
+.archive-card__meta,
+.archive-card__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.archive-card__topics {
+  margin-top: 14px;
+  gap: 8px;
 }

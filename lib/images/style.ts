@@ -1,4 +1,4 @@
 export const STYLE_SUFFIX =
-  ", futuristic sci-fi magazine cover illustration, deep space palette, " +
-  "cyan and magenta accents, cinematic volumetric lighting, intricate " +
-  "but legible composition, 35mm grain, no text, no logos, no watermark";
+  ", restrained editorial magazine illustration, calm high-contrast palette, " +
+  "clear geometric composition, subtle print grain, no gradients, no neon, " +
+  "no robots, no glowing brains, no circuit-board motifs, no text, no logos, no watermark";
