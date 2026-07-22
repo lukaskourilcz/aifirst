@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-export function GlowLink({ href, children }: { href: string; children: ReactNode }) {
+export function MdxLink({ href, children }: { href: string; children: ReactNode }) {
   const external = /^https?:\/\//.test(href);
   if (external) {
     return (

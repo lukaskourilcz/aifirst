@@ -2,14 +2,13 @@ import sharp from "sharp";
 import type { ImageProvider, ImageSize } from "./provider.js";
 import { parseSize } from "./provider.js";
 
-// Placeholder provider — generates a flat coloured panel so the pipeline
-// can run end-to-end without a paid API. Use IMAGE_PROVIDER=fal for real.
+// No-cost compatibility provider used by focused adapter tests. The pipeline
+// short-circuits this provider and persists no illustration path.
 const provider: ImageProvider = {
   id: "none",
   async generate(_prompt: string, opts: { size: ImageSize; seed?: number }) {
     const [w, h] = parseSize(opts.size);
-    // Paper-toned placeholder so the cream canvas reads consistently when no
-    // real provider is wired. Matches the Hashnode --color-paper token.
+    // Paper-toned test output aligned with the publication reading surface.
     const buf = await sharp({
       create: {
         width: w,

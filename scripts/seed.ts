@@ -26,6 +26,9 @@ type Seed = {
   digest?: { from: string; to: string; covered_slugs: string[] };
 };
 
+// Historical seed corpus used to reproduce the committed legacy issues. Its
+// illustration descriptions are fixtures, not the current media direction in
+// docs/design/HIGGSFIELD_ART_DIRECTION.md.
 const seeds: Seed[] = [
   {
     date: "2026-05-10",
@@ -202,17 +205,6 @@ async function makeIllustration(seed: Seed, dir: string) {
   return file;
 }
 
-async function makePlaceholder(dir: string) {
-  const file = path.join(dir, "placeholder.webp");
-  const svg =
-    '<svg width="1536" height="1024" xmlns="http://www.w3.org/2000/svg">' +
-    '<rect width="100%" height="100%" fill="#0a0f1f"/>' +
-    '<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="48" fill="#8a93b8">illustration pending</text>' +
-    "</svg>";
-  const buf = await sharp(Buffer.from(svg)).webp({ quality: 84 }).toBuffer();
-  await fs.writeFile(file, buf);
-}
-
 async function main() {
   const articlesDir = path.join(process.cwd(), "content", "articles");
   const imagesDir = path.join(process.cwd(), "public", "illustrations");
@@ -250,7 +242,6 @@ async function main() {
     const img = await makeIllustration(seed, imagesDir);
     console.error(`[seed] ${seed.date}${seed.filenameSuffix ?? ""} -> ${outFile} + ${img}`);
   }
-  await makePlaceholder(imagesDir);
   console.error("[seed] done");
 }
 

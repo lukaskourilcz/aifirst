@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { GlowLink } from "./GlowLink";
+import { MdxLink } from "./MdxLink";
 import { slugify } from "@/lib/text";
 
 function nodeText(children: ReactNode): string {
@@ -43,7 +43,7 @@ function AnchoredHeading({
 
 const components = {
   a: ({ href, children }: { href?: string; children?: ReactNode }) => (
-    <GlowLink href={href ?? "#"}>{children}</GlowLink>
+    <MdxLink href={href ?? "#"}>{children}</MdxLink>
   ),
   h2: ({ children }: { children?: ReactNode }) => (
     <AnchoredHeading level={2}>{children}</AnchoredHeading>

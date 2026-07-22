@@ -6,7 +6,8 @@ import { parseSize } from "./provider.js";
 // NASA Astronomy Picture of the Day. Keyless: defaults to DEMO_KEY (30 req/hr,
 // 50/day — ample for a once-daily pipeline; set NASA_API_KEY for headroom).
 // APOD ignores the text prompt and returns that day's real space photograph,
-// which suits the magazine's sci-fi cover aesthetic. Some days APOD is a video;
+// which can suit science or infrastructure coverage when editorially relevant.
+// Some days APOD is a video;
 // on that (or any failure) we fall back to a flat panel so the daily job never
 // breaks. Docs: https://api.nasa.gov
 type ApodResponse = {
