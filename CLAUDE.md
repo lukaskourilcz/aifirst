@@ -95,6 +95,12 @@ on 2026-07-22. Start a fresh Codex session so its callable tools and schemas are
 loaded, then inspect them before generation; configuration alone is not proof
 that a particular model, tool, output format, or limit exists.
 
+The 2026-07-22 production attempt confirmed the schemas but both Recraft V4.1
+and Z Image submits were rejected because the active trial permits generation
+only on the Higgsfield website. Do not retry or route around this plan gate.
+Continue MCP asset production only after the operator activates an MCP-capable
+plan; see `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` for evidence and briefs.
+
 If the actual Higgsfield MCP is unavailable, defer the media subtask: do not research it, connect/wait, invent tools, use another generator, or create placeholder production assets. Continue all non-media work. When available, follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and record real provenance in `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
 
 ## Responsive, accessibility, localization, and states

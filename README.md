@@ -218,4 +218,4 @@ See [`NEEDED.md`](NEEDED.md) for the exact remaining operator checklist.
 - [`docs/design/DESIGN_THESIS.md`](docs/design/DESIGN_THESIS.md) and [`docs/design/BRAND_SYSTEM.md`](docs/design/BRAND_SYSTEM.md) — product and identity direction
 - [`docs/design/DESIGN_SYSTEM.md`](docs/design/DESIGN_SYSTEM.md) — implemented tokens, composition, motion, responsive and print rules
 - [`docs/design/VISUAL_QA.md`](docs/design/VISUAL_QA.md) — actual route/viewport review protocol and findings
-- [`docs/design/HIGGSFIELD_ASSET_MANIFEST.md`](docs/design/HIGGSFIELD_ASSET_MANIFEST.md) — queued Higgsfield production inventory and provenance requirements; the MCP is connected for the next session, but no assets have been generated yet
+- [`docs/design/HIGGSFIELD_ASSET_MANIFEST.md`](docs/design/HIGGSFIELD_ASSET_MANIFEST.md) — queued Higgsfield production briefs, MCP attempt evidence and provenance requirements; the connection works, but the active trial has not permitted asset generation

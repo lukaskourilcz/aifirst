@@ -22,11 +22,21 @@ If the Higgsfield MCP is absent:
 - do not create fake or placeholder production assets;
 - record the exact deferred deliverable and continue all non-media work.
 
+## Plan and cost gate
+
+Before the first submit in a session, call `balance`, inspect the selected
+workspace, and use `generate_image` with `get_cost: true`. The active 2026-07-22
+trial rejected both Recraft V4.1 and Z Image with
+`only_website_usage_on_trial_is_available`; see the asset manifest. Do not retry
+other models or route around that response. Resume only after the operator
+intentionally activates an MCP-capable plan. Never purchase, upgrade, enable
+auto-refill, or accept a paid commitment without explicit authority.
+
 ## Production workflow
 
 When the actual MCP is available:
 
-1. Confirm the media improves recognition or comprehension; reject filler.
+1. Confirm the plan/cost gate passes and the media improves recognition or comprehension; reject filler.
 2. Define route, purpose, aspect ratios, text-safe region, mobile crop, performance target, and alt-text class.
 3. Use the Editorial Evidence Collage direction in the art-direction document.
 4. Generate several materially different variants; never select the first usable output automatically.

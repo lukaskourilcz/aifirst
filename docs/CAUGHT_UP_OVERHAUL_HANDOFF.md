@@ -63,16 +63,18 @@ The committed archive contains legacy MDX only. Do not fabricate a schema-v2 iss
 
 ## Higgsfield production handoff
 
-The Higgsfield MCP was unavailable during the overhaul, so no substitute generator, placeholder asset, or fake production media was used. It is now globally registered in Codex as `higgsfield` at `https://mcp.higgsfield.ai/mcp`, and `codex mcp login higgsfield` completed successfully on 2026-07-22. No asset generation has started, and the interface remains complete without these assets.
+The Higgsfield MCP was unavailable during the overhaul, so no substitute generator, placeholder asset, or fake production media was used. It is now globally registered in Codex as `higgsfield` at `https://mcp.higgsfield.ai/mcp`, and `codex mcp login higgsfield` completed successfully on 2026-07-22. A restarted session loaded the tools and verified model discovery, workspace state, balance, and cost preflight.
 
-Restart the Codex CLI/app before continuing because the current session cannot hot-load newly available MCP tools. In the fresh session:
+Actual generation is blocked by the active trial plan. Four-image Recraft V4.1 and Z Image launch batches were each rejected before a job was created with `only_website_usage_on_trial_is_available`. Request IDs: `54886de9-e6f9-465a-bd7e-ec96300a1251` and `d2f91506-3e3e-4d1c-b115-e43e0921acbc`. The balance remained 10 credits, no media exists, and the interface remains complete without it.
 
-1. Run `codex mcp get higgsfield` and confirm the URL and enabled state.
-2. Inspect the callable Higgsfield tools, schemas, models, output formats, and limits; do not infer capabilities from the endpoint alone.
-3. Read `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
-4. Inspect the real target component and prepared media hook before generating.
-5. Begin with `launch-evidence-key-visual`, produce materially different variants, reject generic/defective output, and only then refine responsive exports.
-6. Integrate selected local assets, update actual provenance in the manifest, validate crops/accessibility/performance, and commit only accepted production files.
+After the operator intentionally activates an MCP-capable plan:
+
+1. Confirm `balance` reports the paid plan and do one cost preflight.
+2. Read `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
+3. Begin with the documented `launch-evidence-key-visual` prompt and produce four materially different 16:9 variants.
+4. Reject generic/defective output before producing Topic and Weekly batches.
+5. Integrate only selected local assets, update actual provenance in the manifest, and validate crops/accessibility/performance.
+6. Commit only accepted production files; never commit rejected downloads or temporary outputs.
 
 The queued inventory is:
 
@@ -91,4 +93,4 @@ Do not generate a new logo: the completion-period vector is the finished mark. D
 - The Next.js 15/React shared runtime is approximately 102 kB gzip; the enforced and passing page-entry limit is 110 kB. Do not revive the obsolete 80 kB total claim without an intentional framework/read-architecture change.
 - Operator deployment credentials and budget decisions remain in `NEEDED.md`; do not invent or commit them.
 
-The next planned continuation is Higgsfield production. Operator integration remains separate and optional.
+The next planned continuation is Higgsfield production after the paid-plan decision. Operator integration remains separate and optional.

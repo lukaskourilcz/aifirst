@@ -28,7 +28,7 @@ repository, so the required items are not merely documentation placeholders.
 
 ## Optional enhancements
 
-- [ ] **Run the queued Higgsfield media production in a fresh Codex session** — the global `higgsfield` MCP entry and OAuth login are ready. Inspect its actual callable schemas, then follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`. Do not substitute another generator or add placeholder production assets. The current reader UI and deterministic Open Graph/Weekly identity work without it. `[imp:2]` `[owner:me]`
+- [ ] **Activate an MCP-capable Higgsfield plan, then run the queued media production** — connection, OAuth, model discovery and cost preflight work, but the active trial rejects generation through MCP. Use the [Higgsfield MCP upgrade path](https://higgsfield.ai/mcp-pricing?new_price_id=price_1TDRddCmk0pn4HuHzmd59zw3&seats=1&dry_run=True&source=mcp) only if the paid annual commitment is intentional, then follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`. Do not substitute another generator or add placeholder production assets. `[imp:2]` `[owner:me]`
 
 - [ ] **Choose a scheduled illustration provider** — edit `illustration.provider` in `config/editorial.yml` (`none`, `nasa`, `picsum`, or `fal`). `none` is the zero-cost default; `nasa` and `picsum` need no paid account; `fal` requires `FAL_KEY`. A GitHub `IMAGE_PROVIDER` variable may override the committed default for scheduled runs. `[imp:2]` `[owner:me]`
 - [ ] **Connect OwnDashboard telemetry** — add `OWNDASHBOARD_RUN_REPORT_URL` and `OWNDASHBOARD_RUN_REPORT_TOKEN` as Actions secrets after the receiving endpoint exists. The callback is bounded and non-fatal; Actions artifacts remain available for 30 days. `[imp:3]` `[owner:me]`
@@ -44,7 +44,8 @@ repository, so the required items are not merely documentation placeholders.
   the validated design/agent overhaul is pushed on its review branch.
 - The global Codex MCP server `higgsfield` points to
   `https://mcp.higgsfield.ai/mcp` and completed OAuth login on 2026-07-22; a
-  fresh session is required to load its tools.
+  fresh session loaded and verified its tools. The current trial plan remains a
+  generation blocker, not an integration failure.
 - The reading progress bar is native and adds no Motion dependency.
 - Scheduled workflows use committed editorial, model, review, publishing and
   illustration defaults, with optional validated workflow overrides.

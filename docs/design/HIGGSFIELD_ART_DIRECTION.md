@@ -11,6 +11,14 @@ limits before production. The interface already provides deterministic layout
 hooks so approved media can be added without changing editorial data or route
 behavior.
 
+The restarted session confirmed `generate_image`, `models_explore`, `balance`,
+workspace and generation-history tools. Recraft V4.1 supports controlled color,
+1K/2K output and the required aspect ratios; Z Image provides a lighter-weight
+text-to-image fallback. Both actual submits were rejected before job creation
+because the active trial permits generation only on the Higgsfield website.
+Production through MCP therefore waits on an intentional paid-plan decision,
+not more integration work.
+
 ## Opportunity audit
 
 | Opportunity | Decision | Reason |

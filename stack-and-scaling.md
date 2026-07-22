@@ -117,9 +117,11 @@ hard run budget is configured, the pipeline refuses to persist a paid image
 whose cost it cannot prove.
 
 Higgsfield production did not run during the overhaul because its MCP was
-unavailable then. The MCP was later registered and authenticated for the next
-Codex session, but no generation was started: Higgsfield spend remains $0, and
-no substitute media, placeholder, or runtime integration was introduced.
+unavailable then. The MCP was later registered, authenticated and inspected.
+Four-image preflights reported 1.25 credits for Recraft V4.1 and 0.15 credits
+for Z Image, but the active trial rejected both submits before creating a job or
+deducting credits. Higgsfield spend remains $0, and no substitute media,
+placeholder, or runtime integration was introduced.
 
 ## GitHub Actions cost
 

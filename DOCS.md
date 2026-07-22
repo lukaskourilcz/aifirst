@@ -309,7 +309,10 @@ available for the 2026-07-22 overhaul, so no generated or substitute assets
 were added. The global Codex MCP server `higgsfield` was subsequently registered
 and authenticated at `https://mcp.higgsfield.ai/mcp` for a fresh session.
 `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` lists the queued deliverables and the
-provenance required after real generation.
+provenance required after real generation. Its actual schemas and cost
+preflights were subsequently verified, but the active trial rejected MCP image
+submits before creating jobs; media production now requires an MCP-capable
+Higgsfield plan.
 
 Project AI instructions live in `CLAUDE.md`, `AGENTS.md`, and `.claude/`.
 They require reuse, mobile/Czech/keyboard validation, semantic tokens,
