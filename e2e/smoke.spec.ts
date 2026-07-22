@@ -54,9 +54,10 @@ async function assertNoHorizontalOverflow(page: Page) {
 for (const route of ROUTES) {
   test(`renders ${route} cleanly`, async ({ page }) => {
     const errors = attachConsoleProbe(page);
-    const resp = await page.goto(route, { waitUntil: "networkidle" });
+    const resp = await page.goto(route, { waitUntil: "domcontentloaded" });
     expect(resp?.status(), `non-200 on ${route}`).toBeLessThan(400);
-    await expect(page.locator("h1").first()).toBeVisible();
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("h1")).toBeVisible();
     await assertNoHorizontalOverflow(page);
     expect(errors, `console errors on ${route}:\n${errors.join("\n")}`).toEqual([]);
   });
@@ -64,13 +65,15 @@ for (const route of ROUTES) {
 
 test("home: shell sidebar, hero panel, article body, recent feed render", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".sidebar").first()).toBeVisible();
-  await expect(page.locator(".sidebar__brand").first()).toBeVisible();
-  await expect(page.locator(".hero").first()).toBeVisible();
-  await expect(page.locator(".hero__title").first()).toBeVisible();
-  await expect(page.locator(".article-with-aside__main").first()).toBeVisible();
+  await expect(page.locator(".sidebar")).toBeVisible();
+  await expect(page.locator(".sidebar__brand")).toBeVisible();
+  await expect(page.locator(".hero")).toBeVisible();
+  await expect(page.locator(".hero__title")).toBeVisible();
+  await expect(page.locator(".article-with-aside__main")).toBeVisible();
   // Recent issues are rendered as post cards
-  await expect(page.locator(".post-card").first()).toBeVisible();
+  const postCards = page.locator(".post-card");
+  expect(await postCards.count()).toBeGreaterThan(0);
+  await expect(postCards.nth(0)).toBeVisible();
 });
 
 test("dispatches sidebar exists and is bounded to the article column", async ({ page, viewport }) => {
@@ -78,8 +81,8 @@ test("dispatches sidebar exists and is bounded to the article column", async ({ 
   // invariant only applies on desktop.
   test.skip((viewport?.width ?? 0) < 1000, "two-column layout only ≥1000px");
   await page.goto("/");
-  const main = page.locator(".article-with-aside__main").first();
-  const side = page.locator(".article-with-aside__side").first();
+  const main = page.locator(".article-with-aside__main");
+  const side = page.locator(".article-with-aside__side");
   await expect(side).toBeVisible();
   const [mainBox, sideBox] = await Promise.all([
     main.boundingBox(),
@@ -96,7 +99,9 @@ test("article body renders inline — no CTA gate", async ({ page }) => {
   await page.goto("/");
   // The first article paragraph (Mdx output) should be visible without any
   // additional click.
-  const body = page.locator(".article-body p").first();
+  const paragraphs = page.locator(".article-body p");
+  expect(await paragraphs.count()).toBeGreaterThan(0);
+  const body = paragraphs.nth(0);
   await expect(body).toBeVisible();
 });
 
@@ -104,7 +109,7 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
   await page.goto("/");
   const sidebar = page.locator(".sidebar");
   for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about"]) {
-    await expect(sidebar.locator(`a[href$="${path}"]`).first()).toBeVisible();
+    await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
   }
   const footer = page.locator("nav.footer-nav");
   for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
@@ -123,12 +128,13 @@ for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
-  const glossary = page.locator("details").first();
-  if (await glossary.count()) {
-    await glossary.locator("summary").focus();
+  const details = page.locator("details.provenance");
+  if (await details.count()) {
+    expect(await details.count()).toBe(1);
+    await details.locator("summary").focus();
     await page.keyboard.press("Enter");
-    await expect(glossary).toHaveAttribute("open", "");
-    await expect(glossary.getByRole("link")).toBeVisible();
+    await expect(details).toHaveAttribute("open", "");
+    await expect(details.getByRole("link")).toBeVisible();
   }
 });
 
@@ -139,7 +145,7 @@ test("legacy Czech print query resolves to the static Czech route", async ({ pag
 
 test("language switcher reaches the Czech mirror of the home page", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: /čeština/i }).first().click();
+  await page.getByRole("link", { name: /čeština/i }).click();
   await expect(page).toHaveURL(/\/cs\/?$/);
   await expect(page.locator(".hero__title")).toBeVisible();
 });
@@ -148,7 +154,9 @@ test("inline links carry the Blueprint Blue (#1d52de)", async ({ page }) => {
   await page.goto("/");
   // The first <a> inside .article-body is the heading-anchor link (slate by
   // design); the editorial in-body links come right after.
-  const link = page.locator(".article-body a:not(.anchor-link)").first();
+  const links = page.locator(".article-body a:not(.anchor-link)");
+  expect(await links.count()).toBeGreaterThan(0);
+  const link = links.nth(0);
   await expect(link).toBeVisible();
   const color = await link.evaluate((el) => getComputedStyle(el).color);
   expect(color, "article links should use blueprint blue rgb(29,82,222)").toBe(
@@ -175,13 +183,16 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
   await skip.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
 
-  const trigger = page.getByRole("button", { name: /search|hledat/i }).first();
+  const trigger = page.getByRole("button", { name: /search|hledat/i });
   await trigger.click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
   const input = dialog.getByRole("textbox");
   await expect(input).toBeFocused();
-  const lastLink = dialog.getByRole("link").last();
+  const dialogLinks = dialog.getByRole("link");
+  const dialogLinkCount = await dialogLinks.count();
+  expect(dialogLinkCount).toBeGreaterThan(0);
+  const lastLink = dialogLinks.nth(dialogLinkCount - 1);
   await lastLink.focus();
   await page.keyboard.press("Tab");
   await expect(input).toBeFocused();
@@ -221,6 +232,37 @@ test("source evidence class stays separate and reduced motion disables entrances
   await page.goto("/");
   const headers = await page.locator(".source-ledger th").allTextContents();
   expect(headers.join(" ")).toMatch(/evidence class|třída důkazu/i);
-  const animationName = await page.locator(".enter").first().evaluate((element) => getComputedStyle(element).animationName);
+  const entrances = page.locator(".enter");
+  expect(await entrances.count()).toBeGreaterThan(0);
+  const animationName = await entrances.nth(0).evaluate((element) => getComputedStyle(element).animationName);
   expect(animationName).toBe("none");
+});
+
+test("brand, completion, and no-media states are deterministic", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".brand-mark")).toHaveCount(2);
+  await expect(page.locator(".caught-up-completion")).toContainText("caught up");
+  await expect(page.locator(".hero--no-photo")).toBeVisible();
+  await page.goto("/topics");
+  await expect(page.locator(".topic-media")).toHaveCount(0);
+});
+
+test("health and operator-adjacent routes remain private", async ({ page, request }) => {
+  await page.goto("/health");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
+  const promotion = await request.get("/promotion", { maxRedirects: 0 });
+  expect(promotion.status()).toBe(404);
+  await page.goto("/admin");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
+});
+
+test("public JSON contracts and security headers remain available", async ({ request }) => {
+  for (const route of ["/api/today.json", "/api/weekly.json", "/api/topics.json", "/api/radar.json", "/api/health.json"]) {
+    const response = await request.get(route);
+    expect(response.ok(), route).toBe(true);
+    expect(response.headers()["content-type"]).toContain("application/json");
+  }
+  const home = await request.get("/");
+  expect(home.headers()["content-security-policy"]).toBeTruthy();
+  expect(home.headers()["x-frame-options"]).toBe("DENY");
 });

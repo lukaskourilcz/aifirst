@@ -8,6 +8,10 @@ const BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: "./e2e",
+  // Route compilation can briefly queue behind the responsive audit when the
+  // suite exercises the development server with four workers. Keep failures
+  // deterministic without weakening any individual assertion.
+  timeout: 60_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -27,6 +31,7 @@ export default defineConfig({
     },
     {
       name: "tablet",
+      testIgnore: /audit\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 820, height: 1180 },
@@ -36,6 +41,7 @@ export default defineConfig({
     },
     {
       name: "mobile",
+      testIgnore: /audit\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 390, height: 844 },

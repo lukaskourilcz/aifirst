@@ -9,10 +9,16 @@ import fs from "node:fs/promises";
 
 const ROUTES = [
   "/",
+  "/cs",
+  "/articles/2026-07-05-deepmind-blitz-anthropic-reckoning",
+  "/articles/2026-05-10-the-weekend-the-context-windows-cracked-open",
+  "/articles/2026-05-10-the-weekend-the-context-windows-cracked-open/print",
   "/archive",
   "/topics",
+  "/topics/ai-models",
   "/radar",
   "/weekly",
+  "/search",
   "/sources",
   "/glossary",
   "/about",
@@ -34,6 +40,8 @@ type Finding = {
 
 const findings: Finding[] = [];
 
+test.describe.configure({ mode: "serial" });
+
 test.beforeAll(async () => {
   await fs.mkdir(OUT_DIR, { recursive: true });
 });
@@ -45,7 +53,7 @@ test.afterAll(async () => {
 });
 
 async function probe(page: Page, route: string, viewport: string) {
-  await page.goto(route, { waitUntil: "networkidle" });
+  await page.goto(route, { waitUntil: "domcontentloaded" });
   const metrics = await page.evaluate(() => {
     const doc = document.documentElement;
     const main = document.querySelector(".shell__main");
@@ -78,16 +86,20 @@ for (const route of ROUTES) {
   test(`audit desktop ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await probe(page, route, "desktop");
-    expect(true).toBe(true);
+    expect(findingFor(route, "desktop")?.fillRatio).toBeGreaterThanOrEqual(1);
   });
   test(`audit tablet ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 820, height: 1180 });
     await probe(page, route, "tablet");
-    expect(true).toBe(true);
+    expect(findingFor(route, "tablet")?.fillRatio).toBeGreaterThanOrEqual(1);
   });
   test(`audit mobile ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await probe(page, route, "mobile");
-    expect(true).toBe(true);
+    expect(findingFor(route, "mobile")?.fillRatio).toBeGreaterThanOrEqual(1);
   });
+}
+
+function findingFor(route: string, viewport: string) {
+  return findings.find((finding) => finding.route === route && finding.viewport === viewport);
 }
