@@ -4,6 +4,7 @@ import { TagChip } from "@/components/TagChip";
 import { listArticlesByTag, listTagsByFrequency } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { PageShell } from "@/components/PageShell";
 
 export const dynamic = "force-static";
 
@@ -35,35 +36,17 @@ export default async function TagPage({
   if (issues.length === 0) notFound();
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label">{t.kicker}</p>
-      <h1 style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
-        <span style={{ color: "var(--color-blueprint-blue)" }}>#</span>
-        {tag}
-      </h1>
-      <p
-        style={{
-          color: "var(--ink-muted)",
-          marginBottom: "3em",
-          fontFamily: "var(--font-display)",
-          fontSize: "0.8rem",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          display: "flex",
-          gap: 16,
-          alignItems: "center",
-        }}
-      >
+    <PageShell kicker={t.kicker} title={tag}>
+      <p className="tag-detail__meta">
         <span>{issues.length} {t.issues}</span>
         <a
           href={lp(`/tags/${encodeURIComponent(tag)}/feed.xml`)}
           className="label"
-          style={{ color: "var(--color-blueprint-blue)" }}
         >
           {common.atomFeed} ↗
         </a>
       </p>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+      <ul className="dense-list">
         {issues.map((a) => (
           <IssueRow
             key={a.slug}
@@ -73,14 +56,7 @@ export default async function TagPage({
             padding="16px 0"
             variant="meta"
             trailing={
-              <span
-                style={{
-                  display: "flex",
-                  gap: 6,
-                  flexWrap: "wrap",
-                  justifyContent: "flex-end",
-                }}
-              >
+              <span className="tag-detail__related">
                 {(a.tags ?? [])
                   .filter((x) => x !== tag)
                   .slice(0, 2)
@@ -92,6 +68,6 @@ export default async function TagPage({
           />
         ))}
       </ul>
-    </section>
+    </PageShell>
   );
 }

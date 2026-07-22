@@ -29,4 +29,22 @@ describe("topic configuration", () => {
     const topic = { id: "a", slug: "same", title: { en: "A", cs: "A" }, description: { en: "A", cs: "A" }, tags: ["a"], aliases: [], featured: true, order: 1, enabled: true };
     expect(validateTopicsConfig({ schemaVersion: 1, minimumIssues: 1, topics: [topic, { ...topic, id: "b" }] })).toContain("duplicate topic slug: same");
   });
+
+  it("accepts optional local topic media and rejects remote paths", () => {
+    const topic = {
+      id: "a",
+      slug: "a",
+      title: { en: "A", cs: "A" },
+      description: { en: "A", cs: "A" },
+      tags: ["a"],
+      aliases: [],
+      featured: true,
+      order: 1,
+      enabled: true,
+      cover: { path: "/media/topics/a.webp", alt: { en: "Evidence collage", cs: "Koláž důkazů" } },
+    };
+    expect(validateTopicsConfig({ schemaVersion: 1, minimumIssues: 1, topics: [topic] })).toEqual([]);
+    expect(validateTopicsConfig({ schemaVersion: 1, minimumIssues: 1, topics: [{ ...topic, cover: { ...topic.cover, path: "https://example.com/a.webp" } }] }))
+      .toContain("topics[0].cover must contain an absolute public path");
+  });
 });

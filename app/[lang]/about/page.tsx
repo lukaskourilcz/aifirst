@@ -33,8 +33,10 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
   ] as const;
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
-      {sections.map(([id, title, body]) => <section id={id} key={id} style={{ marginTop: 48, maxWidth: "72ch" }}><h2>{title}</h2><p>{body}</p></section>)}
-      <nav aria-label={locale === "cs" ? "Transparentnost" : "Transparency"} style={{ display: "flex", flexWrap: "wrap", gap: 20, marginTop: 48 }}>
+      <div className="about-sections">
+        {sections.map(([id, title, body], index) => <section id={id} key={id}><span className="label" aria-hidden>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{body}</p></div></section>)}
+      </div>
+      <nav aria-label={locale === "cs" ? "Transparentnost" : "Transparency"} className="trust-links">
         <Link href={localePath(locale, "/sources")}>{t.sourceDirectory} →</Link>
         <Link href={localePath(locale, "/corrections")}>{t.corrections} →</Link>
         <Link href={localePath(locale, "/glossary")}>{dict(locale).nav.glossary} →</Link>

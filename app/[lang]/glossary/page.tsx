@@ -22,59 +22,47 @@ export default async function GlossaryPage({
   const { lang: locale } = await params;
   const tr = dict(locale).glossary;
   const terms = await loadGlossary();
-  const grouped = groupBy(terms, (t) => (t.tags ?? [])[0] ?? "other");
+  const sortedTerms = [...terms].sort((a, b) => a.term.localeCompare(b.term, locale));
+  const grouped = groupBy(sortedTerms, (term) => term.term.trim().charAt(0).toLocaleUpperCase(locale) || "#");
   const groups = [...grouped.entries()].sort((a, b) =>
-    a[0].localeCompare(b[0]),
+    a[0].localeCompare(b[0], locale),
   );
 
   return (
     <PageShell kicker={tr.kicker} title={tr.title} intro={tr.intro}>
+      {groups.length ? (
+        <nav className="glossary-index" aria-label={locale === "cs" ? "Abecední rejstřík" : "Alphabetical index"}>
+          {groups.map(([group]) => <a key={group} href={`#letter-${encodeURIComponent(group)}`}>{group}</a>)}
+        </nav>
+      ) : null}
       {groups.map(([group, items]) => (
-        <section key={group} style={{ marginBottom: 48 }}>
-          <p className="label" style={{ marginBottom: 16 }}>
+        <section key={group} id={`letter-${group}`} className="glossary-group">
+          <p className="label glossary-group__letter">
             {group}
           </p>
-          <dl style={{ margin: 0 }}>
+          <dl className="glossary-list">
             {items.map((t) => (
               <div
                 key={t.term}
                 id={slugForTerm(t.term)}
-                className="def-row"
-                style={{
-                  scrollMarginTop: 80,
-                  padding: "16px 0",
-                  borderBottom: "1px solid var(--color-fog)",
-                }}
+                className="def-row glossary-entry"
               >
                 <dt>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      color: "var(--color-blueprint-blue)",
-                      fontSize: "1.05rem",
-                      margin: "0 0 4px",
-                    }}
-                  >
+                  <p className="glossary-entry__term">
                     {t.term}
                   </p>
                   {t.aliases.length > 0 && (
-                    <p
-                      className="label"
-                      style={{ margin: 0, color: "var(--ink-dim)" }}
-                    >
+                    <p className="label label--muted glossary-entry__meta">
                       {tr.aka} {t.aliases.join(" · ")}
                     </p>
                   )}
                   {t.first_seen && (
-                    <p
-                      className="label"
-                      style={{ margin: "4px 0 0", color: "var(--ink-dim)" }}
-                    >
+                    <p className="label label--muted glossary-entry__meta">
                       {tr.firstSeen} {t.first_seen}
                     </p>
                   )}
                 </dt>
-                <dd style={{ margin: 0, color: "var(--ink-muted)" }}>
+                <dd>
                   {glossaryDefinition(t, locale)}
                 </dd>
               </div>
@@ -84,7 +72,7 @@ export default async function GlossaryPage({
       ))}
 
       {terms.length === 0 && (
-        <p className="label" style={{ color: "var(--ink-dim)" }}>
+        <p className="label label--muted route-empty-state">
           {tr.empty}
         </p>
       )}

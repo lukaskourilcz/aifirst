@@ -11,6 +11,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { siteUrl } from "@/lib/config";
 import { brand } from "@/lib/brand";
+import Link from "next/link";
 
 export const dynamic = "force-static";
 
@@ -43,11 +44,12 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
       }} />
       <FeedActions locale={locale} weekly />
       {latest ? (
-        <section style={{ marginTop: "var(--section-gap)" }}>
-          <p className="label label--accent">{t.latest}</p>
-          <h2><a href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</a></h2>
-          {latest.dek ? <p style={{ maxWidth: "68ch", color: "var(--color-slate)" }}>{latest.dek}</p> : null}
-          <p className="label">
+        <section className="weekly-cover">
+          <div className="weekly-cover__index" aria-hidden>W</div>
+          <p className="label label--accent weekly-cover__kicker">{t.latest}</p>
+          <h2><Link href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</Link></h2>
+          {latest.dek ? <p className="weekly-cover__dek">{latest.dek}</p> : null}
+          <p className="label weekly-cover__meta">
             {latest.digest ? `${t.dateRange}: ${latest.digest.from} → ${latest.digest.to}` : latest.date}
             {(latest.tags ?? []).filter((tag) => tag !== "weekly").length
               ? ` · ${t.topics}: ${(latest.tags ?? []).filter((tag) => tag !== "weekly").join(", ")}`
@@ -56,14 +58,14 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
         </section>
       ) : null}
       {issues.length > 1 ? (
-        <section style={{ marginTop: "var(--section-gap)" }}>
+        <section className="route-section">
           <h2>{t.archive}</h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
+          <ul className="dense-list">
             {issues.slice(1).map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.digest ? `${article.digest.from} → ${article.digest.to}` : article.date} title={article.title} variant="meta" trailing={<span className="label">{(article.tags ?? []).filter((tag) => tag !== "weekly").slice(0, 2).join(" · ")}</span>} />)}
           </ul>
         </section>
       ) : null}
-      {!latest ? <p style={{ marginTop: 32 }}>{t.empty}</p> : null}
+      {!latest ? <p className="route-empty-state">{t.empty}</p> : null}
     </PageShell>
   );
 }

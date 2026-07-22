@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Sparkline } from "./Sparkline";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import type { CSSProperties } from "react";
 
 type Props = {
   id: string;
@@ -29,120 +30,50 @@ export function SourceCard({
   const pct = Math.round(weight * 100);
   const t = dict(locale).sources;
   return (
-    <article
-      style={{
-        position: "relative",
-        padding: 20,
-        border: "1px solid var(--color-fog)",
-        background: "var(--color-canvas)",
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "baseline",
-          justifyContent: "space-between",
-          marginBottom: 12,
-          gap: 12,
-        }}
-      >
+    <article className="source-card">
+      <header className="source-card__header">
         <div>
-          <p className="label" style={{ marginBottom: 4 }}>
+          <p className="label source-card__type">
             {type}
           </p>
-          <h3
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1rem",
-              margin: 0,
-              wordBreak: "break-word",
-            }}
-          >
+          <h3>
             <Link
               href={localePath(locale, `/sources/${encodeURIComponent(id)}`)}
-              style={{ color: "var(--ink-primary)", borderBottom: "none" }}
             >
               {name}
             </Link>
           </h3>
-          <p
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.14em",
-              color: "var(--ink-dim)",
-              margin: "4px 0 0",
-            }}
-          >
+          <p className="source-card__id">
             {id}
           </p>
         </div>
-        <span
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "1.4rem",
-            color: "var(--color-blueprint-blue)",
-          }}
-        >
+        <span className="source-card__weight">
           {String(pct).padStart(2, "0")}
         </span>
       </header>
 
       <div
-        aria-label={`weight ${pct} of 100`}
-        style={{
-          height: 4,
-          background: "var(--color-paper)",
-          border: "1px solid var(--color-fog)",
-          overflow: "hidden",
-          marginBottom: 16,
-        }}
+        aria-label={locale === "cs" ? `váha ${pct} ze 100` : `weight ${pct} of 100`}
+        className="source-card__bar"
       >
-        <div
-          style={{
-            height: "100%",
-            width: `${pct}%`,
-            background: "var(--color-blueprint-blue)",
-          }}
-        />
+        <div style={{ "--source-weight": `${pct}%` } as CSSProperties} />
       </div>
 
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 6,
-          marginBottom: 12,
-        }}
-      >
+      <ul className="source-card__tags">
         {tags.map((t) => (
-          <li
-            key={t}
-            className="label"
-            style={{
-              padding: "2px 8px",
-              border: "1px solid var(--color-fog)",
-              color: "var(--ink-muted)",
-            }}
-          >
+          <li key={t} className="label">
             {t}
           </li>
         ))}
       </ul>
 
-      <p
-        className="label"
-        style={{ margin: 0, color: "var(--ink-dim)" }}
-      >
+      <p className="label label--muted source-card__citation">
         {t.cited} {String(citations).padStart(2, "0")} ×
         {latestDate ? ` · ${t.last} ${latestDate}` : ` · ${t.never}`}
       </p>
 
       {cadence && cadence.some((n) => n > 0) && (
-        <div style={{ marginTop: 12, opacity: 0.9 }}>
+        <div className="source-card__cadence">
           <Sparkline data={cadence} width={240} height={28} compact />
         </div>
       )}

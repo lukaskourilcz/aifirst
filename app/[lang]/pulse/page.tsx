@@ -20,7 +20,7 @@ export default async function PulsePage({
       {pulse ? (
         <AIPulse pulse={pulse} locale={locale} />
       ) : (
-        <p style={{ color: "var(--ink-muted)" }}>{t.empty}</p>
+        <p className="route-empty-state">{t.empty}</p>
       )}
     </PageShell>
   );

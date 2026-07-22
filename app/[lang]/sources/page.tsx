@@ -33,19 +33,8 @@ export default async function SourcesPage({
   );
 
   return (
-    <PageShell kicker={t.kicker} title={t.title}>
-      <p style={{ color: "var(--ink-muted)", maxWidth: "62ch" }}>{t.intro}</p>
-
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: "3em 0 0",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 20,
-        }}
-      >
+    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
+      <ul className="source-directory">
         {sorted.map((s) => {
           const stat = stats.get(s.id);
           return (

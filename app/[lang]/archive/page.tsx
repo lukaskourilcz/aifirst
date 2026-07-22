@@ -36,8 +36,8 @@ export default async function ArchivePage({
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       {[...byYearMonth.entries()].map(([month, issues]) => (
-        <section key={month} style={{ marginBottom: 48 }}>
-          <p className="label" style={{ marginBottom: 16 }}>
+        <section key={month} className="archive-month">
+          <p className="label archive-month__label">
             {month}
           </p>
           <ul className="archive-list">
@@ -62,7 +62,7 @@ export default async function ArchivePage({
       ))}
 
       {all.length === 0 && (
-        <p style={{ color: "var(--ink-muted)" }}>{t.empty}</p>
+        <p className="route-empty-state">{t.empty}</p>
       )}
     </PageShell>
   );

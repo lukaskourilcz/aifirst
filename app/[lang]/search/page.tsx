@@ -25,15 +25,14 @@ export default async function SearchPage({
   const lp = localePrefixer(locale);
 
   return (
-    <PageShell kicker={t.kicker} title={t.title}>
-      <p style={{ color: "var(--ink-muted)", maxWidth: "60ch" }}>
-        {t.introBefore} <kbd>⌘K</kbd> (<kbd>/</kbd>) {t.introAfter}
-      </p>
-      <section style={{ marginTop: "var(--gutter-gap)" }}>
-        <p className="label" style={{ marginBottom: 16 }}>
+    <PageShell kicker={t.kicker} title={t.title} intro={
+      <>{t.introBefore} <kbd>⌘K</kbd> (<kbd>/</kbd>) {t.introAfter}</>
+    }>
+      <section className="search-index">
+        <p className="label search-index__label">
           {t.fullIndex} ({index.length})
         </p>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        <ul className="dense-list">
           {index.map((e) => (
             <IssueRow
               key={e.slug}

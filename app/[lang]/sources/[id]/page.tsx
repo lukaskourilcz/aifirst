@@ -2,8 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { IssueRow } from "@/components/IssueRow";
-import { StatCard } from "@/components/StatCard";
 import { TagChip } from "@/components/TagChip";
+import { PageShell } from "@/components/PageShell";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/scraping/sources";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
@@ -47,48 +47,19 @@ export default async function SourceDetailPage({
   const weightPct = Math.round((source.weight ?? 0.5) * 100);
 
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p className="label">
-        <Link href={lp("/sources")}>↩ {t.back}</Link>
-      </p>
-      <h1 style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
-        {source.name}
-      </h1>
-      <p
-        className="label"
-        style={{ color: "var(--ink-muted)", marginBottom: 8 }}
-      >
-        {source.type} · {source.id}
-      </p>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-          gap: 16,
-          margin: "32px 0",
-        }}
-      >
-        <StatCard label={t.weight} value={String(weightPct).padStart(2, "0")} />
-        <StatCard label={t.citations} value={`×${stat?.count ?? 0}`} />
-        <StatCard
-          label={t.lastCited}
-          value={stat?.latestDate ?? "—"}
-          valueSize="1.1rem"
-        />
-      </div>
+    <PageShell
+      kicker={<Link href={lp("/sources")}>← {t.back}</Link>}
+      title={source.name}
+      intro={`${source.type} · ${source.id}`}
+    >
+      <dl className="source-summary">
+        <div><dt>{t.weight}</dt><dd>{String(weightPct).padStart(2, "0")}</dd></div>
+        <div><dt>{t.citations}</dt><dd>×{stat?.count ?? 0}</dd></div>
+        <div><dt>{t.lastCited}</dt><dd>{stat?.latestDate ?? "—"}</dd></div>
+      </dl>
 
       {source.tags?.length ? (
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            margin: "0 0 32px",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 8,
-          }}
-        >
+        <ul className="source-detail__tags">
           {source.tags.map((tg) => (
             <li key={tg}>
               <TagChip tag={tg} locale={locale} />
@@ -97,22 +68,24 @@ export default async function SourceDetailPage({
         </ul>
       ) : null}
 
-      <h2 style={{ marginTop: "var(--section-gap)" }}>{t.citedBy}</h2>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {issues.map((a) => (
-          <IssueRow
-            key={a.slug}
-            href={lp(`/articles/${a.slug}`)}
-            date={a.date}
-            title={a.title}
-          />
-        ))}
-        {issues.length === 0 && (
-          <li className="label" style={{ padding: 16, color: "var(--ink-dim)" }}>
-            {t.citedByEmpty}
-          </li>
-        )}
-      </ul>
-    </section>
+      <section className="route-section">
+        <h2>{t.citedBy}</h2>
+        <ul className="dense-list">
+          {issues.map((a) => (
+            <IssueRow
+              key={a.slug}
+              href={lp(`/articles/${a.slug}`)}
+              date={a.date}
+              title={a.title}
+            />
+          ))}
+          {issues.length === 0 && (
+            <li className="label route-empty-state">
+              {t.citedByEmpty}
+            </li>
+          )}
+        </ul>
+      </section>
+    </PageShell>
   );
 }

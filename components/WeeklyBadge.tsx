@@ -19,42 +19,18 @@ export function WeeklyBadge({
 }: Props) {
   const t = dict(locale).weekly;
   return (
-    <aside
-      style={{
-        margin: "0 0 32px",
-        padding: 16,
-        border: "1px solid var(--color-fog)",
-        borderLeft: "2px solid var(--color-blueprint-blue)",
-        background: "var(--color-canvas)",
-      }}
-    >
-      <p
-        className="label"
-        style={{ color: "var(--color-blueprint-blue)", marginBottom: 8 }}
-      >
+    <aside className="weekly-badge">
+      <p className="label label--accent">
         {t.digest} · {from} → {to}
       </p>
-      <p
-        className="label"
-        style={{ color: "var(--ink-muted)", marginBottom: 12 }}
-      >
+      <p className="label label--muted">
         {t.covering} {coveredSlugs.length} {t.dailyIssue}
       </p>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+      <ul>
         {coveredSlugs.map((slug) => (
-          <li
-            key={slug}
-            style={{
-              padding: "4px 0",
-              fontSize: "0.85rem",
-            }}
-          >
+          <li key={slug}>
             <Link
               href={localePath(locale, `/articles/${slug}`)}
-              style={{
-                color: "var(--ink-primary)",
-                borderBottom: "1px dashed var(--color-fog)",
-              }}
             >
               {titlesBySlug?.get(slug) ?? slug}
             </Link>

@@ -13,6 +13,7 @@ import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { siteUrl } from "@/lib/config";
 import { brand } from "@/lib/brand";
+import { TopicMedia } from "@/components/TopicMedia";
 
 export const dynamic = "force-static";
 
@@ -66,6 +67,7 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
 
   return (
     <PageShell kicker={t.kicker} title={topic.title[locale]} intro={topic.description[locale]}>
+      <TopicMedia topic={topic} locale={locale} />
       <StructuredData data={{
         "@context": "https://schema.org",
         "@graph": [
@@ -89,42 +91,42 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
         ],
       }} />
       <FeedActions locale={locale} topicSlug={topic.slug} />
-      <section style={{ marginTop: "var(--section-gap)" }}>
+      <section className="route-section">
         <h2>{t.latest}</h2>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        <ul className="dense-list">
           {articles.slice(0, 3).map((article) => (
             <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.date} title={article.title} variant="meta" />
           ))}
         </ul>
       </section>
-      <section style={{ marginTop: "var(--section-gap)" }}>
+      <section className="route-section">
         <h2>{t.timeline}</h2>
         <ol className="topic-timeline">
           {articles.map((article) => <li key={article.slug}><time dateTime={article.date}>{article.date}</time><Link href={localePath(locale, `/articles/${article.slug}`)}>{article.title}</Link></li>)}
         </ol>
       </section>
       {recurringEntities.length ? (
-        <section style={{ marginTop: "var(--section-gap)" }}>
+        <section className="route-section">
           <h2>{t.entities}</h2>
           <ul className="entity-list">{recurringEntities.map(([entity, count]) => <li key={entity}><Link href={localePath(locale, `/tags/${encodeURIComponent(entity)}`)}>{entity}</Link> <span className="label">{count}</span></li>)}</ul>
         </section>
       ) : null}
       {majorSources.length ? (
-        <section style={{ marginTop: "var(--section-gap)" }}>
+        <section className="route-section reference-section">
           <h2>{t.sources}</h2>
-          <ul>{majorSources.map((source) => <li key={source.url}>{source.id ? <Link href={localePath(locale, `/sources/${source.id}`)}>{source.title}</Link> : <a href={source.url} target="_blank" rel="noreferrer noopener">{source.title}</a>} · {source.count}</li>)}</ul>
+          <ul className="reference-list">{majorSources.map((source) => <li key={source.url}>{source.id ? <Link href={localePath(locale, `/sources/${source.id}`)}>{source.title}</Link> : <a href={source.url} target="_blank" rel="noreferrer noopener">{source.title}</a>} <span className="label">{source.count}</span></li>)}</ul>
         </section>
       ) : null}
       {glossaryTerms.length ? (
-        <section style={{ marginTop: "var(--section-gap)" }}>
+        <section className="route-section reference-section">
           <h2>{t.glossary}</h2>
-          <ul>{glossaryTerms.map((term) => <li key={term.term}><Link href={`${localePath(locale, "/glossary")}#${slugForTerm(term.term)}`}>{term.term}</Link></li>)}</ul>
+          <ul className="reference-list">{glossaryTerms.map((term) => <li key={term.term}><Link href={`${localePath(locale, "/glossary")}#${slugForTerm(term.term)}`}>{term.term}</Link></li>)}</ul>
         </section>
       ) : null}
       {related.length ? (
-        <section style={{ marginTop: "var(--section-gap)" }}>
+        <section className="route-section reference-section">
           <h2>{t.related}</h2>
-          <ul>{related.map(({ topic: item }) => <li key={item.slug}><Link href={localePath(locale, `/topics/${item.slug}`)}>{item.title[locale]}</Link></li>)}</ul>
+          <ul className="reference-list">{related.map(({ topic: item }) => <li key={item.slug}><Link href={localePath(locale, `/topics/${item.slug}`)}>{item.title[locale]}</Link></li>)}</ul>
         </section>
       ) : null}
     </PageShell>

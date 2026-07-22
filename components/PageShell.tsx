@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type Props = {
   // Small uppercase line above the title.
-  kicker: string;
+  kicker: ReactNode;
   title: ReactNode;
   // Optional muted intro paragraph rendered between the title and `children`.
   // Pass `children` instead when a page needs a non-standard intro.

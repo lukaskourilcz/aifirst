@@ -41,6 +41,11 @@
   padding: 2px 0;
 }
 
+.print-masthead .brand-lockup { gap: 8px; }
+.print-masthead .brand-lockup__word { font-family: Georgia, "Source Serif Pro", serif; font-size: 1rem; letter-spacing: -0.02em; text-transform: none; color: #111; }
+.print-masthead .brand-mark { width: 1rem; height: 1rem; border-color: #111; }
+.print-masthead .brand-mark__dot { width: 0.45rem; height: 0.45rem; background: #1d52de; }
+
 .print-title {
   font-family: Georgia, "Source Serif Pro", serif;
   font-weight: 700;
@@ -59,6 +64,18 @@
   margin: 0 0 32px;
   line-height: 1.45;
 }
+
+.print-route .editorial-highlights {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 28px 0 36px;
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+}
+
+.print-route .editorial-highlights section { border-top-width: 2px; break-inside: avoid; }
+.print-route .editorial-highlights h2 { font-size: 1rem; margin: 0 0 8px; }
+.print-route .editorial-highlights ul { margin: 0; padding-left: 1.1em; }
 
 .print-illustration {
   display: block;
@@ -168,6 +185,16 @@
   border-top: 1px solid #ccc;
 }
 
+.print-route .corrections-notice {
+  break-inside: avoid;
+  margin: 32px 0;
+  padding: 16px;
+  border-left: 3px solid #a54829;
+  background: #fbf1ec;
+}
+
+.print-route .corrections-notice h2 { margin: 0 0 8px; font-size: 1.1rem; }
+
 .print-sources ol {
   padding-left: 1.2em;
   margin: 0;
@@ -213,6 +240,7 @@
     grid-template-columns: 1fr;
     gap: 4px;
   }
+  .print-route .editorial-highlights { grid-template-columns: 1fr; }
 }
 
 @media print {
@@ -228,6 +256,14 @@
   .screen-only {
     display: none;
   }
+  .print-title,
+  .print-body h2,
+  .print-glossary h2,
+  .print-sources h2 { break-after: avoid; }
+  .print-illustration,
+  .print-note,
+  .print-glossary-row,
+  .print-sources li { break-inside: avoid; }
   @page {
     margin: 18mm 16mm 22mm;
   }

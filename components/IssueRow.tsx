@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type Props = {
   // Already locale-prefixed destination (e.g. localePath(locale, `/articles/x`)).
@@ -8,8 +8,8 @@ type Props = {
   title: string;
   // Title font size; rows tune this per page.
   titleSize?: string;
-  // Title colour; defaults to the cyan link colour. Listings inside dense
-  // panels (search, admin) pass the primary ink instead.
+  // Title colour; defaults to primary ink. Dense operational listings may
+  // pass another semantic colour.
   titleColor?: string;
   // Vertical padding shorthand, e.g. "16px 0".
   padding?: string;
@@ -39,13 +39,13 @@ export function IssueRow({
   return (
     <li
       className={variant ? `entry-row entry-row--${variant}` : "entry-row"}
-      style={{ padding, borderBottom: "1px solid var(--color-fog)" }}
+      style={{ "--row-padding": padding, "--row-title-size": titleSize, "--row-title-color": titleColor } as CSSProperties}
     >
       <Link href={href} className="label">
         {date}
         {dateSuffix}
       </Link>
-      <Link href={href} style={{ fontSize: titleSize, color: titleColor }}>
+      <Link href={href} className="entry-row__title">
         {title}
       </Link>
       {trailing}

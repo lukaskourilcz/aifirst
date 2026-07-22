@@ -5,18 +5,13 @@ import { dict } from "@/lib/i18n/dictionaries";
 
 type Props = { pulse: Pulse; locale: Locale };
 
-// Map a free-text status string to a semantic colour. Operational is the
-// mint accent; anything hinting at partial/degraded is amber; outages red;
-// unknown falls back to the muted slate.
-function statusColor(status: string): string {
+function statusTone(status: string): "complete" | "warning" | "correction" | "neutral" {
   const s = status.toLowerCase();
-  if (s === "operational" || s === "ok" || s === "up") return "var(--color-mint)";
-  if (/(degrad|partial|minor|maintenance)/.test(s)) return "#e8a33d";
-  if (/(down|outage|major|critical)/.test(s)) return "#e5484d";
-  return "var(--color-slate)";
+  if (s === "operational" || s === "ok" || s === "up") return "complete";
+  if (/(degrad|partial|minor|maintenance)/.test(s)) return "warning";
+  if (/(down|outage|major|critical)/.test(s)) return "correction";
+  return "neutral";
 }
-
-const hairline = "1px solid var(--hairline)";
 
 export function AIPulse({ pulse, locale }: Props) {
   const t = dict(locale).pulse;
@@ -24,48 +19,34 @@ export function AIPulse({ pulse, locale }: Props) {
   const price = (v: number | null) => (v == null ? "—" : `$${v}`);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+    <div className="ai-pulse">
       {/* Model pricing & intelligence */}
       {pulse.models.length > 0 && (
         <section>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              justifyContent: "space-between",
-              gap: 12,
-              marginBottom: 12,
-            }}
-          >
-            <p className="label label--accent" style={{ margin: 0 }}>
+          <div className="ai-pulse__heading">
+            <p className="label label--accent">
               {t.modelsHeading}
             </p>
             {pulse.modelsUpdated && (
-              <span className="label" style={{ color: "var(--color-slate)" }}>
+              <span className="label label--muted">
                 {t.updated} {pulse.modelsUpdated}
               </span>
             )}
           </div>
-          <div style={{ overflowX: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                fontSize: "var(--text-body-sm)",
-              }}
-            >
+          <div className="table-scroll" tabIndex={0} role="region" aria-label={t.modelsHeading}>
+            <table className="ai-pulse__table">
               <thead>
                 <tr>
-                  <th style={{ textAlign: "left", padding: "8px 12px 8px 0", borderBottom: hairline }}>
+                  <th>
                     <span className="label">{t.colModel}</span>
                   </th>
-                  <th style={{ textAlign: "right", padding: "8px 12px", borderBottom: hairline }}>
+                  <th>
                     <span className="label">{t.colInput}</span>
                   </th>
-                  <th style={{ textAlign: "right", padding: "8px 12px", borderBottom: hairline }}>
+                  <th>
                     <span className="label">{t.colOutput}</span>
                   </th>
-                  <th style={{ textAlign: "right", padding: "8px 0 8px 12px", borderBottom: hairline }}>
+                  <th>
                     <span className="label">{t.colIntel}</span>
                   </th>
                 </tr>
@@ -73,19 +54,19 @@ export function AIPulse({ pulse, locale }: Props) {
               <tbody>
                 {pulse.models.map((m) => (
                   <tr key={m.id}>
-                    <td style={{ padding: "10px 12px 10px 0", borderBottom: hairline }}>
-                      <span style={{ fontWeight: 600 }}>{m.name}</span>
+                    <td>
+                      <span className="ai-pulse__model">{m.name}</span>
                       {m.provider && (
-                        <span style={{ color: "var(--color-slate)" }}> · {m.provider}</span>
+                        <span className="ai-pulse__provider"> · {m.provider}</span>
                       )}
                     </td>
-                    <td style={{ textAlign: "right", padding: "10px 12px", borderBottom: hairline, fontFamily: "var(--font-mono)" }}>
+                    <td className="ai-pulse__numeric">
                       {price(m.inputPrice)}
                     </td>
-                    <td style={{ textAlign: "right", padding: "10px 12px", borderBottom: hairline, fontFamily: "var(--font-mono)" }}>
+                    <td className="ai-pulse__numeric">
                       {price(m.outputPrice)}
                     </td>
-                    <td style={{ textAlign: "right", padding: "10px 0 10px 12px", borderBottom: hairline, fontFamily: "var(--font-mono)", color: "var(--color-blueprint-blue)", fontWeight: 600 }}>
+                    <td className="ai-pulse__numeric ai-pulse__score">
                       {m.tfii == null ? "—" : m.tfii.toFixed(1)}
                     </td>
                   </tr>
@@ -93,7 +74,7 @@ export function AIPulse({ pulse, locale }: Props) {
               </tbody>
             </table>
           </div>
-          <p className="label" style={{ color: "var(--color-slate)", marginTop: 8 }}>
+          <p className="label label--muted ai-pulse__note">
             {t.priceNote}
           </p>
         </section>
@@ -102,45 +83,17 @@ export function AIPulse({ pulse, locale }: Props) {
       {/* Provider service status */}
       {pulse.services.length > 0 && (
         <section>
-          <p className="label label--accent" style={{ marginBottom: 12 }}>
+          <p className="label label--accent ai-pulse__section-label">
             {t.statusHeading}
           </p>
-          <ul
-            style={{
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-              gap: 8,
-            }}
-          >
+          <ul className="ai-pulse__services">
             {pulse.services.map((s) => (
-              <li
-                key={s.name}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "8px 12px",
-                  border: hairline,
-                  borderRadius: "var(--radius-lg)",
-                }}
-              >
-                <span
-                  aria-hidden
-                  style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: statusColor(s.status),
-                    flexShrink: 0,
-                  }}
-                />
-                <span style={{ minWidth: 0, flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+              <li key={s.name}>
+                <span aria-hidden className="ai-pulse__status-dot" data-tone={statusTone(s.status)} />
+                <span className="ai-pulse__service-name">
                   {s.name}
                 </span>
-                <span className="label" style={{ color: "var(--color-slate)" }}>
+                <span className="label label--muted">
                   {s.status}
                 </span>
               </li>
@@ -152,40 +105,20 @@ export function AIPulse({ pulse, locale }: Props) {
       {/* npm package momentum */}
       {pulse.packages.length > 0 && (
         <section>
-          <p className="label label--accent" style={{ marginBottom: 4 }}>
+          <p className="label label--accent ai-pulse__section-label">
             {t.packagesHeading}
           </p>
-          <p className="label" style={{ color: "var(--color-slate)", marginBottom: 16 }}>
+          <p className="label label--muted ai-pulse__downloads-label">
             {t.downloads30d}
           </p>
-          <ul
-            style={{
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-              gap: 16,
-            }}
-          >
+          <ul className="ai-pulse__packages">
             {pulse.packages.map((p) => (
-              <li
-                key={p.name}
-                style={{ padding: 16, border: hairline, borderRadius: "var(--radius-cards)" }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    justifyContent: "space-between",
-                    gap: 8,
-                    marginBottom: 8,
-                  }}
-                >
-                  <code style={{ fontSize: "var(--text-body-sm)", fontWeight: 600 }}>
+              <li key={p.name}>
+                <div className="ai-pulse__package-head">
+                  <code>
                     {p.name}
                   </code>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-body-sm)", color: "var(--color-blueprint-blue)" }}>
+                  <span className="ai-pulse__package-total">
                     {nf.format(p.total)}
                   </span>
                 </div>
@@ -196,7 +129,7 @@ export function AIPulse({ pulse, locale }: Props) {
         </section>
       )}
 
-      <p className="label" style={{ color: "var(--color-slate)" }}>
+      <p className="label label--muted">
         {t.source}
       </p>
     </div>

@@ -22,11 +22,15 @@ export default async function CorrectionsPage({ params }: { params: Promise<{ la
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       {corrections.length ? (
-        <ol className="corrections-notice">
+        <ol className="corrections-ledger">
           {corrections.map((correction) => (
             <li key={`${correction.article.slug}-${correction.date}-${correction.description}`}>
               <time dateTime={correction.date}>{correction.date}</time>
-              <span><Link href={localePath(locale, `/articles/${correction.article.slug}`)}>{correction.article.title}</Link> — {correction.description}</span>
+              <span>
+                <Link href={localePath(locale, `/articles/${correction.article.slug}`)}>{correction.article.title}</Link>
+                {correction.section ? <strong>{correction.section}</strong> : null}
+                <span>{correction.description}</span>
+              </span>
             </li>
           ))}
         </ol>

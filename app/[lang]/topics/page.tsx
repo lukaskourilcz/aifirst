@@ -10,6 +10,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { siteUrl } from "@/lib/config";
 import { brand } from "@/lib/brand";
+import { TopicMedia } from "@/components/TopicMedia";
 
 export const dynamic = "force-static";
 
@@ -41,6 +42,7 @@ export default async function TopicsPage({ params }: { params: Promise<{ lang: L
           {topics.map(({ topic, articles: matches }) => (
             <li key={topic.id}>
               <Link className="topic-card" href={localePath(locale, `/topics/${topic.slug}`)}>
+                <TopicMedia topic={topic} locale={locale} compact />
                 <h2>{topic.title[locale]}</h2>
                 <p>{topic.description[locale]}</p>
                 <span className="label">{matches.length} {t.issues} →</span>

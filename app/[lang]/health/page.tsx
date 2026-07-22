@@ -31,7 +31,7 @@ export default async function HealthPage({ params }: { params: Promise<{ lang: L
 
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
-      <section className="public-status" aria-labelledby="public-status-heading">
+      <section className="public-status" data-status={status} aria-labelledby="public-status-heading">
         <p className="label">{t.overallStatus}</p>
         <h2 id="public-status-heading">{statusCopy[0]}</h2>
         <p>{statusCopy[1]}</p>
@@ -42,7 +42,7 @@ export default async function HealthPage({ params }: { params: Promise<{ lang: L
         </dl>
         {latest ? <Link href={localePath(locale, `/articles/${latest.slug}`)}>{t.currentIssue} →</Link> : null}
       </section>
-      <p className="label" style={{ marginTop: 32 }}>{t.internalUnavailable}</p>
+      <p className="label label--muted public-status__privacy">{t.internalUnavailable}</p>
     </PageShell>
   );
 }
