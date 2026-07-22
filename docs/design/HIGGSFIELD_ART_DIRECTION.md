@@ -1,0 +1,65 @@
+# Generative media art direction
+
+## Deferred capability
+
+The Higgsfield MCP is not available in the 2026-07-22 implementation session.
+Per the product owner, all Higgsfield research, prompt production, generation,
+review, optimization, and integration is deferred. No substitute image service
+and no placeholder raster asset may be used. The production interface will
+provide deterministic layout hooks so approved future media can be added
+without changing editorial data or route behavior.
+
+## Opportunity audit
+
+| Opportunity | Decision | Reason |
+| --- | --- | --- |
+| Completion-dot logo and favicon | Inappropriate for raster generation | Must be deterministic, scalable vector geometry |
+| Wordmark | Inappropriate | Typography must remain exact and accessible |
+| Launch key visual | High value | Useful for About, repository, and social launch communication |
+| Topic covers | High value if restrained | Can make six curated dossiers recognizable without changing article meaning |
+| Weekly cover foundation | High value | Supports a distinct recurring edition with code-rendered text |
+| Open Graph background | Potentially useful | Only if locally committed and titles/dates stay deterministic |
+| Paper/registration crop library | Potentially useful | Small reusable texture set can add identity sparingly |
+| About methodology visual | Potentially useful | Accept only if it explains editorial evidence handling |
+| Radar illustration | Unnecessary | Real ranked data is more honest and useful |
+| Article fallback imagery | Harmful | Generic images would imply relevance that is not present |
+| Empty-state imagery | Usually unnecessary | Factual copy is calmer and lighter |
+| Generated UI/screenshots/charts/logos | Inappropriate | Violates authentic-UI and evidence requirements |
+| Full-site or article video backgrounds | Harmful | Distracts from reading and increases weight/motion |
+
+## Editorial Evidence Collage
+
+Subject matter: technical papers, folded newsprint, research notes, physical
+chips and boards, cables, optical glass, registration marks, contact sheets,
+index tabs, scanner texture, and infrastructural technology. Screens may appear
+only obliquely and without legible fake UI.
+
+Composition: top-down arrangements, tight macro crops, asymmetric still life,
+clear focal point, modular cropping, and reserved text-safe space. The image
+should feel art-directed from physical evidence, not “AI-generated.”
+
+Lighting: controlled studio daylight, cool neutral whites, clean shadows, and
+occasional warm material contrast. Blueprint blue appears as a physical printed
+or material accent.
+
+Color: ink, off-white, slate, blueprint blue, rare mint, and contextual rust.
+
+Avoid: people unless documentary context is essential; hands and faces;
+watermarks; logos; legible generated text; fake labels; fake interfaces;
+robots; brains; circuit backgrounds; neon; purple glow; holograms; plastic CGI;
+heavy grunge; crime-board clichés.
+
+## Integration contract for the future Higgsfield pass
+
+- Assets remain local static files; no runtime Higgsfield dependency is added.
+- Actual brand, title, date, topic, and CTA text remains HTML or deterministic
+  SVG.
+- Product UI remains authentic; generated dashboards, charts, logos, and
+  screenshots are prohibited.
+- Topic and Weekly components may expose media slots, but render complete
+  text-first layouts when no approved asset exists.
+- Accepted media will need responsive crops, intrinsic dimensions, local
+  AVIF/WebP export, useful or empty alt according to meaning, lazy loading,
+  mobile review, reduced-motion/static fallback, and recorded provenance.
+- The deferred deliverable inventory belongs in
+  `HIGGSFIELD_ASSET_MANIFEST.md`; it must not claim that files were generated.

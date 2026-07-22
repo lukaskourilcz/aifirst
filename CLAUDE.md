@@ -45,10 +45,13 @@ scripts/
 
 ## Design language
 
-Calm editorial design. Reuse the existing typographic, paper, slate and blueprint
-tokens; avoid neon, robots, glowing brains, generic circuits and sci-fi clichés.
-scanline textures, monospaced display type for headlines, generous negative
-space. Performance-first: no heavy WebGL unless behind a reduced-motion check.
+Caught Up uses calm editorial intelligence with a clear sense of completion.
+Read `docs/design/DESIGN_THESIS.md` and `docs/design/BRAND_SYSTEM.md` before
+visual work. Reuse paper, slate, ink and blueprint tokens; use serif headlines,
+neutral sans utility text and mono only for identifiers or measured values.
+Never restore dark-only terminal styling, scanlines, parallax, glow, neon,
+robots, brains, generic circuits, generated fake UI, or an obsolete 80 kB total
+budget. The measured page-entry guard is 110 kB gzip.
 
 ## Conventions
 
