@@ -2,7 +2,12 @@
 
 Last updated: 2026-07-22
 
-This is the restart document for the next agent. The non-Higgsfield product-design, brand, frontend, responsive/accessibility, validation, documentation, cleanup, and AI-agent-architecture overhaul is complete and pushed on branch `agent/caught-up-design-overhaul`. Do not repeat the redesign or reintroduce the retired visual system.
+This is the restart document for the next agent. The product-design, brand,
+frontend, responsive/accessibility, validation, documentation, cleanup, and
+AI-agent-architecture overhaul is complete and pushed on branch
+`agent/caught-up-design-overhaul`. Generated-media production remains a separate
+optional task. Do not repeat the redesign or reintroduce the retired visual
+system.
 
 ## Product and architecture state
 
@@ -26,7 +31,7 @@ Read `CLAUDE.md` and `AGENTS.md` first. The authoritative design record is under
 - Deterministic Open Graph and Weekly composition with no remote or generated-media dependency.
 - Expanded Playwright route, locale, overflow, focus, touch-target, reduced-motion, no-image, operator-gate, JSON, feed, CSP, redirect, and print coverage.
 - Removed unreferenced legacy UI components and the dead placeholder image; renamed the still-used neutral MDX link away from old visual terminology.
-- Rebuilt `.claude` with focused brand, editorial UI, Higgsfield production, accessibility/visual-QA, and release skills; distinct specialist agents; real implementation/QA/release commands; and corrected source/scraper/writer skills.
+- Rebuilt `.claude` with focused brand, editorial UI, generated-media production, accessibility/visual-QA, and release skills; distinct specialist agents; real implementation/QA/release commands; and corrected source/scraper/writer skills.
 - Audited every tracked Markdown file, corrected branch/merge status, and aligned route, performance, validation, cost, and historical-audit claims with the final implementation.
 
 ## Commits in this overhaul
@@ -63,13 +68,13 @@ The committed archive contains legacy MDX only. Do not fabricate a schema-v2 iss
 
 ## Generated-media production handoff
 
-The Higgsfield MCP was unavailable during the overhaul, so no substitute generator, placeholder asset, or fake production media was used. It is now globally registered in Codex as `higgsfield` at `https://mcp.higgsfield.ai/mcp`, and `codex mcp login higgsfield` completed successfully on 2026-07-22. A restarted session loaded the tools and verified model discovery, workspace state, balance, and cost preflight.
+No generated-media platform is selected. No substitute generator, placeholder
+asset, or fake production media was used; no media exists, and the interface
+remains complete without it.
 
-Actual generation is blocked by the active trial plan. Four-image Recraft V4.1 and Z Image launch batches were each rejected before a job was created with `only_website_usage_on_trial_is_available`. Request IDs: `54886de9-e6f9-465a-bd7e-ec96300a1251` and `d2f91506-3e3e-4d1c-b115-e43e0921acbc`. The balance remained 10 credits, no media exists, and the interface remains complete without it.
+Before any generation or paid-plan decision, the next media session must:
 
-Before any paid-plan decision, the next media session must:
-
-1. Read `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
+1. Read `.claude/skills/caught-up-media-production/SKILL.md`, `docs/design/GENERATIVE_MEDIA_ART_DIRECTION.md`, and `docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md`.
 2. Search current official provider, pricing, license and privacy sources for at least three free-tier, open-source/local, or low-cost generators.
 3. Record a comparison matrix covering commercial use, ownership/training, privacy, watermark or mandatory public gallery, signup/card requirement, free quota, cost per usable image, resolution, aspect ratios, rate limits, API/MCP access and original-file download.
 4. Prefer a private, watermark-free, no-card option that can follow the Editorial Evidence Collage brief. Do not purchase anything without explicit authority.
@@ -93,4 +98,6 @@ Do not generate a new logo: the completion-period vector is the finished mark. D
 - The Next.js 15/React shared runtime is approximately 102 kB gzip; the enforced and passing page-entry limit is 110 kB. Do not revive the obsolete 80 kB total claim without an intentional framework/read-architecture change.
 - Operator deployment credentials and budget decisions remain in `NEEDED.md`; do not invent or commit them.
 
-The next planned continuation is current provider research followed by media production with the safest acceptable free or inexpensive option. Operator integration remains separate and optional.
+The next planned continuation is current provider research followed by media
+production with the safest acceptable free or inexpensive option. Operator
+integration remains separate and optional.

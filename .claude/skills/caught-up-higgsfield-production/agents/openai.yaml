@@ -1,4 +1,0 @@
-interface:
-  display_name: "Caught Up Higgsfield Production"
-  short_description: "Produce and integrate approved Higgsfield media"
-  default_prompt: "Evaluate and produce this Caught Up media asset using the available Higgsfield MCP."

@@ -1,13 +1,13 @@
 ---
-description: Research a safe provider and produce one Caught Up media asset with Higgsfield or a verified free/low-cost alternative.
+description: Research a safe provider and produce one Caught Up media asset with a verified free or low-cost option.
 argument-hint: <asset-purpose>
 ---
 
-Handle `$ARGUMENTS` with `.claude/skills/caught-up-higgsfield-production/SKILL.md`.
+Handle `$ARGUMENTS` with `.claude/skills/caught-up-media-production/SKILL.md`.
 
-1. Read the Higgsfield art direction and asset manifest, then inspect the real target route/component.
-2. Check the `higgsfield` MCP, balance, workspace and cost; stop repeated submits when it reports a plan gate.
-3. Search current official pricing, license/model-card and privacy sources for at least three free-tier, local/open-source or low-cost alternatives.
+1. Read the generated-media art direction and asset manifest, then inspect the real target route/component.
+2. Search current official pricing, license/model-card, and privacy sources for at least three free-tier, local/open-source, or low-cost options.
+3. Inspect the selected provider's real quota, controls, output settings, and cost before submitting.
 4. Add the provider matrix to the manifest and reject unclear commercial rights, public-only output, watermarks, missing original downloads or hidden card/renewal requirements.
 5. Never purchase, upgrade or start a card-backed trial without explicit authority. If no provider passes, commit the evidence and defer without a placeholder.
 6. With an accepted provider, decide whether media adds value and define purpose, ratios, safe areas, crops, performance and accessibility.

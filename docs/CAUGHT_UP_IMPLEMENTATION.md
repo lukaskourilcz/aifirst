@@ -165,10 +165,9 @@ blockers because their repository, endpoints and credentials were not supplied.
   desktop, and wide widths; added deterministic responsive/behavior/security
   Playwright coverage and an auditable QA record.
 - Replaced contradictory design-agent instructions with focused Caught Up
-  brand, editorial UI, accessibility/visual-QA, release, and Higgsfield-media
+  brand, editorial UI, accessibility/visual-QA, release, and media-production
   skills plus distinct specialist agents and executable commands.
-- Higgsfield media was deferred during implementation because its MCP was
-  unavailable. No substitute or placeholder assets were generated; the code
-  has optional hooks and the manifest contains the complete inventory. The MCP
-  was subsequently registered and authenticated for the next Codex session;
-  asset production has not started.
+- Generated media was deferred during implementation. No substitute or
+  placeholder assets were generated; the code has optional hooks and the
+  provider-neutral manifest contains the complete inventory. Asset production
+  has not started.

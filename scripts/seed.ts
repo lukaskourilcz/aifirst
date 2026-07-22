@@ -28,7 +28,7 @@ type Seed = {
 
 // Historical seed corpus used to reproduce the committed legacy issues. Its
 // illustration descriptions are fixtures, not the current media direction in
-// docs/design/HIGGSFIELD_ART_DIRECTION.md.
+// docs/design/GENERATIVE_MEDIA_ART_DIRECTION.md.
 const seeds: Seed[] = [
   {
     date: "2026-05-10",

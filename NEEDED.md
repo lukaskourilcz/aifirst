@@ -28,7 +28,7 @@ repository, so the required items are not merely documentation placeholders.
 
 ## Optional enhancements
 
-- [ ] **Research and select a safe free or low-cost media generator** — Higgsfield connection and preflight work, but its trial rejects generation through MCP. The next agent must compare at least three current free-tier, open-source/local, or inexpensive alternatives using official pricing, license and privacy sources; document commercial rights, watermark/public-gallery behavior, limits, original-download access and cost per usable image. Prefer a private, watermark-free, no-card option. A paid Higgsfield upgrade or any other purchase still requires explicit operator approval. Follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`; never use fake placeholder media. `[imp:2]` `[owner:agent]`
+- [ ] **Research and select a safe free or low-cost media generator** — no generated-media provider is selected. The next agent must compare at least three current free-tier, open-source/local, or inexpensive options using official pricing, license, and privacy sources; document commercial rights, watermark/public-gallery behavior, limits, original-download access, and cost per usable image. Prefer a private, watermark-free, no-card option. Any purchase still requires explicit operator approval. Follow `docs/design/GENERATIVE_MEDIA_ART_DIRECTION.md` and `docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md`; never use fake placeholder media. `[imp:2]` `[owner:agent]`
 
 - [ ] **Choose a scheduled illustration provider** — edit `illustration.provider` in `config/editorial.yml` (`none`, `nasa`, `picsum`, or `fal`). `none` is the zero-cost default; `nasa` and `picsum` need no paid account; `fal` requires `FAL_KEY`. A GitHub `IMAGE_PROVIDER` variable may override the committed default for scheduled runs. `[imp:2]` `[owner:me]`
 - [ ] **Connect OwnDashboard telemetry** — add `OWNDASHBOARD_RUN_REPORT_URL` and `OWNDASHBOARD_RUN_REPORT_TOKEN` as Actions secrets after the receiving endpoint exists. The callback is bounded and non-fatal; Actions artifacts remain available for 30 days. `[imp:3]` `[owner:me]`
@@ -42,11 +42,9 @@ repository, so the required items are not merely documentation placeholders.
 
 - GitHub’s default branch is `main`; the base product/rebrand is there, while
   the validated design/agent overhaul is pushed on its review branch.
-- The global Codex MCP server `higgsfield` points to
-  `https://mcp.higgsfield.ai/mcp` and completed OAuth login on 2026-07-22; a
-  fresh session loaded and verified its tools. The current trial plan remains a
-  generation blocker, not an integration failure. Provider fallback research is
-  now mandatory before a paid-plan recommendation.
+- Generated-media production remains optional and provider-neutral. Current
+  provider, pricing, rights, privacy, watermarking, and output-access research
+  is mandatory before a generator is selected.
 - The reading progress bar is native and adds no Motion dependency.
 - Scheduled workflows use committed editorial, model, review, publishing and
   illustration defaults, with optional validated workflow overrides.

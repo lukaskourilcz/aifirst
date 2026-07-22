@@ -1,27 +1,9 @@
 # Generated-media asset manifest
 
-Status: MCP connected and inspected; generation blocked by the active trial
-plan. Alternative-provider research is required before a paid upgrade. No asset
-has been generated or selected.
+Status: no generated-media provider is selected. Provider research is required
+before production. No asset has been generated or selected.
 
 No media was generated, substituted, selected, optimized, referenced by production code, or committed during the overhaul. This file is an integration inventory, not generation provenance. Do not add production paths until actual selected files exist.
-
-## MCP production attempt — 2026-07-22
-
-- Connection: authenticated `higgsfield` streamable-HTTP MCP at
-  `https://mcp.higgsfield.ai/mcp`.
-- Workspace: selected private Plus trial; 10 credits remained before and after
-  the attempts.
-- Catalog inspected: Recraft V4.1 and Z Image are the available text-only image
-  models relevant to this brief.
-- Recraft V4.1 four-image 16:9 preflight: 1.25 credits. Submit rejected with
-  `only_website_usage_on_trial_is_available`; request ID
-  `54886de9-e6f9-465a-bd7e-ec96300a1251`.
-- Z Image four-image 16:9 preflight: 0.15 credits. Submit rejected with the same
-  plan gate; request ID `d2f91506-3e3e-4d1c-b115-e43e0921acbc`.
-- Result: zero jobs, zero outputs, zero credits consumed, zero files integrated.
-  Do not repeat trial submits. Research current free or low-cost alternatives
-  before asking the operator to activate a paid plan.
 
 ## Required provider research record
 
@@ -56,12 +38,11 @@ Use this foundation, then append the asset-specific material cues below:
 > faces, letters, words, numbers, logos, UI, charts, neon, purple glow, robots,
 > brains, holograms, watermarks, plastic CGI, or heavy grunge.
 
-If the Higgsfield plan gate is intentionally cleared, use Recraft parameters
-`model_type: standard`,
-`resolution: 1k` for comparison batches, palette `#F4F1E8`, `#171A1F`,
-`#315DFF`, `#6E7781`, `#BCEBD7`, and background `#F4F1E8`. Generate four
-variants per comparison batch. Use 2K or an upscale only for a selected master
-whose final crop demonstrably needs it.
+For comparison batches, use native output of at least 1K where available and
+request the palette `#F4F1E8`, `#171A1F`, `#315DFF`, `#6E7781`, `#BCEBD7`
+with background `#F4F1E8`. Generate four materially distinct variants per
+comparison batch. Use higher resolution or an upscale only for a selected
+master whose final crop demonstrably needs it.
 
 ## Asset-specific production briefs
 
@@ -78,16 +59,16 @@ whose final crop demonstrably needs it.
 | `og-social-foundation` | derive from selected launch or generate four 16:9 variants only if title contrast fails | Low-detail perimeter evidence with a broad paper center; all title/date/Topic content stays code-rendered | 1200×630 master with verified English/Czech safe zones |
 | `brand-texture-library` | derive from selected masters | Crop only non-semantic paper, registration, glass and signal details; never imply article relevance | 1600×400 strip, 600×600 detail, ≤60 kB each |
 
-The About methodology visual, newsletter header and motion remain conditional.
-Do not spend credits on them until the high-priority still assets are selected
-and an in-context review proves a distinct benefit.
+The About methodology visual, newsletter header, and motion remain conditional.
+Do not spend quota or money on them until the high-priority still assets are
+selected and an in-context review proves a distinct benefit.
 
 ## Prepared integration points
 
 - `Topic.cover` is optional and accepts only local paths; `TopicMedia` renders nothing when the field is absent.
 - Weekly’s cover frame, publication identity, date range, and issue text are deterministic HTML/CSS, so a future background can remain decorative.
 - Default and article Open Graph routes render the mark, brand, title, date, and Topic text in code; a future background may sit beneath that text without changing the contract.
-- The completion-period logo and application icon are deterministic vector geometry and do not need Higgsfield output.
+- The completion-period logo and application icon are deterministic vector geometry and do not need generated output.
 
 ## Queued asset inventory
 

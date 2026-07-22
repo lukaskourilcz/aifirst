@@ -87,21 +87,10 @@ Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avo
 
 ## Generated-media provider policy
 
-Use `.claude/skills/caught-up-higgsfield-production/SKILL.md` when generated
-brand/media work is in scope. Despite its compatibility name, the skill owns
-both Higgsfield and controlled provider fallback research. The current
-implementation contains optional layout/media hooks but no generated assets.
-
-On this development machine, the global Codex MCP server `higgsfield` is
-registered at `https://mcp.higgsfield.ai/mcp` and its OAuth login was completed
-on 2026-07-22. Start a fresh Codex session so its callable tools and schemas are
-loaded, then inspect them before generation; configuration alone is not proof
-that a particular model, tool, output format, or limit exists.
-
-The 2026-07-22 production attempt confirmed the schemas but both Recraft V4.1
-and Z Image submits were rejected because the active trial permits generation
-only on the Higgsfield website. Do not retry or route around this plan gate.
-Do not treat a paid Higgsfield upgrade as the only continuation path.
+Use `.claude/skills/caught-up-media-production/SKILL.md` when generated
+brand/media work is in scope. No generated-media platform is selected. The
+current implementation contains optional layout/media hooks but no generated
+assets.
 
 At the start of the next media-production session, perform current web research
 using official provider/model/license sources. Compare at least three genuinely
@@ -112,8 +101,8 @@ and aspect ratios, API/MCP or original-download access, rate limits, and likely
 fit for Editorial Evidence Collage. Prefer a no-card, commercially usable,
 private, watermark-free option; a cheap paid option requires explicit operator
 authority. If a safe provider is selected, use the existing briefs and record
-real provenance in `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`. If none qualifies,
-publish the evidence matrix and defer without producing a placeholder.
+real provenance in `docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md`. If none
+qualifies, publish the evidence matrix and defer without producing a placeholder.
 
 ## Responsive, accessibility, localization, and states
 
@@ -148,7 +137,7 @@ Skills:
 
 - `caught-up-brand-system`
 - `caught-up-editorial-ui`
-- `caught-up-higgsfield-production`
+- `caught-up-media-production`
 - `caught-up-accessibility-visual-qa`
 - `caught-up-release-validation`
 - focused pipeline/source/weekly/testing skills retained under `.claude/skills/`

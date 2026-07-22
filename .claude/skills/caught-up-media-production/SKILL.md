@@ -1,41 +1,19 @@
 ---
-name: caught-up-higgsfield-production
-description: Research, evaluate, generate, optimize, integrate, and document approved Caught Up media using Higgsfield or a verified free/low-cost alternative. Use when a task involves generated brand media, Topic or Weekly covers, launch/social imagery, media variants, provider selection, or the media manifest.
+name: caught-up-media-production
+description: Research, evaluate, generate, optimize, integrate, and document approved Caught Up media with a verified free or low-cost provider. Use when a task involves generated brand media, Topic or Weekly covers, launch/social imagery, media variants, provider selection, or the media manifest.
 ---
 
 # Caught Up generated-media production
 
-Read `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` first.
+Read `docs/design/GENERATIVE_MEDIA_ART_DIRECTION.md` and
+`docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md` first.
 
-## Availability gate
+## Provider selection gate
 
-The expected Codex server name is `higgsfield`, registered at
-`https://mcp.higgsfield.ai/mcp`; OAuth login was completed on 2026-07-22. This
-setup must be loaded by a fresh session. Inspect the callable tools and their
-real schemas before doing media work—do not infer a model, command, format, or
-limit from configuration alone.
-
-If the Higgsfield MCP is absent:
-
-- record the availability result and continue to the required provider research;
-- do not wait, invent commands, or create fake/placeholder production assets.
-
-## Plan and cost gate
-
-Before the first submit in a session, call `balance`, inspect the selected
-workspace, and use `generate_image` with `get_cost: true`. The active 2026-07-22
-trial rejected both Recraft V4.1 and Z Image with
-`only_website_usage_on_trial_is_available`; see the asset manifest. Do not retry
-other Higgsfield models or route around that response. Never purchase, upgrade,
-enable auto-refill, or accept a paid commitment without explicit authority.
-
-## Required fallback-provider research
-
-When Higgsfield is unavailable, plan-gated or materially more expensive than a
-safe alternative, search the current web before deferring. Use official pricing,
-terms/license/model-card and privacy sources. Compare at least three candidates,
-including local/open-source, hosted free-tier and predictable low-cost options
-when they genuinely exist.
+No generated-media provider is selected. Search the current web before
+generation or deferral. Use official pricing, terms/license/model-card, and
+privacy sources. Compare at least three candidates, including local/open-source,
+hosted free-tier, and predictable low-cost options when they genuinely exist.
 
 Record for each candidate:
 
@@ -54,11 +32,16 @@ web provider is acceptable when the user can return original files and the
 manifest records that workflow. Never use screenshots. If no candidate passes,
 commit the comparison and defer without filler.
 
+Before the first submit, inspect the selected provider's real controls, quota,
+cost, and output terms. Never infer capabilities from marketing copy or a
+stale integration. Never purchase, upgrade, enable auto-refill, or accept a
+paid commitment without explicit authority.
+
 ## Production workflow
 
 When a provider has passed the research, rights and cost gates:
 
-1. Confirm the plan/cost gate passes and the media improves recognition or comprehension; reject filler.
+1. Confirm the provider, rights, and cost gates pass and the media improves recognition or comprehension; reject filler.
 2. Define route, purpose, aspect ratios, text-safe region, mobile crop, performance target, and alt-text class.
 3. Use the Editorial Evidence Collage direction in the art-direction document.
 4. Generate several materially different variants; never select the first usable output automatically.

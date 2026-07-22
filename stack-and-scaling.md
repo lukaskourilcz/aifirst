@@ -116,16 +116,13 @@ current fal response adapter does not receive authoritative billing usage. If a
 hard run budget is configured, the pipeline refuses to persist a paid image
 whose cost it cannot prove.
 
-Higgsfield production did not run during the overhaul because its MCP was
-unavailable then. The MCP was later registered, authenticated and inspected.
-Four-image preflights reported 1.25 credits for Recraft V4.1 and 0.15 credits
-for Z Image, but the active trial rejected both submits before creating a job or
-deducting credits. Higgsfield spend remains $0, and no substitute media,
-placeholder, or runtime integration was introduced. Before approving a paid
-plan, the next production pass must compare current free-tier, open-source/local
-and low-cost generators on commercial rights, privacy, watermarking, output
-limits and cost per accepted image. Any provider remains an offline production
-dependency; reader traffic must never trigger image-generation cost.
+Generated-media production did not run during the overhaul, so related spend
+remains $0 and no substitute media, placeholder, or runtime integration was
+introduced. No provider is selected. Before approving any paid option, the next
+production pass must compare current free-tier, open-source/local, and low-cost
+generators on commercial rights, privacy, watermarking, output limits, and cost
+per accepted image. Any provider remains an offline production dependency;
+reader traffic must never trigger image-generation cost.
 
 ## GitHub Actions cost
 

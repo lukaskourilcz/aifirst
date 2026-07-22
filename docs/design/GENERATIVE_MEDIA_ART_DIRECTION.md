@@ -1,25 +1,17 @@
 # Generative media art direction
 
-## Connection readiness
+## Provider readiness
 
-The Higgsfield MCP was not available during the 2026-07-22 implementation
-session, so no substitute image service or placeholder raster asset was used.
-It was subsequently registered globally in Codex as `higgsfield` at
-`https://mcp.higgsfield.ai/mcp`, and OAuth login completed successfully. A fresh
-session must inspect the actual callable tools, schemas, output formats, and
-limits before production. The interface already provides deterministic layout
-hooks so approved media can be added without changing editorial data or route
-behavior.
+No generated-media platform is selected and no substitute image service or
+placeholder raster asset was used. The interface already provides deterministic
+layout hooks so approved media can be added without changing editorial data or
+route behavior.
 
-The restarted session confirmed `generate_image`, `models_explore`, `balance`,
-workspace and generation-history tools. Recraft V4.1 supports controlled color,
-1K/2K output and the required aspect ratios; Z Image provides a lighter-weight
-text-to-image fallback. Both actual submits were rejected before job creation
-because the active trial permits generation only on the Higgsfield website.
-Do not assume a paid Higgsfield plan is required. The next session must research
-current commercially usable free-tier, open-source/local and low-cost providers
-before choosing the production path. The art direction and QA contract apply
-unchanged to every provider.
+Before choosing a production path, research current commercially usable
+free-tier, open-source/local, and low-cost providers from official pricing,
+license/model-card, and privacy sources. Inspect the selected provider's actual
+tools, controls, output formats, quotas, and limits before generation. The art
+direction and QA contract apply unchanged to every provider.
 
 ## Opportunity audit
 
@@ -63,7 +55,7 @@ heavy grunge; crime-board clichés.
 
 ## Integration contract for any provider
 
-- Assets remain local static files; no runtime Higgsfield dependency is added.
+- Assets remain local static files; no runtime generation-provider dependency is added.
 - Actual brand, title, date, topic, and CTA text remains HTML or deterministic
   SVG.
 - Product UI remains authentic; generated dashboards, charts, logos, and
@@ -74,10 +66,10 @@ heavy grunge; crime-board clichés.
   AVIF/WebP export, useful or empty alt according to meaning, lazy loading,
   mobile review, reduced-motion/static fallback, and recorded provenance.
 - The queued deliverable inventory belongs in
-  `HIGGSFIELD_ASSET_MANIFEST.md`; it must not claim that files were generated
-  until actual MCP outputs are reviewed and selected.
+  `GENERATED_MEDIA_ASSET_MANIFEST.md`; it must not claim that files were
+  generated until actual outputs are reviewed and selected.
 
-## Alternative-provider contract
+## Provider-selection contract
 
 - Search current official provider, pricing, license and privacy pages; do not
   rely on remembered free tiers or aggregator summaries.
