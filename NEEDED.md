@@ -28,7 +28,7 @@ repository, so the required items are not merely documentation placeholders.
 
 ## Optional enhancements
 
-- [ ] **Activate an MCP-capable Higgsfield plan, then run the queued media production** — connection, OAuth, model discovery and cost preflight work, but the active trial rejects generation through MCP. Use the [Higgsfield MCP upgrade path](https://higgsfield.ai/mcp-pricing?new_price_id=price_1TDRddCmk0pn4HuHzmd59zw3&seats=1&dry_run=True&source=mcp) only if the paid annual commitment is intentional, then follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`. Do not substitute another generator or add placeholder production assets. `[imp:2]` `[owner:me]`
+- [ ] **Research and select a safe free or low-cost media generator** — Higgsfield connection and preflight work, but its trial rejects generation through MCP. The next agent must compare at least three current free-tier, open-source/local, or inexpensive alternatives using official pricing, license and privacy sources; document commercial rights, watermark/public-gallery behavior, limits, original-download access and cost per usable image. Prefer a private, watermark-free, no-card option. A paid Higgsfield upgrade or any other purchase still requires explicit operator approval. Follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`; never use fake placeholder media. `[imp:2]` `[owner:agent]`
 
 - [ ] **Choose a scheduled illustration provider** — edit `illustration.provider` in `config/editorial.yml` (`none`, `nasa`, `picsum`, or `fal`). `none` is the zero-cost default; `nasa` and `picsum` need no paid account; `fal` requires `FAL_KEY`. A GitHub `IMAGE_PROVIDER` variable may override the committed default for scheduled runs. `[imp:2]` `[owner:me]`
 - [ ] **Connect OwnDashboard telemetry** — add `OWNDASHBOARD_RUN_REPORT_URL` and `OWNDASHBOARD_RUN_REPORT_TOKEN` as Actions secrets after the receiving endpoint exists. The callback is bounded and non-fatal; Actions artifacts remain available for 30 days. `[imp:3]` `[owner:me]`
@@ -45,7 +45,8 @@ repository, so the required items are not merely documentation placeholders.
 - The global Codex MCP server `higgsfield` points to
   `https://mcp.higgsfield.ai/mcp` and completed OAuth login on 2026-07-22; a
   fresh session loaded and verified its tools. The current trial plan remains a
-  generation blocker, not an integration failure.
+  generation blocker, not an integration failure. Provider fallback research is
+  now mandatory before a paid-plan recommendation.
 - The reading progress bar is native and adds no Motion dependency.
 - Scheduled workflows use committed editorial, model, review, publishing and
   illustration defaults, with optional validated workflow overrides.

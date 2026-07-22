@@ -311,8 +311,11 @@ and authenticated at `https://mcp.higgsfield.ai/mcp` for a fresh session.
 `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` lists the queued deliverables and the
 provenance required after real generation. Its actual schemas and cost
 preflights were subsequently verified, but the active trial rejected MCP image
-submits before creating jobs; media production now requires an MCP-capable
-Higgsfield plan.
+submits before creating jobs. The next media session must search current
+official sources for commercially usable free-tier, open-source/local and
+low-cost alternatives before proposing a paid Higgsfield plan. Any selected
+provider remains a build-time production tool only; no runtime provider
+dependency may enter the reader application.
 
 Project AI instructions live in `CLAUDE.md`, `AGENTS.md`, and `.claude/`.
 They require reuse, mobile/Czech/keyboard validation, semantic tokens,

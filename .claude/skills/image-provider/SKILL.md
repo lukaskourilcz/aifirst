@@ -15,6 +15,10 @@ Inspect `lib/images/provider.ts`, `lib/images/style.ts`, current adapters/tests,
 - Add credentials/config only when a real adapter is implemented. Never print or commit secrets, raw responses, rejected outputs, or caches.
 - Do not enable paid generation or change defaults as part of visual work.
 
-For Higgsfield brand, Topic, Weekly, social, or campaign media, use `caught-up-higgsfield-production`. If its MCP is unavailable, defer rather than route the task through another provider.
+For generated brand, Topic, Weekly, social, or campaign media, use
+`caught-up-higgsfield-production`. When Higgsfield is unavailable or plan-gated,
+follow that skill's mandatory current provider research instead of silently
+routing through an arbitrary adapter. Do not change scheduled article
+illustration defaults as a side effect of brand-media production.
 
 Run existing focused image tests and `pnpm check:content`; add a test only for behavior the repository actually supports.

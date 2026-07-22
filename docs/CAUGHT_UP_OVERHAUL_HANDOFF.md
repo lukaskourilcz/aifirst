@@ -61,20 +61,20 @@ Executed successfully after cleanup:
 
 The committed archive contains legacy MDX only. Do not fabricate a schema-v2 issue for appearance; schema-v2 branches are covered by pipeline, validation, persistence, and component logic/tests.
 
-## Higgsfield production handoff
+## Generated-media production handoff
 
 The Higgsfield MCP was unavailable during the overhaul, so no substitute generator, placeholder asset, or fake production media was used. It is now globally registered in Codex as `higgsfield` at `https://mcp.higgsfield.ai/mcp`, and `codex mcp login higgsfield` completed successfully on 2026-07-22. A restarted session loaded the tools and verified model discovery, workspace state, balance, and cost preflight.
 
 Actual generation is blocked by the active trial plan. Four-image Recraft V4.1 and Z Image launch batches were each rejected before a job was created with `only_website_usage_on_trial_is_available`. Request IDs: `54886de9-e6f9-465a-bd7e-ec96300a1251` and `d2f91506-3e3e-4d1c-b115-e43e0921acbc`. The balance remained 10 credits, no media exists, and the interface remains complete without it.
 
-After the operator intentionally activates an MCP-capable plan:
+Before any paid-plan decision, the next media session must:
 
-1. Confirm `balance` reports the paid plan and do one cost preflight.
-2. Read `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
-3. Begin with the documented `launch-evidence-key-visual` prompt and produce four materially different 16:9 variants.
-4. Reject generic/defective output before producing Topic and Weekly batches.
-5. Integrate only selected local assets, update actual provenance in the manifest, and validate crops/accessibility/performance.
-6. Commit only accepted production files; never commit rejected downloads or temporary outputs.
+1. Read `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
+2. Search current official provider, pricing, license and privacy sources for at least three free-tier, open-source/local, or low-cost generators.
+3. Record a comparison matrix covering commercial use, ownership/training, privacy, watermark or mandatory public gallery, signup/card requirement, free quota, cost per usable image, resolution, aspect ratios, rate limits, API/MCP access and original-file download.
+4. Prefer a private, watermark-free, no-card option that can follow the Editorial Evidence Collage brief. Do not purchase anything without explicit authority.
+5. Generate multiple `launch-evidence-key-visual` variants with the selected safe provider, reject generic/defective output, and only then produce Topic and Weekly batches.
+6. Integrate only selected local assets, record provider/model/prompt/license/cost provenance, validate crops/accessibility/performance, and commit no rejected downloads or temporary outputs.
 
 The queued inventory is:
 
@@ -93,4 +93,4 @@ Do not generate a new logo: the completion-period vector is the finished mark. D
 - The Next.js 15/React shared runtime is approximately 102 kB gzip; the enforced and passing page-entry limit is 110 kB. Do not revive the obsolete 80 kB total claim without an intentional framework/read-architecture change.
 - Operator deployment credentials and budget decisions remain in `NEEDED.md`; do not invent or commit them.
 
-The next planned continuation is Higgsfield production after the paid-plan decision. Operator integration remains separate and optional.
+The next planned continuation is current provider research followed by media production with the safest acceptable free or inexpensive option. Operator integration remains separate and optional.

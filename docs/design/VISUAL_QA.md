@@ -50,4 +50,4 @@ For future visual changes:
 
 ## Pending media review
 
-Higgsfield media was not generated or substituted in this implementation. The MCP is now connected for a fresh session; every selected asset must be reviewed in the real route at all relevant crops, checked for text or logo artifacts, optimized locally, given correct alternative-text treatment, and recorded in `HIGGSFIELD_ASSET_MANIFEST.md`.
+Generated media was not integrated in this implementation. After the mandatory provider research, every selected asset—whether from Higgsfield, a verified alternative, or a user-operated web generator—must be reviewed in the real route at all relevant crops, checked for text or logo artifacts, optimized locally, given correct alternative-text treatment, and recorded in `HIGGSFIELD_ASSET_MANIFEST.md`.

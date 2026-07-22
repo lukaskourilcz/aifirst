@@ -16,8 +16,10 @@ workspace and generation-history tools. Recraft V4.1 supports controlled color,
 1K/2K output and the required aspect ratios; Z Image provides a lighter-weight
 text-to-image fallback. Both actual submits were rejected before job creation
 because the active trial permits generation only on the Higgsfield website.
-Production through MCP therefore waits on an intentional paid-plan decision,
-not more integration work.
+Do not assume a paid Higgsfield plan is required. The next session must research
+current commercially usable free-tier, open-source/local and low-cost providers
+before choosing the production path. The art direction and QA contract apply
+unchanged to every provider.
 
 ## Opportunity audit
 
@@ -59,7 +61,7 @@ watermarks; logos; legible generated text; fake labels; fake interfaces;
 robots; brains; circuit backgrounds; neon; purple glow; holograms; plastic CGI;
 heavy grunge; crime-board clichés.
 
-## Integration contract for the Higgsfield pass
+## Integration contract for any provider
 
 - Assets remain local static files; no runtime Higgsfield dependency is added.
 - Actual brand, title, date, topic, and CTA text remains HTML or deterministic
@@ -74,3 +76,21 @@ heavy grunge; crime-board clichés.
 - The queued deliverable inventory belongs in
   `HIGGSFIELD_ASSET_MANIFEST.md`; it must not claim that files were generated
   until actual MCP outputs are reviewed and selected.
+
+## Alternative-provider contract
+
+- Search current official provider, pricing, license and privacy pages; do not
+  rely on remembered free tiers or aggregator summaries.
+- Compare at least three real candidates, including an open-source/local option
+  when the available hardware and license make it practical.
+- Reject unclear commercial rights, mandatory public galleries, training reuse
+  that conflicts with project privacy, unavoidable watermarks, unusable export
+  resolution, or hidden subscription/card requirements.
+- Prefer free/no-card first, then the lowest predictable cost per accepted
+  image. Never purchase or start a trial with auto-renewal without explicit
+  operator authority.
+- A manual web generator is acceptable when it offers original downloads and
+  clear commercial rights; use the documented prompts and record that the user
+  supplied the raw outputs. Do not use screenshots.
+- Selected files must still be local, optimized and provider-independent at
+  runtime. All important UI and text remain deterministic code.

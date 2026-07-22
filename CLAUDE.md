@@ -85,9 +85,12 @@ Never restore terminal-first, neon, scanline, parallax, glow, dark-only, generic
 
 Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
 
-## Higgsfield policy
+## Generated-media provider policy
 
-Use `.claude/skills/caught-up-higgsfield-production/SKILL.md` only when Higgsfield/media work is in scope. The current implementation contains optional layout/media hooks but no substitute generated assets.
+Use `.claude/skills/caught-up-higgsfield-production/SKILL.md` when generated
+brand/media work is in scope. Despite its compatibility name, the skill owns
+both Higgsfield and controlled provider fallback research. The current
+implementation contains optional layout/media hooks but no generated assets.
 
 On this development machine, the global Codex MCP server `higgsfield` is
 registered at `https://mcp.higgsfield.ai/mcp` and its OAuth login was completed
@@ -98,10 +101,19 @@ that a particular model, tool, output format, or limit exists.
 The 2026-07-22 production attempt confirmed the schemas but both Recraft V4.1
 and Z Image submits were rejected because the active trial permits generation
 only on the Higgsfield website. Do not retry or route around this plan gate.
-Continue MCP asset production only after the operator activates an MCP-capable
-plan; see `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` for evidence and briefs.
+Do not treat a paid Higgsfield upgrade as the only continuation path.
 
-If the actual Higgsfield MCP is unavailable, defer the media subtask: do not research it, connect/wait, invent tools, use another generator, or create placeholder production assets. Continue all non-media work. When available, follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and record real provenance in `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
+At the start of the next media-production session, perform current web research
+using official provider/model/license sources. Compare at least three genuinely
+available free-tier, open-source/local, or low-cost generators. Record price per
+usable image and free quota, card/signup requirements, commercial-use rights,
+ownership/training/privacy terms, watermark/public-gallery behavior, resolution
+and aspect ratios, API/MCP or original-download access, rate limits, and likely
+fit for Editorial Evidence Collage. Prefer a no-card, commercially usable,
+private, watermark-free option; a cheap paid option requires explicit operator
+authority. If a safe provider is selected, use the existing briefs and record
+real provenance in `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`. If none qualifies,
+publish the evidence matrix and defer without producing a placeholder.
 
 ## Responsive, accessibility, localization, and states
 

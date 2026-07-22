@@ -1,7 +1,8 @@
-# Higgsfield asset manifest
+# Generated-media asset manifest
 
 Status: MCP connected and inspected; generation blocked by the active trial
-plan. No asset has been generated or selected.
+plan. Alternative-provider research is required before a paid upgrade. No asset
+has been generated or selected.
 
 No media was generated, substituted, selected, optimized, referenced by production code, or committed during the overhaul. This file is an integration inventory, not generation provenance. Do not add production paths until actual selected files exist.
 
@@ -19,7 +20,27 @@ No media was generated, substituted, selected, optimized, referenced by producti
 - Z Image four-image 16:9 preflight: 0.15 credits. Submit rejected with the same
   plan gate; request ID `d2f91506-3e3e-4d1c-b115-e43e0921acbc`.
 - Result: zero jobs, zero outputs, zero credits consumed, zero files integrated.
-  Do not retry until the operator activates an MCP-capable plan.
+  Do not repeat trial submits. Research current free or low-cost alternatives
+  before asking the operator to activate a paid plan.
+
+## Required provider research record
+
+The next media session must add a dated matrix with at least three candidates:
+
+| Provider/model | Access path | Free quota and card requirement | Cost per usable image | Commercial rights | Ownership, training and privacy | Watermark/public gallery | Resolution and ratios | API/MCP/original download | Decision and evidence URLs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| To research | web, API, MCP or local | Verify from official source | Include failed/rejected outputs in effective cost | Must be explicit | Record upload retention and training defaults | Reject unavoidable public/watermarked output | Must support required crops | Original file required | Accept, reject or conditional with reason |
+
+Research rules:
+
+- Use current official pricing, terms, license/model-card and privacy sources.
+- Include one local/open-source candidate when practical, one hosted free-tier
+  candidate and one predictable low-cost candidate when available.
+- Prefer no-card and no auto-renewal. Never buy credits, subscribe or start a
+  card-backed trial without explicit operator approval.
+- Reject providers whose commercial rights or provenance cannot be documented.
+- Keep all selected outputs local and remove provider/runtime dependencies from
+  the public read path.
 
 ## Shared production prompt
 
@@ -35,7 +56,8 @@ Use this foundation, then append the asset-specific material cues below:
 > faces, letters, words, numbers, logos, UI, charts, neon, purple glow, robots,
 > brains, holograms, watermarks, plastic CGI, or heavy grunge.
 
-Recraft parameters after the plan gate is cleared: `model_type: standard`,
+If the Higgsfield plan gate is intentionally cleared, use Recraft parameters
+`model_type: standard`,
 `resolution: 1k` for comparison batches, palette `#F4F1E8`, `#171A1F`,
 `#315DFF`, `#6E7781`, `#BCEBD7`, and background `#F4F1E8`. Generate four
 variants per comparison batch. Use 2K or an upscale only for a selected master
@@ -91,7 +113,7 @@ The optional items must be rejected if a later in-context review cannot show a c
 
 For each actual selected output, replace its queued row or add a record containing:
 
-- actual Higgsfield tool/model and generation date;
+- actual provider, tool/model and generation date;
 - final prompt, negative prompt, and reference inputs;
 - number and type of variants reviewed, selected variant, and rejection reasons;
 - source and final dimensions, responsive variants, crop-safe regions, and any poster/static fallback;
