@@ -26,30 +26,45 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 64,
-          backgroundColor: OG.bg,
+          backgroundColor: OG.page,
           color: OG.ink,
-          fontFamily: OG.fontMono,
+          fontFamily: OG.fontInterface,
+          border: `1px solid ${OG.fog}`,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div
             style={{
               display: "flex",
-              width: 18,
-              height: 4,
-              backgroundColor: OG.cyan,
-            }}
-          />
-          <div
-            style={{
-              display: "flex",
-              fontSize: 24,
-              letterSpacing: 6,
-              textTransform: "uppercase",
+              width: 34,
+              height: 34,
+              alignItems: "flex-end",
+              justifyContent: "flex-end",
+              borderTop: `2px solid ${OG.ink}`,
+              borderLeft: `2px solid ${OG.ink}`,
+              padding: 4,
             }}
           >
-            <span>{brand.name}</span>
-            <span style={{ color: OG.magenta }}>.</span>
+            <span
+              style={{
+                display: "flex",
+                width: 16,
+                height: 16,
+                borderRadius: "50%",
+                backgroundColor: OG.accent,
+              }}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              fontFamily: OG.fontEditorial,
+              fontSize: 36,
+              fontWeight: 700,
+              letterSpacing: -1.5,
+            }}
+          >
+            {brand.name}
           </div>
         </div>
 
@@ -64,9 +79,10 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
             style={{
               display: "flex",
               fontSize: 18,
-              letterSpacing: 6,
+              letterSpacing: 3,
               textTransform: "uppercase",
-              color: OG.muted,
+              color: OG.accent,
+              fontWeight: 700,
             }}
           >
             {publication.tagline}
@@ -75,10 +91,12 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
             style={{
               display: "flex",
               fontSize: 84,
-              lineHeight: 1.05,
-              letterSpacing: -1,
+              lineHeight: 0.98,
+              letterSpacing: -3.5,
               color: OG.ink,
               maxWidth: 1000,
+              fontFamily: OG.fontEditorial,
+              fontWeight: 700,
             }}
           >
             {publication.promise}
@@ -91,9 +109,11 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
             justifyContent: "space-between",
             alignItems: "center",
             fontSize: 18,
-            letterSpacing: 4,
+            letterSpacing: 2,
             textTransform: "uppercase",
-            color: OG.dim,
+            color: OG.slate,
+            borderTop: `2px solid ${OG.ink}`,
+            paddingTop: 24,
           }}
         >
           <span>{lang === "cs" ? "výběrová denní publikace" : "a selective daily publication"}</span>

@@ -28,6 +28,9 @@ export default async function Image({
   const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
   const signal = article?.frontmatter.signal_strength ?? 0;
   const { clamped, filled, bars } = signalBars(signal);
+  const issueLabel = lang === "cs" ? "vydání" : "issue";
+  const featureLabel = lang === "cs" ? "hlavní téma" : "lead development";
+  const signalLabel = lang === "cs" ? "signál" : "signal";
 
   return new ImageResponse(
     (
@@ -39,9 +42,10 @@ export default async function Image({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 64,
-          backgroundColor: OG.bg,
+          backgroundColor: OG.paper,
           color: OG.ink,
-          fontFamily: OG.fontMono,
+          fontFamily: OG.fontInterface,
+          border: `1px solid ${OG.fog}`,
         }}
       >
         <div
@@ -55,33 +59,48 @@ export default async function Image({
             <div
               style={{
                 display: "flex",
-                width: 14,
-                height: 4,
-                backgroundColor: OG.cyan,
+                width: 30,
+                height: 30,
+                alignItems: "flex-end",
+                justifyContent: "flex-end",
+                borderTop: `2px solid ${OG.ink}`,
+                borderLeft: `2px solid ${OG.ink}`,
+                padding: 4,
               }}
-            />
+            >
+              <span
+                style={{
+                  display: "flex",
+                  width: 13,
+                  height: 13,
+                  borderRadius: "50%",
+                  backgroundColor: OG.accent,
+                }}
+              />
+            </div>
             <div
               style={{
                 display: "flex",
-                fontSize: 20,
-                letterSpacing: 6,
-                textTransform: "uppercase",
+                fontSize: 30,
+                letterSpacing: -1,
+                fontFamily: OG.fontEditorial,
+                fontWeight: 700,
               }}
             >
-              <span>{brand.name}</span>
-              <span style={{ color: OG.magenta }}>.</span>
+              {brand.name}
             </div>
           </div>
           <div
             style={{
               display: "flex",
               fontSize: 18,
-              letterSpacing: 4,
+              letterSpacing: 2,
               textTransform: "uppercase",
-              color: OG.muted,
+              color: OG.slate,
+              fontFamily: OG.fontMono,
             }}
           >
-            issue {date}
+            {issueLabel} {date}
           </div>
         </div>
 
@@ -90,21 +109,24 @@ export default async function Image({
             style={{
               display: "flex",
               fontSize: 16,
-              letterSpacing: 5,
+              letterSpacing: 3,
               textTransform: "uppercase",
-              color: OG.cyan,
+              color: OG.accent,
+              fontWeight: 700,
             }}
           >
-            feature
+            {featureLabel}
           </div>
           <div
             style={{
               display: "flex",
               fontSize: 64,
-              lineHeight: 1.05,
-              letterSpacing: -1,
+              lineHeight: 0.98,
+              letterSpacing: -2.5,
               color: OG.ink,
               maxWidth: 1050,
+              fontFamily: OG.fontEditorial,
+              fontWeight: 700,
             }}
           >
             {title}
@@ -115,10 +137,9 @@ export default async function Image({
                 display: "flex",
                 fontSize: 26,
                 lineHeight: 1.3,
-                color: OG.muted,
+                color: OG.slate,
                 maxWidth: 1000,
-                fontFamily:
-                  "system-ui, -apple-system, Segoe UI, sans-serif",
+                fontFamily: OG.fontInterface,
               }}
             >
               {dek}
@@ -132,14 +153,16 @@ export default async function Image({
             alignItems: "center",
             justifyContent: "space-between",
             fontSize: 16,
-            letterSpacing: 4,
+            letterSpacing: 2,
             textTransform: "uppercase",
-            color: OG.dim,
+            color: OG.slate,
+            borderTop: `2px solid ${OG.ink}`,
+            paddingTop: 24,
           }}
         >
-          <div style={{ display: "flex", gap: 18, color: OG.magenta }}>
+          <div style={{ display: "flex", gap: 18, color: OG.accent }}>
             {tags.map((t) => (
-              <span key={t}>#{t}</span>
+              <span key={t}>{t}</span>
             ))}
           </div>
           <div
@@ -149,7 +172,7 @@ export default async function Image({
               gap: 10,
             }}
           >
-            <span>signal</span>
+            <span>{signalLabel}</span>
             <div style={{ display: "flex", gap: 3 }}>
               {Array.from({ length: bars }, (_, i) => (
                 <div
@@ -158,7 +181,7 @@ export default async function Image({
                     display: "flex",
                     width: 5,
                     height: 14,
-                    backgroundColor: i < filled ? OG.cyan : OG.panel,
+                    backgroundColor: i < filled ? OG.accent : OG.fog,
                   }}
                 />
               ))}
