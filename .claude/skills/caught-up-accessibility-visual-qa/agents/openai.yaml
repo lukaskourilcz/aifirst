@@ -1,0 +1,4 @@
+interface:
+  display_name: "Caught Up Accessibility QA"
+  short_description: "Validate accessibility and responsive visual quality"
+  default_prompt: "Audit and fix accessibility and responsive visual defects in Caught Up."

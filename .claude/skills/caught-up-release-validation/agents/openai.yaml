@@ -1,0 +1,4 @@
+interface:
+  display_name: "Caught Up Release Validation"
+  short_description: "Run evidence-based Caught Up release checks"
+  default_prompt: "Run the complete Caught Up release validation and fix feasible failures."

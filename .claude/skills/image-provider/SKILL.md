@@ -1,70 +1,20 @@
 ---
 name: image-provider
-description: Pluggable interface for generating daily illustrations. Use when wiring or swapping the image generation backend (fal.ai, Replicate, OpenAI images, etc).
+description: Maintain the optional daily-illustration provider interface and local image-processing path. Use for lib/images/*, IMAGE_PROVIDER behavior, provider adapters, optimization, or article illustration persistence; do not use it as a substitute for explicitly requested Higgsfield brand-media work.
 ---
 
 # Image provider
 
-The pipeline calls a single interface; concrete providers live behind it.
+Inspect `lib/images/provider.ts`, `lib/images/style.ts`, current adapters/tests, `config/editorial.yml`, and `.env.example`.
 
-## Interface
+- Preserve the narrow `ImageProvider.generate(prompt, { size, seed })` contract.
+- Keep provider-specific options inside adapters and provider imports server-only/dynamic.
+- Treat `none` as the safe default; it may produce a pipeline compatibility output, not a public-facing claim that real media exists.
+- Keep subject matter separate from the stable calm editorial style suffix. Important text, logos, UI, charts, and claims must never be generated.
+- Transcode/resize through Sharp, store only selected local output, record intrinsic dimensions, and keep reader pages free of remote runtime media calls.
+- Add credentials/config only when a real adapter is implemented. Never print or commit secrets, raw responses, rejected outputs, or caches.
+- Do not enable paid generation or change defaults as part of visual work.
 
-```ts
-// lib/images/provider.ts
-export type ImageSize = '1024x1024' | '1024x1536' | '1536x1024';
+For Higgsfield brand, Topic, Weekly, social, or campaign media, use `caught-up-higgsfield-production`. If its MCP is unavailable, defer rather than route the task through another provider.
 
-export interface ImageProvider {
-  id: string;
-  generate(prompt: string, opts: {
-    size: ImageSize;
-    seed?: number;
-  }): Promise<{ bytes: Buffer; mime: string }>;
-}
-
-export function getImageProvider(): ImageProvider {
-  switch (process.env.IMAGE_PROVIDER) {
-    case 'fal':       return require('./fal').default;
-    case 'replicate': return require('./replicate').default;
-    case 'none':      return require('./none').default; // placeholder image
-    default: throw new Error('IMAGE_PROVIDER not set');
-  }
-}
-```
-
-## Style suffix
-
-Every prompt is wrapped with a stable suffix before hitting the provider:
-
-```ts
-// lib/images/style.ts
-export const STYLE_SUFFIX =
-  ", futuristic sci-fi magazine cover illustration, deep space palette, " +
-  "cyan and magenta accents, cinematic volumetric lighting, intricate " +
-  "but legible composition, 35mm grain, no text, no logos, no watermark";
-```
-
-The writer step produces the *subject* prompt only; the provider
-implementation concatenates the suffix. Keep the suffix in one place so
-the look stays consistent across days.
-
-## Output handling
-
-- Always transcode to `webp` quality 82 via `sharp` before saving.
-- Target file `<200KB`. Resize down to `1536x1024` max.
-- Compute and store a `blurhash` next to the article frontmatter for the
-  loading shimmer.
-
-## Adding a new provider
-
-1. Create `lib/images/<name>.ts` exporting an `ImageProvider`.
-2. Add the env var name and example value to `.env.example`.
-3. Add a branch to `getImageProvider()`.
-4. Run `pnpm test:image -- --provider <name>` (smoke test, generates one
-   placeholder image and discards it).
-
-## Don'ts
-
-- Don't bake provider-specific options into the pipeline. Anything
-  beyond `prompt`, `size`, `seed` belongs inside the provider module.
-- Don't store raw provider responses on disk — extract bytes, transcode,
-  discard.
+Run existing focused image tests and `pnpm check:content`; add a test only for behavior the repository actually supports.

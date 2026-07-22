@@ -1,85 +1,24 @@
 ---
 name: tech-source-scraper
-description: How to add and implement scrapers for tech/AI news sources (RSS, HTML, API). Use when adding a new source to sources.yml or building/debugging a scraper adapter under lib/scraping.
+description: Add, verify, implement, or repair Caught Up sources and scraper adapters while preserving source isolation, evidence quality, privacy, and deterministic tests. Use for sources.yml, lib/scraping/*, or source-specific parsing failures.
 ---
 
 # Tech source scraper
 
-Goal: turn any tech/AI publication into a stream of `ScrapedItem`s the
-pipeline can curate.
+Read `sources.yml`, its schema/loader/tests, and existing adapters before adding anything.
 
-## Source registry — `sources.yml`
+## Select and verify
 
-```yaml
-sources:
-  - id: hn-frontpage
-    type: hn            # rss | html | hn | arxiv | api
-    name: Hacker News (front page)
-    weight: 0.8         # 0..1, used by curator as a prior
-    tags: [general, tech]
+Prefer original reporting and primary sources. Compare a candidate with current coverage, topics, evidence class, geography, cadence, and duplication. Verify the actual homepage/feed/API and separate observed facts from assumptions.
 
-  - id: ars-technica-ai
-    type: rss
-    url: https://feeds.arstechnica.com/arstechnica/index
-    filter: { tags: [ai, ml] }
-    weight: 0.7
-    tags: [ai, news]
-```
+Prefer RSS, then documented JSON/API, then respectful HTML extraction. Honor robots policy, timeouts, publisher terms, and rate limits. Store only the summary/metadata required for curation; never republish full text or append tracking parameters without a committed policy.
 
-Required fields: `id`, `type`, `name`, plus whatever the adapter needs
-(`url` for RSS/HTML, nothing for `hn`/`arxiv`). `weight` defaults to `0.5`.
+## Implement
 
-## Preferred order
+- Reuse `makeItem`, RSS projection, timeout, source dispatch, and schema helpers.
+- Keep stable IDs, bounded summaries, safe URLs/dates, and partial-failure isolation.
+- Do not let one publisher abort the run or leak raw errors to reader output.
+- Add no dependency until existing Undici, rss-parser, Cheerio, and utilities are demonstrably insufficient.
+- Add a focused parser/config test with a safe fixture; normal tests never hit the network.
 
-1. **RSS** — almost every tech publication has one. Use `rss-parser`.
-   Cheapest and most stable.
-2. **JSON API** — Hacker News (`https://hacker-news.firebaseio.com/v0/`),
-   arXiv (`http://export.arxiv.org/api/query`), Lobsters
-   (`https://lobste.rs/hottest.json`), Reddit `.json` endpoints.
-3. **HTML scraping** — only when nothing else works. Use `undici` +
-   `cheerio`. Set a real `User-Agent`, respect `robots.txt`, cache
-   responses for the run.
-
-## Adapter contract
-
-```ts
-// lib/scraping/<type>.ts
-export async function fetch(source: Source): Promise<ScrapedItem[]>;
-```
-
-- Must not throw on partial failure — return what it can and log warnings.
-- Must respect a 10s per-source timeout (`AbortSignal.timeout(10_000)`).
-- Must produce stable `id`s (`sha1(url)`).
-- Must clamp `summary` to ~500 chars.
-
-## Seed sources to ship with
-
-When scaffolding, populate `sources.yml` with at least:
-
-- Hacker News (`hn`)
-- arXiv cs.AI / cs.LG (`arxiv`)
-- Ars Technica AI feed (`rss`)
-- The Verge AI feed (`rss`)
-- MIT Technology Review AI feed (`rss`)
-- TechCrunch AI (`rss`)
-- Anthropic news (`rss`)
-- OpenAI blog (`rss`)
-- Google DeepMind blog (`rss`)
-- Hugging Face blog (`rss`)
-- Simon Willison's blog (`rss`)
-
-URLs change — verify with WebFetch before committing a new source.
-
-## Ethics & rate limits
-
-- Respect `robots.txt`. The `html` adapter must check it before fetching.
-- Never republish full text — store at most a 500-char summary plus link.
-- Add `from=aifirst-magazine` to outgoing URLs when the source supports
-  attribution params.
-
-## Adding a source
-
-Use the `/add-source` slash command — it does the WebFetch verification,
-detects the type, and appends to `sources.yml`. If invoked manually,
-follow the same steps: verify the feed/endpoint, pick the adapter, add
-the entry, run `pnpm scrape:dry <id>` to confirm output.
+Run the actual `pnpm scrape:dry -- <source-id>` form supported by the script plus focused tests. Report item counts/sample titles only when observed, and never print credentials or private diagnostics.

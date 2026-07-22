@@ -147,3 +147,26 @@ blockers because their repository, endpoints and credentials were not supplied.
 - `NEEDED.md`, the GitHub README and `stack-and-scaling.md` now distinguish
   completed implementation from required operator credentials, deployment
   settings and optional paid services.
+
+## Product-design and agent-architecture follow-up (2026-07-22)
+
+- Implemented the completion-period vector and reusable brand lockup, semantic
+  visual tokens, editorial typography, shared issue masthead, schema-v2
+  uncertainty treatment, search focus containment, and deterministic Open
+  Graph/Weekly identity.
+- Refined Today and article reading as a finite arc, including progressive
+  evidence/provenance, meaningful completion, no-image handling, print, and
+  legacy compatibility.
+- Refined Radar, Topics, Weekly, Archive, Search, About, Sources, Glossary,
+  Corrections, Health, and promotion using real static data and existing
+  loaders/components. Optional Topic media renders nothing when no local asset
+  exists.
+- Verified representative English/Czech production routes at mobile, tablet,
+  desktop, and wide widths; added deterministic responsive/behavior/security
+  Playwright coverage and an auditable QA record.
+- Replaced contradictory design-agent instructions with focused Caught Up
+  brand, editorial UI, accessibility/visual-QA, release, and deferred-media
+  skills plus distinct specialist agents and executable commands.
+- Higgsfield media is explicitly deferred because its MCP was unavailable. No
+  substitute or placeholder assets were generated; the code has optional hooks
+  and the manifest contains the complete future inventory.

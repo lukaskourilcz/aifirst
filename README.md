@@ -213,3 +213,8 @@ See [`NEEDED.md`](NEEDED.md) for the exact remaining operator checklist.
 - [`docs/CAUGHT_UP_IMPLEMENTATION.md`](docs/CAUGHT_UP_IMPLEMENTATION.md) — rebrand audit, compatibility decisions and validation record
 - [`docs/OWNDASHBOARD_INTEGRATION.md`](docs/OWNDASHBOARD_INTEGRATION.md) — optional control-plane contract
 - [`stack-and-scaling.md`](stack-and-scaling.md) — current cost baseline, formulas and growth scenarios
+- [`docs/design/PRODUCT_UX_AUDIT.md`](docs/design/PRODUCT_UX_AUDIT.md) — route, task, state and reuse audit
+- [`docs/design/DESIGN_THESIS.md`](docs/design/DESIGN_THESIS.md) and [`docs/design/BRAND_SYSTEM.md`](docs/design/BRAND_SYSTEM.md) — product and identity direction
+- [`docs/design/DESIGN_SYSTEM.md`](docs/design/DESIGN_SYSTEM.md) — implemented tokens, composition, motion, responsive and print rules
+- [`docs/design/VISUAL_QA.md`](docs/design/VISUAL_QA.md) — actual route/viewport review protocol and findings
+- [`docs/design/HIGGSFIELD_ASSET_MANIFEST.md`](docs/design/HIGGSFIELD_ASSET_MANIFEST.md) — deferred media inventory and future provenance requirements; no assets were generated in this overhaul

@@ -17,8 +17,9 @@ homepage URL or a publication name.
    - `html` only as a last resort, after checking `robots.txt`.
 3. Verify the feed with WebFetch — it must return well-formed XML/JSON
    and contain at least 5 recent items dated within the last 30 days.
-4. Propose an entry to the user via AskUserQuestion if anything is
-   ambiguous (tags, weight). Otherwise just append it:
+4. Infer tags and weight from `sources.yml`, `config/topics.yml`, and the
+   observed evidence when the choice is routine. Ask only when a materially
+   different editorial choice cannot be resolved from repository context.
    ```yaml
    - id: <kebab-case-id>
      type: rss
@@ -30,7 +31,9 @@ homepage URL or a publication name.
 5. Append to `sources.yml`, keeping the file sorted by `id`.
 6. Run `pnpm scrape:dry <id>` if the project is scaffolded. Report the
    item count and a couple of sample titles.
-7. Do **not** commit — leave that to the user.
+7. Run the focused config tests and dry scrape. Commit only when the task
+   authorizes commits; during a larger autonomous implementation, include the
+   addition in a coherent validated milestone.
 
-If the source already exists (matching `id` or `url`), report it and
-stop.
+If the source already exists, do not duplicate it. Distinguish verified source
+behavior from assumptions and never expose private scrape diagnostics.

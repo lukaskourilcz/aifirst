@@ -1,0 +1,4 @@
+interface:
+  display_name: "Caught Up Editorial UI"
+  short_description: "Build Caught Up reader-facing editorial UI"
+  default_prompt: "Implement this reader-facing route with the Caught Up editorial UI system."

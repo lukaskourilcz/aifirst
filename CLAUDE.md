@@ -1,153 +1,150 @@
-# Caught Up (`aifirst` repository)
+# Caught Up repository control document
 
-A daily AI-generated magazine about Tech and AI. Each day a pipeline scrapes
-configured sources, curates the most interesting items, and uses Claude to
-write a single selective feature article with an optional restrained editorial illustration.
+This repository publishes **Caught Up**, a bilingual, Git-native daily briefing about the AI and technology stories that actually mattered. The repository/package, bot identity, compatibility environment variables, and other stable technical identifiers intentionally remain `aifirst`.
 
-## Stack
+## Product
 
-- **Framework**: Next.js (App Router, TypeScript)
-- **Content**: Markdown / MDX files in `content/articles/YYYY-MM-DD.mdx`
-- **Article generation**: Anthropic SDK (`@anthropic-ai/sdk`), model
-  `claude-opus-4-7` for drafting, `claude-sonnet-4-6` for summarisation /
-  curation. Use prompt caching on system prompts.
-- **Scraping**: RSS first, HTML fallback (e.g. `rss-parser`, `cheerio`,
-  `undici`). Source list lives in `sources.yml`.
-- **Image generation**: pluggable provider behind
-  `lib/images/provider.ts`. Default scaffolded as fal.ai (FLUX) but the
-  interface is provider-agnostic.
-- **Scheduling**: GitHub Actions cron `0 6 * * *` runs `pnpm generate:daily`,
-  commits the result to `content/articles/` and `public/illustrations/`.
+Caught Up reduces AI-news overload. A reader should open Today, understand the lead development, why it matters, what changed, Briefs, Watchlist, and evidence, then reach **You’re caught up. / Máte přehled.** and feel able to stop scrolling.
 
-## Repo layout (target)
+Primary readers are busy developers, founders, product/technology leaders, AI practitioners, and informed professionals. Secondary readers include researchers, analysts, journalists, search/feed/weekly readers, and English/Czech audiences. Operators use GitHub Actions and eventually optional OwnDashboard controls; operator functionality stays separate from the public reader experience.
 
+Public positioning:
+
+- English: “The AI stories that actually mattered today.” / “One edition and you’re caught up on AI.”
+- Czech: “To podstatné z AI. Každý den.” / “Jedno vydání a máte přehled.”
+- Never translate the brand name.
+
+## Reader routes and terminology
+
+English is unprefixed; Czech uses `/cs`.
+
+- Primary: `/` Today, `/radar`, `/topics`, `/weekly`, `/archive`, `/about`
+- Reading: `/articles/[slug]`, `/articles/[slug]/print`
+- Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`, `/search`
+- Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/health JSON; static Open Graph
+- Operator-adjacent: sanitized noindex health, token-gated/unlisted/noindex `/promotion`, noindex `/admin` migration notice
+- Preserve redirects `/stats` and `/trends` → `/radar`, `/tags` → `/topics`, `/colophon` → `/about`, legacy articles/tags/feeds, locale behavior, and canonical metadata.
+
+Internal `dispatches` render as **Briefs / Ve zkratce**. Internal `wire` renders as **Watchlist / Na radaru**. Do not migrate stable storage keys for cosmetic consistency.
+
+## Architecture and boundaries
+
+The static path is deliberate:
+
+`sources.yml + config/*.yml → GitHub Actions → scrape → curate → write → optional illustration → validate → MDX/static artifacts/private telemetry → Git commit/review PR → Next.js static build → Vercel CDN`
+
+An optional bounded private run-report callback may reach OwnDashboard. Dashboard failure must never block scheduled publication.
+
+- Git and MDX are canonical. No content database, runtime CMS, reader auth/accounts, comments, per-request generation, runtime summary/chat, or runtime OwnDashboard dependency.
+- Reader pages never scrape sources or call a model.
+- Keep server components by default. Client boundaries are limited to actual interaction such as search, reading progress, keyboard help, or copy feedback.
+- Preserve GitHub Actions mutation/idempotency, static Next routes, Vercel delivery, CSP, analytics, and compatibility contracts.
+- Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking.
+
+## Content and generation
+
+`lib/content.ts` is the frontmatter/read contract and legacy compatibility layer. `lib/content-write.ts` is the MDX serialization path. Schema v2 adds `why_it_matters`, `what_changed`, `uncertainty`, structured evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, and alternative headlines while retaining legacy MDX.
+
+The daily/weekly pipeline already performs committed config loading, idempotency, per-source isolation, structured curation/writing, requested locales, quality/source/diversity/duplicate checks, provider-usage cost calculation, optional illustration/promotion, persistence, static distribution output, private run reports, and an optional callback. Preserve these stages and their tests.
+
+- Resolve models through `lib/anthropic/models.ts` and `config/editorial.yml`; do not duplicate IDs.
+- Illustration defaults to `none`; quality enforcement defaults to `report_only`; budgets remain unset unless operations intentionally change.
+- Do not enable paid media, extra model passes, locale expansion, or stricter enforcement as a side effect of product work.
+- Never fabricate sources, provenance, metrics, human review, or cost.
+
+## Important paths and reuse
+
+- `app/`: App Router pages, feeds, JSON, metadata, OG, print
+- `components/`: shared reader/editorial UI
+- `lib/content.ts`, `lib/content-write.ts`: content reads/writes
+- `lib/i18n/`: locale dictionaries/path/metadata helpers
+- `lib/editorial/`: validation/config-facing editorial contracts
+- `lib/pipeline/`, `lib/scraping/`, `lib/anthropic/`, `lib/telemetry/`: generation system
+- `config/`, `sources.yml`: committed operations/editorial configuration
+- `docs/design/`: product audit, thesis, brand/design system, QA, deferred media
+- `.claude/`: project skills, agents, and executable workflow commands
+
+Search before creating. Prefer extending `PageShell`, `IssueRow`, `IssueMasthead`, existing editorial components, `SourceLedger`, `Provenance`, `EditorialHighlights`, `FeedActions`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, content/feed/topic/Radar/signal helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
+
+TypeScript is strict and `noUncheckedIndexedAccess` is enabled. Keep server-reached relative value imports extensionless. Never commit `.env.local`, secrets, generated caches, rejected media, or private run reports.
+
+## Brand and design system
+
+The design thesis is **calm editorial intelligence with a clear sense of completion**. Read:
+
+- `docs/design/DESIGN_THESIS.md`
+- `docs/design/BRAND_SYSTEM.md`
+- `docs/design/DESIGN_SYSTEM.md`
+- `docs/design/VISUAL_QA.md`
+
+Use the completion-period vector through `BrandMark`/`BrandLockup`, warm paper and ink, blueprint blue, restrained semantic status colors, editorial serif headlines, readable sans body/interface text, and mono only for identifiers/measured values. Use semantic custom properties, flat surfaces, hairlines, low radii, measured reading widths, accessible focus, and purposeful density.
+
+Today is the product, not a marketing landing page. Radar is editorial intelligence, not an operator dashboard. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
+
+Never restore terminal-first, neon, scanline, parallax, glow, dark-only, generic startup-gradient, glass, fake-interface, robot/brain/circuit, excessive-card/pill, fake-chart/metric, mascot, testimonial, or infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
+
+Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
+
+## Higgsfield policy
+
+Use `.claude/skills/caught-up-higgsfield-production/SKILL.md` only when Higgsfield/media work is in scope. The current implementation contains optional layout/media hooks but no substitute generated assets.
+
+If the actual Higgsfield MCP is unavailable, defer the media subtask: do not research it, connect/wait, invent tools, use another generator, or create placeholder production assets. Continue all non-media work. When available, follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and record real provenance in `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
+
+## Responsive, accessibility, localization, and states
+
+Validate 360, 430, 768, 1024, 1280–1440, and 1600px where layout changes; include 320px reflow when relevant. Test Czech and long copy. No horizontal page overflow; wide tables may use an accessible scroll region.
+
+Maintain skip links, landmarks, one clear page `h1`, current navigation, keyboard order, visible focus, dialog containment/Escape/restoration, accessible names, live feedback, source/corrections/sponsorship semantics, 44px touch targets, non-color state cues, contrast, zoom, reduced motion, and correct image alt/decorative handling.
+
+Handle real missing/legacy/fallback/no-image/no-Briefs/no-Watchlist/no-Topics/no-Weekly/empty-search/stale-health/correction/sponsorship/cost-review-unavailable/long-content states. Never fabricate content to fill a layout.
+
+## SEO, security, privacy, and performance
+
+Preserve static metadata, canonical/hreflang, structured data, sitemap, robots, Atom/JSON contracts, Open Graph, article URLs, and print. Keep HSTS, CSP, frame denial, MIME protection, restrictive permissions policy, safe links, no X-Powered-By, token gates, noindex operator surfaces, and sanitized health output.
+
+The enforceable bundle target is the existing **110 kB gzip page-entry ceiling**. Next/React shared runtime is already approximately 102–104 kB. Do not claim the historical 80 kB aspiration, add heavy client dependencies, preload unnecessary media, or introduce runtime media/API cost. Use local optimized assets with dimensions and lazy loading.
+
+## Validation and Git
+
+Inspect `package.json` before running commands. The release gates are:
+
+```bash
+pnpm verify   # lint, TypeScript, unit tests, content/config, build, bundle
+pnpm e2e      # route, behavior, responsive and accessibility checks
 ```
-app/                       # Next.js routes
-  page.tsx                 # latest article (today)
-  archive/page.tsx         # archive index
-  articles/[slug]/page.tsx # individual article
-  promotion/page.tsx       # secret IG/Threads console (direct URL only)
-components/                # React components (editorial UI)
-content/articles/          # generated MDX articles
-content/promotion/         # generated IG/Threads copy (one JSON per date)
-lib/
-  scraping/                # source adapters + runners
-  pipeline/                # curate -> write -> illustrate -> promote
-  images/                  # image provider interface
-  anthropic/               # SDK client + shared prompts
-  promotion.ts             # promotion types + guard (browser-safe)
-  promotion-store.ts       # promotion JSON read/write (server only)
-public/illustrations/      # generated illustrations
-sources.yml                # configured sources
-scripts/
-  generate-daily.ts        # entry point for the cron job
-```
 
-## Design language
+For focused work, run the smallest relevant commands while iterating, then the complete gates for release-level changes. Inspect the real UI; never claim a browser, test, or command passed unless it actually ran successfully.
 
-Caught Up uses calm editorial intelligence with a clear sense of completion.
-Read `docs/design/DESIGN_THESIS.md` and `docs/design/BRAND_SYSTEM.md` before
-visual work. Reuse paper, slate, ink and blueprint tokens; use serif headlines,
-neutral sans utility text and mono only for identifiers or measured values.
-Never restore dark-only terminal styling, scanlines, parallax, glow, neon,
-robots, brains, generic circuits, generated fake UI, or an obsolete 80 kB total
-budget. The measured page-entry guard is 110 kB gzip.
+Before editing, inspect branch/status/staged and unstaged diffs/recent log. Preserve unrelated work and stage deliberately. Use coherent incremental commits for large autonomous tasks and continue immediately after each checkpoint. Do not reset, discard user changes, rewrite unrelated history, force push, commit secrets/caches, or push unless authorized.
 
-## Conventions
+## Project AI workflows
 
-- TypeScript strict, no `any`. `noUncheckedIndexedAccess` is on — index
-  access and `.split()`/destructuring yield `T | undefined`; narrow or cast
-  at the boundary (see `parseSize` in `lib/images/provider.ts`).
-- Server components by default; only opt into `'use client'` for interactive
-  pieces.
-- Content is immutable once committed — regenerating a day overwrites the same
-  filename and is reviewed via PR.
-- Never commit API keys. Use `.env.local` and document required vars in
-  `.env.example`.
-- Observability: `<SpeedInsights />` + `<Analytics />` (Vercel) mount once in
-  `app/layout.tsx`. The CSP in `next.config.mjs` allow-lists their two
-  first-party hosts — `va.vercel-scripts.com` (collector script) and
-  `vitals.vercel-insights.com` (vitals beacon); extend the CSP there, not
-  inline, if you add any other third-party script.
-- `pnpm analyze` (`ANALYZE=true next build`) opens a bundle treemap via
-  `@next/bundle-analyzer` to catch client-JS regressions. It's dev-only and
-  ships nothing; watch the build's first-load column for jumps over +10 KB.
+Skills:
 
-## Foundation & shared helpers
+- `caught-up-brand-system`
+- `caught-up-editorial-ui`
+- `caught-up-higgsfield-production`
+- `caught-up-accessibility-visual-qa`
+- `caught-up-release-validation`
+- focused pipeline/source/weekly/testing skills retained under `.claude/skills/`
 
-Before writing a transformation inline, check whether one of these already
-covers it. New cross-cutting logic belongs in `lib/helpers/` or a focused
-`lib/*` module, not copy-pasted into a route or component.
+Agents:
 
-- **`lib/helpers/`** — small, pure, single-purpose utilities:
-  - `group.ts` `groupBy(items, keyFn)` — bucket into a `Map`; use instead of
-    the hand-rolled `map.get(k) ?? []; push` idiom (archive/glossary/stats).
-  - `date.ts` `toIsoDate(d?)`, `todayIso()`, `byDateDesc` — date formatting and
-    the newest-first comparator used by content listings and the scripts.
-  - `dom.ts` `isEditableTarget(target)` — "is the event inside a text field"
-    guard shared by all global keyboard handlers.
-  - `signal.ts` `signalBars(value)` + `SIGNAL_BARS` — the clamp/fill maths for
-    the signal-strength segment bar (component **and** OG image).
-- **`lib/hooks/`** — client-only React hooks:
-  - `useWindowEvent.ts` `useWindowEvent(type, handler, options?)` — subscribe to
-    one or more `window` events with automatic cleanup; the latest handler is
-    always invoked, so callers pass no dependency array. Shared by the search
-    palette, keyboard-help overlay and reading-progress bar.
-- **`lib/content.ts`** is the single source of truth for the frontmatter
-  contract and the `ArticleSummary` projection (`toSummary`). Read MDX through
-  `readMdxFiles` / the internal frontmatter iterator — don't re-`readdir`.
-- **`lib/content-write.ts`** `serializeMdx` / `writeMdxFile` / `quoteYamlDates`
-  — the one way to render frontmatter + body to an MDX file (daily, weekly,
-  seed). gray-matter coerces unquoted ISO dates to `Date`, so dates stay
-  quoted; never re-implement this regex.
-- **`lib/feed.ts`** `atomDocument` / `atomEntry` / `escapeXml` / `feedUpdated`
-  / `PUBLISH_TIME` — all Atom feeds (site + per-tag) build through these.
-- **`lib/anthropic/models.ts`** `MODELS` — the only place model ids live.
-  Import it (not a string literal) anywhere a model id is shown or sent;
-  `client.ts` re-exports it for the pipeline. Keep it SDK-free so UI/display
-  code can import it without pulling in `@anthropic-ai/sdk`.
-- **`lib/og-theme.ts`** `OG` — palette/background/font for the OpenGraph
-  images (mirrors the CSS custom properties, which `next/og` can't read).
-- **Scrapers** build items via `makeItem(url, fields, source)` in
-  `lib/scraping/util.ts`; RSS-shaped adapters project through
-  `projectRssItem` / `projectFeedItems` (`rss.ts`). Source dispatch is the
-  exported `fetchOne` in `run.ts` — the dry-run script reuses it.
-- **`lib/config.ts`** `resolveRepo()` (nullable) / `githubRepo()` (with
-  fallback) — the canonical owner/repo resolution; don't read the repo env
-  vars directly.
-- **`lib/i18n/config.ts`** `localePath(locale, path)` builds locale-prefixed
-  URLs; `localePrefixer(locale)` returns the `lp` shorthand pages bind once and
-  reuse; `resolveLocale(value)` coerces a raw `lang` segment/param to a `Locale`
-  (use it in route handlers and the print view). `lib/i18n/metadata.ts`
-  `localeAlternates(locale, path)` builds the canonical + hreflang + Atom block
-  shared by the home and article `generateMetadata`.
-- **`lib/glossary.ts`** `resolveGlossaryTerms(names, terms)` turns an issue's
-  `glossary_terms` name list into resolved `GlossaryTerm`s (home/article/print).
-- **Shared presentational components** (`components/`): `PageShell` (the
-  `.container` section + kicker/title/intro every secondary page opens with),
-  `IssueRow` (the `entry-row` date + title list item), `StatCard` (the bordered
-  label + big-number tile) and `ModalOverlay` (the click-out backdrop + panel
-  behind the search and keyboard-help dialogs). Reach for these before hand-
-  rolling the same markup again.
+- `editorial-product-designer`
+- `brand-media-art-director`
+- `accessibility-visual-qa`
+- `source-scout`, `scraper-builder`, `article-writer`
 
-### Import specifiers (build gotcha)
+Commands:
 
-- Relative **value** imports in lib modules that are reached from `app/`
-  (server components, routes) must be **extensionless** (`./text`,
-  `./helpers/date`) — Next's webpack will not resolve a `.js` specifier to a
-  `.ts` source for a runtime import, and the build fails.
-- `import type` is erased before bundling, so type-only relative imports may
-  keep the repo's `.js` suffix.
-- Script-only and pipeline modules (run via `tsx`/vitest) tolerate `.js`
-  specifiers; the existing `.js`-suffixed imports there are fine. When in
-  doubt, prefer extensionless relative or the `@/` alias for UI code.
+- `/design-audit`
+- `/implement-editorial-route <route>`
+- `/generate-brand-media <asset-purpose>`
+- `/visual-qa [scope]`
+- `/release-check`
+- `/add-source`, `/generate-article`, `/preview-magazine`
 
-## Common tasks
+## Definition of done
 
-- `/scaffold-magazine` — bootstrap the Next.js app and lib/ skeleton.
-- `/add-source <url-or-name>` — add a scraping source.
-- `/generate-article` — run the daily pipeline locally.
-- `/preview-magazine` — start the dev server.
-
-Specialized agents (`source-scout`, `scraper-builder`, `article-writer`,
-`ui-designer`) handle larger pieces — see `.claude/agents/`.
+The implementation, documentation, localization, states, tests, responsive/accessibility behavior, feeds/JSON/metadata/security, bundle guard, and Git history agree. Feasible defects are fixed, checks are reported accurately, design guidance contains no contradictory legacy identity, and any unavailable external capability is named as a concrete limitation rather than replaced with fiction.

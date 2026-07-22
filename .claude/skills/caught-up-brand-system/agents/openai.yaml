@@ -1,0 +1,4 @@
+interface:
+  display_name: "Caught Up Brand System"
+  short_description: "Apply the Caught Up publication identity"
+  default_prompt: "Apply the Caught Up brand system to this repository task."

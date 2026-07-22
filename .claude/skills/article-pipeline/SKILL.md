@@ -1,92 +1,30 @@
 ---
 name: article-pipeline
-description: How the daily curate -> write -> illustrate pipeline uses the Claude API, including prompt structure, caching, and the MDX frontmatter contract. Use when modifying lib/pipeline/* or the prompts.
+description: Maintain Caught Up's scrape-to-publication pipeline, Anthropic structured outputs, bilingual schema-v2 MDX, evidence, usage telemetry, optional illustration, quality gates, idempotency, and legacy compatibility. Use for lib/pipeline/*, lib/anthropic/*, scripts/generate-daily.ts, or article frontmatter changes.
 ---
 
 # Article pipeline
 
-Three steps, each a single Anthropic API call.
+Read `config/editorial.yml`, `lib/anthropic/models.ts`, `lib/content.ts`, `lib/editorial/validation.ts`, and the affected pipeline tests before editing.
 
-## 1. Curate (`lib/pipeline/curate.ts`)
+## Preserve the stages
 
-- Model: `claude-sonnet-4-6`.
-- Input: deduped `ScrapedItem[]` from the last 24h (cap ~80 items).
-- System prompt (cached): editorial brief — "you are the senior editor
-  of an AI tech magazine, pick the 5-8 items that, taken together, tell
-  the story of today in tech & AI."
-- Output: structured JSON via tool use:
-  ```ts
-  type CuratedBrief = {
-    date: string;
-    headline: string;     // working title
-    angle: string;        // 1-paragraph thesis
-    picks: Array<{
-      itemId: string;
-      why: string;        // why this matters today
-    }>;
-  };
-  ```
+Keep configuration → isolated scrape → guardrails → structured curation → structured writing → optional illustration → validation → MDX/static artifacts/private report → optional bounded OwnDashboard callback. Reader requests never run these stages.
 
-## 2. Write (`lib/pipeline/write.ts`)
+- Use `modelFor(role)` and committed profiles; do not duplicate model IDs.
+- Keep stable system prompts cacheable and variable source material outside cached blocks.
+- Require Anthropic tool use for structured curation/writing outputs.
+- Preserve requested locales, the unprefixed English and `/cs` publication model, and actual translation linkage.
+- Build source references only from input items. Preserve evidence classification and supported-claim metadata.
+- Record provider usage and measured cost only when complete; never estimate it into provenance.
+- Keep per-source failure isolation, idempotency, regeneration budgets, publish/review modes, and report-only quality defaults.
 
-- Model: `claude-opus-4-7`.
-- Input: `CuratedBrief` + full `ScrapedItem` records for the picks.
-- System prompt (cached): style guide (see below).
-- Output: a single MDX document plus an illustration prompt.
+## Content contract
 
-### MDX frontmatter contract
+Schema v2 uses the canonical legacy storage keys plus structured fields: `why_it_matters`, `what_changed`, `uncertainty`, evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, `alternative_headlines`, `dispatches`, and `wire`. Reader labels are Briefs and Watchlist; do not migrate storage keys merely for copy consistency. Legacy MDX remains valid.
 
-```mdx
----
-title: "Headline"
-slug: "2026-05-12-headline-slug"
-date: "2026-05-12"
-dek: "One-sentence subhead."
-tags: [ai, hardware, policy]
-sources:
-  - { id: "hn-12345", url: "...", title: "..." }
-illustration:
-  path: "/illustrations/2026-05-12.webp"
-  prompt: "..."
-  alt: "..."
----
+Writing follows the committed editorial target, is calm and specific, links only supplied URLs, distinguishes claims from analysis, and does not invent certainty. Illustration is optional and provider `none` is valid.
 
-Body in MDX. ~800-1200 words. Sections separated by `##`.
-```
+## Validation
 
-### Style guide (lives in `lib/anthropic/style-guide.ts`, cached)
-
-- Voice: confident, curious, slightly literary. Not a listicle.
-- Lead with the most surprising development; use the others as context.
-- Cite sources inline as `[link text](url)`; never invent URLs — only use
-  URLs present in the input items.
-- Avoid hype words ("revolutionary", "game-changer"). Prefer specifics.
-- One paragraph musing on second-order effects is encouraged; keep it
-  grounded.
-
-## 3. Illustrate (`lib/pipeline/illustrate.ts`)
-
-- Calls `getImageProvider().generate(prompt, { size: '1536x1024' })`.
-- The prompt comes from the writer step; prepend a fixed style suffix
-  defined in `lib/images/style.ts` — e.g.
-  `", in the style of a futuristic sci-fi magazine cover, deep space
-  palette with cyan and magenta accents, cinematic lighting, no text"`.
-- Save as `public/illustrations/YYYY-MM-DD.webp`. If the provider returns
-  PNG/JPEG, transcode via `sharp`.
-
-## Prompt caching
-
-Both curate and write calls reuse a long stable prefix (system prompt +
-style guide). Mark those blocks with `cache_control: { type: 'ephemeral' }`
-in the messages payload. Only the variable items belong outside the
-cached region.
-
-## Failure handling
-
-- If curation returns fewer than 3 picks, abort the run — better no
-  article than a thin one.
-- If illustration fails, still publish the article with a placeholder
-  pointing to `public/illustrations/placeholder.webp`. Log to stderr so
-  the cron job surfaces it.
-- The script must `exit(1)` on hard failures so the GitHub Action fails
-  visibly.
+Add focused unit/fixture tests, run `pnpm check:content`, and use a dry run only with safe fixtures/credentials. Never make paid calls, enable media, expand locales, or tighten enforcement without explicit operational scope. Inspect persisted MDX and telemetry before reporting completion.

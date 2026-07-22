@@ -284,3 +284,25 @@ Playwright smoke tests cover routes, compatibility redirects, trust surfaces,
 print compatibility, navigation, localization, overflow and console errors at
 desktop/tablet/mobile sizes. The visual audit captures the main public routes
 at all three viewport classes and reports dead-space findings.
+
+## Product and design implementation
+
+The production interface follows “calm editorial intelligence with a clear
+sense of completion.” The completion-period vector, shared brand lockup,
+semantic warm-paper/ink/blue tokens, editorial masthead, finite completion
+state, data-first Radar, curated Topics, distinct Weekly cover, compact
+Archive/Search/reference surfaces, and print styling are implemented in the
+real routes. `docs/design/DESIGN_SYSTEM.md` is authoritative for the current
+CSS/component system; `docs/design/VISUAL_QA.md` records the route and viewport
+evidence.
+
+Topic media is an optional local-only field and disappears when absent. Weekly
+and Open Graph identity remain deterministic without media. Higgsfield was not
+available for the 2026-07-22 overhaul, so no generated or substitute assets
+were added. `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` lists only deferred
+deliverables and the provenance required after real generation.
+
+Project AI instructions live in `CLAUDE.md`, `AGENTS.md`, and `.claude/`.
+They require reuse, mobile/Czech/keyboard validation, semantic tokens,
+incremental commits, and the full release gates. The former incompatible
+future-terminal design guidance has been removed.
