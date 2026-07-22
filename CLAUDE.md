@@ -61,7 +61,7 @@ The daily/weekly pipeline already performs committed config loading, idempotency
 - `lib/editorial/`: validation/config-facing editorial contracts
 - `lib/pipeline/`, `lib/scraping/`, `lib/anthropic/`, `lib/telemetry/`: generation system
 - `config/`, `sources.yml`: committed operations/editorial configuration
-- `docs/design/`: product audit, thesis, brand/design system, QA, deferred media
+- `docs/design/`: product audit, thesis, brand/design system, QA, and queued media production
 - `.claude/`: project skills, agents, and executable workflow commands
 
 Search before creating. Prefer extending `PageShell`, `IssueRow`, `IssueMasthead`, existing editorial components, `SourceLedger`, `Provenance`, `EditorialHighlights`, `FeedActions`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, content/feed/topic/Radar/signal helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
@@ -88,6 +88,12 @@ Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avo
 ## Higgsfield policy
 
 Use `.claude/skills/caught-up-higgsfield-production/SKILL.md` only when Higgsfield/media work is in scope. The current implementation contains optional layout/media hooks but no substitute generated assets.
+
+On this development machine, the global Codex MCP server `higgsfield` is
+registered at `https://mcp.higgsfield.ai/mcp` and its OAuth login was completed
+on 2026-07-22. Start a fresh Codex session so its callable tools and schemas are
+loaded, then inspect them before generation; configuration alone is not proof
+that a particular model, tool, output format, or limit exists.
 
 If the actual Higgsfield MCP is unavailable, defer the media subtask: do not research it, connect/wait, invent tools, use another generator, or create placeholder production assets. Continue all non-media work. When available, follow `docs/design/HIGGSFIELD_ART_DIRECTION.md` and record real provenance in `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
 

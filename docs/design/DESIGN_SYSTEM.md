@@ -55,7 +55,7 @@ Motion is limited to short native CSS transitions and a four-pixel page-entry tr
 
 ## Media and generated assets
 
-Authentic UI is always rendered from production code and data. Article images keep intrinsic geometry and local/static delivery. Higgsfield assets are deferred until its MCP is available; missing generated media renders as no media, never as a fake placeholder. Future assets must be optional, locally committed, intrinsically sized, responsive, and accompanied by an explicit accessible-text classification.
+Authentic UI is always rendered from production code and data. Article images keep intrinsic geometry and local/static delivery. Higgsfield production is queued for a fresh MCP-enabled session; missing generated media renders as no media, never as a fake placeholder. Selected assets must be optional, locally committed, intrinsically sized, responsive, and accompanied by an explicit accessible-text classification.
 
 ## Responsive and print rules
 

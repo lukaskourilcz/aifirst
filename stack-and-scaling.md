@@ -116,9 +116,10 @@ current fal response adapter does not receive authoritative billing usage. If a
 hard run budget is configured, the pipeline refuses to persist a paid image
 whose cost it cannot prove.
 
-Higgsfield production is deferred because its MCP was unavailable during the
-overhaul. No Higgsfield charge, substitute generation, placeholder media, or
-runtime integration was introduced.
+Higgsfield production did not run during the overhaul because its MCP was
+unavailable then. The MCP was later registered and authenticated for the next
+Codex session, but no generation was started: Higgsfield spend remains $0, and
+no substitute media, placeholder, or runtime integration was introduced.
 
 ## GitHub Actions cost
 

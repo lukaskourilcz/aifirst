@@ -48,6 +48,6 @@ For future visual changes:
 5. Inspect console output, horizontal overflow, table scrolling, image intrinsic sizing, and focus visibility.
 6. Run `pnpm e2e`; retain screenshots only when the repository intentionally establishes a visual baseline.
 
-## Deferred media review
+## Pending media review
 
-Higgsfield media was not generated or substituted in this implementation. When the actual MCP is available, every selected asset must be reviewed in the real route at all relevant crops, checked for text or logo artifacts, optimized locally, given correct alternative-text treatment, and recorded in `HIGGSFIELD_ASSET_MANIFEST.md`.
+Higgsfield media was not generated or substituted in this implementation. The MCP is now connected for a fresh session; every selected asset must be reviewed in the real route at all relevant crops, checked for text or logo artifacts, optimized locally, given correct alternative-text treatment, and recorded in `HIGGSFIELD_ASSET_MANIFEST.md`.

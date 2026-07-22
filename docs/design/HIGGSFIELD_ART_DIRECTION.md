@@ -1,13 +1,15 @@
 # Generative media art direction
 
-## Deferred capability
+## Connection readiness
 
-The Higgsfield MCP is not available in the 2026-07-22 implementation session.
-Per the product owner, all Higgsfield research, prompt production, generation,
-review, optimization, and integration is deferred. No substitute image service
-and no placeholder raster asset may be used. The production interface will
-provide deterministic layout hooks so approved future media can be added
-without changing editorial data or route behavior.
+The Higgsfield MCP was not available during the 2026-07-22 implementation
+session, so no substitute image service or placeholder raster asset was used.
+It was subsequently registered globally in Codex as `higgsfield` at
+`https://mcp.higgsfield.ai/mcp`, and OAuth login completed successfully. A fresh
+session must inspect the actual callable tools, schemas, output formats, and
+limits before production. The interface already provides deterministic layout
+hooks so approved media can be added without changing editorial data or route
+behavior.
 
 ## Opportunity audit
 
@@ -49,7 +51,7 @@ watermarks; logos; legible generated text; fake labels; fake interfaces;
 robots; brains; circuit backgrounds; neon; purple glow; holograms; plastic CGI;
 heavy grunge; crime-board clichés.
 
-## Integration contract for the future Higgsfield pass
+## Integration contract for the Higgsfield pass
 
 - Assets remain local static files; no runtime Higgsfield dependency is added.
 - Actual brand, title, date, topic, and CTA text remains HTML or deterministic
@@ -61,5 +63,6 @@ heavy grunge; crime-board clichés.
 - Accepted media will need responsive crops, intrinsic dimensions, local
   AVIF/WebP export, useful or empty alt according to meaning, lazy loading,
   mobile review, reduced-motion/static fallback, and recorded provenance.
-- The deferred deliverable inventory belongs in
-  `HIGGSFIELD_ASSET_MANIFEST.md`; it must not claim that files were generated.
+- The queued deliverable inventory belongs in
+  `HIGGSFIELD_ASSET_MANIFEST.md`; it must not claim that files were generated
+  until actual MCP outputs are reviewed and selected.

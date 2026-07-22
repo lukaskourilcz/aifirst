@@ -1,6 +1,8 @@
 # Higgsfield asset manifest
 
-Status: deferred — no Higgsfield MCP was available on 2026-07-22.
+Status: ready for production in a fresh session. The global Codex server
+`higgsfield` is registered at `https://mcp.higgsfield.ai/mcp`, and OAuth login
+completed on 2026-07-22. No asset has been generated or selected yet.
 
 No media was generated, substituted, selected, optimized, referenced by production code, or committed during the overhaul. This file is an integration inventory, not generation provenance. Do not add production paths until actual selected files exist.
 
@@ -11,7 +13,7 @@ No media was generated, substituted, selected, optimized, referenced by producti
 - Default and article Open Graph routes render the mark, brand, title, date, and Topic text in code; a future background may sit beneath that text without changing the contract.
 - The completion-period logo and application icon are deterministic vector geometry and do not need Higgsfield output.
 
-## Deferred asset inventory
+## Queued asset inventory
 
 | Asset ID | Priority | Description and purpose | Intended integration | Required variants | Alt classification | Performance target |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -33,7 +35,7 @@ The optional items must be rejected if a later in-context review cannot show a c
 
 ## Required record after generation
 
-For each actual selected output, replace its deferred row or add a record containing:
+For each actual selected output, replace its queued row or add a record containing:
 
 - actual Higgsfield tool/model and generation date;
 - final prompt, negative prompt, and reference inputs;

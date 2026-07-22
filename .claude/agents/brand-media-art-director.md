@@ -18,7 +18,12 @@ Own visual identity and production media; do not redesign editorial data or gene
 
 ## Availability rule
 
-First inspect whether the Higgsfield MCP is callable. If absent, defer the media subtask, make no substitute asset, document the exact deliverable, and continue any deterministic brand/layout work. Do not research, wait for, or invent the integration.
+The expected Codex server is `higgsfield` at `https://mcp.higgsfield.ai/mcp`.
+First inspect whether its tools and schemas are callable in the current session;
+do not infer capabilities from configuration. If absent, defer the media
+subtask, make no substitute asset, document the exact deliverable, and continue
+any deterministic brand/layout work. Do not research, wait for, or invent the
+integration.
 
 ## Outputs when available
 

@@ -26,7 +26,7 @@ Read `CLAUDE.md` and `AGENTS.md` first. The authoritative design record is under
 - Deterministic Open Graph and Weekly composition with no remote or generated-media dependency.
 - Expanded Playwright route, locale, overflow, focus, touch-target, reduced-motion, no-image, operator-gate, JSON, feed, CSP, redirect, and print coverage.
 - Removed unreferenced legacy UI components and the dead placeholder image; renamed the still-used neutral MDX link away from old visual terminology.
-- Rebuilt `.claude` with focused brand, editorial UI, deferred Higgsfield, accessibility/visual-QA, and release skills; distinct specialist agents; real implementation/QA/release commands; and corrected source/scraper/writer skills.
+- Rebuilt `.claude` with focused brand, editorial UI, Higgsfield production, accessibility/visual-QA, and release skills; distinct specialist agents; real implementation/QA/release commands; and corrected source/scraper/writer skills.
 - Audited every tracked Markdown file, corrected branch/merge status, and aligned route, performance, validation, cost, and historical-audit claims with the final implementation.
 
 ## Commits in this overhaul
@@ -61,11 +61,20 @@ Executed successfully after cleanup:
 
 The committed archive contains legacy MDX only. Do not fabricate a schema-v2 issue for appearance; schema-v2 branches are covered by pipeline, validation, persistence, and component logic/tests.
 
-## Deferred Higgsfield AI tasks
+## Higgsfield production handoff
 
-The Higgsfield MCP was unavailable. No research, connection attempt, waiting, substitute generator, placeholder asset, or fake production media was used. The interface remains complete without these assets.
+The Higgsfield MCP was unavailable during the overhaul, so no substitute generator, placeholder asset, or fake production media was used. It is now globally registered in Codex as `higgsfield` at `https://mcp.higgsfield.ai/mcp`, and `codex mcp login higgsfield` completed successfully on 2026-07-22. No asset generation has started, and the interface remains complete without these assets.
 
-When and only when the real MCP is connected, follow `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`. The deferred inventory is:
+Restart the Codex CLI/app before continuing because the current session cannot hot-load newly available MCP tools. In the fresh session:
+
+1. Run `codex mcp get higgsfield` and confirm the URL and enabled state.
+2. Inspect the callable Higgsfield tools, schemas, models, output formats, and limits; do not infer capabilities from the endpoint alone.
+3. Read `.claude/skills/caught-up-higgsfield-production/SKILL.md`, `docs/design/HIGGSFIELD_ART_DIRECTION.md`, and `docs/design/HIGGSFIELD_ASSET_MANIFEST.md`.
+4. Inspect the real target component and prepared media hook before generating.
+5. Begin with `launch-evidence-key-visual`, produce materially different variants, reject generic/defective output, and only then refine responsive exports.
+6. Integrate selected local assets, update actual provenance in the manifest, validate crops/accessibility/performance, and commit only accepted production files.
+
+The queued inventory is:
 
 - launch editorial-evidence key visual: wide, landscape social, square campaign/avatar, vertical story;
 - six text-free Topic covers: AI Models, AI Regulation, Open Source, Developer Tools, Research, AI Companies;
@@ -82,4 +91,4 @@ Do not generate a new logo: the completion-period vector is the finished mark. D
 - The Next.js 15/React shared runtime is approximately 102 kB gzip; the enforced and passing page-entry limit is 110 kB. Do not revive the obsolete 80 kB total claim without an intentional framework/read-architecture change.
 - Operator deployment credentials and budget decisions remain in `NEEDED.md`; do not invent or commit them.
 
-If no Higgsfield or operator-integration task is requested, the overhaul requires no continuation.
+The next planned continuation is Higgsfield production. Operator integration remains separate and optional.

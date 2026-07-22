@@ -9,7 +9,13 @@ Read `docs/design/HIGGSFIELD_ART_DIRECTION.md` and `docs/design/HIGGSFIELD_ASSET
 
 ## Availability gate
 
-Inspect the callable tools before doing media work. If the Higgsfield MCP is absent:
+The expected Codex server name is `higgsfield`, registered at
+`https://mcp.higgsfield.ai/mcp`; OAuth login was completed on 2026-07-22. This
+setup must be loaded by a fresh session. Inspect the callable tools and their
+real schemas before doing media work—do not infer a model, command, format, or
+limit from configuration alone.
+
+If the Higgsfield MCP is absent:
 
 - stop only the media-generation subtask;
 - do not research Higgsfield, attempt a connection, wait, invent commands, or use another image model;

@@ -306,8 +306,10 @@ evidence.
 Topic media is an optional local-only field and disappears when absent. Weekly
 and Open Graph identity remain deterministic without media. Higgsfield was not
 available for the 2026-07-22 overhaul, so no generated or substitute assets
-were added. `docs/design/HIGGSFIELD_ASSET_MANIFEST.md` lists only deferred
-deliverables and the provenance required after real generation.
+were added. The global Codex MCP server `higgsfield` was subsequently registered
+and authenticated at `https://mcp.higgsfield.ai/mcp` for a fresh session.
+`docs/design/HIGGSFIELD_ASSET_MANIFEST.md` lists the queued deliverables and the
+provenance required after real generation.
 
 Project AI instructions live in `CLAUDE.md`, `AGENTS.md`, and `.claude/`.
 They require reuse, mobile/Czech/keyboard validation, semantic tokens,
