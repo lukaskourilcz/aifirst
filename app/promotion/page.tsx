@@ -33,7 +33,7 @@ export default async function PromotionPage({
     <PageShell
       kicker="internal · promotion"
       title="Promotion"
-      kickerTone="magenta"
+      kickerTone="warning"
       intro="IG & Threads posts generated from each daily issue. The photo is shared; captions differ per platform and language. Switch language, then copy a caption straight into Instagram or Threads."
     >
       <PromotionGallery posts={posts} />

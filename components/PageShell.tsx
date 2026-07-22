@@ -7,9 +7,8 @@ type Props = {
   // Optional muted intro paragraph rendered between the title and `children`.
   // Pass `children` instead when a page needs a non-standard intro.
   intro?: ReactNode;
-  // Kicker colour: "cyan" (default, the .label--accent style) or "magenta"
-  // (the admin console).
-  kickerTone?: "cyan" | "magenta";
+  // The alternate tone is reserved for operator-adjacent and warning surfaces.
+  kickerTone?: "primary" | "warning";
   children?: ReactNode;
 };
 
@@ -20,34 +19,17 @@ export function PageShell({
   kicker,
   title,
   intro,
-  kickerTone = "cyan",
+  kickerTone = "primary",
   children,
 }: Props) {
   return (
-    <section className="container" style={{ padding: "48px 24px 96px" }}>
-      <p
-        className={kickerTone === "cyan" ? "label label--accent" : "label"}
-        style={
-          kickerTone === "magenta"
-            ? { color: "var(--color-blueprint-blue)", marginBottom: 8 }
-            : undefined
-        }
-      >
-        {kicker}
-      </p>
-      <h1>{title}</h1>
-      {intro != null && (
-        <p
-          style={{
-            color: "var(--ink-muted)",
-            maxWidth: "62ch",
-            marginBottom: "3em",
-          }}
-        >
-          {intro}
-        </p>
-      )}
-      {children}
+    <section className="container page-shell">
+      <header className="page-header">
+        <p className={`label page-kicker page-kicker--${kickerTone}`}>{kicker}</p>
+        <h1 className="page-title">{title}</h1>
+        {intro != null ? <p className="page-intro">{intro}</p> : null}
+      </header>
+      <div className="page-content">{children}</div>
     </section>
   );
 }

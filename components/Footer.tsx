@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { brand } from "@/lib/brand";
+import { BrandLockup } from "./BrandMark";
 
 export function Footer({ locale }: { locale: Locale }) {
   const d = dict(locale);
@@ -16,28 +16,11 @@ export function Footer({ locale }: { locale: Locale }) {
     >
       <div className="footer-grid">
         <div>
-          <p
-            style={{
-              fontFamily: "var(--font-suisse-intl)",
-              fontWeight: 700,
-              fontSize: 18,
-              letterSpacing: "-0.025em",
-              margin: "0 0 8px",
-            }}
-          >
-            {brand.name}<span style={{ color: "var(--color-blueprint-blue)" }}>.</span>
-          </p>
-          <p
-            style={{
-              color: "var(--color-slate)",
-              margin: 0,
-              maxWidth: "52ch",
-              fontSize: "var(--text-body-sm)",
-            }}
-          >
+          <p className="footer-brand"><BrandLockup compact /></p>
+          <p className="footer-description">
             {d.footer.description}
           </p>
-          <p className="label" style={{ marginTop: 12 }}>
+          <p className="label footer-cadence">
             {d.common.transmissionOngoing}
           </p>
         </div>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-labelledby="title">
+  <title id="title">Caught Up completion mark</title>
+  <path d="M7 14V7h7" fill="none" stroke="#17191c" stroke-width="1.5"/>
+  <circle cx="19" cy="19" r="6" fill="#1d52de"/>
+</svg>

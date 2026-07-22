@@ -12,9 +12,8 @@ import "./globals.css";
 const d = dict(DEFAULT_LOCALE);
 const vercelTelemetryEnabled = process.env.VERCEL === "1";
 
-// Source Serif 4 stands in for Plantin (the brand serif). It's the only
-// editorial typeface — used for the wordmark, headlines, body, eyebrows,
-// bylines, everything that carries the magazine voice.
+// Source Serif 4 is the editorial voice: wordmark, headlines, lead moments,
+// and completion. Latin Extended keeps the Czech edition native.
 const serif = Source_Serif_4({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "700"],
@@ -23,8 +22,7 @@ const serif = Source_Serif_4({
   variable: "--font-serif-loaded",
 });
 
-// Inter stands in for Helvetica Neue — utility chrome only (subscribe button,
-// utility bar labels). Kept narrow and functional, never editorial.
+// Inter carries body copy, navigation, controls and reference information.
 const sans = Inter({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "700"],

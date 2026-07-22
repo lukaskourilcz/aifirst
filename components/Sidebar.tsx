@@ -7,6 +7,7 @@ import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
 import { NavLink } from "./NavLink";
+import { BrandLockup } from "./BrandMark";
 
 // One coherent 16px stroked icon set — hand-drawn to sit on the same
 // baseline as Suisse Intl at 13/14px in the sidebar. Uses currentColor so
@@ -119,8 +120,7 @@ export async function Sidebar({ locale }: { locale: Locale }) {
     <aside className="sidebar" aria-label={primaryLabel}>
       <div className="sidebar__head">
         <Link href={lp("/")} className="sidebar__brand" aria-label={homeLabel}>
-          <span className="sidebar__brand-dot" />
-          <span className="sidebar__brand-word">{brand.name}</span>
+          <BrandLockup />
         </Link>
       </div>
 

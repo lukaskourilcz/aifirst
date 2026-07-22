@@ -12,7 +12,7 @@ export default async function AdminMigrationPage({ params }: { params: Promise<{
   const repo = githubRepo();
   const czech = locale === "cs";
   return (
-    <PageShell kicker={dict(locale).admin.kicker} title={czech ? "Provozní ovládání se přesouvá." : "Operations are moving."} kickerTone="magenta">
+    <PageShell kicker={dict(locale).admin.kicker} title={czech ? "Provozní ovládání se přesouvá." : "Operations are moving."} kickerTone="warning">
       <p style={{ maxWidth: "65ch", color: "var(--ink-muted)" }}>
         {czech
           ? "Caught Up už na veřejném webu neudržuje druhou operátorskou konzoli. Generování a obnovu lze bezpečně spouštět v GitHub Actions; OwnDashboard se připojí jako volitelná řídicí vrstva, až bude nakonfigurován."
