@@ -18,7 +18,7 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
   if (isAside) {
     return (
       <>
-        <p className="eyebrow" style={{ marginBottom: 12 }}>
+        <p className="eyebrow dispatches__eyebrow">
           {t.dispatchesLabel}
         </p>
         <div className="dispatches--aside">
@@ -48,31 +48,13 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
 
   return (
     <section aria-label={t.dispatchesLabel} className="dispatches">
-      <header style={{ marginBottom: 16 }}>
-        <p className="label" style={{ margin: 0 }}>{t.dispatchesLabel}</p>
-        <h2 style={{ marginTop: 6, marginBottom: 0 }}>{t.dispatchesHeading}</h2>
+      <header className="dispatches__header">
+        <p className="label">{t.dispatchesLabel}</p>
+        <h2>{t.dispatchesHeading}</h2>
       </header>
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: 32,
-        }}
-      >
+      <ul className="dispatches__grid">
         {items.map((d, i) => (
-          <li
-            key={i}
-            style={{
-              borderTop: i === 0 ? "none" : "1px solid var(--color-fog)",
-              paddingTop: i === 0 ? 0 : 24,
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-            }}
-          >
+          <li key={i}>
             <p className="dispatch-card__eyebrow">{t.dispatchesLabel} · 0{i + 1}</p>
             <h3 className="dispatch-card__title">{d.title}</h3>
             <p className="dispatch-card__body">{d.body}</p>

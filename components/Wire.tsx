@@ -17,69 +17,17 @@ export function Wire({ items, locale, variant = "default" }: Props) {
   return (
     <section
       aria-label={heading}
-      style={
-        isAside
-          ? {
-              marginTop: 16,
-              paddingTop: 16,
-              borderTop: "1px solid var(--color-fog)",
-            }
-          : {
-              marginTop: "var(--section-gap)",
-              background: "var(--color-canvas)",
-              border: "1px solid var(--color-fog)",
-              borderRadius: "var(--radius-xl)",
-              padding: 24,
-            }
-      }
+      className={isAside ? "wire wire--aside" : "wire"}
     >
-      <header
-        style={{
-          marginBottom: isAside ? 10 : 16,
-          paddingBottom: isAside ? 0 : 12,
-          borderBottom: isAside ? "none" : "1px solid var(--color-fog)",
-        }}
-      >
-        <p
-          className="label"
-          style={{ margin: 0, color: "var(--color-slate)" }}
-        >
+      <header className="wire__header">
+        <p className="label">
           {heading}
         </p>
       </header>
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: isAside ? "flex" : "grid",
-          flexDirection: isAside ? "column" : undefined,
-          gridTemplateColumns: isAside
-            ? undefined
-            : "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: isAside ? 10 : 16,
-        }}
-      >
+      <ul className="wire__list">
         {items.slice(0, isAside ? 6 : items.length).map((item, i) => (
-          <li
-            key={item.url}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "auto 1fr",
-              gap: 10,
-              alignItems: "baseline",
-            }}
-          >
-            <span
-              aria-hidden
-              className="label"
-              style={{
-                color: "var(--color-slate)",
-                minWidth: 22,
-                textAlign: "right",
-                fontSize: 11,
-              }}
-            >
+          <li key={item.url}>
+            <span aria-hidden className="label wire__number">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span>
@@ -87,19 +35,11 @@ export function Wire({ items, locale, variant = "default" }: Props) {
                 href={item.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                style={{
-                  fontSize: isAside ? "var(--text-caption)" : "var(--text-body-sm)",
-                  fontWeight: 500,
-                  lineHeight: 1.35,
-                  color: "var(--color-ink-black)",
-                }}
+                className="wire__link"
               >
                 {item.title}
               </a>
-              <span
-                className="label label--muted"
-                style={{ display: "block", marginTop: 2, fontSize: 10 }}
-              >
+              <span className="label label--muted wire__source">
                 {item.source}
               </span>
             </span>

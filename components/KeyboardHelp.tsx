@@ -89,23 +89,7 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
   return (
     <>
       {chord && (
-        <div
-          aria-hidden
-          style={{
-            position: "fixed",
-            bottom: 16,
-            left: 16,
-            zIndex: 19,
-            padding: "6px 10px",
-            border: "1px solid var(--color-fog)",
-            background: "var(--color-canvas)",
-            fontFamily: "var(--font-display)",
-            fontSize: "0.75rem",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--color-blueprint-blue)",
-          }}
-        >
+        <div aria-hidden className="keyboard-chord">
           g _
         </div>
       )}
@@ -118,67 +102,31 @@ export function KeyboardHelp({ locale }: { locale: Locale }) {
           zIndex={21}
           width={520}
         >
-          <header
-            style={{
-              padding: "12px 16px",
-              borderBottom: "1px solid var(--color-fog)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <span className="label" style={{ color: "var(--color-blueprint-blue)" }}>
+          <header className="keyboard-help__header">
+            <span className="label label--accent">
               {t.title}
             </span>
-            <kbd
-              className="label"
-              style={{ border: "1px solid var(--color-fog)", padding: "2px 8px" }}
-            >
+            <kbd className="keycap label">
               esc
             </kbd>
           </header>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <ul className="keyboard-help__list">
             {shortcuts.map((s) => (
-              <li
-                key={s.label}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "140px 1fr",
-                  gap: 16,
-                  alignItems: "center",
-                  padding: "10px 16px",
-                  borderBottom: "1px solid var(--color-fog)",
-                }}
-              >
-                <span style={{ display: "inline-flex", gap: 4 }}>
+              <li key={s.label}>
+                <span className="keyboard-help__keys">
                   {s.keys.map((key) => (
-                    <kbd
-                      key={key}
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "0.75rem",
-                        padding: "2px 8px",
-                        border: "1px solid var(--color-fog)",
-                        background: "var(--color-paper)",
-                        color: "var(--ink-primary)",
-                        minWidth: 24,
-                        textAlign: "center",
-                      }}
-                    >
+                    <kbd key={key} className="keycap">
                       {key}
                     </kbd>
                   ))}
                 </span>
-                <span style={{ color: "var(--ink-muted)" }}>{s.label}</span>
+                <span className="keyboard-help__label">{s.label}</span>
               </li>
             ))}
           </ul>
-          <footer
-            style={{ padding: "10px 16px", color: "var(--ink-dim)" }}
-            className="label"
-          >
+          <footer className="label keyboard-help__footer">
             {t.tipBefore}{" "}
-            <kbd style={{ padding: "2px 6px", border: "1px solid var(--color-fog)" }}>
+            <kbd className="keycap">
               g
             </kbd>{" "}
             {t.tipAfter}

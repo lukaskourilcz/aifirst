@@ -7,6 +7,9 @@ import { Wire } from "@/components/Wire";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
+import { IssueMasthead } from "@/components/editorial/IssueMasthead";
+import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
+import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
@@ -58,10 +61,10 @@ export default async function HomePage({
 
   if (!latest) {
     return (
-      <section style={{ padding: "120px 0" }}>
+      <section className="publication-empty-state">
         <p className="eyebrow">{d.home.emptyKicker}</p>
         <h1>{d.home.emptyTitle}</h1>
-        <p style={{ color: "var(--color-slate)", maxWidth: "60ch" }}>
+        <p>
           {d.home.emptyBody}
         </p>
         <a
@@ -69,7 +72,6 @@ export default async function HomePage({
           className="ghost"
           target="_blank"
           rel="noreferrer noopener"
-          style={{ marginTop: 16 }}
         >
           {d.home.emptyRepoCta} ↗
         </a>
@@ -126,37 +128,25 @@ export default async function HomePage({
           },
         ],
       }} />
-      <header style={{ padding: "20px 0 28px", borderBottom: "1px solid var(--color-fog)", marginBottom: 24 }}>
+      <header className="edition-intro">
         <p className="eyebrow">{publication.name} · {d.common.today}</p>
-        <p style={{ margin: 0, color: "var(--color-slate)" }}>{publication.promise}</p>
+        <p>{publication.promise}</p>
       </header>
-      {/* Hero panel — today's lead */}
-      <section className={heroPhoto ? "hero enter enter-1" : "hero hero--no-photo enter enter-1"}>
-        <div>
-          <p className="hero__eyebrow">
-            {(fm.type ?? "daily") === "weekly"
-              ? d.article.weeklyDigest
-              : d.home.todaysBriefing}
-          </p>
-          <h1 className="hero__title">{fm.title}</h1>
-          <p className="hero__dek">{fm.dek}</p>
-          <div className="hero__meta">
-            <span>{fm.date}</span>
-            <span aria-hidden>·</span>
-            <span>{reading} {d.common.minutesShort} {d.common.readMinutes}</span>
-            {(fm.tags ?? []).slice(0, 3).map((t) => (
-              <span key={t} className="chip">{t}</span>
-            ))}
-          </div>
-        </div>
-        {heroPhoto ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img src={heroPhoto} alt={fm.illustration.alt || fm.title} className="hero__photo" loading="eager" fetchPriority="high" decoding="async" />
-        ) : null}
-      </section>
+      <IssueMasthead
+        label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.todaysBriefing}
+        title={fm.title}
+        dek={fm.dek}
+        date={fm.date}
+        readingMinutes={reading}
+        tags={fm.tags}
+        sourceCount={fm.sources.length}
+        heroPhoto={heroPhoto}
+        heroAlt={fm.illustration.alt || fm.title}
+        locale={locale}
+      />
 
       <SponsorBlock sponsor={fm.sponsor} />
-      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} locale={locale} />
+      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} uncertainty={fm.uncertainty} locale={locale} />
 
       {/* Article body + dispatches sidebar (sidebar's grid cell ends with the
           article's intrinsic height, so the sticky sidebar releases at the
@@ -181,11 +171,13 @@ export default async function HomePage({
       </section>
 
       {/* Secondary blocks (Glossary + Sources) below the article */}
-      <section style={{ marginTop: "var(--block-gap)" }}>
+      <section className="issue-reference-blocks">
+        <CorrectionsNotice corrections={fm.corrections} locale={locale} />
         {hasGlossary && (
           <GlossaryBlock terms={resolvedGlossary} locale={locale} />
         )}
         {hasSources && <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />}
+        <Provenance article={latest} locale={locale} />
       </section>
 
       <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
@@ -194,17 +186,14 @@ export default async function HomePage({
 
       {/* Recent issues feed */}
       {back.length > 0 && (
-        <section style={{ marginTop: "var(--section-gap)" }}>
+        <section className="recent-issues">
           <div className="section-head">
             <h2 className="section-head__title">{d.home.recentIssues}</h2>
             <Link href={lp("/archive")} className="label">
               {d.nav.archive} →
             </Link>
           </div>
-          <ul
-            className="card-grid card-grid--feed"
-            style={{ listStyle: "none", padding: 0, margin: 0 }}
-          >
+          <ul className="card-grid card-grid--feed recent-issues__list">
             {back.map((a) => (
               <li key={a.slug}>
                 <Link

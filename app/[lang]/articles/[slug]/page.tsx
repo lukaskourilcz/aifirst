@@ -12,6 +12,7 @@ import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
+import { IssueMasthead } from "@/components/editorial/IssueMasthead";
 import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
@@ -155,54 +156,27 @@ export default async function ArticlePage({
         ],
       }} />
 
-      {/* Hero panel */}
-      <section className={heroPhoto ? "hero enter enter-1" : "hero hero--no-photo enter enter-1"}>
-        <div>
-          <p className="hero__eyebrow">
-            {isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
-          </p>
-          <h1 className="hero__title">{fm.title}</h1>
-          <p className="hero__dek">{fm.dek}</p>
-          <div className="hero__meta">
-            <span>{fm.date}</span>
-            <span aria-hidden>·</span>
-            <span>{reading} {d.common.minutesShort} {d.common.readMinutes}</span>
-            {(fm.tags ?? []).slice(0, 3).map((t) => (
-              <span key={t} className="chip">{t}</span>
-            ))}
-          </div>
-        </div>
-        {heroPhoto ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src={heroPhoto}
-            alt={fm.illustration.alt}
-            className="hero__photo"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-        ) : null}
-      </section>
+      <IssueMasthead
+        label={isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
+        title={fm.title}
+        dek={fm.dek}
+        date={fm.date}
+        readingMinutes={reading}
+        tags={fm.tags}
+        sourceCount={fm.sources.length}
+        heroPhoto={heroPhoto}
+        heroAlt={fm.illustration.alt || fm.title}
+        locale={locale}
+      />
 
       <SponsorBlock sponsor={fm.sponsor} />
-      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} locale={locale} />
+      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} uncertainty={fm.uncertainty} locale={locale} />
 
       {/* Body + dispatches sidebar */}
       <section className="article-with-aside enter enter-2">
         <article className="article-with-aside__main">
           {article.fallback && (
-            <p
-              className="label"
-              style={{
-                padding: "8px 12px",
-                margin: "0 0 24px",
-                borderLeft: "3px solid var(--color-blueprint-blue)",
-                background: "var(--color-paper)",
-                borderRadius: "0 var(--radius-lg) var(--radius-lg) 0",
-                color: "var(--color-ink-black)",
-              }}
-            >
+            <p className="fallback-notice">
               {d.article.enOnlyNotice}
             </p>
           )}
@@ -232,17 +206,17 @@ export default async function ArticlePage({
         )}
       </section>
 
-      <section style={{ marginTop: "var(--block-gap)" }}>
+      <section className="issue-reference-blocks">
         <CorrectionsNotice corrections={fm.corrections} locale={locale} />
         <GlossaryBlock terms={issueGlossary} locale={locale} />
         {topics.length ? (
-          <nav aria-label={locale === "cs" ? "Témata článku" : "Article topics"} style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 32 }}>
+          <nav aria-label={locale === "cs" ? "Témata článku" : "Article topics"} className="issue-topics">
             {topics.map((topic) => <Link key={topic.slug} className="chip" href={localePath(locale, `/topics/${topic.slug}`)}>{topic.title[locale]}</Link>)}
           </nav>
         ) : null}
         <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />
         <Provenance article={article} locale={locale} />
-        <p style={{ marginTop: 24, textAlign: "right" }}>
+        <p className="issue-print-action">
           <a
             href={localePath(locale, `/articles/${article.slug}/print`)}
             className="label"
@@ -254,6 +228,7 @@ export default async function ArticlePage({
         </p>
         <RelatedIssues items={related} locale={locale} />
         <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
+        <p className="caught-up-completion">{publication.completion}</p>
         <FeedActions locale={locale} />
       </section>
     </>

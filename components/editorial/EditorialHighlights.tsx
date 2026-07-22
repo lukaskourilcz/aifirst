@@ -4,24 +4,27 @@ import { dict } from "@/lib/i18n/dictionaries";
 export function EditorialHighlights({
   whyItMatters,
   whatChanged,
+  uncertainty,
   locale,
 }: {
   whyItMatters?: string[];
   whatChanged?: string[];
+  uncertainty?: string[];
   locale: Locale;
 }) {
   const t = dict(locale).article;
   const sections = [
-    { title: t.whyItMatters, items: whyItMatters ?? [] },
-    { title: t.whatChanged, items: whatChanged ?? [] },
+    { key: "why", title: t.whyItMatters, items: whyItMatters ?? [] },
+    { key: "changed", title: t.whatChanged, items: whatChanged ?? [] },
+    { key: "uncertainty", title: t.uncertainty, items: uncertainty ?? [] },
   ].filter(({ items }) => items.length > 0);
   if (sections.length === 0) return null;
 
   return (
     <div className="editorial-highlights">
-      {sections.map(({ title, items }) => (
-        <section key={title} aria-labelledby={`highlight-${title.replace(/\s+/g, "-").toLowerCase()}`}>
-          <h2 id={`highlight-${title.replace(/\s+/g, "-").toLowerCase()}`}>{title}</h2>
+      {sections.map(({ key, title, items }) => (
+        <section key={key} className={`editorial-highlight editorial-highlight--${key}`} aria-labelledby={`highlight-${key}`}>
+          <h2 id={`highlight-${key}`}>{title}</h2>
           <ul>
             {items.map((item) => <li key={item}>{item}</li>)}
           </ul>

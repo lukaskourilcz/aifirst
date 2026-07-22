@@ -75,14 +75,7 @@ export function SearchPalette({ index, locale }: Props) {
         aria-label={t.open}
         title={t.open}
         onClick={() => setOpen(true)}
-        className="nav-item"
-        style={{
-          background: "transparent",
-          border: 0,
-          cursor: "pointer",
-          width: "100%",
-          textAlign: "left",
-        }}
+        className="nav-item nav-item--button"
       >
         <span aria-hidden className="nav-item__glyph">
           <svg
@@ -112,75 +105,41 @@ export function SearchPalette({ index, locale }: Props) {
           width={640}
           returnFocusRef={triggerRef}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              padding: "12px 16px",
-              borderBottom: "1px solid var(--color-fog)",
-            }}
-          >
-            <span className="label" style={{ color: "var(--color-blueprint-blue)" }}>
-              query &gt;
-            </span>
+          <div className="search-dialog__query">
+            <span className="label label--accent">{t.open}</span>
             <input
               autoFocus
               aria-label={t.placeholder}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t.placeholder}
-              style={{
-                flex: 1,
-                background: "transparent",
-                border: "none",
-                outline: "none",
-                color: "var(--ink-primary)",
-                fontFamily: "var(--font-display)",
-                fontSize: "1rem",
-              }}
+              className="search-dialog__input"
             />
-            <kbd
-              className="label"
-              style={{ border: "1px solid var(--color-fog)", padding: "2px 8px" }}
-            >
+            <kbd className="keycap label">
               esc
             </kbd>
           </div>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <p className="sr-only" role="status" aria-live="polite">
+            {locale === "cs" ? `${results.length} výsledků` : `${results.length} results`}
+          </p>
+          <ul className="search-dialog__results">
             {results.length === 0 && (
-              <li style={{ padding: "16px 16px 8px" }}>
-                <p
-                  className="label"
-                  style={{ marginBottom: 12, color: "var(--ink-dim)" }}
-                >
+              <li className="search-dialog__empty">
+                <p className="label label--muted">
                   {t.noMatch}
                 </p>
                 {suggestedTags.length > 0 && (
                   <>
-                    <p
-                      className="label"
-                      style={{
-                        marginBottom: 8,
-                        color: "var(--color-blueprint-blue)",
-                      }}
-                    >
+                    <p className="label label--accent search-dialog__suggestion-title">
                       {t.suggestedTags}
                     </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: 6,
-                      }}
-                    >
+                    <div className="search-dialog__suggestions">
                       {suggestedTags.map((tag) => (
                         <Link
                           key={tag}
                           href={localePath(locale, `/tags/${tag}`)}
                           onClick={() => setOpen(false)}
                           className="chip"
-                          style={{ borderBottom: "none" }}
                         >
                           {tag}
                         </Link>
@@ -191,27 +150,16 @@ export function SearchPalette({ index, locale }: Props) {
               </li>
             )}
             {results.map((r) => (
-              <li key={r.slug} style={{ borderBottom: "1px solid var(--color-fog)" }}>
+              <li key={r.slug} className="search-dialog__result">
                 <Link
                   href={localePath(locale, `/articles/${r.slug}`)}
                   onClick={() => setOpen(false)}
-                  style={{
-                    display: "block",
-                    padding: "12px 16px",
-                    borderBottom: "none",
-                    color: "var(--ink-primary)",
-                  }}
+                  className="search-dialog__result-link"
                 >
-                  <p className="label" style={{ marginBottom: 4 }}>
+                  <p className="label search-dialog__result-meta">
                     {r.date} · {r.tags.slice(0, 2).join(" · ")}
                   </p>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontFamily: "var(--font-display)",
-                      fontSize: "0.95rem",
-                    }}
-                  >
+                  <p className="search-dialog__result-title">
                     {r.title}
                   </p>
                 </Link>

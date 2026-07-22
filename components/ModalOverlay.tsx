@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode, type RefObject } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode, type RefObject } from "react";
 import { useWindowEvent } from "@/lib/hooks/useWindowEvent";
 
 type Props = {
@@ -71,26 +71,15 @@ export function ModalOverlay({
       aria-modal="true"
       aria-label={ariaLabel}
       onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex,
-        background: "rgba(0, 0, 0, 0.4)",
-        display: "flex",
-        alignItems: align === "start" ? "flex-start" : "center",
-        justifyContent: "center",
-        padding: "10vh 24px",
-      }}
+      className="modal-overlay"
+      data-align={align}
+      style={{ "--modal-z": zIndex, "--modal-width": `${width}px` } as CSSProperties}
     >
       <div
         ref={panelRef}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: `min(${width}px, 100%)`,
-          border: "1px solid var(--color-folio-black)",
-          background: "var(--color-newsprint-cream)",
-        }}
+        className="modal-panel"
       >
         {children}
       </div>
