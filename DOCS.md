@@ -37,8 +37,9 @@ English is unprefixed and Czech uses `/cs`.
 - `/corrections` — public correction history
 - `/sources`, `/sources/[id]`, `/glossary`, `/search` — secondary reference
 - `/feed.xml`, `/weekly/feed.xml`, `/topics/[slug]/feed.xml` — Atom
-- `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`
-  and `/api/health.json` — static, public syndication/health contracts
+- `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`,
+  `/api/sources.json` and `/api/health.json` — static, public syndication/health
+  contracts
 
 Compatibility decisions:
 
@@ -271,6 +272,12 @@ keyboard/search behavior.
 `pnpm check:bundle` reads the production app manifest and enforces a 110 kB gzip
 ceiling per page entry. `pnpm verify` runs it after every production build so a
 later change cannot silently erase the measured improvement.
+
+The final 2026-07-22 overhaul validation passed 31 Vitest files and 127 tests,
+8 MDX files plus configuration, 199 static/SSG route outputs, and 25 guarded
+page entries with a maximum of 103.7 kB gzip. Playwright passed 154 tests with
+2 intentional desktop-layout skips, 0 failures, and an empty responsive-audit
+report.
 
 Validation commands:
 

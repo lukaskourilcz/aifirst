@@ -17,7 +17,7 @@
   variables, bot identity and HTTP user agents. Reader-facing branding changes
   to Caught Up.
 
-## Planned route changes
+## Implemented route changes
 
 - Primary: `/`, `/radar`, `/topics`, `/topics/[slug]`, `/weekly`, `/archive`,
   `/about`, `/corrections`, `/search`, `/articles/[slug]` and print routes.
@@ -28,7 +28,7 @@
 - `/admin` remains noindex as a minimal migration notice. `/health` stays
   sanitized, noindex and outside primary navigation.
 
-## Schema and compatibility strategy
+## Implemented schema and compatibility strategy
 
 - Add optional `why_it_matters`, `what_changed`, `corrections`, structured
   source-ledger fields, generation provenance, language linkage and sponsor

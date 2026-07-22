@@ -21,7 +21,7 @@ English is unprefixed; Czech uses `/cs`.
 - Primary: `/` Today, `/radar`, `/topics`, `/weekly`, `/archive`, `/about`
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
 - Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`, `/search`
-- Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/health JSON; static Open Graph
+- Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/Sources/health JSON; static Open Graph
 - Operator-adjacent: sanitized noindex health, token-gated/unlisted/noindex `/promotion`, noindex `/admin` migration notice
 - Preserve redirects `/stats` and `/trends` → `/radar`, `/tags` → `/topics`, `/colophon` → `/about`, legacy articles/tags/feeds, locale behavior, and canonical metadata.
 
@@ -103,7 +103,7 @@ Handle real missing/legacy/fallback/no-image/no-Briefs/no-Watchlist/no-Topics/no
 
 Preserve static metadata, canonical/hreflang, structured data, sitemap, robots, Atom/JSON contracts, Open Graph, article URLs, and print. Keep HSTS, CSP, frame denial, MIME protection, restrictive permissions policy, safe links, no X-Powered-By, token gates, noindex operator surfaces, and sanitized health output.
 
-The enforceable bundle target is the existing **110 kB gzip page-entry ceiling**. Next/React shared runtime is already approximately 102–104 kB. Do not claim the historical 80 kB aspiration, add heavy client dependencies, preload unnecessary media, or introduce runtime media/API cost. Use local optimized assets with dimensions and lazy loading.
+The enforceable bundle target is the existing **110 kB gzip page-entry ceiling**. The latest validated Next/React shared runtime is 102 kB. Do not claim the historical 80 kB aspiration, add heavy client dependencies, preload unnecessary media, or introduce runtime media/API cost. Use local optimized assets with dimensions and lazy loading.
 
 ## Validation and Git
 

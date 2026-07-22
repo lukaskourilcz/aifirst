@@ -2,7 +2,7 @@
 
 Last updated: 2026-07-22
 
-This is the restart document for the next agent. The non-Higgsfield product-design, brand, frontend, responsive/accessibility, validation, documentation, cleanup, and AI-agent-architecture overhaul is complete on branch `agent/caught-up-design-overhaul`. Do not repeat the redesign or reintroduce the retired visual system.
+This is the restart document for the next agent. The non-Higgsfield product-design, brand, frontend, responsive/accessibility, validation, documentation, cleanup, and AI-agent-architecture overhaul is complete and pushed on branch `agent/caught-up-design-overhaul`. Do not repeat the redesign or reintroduce the retired visual system.
 
 ## Product and architecture state
 
@@ -27,6 +27,7 @@ Read `CLAUDE.md` and `AGENTS.md` first. The authoritative design record is under
 - Expanded Playwright route, locale, overflow, focus, touch-target, reduced-motion, no-image, operator-gate, JSON, feed, CSP, redirect, and print coverage.
 - Removed unreferenced legacy UI components and the dead placeholder image; renamed the still-used neutral MDX link away from old visual terminology.
 - Rebuilt `.claude` with focused brand, editorial UI, deferred Higgsfield, accessibility/visual-QA, and release skills; distinct specialist agents; real implementation/QA/release commands; and corrected source/scraper/writer skills.
+- Audited every tracked Markdown file, corrected branch/merge status, and aligned route, performance, validation, cost, and historical-audit claims with the final implementation.
 
 ## Commits in this overhaul
 

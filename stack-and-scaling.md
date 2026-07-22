@@ -1,6 +1,6 @@
 # Caught Up — stack, cost and scaling
 
-Prices and repository state were checked on **2026-07-21**. This document is a
+Prices and repository state were checked on **2026-07-22**. This document is a
 planning model, not an account invoice: the repository cannot see Vercel,
 Anthropic, domain, tax or future newsletter-provider billing.
 
@@ -37,6 +37,12 @@ build time—not AI calls or database connections.
 | OwnDashboard | Optional, disconnected by default | $0 required control-plane spend |
 | Cost budgets | Warning/hard/monthly values are `null` | Measurement works; no monetary ceiling is enforced yet |
 | Workflow artifacts | Private, 30-day retention | Bounded artifact-storage growth |
+
+The 2026-07-22 design overhaul added no dependency, runtime service, model
+pass, or generated media. Its validated production build materializes 199
+static/SSG route outputs; the largest of 25 guarded page entries is 103.7 kB
+gzip. The only new brand asset is a deterministic 278-byte SVG completion mark,
+and an unused 2.8 kB placeholder image was removed.
 
 At audit time the private GitHub repository had **no custom Actions secrets or
 variables and no new-system run report**, so its observable Actions-based
@@ -110,6 +116,10 @@ current fal response adapter does not receive authoritative billing usage. If a
 hard run budget is configured, the pipeline refuses to persist a paid image
 whose cost it cannot prove.
 
+Higgsfield production is deferred because its MCP was unavailable during the
+overhaul. No Higgsfield charge, substitute generation, placeholder media, or
+runtime integration was introduced.
+
 ## GitHub Actions cost
 
 This repository is private, so standard runner time consumes the owner plan’s
@@ -165,9 +175,9 @@ upgrade decision.
 
 Vercel Pro also lists standard build minutes at $0.014/minute, drawn against the
 included usage credit. Archive growth affects build duration and route count;
-it does not create per-reader compute. The repository currently materializes
-roughly 200 routes, so the likely first scale signal is slower builds rather
-than runtime saturation.
+it does not create per-reader compute. The latest validated production build
+materializes 199 static/SSG route outputs, so the likely first scale signal is
+slower builds rather than runtime saturation.
 
 ## Practical monthly scenarios
 

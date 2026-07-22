@@ -2,6 +2,11 @@
 
 Audit date: 2026-07-22
 
+Document type: initial implementation baseline. The findings below describe the
+repository at the start of the overhaul, not its final state. Resolution status
+and final validation evidence appear at the end of this document and in
+`../CAUGHT_UP_OVERHAUL_HANDOFF.md`.
+
 ## Scope and repository state
 
 The audit covered the public route tree, shared editorial components, MDX and
@@ -76,7 +81,7 @@ These moments already have data and components. They need stronger visual
 hierarchy, progressive disclosure, and consistent status language rather than
 new business logic.
 
-## Current experience findings
+## Initial experience findings
 
 ### Working well
 
@@ -87,7 +92,7 @@ new business logic.
   table scroll regions, and print routes.
 - Dense static information on Radar, Archive, Sources, and Glossary.
 
-### Priority defects
+### Priority defects recorded at audit time
 
 1. **The visual identity is still generic.** `app/globals.css` describes a
    “Hashnode-style” system and uses rounded cards, neutral sans headlines, and
@@ -124,6 +129,21 @@ new business logic.
 10. **The visual audit runner is non-deterministic.** It writes a shared report
     from parallel workers and waits for `networkidle` against a development
     server. This makes broad route QA slower and less reliable than the app.
+
+## Resolution status (2026-07-22)
+
+All ten priority defects above were addressed on
+`agent/caught-up-design-overhaul`: editorial typography and the completion mark
+now carry the identity; shell overflow and wordmark wrapping were corrected;
+card repetition was reduced through task-specific density; uncertainty and the
+completion arc are explicit; discovery routes have distinct compositions;
+repeated visual decisions moved to semantic classes; obsolete sci-fi guidance
+was replaced; and Playwright audit output is deterministic.
+
+Final release validation passed with 31 Vitest files and 127 tests, 8 MDX files
+plus configuration, 199 static/SSG route outputs, and a largest guarded page
+entry of 103.7 kB gzip. Playwright completed with 154 passed, 2 intentional
+desktop-layout skips, 0 failures, and no responsive-audit findings.
 
 ## State coverage
 
@@ -172,4 +192,3 @@ Extend instead of duplicating:
 5. Differentiate Radar, Topics, Weekly, Archive, Search, and trust surfaces by
    task-appropriate density.
 6. Repair responsive and QA tooling before final validation.
-

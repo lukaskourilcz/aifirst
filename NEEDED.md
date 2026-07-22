@@ -1,15 +1,19 @@
 # NEEDED — operator setup for Caught Up
 
-The Caught Up implementation is merged into `main`. The public site builds with
-no private credentials, but publishing a newly generated edition requires the
-operator setup below. Each task carries an importance score `[imp:N]` (1–5,
-5 = highest) and an OwnDashboard owner marker.
+The pre-existing Caught Up product and operations implementation is on `main`.
+The 2026-07-22 design, accessibility, documentation and agent overhaul is
+pushed to `agent/caught-up-design-overhaul` and must be reviewed and merged
+before it becomes the production source. The public site builds with no private
+credentials, but publishing a newly generated edition requires the operator
+setup below. Each task carries an importance score `[imp:N]` (1–5, 5 = highest)
+and an OwnDashboard owner marker.
 
 The 2026-07-21 audit found no custom GitHub Actions secrets or variables in this
 repository, so the required items are not merely documentation placeholders.
 
 ## Required before the first generated edition
 
+- [ ] **Review and merge `agent/caught-up-design-overhaul` into `main`** — the branch is validated and pushed, but its publication redesign, responsive/accessibility work, documentation and agent architecture are not production until merged. `[imp:5]` `[owner:me]`
 - [ ] **Add `ANTHROPIC_API_KEY` as a GitHub Actions secret** — daily, weekly and regeneration workflows cannot write an edition without it. Add it under repository **Settings → Secrets and variables → Actions → Secrets**. `[imp:5]` `[owner:me]`
 - [ ] **Set the canonical URL in both deploy and generation environments** — add `NEXT_PUBLIC_SITE_URL=https://your-domain.example` in Vercel and as a GitHub Actions variable. This keeps canonicals, feeds, share packs and JSON contracts on the real origin. Do not include a trailing slash. `[imp:5]` `[owner:me]`
 - [ ] **Confirm Vercel deploys `main`** — GitHub now uses `main` as its default branch and scheduled publishing pushes there. In Vercel, set **Settings → Git → Production Branch** to `main`, add `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/aifirst`, then redeploy. `[imp:5]` `[owner:me]`
@@ -36,7 +40,8 @@ repository, so the required items are not merely documentation placeholders.
 
 ## Already handled in the repository
 
-- GitHub’s default branch is `main`, and the rebrand/product work is merged.
+- GitHub’s default branch is `main`; the base product/rebrand is there, while
+  the validated design/agent overhaul is pushed on its review branch.
 - The reading progress bar is native and adds no Motion dependency.
 - Scheduled workflows use committed editorial, model, review, publishing and
   illustration defaults, with optional validated workflow overrides.

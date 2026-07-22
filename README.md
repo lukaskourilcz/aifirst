@@ -48,17 +48,18 @@ Reader growth increases static delivery, not editorial model usage.
 | `/radar` | Static signals, trend movement, timelines and pulse data |
 | `/topics`, `/topics/[slug]` | Curated destinations backed by existing tag metadata |
 | `/archive` | Filterable context-rich issue history |
-| `/about`, `/sources`, `/glossary`, `/corrections` | Methodology and trust surfaces |
+| `/about`, `/sources`, `/glossary`, `/corrections`, `/health` | Methodology, accountability and sanitized publication health |
 | `/search` | Static client-side discovery over committed content |
 | `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
-| `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json` | Build-time JSON contracts |
+| `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`, `/api/sources.json` | Build-time JSON contracts |
 | `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
 
 English is unprefixed and Czech mirrors supported routes under `/cs`.
 `/stats` and `/trends` permanently redirect to `/radar`, `/tags` to `/topics`,
 and `/colophon` to `/about`. Legacy article and tag-detail URLs remain valid.
 `/admin` is a noindex migration notice; operations belong in GitHub Actions and
-the optional OwnDashboard control plane.
+the optional OwnDashboard control plane. `/promotion` is an unlisted, noindex
+operator utility that returns 404 unless its token gate is configured and met.
 
 ## Tech stack
 
@@ -91,8 +92,8 @@ pnpm e2e
 
 `pnpm verify` runs lint, TypeScript, all unit tests, content/config validation, a
 production build and the compressed-JavaScript guard. The current measured
-shared Next.js/React runtime is about 104 kB gzip and the enforced ceiling is
-110 kB; the original 80 kB product target is documented as a framework-level
+shared Next.js/React runtime is 102 kB gzip and the enforced page-entry ceiling
+is 110 kB; the original 80 kB product target is documented as a framework-level
 constraint in `docs/CAUGHT_UP_IMPLEMENTATION.md`.
 
 ## Generate content locally
