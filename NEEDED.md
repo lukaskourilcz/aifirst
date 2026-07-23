@@ -42,3 +42,12 @@ repository, so the required items are not merely documentation placeholders.
   authentication, OwnDashboard connection, or runtime AI key.
 - The repository, package name and internal `aifirst` identifiers intentionally
   remain unchanged for compatibility; the reader-facing brand is Caught Up.
+
+## Developer tooling
+
+- [ ] **Install and initialize RTK (`rtk-ai/rtk`)** — RTK could not be set up from the Claude Code web session because its GitHub download host is outside the session's network allowlist (`github.com/rtk-ai/rtk` and its release binaries return HTTP 403). Set it up locally at home with the commands below, then enable it for this repository following `rtk --help` / the RTK docs (the exact per-repo command isn't documented here because the tool wouldn't install in the sandbox). `[imp:2]` `[owner:me]`
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+rtk init --global
+```
