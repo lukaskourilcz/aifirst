@@ -56,6 +56,13 @@ sources:
     weight: 0.85
     tags: [ai, primary-source]
 
+  - id: digiday
+    type: rss
+    name: Digiday
+    url: https://digiday.com/feed/
+    weight: 0.6
+    tags: [platforms, media, monetization, advertising]
+
   - id: github-ai-releases
     type: github
     # New releases from tracked AI libraries → curate/dispatch fodder. Works
@@ -155,6 +162,13 @@ sources:
     weight: 0.85
     tags: [ai, primary-source]
 
+  - id: platformer
+    type: rss
+    name: Platformer (Casey Newton)
+    url: https://www.platformer.news/rss/
+    weight: 0.75
+    tags: [platforms, policy, ai, analysis]
+
   - id: rest-of-world
     type: rss
     name: Rest of World
@@ -168,6 +182,13 @@ sources:
     url: https://simonwillison.net/atom/everything/
     weight: 0.75
     tags: [ai, analysis]
+
+  - id: social-media-today
+    type: rss
+    name: Social Media Today
+    url: https://www.socialmediatoday.com/feeds/news/
+    weight: 0.55
+    tags: [platforms, social-media, creator-economy]
 
   - id: spaceflight-news
     type: spaceflight
