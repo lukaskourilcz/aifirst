@@ -47,6 +47,7 @@ repository, so the required items are not merely documentation placeholders.
 
 - [ ] **Install and initialize RTK (`rtk-ai/rtk`)** — RTK could not be set up from the Claude Code web session because its GitHub download host is outside the session's network allowlist (`github.com/rtk-ai/rtk` and its release binaries return HTTP 403). Set it up locally at home with the commands below, then enable it for this repository following `rtk --help` / the RTK docs (the exact per-repo command isn't documented here because the tool wouldn't install in the sandbox). `[imp:2]` `[owner:me]` `[time:20m]` `[kind:setup]`
 - [ ] **Enable Vercel Web Analytics for this project** — turn on Web Analytics in the Vercel project so OwnDashboard's project Overview shows visitors and page views (it reads them via the Vercel API, matched by this repository). `[imp:2]` `[owner:me]` `[time:15m]` `[kind:setup]`
+- [ ] **Report GitHub Actions crons to OwnDashboard** — add repository Actions secrets `OWNDASHBOARD_CRON_URL` (your OwnDashboard `/api/crons/log` URL) and `OWNDASHBOARD_CRON_TOKEN` (same value as OwnDashboard's `CRON_REGISTRY_TOKEN`) so the daily/weekly runs appear in the OwnDashboard Crons panel. `[imp:2]` `[owner:me]` `[time:10m]` `[kind:setup]`
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
