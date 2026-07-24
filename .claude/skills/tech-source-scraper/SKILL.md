@@ -24,10 +24,18 @@ sources:
     filter: { tags: [ai, ml] }
     weight: 0.7
     tags: [ai, news]
+
+  - id: nieman-lab
+    type: html            # last resort: no usable feed; reader fallback for gating
+    url: https://www.niemanlab.org/
+    weight: 0.7
+    tags: [platforms, media, ai]
 ```
 
 Required fields: `id`, `type`, `name`, plus whatever the adapter needs
 (`url` for RSS/HTML, nothing for `hn`/`arxiv`). `weight` defaults to `0.5`.
+An `html` source only needs a homepage `url`; the reader fallback below
+handles pages a plain fetch can't parse.
 
 ## Preferred order
 
@@ -36,9 +44,19 @@ Required fields: `id`, `type`, `name`, plus whatever the adapter needs
 2. **JSON API** — Hacker News (`https://hacker-news.firebaseio.com/v0/`),
    arXiv (`http://export.arxiv.org/api/query`), Lobsters
    (`https://lobste.rs/hottest.json`), Reddit `.json` endpoints.
-3. **HTML scraping** — only when nothing else works. Use `undici` +
-   `cheerio`. Set a real `User-Agent`, respect `robots.txt`, cache
-   responses for the run.
+3. **HTML scraping** (`type: html`) — only when nothing else works. Use
+   `undici` + `cheerio`. Set a real `User-Agent`, respect `robots.txt`,
+   cache responses for the run. The shipped `lib/scraping/html.ts` reads
+   `<article>` links from the raw markup, and when that yields nothing
+   (JS-rendered or Cloudflare-gated pages, e.g. Nieman Lab, Tubefilter) it
+   falls back to a **reader service** via `lib/scraping/reader.ts`:
+   - **Jina Reader** (`https://r.jina.ai/<url>`) — keyless at low rates,
+     the default. Set `JINA_API_KEY` to raise the limits.
+   - **Firecrawl** (`https://firecrawl.dev`) — used first when
+     `FIRECRAWL_API_KEY` is set; strips boilerplate server-side and is the
+     most robust against gating.
+   Without either configured, an `html` source that a plain fetch can't
+   read simply returns no items (it self-skips, never throws).
 
 ## Adapter contract
 

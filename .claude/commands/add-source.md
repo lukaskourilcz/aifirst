@@ -14,7 +14,12 @@ homepage URL or a publication name.
    - `rss` — look for `<link rel="alternate" type="application/rss+xml">`
      in the homepage HTML, or try `/feed`, `/rss`, `/atom.xml`.
    - Known specialised types: `hn`, `arxiv`, `lobsters`, `reddit`.
-   - `html` only as a last resort, after checking `robots.txt`.
+   - `html` only as a last resort, after checking `robots.txt`. Give it
+     just the homepage `url`; `lib/scraping/html.ts` scrapes `<article>`
+     links and, for JS-rendered or Cloudflare-gated pages (e.g. Nieman
+     Lab, Tubefilter), falls back to a reader service (keyless Jina, or
+     Firecrawl when `FIRECRAWL_API_KEY` is set). Note in the entry that
+     it needs the reader fallback so the owner knows to configure a key.
 3. Verify the feed with WebFetch — it must return well-formed XML/JSON
    and contain at least 5 recent items dated within the last 30 days.
 4. Propose an entry to the user via AskUserQuestion if anything is
