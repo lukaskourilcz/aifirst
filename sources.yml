@@ -10,6 +10,13 @@
 # Sorted by id.
 
 sources:
+  - id: 404-media
+    type: rss
+    name: 404 Media
+    url: https://www.404media.co/rss/
+    weight: 0.75
+    tags: [platforms, ai, content, investigative]
+
   - id: anthropic-news
     type: rss
     name: Anthropic
@@ -243,6 +250,13 @@ sources:
     url: https://www.theverge.com/rss/index.xml
     weight: 0.6
     tags: [tech, news]
+
+  - id: variety
+    type: rss
+    name: Variety
+    url: https://variety.com/feed/
+    weight: 0.55
+    tags: [platforms, media, streaming, entertainment]
 
   - id: wired-ai
     type: rss
