@@ -21,3 +21,6 @@ next-env.d.ts
 /playwright/.cache/
 /audit-screens/
 /generated/
+
+# claude code: task-observer session log stays local
+.claude/observations/
