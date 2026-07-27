@@ -128,14 +128,10 @@ for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
-  const details = page.locator("details.provenance");
-  if (await details.count()) {
-    expect(await details.count()).toBe(1);
-    await details.locator("summary").focus();
-    await page.keyboard.press("Enter");
-    await expect(details).toHaveAttribute("open", "");
-    await expect(details.getByRole("link")).toBeVisible();
-  }
+  const provenance = page.locator("section.provenance");
+  await expect(provenance).toHaveCount(1);
+  await expect(provenance.getByRole("heading")).toBeVisible();
+  await expect(provenance.getByRole("link")).toBeVisible();
 });
 
 test("legacy Czech print query resolves to the static Czech route", async ({ page }) => {

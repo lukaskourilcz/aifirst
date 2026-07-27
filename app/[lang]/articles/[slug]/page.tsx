@@ -13,6 +13,7 @@ import { EditorialHighlights } from "@/components/editorial/EditorialHighlights"
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
+import { PublicationData } from "@/components/editorial/PublicationData";
 import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
@@ -156,6 +157,7 @@ export default async function ArticlePage({
         ],
       }} />
 
+      <PublicationData frontmatter={fm} locale={locale} />
       <IssueMasthead
         label={isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
         title={fm.title}
@@ -228,7 +230,10 @@ export default async function ArticlePage({
         </p>
         <RelatedIssues items={related} locale={locale} />
         <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
-        <p className="caught-up-completion">{publication.completion}</p>
+        <p className="caught-up-completion">
+          <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
+          <span className="caught-up-completion__message">{publication.completion}</span>
+        </p>
         <FeedActions locale={locale} />
       </section>
     </>

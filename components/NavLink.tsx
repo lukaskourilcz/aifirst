@@ -4,7 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
-export function NavLink({ href, label, icon }: { href: string; label: string; icon: ReactNode }) {
+export function NavLink({
+  href,
+  label,
+  icon,
+  index,
+}: {
+  href: string;
+  label: string;
+  icon: ReactNode;
+  index?: string;
+}) {
   const pathname = usePathname();
   const normalizedHref = href.replace(/\/$/, "") || "/";
   const visiblePath = pathname.replace(/^\/en(?=\/|$)/, "");
@@ -16,11 +26,12 @@ export function NavLink({ href, label, icon }: { href: string; label: string; ic
   return (
     <Link
       href={href}
-      className={`nav-item${current ? " nav-item--active" : ""}`}
+      className={`nav-item${index ? " nav-item--indexed" : ""}${current ? " nav-item--active" : ""}`}
       title={label}
       aria-label={label}
       aria-current={current ? "page" : undefined}
     >
+      {index ? <span aria-hidden className="nav-item__index">{index}</span> : null}
       <span aria-hidden className="nav-item__glyph">{icon}</span>
       <span className="nav-item__label">{label}</span>
     </Link>

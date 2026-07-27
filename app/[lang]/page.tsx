@@ -8,6 +8,7 @@ import { EditorialHighlights } from "@/components/editorial/EditorialHighlights"
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
+import { PublicationData } from "@/components/editorial/PublicationData";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
@@ -132,6 +133,7 @@ export default async function HomePage({
         <p className="eyebrow">{publication.name} · {d.common.today}</p>
         <p>{publication.promise}</p>
       </header>
+      <PublicationData frontmatter={fm} locale={locale} />
       <IssueMasthead
         label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.todaysBriefing}
         title={fm.title}
@@ -181,7 +183,10 @@ export default async function HomePage({
       </section>
 
       <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
-      <p className="caught-up-completion">{publication.completion}</p>
+      <p className="caught-up-completion">
+        <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
+        <span className="caught-up-completion__message">{publication.completion}</span>
+      </p>
       <FeedActions locale={locale} />
 
       {/* Recent issues feed */}

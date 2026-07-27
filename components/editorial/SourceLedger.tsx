@@ -56,15 +56,23 @@ export function SourceLedger({
                     <a href={source.url} target="_blank" rel="noreferrer noopener">
                       {source.title}
                     </a>
-                    <span>{publisher}{source.published_at ? ` · ${source.published_at.slice(0, 10)}` : ""}</span>
+                    <span className="source-ledger__publisher">
+                      {publisher}{source.published_at ? ` · ${source.published_at.slice(0, 10)}` : ""}
+                    </span>
                     {registered ? (
-                      <Link href={localePath(locale, `/sources/${registered.id}`)}>
+                      <Link className="source-ledger__profile" href={localePath(locale, `/sources/${registered.id}`)}>
                         {locale === "cs" ? "profil zdroje" : "source profile"}
                       </Link>
                     ) : null}
                   </td>
                   <td>{source.source_type ?? registered?.type ?? "—"}</td>
-                  <td>{classification}</td>
+                  <td>
+                    <span
+                      className={`evidence-class evidence-class--${classification}`}
+                    >
+                      {classification}
+                    </span>
+                  </td>
                   <td>{source.supports?.join("; ") || "—"}</td>
                 </tr>
               );

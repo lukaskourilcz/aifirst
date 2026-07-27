@@ -2,6 +2,7 @@ import { Sparkline } from "./Sparkline";
 import type { Pulse } from "@/lib/pulse";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import type { CSSProperties } from "react";
 
 type Props = { pulse: Pulse; locale: Locale };
 
@@ -17,6 +18,7 @@ export function AIPulse({ pulse, locale }: Props) {
   const t = dict(locale).pulse;
   const nf = new Intl.NumberFormat(locale);
   const price = (v: number | null) => (v == null ? "—" : `$${v}`);
+  const maxModelScore = Math.max(1, ...pulse.models.map((model) => model.tfii ?? 0));
 
   return (
     <div className="ai-pulse">
@@ -67,7 +69,18 @@ export function AIPulse({ pulse, locale }: Props) {
                       {price(m.outputPrice)}
                     </td>
                     <td className="ai-pulse__numeric ai-pulse__score">
-                      {m.tfii == null ? "—" : m.tfii.toFixed(1)}
+                      {m.tfii == null ? "—" : (
+                        <span className="ai-pulse__score-readout">
+                          <span className="ai-pulse__score-track" aria-hidden>
+                            <span
+                              style={{
+                                "--score-width": `${Math.round((m.tfii / maxModelScore) * 100)}%`,
+                              } as CSSProperties}
+                            />
+                          </span>
+                          <span>{m.tfii.toFixed(1)}</span>
+                        </span>
+                      )}
                     </td>
                   </tr>
                 ))}

@@ -125,12 +125,13 @@ export async function Sidebar({ locale }: { locale: Locale }) {
       </div>
 
       <nav className="nav-rail" aria-label={primaryLabel}>
-        {primary.map((item) => (
+        {primary.map((item, index) => (
           <NavLink
             key={item.key}
             href={item.href}
             label={item.label}
             icon={ICONS[item.key]}
+            index={String(index + 1).padStart(2, "0")}
           />
         ))}
         <div className="nav-divider" aria-hidden />
