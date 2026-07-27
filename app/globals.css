@@ -8,22 +8,48 @@
  * ---------------------------------------------------------------- */
 
 :root {
-  /* Hashnode palette */
+  /* Palette.
+     Warm paper rather than cool grey: `lib/og-theme.ts` already ships the warm
+     values (`panel: #fffdf8`), and its comment says it mirrors this file, so
+     the OpenGraph cards and the site now agree again.
+     Slate and mint are set for contrast, not taste. On this paper the previous
+     #7b8187 measured 3.6:1 and #00bc7d measured 2.4:1, both under the 4.5:1
+     AA threshold for the secondary text and status labels that use them.
+     The values below measure 5.7:1 and 5.3:1. Re-measure before changing. */
   --color-blueprint-blue: #1d52de;
   --color-blueprint-blue-hover: #1741b0;
-  --color-ink-black: #16191c;
-  --color-carbon: #1c2024;
-  --color-slate: #7b8187;
-  --color-fog: #d1d4d9;
-  --color-paper: #f4f5f7;
-  --color-stone: #e6e8eb;
-  --color-canvas: #f9fafb;
-  --color-mint: #00bc7d;
+  --color-ink-black: #17191c;
+  --color-carbon: #2c3035;
+  --color-slate: #60666d;
+  --color-fog: #d9dadd;
+  --color-paper: #fffdf8;
+  --color-stone: #ecece8;
+  --color-canvas: #f5f5f1;
+  --color-mint: #17785a;
+  --color-rust: #a54829;
+
+  /* Semantic roles. Prefer these in new rules — they say what a value is for,
+     so a palette change stays in the block above. The raw --color-* tokens
+     remain for existing rules. */
+  --surface-page: var(--color-canvas);
+  --surface-reading: var(--color-paper);
+  --surface-subtle: var(--color-stone);
+  --text-primary: var(--color-ink-black);
+  --text-secondary: var(--color-carbon);
+  --text-tertiary: var(--color-slate);
+  --border-subtle: var(--color-fog);
+  --border-strong: #30343a;
+  --accent-primary: var(--color-blueprint-blue);
+  --accent-primary-hover: var(--color-blueprint-blue-hover);
+  --status-complete: var(--color-mint);
+  --status-correction: var(--color-rust);
+  --focus-ring: var(--color-blueprint-blue);
+  --selection-background: rgba(29, 82, 222, 0.17);
 
   /* Semantic ink aliases — communicate role, not colour. */
-  --ink-primary: var(--color-ink-black);
-  --ink-muted: var(--color-slate);
-  --ink-dim: var(--color-slate);
+  --ink-primary: var(--text-primary);
+  --ink-muted: var(--text-tertiary);
+  --ink-dim: var(--text-tertiary);
   --numeric-ghost: rgba(22, 25, 28, 0.04);
 
   /* Typography — Suisse Int'l ≈ Inter */
@@ -45,12 +71,21 @@
   --text-body: 16px;
   --leading-body: 1.5;
 
-  --text-subheading: 18px;
+  /* Body steps stay fixed — reading size should not depend on window width.
+     The display steps scale, so a headline is not stranded at phone size on a
+     wide screen or overflowing at 320px. */
+  --text-lead: clamp(1.075rem, 1.7vw, 1.25rem);
+  --leading-lead: 1.5;
+
+  --text-subheading: clamp(1.125rem, 2vw, 1.55rem);
   --leading-subheading: 1.38;
 
-  --text-heading: 30px;
+  --text-heading: clamp(1.9rem, 4vw, 3.15rem);
   --leading-heading: 1.2;
   --tracking-heading: -0.75px;
+
+  --text-display: clamp(2.55rem, 6vw, 5.4rem);
+  --leading-display: 1.04;
 
   /* Motion */
   --dur-instant: 80ms;
@@ -62,7 +97,9 @@
 
   /* Layout */
   --container: 1200px;
-  --sidebar-width: 112px;
+  /* 112px was narrower than the wordmark, so "Caught Up" wrapped to two lines
+     in the sidebar at every width. */
+  --sidebar-width: 188px;
   --reading: 68ch;
   --card-padding: 16px;
   --element-gap: 8px;
@@ -70,8 +107,9 @@
   --section-gap: 48px;
   --gutter-gap: 64px;
 
-  /* Surface elevation for interactive cards (hover reads as pressable). */
-  --surface-hover: #fafbfd;
+  /* Surface elevation for interactive cards (hover reads as pressable).
+     Warm, so it lifts off the paper instead of going cold against it. */
+  --surface-hover: #fffefa;
 
   /* Radii */
   --radius-md: 4px;
@@ -248,8 +286,8 @@ body {
 }
 
 ::selection {
-  background: rgba(29, 82, 222, 0.18);
-  color: var(--color-ink-black);
+  background: var(--selection-background);
+  color: var(--text-primary);
 }
 
 a {
@@ -371,7 +409,7 @@ hr {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-blueprint-blue);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
   border-radius: 4px;
 }

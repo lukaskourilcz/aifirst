@@ -50,6 +50,16 @@ tokens; avoid neon, robots, glowing brains, generic circuits and sci-fi clichés
 scanline textures, monospaced display type for headlines, generous negative
 space. Performance-first: no heavy WebGL unless behind a reduced-motion check.
 
+Tokens live in the palette block at the top of `app/globals.css`. Prefer the
+semantic roles (`--surface-*`, `--text-*`, `--border-*`, `--accent-*`,
+`--status-*`, `--focus-ring`) in new rules; the raw `--color-*` values stay for
+existing ones. `--color-slate` and `--color-mint` are set for measured contrast
+against the paper surfaces, not for taste — re-measure before changing either,
+and mirror any palette change into `lib/og-theme.ts`, which `next/og` cannot
+read from CSS. Display steps (`--text-lead`, `--text-subheading`,
+`--text-heading`, `--text-display`) use `clamp()`; body steps stay fixed,
+because reading size should not depend on window width.
+
 ## Conventions
 
 - TypeScript strict, no `any`. `noUncheckedIndexedAccess` is on — index
