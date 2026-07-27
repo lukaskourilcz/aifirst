@@ -22,6 +22,14 @@ repository, so the required items are not merely documentation placeholders.
 - [ ] **Choose when quality checks should block publishing** — guardrails currently run in `report_only`. After reviewing several reports, change `quality.enforcement` to `enforce`; keep `failureAction: pull_request` for a safe rollout, or choose `skip`. `[imp:4]` `[owner:me]` `[time:30m]` `[kind:decision]`
 - [ ] **Add `HEARTBEAT_URL` as an Actions secret and configure a monitor** — the workflow pings it only after a successful automatic daily publish. `[imp:3]` `[owner:me]` `[time:1h]` `[kind:deploy]`
 
+## Portfolio presence (2026-07-27)
+
+The portfolio entry was renamed from "aifirst" to Caught Up in both locales and
+its animated thumbnail re-recorded from the current design.
+
+- [ ] **Confirm the public name** — the repository is `aifirst`, the product is Caught Up, and the portfolio now says Caught Up. Rename the GitHub repository and the Vercel project too if you want them consistent, or leave the repository name as the internal one. `[imp:2]` `[owner:me]` `[time:30m]` `[kind:decision]`
+- [ ] **Re-record the thumbnail after any notable redesign** — the procedure is in `.claude/skills/preview-video/SKILL.md`; the output belongs in `nxt-portfolio/public/previews/aifirst/`. `[imp:2]` `[owner:ai]` `[time:30m]` `[kind:content]`
+
 ## Optional enhancements
 
 - [ ] **Choose a scheduled illustration provider** — edit `illustration.provider` in `config/editorial.yml` (`none`, `nasa`, `picsum`, or `fal`). `none` is the zero-cost default; `nasa` and `picsum` need no paid account; `fal` requires `FAL_KEY`. A GitHub `IMAGE_PROVIDER` variable may override the committed default for scheduled runs. `[imp:2]` `[owner:me]` `[time:1h]` `[kind:content]`
