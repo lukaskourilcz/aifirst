@@ -10,14 +10,14 @@ repository, so the required items are not merely documentation placeholders.
 
 ## Required before the first generated edition
 
-- [ ] **Add `ANTHROPIC_API_KEY` as a GitHub Actions secret** — daily, weekly and regeneration workflows cannot write an edition without it. Add it under repository **Settings → Secrets and variables → Actions → Secrets**. `[imp:5]` `[owner:me]` `[time:20m]` `[kind:setup]`
-- [ ] **Set the canonical URL in both deploy and generation environments** — add `NEXT_PUBLIC_SITE_URL=https://your-domain.example` in Vercel and as a GitHub Actions variable. This keeps canonicals, feeds, share packs and JSON contracts on the real origin. Do not include a trailing slash. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:deploy]`
-- [ ] **Confirm Vercel deploys `main`** — GitHub now uses `main` as its default branch and scheduled publishing pushes there. In Vercel, set **Settings → Git → Production Branch** to `main`, add `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/aifirst`, then redeploy. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:deploy]`
-- [ ] **Run one safe end-to-end generation** — dispatch `daily.yml` with `publish_mode=dry_run`, `image_provider=none`, `language=en`, and `skip_embeddings=true`; inspect the run report and generated MDX artifact before allowing the next scheduled `auto` run. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:content]`
+- [x] **Add `ANTHROPIC_API_KEY` as a GitHub Actions secret** — set 2026-07-28. ⚠️ rotate both pasted keys (they're in chat history). `[imp:5]` `[owner:me]` `[time:20m]` `[kind:setup]`
+- [x] **Set the canonical URL in both deploy and generation environments** — GH Actions variable set + Vercel env vars pasted 2026-07-28. Default: `https://aifirst-zpx8.vercel.app`. Update both when a custom domain lands. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:deploy]`
+- [x] **Confirm Vercel deploys `main`** — env vars in, `main` confirmed as production branch (git-main alias + latest READY prod deploy). Trigger a redeploy to pick up new env vars. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:deploy]`
+- [x] **Run one safe end-to-end generation** — done 2026-07-28 (run `30403333515`). Pipeline succeeded end-to-end in 101 s: curate $0.044, write $0.150, total $0.194/run. Article rendered, 8 sources cited. ⚠️ workflow job hit 20-min timeout on a post-generation step (Refresh static / Verify) — investigate before unattended cron. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:content]`
 
 ## Operational decisions after the first successful run
 
-- [ ] **Set generation budgets in `config/editorial.yml`** — use the first run report to choose `warningCostPerRun`, `hardCostPerRun`, `monthlyWarning`, `monthlyHardLimit`, and the translation budget. They are deliberately `null` until real usage exists. `[imp:4]` `[owner:me]` `[time:30m]` `[kind:decision]`
+- [x] **Set generation budgets in `config/editorial.yml`** — applied 2026-07-28 from real data (baseline $0.194/run). Guardrails: warningCostPerRun 0.60, hardCostPerRun 1.50, monthlyWarning 20, monthlyHardLimit 40, translation.budgetPerRun 0.10. Adjust after first month of production data. `[imp:4]` `[owner:me]` `[time:30m]` `[kind:decision]`
 - [ ] **Allow Actions-created pull requests if review mode will be used** — repository settings currently report `can_approve_pull_request_reviews=false`. Enable **Actions → General → Allow GitHub Actions to create and approve pull requests** so manual `pull_request` runs and enforced quality fallbacks can open review PRs. `[imp:4]` `[owner:me]` `[time:30m]` `[kind:decision]`
 - [ ] **Choose when quality checks should block publishing** — guardrails currently run in `report_only`. After reviewing several reports, change `quality.enforcement` to `enforce`; keep `failureAction: pull_request` for a safe rollout, or choose `skip`. `[imp:4]` `[owner:me]` `[time:30m]` `[kind:decision]`
 - [ ] **Add `HEARTBEAT_URL` as an Actions secret and configure a monitor** — the workflow pings it only after a successful automatic daily publish. `[imp:3]` `[owner:me]` `[time:1h]` `[kind:deploy]`
@@ -55,7 +55,7 @@ its animated thumbnail re-recorded from the current design.
 ## Developer tooling
 
 - [ ] **Install and initialize RTK (`rtk-ai/rtk`)** — RTK could not be set up from the Claude Code web session because its GitHub download host is outside the session's network allowlist (`github.com/rtk-ai/rtk` and its release binaries return HTTP 403). Set it up locally at home with the commands below, then enable it for this repository following `rtk --help` / the RTK docs (the exact per-repo command isn't documented here because the tool wouldn't install in the sandbox). `[imp:2]` `[owner:me]` `[time:20m]` `[kind:setup]`
-- [ ] **Enable Vercel Web Analytics for this project** — turn on Web Analytics in the Vercel project so OwnDashboard's project Overview shows visitors and page views (it reads them via the Vercel API, matched by this repository). `[imp:2]` `[owner:me]` `[time:15m]` `[kind:setup]`
+- [x] **Enable Vercel Web Analytics for this project** — enabled 2026-07-28, confirmed ON via Vercel MCP. `[imp:2]` `[owner:me]` `[time:15m]` `[kind:setup]`
 - [ ] **Report GitHub Actions crons to OwnDashboard** — add repository Actions secrets `OWNDASHBOARD_CRON_URL` (your OwnDashboard `/api/crons/log` URL) and `OWNDASHBOARD_CRON_TOKEN` (same value as OwnDashboard's `CRON_REGISTRY_TOKEN`) so the daily/weekly runs appear in the OwnDashboard Crons panel. `[imp:2]` `[owner:me]` `[time:10m]` `[kind:setup]`
 
 ```sh
