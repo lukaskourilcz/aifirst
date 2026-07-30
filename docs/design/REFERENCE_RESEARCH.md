@@ -3,6 +3,12 @@
 Research date: 2026-07-22. References were inspected in the browser as design
 evidence, not as templates to reproduce.
 
+Status: historical discovery record. The proposed Caught Up adaptations below
+describe the July 22 light-system overhaul and were superseded by the canonical
+instrument-panel contract on 2026-07-30. Use `DESIGN_THESIS.md`,
+`BRAND_SYSTEM.md`, `DESIGN_SYSTEM.md`, and `../REDESIGN.md` for current
+production direction.
+
 ## Selected references
 
 | Source | Category | Problem solved | Transferable principle | Do not copy | Caught Up adaptation | Accessibility and responsive note |
@@ -38,4 +44,3 @@ evidence, not as templates to reproduce.
 - Image-heavy archive grids or generated fake interfaces.
 - Exact layouts, icon sets, copy, screenshots, or brand trade dress from any
   reference.
-

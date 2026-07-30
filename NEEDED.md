@@ -23,11 +23,12 @@ The checklist includes operator updates recorded through 2026-07-28.
 
 ## Portfolio presence (2026-07-27)
 
-The portfolio entry was renamed from "aifirst" to Caught Up in both locales and
-its animated thumbnail re-recorded from the current design.
+The portfolio entry was renamed from "aifirst" to Caught Up in both locales.
+Its animated thumbnail reflects the retired light reader and should be
+re-recorded for the 2026-07-30 instrument-panel redesign.
 
 - [ ] **Confirm the public name** — the repository is `aifirst`, the product is Caught Up, and the portfolio now says Caught Up. Rename the GitHub repository and the Vercel project too if you want them consistent, or leave the repository name as the internal one. `[imp:2]` `[owner:me]` `[time:30m]` `[kind:decision]`
-- [ ] **Re-record the thumbnail after any notable redesign** — the procedure is in `.claude/skills/preview-video/SKILL.md`; the output belongs in `nxt-portfolio/public/previews/aifirst/`. `[imp:2]` `[owner:ai]` `[time:30m]` `[kind:content]`
+- [ ] **Re-record the thumbnail for the instrument-panel redesign** — the 2026-07-30 dark reader is a notable visual change. The procedure is in `.claude/skills/preview-video/SKILL.md`; the output belongs in `nxt-portfolio/public/previews/aifirst/`. `[imp:2]` `[owner:ai]` `[time:30m]` `[kind:content]`
 
 ## Optional enhancements
 

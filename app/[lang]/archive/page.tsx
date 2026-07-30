@@ -43,17 +43,26 @@ export default async function ArchivePage({
           <ul className="archive-list">
             {issues.map((a) => (
               <li key={a.slug}>
-                <Link className="archive-card" href={lp(`/articles/${a.slug}`)}>
-                  <div className="archive-card__meta label">
-                    <time dateTime={a.date}>{a.date}</time>
-                    <span>{a.type === "weekly" ? common.weekly : (locale === "cs" ? "denní" : "daily")}</span>
-                    <span>{a.lang?.toUpperCase()}</span>
-                    {a.reading ? <span>{a.reading} {common.minutesShort} {common.readMinutes}</span> : null}
-                    {a.signal_strength !== undefined ? <span>{common.signal} {a.signal_strength}</span> : null}
+                <Link className={a.heroPhoto ? "archive-card archive-card--with-media" : "archive-card"} href={lp(`/articles/${a.slug}`)}>
+                  {a.heroPhoto ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="archive-card__media" src={a.heroPhoto} alt="" loading="lazy" decoding="async" />
+                  ) : null}
+                  <div className="archive-card__copy">
+                    <div className="archive-card__meta label">
+                      <time dateTime={a.date}>{a.date}</time>
+                      <span>{a.type === "weekly" ? common.weekly : (locale === "cs" ? "denní" : "daily")}</span>
+                      <span>{a.lang?.toUpperCase()}</span>
+                      {a.reading ? <span>{a.reading} {common.minutesShort} {common.readMinutes}</span> : null}
+                    </div>
+                    <h2>{a.title}</h2>
+                    {a.dek ? <p>{a.dek}</p> : null}
+                    {a.tags?.length ? <div className="archive-card__topics">{a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div> : null}
                   </div>
-                  <h2>{a.title}</h2>
-                  {a.dek ? <p>{a.dek}</p> : null}
-                  {a.tags?.length ? <div className="archive-card__topics">{a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div> : null}
+                  <div className="archive-card__signal">
+                    <span>{a.signal_strength === undefined ? "—" : String(a.signal_strength).padStart(2, "0")}</span>
+                    <small>{common.signal}</small>
+                  </div>
                 </Link>
               </li>
             ))}

@@ -44,17 +44,25 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
       }} />
       <FeedActions locale={locale} weekly />
       {latest ? (
-        <section className="weekly-cover">
+        <section className={latest.heroPhoto ? "weekly-cover weekly-cover--with-media" : "weekly-cover"}>
+          {latest.heroPhoto ? (
+            <Link className="weekly-cover__media" href={localePath(locale, `/articles/${latest.slug}`)}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={latest.heroPhoto} alt="" loading="eager" decoding="async" />
+            </Link>
+          ) : null}
           <div className="weekly-cover__index" aria-hidden>W</div>
-          <p className="label label--accent weekly-cover__kicker">{t.latest}</p>
-          <h2><Link href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</Link></h2>
-          {latest.dek ? <p className="weekly-cover__dek">{latest.dek}</p> : null}
-          <p className="label weekly-cover__meta">
-            {latest.digest ? `${t.dateRange}: ${latest.digest.from} → ${latest.digest.to}` : latest.date}
-            {(latest.tags ?? []).filter((tag) => tag !== "weekly").length
-              ? ` · ${t.topics}: ${(latest.tags ?? []).filter((tag) => tag !== "weekly").join(", ")}`
-              : ""}
-          </p>
+          <div className="weekly-cover__copy">
+            <p className="label label--accent weekly-cover__kicker">{t.latest}</p>
+            <h2><Link href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</Link></h2>
+            {latest.dek ? <p className="weekly-cover__dek">{latest.dek}</p> : null}
+            <p className="label weekly-cover__meta">
+              {latest.digest ? `${t.dateRange}: ${latest.digest.from} → ${latest.digest.to}` : latest.date}
+              {(latest.tags ?? []).filter((tag) => tag !== "weekly").length
+                ? ` · ${t.topics}: ${(latest.tags ?? []).filter((tag) => tag !== "weekly").join(", ")}`
+                : ""}
+            </p>
+          </div>
         </section>
       ) : null}
       {issues.length > 1 ? (

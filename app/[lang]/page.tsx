@@ -135,7 +135,7 @@ export default async function HomePage({
       </header>
       <PublicationData frontmatter={fm} locale={locale} />
       <IssueMasthead
-        label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.todaysBriefing}
+        label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.leadStory}
         title={fm.title}
         dek={fm.dek}
         date={fm.date}
@@ -143,7 +143,8 @@ export default async function HomePage({
         tags={fm.tags}
         sourceCount={fm.sources.length}
         heroPhoto={heroPhoto}
-        heroAlt={fm.illustration.alt || fm.title}
+        heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
+        heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
         locale={locale}
       />
 
@@ -193,7 +194,7 @@ export default async function HomePage({
       {back.length > 0 && (
         <section className="recent-issues">
           <div className="section-head">
-            <h2 className="section-head__title">{d.home.recentIssues}</h2>
+            <h2 className="section-head__title">{d.home.recentEditions}</h2>
             <Link href={lp("/archive")} className="label">
               {d.nav.archive} →
             </Link>
@@ -209,21 +210,25 @@ export default async function HomePage({
                       : "post-card post-card--no-thumb"
                   }
                 >
-                  <div className="post-card__top">
-                    {a.heroPhoto ? (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img
-                        src={a.heroPhoto}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        className="post-card__thumb"
-                      />
-                    ) : null}
-                    <div>
-                      <p className="post-card__meta">{a.date}</p>
-                      <h3 className="post-card__title">{a.title}</h3>
-                    </div>
+                  {a.heroPhoto ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={a.heroPhoto}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="post-card__thumb"
+                    />
+                  ) : null}
+                  <div className="post-card__copy">
+                    <p className="post-card__meta">
+                      <span>{a.date}</span>
+                      {a.signal_strength !== undefined ? (
+                        <span>{d.common.signal} {String(a.signal_strength).padStart(2, "0")}</span>
+                      ) : null}
+                    </p>
+                    <h3 className="post-card__title">{a.title}</h3>
+                    {a.dek ? <p className="post-card__dek">{a.dek}</p> : null}
                   </div>
                   {a.tags?.length ? (
                     <div className="post-card__chips">

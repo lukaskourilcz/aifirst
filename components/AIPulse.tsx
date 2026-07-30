@@ -22,6 +22,33 @@ export function AIPulse({ pulse, locale }: Props) {
 
   return (
     <div className="ai-pulse">
+      {/* npm package momentum */}
+      {pulse.packages.length > 0 && (
+        <section>
+          <p className="label label--accent ai-pulse__section-label">
+            {t.packagesHeading}
+          </p>
+          <p className="label label--muted ai-pulse__downloads-label">
+            {t.downloads30d}
+          </p>
+          <ul className="ai-pulse__packages">
+            {pulse.packages.map((p) => (
+              <li key={p.name}>
+                <div className="ai-pulse__package-head">
+                  <code>
+                    {p.name}
+                  </code>
+                  <span className="ai-pulse__package-total">
+                    {nf.format(p.total)}
+                  </span>
+                </div>
+                <Sparkline data={p.series} width={280} height={48} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Model pricing & intelligence */}
       {pulse.models.length > 0 && (
         <section>
@@ -43,13 +70,13 @@ export function AIPulse({ pulse, locale }: Props) {
                     <span className="label">{t.colModel}</span>
                   </th>
                   <th>
+                    <span className="label">{t.colIntel}</span>
+                  </th>
+                  <th>
                     <span className="label">{t.colInput}</span>
                   </th>
                   <th>
                     <span className="label">{t.colOutput}</span>
-                  </th>
-                  <th>
-                    <span className="label">{t.colIntel}</span>
                   </th>
                 </tr>
               </thead>
@@ -61,12 +88,6 @@ export function AIPulse({ pulse, locale }: Props) {
                       {m.provider && (
                         <span className="ai-pulse__provider"> · {m.provider}</span>
                       )}
-                    </td>
-                    <td className="ai-pulse__numeric">
-                      {price(m.inputPrice)}
-                    </td>
-                    <td className="ai-pulse__numeric">
-                      {price(m.outputPrice)}
                     </td>
                     <td className="ai-pulse__numeric ai-pulse__score">
                       {m.tfii == null ? "—" : (
@@ -81,6 +102,12 @@ export function AIPulse({ pulse, locale }: Props) {
                           <span>{m.tfii.toFixed(1)}</span>
                         </span>
                       )}
+                    </td>
+                    <td className="ai-pulse__numeric">
+                      {price(m.inputPrice)}
+                    </td>
+                    <td className="ai-pulse__numeric">
+                      {price(m.outputPrice)}
                     </td>
                   </tr>
                 ))}
@@ -109,33 +136,6 @@ export function AIPulse({ pulse, locale }: Props) {
                 <span className="label label--muted">
                   {s.status}
                 </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* npm package momentum */}
-      {pulse.packages.length > 0 && (
-        <section>
-          <p className="label label--accent ai-pulse__section-label">
-            {t.packagesHeading}
-          </p>
-          <p className="label label--muted ai-pulse__downloads-label">
-            {t.downloads30d}
-          </p>
-          <ul className="ai-pulse__packages">
-            {pulse.packages.map((p) => (
-              <li key={p.name}>
-                <div className="ai-pulse__package-head">
-                  <code>
-                    {p.name}
-                  </code>
-                  <span className="ai-pulse__package-total">
-                    {nf.format(p.total)}
-                  </span>
-                </div>
-                <Sparkline data={p.series} width={280} height={48} />
               </li>
             ))}
           </ul>

@@ -2,17 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
 
 export function NavLink({
   href,
   label,
-  icon,
   index,
 }: {
   href: string;
   label: string;
-  icon: ReactNode;
   index?: string;
 }) {
   const pathname = usePathname();
@@ -32,7 +29,6 @@ export function NavLink({
       aria-current={current ? "page" : undefined}
     >
       {index ? <span aria-hidden className="nav-item__index">{index}</span> : null}
-      <span aria-hidden className="nav-item__glyph">{icon}</span>
       <span className="nav-item__label">{label}</span>
     </Link>
   );

@@ -43,6 +43,13 @@ const en = {
     atomFeed: "atom feed",
     transmissionOngoing: "published daily",
     skipToContent: "Skip to content",
+    publicationStatus: "publication status",
+    ran: "ran",
+    candidates: "candidates",
+    cited: "cited",
+    runCost: "run cost",
+    humanReview: "human review",
+    unavailable: "unavailable",
   },
   home: {
     emptyKicker: "no issue yet",
@@ -72,6 +79,9 @@ const en = {
     sources: "Source ledger",
     readIssue: "Read the issue",
     backIssues: "Back issues",
+    leadStory: "lead story",
+    recentEditions: "Recent editions",
+    nextRun: "next run",
   },
   article: {
     weeklyDigest: "weekly digest",
@@ -136,6 +146,9 @@ const en = {
   footer: {
     description:
       "A selective daily publication that explains the AI developments that actually mattered, with sources and uncertainty kept visible.",
+    read: "read",
+    trust: "trust",
+    staticBuild: "static build · no runtime model calls",
   },
     archive: {
     kicker: "archive",
@@ -207,6 +220,10 @@ const en = {
     sourceDirectory: "Browse the source directory",
     corrections: "Read the correction record",
     repository: "Open the repository",
+    registeredSources: "registered sources",
+    runtimeCalls: "runtime AI calls",
+    languages: "languages",
+    publishes: "publishes",
   },
   corrections: {
     kicker: "corrections",
@@ -257,7 +274,7 @@ const en = {
     title: "The state of the AI stack, today.",
     intro:
       "Model pricing and intelligence, provider service status, and package momentum — refreshed with each daily run.",
-    modelsHeading: "Model pricing & intelligence",
+    modelsHeading: "The stack, today",
     statusHeading: "Provider status",
     packagesHeading: "Package momentum",
     colModel: "model",
@@ -423,6 +440,13 @@ const cs: Dict = {
     atomFeed: "atom kanál",
     transmissionOngoing: "vychází denně",
     skipToContent: "Přeskočit na obsah",
+    publicationStatus: "stav vydávání",
+    ran: "spuštěno",
+    candidates: "kandidáti",
+    cited: "citováno",
+    runCost: "cena běhu",
+    humanReview: "kontrola člověkem",
+    unavailable: "nedostupné",
   },
   home: {
     emptyKicker: "zatím žádné vydání",
@@ -452,6 +476,9 @@ const cs: Dict = {
     sources: "Přehled zdrojů",
     readIssue: "Číst vydání",
     backIssues: "Předchozí vydání",
+    leadStory: "hlavní příběh",
+    recentEditions: "Poslední vydání",
+    nextRun: "příští běh",
   },
   article: {
     weeklyDigest: "týdenní souhrn",
@@ -516,6 +543,9 @@ const cs: Dict = {
   footer: {
     description:
       "Výběrová denní publikace, která vysvětluje podstatné změny v AI a otevřeně ukazuje zdroje i nejistotu.",
+    read: "číst",
+    trust: "důvěra",
+    staticBuild: "statický build · bez runtime volání modelů",
   },
   archive: {
     kicker: "archiv",
@@ -587,6 +617,10 @@ const cs: Dict = {
     sourceDirectory: "Procházet adresář zdrojů",
     corrections: "Přečíst záznam oprav",
     repository: "Otevřít repozitář",
+    registeredSources: "registrované zdroje",
+    runtimeCalls: "runtime AI volání",
+    languages: "jazyky",
+    publishes: "vychází",
   },
   corrections: {
     kicker: "opravy",
@@ -637,7 +671,7 @@ const cs: Dict = {
     title: "Stav AI stacku, dnes.",
     intro:
       "Ceny a inteligence modelů, stav služeb poskytovatelů a dynamika balíčků — obnovováno s každým denním během.",
-    modelsHeading: "Ceny a inteligence modelů",
+    modelsHeading: "Dnešní AI stack",
     statusHeading: "Stav poskytovatelů",
     packagesHeading: "Dynamika balíčků",
     colModel: "model",

@@ -19,11 +19,14 @@ export function RelatedIssues({
       <ul>
         {items.map((a) => (
           <li key={a.slug}>
-            <p className="label">{a.date}</p>
-            <Link
-              href={localePath(locale, `/articles/${a.slug}`)}
-            >
-              {a.title}
+            <Link href={localePath(locale, `/articles/${a.slug}`)}>
+              {a.heroPhoto ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={a.heroPhoto} alt="" loading="lazy" decoding="async" />
+              ) : null}
+              <span className="label">{a.date}</span>
+              <strong>{a.title}</strong>
+              {a.dek ? <span className="related-issues__dek">{a.dek}</span> : null}
             </Link>
           </li>
         ))}

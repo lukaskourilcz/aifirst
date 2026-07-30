@@ -20,9 +20,10 @@ remain `aifirst`.
 
 ## Mark and wordmark
 
-The mark is a single blueprint-blue final period. It means the final item in a
-briefing, resolved status, and permission to stop. It is deterministic SVG/CSS,
-scales from favicon to social composition, and is not a generated raster.
+The mark is a compact blueprint-blue completion square. It means the final item
+in a briefing, resolved status, and permission to stop. It is deterministic
+SVG/CSS, scales from favicon to social composition, and is not a generated
+raster.
 
 The wordmark uses the exact text `Caught Up` in the editorial serif. The dot is
 a separate mark; public prose does not rename the publication to “Caught Up.”
@@ -31,36 +32,35 @@ The lockup must remain legible at small sizes, in Czech contexts, and in print.
 ## Color behavior
 
 - Blueprint blue: identity, links, focus, selected navigation, signal emphasis.
-- Ink/carbon: primary text and strong rules.
-- Canvas/paper/stone/fog: page, reading, subtle, and structural hierarchy.
+- Near-black and cool charcoal: page, panel, and sunken hierarchy.
+- Cool white and gray: primary, reading, support, and metadata text.
 - Mint: rare completion/healthy state, always paired with text.
-- Editorial rust: corrections and warnings, never a generic accent.
+- Amber and red: review warnings and corrections, never generic accents.
 
 All production use maps through semantic tokens documented in
 `DESIGN_SYSTEM.md`; raw palette names remain compatibility aliases only.
 
 ## Typography
 
-- Source Serif 4: wordmark, display headlines, editorial section headings,
-  lead paragraphs, and completion.
-- Inter: body copy, navigation, controls, reference content, captions, and
-  tables.
-- System mono: dates, issue identifiers, source IDs, cost, and measured values.
+- Space Grotesk: wordmark, display headlines, editorial section headings,
+  navigation, controls, and completion.
+- Source Serif 4: article prose, deks, definitions, and descriptive card copy.
+- IBM Plex Mono: dates, issue identifiers, source IDs, run records, tags,
+  captions, prices, and measured values.
 
 Fonts are self-hosted by `next/font`; no runtime font request is introduced.
 Both faces include Latin Extended for Czech.
 
 ## Visual language
 
-- Finite printed briefing, research dossier, clipping desk, source annotation,
-  registration detail, issue filing, and the final period.
-- Flat surfaces, hairline rules, controlled crop, low radii, no decorative
-  elevation.
+- Finite technical briefing, research dossier, publishing instrument, source
+  annotation, issue filing, and the completion mark.
+- Flat surfaces, collapsing hairline grids, controlled crops, zero radii, no
+  decorative elevation.
 - Serious and concise voice; uncertainty and evidence remain explicit.
 
 ## Anti-positioning
 
-Never introduce robots, brains, neural webs, circuitry, holograms, blue-purple
-gradients, glass, glow, cyberpunk darkness, fake charts, fake UI, mascots,
-confetti, generic SaaS copy, or marketing urgency.
-
+Never introduce robots, brains, neural webs, circuitry, holograms, gradients,
+glass, glow, cyberpunk ornament, fake charts, fake UI, mascots, confetti,
+generic SaaS copy, or marketing urgency.

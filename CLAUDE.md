@@ -70,18 +70,18 @@ TypeScript is strict and `noUncheckedIndexedAccess` is enabled. Keep server-reac
 
 ## Brand and design system
 
-The design thesis is **calm editorial intelligence with a clear sense of completion**. Read:
+The design thesis is **editorial intelligence presented as a precise publishing instrument, with a clear sense of completion**. Read:
 
 - `docs/design/DESIGN_THESIS.md`
 - `docs/design/BRAND_SYSTEM.md`
 - `docs/design/DESIGN_SYSTEM.md`
 - `docs/design/VISUAL_QA.md`
 
-Use the completion-period vector through `BrandMark`/`BrandLockup`, warm paper and ink, blueprint blue, restrained semantic status colors, editorial serif headlines, readable sans body/interface text, and mono only for identifiers/measured values. Use semantic custom properties, flat surfaces, hairlines, low radii, measured reading widths, accessible focus, and purposeful density.
+Use the completion mark through `BrandMark`/`BrandLockup`, a near-black instrument canvas, cool panel surfaces, electric blueprint blue, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
 
 Today is the product, not a marketing landing page. Radar is editorial intelligence, not an operator dashboard. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
 
-Never restore terminal-first, neon, scanline, parallax, glow, dark-only, generic startup-gradient, glass, fake-interface, robot/brain/circuit, excessive-card/pill, fake-chart/metric, mascot, testimonial, or infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
+The public reader uses one dark theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
 
 Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
 
@@ -110,7 +110,7 @@ Validate 360, 430, 768, 1024, 1280–1440, and 1600px where layout changes; incl
 
 Maintain skip links, landmarks, one clear page `h1`, current navigation, keyboard order, visible focus, dialog containment/Escape/restoration, accessible names, live feedback, source/corrections/sponsorship semantics, 44px touch targets, non-color state cues, contrast, zoom, reduced motion, and correct image alt/decorative handling.
 
-Handle real missing/legacy/fallback/no-image/no-Briefs/no-Watchlist/no-Topics/no-Weekly/empty-search/stale-health/correction/sponsorship/cost-review-unavailable/long-content states. Never fabricate content to fill a layout.
+Handle real missing/legacy/fallback/no-image/no-Briefs/no-Watchlist/no-Topics/no-Weekly/empty-search/stale-health/correction/sponsorship/cost-review-unavailable/long-content states. Image positions render only when a real local or cached source asset exists; never fabricate content to fill a layout.
 
 ## SEO, security, privacy, and performance
 
@@ -133,9 +133,10 @@ Before editing, inspect branch/status/staged and unstaged diffs/recent log. Pres
 
 Tokens live in the palette block at the top of `app/globals.css`. Prefer the
 semantic roles (`--surface-*`, `--text-*`, `--border-*`, `--accent-*`,
-`--status-*`, `--focus-ring`) in new rules. Re-measure text and status contrast
-before changing slate or mint, and mirror palette changes in `lib/og-theme.ts`
-because `next/og` cannot read CSS variables.
+`--status-*`, `--focus-ring`) in new rules. The dark palette's metadata floor is
+`#8d949f`; do not introduce dimmer text. Re-measure text and status contrast
+before changing gray or status colors, and mirror palette changes in
+`lib/og-theme.ts` because `next/og` cannot read CSS variables.
 
 ## Project AI workflows
 

@@ -11,6 +11,7 @@ export function IssueMasthead({
   sourceCount,
   heroPhoto,
   heroAlt,
+  heroCaption,
   locale,
 }: {
   label: string;
@@ -22,6 +23,7 @@ export function IssueMasthead({
   sourceCount: number;
   heroPhoto: string | null;
   heroAlt: string;
+  heroCaption?: string;
   locale: Locale;
 }) {
   const t = dict(locale).common;
@@ -49,15 +51,18 @@ export function IssueMasthead({
         ) : null}
       </div>
       {heroPhoto ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={heroPhoto}
-          alt={heroAlt}
-          className="hero__photo"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
+        <figure className="hero__figure">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={heroPhoto}
+            alt={heroAlt}
+            className="hero__photo"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+          {heroCaption ? <figcaption>{heroCaption}</figcaption> : null}
+        </figure>
       ) : null}
     </section>
   );

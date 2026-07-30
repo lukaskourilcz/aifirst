@@ -1,109 +1,52 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { buildSearchIndex } from "@/lib/content";
+import { buildSearchIndex, getArticle, listArticles } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
 import { NavLink } from "./NavLink";
 import { BrandLockup } from "./BrandMark";
+import { classifyPublicHealth } from "@/lib/public-health";
+import { SignalStrength } from "./SignalStrength";
 
-// One coherent 16px stroked icon set — hand-drawn to sit on the same
-// baseline as Suisse Intl at 13/14px in the sidebar. Uses currentColor so
-// the active/hover state inherits from the nav-item colour.
-const S = {
-  size: 16,
-  props: {
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.5,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-  },
-};
-
-const ICONS: Record<string, ReactNode> = {
-  home: (
-    <svg {...S.props}>
-      <path d="M2.5 7 8 2.5 13.5 7v6.5H10V10H6v3.5H2.5V7Z" />
-    </svg>
-  ),
-  archive: (
-    <svg {...S.props}>
-      <rect x="2" y="3" width="12" height="3" rx="0.5" />
-      <path d="M3 6v7h10V6" />
-      <path d="M6.5 9h3" />
-    </svg>
-  ),
-  tags: (
-    <svg {...S.props}>
-      <path d="M8.5 2.5H13v4.5L7.5 12.5 3 8l5.5-5.5Z" />
-      <circle cx="10.5" cy="5" r="0.75" />
-    </svg>
-  ),
-  sources: (
-    <svg {...S.props}>
-      <circle cx="8" cy="8" r="5.5" />
-      <path d="M2.5 8h11M8 2.5c1.75 2 2.75 3.75 2.75 5.5S9.75 12 8 13.5c-1.75-2-2.75-3.75-2.75-5.5S6.25 4.5 8 2.5Z" />
-    </svg>
-  ),
-  glossary: (
-    <svg {...S.props}>
-      <path d="M3 3h5a2 2 0 0 1 2 2v8H5a2 2 0 0 1-2-2V3Z" />
-      <path d="M13 3H8a2 2 0 0 0-2 2v8" />
-    </svg>
-  ),
-  colophon: (
-    <svg {...S.props}>
-      <circle cx="8" cy="8" r="5.5" />
-      <path d="M8 5v6M5 8h6" />
-    </svg>
-  ),
-  stats: (
-    <svg {...S.props}>
-      <path d="M2.5 13.5V8M6 13.5V5M9.5 13.5V9.5M13 13.5V3" />
-    </svg>
-  ),
-  trends: (
-    <svg {...S.props}>
-      <path d="m2.5 11 3.5-3.5 2.5 2.5 5-5" />
-      <path d="M9.5 5h4v4" />
-    </svg>
-  ),
-  pulse: (
-    <svg {...S.props}>
-      <path d="M2 8.5h3l1.5-4 3 8L11 8.5h3" />
-    </svg>
-  ),
-  health: (
-    <svg {...S.props}>
-      <path d="M2 8.5h2.5L6 6l2 5 2-3.5 1.5 1H14" />
-    </svg>
-  ),
-  search: (
-    <svg {...S.props}>
-      <circle cx="7" cy="7" r="4" />
-      <path d="m10 10 3.5 3.5" />
-    </svg>
-  ),
-};
-
-ICONS.today = ICONS.home;
-ICONS.radar = ICONS.trends;
-ICONS.topics = ICONS.tags;
-ICONS.weekly = ICONS.archive;
-ICONS.about = ICONS.colophon;
+function runTime(value?: string): string {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return `${date.toISOString().slice(11, 16)} UTC`;
+}
 
 export async function Sidebar({ locale }: { locale: Locale }) {
   const t = dict(locale).nav;
-  const home = dict(locale).home;
+  const d = dict(locale);
   const lp = localePrefixer(locale);
-  const index = await buildSearchIndex(locale);
+  const [index, articles] = await Promise.all([
+    buildSearchIndex(locale),
+    listArticles(locale),
+  ]);
+  const latestDaily = articles.find((article) => (article.type ?? "daily") === "daily");
+  const latestWeekly = articles.find((article) => article.type === "weekly");
+  const latest = latestDaily ? await getArticle(latestDaily.slug, locale) : null;
+  const dailyAgeHours = latestDaily
+    ? Math.floor((Date.now() - new Date(`${latestDaily.date}T06:00:00Z`).getTime()) / 3_600_000)
+    : null;
+  const weeklyAgeDays = latestWeekly
+    ? Math.floor((Date.now() - new Date(`${latestWeekly.date}T07:00:00Z`).getTime()) / 86_400_000)
+    : null;
+  const status = classifyPublicHealth(dailyAgeHours, weeklyAgeDays === null || weeklyAgeDays > 10);
+  const statusTitle = {
+    healthy: d.health.healthyTitle,
+    degraded: d.health.degradedTitle,
+    stale: d.health.staleTitle,
+    failed: d.health.failedTitle,
+  }[status];
+  const generation = latest?.frontmatter.generation;
+  const cited = generation?.cited_sources ?? latest?.frontmatter.sources.length;
+  const candidates = generation?.source_candidates;
+  const cost = generation?.cost
+    ? `${generation.cost.amount.toFixed(4)} ${generation.cost.currency}`
+    : d.common.unavailable;
   const primaryLabel = locale === "cs" ? "Hlavní navigace" : "Primary navigation";
   const homeLabel = locale === "cs" ? `${brand.name} – domů` : `${brand.name} home`;
 
@@ -122,6 +65,7 @@ export async function Sidebar({ locale }: { locale: Locale }) {
         <Link href={lp("/")} className="sidebar__brand" aria-label={homeLabel}>
           <BrandLockup />
         </Link>
+        <p className="sidebar__strapline">{d.meta.tagline}</p>
       </div>
 
       <nav className="nav-rail" aria-label={primaryLabel}>
@@ -130,7 +74,6 @@ export async function Sidebar({ locale }: { locale: Locale }) {
             key={item.key}
             href={item.href}
             label={item.label}
-            icon={ICONS[item.key]}
             index={String(index + 1).padStart(2, "0")}
           />
         ))}
@@ -138,6 +81,27 @@ export async function Sidebar({ locale }: { locale: Locale }) {
         <SearchPalette index={index} locale={locale} />
         <LanguageSwitcher locale={locale} />
       </nav>
+
+      <section className="sidebar-status" data-tone={status} aria-label={d.common.publicationStatus}>
+        <header className="sidebar-status__header">
+          <span aria-hidden className="sidebar-status__dot" />
+          <span>{statusTitle}</span>
+        </header>
+        <dl>
+          <div><dt>{d.common.issue}</dt><dd>{latest?.frontmatter.date ?? "—"}</dd></div>
+          <div><dt>{d.common.ran}</dt><dd>{runTime(generation?.generated_at)}</dd></div>
+          <div>
+            <dt>{d.common.candidates}</dt>
+            <dd>{candidates === undefined ? "—" : `${candidates} → ${cited ?? "—"}`}</dd>
+          </div>
+          <div><dt>{d.common.runCost}</dt><dd>{cost}</dd></div>
+        </dl>
+        {latest?.frontmatter.signal_strength !== undefined ? (
+          <div className="sidebar-status__signal">
+            <SignalStrength value={latest.frontmatter.signal_strength} label={d.common.signal} />
+          </div>
+        ) : null}
+      </section>
     </aside>
   );
 }

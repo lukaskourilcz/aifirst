@@ -167,7 +167,8 @@ export default async function ArticlePage({
         tags={fm.tags}
         sourceCount={fm.sources.length}
         heroPhoto={heroPhoto}
-        heroAlt={fm.illustration.alt || fm.title}
+        heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
+        heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
         locale={locale}
       />
 

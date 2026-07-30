@@ -16,6 +16,14 @@ type Props = {
   locale: Locale;
 };
 
+function monogram(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const letters = parts.length > 1
+    ? `${parts[0]?.[0] ?? ""}${parts[1]?.[0] ?? ""}`
+    : (parts[0] ?? "").slice(0, 2);
+  return letters.toLocaleUpperCase();
+}
+
 export function SourceCard({
   id,
   name,
@@ -31,6 +39,7 @@ export function SourceCard({
   const t = dict(locale).sources;
   return (
     <article className="source-card">
+      <span className="source-card__monogram" aria-hidden>{monogram(name)}</span>
       <header className="source-card__header">
         <div>
           <p className="label source-card__type">
@@ -48,6 +57,7 @@ export function SourceCard({
           </p>
         </div>
         <span className="source-card__weight">
+          <small>{t.weight}</small>
           {String(pct).padStart(2, "0")}
         </span>
       </header>

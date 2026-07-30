@@ -20,6 +20,9 @@ export function PublicationData({
   const review = generation
     ? (generation.human_reviewed ? t.yes : t.no)
     : t.notRecorded;
+  const reviewTone = generation?.human_reviewed
+    ? "publication-data__value publication-data__value--complete"
+    : "publication-data__value publication-data__value--warning";
   const cost = generation?.cost
     ? `${generation.cost.amount.toFixed(4)} ${generation.cost.currency}`
     : t.costUnavailable;
@@ -40,7 +43,7 @@ export function PublicationData({
       </div>
       <div className="publication-data__cell">
         <span className="publication-data__label">{t.humanReviewed}</span>
-        <span className="publication-data__value">{review}</span>
+        <span className={reviewTone}>{review}</span>
       </div>
       <div className="publication-data__cell">
         <span className="publication-data__label">{t.measuredCost}</span>

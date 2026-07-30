@@ -21,19 +21,23 @@ export function Footer({ locale }: { locale: Locale }) {
             {d.footer.description}
           </p>
           <p className="label footer-cadence">
-            {d.common.transmissionOngoing}
+            {d.footer.staticBuild}
           </p>
         </div>
-        <nav aria-label="footer" className="footer-nav">
-          <Link href={lp("/radar")} className="label">{t.radar}</Link>
-          <Link href={lp("/topics")} className="label">{t.topics}</Link>
-          <Link href={lp("/weekly")} className="label">{t.weekly}</Link>
-          <Link href={lp("/archive")} className="label">{t.archive}</Link>
-          <Link href={lp("/about")} className="label">{t.about}</Link>
-          <Link href={lp("/corrections")} className="label">{t.corrections}</Link>
-          <Link href={lp("/glossary")} className="label">{t.glossary}</Link>
-          <Link href={lp("/sources")} className="label">{t.sources}</Link>
-          <a href={lp("/feed.xml")} className="label">{d.common.atomFeed}</a>
+        <nav aria-label={d.footer.read} className="footer-nav">
+          <p className="footer-nav__heading">{d.footer.read}</p>
+          <Link href={lp("/radar")}>{t.radar}</Link>
+          <Link href={lp("/topics")}>{t.topics}</Link>
+          <Link href={lp("/weekly")}>{t.weekly}</Link>
+          <Link href={lp("/archive")}>{t.archive}</Link>
+        </nav>
+        <nav aria-label={d.footer.trust} className="footer-nav">
+          <p className="footer-nav__heading">{d.footer.trust}</p>
+          <Link href={lp("/about")}>{t.about}</Link>
+          <Link href={lp("/corrections")}>{t.corrections}</Link>
+          <Link href={lp("/glossary")}>{t.glossary}</Link>
+          <Link href={lp("/sources")}>{t.sources}</Link>
+          <a href={lp("/feed.xml")}>{d.common.atomFeed} ↗</a>
         </nav>
       </div>
     </footer>

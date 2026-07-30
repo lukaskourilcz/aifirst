@@ -146,7 +146,7 @@ test("language switcher reaches the Czech mirror of the home page", async ({ pag
   await expect(page.locator(".hero__title")).toBeVisible();
 });
 
-test("inline links carry the Blueprint Blue (#1d52de)", async ({ page }) => {
+test("inline links carry the Blueprint Blue (#4d7cff)", async ({ page }) => {
   await page.goto("/");
   // The first <a> inside .article-body is the heading-anchor link (slate by
   // design); the editorial in-body links come right after.
@@ -155,8 +155,8 @@ test("inline links carry the Blueprint Blue (#1d52de)", async ({ page }) => {
   const link = links.nth(0);
   await expect(link).toBeVisible();
   const color = await link.evaluate((el) => getComputedStyle(el).color);
-  expect(color, "article links should use blueprint blue rgb(29,82,222)").toBe(
-    "rgb(29, 82, 222)",
+  expect(color, "article links should use blueprint blue rgb(77,124,255)").toBe(
+    "rgb(77, 124, 255)",
   );
 });
 

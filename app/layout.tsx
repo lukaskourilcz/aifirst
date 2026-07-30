@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Source_Serif_4, Inter } from "next/font/google";
+import { IBM_Plex_Mono, Source_Serif_4, Space_Grotesk } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { siteUrl } from "@/lib/config";
@@ -12,22 +12,32 @@ import "./globals.css";
 const d = dict(DEFAULT_LOCALE);
 const vercelTelemetryEnabled = process.env.VERCEL === "1";
 
-// Source Serif 4 is the editorial voice: wordmark, headlines, lead moments,
-// and completion. Latin Extended keeps the Czech edition native.
+// Source Serif 4 carries long-form reading and descriptive editorial copy.
+// Latin Extended keeps the Czech edition native.
 const serif = Source_Serif_4({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "700"],
+  weight: ["400", "600"],
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-serif-loaded",
 });
 
-// Inter carries body copy, navigation, controls and reference information.
-const sans = Inter({
+// Space Grotesk supplies the publication's technical display and interface
+// hierarchy without adding client-side code.
+const display = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-sans-loaded",
+  variable: "--font-display-loaded",
+});
+
+// IBM Plex Mono is reserved for machine values, navigation indices and
+// evidence metadata.
+const mono = IBM_Plex_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-mono-loaded",
 });
 
 export const metadata: Metadata = {
@@ -52,7 +62,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${sans.variable}`}>
+    <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${display.variable} ${mono.variable}`}>
       <body>
         {children}
         {vercelTelemetryEnabled ? <SpeedInsights /> : null}

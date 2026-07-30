@@ -1,31 +1,49 @@
-# Reader design blend
+# Caught Up instrument-panel redesign
 
-The July 2026 reader refinement keeps the canonical Caught Up direction—warm
-paper, serif editorial hierarchy, finite editions, and a visible evidence
-trail—while adopting selected ideas from the instrument-panel handoff.
+Status: canonical reader direction, 2026-07-30
 
-## Adopted
+## Token set
 
-- Collapsing hairline data cells now expose real publication metadata above
-  Today and issue mastheads.
-- Desktop navigation gains compact numeric indices; the existing icon family
-  remains available in the condensed mobile rail.
-- Provenance is a visible run record with explicit legacy and unavailable
-  states instead of a collapsed disclosure.
-- Source classifications render as semantic evidence badges.
-- Radar uses compact, text-equivalent signal meters and intelligence bars.
-- Machine values use the existing mono role and tabular numerals.
+The reader uses one dark theme. `#0c0d10` is the page canvas, `#14161a` the
+panel surface, and `#101216` the sunken media surface. One-pixel rules use
+`#23262c` and `#2c3037`. Primary text is `#eceef2`; reading text is `#c8ccd4`;
+metadata stops at `#8d949f`.
 
-## Deliberate deviations
+Blueprint blue uses `#4d7cff` for fills and `#6f95ff` for linked text. Healthy
+status uses `#00bc7d`, review warnings use `#e8a33d`, and corrections use
+`#e5484d`.
 
-- The dark terminal surface, blueprint grid, display grotesk replacement, and
-  pinned operational console were not adopted. They conflict with the
-  publication’s calm editorial thesis and would make reader routes resemble an
-  operator dashboard.
-- Missing images still disappear cleanly. No fake image well or generated
-  placeholder is rendered.
-- Legacy editions show unavailable or not-recorded provenance; no demo values
-  are reproduced.
+Production components consume the semantic variables in `app/globals.css`.
+`lib/og-theme.ts` carries matching literal values for static Open Graph output.
 
-The production token roles remain defined in `app/globals.css` and documented
-in `docs/design/DESIGN_SYSTEM.md`.
+## Type roles
+
+- Space Grotesk: display hierarchy, wordmark, navigation, controls, and cards.
+- IBM Plex Mono: dates, run values, source IDs, labels, tags, captions, and
+  measured data.
+- Source Serif 4: article prose, deks, definitions, and descriptive card copy.
+
+All three families load through `next/font`. The redesign adds no runtime font
+request or client dependency.
+
+## Layout rules
+
+The desktop shell uses a 244px publication rail inside a 1360px container.
+Below 960px, the rail becomes a horizontal top navigation and hides its status
+record. Data strips collapse adjacent one-pixel borders. Panels and controls use
+zero radius. Today and Issue keep a 35em reading column beside a 272–344px
+Briefs and Watchlist rail when space permits.
+
+Real hero media uses a 21:9 crop. Cards and archive rows use 4:3 crops; related
+issues use 3:2; topic covers use 16:9. Print remains black on white.
+
+## Deliberate deviations from the handoff
+
+- The interface never labels stale publication data as live. The sidebar shows
+  the real reader-safe freshness state.
+- Legacy issues show unavailable candidates, review, run time, and cost instead
+  of demo values or zeros.
+- Missing media removes the media slot. Caught Up does not render synthetic
+  image wells or aspect-ratio placeholders as editorial content.
+- The existing completion, source, provenance, locale, route, feed, JSON, and
+  print contracts remain intact.
