@@ -10,7 +10,11 @@ describe("editorial configuration", () => {
     const config = await loadEditorialConfig();
     expect(config.publishing.primaryLanguage).toBe("en");
     expect(config.translation.fullDailyEnabled).toBe(false);
-    expect(config.translation.budgetPerRun).toBeNull();
+    expect(config.translation.budgetPerRun).toBe(0.1);
+    expect(config.budgets.warningCostPerRun).toBe(0.6);
+    expect(config.budgets.hardCostPerRun).toBe(1.5);
+    expect(config.budgets.monthlyWarning).toBe(20);
+    expect(config.budgets.monthlyHardLimit).toBe(40);
     expect(config.models.profiles.standard!.writing).toBe("claude-opus-4-7");
     expect(config.models.profiles.economical!.writing).toBe("claude-sonnet-4-6");
     expect(config.illustration.provider).toBe("none");

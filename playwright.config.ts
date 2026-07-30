@@ -1,16 +1,16 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// Reuse the locally running dev server if one is already on :3001; otherwise
-// Playwright will start `pnpm dev`. The CI flag flips a few defaults
+// Reuse a locally running server on :3001; otherwise Playwright builds and
+// starts the production app. Parallel route compilation in Next 15 development
+// mode can corrupt its webpack cache during the responsive suite.
+// The CI flag flips a few defaults
 // (retries, parallelism, html reporter) so the same config works in both.
 const PORT = Number(process.env.PORT ?? 3001);
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: "./e2e",
-  // Route compilation can briefly queue behind the responsive audit when the
-  // suite exercises the development server with four workers. Keep failures
-  // deterministic without weakening any individual assertion.
+  // Keep enough room for slower route and screenshot checks.
   timeout: 60_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -52,9 +52,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `pnpm dev --port ${PORT}`,
+    command: `pnpm build && pnpm start --port ${PORT}`,
     url: BASE_URL,
     reuseExistingServer: true,
-    timeout: 60_000,
+    timeout: 120_000,
   },
 });

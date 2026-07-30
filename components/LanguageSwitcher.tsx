@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -15,7 +14,7 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
   const href = localePath(other, bare);
 
   return (
-    <Link
+    <a
       href={href}
       hrefLang={other}
       aria-label={`switch language to ${dict(other).meta.name}`}
@@ -24,6 +23,6 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
     >
       <span aria-hidden className="nav-item__glyph">⇄</span>
       <span className="nav-item__label">{dict(locale).meta.switchTo}</span>
-    </Link>
+    </a>
   );
 }

@@ -14,7 +14,6 @@
   --color-canvas: #f5f5f1;
   --color-mint: #17785a;
   --color-rust: #a54829;
-
   /* Semantic color roles. */
   --surface-page: var(--color-canvas);
   --surface-reading: var(--color-paper);
@@ -63,6 +62,9 @@
   --leading-subheading: 1.2;
   --leading-heading: 1.02;
   --tracking-heading: -0.035em;
+
+  --leading-lead: 1.5;
+  --leading-display: 1.04;
 
   /* Motion */
   --dur-instant: 80ms;

@@ -10,6 +10,13 @@
 # Sorted by id.
 
 sources:
+  - id: 404-media
+    type: rss
+    name: 404 Media
+    url: https://www.404media.co/rss/
+    weight: 0.75
+    tags: [platforms, ai, content, investigative]
+
   - id: anthropic-news
     type: rss
     name: Anthropic
@@ -55,6 +62,13 @@ sources:
     url: https://deepmind.google/blog/rss.xml
     weight: 0.85
     tags: [ai, primary-source]
+
+  - id: digiday
+    type: rss
+    name: Digiday
+    url: https://digiday.com/feed/
+    weight: 0.6
+    tags: [platforms, media, monetization, advertising]
 
   - id: github-ai-releases
     type: github
@@ -139,6 +153,17 @@ sources:
     weight: 0.75
     tags: [tech, analysis]
 
+  - id: nieman-lab
+    type: html
+    # No public RSS/Atom that survives its Cloudflare edge, so this uses the
+    # generic HTML adapter: cheerio reads <article> links, and when the markup
+    # is JS-rendered/gated it falls back to a reader service (keyless Jina, or
+    # Firecrawl with FIRECRAWL_API_KEY) for clean main-content links.
+    name: Nieman Lab
+    url: https://www.niemanlab.org/
+    weight: 0.7
+    tags: [platforms, media, journalism, ai, analysis]
+
   - id: nytimes-tech
     type: nytimes
     # Requires NYTIMES_API_KEY (free dev key: 500 req/day, 5 req/min).
@@ -155,6 +180,13 @@ sources:
     weight: 0.85
     tags: [ai, primary-source]
 
+  - id: platformer
+    type: rss
+    name: Platformer (Casey Newton)
+    url: https://www.platformer.news/rss/
+    weight: 0.75
+    tags: [platforms, policy, ai, analysis]
+
   - id: rest-of-world
     type: rss
     name: Rest of World
@@ -168,6 +200,13 @@ sources:
     url: https://simonwillison.net/atom/everything/
     weight: 0.75
     tags: [ai, analysis]
+
+  - id: social-media-today
+    type: rss
+    name: Social Media Today
+    url: https://www.socialmediatoday.com/feeds/news/
+    weight: 0.55
+    tags: [platforms, social-media, creator-economy]
 
   - id: spaceflight-news
     type: spaceflight
@@ -222,6 +261,24 @@ sources:
     url: https://www.theverge.com/rss/index.xml
     weight: 0.6
     tags: [tech, news]
+
+  - id: tubefilter
+    type: html
+    # Creator-economy / online-video news (YouTube monetization, platform
+    # policy). No stable public feed, so it uses the generic HTML adapter with
+    # the same reader fallback as nieman-lab (keyless Jina, or Firecrawl with
+    # FIRECRAWL_API_KEY) for its Cloudflare-gated pages.
+    name: Tubefilter
+    url: https://www.tubefilter.com/
+    weight: 0.6
+    tags: [platforms, youtube, creator-economy, video, monetization]
+
+  - id: variety
+    type: rss
+    name: Variety
+    url: https://variety.com/feed/
+    weight: 0.55
+    tags: [platforms, media, streaming, entertainment]
 
   - id: wired-ai
     type: rss

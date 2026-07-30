@@ -21,6 +21,11 @@ Propose high-signal sources that improve Caught Up's selective daily briefing.
 4. Compare candidates with existing primary/secondary coverage and quality
    configuration. Reject sources that are pure SEO content farms, paywalled without a
    useful free tier, or duplicate an existing source's coverage.
+5. If a high-signal source has **no usable feed** (JS-rendered or
+   Cloudflare-gated, e.g. Nieman Lab, Tubefilter), don't reject it —
+   propose it as `type: html` with just its homepage `url`. The scraper's
+   reader fallback (keyless Jina, or Firecrawl with `FIRECRAWL_API_KEY`)
+   resolves it; flag in the `why` column that it depends on that fallback.
 
 ## Output
 

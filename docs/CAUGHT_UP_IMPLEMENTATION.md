@@ -144,7 +144,7 @@ blockers because their repository, endpoints and credentials were not supplied.
 - Print routes now participate in the single App Router document layout instead
   of nesting a second `<html>/<body>` pair, eliminating React hydration warnings
   while preserving the dedicated print stylesheet and localized document lang.
-- `NEEDED.md`, the GitHub README and `stack-and-scaling.md` now distinguish
+- `NEEDED.md`, the GitHub README and `scaling.md` now distinguish
   completed implementation from required operator credentials, deployment
   settings and optional paid services.
 

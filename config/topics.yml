@@ -23,6 +23,17 @@ topics:
     featured: true
     order: 20
     enabled: true
+  - id: ai-platforms
+    slug: ai-platforms
+    title: { en: AI on Platforms, cs: AI na platformách }
+    description:
+      en: How AI is reshaping consumer platforms — creator monetization, content moderation, feeds and recommendations, and the rules platforms set for AI-made media (e.g. YouTube's policy on AI videos).
+      cs: Jak AI mění spotřebitelské platformy — monetizaci tvůrců, moderování obsahu, feedy a doporučování a pravidla platforem pro AI média (např. pravidla YouTube pro AI videa).
+    tags: [platforms, youtube, creator-economy, content-moderation, monetization, social-media, advertising, streaming, recommendations]
+    aliases: [creator-economy, platform-policy]
+    featured: true
+    order: 25
+    enabled: true
   - id: open-source
     slug: open-source
     title: { en: Open Source, cs: Open source }

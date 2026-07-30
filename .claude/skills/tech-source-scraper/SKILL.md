@@ -13,6 +13,8 @@ Prefer original reporting and primary sources. Compare a candidate with current 
 
 Prefer RSS, then documented JSON/API, then respectful HTML extraction. Honor robots policy, timeouts, publisher terms, and rate limits. Store only the summary/metadata required for curation; never republish full text or append tracking parameters without a committed policy.
 
+For HTML sources, reuse `lib/scraping/html.ts` and its reader fallback in `lib/scraping/reader.ts`. The fallback uses keyless Jina Reader at low volume and prefers Firecrawl when `FIRECRAWL_API_KEY` is set. A gated source that remains unavailable returns no items without aborting the registry.
+
 ## Implement
 
 - Reuse `makeItem`, RSS projection, timeout, source dispatch, and schema helpers.

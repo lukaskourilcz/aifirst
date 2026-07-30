@@ -5,13 +5,13 @@ import { evaluateGuardrails, maximumTitleSimilarity, sourceDiversity, titleSimil
 describe("quality and cost guardrails", () => {
   it("passes a healthy run", async () => {
     const config = await loadEditorialConfig();
-    const result = evaluateGuardrails({ successfulSources: 20, candidateItems: 50, citedSources: 5, signalStrength: 80, maximumSingleSourceShare: 0.3 }, config);
+    const result = evaluateGuardrails({ successfulSources: 20, candidateItems: 50, citedSources: 5, signalStrength: 80, maximumSingleSourceShare: 0.3, costPerRun: 0.3 }, config);
     expect(result.passed).toBe(true);
   });
 
   it("reports failures without blocking in initial report-only mode", async () => {
     const config = await loadEditorialConfig();
-    const result = evaluateGuardrails({ successfulSources: 1, candidateItems: 2, citedSources: 1 }, config);
+    const result = evaluateGuardrails({ successfulSources: 1, candidateItems: 2, citedSources: 1, costPerRun: 0.3 }, config);
     expect(result.passed).toBe(false);
     expect(result.enforced).toBe(false);
     expect(result.recommendedPublishMode).toBe("pull_request");

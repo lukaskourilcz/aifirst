@@ -36,7 +36,7 @@ translation:
   selectedDailyEnabled: true
   fullDailyEnabled: false
   modelProfile: standard
-  budgetPerRun: null
+  budgetPerRun: 0.10
 
 models:
   profile: standard
@@ -54,10 +54,10 @@ illustration:
   provider: none
 
 budgets:
-  warningCostPerRun: null
-  hardCostPerRun: null
-  monthlyWarning: null
-  monthlyHardLimit: null
+  warningCostPerRun: 0.60
+  hardCostPerRun: 1.50
+  monthlyWarning: 20
+  monthlyHardLimit: 40
   maximumRegenerationAttemptsPerDate: 2
 
 review:
