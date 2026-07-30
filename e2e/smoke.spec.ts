@@ -70,6 +70,9 @@ test("home: shell sidebar, hero panel, article body, recent feed render", async 
   await expect(page.locator(".hero")).toBeVisible();
   await expect(page.locator(".hero__title")).toBeVisible();
   await expect(page.locator(".article-with-aside__main")).toBeVisible();
+  await expect(
+    page.locator(".publication-data").getByText("Human reviewed", { exact: true }),
+  ).toHaveCount(0);
   // Recent issues are rendered as post cards
   const postCards = page.locator(".post-card");
   expect(await postCards.count()).toBeGreaterThan(0);

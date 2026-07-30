@@ -133,7 +133,11 @@ export default async function HomePage({
         <p className="eyebrow">{publication.name} · {d.common.today}</p>
         <p>{publication.promise}</p>
       </header>
-      <PublicationData frontmatter={fm} locale={locale} />
+      <PublicationData
+        frontmatter={fm}
+        locale={locale}
+        showHumanReview={false}
+      />
       <IssueMasthead
         label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.leadStory}
         title={fm.title}

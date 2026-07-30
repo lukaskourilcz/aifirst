@@ -6,9 +6,11 @@ import { SignalStrength } from "@/components/SignalStrength";
 export function PublicationData({
   frontmatter,
   locale,
+  showHumanReview = true,
 }: {
   frontmatter: ArticleFrontmatter;
   locale: Locale;
+  showHumanReview?: boolean;
 }) {
   const d = dict(locale);
   const t = d.article;
@@ -41,10 +43,12 @@ export function PublicationData({
         </span>
         <span className="publication-data__value">{sourcePath}</span>
       </div>
-      <div className="publication-data__cell">
-        <span className="publication-data__label">{t.humanReviewed}</span>
-        <span className={reviewTone}>{review}</span>
-      </div>
+      {showHumanReview ? (
+        <div className="publication-data__cell">
+          <span className="publication-data__label">{t.humanReviewed}</span>
+          <span className={reviewTone}>{review}</span>
+        </div>
+      ) : null}
       <div className="publication-data__cell">
         <span className="publication-data__label">{t.measuredCost}</span>
         <span className="publication-data__value">{cost}</span>
