@@ -14,11 +14,6 @@ export type Topic = {
   featured: boolean;
   order: number;
   enabled: boolean;
-  cover?: {
-    path: string;
-    alt: Record<Locale, string>;
-    position?: string;
-  };
 };
 
 export type TopicsConfig = {
@@ -59,19 +54,6 @@ export function validateTopicsConfig(value: unknown): string[] {
       const localized = raw[key];
       if (!isRecord(localized) || typeof localized.en !== "string" || typeof localized.cs !== "string") {
         errors.push(`topics[${index}].${key} must contain en and cs strings`);
-      }
-    }
-    if (raw.cover !== undefined) {
-      if (!isRecord(raw.cover) || typeof raw.cover.path !== "string" || !raw.cover.path.startsWith("/")) {
-        errors.push(`topics[${index}].cover must contain an absolute public path`);
-      } else {
-        const alt = raw.cover.alt;
-        if (!isRecord(alt) || typeof alt.en !== "string" || typeof alt.cs !== "string") {
-          errors.push(`topics[${index}].cover.alt must contain en and cs strings`);
-        }
-        if (raw.cover.position !== undefined && typeof raw.cover.position !== "string") {
-          errors.push(`topics[${index}].cover.position must be a string`);
-        }
       }
     }
   }

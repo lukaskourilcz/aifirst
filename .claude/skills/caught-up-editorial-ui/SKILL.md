@@ -20,7 +20,7 @@ Read `CLAUDE.md`, `docs/design/DESIGN_THESIS.md`, `docs/design/DESIGN_SYSTEM.md`
 
 - **Today/articles:** finite reading arc, strong lead, evidence after orientation, and an earned completion state.
 - **Radar:** real static signals with textual equivalents; no KPI dashboard or fake chart.
-- **Topics:** curated recognition and chronology; optional media must disappear cleanly when absent.
+- **Topics:** curated recognition and chronology without decorative filler.
 - **Weekly:** a distinct code-rendered edition cover and digest hierarchy.
 - **Archive/search/reference:** compact, fast, scannable, and not image-card grids.
 - **Trust/operator-adjacent:** clear, restrained, noindex/gating preserved.

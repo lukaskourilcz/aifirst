@@ -243,7 +243,6 @@ test("brand, completion, and no-media states are deterministic", async ({ page }
   await expect(page.locator(".caught-up-completion")).toContainText("caught up");
   await expect(page.locator(".hero--no-photo")).toBeVisible();
   await page.goto("/topics");
-  await expect(page.locator(".topic-media")).toHaveCount(0);
 });
 
 test("health and operator-adjacent routes remain private", async ({ page, request }) => {

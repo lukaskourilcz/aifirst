@@ -70,7 +70,7 @@ retired and returns 404.
 | Delivery | `edition-package/1` consumer, content-only Git commits, Vercel static output |
 | Automation | GitHub Actions CI plus the daily missed-publication sentinel |
 | Quality | ESLint, TypeScript, Vitest, schema/content validation, bundle checks and Playwright |
-| Operations | Versioned run reports, cost registry, static health, heartbeat and optional OwnDashboard callback |
+| Operations | Static health, missed-publication sentinel and optional OwnDashboard read-side monitoring |
 
 There is intentionally no runtime content database, Supabase dependency,
 public authentication, queue, advertising SDK or per-request AI generation.
@@ -162,9 +162,11 @@ dates, sponsorship safety and weekly linkage.
 
 Existing provider-independent share/newsletter artifacts remain readable. New
 editorial generation, measured costs, source outcomes and social packs stay in
-BoardlessAI; the delivery boundary exposes only article bytes and sanitized
-board context. The weekly page and feeds continue to render committed content
-until a future board proposal replaces the retired writer.
+BoardlessAI; the delivery boundary exposes only article bytes, one optional
+dated hero and sanitized board context. The weekly page and feeds continue to
+render committed content until a future board proposal replaces the retired
+writer. The protected social archive is at BoardlessAI `/admin`; Caught Up
+`/admin` is only a noindex handoff link.
 
 ## Deployment setup
 
@@ -189,11 +191,10 @@ See [`NEEDED.md`](NEEDED.md) for the exact remaining operator checklist.
 ## Documentation
 
 - [`DOCS.md`](DOCS.md) — detailed architecture and operational reference
-- [`docs/CAUGHT_UP_IMPLEMENTATION.md`](docs/CAUGHT_UP_IMPLEMENTATION.md) — rebrand audit, compatibility decisions and validation record
+- [`docs/CAUGHT_UP_IMPLEMENTATION.md`](docs/CAUGHT_UP_IMPLEMENTATION.md) — BoardlessAI cutover and current compatibility record
 - [`docs/OWNDASHBOARD_INTEGRATION.md`](docs/OWNDASHBOARD_INTEGRATION.md) — optional control-plane contract
 - [`scaling.md`](scaling.md) — current cost baseline and scaling notes
 - [`docs/design/PRODUCT_UX_AUDIT.md`](docs/design/PRODUCT_UX_AUDIT.md) — route, task, state and reuse audit
 - [`docs/design/DESIGN_THESIS.md`](docs/design/DESIGN_THESIS.md) and [`docs/design/BRAND_SYSTEM.md`](docs/design/BRAND_SYSTEM.md) — product and identity direction
 - [`docs/design/DESIGN_SYSTEM.md`](docs/design/DESIGN_SYSTEM.md) — implemented tokens, composition, motion, responsive and print rules
 - [`docs/design/VISUAL_QA.md`](docs/design/VISUAL_QA.md) — actual route/viewport review protocol and findings
-- [`docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md`](docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md) — provider-neutral production briefs, mandatory free/low-cost provider research criteria, and provenance requirements

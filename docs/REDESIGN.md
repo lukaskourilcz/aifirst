@@ -34,8 +34,9 @@ record. Data strips collapse adjacent one-pixel borders. Panels and controls use
 zero radius. Today and Issue keep a 35em reading column beside a 272–344px
 Briefs and Watchlist rail when space permits.
 
-Real hero media uses a 21:9 crop. Cards and archive rows use 4:3 crops; related
-issues use 3:2; topic covers use 16:9. Print remains black on white.
+Real delivered hero media uses a 21:9 crop. Archive/weekly uses 4:3 and related
+issues use 3:2. Topics remain text-first; no Topic-cover production path lives
+in Caught Up. Print remains black on white.
 
 ## Deliberate deviations from the handoff
 

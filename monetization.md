@@ -1,6 +1,8 @@
 # Caught Up — monetization
 
-An AI-generated technology magazine / reader site. Revenue scales with audience.
+A bilingual technology briefing produced by BoardlessAI and served as a static
+reader. Revenue depends on trust and audience; the producer boundary does not
+change the need for sponsor approval, disclosure and measurable traffic.
 
 | Option | Likelihood of income | Possible earnings | Pros | Cons |
 |---|---|---|---|---|

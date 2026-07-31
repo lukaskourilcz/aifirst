@@ -13,7 +13,7 @@ description: Run and repair the complete evidence-based Caught Up release gate. 
 4. Run `pnpm e2e`; verify redirects, locale paths, search focus, overflow, noindex/gating, feeds, public JSON, CSP, and print.
 5. Inspect representative production routes and the widths in `docs/design/VISUAL_QA.md`. Include Czech, legacy/no-image content, console output, reduced motion, and focus.
 6. Fix feasible failures and rerun the affected gate. Distinguish verified pre-existing failures from regressions; never report an unrun check as passed.
-7. Confirm static route output, local-only media, no runtime reader AI/database dependency, optional OwnDashboard behavior, and unchanged generation defaults.
+7. Confirm static route output, bounded local media, no runtime reader AI/database dependency, optional OwnDashboard behavior, and an unchanged BoardlessAI delivery boundary.
 8. Update docs when behavior or validation evidence changed.
 9. Stage only the intended milestone, create a coherent commit when authorized, and confirm final Git status. Continue after intermediate commits during an autonomous task.
 

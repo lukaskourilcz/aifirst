@@ -56,8 +56,8 @@ The static path is deliberate:
 - `lib/i18n/`: locale dictionaries/path/metadata helpers
 - `lib/editorial/`: validation/config-facing editorial contracts
 - `lib/sources.ts`, `sources.yml`: read-only citation registry
-- `config/`: reader validation, topics and board changelog configuration
-- `docs/design/`: product audit, thesis, brand/design system, QA, and queued media production
+- `config/`: topics and board changelog configuration
+- `docs/design/`: product audit, thesis, brand/design system and QA
 - `.claude/`: project skills, agents, and executable workflow commands
 
 Search before creating. Prefer extending `PageShell`, `IssueRow`, `IssueMasthead`, existing editorial components, `SourceLedger`, `Provenance`, `EditorialHighlights`, `FeedActions`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, content/feed/topic/Radar/signal helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
@@ -81,24 +81,13 @@ The public reader uses one dark theme; print remains black on white. Avoid termi
 
 Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
 
-## Generated-media provider policy
+## Media boundary
 
-Use `.claude/skills/caught-up-media-production/SKILL.md` when generated
-brand/media work is in scope. No generated-media platform is selected. The
-current implementation contains optional layout/media hooks but no generated
-assets.
-
-At the start of the next media-production session, perform current web research
-using official provider/model/license sources. Compare at least three genuinely
-available free-tier, open-source/local, or low-cost generators. Record price per
-usable image and free quota, card/signup requirements, commercial-use rights,
-ownership/training/privacy terms, watermark/public-gallery behavior, resolution
-and aspect ratios, API/MCP or original-download access, rate limits, and likely
-fit for Editorial Evidence Collage. Prefer a no-card, commercially usable,
-private, watermark-free option; a cheap paid option requires explicit operator
-authority. If a safe provider is selected, use the existing briefs and record
-real provenance in `docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md`. If none
-qualifies, publish the evidence matrix and defer without producing a placeholder.
+BoardlessAI owns illustration selection, generation and provenance. Caught Up
+accepts only the optional dated WebP authorized by `edition-package/1`, serves
+it locally and renders a complete text-first issue when it is absent. Do not
+add provider credentials, generation adapters, Topic-cover production or
+social-media assets to this repository.
 
 ## Responsive, accessibility, localization, and states
 
@@ -140,26 +129,22 @@ Skills:
 
 - `caught-up-brand-system`
 - `caught-up-editorial-ui`
-- `caught-up-media-production`
 - `caught-up-accessibility-visual-qa`
 - `caught-up-release-validation`
-- focused pipeline/source/weekly/testing skills retained under `.claude/skills/`
+- focused architecture, editorial-feature and testing skills under `.claude/skills/`
 
 Agents:
 
 - `editorial-product-designer`
-- `brand-media-art-director`
 - `accessibility-visual-qa`
-- `source-scout`, `scraper-builder`, `article-writer`
 
 Commands:
 
 - `/design-audit`
 - `/implement-editorial-route <route>`
-- `/generate-brand-media <asset-purpose>`
 - `/visual-qa [scope]`
 - `/release-check`
-- `/add-source`, `/generate-article`, `/preview-magazine`
+- `/preview-magazine`
 
 ## Shared skills
 

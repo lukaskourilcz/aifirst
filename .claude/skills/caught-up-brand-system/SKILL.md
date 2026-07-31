@@ -16,10 +16,15 @@ Read `docs/design/BRAND_SYSTEM.md`, `docs/design/DESIGN_THESIS.md`, and `docs/de
 
 ## Apply the visual language
 
-- Build calm editorial intelligence: warm paper, ink, slate, blueprint blue, restrained completion mint, and correction rust.
+- Build calm editorial intelligence: near-black instrument canvas, cool panels,
+  blueprint blue, restrained completion mint and correction red; print remains
+  black on white.
 - Use semantic custom properties from `app/globals.css`; extend them only when an existing role cannot express the need.
-- Use editorial serif for major headlines, readable sans for body/interface text, and mono only for dates, identifiers, source IDs, or measured values.
-- Prefer flat composition, hairlines, low radii, measured reading width, and purposeful density.
+- Use Space Grotesk for display/interface hierarchy, Source Serif 4 for reading
+  prose and IBM Plex Mono only for dates, identifiers, source IDs or measured
+  values.
+- Prefer flat composition, hairlines, zero radii, measured reading width and
+  purposeful density.
 - Keep icons in the existing stroke family and use `currentColor`.
 - Limit motion to short CSS orientation/state transitions and respect reduced motion.
 

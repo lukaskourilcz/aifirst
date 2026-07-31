@@ -17,7 +17,7 @@ Routes reviewed directly or through the route audit:
 - a recent legacy issue, an older legacy issue, and print
 - Radar, Topics, a Topic detail, Weekly, Archive, and Search
 - About, Sources, Glossary, Corrections, and Health
-- the no-image Today state and the no-topic-media state
+- the no-image Today state
 
 Committed historical editions do not carry BoardlessAI board context. The
 making-of and no-edition branches were reviewed with temporary validated board
@@ -47,7 +47,7 @@ meeting or decision that never happened.
 - Reduced-motion mode disables entrance animations and the current-publication
   pulse. The interface does not use parallax, auto-playing media, motion
   frameworks, or continuous decorative loops.
-- The current Today issue has no hero image and renders the intentional `hero--no-photo` treatment. Topic covers are optional and render no empty media shell when no local asset exists.
+- The current Today issue has no hero image and renders the intentional `hero--no-photo` treatment.
 - Weekly uses a deterministic, code-rendered edition cover. Print remains
   black on white; its article prose, links, lockup, editorial highlights,
   sources, and corrections were inspected independently from the dark screen
@@ -85,6 +85,7 @@ For future visual changes:
 5. Inspect console output, horizontal overflow, table scrolling, image intrinsic sizing, and focus visibility.
 6. Run `pnpm e2e`; retain screenshots only when the repository intentionally establishes a visual baseline.
 
-## Pending media review
-
-Generated media was not integrated in this implementation. After the mandatory provider research, every selected asset must be reviewed in the real route at all relevant crops, checked for text or logo artifacts, optimized locally, given correct alternative-text treatment, and recorded in `GENERATED_MEDIA_ASSET_MANIFEST.md`.
+BoardlessAI-delivered article heroes must be reviewed in the real route at all
+relevant crops, checked for accessibility and optimized file size, and verified
+against the package provenance. Caught Up has no separate media-production
+queue.

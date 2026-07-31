@@ -86,15 +86,13 @@ translation, and a status pulse when the publication state is current. Reading
 progress uses a fixed two-pixel line. No motion framework, parallax, or animated
 gradient is used. `prefers-reduced-motion` removes non-essential animation.
 
-## Media and generated assets
+## Media
 
-Authentic UI is always rendered from production code and data. Article images
-use 21:9 hero, 3:2 figure, 4:3 row/card, and 16:9 topic crops where the source
-asset supports the slot. Generated-media production remains queued after
-mandatory current provider research. Missing media renders as no media, never
-as a fake placeholder. Selected assets must be optional, locally committed,
-intrinsically sized, responsive, and accompanied by an explicit accessible-text
-classification.
+Authentic UI is always rendered from production code and data. An optional
+BoardlessAI-delivered article hero uses the existing 21:9 lead, 3:2 related and
+4:3 archive/weekly crops. Missing media renders as no media, never as a fake
+placeholder. Caught Up does not select providers or produce Topic, campaign or
+social assets; those responsibilities remain in BoardlessAI.
 
 ## Responsive and print rules
 

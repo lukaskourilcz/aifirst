@@ -1,28 +1,34 @@
-# Caught Up (aifirst)
+# Caught Up (`aifirst`)
 
-A daily, AI-generated magazine about Tech and AI. Each day a pipeline scrapes
-configured sources, curates the most interesting items, and uses Claude to write a
-single selective feature article with an optional restrained illustration.
+Caught Up is a bilingual, Git-native daily briefing about the AI and technology
+stories that mattered. BoardlessAI produces and reviews each English/Czech
+edition, then a narrowly scoped GitHub App delivers validated MDX and optional
+hero media. This repository independently validates and publishes the static
+reader.
 
 ## Tech stack
 
-- **Framework:** Next.js (App Router, TypeScript)
-- **Content:** Markdown/MDX in `content/articles/`, rendered with `next-mdx-remote`
-- **Scraping:** RSS-first with HTML fallback (`rss-parser`, `cheerio`, `undici`)
-- **Scheduling:** GitHub Actions cron generates and commits the daily issue
-- **Images:** `sharp` processing; pluggable generation provider
+- **Reader:** Next.js App Router, React and strict TypeScript.
+- **Content:** Git-tracked MDX in `content/articles/`; Git is canonical.
+- **Delivery:** `edition-package/1` consumer restricted to dated bilingual MDX,
+  one optional dated WebP and sanitized board context.
+- **Automation:** GitHub Actions CI plus a Prague-aware missed-publication
+  sentinel; no generation workflow runs here.
+- **Deployment:** Vercel Pro static/SSG output with Web Analytics and Speed
+  Insights.
+- **Quality:** ESLint, TypeScript, Vitest, content/contract validation, a 110 kB
+  gzip page-entry guard and Playwright.
 
-## Connected third parties
+## External boundaries
 
-- **Anthropic Claude** — drafts the feature article and curates/summarises source items.
-- **fal.ai** — generates the optional editorial illustration (pluggable provider).
-- **Guardian / NYTimes / GNews / StackExchange / NASA APIs** — source material for curation.
-- **Firecrawl / Jina** — web page fetching and content extraction fallbacks.
-- **GitHub** — Actions cron plus token to commit generated articles and illustrations.
-- **Vercel Analytics + Speed Insights** — privacy-light traffic and Core Web Vitals metrics.
-- **OwnDashboard** — reports each pipeline run's status back to the owner's dashboard.
+- **BoardlessAI (`lukaskourilcz/quorum`)** owns collection, curation, writing,
+  Czech localization, editorial review, illustrations, social packs, budgets,
+  meeting records and delivery.
+- **GitHub** stores canonical content and runs validation/sentinel workflows.
+- **Vercel** serves the reader. No database, runtime model call, CMS, reader
+  account or operator login sits in the public path.
+- **OwnDashboard** may read health and workflow history when configured; it does
+  not generate or mutate editions.
 
-## Key libraries
-
-- `gray-matter` — frontmatter parsing for the MDX article contract.
-- `yaml` — reads the `sources.yml` source configuration.
+`gray-matter`, `next-mdx-remote` and `yaml` implement the reader-side content and
+registry contracts. `sharp` is used for static image/metadata work during builds.

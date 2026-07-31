@@ -4,13 +4,13 @@ Audit date: 2026-07-22
 
 Document type: initial implementation baseline. The findings below describe the
 repository at the start of the overhaul, not its final state. Resolution status
-and final validation evidence appear at the end of this document and in
-`../CAUGHT_UP_OVERHAUL_HANDOFF.md`.
+and final validation evidence appear at the end of this document. Current
+architecture is recorded in `../CAUGHT_UP_IMPLEMENTATION.md`.
 
 ## Scope and repository state
 
 The audit covered the public route tree, shared editorial components, MDX and
-localization contracts, metadata and feeds, generation pipeline, static JSON,
+localization contracts, metadata and feeds, the then-present generation pipeline, static JSON,
 security headers, tests, visual assets, documentation, and `.claude`
 instructions.
 
@@ -51,7 +51,7 @@ The strongest existing product assets are:
 - `lib/content.ts` supports legacy and schema-v2 MDX without inventing missing
   data.
 - Radar, Topics, Weekly, Archive, Search, About, Sources, Glossary, Corrections,
-  Health, print, and the gated promotion utility already exist.
+  Health, print, and the now-retired promotion utility existed.
 - Compatibility routes, locale metadata, feeds, JSON contracts, sitemap,
   structured data, and security headers are established and tested.
 - The completion promise is centralized in `lib/brand.ts` and localized
@@ -156,10 +156,9 @@ and add visual coverage for:
 - long source titles and URLs;
 - long Czech headings and labels;
 - no Briefs or Watchlist;
-- no generated topic media;
+- no article media;
 - failed media loading without changing editorial meaning;
 - focused horizontal table scrolling;
-- promotion copy feedback and mobile comparison;
 - reduced-motion equivalents.
 
 ## Reuse map

@@ -143,10 +143,10 @@ reader attribution and content validation.
 
 ## Configuration
 
-`config/editorial.yml` remains a reader-side schema compatibility and validation
-fixture; it is not an executable generation policy. `sources.yml` is a
-read-only citation registry. `config/topics.yml` remains curated discovery
-truth. Changes branch, validate, show a diff and pass CI.
+`sources.yml` is a read-only citation registry. `config/topics.yml` remains
+curated discovery truth and `config/board-changelog.json` controls reader-safe
+board history. Producer models, budgets, source collection and media policy
+live only in Quorum. Changes branch, validate, show a diff and pass CI.
 
 ## Workflow controls
 
@@ -243,16 +243,10 @@ real routes. `docs/design/DESIGN_SYSTEM.md` is authoritative for the current
 CSS/component system; `docs/design/VISUAL_QA.md` records the route and viewport
 evidence.
 
-Topic media is an optional local-only field and disappears when absent. Weekly
-and Open Graph identity remain deterministic without media. No generated-media
-provider is selected and no generated or substitute assets were added.
-`docs/design/GENERATED_MEDIA_ASSET_MANIFEST.md` lists the queued deliverables,
-the required provider-comparison evidence, and the provenance required after
-real generation. The next media session must search current official sources
-for commercially usable free-tier, open-source/local, and low-cost options
-before selecting a provider. Any selected provider remains a build-time
-production tool only; no runtime provider dependency may enter the reader
-application.
+Weekly and Open Graph identity remain deterministic without media. Article
+heroes are optional files delivered by BoardlessAI through the bounded package
+contract. The reader has no generated-media provider, Topic-cover production
+hook or runtime provider dependency.
 
 Project AI instructions live in `CLAUDE.md`, `AGENTS.md`, and `.claude/`.
 They require reuse, mobile/Czech/keyboard validation, semantic tokens,

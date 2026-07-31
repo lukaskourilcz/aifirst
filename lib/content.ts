@@ -129,13 +129,13 @@ function defaultContentDir(): string {
   return path.join(process.cwd(), "content", "articles");
 }
 
-// Placeholder illustrations from IMAGE_PROVIDER=none are ~3 KB flat panels.
-// Anything above this threshold is treated as a real generated image.
+// Retained legacy placeholder illustrations are ~3 KB flat panels. New
+// BoardlessAI deliveries either include a real dated hero or no hero at all.
 const REAL_ILLUSTRATION_MIN_BYTES = 8_192;
 const illustrationRealCache = new Map<string, boolean>();
 
-// Returns true when the illustration path points to a real image file — not
-// the flat paper placeholder written by the `none` image provider.
+// Returns true when the illustration path points to a real image file rather
+// than one of the retained pre-cutover flat placeholders.
 export function hasRealIllustration(illustrationPath?: string): boolean {
   if (!illustrationPath) return false;
   if (illustrationPath.endsWith("/placeholder.webp")) return false;
@@ -154,8 +154,8 @@ export function hasRealIllustration(illustrationPath?: string): boolean {
   return real;
 }
 
-// Best available cover for a frontmatter: prefer a real generated
-// illustration, otherwise a cached og:image from one of the article's own
+// Best available cover for frontmatter: prefer a real delivered illustration,
+// otherwise a cached og:image from one of the article's own
 // sources or wire items. Returns null when nothing usable is available.
 export function resolveHeroPhoto(fm: Partial<ArticleFrontmatter>): string | null {
   const own = fm.illustration?.path;

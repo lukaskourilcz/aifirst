@@ -1,57 +1,32 @@
-# NEEDED — operator setup for Caught Up
+# NEEDED — manual owner actions for Caught Up
 
-Caught Up is now a static reader and bounded BoardlessAI delivery consumer. It
-builds with no editorial-provider credential. New editions arrive from the
-`boardlessai-delivery` GitHub App configured in Quorum; aifirst's daily workflow
-is only the missed-publication sentinel. Each remaining task carries an
-importance score `[imp:N]` (1–5, 5 = highest) and an owner marker.
+Caught Up is a static bilingual reader. BoardlessAI owns source collection,
+edition meetings, writing, Czech localization, illustrations, social drafts and
+delivery. This file contains only actions that require the owner’s accounts,
+credentials or judgment; there is no second generation setup to maintain here.
 
-The checklist includes operator updates recorded through 2026-07-28.
+## Required for unattended BoardlessAI delivery
 
-## Required before the first BoardlessAI delivery
+- [ ] **Install the `boardlessai-delivery` GitHub App on `lukaskourilcz/aifirst` only** — grant repository contents read/write and no broader repository permission; keep its App ID and private key only in Quorum Actions secrets. [imp:5] [owner:me] [time:30m] [kind:setup]
+- [ ] **Review the first three delivered editions** — for each delivery, check the English article at `/articles/<slug>`, the Czech article at `/cs/articles/<slug>`, source links, board context, the Vercel deployment and both social packs in the protected [BoardlessAI admin](https://quorum-site-chi.vercel.app/admin). [imp:5] [owner:me] [time:60m] [kind:content]
+- [ ] **Remove retired generation credentials from aifirst** — delete old Anthropic, source, image, promotion, heartbeat and OwnDashboard generation secrets or variables from this repository and its Vercel project; rotate any provider keys previously pasted into chat. Do not remove Quorum’s active producer credentials. [imp:5] [owner:me] [time:20m] [kind:setup]
 
-- [x] **Set the canonical URL in both deploy and generation environments** — GH Actions variable set + Vercel env vars pasted 2026-07-28. Default: `https://aifirst-zpx8.vercel.app`. Update both when a custom domain lands. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:deploy]`
-- [x] **Confirm Vercel deploys `main`** — env vars in, `main` confirmed as production branch (git-main alias + latest READY prod deploy). Trigger a redeploy to pick up new env vars. `[imp:5]` `[owner:me]` `[time:1h]` `[kind:deploy]`
-- [ ] **Install `boardlessai-delivery` on aifirst only** — grant repository contents read/write and no broader permission; store its App ID and private key only in Quorum Actions secrets. `[imp:5]` `[owner:me]` `[time:30m]` `[kind:setup]`
-- [ ] **Review the first three delivered editions** — verify package hash, bilingual copy, board context, Vercel build and live route before treating unattended delivery as proven. `[imp:5]` `[owner:me]` `[time:60m]` `[kind:content]`
-- [ ] **Remove obsolete aifirst generation secrets and variables** — the workflows no longer read Anthropic, source, image, promotion, heartbeat or OwnDashboard reporting credentials. Rotate the previously pasted provider keys from their owning systems. `[imp:4]` `[owner:me]` `[time:20m]` `[kind:setup]`
+## Product decisions
 
-## Portfolio presence (2026-07-27)
+- [ ] **Confirm whether technical names should stay `aifirst`** — the public product is Caught Up, while the GitHub repository and Vercel project still use `aifirst`. Leaving them unchanged is supported; rename them only if public consistency is worth the migration work. [imp:2] [owner:me] [time:30m] [kind:decision]
 
-The portfolio entry was renamed from "aifirst" to Caught Up in both locales.
-Its animated thumbnail reflects the retired light reader and should be
-re-recorded for the 2026-07-30 instrument-panel redesign.
+## Optional reader operations
 
-- [ ] **Confirm the public name** — the repository is `aifirst`, the product is Caught Up, and the portfolio now says Caught Up. Rename the GitHub repository and the Vercel project too if you want them consistent, or leave the repository name as the internal one. `[imp:2]` `[owner:me]` `[time:30m]` `[kind:decision]`
-- [ ] **Re-record the thumbnail for the instrument-panel redesign** — the 2026-07-30 dark reader is a notable visual change. The procedure is in `.claude/skills/preview-video/SKILL.md`; the output belongs in `nxt-portfolio/public/previews/aifirst/`. `[imp:2]` `[owner:ai]` `[time:30m]` `[kind:content]`
+- [ ] **Add a read-only GitHub token in Vercel only if private workflow history should appear in health** — set `GITHUB_TOKEN` with the narrowest repository read permission; the public health JSON never exposes it. [imp:2] [owner:me] [time:20m] [kind:deploy]
+- [ ] **Enable semantic related-issue refresh only if tag overlap is insufficient** — create a Jina key and run `pnpm embed:refresh`; this enriches the static reader and is not an editorial fallback. [imp:1] [owner:me] [time:20m] [kind:setup]
+- [ ] **Connect the sentinel to OwnDashboard only if that receiver exists** — set `OWNDASHBOARD_CRON_URL` and `OWNDASHBOARD_CRON_TOKEN` for the missed-publication workflow; do not add retired generation-report credentials. [imp:1] [owner:me] [time:10m] [kind:setup]
 
-## Optional enhancements
+## Already complete
 
-- [ ] **Refresh semantic related issues manually if wanted** — run `pnpm embed:refresh` with `JINA_API_KEY`; without it, related issues continue to use tag overlap. This is reader enrichment, not an edition fallback. `[imp:2]` `[owner:me]` `[time:20m]` `[kind:setup]`
-- [ ] **Configure a build-time GitHub health token in Vercel** — because the repository is private, add a read-only `GITHUB_TOKEN` only if `/health` should include workflow history. The public JSON health endpoint never exposes it. `[imp:2]` `[owner:me]` `[time:1h]` `[kind:deploy]`
-
-## Already handled in the repository
-
-- GitHub’s default branch is `main`, and local `main` contains the product,
-  operations and design work.
-- Generated-media production remains optional and provider-neutral. Current
-  provider, pricing, rights, privacy, watermarking, and output-access research
-  is mandatory before a generator is selected.
-- The reading progress bar is native and adds no Motion dependency.
-- The only scheduled workflow is the daily publication sentinel; it cannot
-  write content or call an editorial provider.
-- The public reader remains static and needs no database, migration, public
-  authentication, OwnDashboard connection, or runtime AI key.
-- The repository, package name and internal `aifirst` identifiers intentionally
-  remain unchanged for compatibility; the reader-facing brand is Caught Up.
-
-## Developer tooling
-
-- [ ] **Install and initialize RTK (`rtk-ai/rtk`)** — RTK could not be set up from the Claude Code web session because its GitHub download host is outside the session's network allowlist (`github.com/rtk-ai/rtk` and its release binaries return HTTP 403). Set it up locally at home with the commands below, then enable it for this repository following `rtk --help` / the RTK docs (the exact per-repo command isn't documented here because the tool wouldn't install in the sandbox). `[imp:2]` `[owner:me]` `[time:20m]` `[kind:setup]`
-- [x] **Enable Vercel Web Analytics for this project** — enabled 2026-07-28, confirmed ON via Vercel MCP. `[imp:2]` `[owner:me]` `[time:15m]` `[kind:setup]`
-- [ ] **Report the sentinel cron to OwnDashboard if wanted** — add the applicable cron-reporting secrets only after a receiver exists. `[imp:2]` `[owner:me]` `[time:10m]` `[kind:setup]`
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
-rtk init --global
-```
+- Vercel Pro coverage is confirmed; the production branch is `main` and the
+  canonical reader URL is `https://caughtup-ai.vercel.app`.
+- Vercel Web Analytics is enabled.
+- The repository contains no scraper, editorial model client, article writer,
+  media generator, social console or weekly/regeneration workflow.
+- `/admin` in Caught Up is a noindex handoff link to the protected BoardlessAI
+  social archive. Caught Up itself has no operator login or content database.

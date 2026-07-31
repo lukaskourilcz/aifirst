@@ -21,7 +21,7 @@ Own the reader experience, not the generation pipeline.
 
 ## Rules
 
-- Preserve Git/MDX, static rendering, URLs, feeds/JSON, SEO, security, and pipeline contracts.
+- Preserve Git/MDX, static rendering, URLs, feeds/JSON, SEO, security, and delivery contracts.
 - Search before creating; do not introduce parallel cards, dialogs, grids, tokens, or content helpers.
 - Keep server components as the default and use semantic CSS tokens.
 - Make Today finite, Radar evidence-led, Topics curated, Weekly edition-like, and Archive/Search dense.

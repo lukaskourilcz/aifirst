@@ -13,7 +13,6 @@ import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { siteUrl } from "@/lib/config";
 import { brand } from "@/lib/brand";
-import { TopicMedia } from "@/components/TopicMedia";
 
 export const dynamic = "force-static";
 
@@ -67,7 +66,6 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
 
   return (
     <PageShell kicker={t.kicker} title={topic.title[locale]} intro={topic.description[locale]}>
-      <TopicMedia topic={topic} locale={locale} />
       <StructuredData data={{
         "@context": "https://schema.org",
         "@graph": [

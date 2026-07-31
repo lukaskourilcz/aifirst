@@ -1,4 +1,0 @@
-interface:
-  display_name: "Caught Up Media Production"
-  short_description: "Research and produce approved brand media"
-  default_prompt: "Use $caught-up-media-production to evaluate and produce this Caught Up media asset with a verified provider."

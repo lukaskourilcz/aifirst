@@ -24,7 +24,7 @@ The identity is built from five behaviors:
    measured reading column inside a denser technical frame. Radar is
    comparative; Topics are curated; Weekly has cover hierarchy; Archive and
    Search are efficient; Sources and Glossary behave like reference indexes.
-   Promotion remains an operator utility.
+   Operator and social work remains outside the public reader.
 5. **Completion is an end, not a reward.** The closing state uses a quiet
    typographic pause, the period mark, and a secondary feed action. There is no
    streak, confetti, badge, or urgency loop.
@@ -65,4 +65,3 @@ superlatives, and generated product screenshots.
 - **Weekly:** a distinct cover and summary of the week.
 - **Archive/Search:** dense retrieval.
 - **About/Sources/Glossary/Corrections/Health:** trust and reference.
-- **Promotion:** dense, gated, copy-first operations.

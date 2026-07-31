@@ -1,6 +1,6 @@
 # Read-only citation registry. BoardlessAI owns source collection and delivery.
-# Add via `/add-source <url-or-name>` so URLs get verified before they land here.
-# See .claude/skills/tech-source-scraper/SKILL.md for the schema.
+# Reader-side citation registry only. BoardlessAI owns source discovery and collection.
+# Add an entry here only when a delivered schema-v2 article needs its source ID.
 #
 # Weight tiers:
 #   0.85 — primary lab / first-party sources

@@ -4,7 +4,6 @@ import path from "node:path";
 import matter from "gray-matter";
 import { readMdxFiles, type ArticleFrontmatter } from "../lib/content.js";
 import { validateArticleFrontmatter, translationStructureErrors } from "../lib/editorial/validation.js";
-import { loadEditorialConfig } from "../lib/editorial/config.js";
 import { loadTopicsConfig } from "../lib/topics/config.js";
 import { loadSources } from "../lib/sources.js";
 import { boardChangelogErrors, boardContextErrors } from "../lib/board.js";
@@ -33,8 +32,10 @@ async function main() {
     }
   }
 
-  for (const [name, loader] of [["editorial", loadEditorialConfig], ["topics", loadTopicsConfig]] as const) {
-    try { await loader(); } catch (error) { errors.push(`${name} config: ${error instanceof Error ? error.message : "invalid"}`); }
+  try {
+    await loadTopicsConfig();
+  } catch (error) {
+    errors.push(`topics config: ${error instanceof Error ? error.message : "invalid"}`);
   }
 
   const boardDir = path.join(process.cwd(), "public", "data", "board");
