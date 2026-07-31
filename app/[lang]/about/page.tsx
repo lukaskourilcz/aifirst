@@ -41,7 +41,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
         <div><dt>{t.registeredSources}</dt><dd>{String(sources.length).padStart(2, "0")}</dd></div>
         <div><dt>{t.runtimeCalls}</dt><dd className="about-stats__ok">0</dd></div>
         <div><dt>{t.languages}</dt><dd>EN / CS</dd></div>
-        <div><dt>{t.publishes}</dt><dd>06:00 UTC</dd></div>
+        <div><dt>{t.publishes}</dt><dd>05:00 Prague</dd></div>
       </dl>
       <div className="about-sections">
         {sections.map(([id, title, body], index) => <section id={id} key={id}><span className="label" aria-hidden>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{body}</p></div></section>)}

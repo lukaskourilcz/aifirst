@@ -27,8 +27,8 @@ technical identifier, not the public publication name.
 - Provide static search, related issues, glossary disclosures, keyboard
   shortcuts, a command palette, accessible navigation and reduced-motion
   behavior without a client-side state framework.
-- Consume only `edition-package/1` files, accept equal-hash replay as a no-op,
-  and fail closed on schema, content or same-date hash conflicts.
+- Consume only `edition-package/1` files, accept byte-identical complete replay
+  as a no-op, and fail closed on schema, content or same-date byte conflicts.
 - Run a daily Prague-aware sentinel that opens one idempotent `missed-day`
   issue when neither an edition nor an honest NO_EDITION record exists.
 
@@ -101,9 +101,11 @@ pnpm build
 ```
 
 The consumer can write only dated English/Czech MDX, the matching optional hero,
-and sanitized board JSON. A delivered date is immutable: an equal package hash
-is success without a write, while a different hash is a reconciliation error.
-`sources.yml` remains a citation registry; it is not a collection capability.
+and sanitized board JSON. A delivered date is immutable: a complete,
+byte-identical replay succeeds without a write. A missing or changed output file
+is a reconciliation error even when another file still carries the package
+hash. `sources.yml` remains a citation registry; it is not a collection
+capability.
 
 ## Content and provenance
 

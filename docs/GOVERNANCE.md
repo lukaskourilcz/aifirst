@@ -39,12 +39,13 @@ Every other path remains outside board authority.
 
 The additive consumer validates `edition-package/1`, its canonical package hash,
 the bilingual schema-v2 content and the same-date replay rule before it writes
-those paths. Equal packages are successful no-ops; a different hash for an
-existing date fails closed for human reconciliation. Public board JSON contains
-only the decision rationale or NO_EDITION reason, room URL, package hash and a
-measured cost when one was supplied. The reader parses it defensively at build
-time and performs no runtime AI or database calls.
+those paths. An equal replay succeeds only when every authorized output file is
+present and byte-identical. Missing or changed siblings fail closed for human
+reconciliation. Public board JSON contains only the decision rationale or
+NO_EDITION reason, room URL, package hash and a measured cost when one was
+supplied. The reader parses it defensively at build time and performs no runtime
+AI or database calls.
 
-During the Phase 8 transition, `daily.yml` still runs the legacy generator at
-06:00 UTC and adds a separate 07:00 UTC sentinel. Generation is not disabled
-until a BoardlessAI delivery is proven in the cutover phase.
+`daily.yml` is a 07:00 UTC missed-publication sentinel. It cannot write content,
+scrape sources or call an editorial provider. BoardlessAI owns the sole edition
+production and delivery path.

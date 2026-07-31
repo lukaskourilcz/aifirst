@@ -84,6 +84,22 @@ describe("edition package consumer", () => {
     await expect(materializeEditionPackage(second, root)).rejects.toMatchObject({ code: "hash_conflict" });
   });
 
+  it("fails closed when any replayed sibling is missing or changed", async () => {
+    const pkg = deliveryFixture();
+    const mutations = [
+      async (root: string) => fs.appendFile(path.join(root, "content/articles/2026-08-04.cs.mdx"), "\nchanged\n"),
+      async (root: string) => fs.appendFile(path.join(root, "public/data/board/2026-08-04.json"), "\n"),
+      async (root: string) => fs.appendFile(path.join(root, "public/illustrations/2026-08-04.webp"), Buffer.from([0])),
+      async (root: string) => fs.rm(path.join(root, "content/articles/2026-08-04.cs.mdx")),
+    ];
+    for (const mutate of mutations) {
+      const root = await tempRoot();
+      await materializeEditionPackage(pkg, root);
+      await mutate(root);
+      await expect(materializeEditionPackage(pkg, root)).rejects.toMatchObject({ code: "hash_conflict" });
+    }
+  });
+
   it("materializes NO_EDITION as board data without article files", async () => {
     const root = await tempRoot();
     const pkg: Record<string, any> = {

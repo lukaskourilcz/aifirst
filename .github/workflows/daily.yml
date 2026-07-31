@@ -35,19 +35,43 @@ jobs:
             echo "date must be a real YYYY-MM-DD value"
             exit 1
           fi
-          article="content/articles/${issue_date}.en.mdx"
+          english="content/articles/${issue_date}.en.mdx"
+          czech="content/articles/${issue_date}.cs.mdx"
           board="public/data/board/${issue_date}.json"
           echo "issue_date=$issue_date" >> "$GITHUB_OUTPUT"
-          if test -f "$article"; then
-            echo "found edition: $article"
-            exit 0
+          if test -f "$english" && test -f "$czech" && test -f "$board"; then
+            board_hash="$(jq -er --arg date "$issue_date" '
+              select(
+                .schemaVersion == "board-context/1" and
+                .status == "edition" and
+                .date == $date and
+                (.whyThisStory | type) == "string" and
+                (.whyThisStory | length) > 0
+              ) |
+              .packageHash |
+              select(type == "string" and test("^[a-f0-9]{64}$"))
+            ' "$board" 2>/dev/null || true)"
+            english_hash="$(sed -nE 's/^[[:space:]]*package_hash:[[:space:]]*"?([a-f0-9]{64})"?[[:space:]]*$/\1/p' "$english" | head -1)"
+            czech_hash="$(sed -nE 's/^[[:space:]]*package_hash:[[:space:]]*"?([a-f0-9]{64})"?[[:space:]]*$/\1/p' "$czech" | head -1)"
+            if test -n "$board_hash" && test "$english_hash" = "$board_hash" && test "$czech_hash" = "$board_hash"; then
+              echo "found complete BoardlessAI edition: $english, $czech, $board"
+              exit 0
+            fi
           fi
-          if test -f "$board" && jq -e --arg date "$issue_date" '.status == "no_edition" and .date == $date' "$board" >/dev/null; then
+          if ! test -e "$english" && ! test -e "$czech" && test -f "$board" && jq -e --arg date "$issue_date" '
+            .schemaVersion == "board-context/1" and
+            .status == "no_edition" and
+            .date == $date and
+            (.packageHash | type) == "string" and
+            (.packageHash | test("^[a-f0-9]{64}$")) and
+            (.noEditionReason | type) == "string" and
+            (.noEditionReason | length) > 0
+          ' "$board" >/dev/null; then
             echo "found honest no-edition record: $board"
             exit 0
           fi
           echo "missing=true" >> "$GITHUB_OUTPUT"
-          echo "no edition or honest no-edition record for $issue_date"
+          echo "no complete edition or honest no-edition record for $issue_date"
 
       - name: Open one missed-day issue
         if: steps.publication.outputs.missing == 'true'
@@ -59,6 +83,6 @@ jobs:
           if gh issue list --state open --limit 100 --json title | jq -e --arg title "$title" 'any(.[]; .title == $title)' >/dev/null; then
             echo "open issue already exists: $title"
           else
-            gh issue create --title "$title" --body "The 07:00 UTC sentinel found neither content/articles/${ISSUE_DATE}.en.mdx nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
+            gh issue create --title "$title" --body "The 07:00 UTC sentinel found neither a complete EN/CS edition with matching BoardlessAI board/package hashes nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
           fi
           exit 1

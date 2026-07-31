@@ -2,7 +2,6 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import Ajv2020, { type AnySchema, type ValidateFunction } from "ajv/dist/2020.js";
-import matter from "gray-matter";
 import editionPackageSchema from "../../contracts/edition-package.schema.json";
 import type { ArticleFrontmatter } from "../content.js";
 import { serializeDeliveredMdx } from "./mdx.js";
@@ -143,19 +142,17 @@ function boardBytes(pkg: EditionPackage): string {
   return `${JSON.stringify(context, null, 2)}\n`;
 }
 
-async function existingHash(file: string): Promise<string | null> {
+async function existingBytes(file: string): Promise<Buffer | null> {
   try {
-    const raw = await fs.readFile(file, "utf8");
-    if (file.endsWith(".mdx")) {
-      const { data } = matter(raw);
-      const hash = (data.generation as { package_hash?: unknown } | undefined)?.package_hash;
-      return typeof hash === "string" ? hash : "";
-    }
-    const data = JSON.parse(raw) as { packageHash?: unknown };
-    return typeof data.packageHash === "string" ? data.packageHash : "";
+    return await fs.readFile(file);
   } catch (error) {
-    return (error as NodeJS.ErrnoException).code === "ENOENT" ? null : "";
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
+    throw error;
   }
+}
+
+function asBuffer(bytes: string | Buffer): Buffer {
+  return Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
 }
 
 async function writePrepared(files: Array<{ file: string; bytes: string | Buffer }>): Promise<void> {
@@ -173,27 +170,6 @@ export async function materializeEditionPackage(value: unknown, root = process.c
   const pkg = validateDeliveryPackage(value);
   const boardFile = path.join(root, "public", "data", "board", `${pkg.date}.json`);
   const englishFile = path.join(root, "content", "articles", `${pkg.date}.en.mdx`);
-  const englishHash = await existingHash(englishFile);
-  if (englishHash !== null) {
-    if (pkg.status === "edition" && englishHash === pkg.idempotencyKey) return { status: "noop", packageHash: pkg.idempotencyKey, paths: [] };
-    throw new DeliveryError("hash_conflict", `${path.relative(root, englishFile)} already exists with a different package hash`);
-  }
-  const boardHash = await existingHash(boardFile);
-  if (pkg.status === "no_edition" && boardHash !== null) {
-    if (boardHash === pkg.idempotencyKey) return { status: "noop", packageHash: pkg.idempotencyKey, paths: [] };
-    throw new DeliveryError("hash_conflict", `${path.relative(root, boardFile)} already exists with a different package hash`);
-  }
-  if (pkg.status === "edition") {
-    const protectedFiles = [
-      boardFile,
-      path.join(root, "content", "articles", `${pkg.date}.cs.mdx`),
-      ...(pkg.hero ? [path.join(root, "public", "illustrations", `${pkg.date}.webp`)] : []),
-    ];
-    for (const file of protectedFiles) {
-      if (await existingHash(file) !== null) throw new DeliveryError("hash_conflict", `${path.relative(root, file)} exists without the English package identity file`);
-    }
-  }
-
   const prepared: Array<{ file: string; bytes: string | Buffer }> = [{ file: boardFile, bytes: boardBytes(pkg) }];
   if (pkg.status === "edition" && pkg.article) {
     prepared.push(
@@ -202,6 +178,18 @@ export async function materializeEditionPackage(value: unknown, root = process.c
     );
     if (pkg.hero) prepared.push({ file: path.join(root, "public", "illustrations", `${pkg.date}.webp`), bytes: Buffer.from(pkg.hero.bytesBase64, "base64") });
   }
+
+  const existing = await Promise.all(prepared.map(({ file }) => existingBytes(file)));
+  if (existing.some((bytes) => bytes !== null)) {
+    const conflictIndex = existing.findIndex((bytes, index) => bytes === null || !bytes.equals(asBuffer(prepared[index]!.bytes)));
+    if (conflictIndex === -1) return { status: "noop", packageHash: pkg.idempotencyKey, paths: [] };
+    const conflictFile = prepared[conflictIndex]!.file;
+    throw new DeliveryError(
+      "hash_conflict",
+      `${path.relative(root, conflictFile)} is missing or differs from the immutable delivered bytes`,
+    );
+  }
+
   await writePrepared(prepared);
   return {
     status: "written",

@@ -13,6 +13,10 @@ describe("daily workflow transition", () => {
     expect(sentinel).toContain("TZ=Europe/Prague date +%F");
     expect(sentinel).toContain("missed-day:");
     expect(sentinel).toContain("status == \"no_edition\"");
+    expect(sentinel).toContain("content/articles/${issue_date}.cs.mdx");
+    expect(sentinel).toContain("package_hash:");
+    expect(sentinel).toContain("board-context/1");
+    expect(sentinel).toContain('status == "edition"');
     expect(raw).not.toContain("ANTHROPIC_API_KEY");
     expect(raw).not.toContain("generate:daily");
   });
