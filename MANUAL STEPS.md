@@ -13,12 +13,14 @@ aifirst or Vercel.
 
 ## 2. Remove obsolete aifirst credentials
 
-In the aifirst GitHub repository and Vercel project, remove credentials that
-belonged to the retired generator: Anthropic, source APIs, image providers,
-promotion, generation heartbeat and generation-report callbacks. Quorum is the
-producer now, so verify its active secrets before removing anything from Quorum.
-Rotate provider keys previously pasted into chat even if they are no longer
-referenced.
+The aifirst GitHub repository still listed `ANTHROPIC_API_KEY` on 2026-07-31,
+although no workflow or runtime reads it. Delete that secret. Audit the aifirst
+Vercel project for old source, image, promotion, generation heartbeat and
+generation-report credentials and remove them. Quorum is the producer now, so
+verify its active secrets before removing anything from Quorum. Keep the
+optional OwnDashboard sentinel pair only when its read-only receiver exists.
+Rotate provider keys previously pasted into chat even when no code references
+them.
 
 ## 3. Review the first three deliveries
 

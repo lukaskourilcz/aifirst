@@ -9,7 +9,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 - [ ] **Install the `boardlessai-delivery` GitHub App on `lukaskourilcz/aifirst` only** — grant repository contents read/write and no broader repository permission; keep its App ID and private key only in Quorum Actions secrets. [imp:5] [owner:me] [time:30m] [kind:setup]
 - [ ] **Review the first three delivered editions** — for each delivery, check the English article at `/articles/<slug>`, the Czech article at `/cs/articles/<slug>`, source links, board context, the Vercel deployment and both social packs in the protected [BoardlessAI admin](https://quorum-site-chi.vercel.app/admin). [imp:5] [owner:me] [time:60m] [kind:content]
-- [ ] **Remove retired generation credentials from aifirst** — delete old Anthropic, source, image, promotion, heartbeat and OwnDashboard generation secrets or variables from this repository and its Vercel project; rotate any provider keys previously pasted into chat. Do not remove Quorum’s active producer credentials. [imp:5] [owner:me] [time:20m] [kind:setup]
+- [ ] **Remove the retired aifirst Anthropic secret and audit Vercel** — GitHub still listed `ANTHROPIC_API_KEY` on 2026-07-31 even though no workflow or runtime reads it. Delete it from `lukaskourilcz/aifirst`, then remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project. Rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials or the optional OwnDashboard sentinel pair if you still use that receiver. [imp:5] [owner:me] [time:20m] [kind:setup]
 
 ## Product decisions
 
