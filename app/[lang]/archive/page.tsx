@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
+import { listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
 import { getArticle, listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
@@ -26,12 +27,16 @@ export default async function ArchivePage({
   const common = dict(locale).common;
   const lp = localePrefixer(locale);
 
-  const all = await listArticles(locale);
+  const [all, boardContexts] = await Promise.all([listArticles(locale), listBoardContexts()]);
   const entries = await Promise.all(all.map(async (summary) => {
     const article = await getArticle(summary.slug, locale);
-    return { ...summary, reading: article ? readingMinutes(article.mdx) : null };
+    return { kind: "article" as const, ...summary, reading: article ? readingMinutes(article.mdx) : null };
   }));
-  const byYearMonth = groupBy(entries, (a) => a.date.slice(0, 7));
+  const publishedDates = new Set(all.map((article) => article.date));
+  const noEditions = boardContexts
+    .filter((context): context is NoEditionBoardContext => context.status === "no_edition" && !publishedDates.has(context.date))
+    .map((context) => ({ kind: "no_edition" as const, ...context }));
+  const byYearMonth = groupBy([...entries, ...noEditions].sort((a, b) => b.date.localeCompare(a.date)), (a) => a.date.slice(0, 7));
 
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
@@ -41,7 +46,7 @@ export default async function ArchivePage({
             {month}
           </p>
           <ul className="archive-list">
-            {issues.map((a) => (
+            {issues.map((a) => a.kind === "article" ? (
               <li key={a.slug}>
                 <Link className={a.heroPhoto ? "archive-card archive-card--with-media" : "archive-card"} href={lp(`/articles/${a.slug}`)}>
                   {a.heroPhoto ? (
@@ -65,12 +70,20 @@ export default async function ArchivePage({
                   </div>
                 </Link>
               </li>
+            ) : (
+              <li key={`no-edition-${a.date}`} className="archive-system-row">
+                <div>
+                  <p className="label"><time dateTime={a.date}>{a.date}</time> · {locale === "cs" ? "systém" : "system"}</p>
+                  <p>{locale === "cs" ? "Bez vydání" : "No edition"} — {a.noEditionReason || (locale === "cs" ? "pipeline vydání vynechala" : "the pipeline missed")}</p>
+                </div>
+                <a href={a.roomUrl} target="_blank" rel="noreferrer noopener">{locale === "cs" ? "Přečíst diskusi" : "Read the argument"} ↗</a>
+              </li>
             ))}
           </ul>
         </section>
       ))}
 
-      {all.length === 0 && (
+      {all.length === 0 && noEditions.length === 0 && (
         <p className="route-empty-state">{t.empty}</p>
       )}
     </PageShell>

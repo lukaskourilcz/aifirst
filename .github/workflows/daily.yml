@@ -3,6 +3,7 @@ name: daily
 on:
   schedule:
     - cron: "0 6 * * *"
+    - cron: "0 7 * * *"
   workflow_dispatch:
     inputs:
       date:
@@ -45,6 +46,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
   pull-requests: write
 
 concurrency:
@@ -53,6 +55,7 @@ concurrency:
 
 jobs:
   generate:
+    if: github.event_name != 'schedule' || github.event.schedule == '0 6 * * *'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -175,3 +178,42 @@ jobs:
           HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
         run: |
           if [ -n "$HEARTBEAT_URL" ]; then curl -fsS --max-time 10 "$HEARTBEAT_URL"; fi
+
+  sentinel:
+    if: github.event_name == 'schedule' && github.event.schedule == '0 7 * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the Prague publication day
+        id: publication
+        run: |
+          issue_date="$(TZ=Europe/Prague date +%F)"
+          article="content/articles/${issue_date}.en.mdx"
+          board="public/data/board/${issue_date}.json"
+          echo "issue_date=$issue_date" >> "$GITHUB_OUTPUT"
+          if [ -f "$article" ]; then
+            echo "found edition: $article"
+            exit 0
+          fi
+          if [ -f "$board" ] && jq -e --arg date "$issue_date" '.status == "no_edition" and .date == $date' "$board" >/dev/null; then
+            echo "found honest no-edition record: $board"
+            exit 0
+          fi
+          echo "missing=true" >> "$GITHUB_OUTPUT"
+          echo "no edition or honest no-edition record for $issue_date"
+
+      - name: Open one missed-day issue
+        if: steps.publication.outputs.missing == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_DATE: ${{ steps.publication.outputs.issue_date }}
+        run: |
+          title="missed-day: ${ISSUE_DATE}"
+          if gh issue list --state open --limit 100 --json title | jq -e --arg title "$title" 'any(.[]; .title == $title)' >/dev/null; then
+            echo "open issue already exists: $title"
+          else
+            gh issue create --title "$title" --body "The 07:00 UTC sentinel found neither content/articles/${ISSUE_DATE}.en.mdx nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
+          fi
+          exit 1

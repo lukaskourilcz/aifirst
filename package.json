@@ -14,6 +14,7 @@
     "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm check:content && pnpm build && pnpm check:bundle",
     "check:bundle": "tsx scripts/check-bundle.ts",
     "generate:daily": "tsx scripts/generate-daily.ts",
+    "consume:edition": "tsx scripts/consume-edition-package.ts",
     "generate:weekly": "tsx scripts/generate-weekly.ts",
     "regeneration:check": "tsx scripts/check-regeneration-budget.ts",
     "generate:artifacts": "tsx scripts/generate-static-artifacts.ts",

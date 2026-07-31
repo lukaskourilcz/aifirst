@@ -1,6 +1,6 @@
 # Caught Up visual QA
 
-Last reviewed: 2026-07-30
+Last reviewed: 2026-07-31
 
 This is the evidence record for the implemented Caught Up interface. It is not a screenshot baseline. Temporary captures, traces, and Playwright output remain ignored and are not production assets.
 
@@ -19,7 +19,10 @@ Routes reviewed directly or through the route audit:
 - About, Sources, Glossary, Corrections, and Health
 - the no-image Today state and the no-topic-media state
 
-The repository currently contains legacy MDX only. Schema-v2 parsing, validation, and component branches are covered by unit/content tests, but no fabricated schema-v2 issue was added solely for a screenshot.
+Committed historical editions do not carry BoardlessAI board context. The
+making-of and no-edition branches were reviewed with temporary validated board
+records, then those records were removed so the public archive does not claim a
+meeting or decision that never happened.
 
 ## Findings and fixes
 
@@ -57,10 +60,14 @@ The repository currently contains legacy MDX only. Schema-v2 parsing, validation
   indexed navigation, real freshness panel, provenance record, evidence
   badges, Radar meters, source panels, archive rows, and no-image layouts were
   inspected directly in English and Czech.
+- The additive making-of note and quiet no-edition archive row fit the existing
+  editorial hierarchy at 1280 and 390 CSS pixels. Both remained within the
+  viewport; the about-page sponsorship disclosure and empty, honest board
+  changelog used existing typography and spacing.
 
 ## Automated coverage
 
-`e2e/smoke.spec.ts` verifies route status, a single visible page heading, overflow, navigation, compatibility redirects, legacy print routing, language switching, source semantics, topic composition, feeds, search focus behavior, touch targets, reduced motion, deterministic no-media states, noindex/operator boundaries, public JSON contracts, CSP, and frame denial.
+`e2e/smoke.spec.ts` verifies route status, a single visible page heading, overflow, navigation, compatibility redirects, legacy print routing, language switching, source semantics, topic composition, feeds, search focus behavior, touch targets, reduced motion, deterministic no-media states, noindex/operator boundaries, public JSON contracts, CSP, frame denial, board disclosures, and the absence of fabricated historical making-of data.
 
 `e2e/audit.spec.ts` records shell fill, overflow, and heading anomalies for the representative route matrix at three widths. Audit output is temporary and must not be committed.
 

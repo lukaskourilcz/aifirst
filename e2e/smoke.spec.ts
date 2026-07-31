@@ -265,3 +265,13 @@ test("public JSON contracts and security headers remain available", async ({ req
   expect(home.headers()["content-security-policy"]).toBeTruthy();
   expect(home.headers()["x-frame-options"]).toBe("DENY");
 });
+
+test("board transparency is additive and does not fabricate historical context", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.getByRole("heading", { name: "Sponsorship" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Board changelog" })).toBeVisible();
+  await expect(page.getByText("No board-initiated product changes have shipped yet.", { exact: true })).toBeVisible();
+
+  await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
+  await expect(page.locator(".making-of")).toHaveCount(0);
+});

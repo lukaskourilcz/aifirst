@@ -1922,7 +1922,20 @@ svg { max-width: 100%; }
 .about-sections section { display: grid; grid-template-columns: minmax(4rem, 0.2fr) minmax(0, 1fr); gap: var(--space-6); max-width: 82ch; padding: var(--space-6) 0; border-bottom: 1px solid var(--border-subtle); scroll-margin-top: var(--space-5); }
 .about-sections h2 { margin: 0 0 var(--space-2); }
 .about-sections p { margin: 0; color: var(--text-secondary); font-family: var(--font-reading); font-size: 1.0625rem; line-height: 1.6; }
+.board-changelog { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.board-changelog li { display: grid; grid-template-columns: 7rem minmax(0, 1fr) auto; gap: var(--space-3); color: var(--text-secondary); }
+.board-changelog time { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); }
 .trust-links { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-6); margin-top: var(--space-7); padding: var(--space-5) 0; border-top: 2px solid var(--border-strong); }
+
+.making-of { max-width: 82ch; margin: var(--space-5) 0 var(--space-6); padding: var(--space-4) 0; border-block: 1px solid var(--border-subtle); }
+.making-of p { margin: 0; color: var(--text-secondary); }
+.making-of p + p { margin-top: var(--space-2); }
+.making-of a { margin-right: var(--space-4); }
+.making-of span { color: var(--text-tertiary); }
+
+.archive-system-row { display: flex; justify-content: space-between; gap: var(--space-5); align-items: center; padding: var(--space-4); border: 1px dashed var(--border-subtle); color: var(--text-tertiary); }
+.archive-system-row p { margin: 0; }
+.archive-system-row p + p { margin-top: var(--space-2); font-family: var(--font-reading); }
 
 .source-directory { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-5); list-style: none; margin: var(--space-6) 0 0; padding: 0; }
 .source-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-3); height: 100%; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); }
@@ -2036,6 +2049,8 @@ svg { max-width: 100%; }
 .promotion-copy[data-copied="true"] { color: var(--status-complete); border-color: var(--status-complete); }
 
 @media (max-width: 760px) {
+  .board-changelog li { grid-template-columns: 1fr; gap: var(--space-1); }
+  .archive-system-row { align-items: flex-start; flex-direction: column; }
   .provenance dl { grid-template-columns: 1fr; }
   .provenance dl div:nth-child(odd) { border-right: 0; }
   .provenance__header { align-items: start; }

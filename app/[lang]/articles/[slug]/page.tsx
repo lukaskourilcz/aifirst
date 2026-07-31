@@ -13,6 +13,7 @@ import { EditorialHighlights } from "@/components/editorial/EditorialHighlights"
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
+import { MakingOf } from "@/components/editorial/MakingOf";
 import { PublicationData } from "@/components/editorial/PublicationData";
 import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
@@ -174,6 +175,7 @@ export default async function ArticlePage({
 
       <SponsorBlock sponsor={fm.sponsor} />
       <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} uncertainty={fm.uncertainty} locale={locale} />
+      <MakingOf date={fm.date} locale={locale} />
 
       {/* Body + dispatches sidebar */}
       <section className="article-with-aside enter enter-2">

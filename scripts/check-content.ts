@@ -7,6 +7,7 @@ import { validateArticleFrontmatter, translationStructureErrors } from "../lib/e
 import { loadEditorialConfig } from "../lib/editorial/config.js";
 import { loadTopicsConfig } from "../lib/topics/config.js";
 import { loadSources } from "../lib/scraping/sources.js";
+import { boardChangelogErrors, boardContextErrors } from "../lib/board.js";
 
 async function main() {
   const dir = path.join(process.cwd(), "content", "articles");
@@ -36,11 +37,32 @@ async function main() {
     try { await loader(); } catch (error) { errors.push(`${name} config: ${error instanceof Error ? error.message : "invalid"}`); }
   }
 
+  const boardDir = path.join(process.cwd(), "public", "data", "board");
+  const boardFiles = await fs.readdir(boardDir).catch(() => [] as string[]);
+  for (const file of boardFiles.filter((name) => name.endsWith(".json"))) {
+    if (!/^\d{4}-\d{2}-\d{2}\.json$/.test(file)) {
+      errors.push(`${file}: board data filename must be YYYY-MM-DD.json`);
+      continue;
+    }
+    try {
+      const value = JSON.parse(await fs.readFile(path.join(boardDir, file), "utf8")) as unknown;
+      errors.push(...boardContextErrors(value, file.slice(0, 10)).map((error) => `${file}: ${error}`));
+    } catch {
+      errors.push(`${file}: board data must be valid JSON`);
+    }
+  }
+  try {
+    const changelog = JSON.parse(await fs.readFile(path.join(process.cwd(), "config", "board-changelog.json"), "utf8")) as unknown;
+    errors.push(...boardChangelogErrors(changelog).map((error) => `board changelog: ${error}`));
+  } catch {
+    errors.push("board changelog: config/board-changelog.json must be valid JSON");
+  }
+
   if (errors.length) {
     console.error(`[check] ${errors.length} issue(s) found:\n\n${errors.map((error) => `  ${error}`).join("\n")}`);
     process.exit(1);
   }
-  console.log(`[check] ${files.length} MDX file(s) and editorial/topic configs validated, no issues`);
+  console.log(`[check] ${files.length} MDX file(s), ${boardFiles.length} board context file(s), and configs validated, no issues`);
 }
 
 main().catch((error) => {
