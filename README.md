@@ -3,10 +3,10 @@
 **The AI stories that actually mattered today.** One edition and you’re caught
 up on AI.
 
-Caught Up is a bilingual, Git-native AI publication. A scheduled newsroom
-pipeline gathers a curated source registry, selects the strongest developments,
-writes daily and weekly editions, and commits MDX plus static distribution
-artifacts. Next.js materializes the complete reader experience at build time.
+Caught Up is a bilingual, Git-native AI publication. BoardlessAI owns source
+collection, curation, writing and quality control in the separate `quorum`
+repository. Its bounded GitHub App delivers schema-valid content commits here;
+Next.js independently validates them and materializes the reader at build time.
 
 The repository and package deliberately remain `aifirst`; that is a stable
 technical identifier, not the public publication name.
@@ -15,8 +15,7 @@ technical identifier, not the public publication name.
 
 - Publish a complete daily edition with a lead story, Why it matters, Briefs,
   Watchlist, uncertainty, signal strength, corrections and a source ledger.
-- Publish a bilingual weekly digest derived only from the preceding committed
-  daily editions.
+- Render the existing bilingual weekly archive without a dormant weekly writer.
 - Turn the archive’s existing tags, statistics, trends and pulse data into
   curated Topics and a static Radar view.
 - Serve English at unprefixed URLs and Czech under `/cs`, while exposing only
@@ -28,12 +27,10 @@ technical identifier, not the public publication name.
 - Provide static search, related issues, glossary disclosures, keyboard
   shortcuts, a command palette, accessible navigation and reduced-motion
   behavior without a client-side state framework.
-- Run daily, weekly and regeneration workflows in `auto`, `pull_request` or
-  `dry_run` mode with idempotency, concurrency controls, quality guardrails,
-  regeneration limits and private telemetry artifacts.
-- Measure Anthropic token cost per stage, keep unknown cost unavailable rather
-  than reporting a false zero, and optionally send bounded non-fatal run reports
-  to OwnDashboard.
+- Consume only `edition-package/1` files, accept equal-hash replay as a no-op,
+  and fail closed on schema, content or same-date hash conflicts.
+- Run a daily Prague-aware sentinel that opens one idempotent `missed-day`
+  issue when neither an edition nor an honest NO_EDITION record exists.
 
 No database, CMS, reader login or runtime model call sits in the public path.
 Reader growth increases static delivery, not editorial model usage.
@@ -58,8 +55,8 @@ English is unprefixed and Czech mirrors supported routes under `/cs`.
 `/stats` and `/trends` permanently redirect to `/radar`, `/tags` to `/topics`,
 and `/colophon` to `/about`. Legacy article and tag-detail URLs remain valid.
 `/admin` is a noindex migration notice; operations belong in GitHub Actions and
-the optional OwnDashboard control plane. `/promotion` is an unlisted, noindex
-operator utility that returns 404 unless its token gate is configured and met.
+the optional OwnDashboard control plane. The former `/promotion` utility is
+retired and returns 404.
 
 ## Tech stack
 
@@ -68,11 +65,10 @@ operator utility that returns 404 unless its token gate is configured and met.
 | Web | Next.js 15 App Router, React 19, server components and static route generation |
 | Language/runtime | Strict TypeScript 5.6, Node.js 22, pnpm 10 |
 | Content | Git-tracked MDX, `gray-matter`, `next-mdx-remote`; Git is canonical |
-| Editorial AI | Anthropic SDK with structured tool output and standard/economical model profiles |
-| Collection | YAML source registry, `rss-parser`, Cheerio and Undici adapters with per-source failure isolation |
-| Images | Sharp plus `none`, NASA, Picsum and fal.ai provider adapters |
-| Delivery | Vercel static output, Web Analytics and Speed Insights |
-| Automation | GitHub Actions for CI, daily, weekly and controlled regeneration |
+| Editorial producer | BoardlessAI in `lukaskourilcz/quorum`; no model client or scraper remains here |
+| Citation registry | Read-only YAML registry used by reader and content validation |
+| Delivery | `edition-package/1` consumer, content-only Git commits, Vercel static output |
+| Automation | GitHub Actions CI plus the daily missed-publication sentinel |
 | Quality | ESLint, TypeScript, Vitest, schema/content validation, bundle checks and Playwright |
 | Operations | Versioned run reports, cost registry, static health, heartbeat and optional OwnDashboard callback |
 
@@ -96,27 +92,18 @@ shared Next.js/React runtime is 102 kB gzip and the enforced page-entry ceiling
 is 110 kB; the original 80 kB product target is documented as a framework-level
 constraint in `docs/CAUGHT_UP_IMPLEMENTATION.md`.
 
-## Generate content locally
+## Validate a delivery locally
 
 ```bash
-cp .env.example .env.local
-# Add ANTHROPIC_API_KEY. Keep IMAGE_PROVIDER=none for the zero-image-cost path.
-
-pnpm generate:daily
-pnpm generate:daily 2026-07-21
-ISSUE_LANGUAGE=all pnpm generate:weekly
-pnpm generate:artifacts
+pnpm consume:edition /absolute/path/to/package.json
+pnpm check:content
+pnpm build
 ```
 
-Generation is idempotent unless `FORCE_GENERATION=true` is explicit. Scheduled
-runs take their publishing, language, model, review, quality, budget and
-illustration defaults from `config/editorial.yml`. Validated manual workflow
-inputs can override them. `sources.yml` and `config/topics.yml` provide the
-other committed editorial controls.
-
-The scheduled defaults currently produce English daily editions and bilingual
-weekly editions, use the standard model profile, publish automatically, report
-quality violations without blocking, and generate no paid image.
+The consumer can write only dated English/Czech MDX, the matching optional hero,
+and sanitized board JSON. A delivered date is immutable: an equal package hash
+is success without a write, while a different hash is a reconciliation error.
+`sources.yml` remains a citation registry; it is not a collection capability.
 
 ## Content and provenance
 
@@ -171,29 +158,19 @@ dates, sponsorship safety and weekly linkage.
 
 ## Distribution and operations
 
-Every generated issue writes provider-independent JSON under
-`public/data/share/`. Weekly runs also produce private HTML, text and metadata
-newsletter artifacts under `generated/`. The repository does not automatically
-send newsletters or social posts.
-
-Each generation run records stage timings, per-source outcomes, editorial
-metrics, structured warnings, model usage, illustration state and repository
-references. Official Anthropic list prices are versioned in
-`lib/telemetry/pricing.ts`. Per-run hard budgets can block persistence;
-cross-run monthly enforcement requires an external ledger such as
-OwnDashboard.
-
-OwnDashboard remains optional. If `OWNDASHBOARD_RUN_REPORT_URL` and
-`OWNDASHBOARD_RUN_REPORT_TOKEN` are configured, the same report is sent with an
-idempotency key, short timeout and one bounded retry. A callback failure never
-blocks scheduled publishing.
+Existing provider-independent share/newsletter artifacts remain readable. New
+editorial generation, measured costs, source outcomes and social packs stay in
+BoardlessAI; the delivery boundary exposes only article bytes and sanitized
+board context. The weekly page and feeds continue to render committed content
+until a future board proposal replaces the retired writer.
 
 ## Deployment setup
 
-Required to generate new content:
+Required for reader deployment:
 
-- GitHub Actions secret `ANTHROPIC_API_KEY`.
-- GitHub Actions variable `NEXT_PUBLIC_SITE_URL`.
+- Vercel variable `NEXT_PUBLIC_SITE_URL`.
+- The `boardlessai-delivery` GitHub App installed on this repository is
+  configured from Quorum, not from aifirst workflow secrets.
 
 Recommended in Vercel:
 
@@ -201,10 +178,9 @@ Recommended in Vercel:
 - `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/aifirst`.
 - Production Branch set to `main`.
 
-Optional provider and operations values are documented in `.env.example`.
-GitHub workflows already request contents and pull-request write permissions;
-review-mode PR creation also needs the repository setting that allows Actions
-to create pull requests. No database migration is required.
+The aifirst daily workflow needs only read access plus issue creation for the
+sentinel. It has no content write permission, generation secret or model call.
+No database migration is required.
 
 See [`NEEDED.md`](NEEDED.md) for the exact remaining operator checklist.
 

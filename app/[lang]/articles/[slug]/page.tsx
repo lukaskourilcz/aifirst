@@ -34,7 +34,7 @@ import { readingMinutes } from "@/lib/text";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
-import { loadSources } from "@/lib/scraping/sources";
+import { loadSources } from "@/lib/sources";
 import { siteUrl } from "@/lib/config";
 import { localizedBrand } from "@/lib/brand";
 import { loadTopicsConfig, topicsForArticle } from "@/lib/topics/config";

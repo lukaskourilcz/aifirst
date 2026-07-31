@@ -5,7 +5,7 @@ import Ajv2020, { type AnySchema, type ValidateFunction } from "ajv/dist/2020.js
 import matter from "gray-matter";
 import editionPackageSchema from "../../contracts/edition-package.schema.json";
 import type { ArticleFrontmatter } from "../content.js";
-import { serializeMdx } from "../content-write.js";
+import { serializeDeliveredMdx } from "./mdx.js";
 import { translationStructureErrors, validateArticleFrontmatter } from "../editorial/validation.js";
 
 type LocalizedArticle = {
@@ -127,7 +127,7 @@ export function validateDeliveryPackage(value: unknown): EditionPackage {
 }
 
 function mdxBytes(article: LocalizedArticle): string {
-  return serializeMdx(article.frontmatter, article.body);
+  return serializeDeliveredMdx(article.frontmatter, article.body);
 }
 
 function boardBytes(pkg: EditionPackage): string {

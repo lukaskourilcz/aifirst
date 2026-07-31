@@ -7,20 +7,18 @@ all reader-facing identity is Caught Up.
 ## System shape
 
 ```text
-sources.yml + committed editorial/topic configuration
-  → GitHub Actions
-  → scrape → curate → write → optional illustrate → validate
-  → MDX + static images + share/newsletter artifacts + private run report
-  → Git commit or review pull request
+BoardlessAI/quorum source collection + edition quality gates
+  → EditionPackage v1
+  → bounded content-only GitHub App commit
+  → aifirst schema/content validation
   → Next.js static build
   → reader CDN
-
-optional: private run report → bounded OwnDashboard callback
 ```
 
 Git and MDX are canonical. The reader application has no runtime content
 database, public login, per-request AI call or public dependency on the
-dashboard. A dashboard outage cannot stop scheduled publishing.
+BoardlessAI. A producer outage becomes an honest missed or NO_EDITION day; it
+does not activate a second generator in this repository.
 
 ## Reader routes
 
@@ -58,19 +56,17 @@ corrections and feeds are visible from the footer or relevant reading context.
 
 ## Rendering and localization
 
-All reader content routes above are SSG or static output. The only dynamic app
-route is the token-gated, noindex internal promotion console. Default Open
-Graph image generation remains a metadata endpoint, not a content read path.
+All reader content routes above are SSG or static output. Default Open Graph
+image generation remains a metadata endpoint, not a content read path. The
+retired `/promotion` route returns 404.
 
 `lib/i18n/config.ts` owns locale conventions. `localeAlternates` emits
 localized canonical, `hreflang` and `x-default` links. Localized feeds use the
 same URL convention. UI, About, Topics, Radar and Weekly are bilingual.
 
-Daily generation is selective: the scheduled workflow requests English only.
-Manual `language=all` requests both committed locales when selected-daily
-translation is enabled. Weekly requests both by default. The writing tool only
-asks for the requested locale fields, so an English-only daily does not pay for
-unused Czech output.
+BoardlessAI deliveries contain both English and Czech when status is `edition`.
+The reader preserves its existing locale, canonical and hreflang behavior. A
+NO_EDITION package contains only sanitized board context.
 
 ## Content model
 
@@ -125,107 +121,51 @@ Radar deterministically composes existing tag trend, signal, Watchlist, pulse
 and issue timeline data. It does not expose scrape failures, raw operator logs
 or cost.
 
-Weekly reuses the existing seven-day coverage logic and writes schema-v2,
-bilingual MDX. It generates localized share packs and provider-independent
-HTML/plain-text/metadata newsletter artifacts. Newsletter files live under
-ignored `generated/` and are uploaded privately by Actions.
+Weekly renders the existing committed schema-v2 bilingual archive and feeds.
+Its former writer and workflow are retired; a future replacement requires a
+new board proposal instead of a dormant fallback.
 
-## Generation pipeline
+## Delivery pipeline
 
-Daily:
+1. Parse `edition-package/1` with the mirrored contract.
+2. Verify the canonical idempotency hash and exact bilingual MDX bytes.
+3. Reject a wrong major, content mismatch or unauthorized hero path.
+4. If the English date already exists, accept only the same package hash as a
+   success no-op; a different hash fails closed.
+5. Materialize only dated English/Czech MDX, optional dated WebP and sanitized
+   board JSON through temporary files.
+6. Run `check:content`, commit only those authorized paths, and let Vercel run
+   the same validation independently during build.
 
-1. Load and validate committed configuration.
-2. Resolve language and model profile; stop idempotently if all requested
-   locale files already exist.
-3. Scrape source adapters with partial-failure isolation.
-4. Evaluate early source/candidate guardrails.
-5. Curate with structured tool output and explicit evidence classification.
-6. Write only requested locales with structured editorial/source output.
-7. Calculate signal, source diversity and measured provider usage.
-8. Apply quality, translation and hard per-run cost guardrails.
-9. Optionally illustrate and, only when explicitly enabled, write promotion
-   copy; paid-image cost uncertainty fails closed when a hard limit exists.
-10. Persist MDX and static share packs.
-11. Write and optionally deliver the private run report.
-
-Weekly follows the same configuration, model, language, idempotency, cost and
-reporting conventions, then produces newsletter/share artifacts.
-
-Committed model profiles:
-
-- `standard`: Sonnet curation, Opus writing, Haiku utility
-- `economical`: Haiku curation, Sonnet writing, Haiku utility
-
-The committed illustration default is `none`. Scheduled runs resolve that value
-from `config/editorial.yml`, with an optional validated `IMAGE_PROVIDER` Actions
-variable override; manual runs use their workflow input. fal.ai is paid and
-requires `FAL_KEY`; NASA and Picsum are optional non-generative image sources.
-Model-written promotion and Jina embeddings are opt-in for scheduled dailies.
+Source collection, models, budget enforcement, regeneration, illustration and
+social production live in Quorum. `lib/sources.ts` reads `sources.yml` only for
+reader attribution and content validation.
 
 ## Configuration
 
-`config/editorial.yml` owns:
-
-- daily/weekly enablement, primary/enabled languages and default mode
-- quality thresholds and report-only/enforced behavior
-- target length, Brief/Watchlist/output/candidate limits
-- weekly, selected-daily and full-daily translation controls and budget
-- committed model profiles
-- illustration default
-- warning/hard per-run and monthly budget fields
-- maximum regeneration attempts and review default
-
-`sources.yml` remains executable source truth. `config/topics.yml` remains
-curated discovery truth. Dashboard editing must branch, validate, show a diff,
-open a pull request and let CI run; it must not maintain a second permanent
-copy.
+`config/editorial.yml` remains a reader-side schema compatibility and validation
+fixture; it is not an executable generation policy. `sources.yml` is a
+read-only citation registry. `config/topics.yml` remains curated discovery
+truth. Changes branch, validate, show a diff and pass CI.
 
 ## Workflow controls
 
-Daily, weekly and regenerate workflows accept validated date, language,
-publishing mode, image provider, model profile, force and embedding inputs.
-Concurrency groups isolate issue kind/date/language. Generation is idempotent
-unless `force` is explicit.
-
-Publishing modes:
-
-- `auto` — verify, commit and push generated public files.
-- `pull_request` — create a generated branch and review PR after verification.
-- `dry_run` — generate, verify and upload private artifacts without commit.
-
-Every workflow uploads reports and relevant artifacts with `if: always()` and a
-30-day retention period.
-Article persistence/validation/build failure fails the job. Optional
-illustration, distribution, promotion, embeddings, heartbeat and dashboard
-delivery do not make the reader dependent on those services. Dry-run artifacts
-include the complete validation log.
+`daily.yml` runs only at 07:00 UTC and may be dispatched with an optional date.
+It checks for that Prague day's English article or a valid NO_EDITION board
+record. If both are missing, it opens one `missed-day: <date>` issue and fails.
+It has contents read and issues write permissions; there are no generation,
+weekly or regeneration workflows.
 
 ## Telemetry and cost
 
-`GenerationRunReport` schema v1 records identity, timing, status, repository
-references, every stage, bounded per-source scrape results, editorial metrics,
-token/cache usage, image state, cost, compatibility warnings and structured
-events. `examples/generation-run-report.v1.json` is a fixture; TypeScript is
-authoritative in `lib/telemetry/types.ts`.
-
-Anthropic usage comes from actual API response counters. A versioned pricing
-registry converts input, output, five-minute cache-write and cache-read tokens
-to USD. Unknown models, missing counters or missing paid-image cost make the
-complete cost unavailable; they never become zero. Token line items remain
-visible when a complete total cannot be claimed.
-
-Hard per-run limits are evaluated in committed pipeline logic and fail closed.
-Monthly budget fields are committed, but aggregation/enforcement requires the
-external telemetry ledger because Actions runners are ephemeral. Scheduled
-publishing otherwise remains independent of that ledger.
+Sanitized board JSON exposes a real package hash, status, room URL, rationale or
+NO_EDITION reason, and generation cost only when a measured number exists.
+Provider token details, source-run errors and queues do not cross the boundary.
 
 ## OwnDashboard boundary
 
-When both callback variables are present, the report is POSTed with Bearer
-authorization and an idempotency key. There are at most two eight-second
-attempts. Failure adds a warning to the local report and never removes a valid
-edition. See `docs/OWNDASHBOARD_INTEGRATION.md` for the versioned receiver,
-GitHub App permissions, command center, review, recovery and alert contract.
+OwnDashboard may read public health and repository history, but aifirst has no
+generation callback or mutation control. Producer operations belong to Quorum.
 
 ## SEO and distribution
 
@@ -253,9 +193,9 @@ inject HTML or script. Public health contains status/cadence only—no secrets,
 stack traces, internal URLs or cost ledger. Vercel telemetry components render
 only in the Vercel environment, preventing local 404/script errors.
 
-The internal promotion route returns 404 unless `PROMOTION_TOKEN` is configured
-and correct. It remains dynamic, noindex, robots-disallowed and outside all
-navigation/sitemaps.
+The former internal promotion route and its token gate were removed at the
+BoardlessAI cutover; promotion artifacts are no longer generated or served by
+this repository.
 
 ## Performance and validation
 

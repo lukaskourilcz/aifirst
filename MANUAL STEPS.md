@@ -1,5 +1,9 @@
 # Manual Steps — Caught Up operator setup
 
+> Historical record: the in-repository generator, weekly/regeneration workflows
+> and promotion console were retired at the BoardlessAI cutover. Do not execute
+> generation-specific steps below; current actions are maintained in `NEEDED.md`.
+
 Extracted from `NEEDED.md` on 2026-07-28. Every item here needs your credentials,
 approvals, or a decision on real usage. Work top-down: `imp:5` blocks the first
 generated edition, `imp:4` gates safe automation, `imp:3` is telemetry, `imp:1–2`

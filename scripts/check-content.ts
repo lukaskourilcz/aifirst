@@ -6,7 +6,7 @@ import { readMdxFiles, type ArticleFrontmatter } from "../lib/content.js";
 import { validateArticleFrontmatter, translationStructureErrors } from "../lib/editorial/validation.js";
 import { loadEditorialConfig } from "../lib/editorial/config.js";
 import { loadTopicsConfig } from "../lib/topics/config.js";
-import { loadSources } from "../lib/scraping/sources.js";
+import { loadSources } from "../lib/sources.js";
 import { boardChangelogErrors, boardContextErrors } from "../lib/board.js";
 
 async function main() {

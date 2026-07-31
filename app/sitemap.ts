@@ -3,7 +3,7 @@ import { getArticle, listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { LOCALES, localePath } from "@/lib/i18n/config";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
-import { loadSources } from "@/lib/scraping/sources";
+import { loadSources } from "@/lib/sources";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();

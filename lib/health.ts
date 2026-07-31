@@ -50,9 +50,7 @@ export type HealthReport = {
 };
 
 const WORKFLOWS: Array<{ file: string; label: string }> = [
-  { file: "daily.yml", label: "daily" },
-  { file: "weekly.yml", label: "weekly" },
-  { file: "regenerate.yml", label: "regenerate" },
+  { file: "daily.yml", label: "delivery sentinel" },
 ];
 
 function projectRun(raw: {

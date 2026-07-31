@@ -1,5 +1,5 @@
 import { sourceCitationStats } from "@/lib/content";
-import { loadSources } from "@/lib/scraping/sources";
+import { loadSources } from "@/lib/sources";
 
 export const dynamic = "force-static";
 

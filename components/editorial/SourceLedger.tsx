@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { SourceRef } from "@/lib/content";
-import type { Source } from "@/lib/scraping/types";
+import type { Source } from "@/lib/sources";
 import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";

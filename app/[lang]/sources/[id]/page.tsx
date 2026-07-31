@@ -5,7 +5,7 @@ import { IssueRow } from "@/components/IssueRow";
 import { TagChip } from "@/components/TagChip";
 import { PageShell } from "@/components/PageShell";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
-import { loadSources } from "@/lib/scraping/sources";
+import { loadSources } from "@/lib/sources";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 

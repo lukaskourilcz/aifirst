@@ -1,17 +1,17 @@
 # Caught Up — cost & scaling
 
-A GitHub-Actions publishing pipeline plus a static Vercel reader. The stack is in `about-project.md`; prices checked 2026-07-21.
+A BoardlessAI producer plus a static Vercel Pro reader. The stack is in `about-project.md`.
 
 ## What it costs
 
-- **Current committed config:** ~$0/month — image provider `none`, embeddings/promotion/newsletter off, no runtime database.
-- **Main variable cost is AI** once editions run (Anthropic per-token). Set generation budgets in `config/editorial.yml`.
+- **aifirst incremental editorial cost:** $0 — no scraper, model client or media generator remains here.
+- **Producer cost:** measured and capped in the separate Quorum budget ledger.
 
 ## When to scale
 
-- Enabling illustrations (fal), embeddings (Jina), or promotion adds per-run spend — turn each on deliberately.
-- Reader traffic is static on Vercel — effectively free until Hobby limits; go Pro for commercial use.
+- Manual Jina embedding refreshes are optional reader enrichment.
+- Reader traffic is static on the owner's existing Vercel Pro plan; revisit cost allocation if either project leaves Pro.
 
 ## Keep costs down
 
-Keep the daily default lean, set per-run and monthly cost caps, and watch Actions minutes.
+Keep producer caps in Quorum and watch the aifirst sentinel/build minutes.

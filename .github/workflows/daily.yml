@@ -1,203 +1,48 @@
-name: daily
+name: daily sentinel
 
 on:
   schedule:
-    - cron: "0 6 * * *"
     - cron: "0 7 * * *"
   workflow_dispatch:
     inputs:
       date:
-        description: "Issue date (YYYY-MM-DD; blank = today UTC)"
+        description: "Prague publication date (YYYY-MM-DD; blank = today)"
         required: false
         type: string
-      language:
-        description: "Language output"
-        required: true
-        default: en
-        type: choice
-        options: [all, en, cs]
-      publish_mode:
-        description: "How generated files leave the workflow"
-        required: true
-        default: auto
-        type: choice
-        options: [auto, pull_request, dry_run]
-      image_provider:
-        description: "Illustration provider"
-        required: true
-        default: none
-        type: choice
-        options: [none, fal, nasa, picsum]
-      model_profile:
-        description: "Committed model profile"
-        required: true
-        default: standard
-        type: string
-      force:
-        description: "Overwrite an existing issue"
-        required: true
-        default: false
-        type: boolean
-      skip_embeddings:
-        description: "Skip optional semantic embeddings"
-        required: true
-        default: true
-        type: boolean
 
 permissions:
-  contents: write
+  contents: read
   issues: write
-  pull-requests: write
 
 concurrency:
-  group: daily-${{ github.event_name == 'schedule' && 'scheduled' || inputs.date }}-${{ inputs.language || 'all' }}
+  group: daily-sentinel-${{ inputs.date || 'scheduled' }}
   cancel-in-progress: false
 
 jobs:
-  generate:
-    if: github.event_name != 'schedule' || github.event.schedule == '0 6 * * *'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    env:
-      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
-      NEXT_PUBLIC_GITHUB_REPO: ${{ github.repository }}
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-
-      - name: Resolve and validate inputs
-        env:
-          REQUESTED_DATE: ${{ inputs.date }}
-          REQUESTED_LANGUAGE: ${{ inputs.language }}
-          REQUESTED_MODE: ${{ inputs.publish_mode }}
-          REQUESTED_IMAGE: ${{ inputs.image_provider }}
-          SCHEDULED_IMAGE_OVERRIDE: ${{ vars.IMAGE_PROVIDER }}
-          REQUESTED_PROFILE: ${{ inputs.model_profile }}
-          REQUESTED_FORCE: ${{ inputs.force }}
-          REQUESTED_SKIP_EMBEDDINGS: ${{ inputs.skip_embeddings }}
-        run: |
-          issue_date="${REQUESTED_DATE:-$(date -u +%F)}"
-          image_provider="${REQUESTED_IMAGE:-none}"
-          echo "ISSUE_DATE=$issue_date" >> "$GITHUB_ENV"
-          echo "ISSUE_LANGUAGE=${REQUESTED_LANGUAGE:-en}" >> "$GITHUB_ENV"
-          echo "PUBLISH_MODE=${REQUESTED_MODE:-auto}" >> "$GITHUB_ENV"
-          echo "IMAGE_PROVIDER=$image_provider" >> "$GITHUB_ENV"
-          echo "SCHEDULED_IMAGE_PROVIDER_OVERRIDE=$SCHEDULED_IMAGE_OVERRIDE" >> "$GITHUB_ENV"
-          echo "MODEL_PROFILE=${REQUESTED_PROFILE:-standard}" >> "$GITHUB_ENV"
-          echo "FORCE_GENERATION=${REQUESTED_FORCE:-false}" >> "$GITHUB_ENV"
-          echo "SKIP_EMBEDDINGS=${REQUESTED_SKIP_EMBEDDINGS:-true}" >> "$GITHUB_ENV"
-
-      - name: Generate daily edition
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
-          FAL_KEY: ${{ secrets.FAL_KEY }}
-          FAL_MODEL_PATH: ${{ vars.FAL_MODEL_PATH }}
-          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
-          GENERATE_PROMOTION: ${{ vars.GENERATE_PROMOTION }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
-          NYTIMES_API_KEY: ${{ secrets.NYTIMES_API_KEY }}
-          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
-          STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
-          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
-          OWNDASHBOARD_RUN_REPORT_URL: ${{ secrets.OWNDASHBOARD_RUN_REPORT_URL }}
-          OWNDASHBOARD_RUN_REPORT_TOKEN: ${{ secrets.OWNDASHBOARD_RUN_REPORT_TOKEN }}
-        run: pnpm generate:daily
-
-      - name: Refresh static intelligence data
-        continue-on-error: true
-        run: pnpm pulse:refresh
-
-      - name: Refresh semantic related issues
-        if: env.SKIP_EMBEDDINGS != 'true'
-        continue-on-error: true
-        env:
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
-        run: pnpm embed:refresh
-
-      - name: Verify generated publication
-        run: |
-          mkdir -p generated
-          set -o pipefail
-          pnpm verify 2>&1 | tee generated/validation.log
-
-      - name: Upload dry-run and telemetry artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: daily-${{ env.ISSUE_DATE }}-${{ github.run_id }}
-          retention-days: 30
-          if-no-files-found: warn
-          path: |
-            generated/run-reports/*.json
-            generated/validation.log
-            generated/newsletters/**
-            public/data/share/${{ env.ISSUE_DATE }}.*.json
-            content/articles/${{ env.ISSUE_DATE }}*.mdx
-            public/illustrations/${{ env.ISSUE_DATE }}*.webp
-
-      - name: Commit and push automatically
-        if: env.PUBLISH_MODE == 'auto'
-        run: |
-          git config user.name "aifirst-bot"
-          git config user.email "bot@aifirst"
-          git add content/articles public/illustrations public/data
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "daily: $ISSUE_DATE"
-          git push
-
-      - name: Open review pull request
-        if: env.PUBLISH_MODE == 'pull_request'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "aifirst-bot"
-          git config user.email "bot@aifirst"
-          branch="generated/daily-${ISSUE_DATE}-${ISSUE_LANGUAGE}-${GITHUB_RUN_ID}"
-          git switch -c "$branch"
-          git add content/articles public/illustrations public/data
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "daily(review): $ISSUE_DATE"
-          git push --set-upstream origin "$branch"
-          report=$(find generated/run-reports -name '*.json' -print -quit)
-          cost=$(jq -r '.totalCost.amount // "unavailable"' "$report")
-          signal=$(jq -r '.editorial.signalStrength // "unavailable"' "$report")
-          sources=$(jq -r '.editorial.citedSources' "$report")
-          gh pr create --title "Daily edition: $ISSUE_DATE" --body "Generated Caught Up daily edition. Language: $ISSUE_LANGUAGE. Cost: $cost USD. Signal: $signal. Cited sources: $sources. Validation: pnpm verify passed."
-
-      - name: Ping uptime heartbeat
-        if: success() && env.PUBLISH_MODE == 'auto'
-        continue-on-error: true
-        env:
-          HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
-        run: |
-          if [ -n "$HEARTBEAT_URL" ]; then curl -fsS --max-time 10 "$HEARTBEAT_URL"; fi
-
   sentinel:
-    if: github.event_name == 'schedule' && github.event.schedule == '0 7 * * *'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Check the Prague publication day
         id: publication
+        env:
+          REQUESTED_DATE: ${{ inputs.date }}
         run: |
-          issue_date="$(TZ=Europe/Prague date +%F)"
+          issue_date="${REQUESTED_DATE:-$(TZ=Europe/Prague date +%F)}"
+          if ! [[ "$issue_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || test "$(date -u -d "$issue_date" +%F 2>/dev/null)" != "$issue_date"; then
+            echo "date must be a real YYYY-MM-DD value"
+            exit 1
+          fi
           article="content/articles/${issue_date}.en.mdx"
           board="public/data/board/${issue_date}.json"
           echo "issue_date=$issue_date" >> "$GITHUB_OUTPUT"
-          if [ -f "$article" ]; then
+          if test -f "$article"; then
             echo "found edition: $article"
             exit 0
           fi
-          if [ -f "$board" ] && jq -e --arg date "$issue_date" '.status == "no_edition" and .date == $date' "$board" >/dev/null; then
+          if test -f "$board" && jq -e --arg date "$issue_date" '.status == "no_edition" and .date == $date' "$board" >/dev/null; then
             echo "found honest no-edition record: $board"
             exit 0
           fi

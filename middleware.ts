@@ -24,10 +24,6 @@ export function middleware(req: NextRequest) {
     pathname.startsWith("/en") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    // The secret promotion console is a top-level, non-localized route —
-    // don't rewrite it under /en/*.
-    pathname === "/promotion" ||
-    pathname.startsWith("/promotion/") ||
     pathname.endsWith("/print") ||
     HAS_EXTENSION.test(pathname)
   ) {

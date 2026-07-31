@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import validFixture from "../../../contracts/fixtures/edition-package.valid.json";
 import poisonFixture from "../../../contracts/fixtures/edition-package.poison.json";
 import { DeliveryError, editionPackageHash, materializeEditionPackage, parseEditionPackage, validateDeliveryPackage } from "../edition-package";
+import { quoteYamlDates } from "../mdx";
 
 const roots: string[] = [];
 afterEach(async () => Promise.all(roots.splice(0).map((root) => fs.rm(root, { recursive: true, force: true }))));
@@ -29,6 +30,11 @@ function deliveryFixture(): Record<string, any> {
 }
 
 describe("edition package consumer", () => {
+  it("preserves date and date-time frontmatter scalars as strings", () => {
+    expect(quoteYamlDates("date: 2026-08-04\ngenerated_at: 2026-08-04T03:55:00.000Z")).toBe(
+      'date: "2026-08-04"\ngenerated_at: "2026-08-04T03:55:00.000Z"',
+    );
+  });
   it("accepts the current major and additive unknown fields", () => {
     expect(validateDeliveryPackage(deliveryFixture()).schemaVersion).toBe("edition-package/1");
   });
@@ -61,6 +67,7 @@ describe("edition package consumer", () => {
     expect(JSON.stringify(board)).not.toContain("socialPackRef");
     const delivered = matter(await fs.readFile(path.join(root, "content/articles/2026-08-04.en.mdx"), "utf8"));
     expect(delivered.data.date).toBe("2026-08-04");
+    expect(typeof delivered.data.generation.generated_at).toBe("string");
     expect(delivered.data.generation.package_hash).toBe(pkg.idempotencyKey);
   });
 

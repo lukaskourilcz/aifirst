@@ -22,7 +22,7 @@ English is unprefixed; Czech uses `/cs`.
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
 - Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`, `/search`
 - Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/Sources/health JSON; static Open Graph
-- Operator-adjacent: sanitized noindex health, token-gated/unlisted/noindex `/promotion`, noindex `/admin` migration notice
+- Operator-adjacent: sanitized noindex health and the noindex `/admin` migration notice; `/promotion` is retired
 - Preserve redirects `/stats` and `/trends` → `/radar`, `/tags` → `/topics`, `/colophon` → `/about`, legacy articles/tags/feeds, locale behavior, and canonical metadata.
 
 Internal `dispatches` render as **Briefs / Ve zkratce**. Internal `wire` renders as **Watchlist / Na radaru**. Do not migrate stable storage keys for cosmetic consistency.
@@ -31,36 +31,32 @@ Internal `dispatches` render as **Briefs / Ve zkratce**. Internal `wire` renders
 
 The static path is deliberate:
 
-`sources.yml + config/*.yml → GitHub Actions → scrape → curate → write → optional illustration → validate → MDX/static artifacts/private telemetry → Git commit/review PR → Next.js static build → Vercel CDN`
-
-An optional bounded private run-report callback may reach OwnDashboard. Dashboard failure must never block scheduled publication.
+`BoardlessAI/quorum source + edition gates → EditionPackage v1 → content-only GitHub App commit → aifirst validation → Next.js static build → Vercel CDN`
 
 - Git and MDX are canonical. No content database, runtime CMS, reader auth/accounts, comments, per-request generation, runtime summary/chat, or runtime OwnDashboard dependency.
 - Reader pages never scrape sources or call a model.
 - Keep server components by default. Client boundaries are limited to actual interaction such as search, reading progress, keyboard help, or copy feedback.
-- Preserve GitHub Actions mutation/idempotency, static Next routes, Vercel delivery, CSP, analytics, and compatibility contracts.
+- Preserve delivery idempotency, static Next routes, Vercel delivery, CSP, analytics, and compatibility contracts.
+- No code path in this repository may scrape, call an editorial model, regenerate an edition, or accept BoardlessAI writes outside the four delivery paths.
 - Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking.
 
-## Content and generation
+## Content and delivery
 
-`lib/content.ts` is the frontmatter/read contract and legacy compatibility layer. `lib/content-write.ts` is the MDX serialization path. Schema v2 adds `why_it_matters`, `what_changed`, `uncertainty`, structured evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, and alternative headlines while retaining legacy MDX.
+`lib/content.ts` is the frontmatter/read contract and legacy compatibility layer. `lib/delivery/` is the only write boundary and validates `edition-package/1`, exact MDX serialization, bilingual parity, authorized paths and same-date hashes. Schema v2 adds `why_it_matters`, `what_changed`, `uncertainty`, structured evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, and alternative headlines while retaining legacy MDX.
 
-The daily/weekly pipeline already performs committed config loading, idempotency, per-source isolation, structured curation/writing, requested locales, quality/source/diversity/duplicate checks, provider-usage cost calculation, optional illustration/promotion, persistence, static distribution output, private run reports, and an optional callback. Preserve these stages and their tests.
-
-- Resolve models through `lib/anthropic/models.ts` and `config/editorial.yml`; do not duplicate IDs.
-- Illustration defaults to `none`; quality enforcement defaults to `report_only`; budgets remain unset unless operations intentionally change.
-- Do not enable paid media, extra model passes, locale expansion, or stricter enforcement as a side effect of product work.
+- Editorial production, source collection, regeneration, illustration composition and social promotion are owned by Quorum. Do not recreate dormant fallbacks here.
+- The daily workflow is a sentinel only. Weekly pages render existing committed content; there is no weekly generation workflow.
 - Never fabricate sources, provenance, metrics, human review, or cost.
 
 ## Important paths and reuse
 
 - `app/`: App Router pages, feeds, JSON, metadata, OG, print
 - `components/`: shared reader/editorial UI
-- `lib/content.ts`, `lib/content-write.ts`: content reads/writes
+- `lib/content.ts`, `lib/delivery/`: content reads and the bounded package consumer
 - `lib/i18n/`: locale dictionaries/path/metadata helpers
 - `lib/editorial/`: validation/config-facing editorial contracts
-- `lib/pipeline/`, `lib/scraping/`, `lib/anthropic/`, `lib/telemetry/`: generation system
-- `config/`, `sources.yml`: committed operations/editorial configuration
+- `lib/sources.ts`, `sources.yml`: read-only citation registry
+- `config/`: reader validation, topics and board changelog configuration
 - `docs/design/`: product audit, thesis, brand/design system, QA, and queued media production
 - `.claude/`: project skills, agents, and executable workflow commands
 
