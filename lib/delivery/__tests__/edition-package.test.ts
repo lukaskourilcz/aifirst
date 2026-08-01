@@ -39,6 +39,16 @@ describe("edition package consumer", () => {
     expect(validateDeliveryPackage(deliveryFixture()).schemaVersion).toBe("edition-package/1");
   });
 
+  it("accepts an edition when BoardlessAI has social production switched off", () => {
+    const value = deliveryFixture();
+    delete value.socialPackRef;
+    const hash = editionPackageHash(value);
+    value.idempotencyKey = hash;
+    value.article.en.frontmatter.generation.package_hash = hash;
+    value.article.cs.frontmatter.generation.package_hash = hash;
+    expect(validateDeliveryPackage(value).status).toBe("edition");
+  });
+
   it("rejects the wrong-major poison fixture before writing", () => {
     expect(() => parseEditionPackage(poisonFixture)).toThrowError(DeliveryError);
     try { parseEditionPackage(poisonFixture); } catch (error) { expect((error as DeliveryError).code).toBe("schema_invalid"); }
