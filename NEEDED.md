@@ -7,8 +7,8 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Required for unattended BoardlessAI delivery
 
-- [ ] **Install the `boardlessai-delivery` GitHub App on `lukaskourilcz/aifirst` only** — grant repository contents read/write and no broader repository permission; keep its App ID and private key only in Quorum Actions secrets. [imp:5] [owner:me] [time:30m] [kind:setup]
-- [ ] **Review the first three delivered editions** — for each delivery, check the English article at `/articles/<slug>`, the Czech article at `/cs/articles/<slug>`, source links, board context, the Vercel deployment and both social packs in the protected [BoardlessAI admin](https://quorum-site-chi.vercel.app/admin). [imp:5] [owner:me] [time:60m] [kind:content]
+- [x] **Install the `boardlessai-delivery` GitHub App on `lukaskourilcz/aifirst`** — the scoped installation token succeeded on 2026-08-01. Keep repository Contents read/write as its only write permission and keep the App ID and private key only in BoardlessAI Actions secrets. [imp:5] [owner:me] [time:30m] [kind:setup]
+- [ ] **Review the first three delivered editions** — for each delivery, check the English article at `/articles/<slug>`, the Czech article at `/cs/articles/<slug>`, source links, board context, the Vercel deployment and any enabled social drafts in the protected [BoardlessAI admin](https://boardless-ai.vercel.app/admin). Social drafting is switched off for now. [imp:5] [owner:me] [time:60m] [kind:content]
 - [ ] **Remove the retired aifirst Anthropic secret and audit Vercel** — GitHub still listed `ANTHROPIC_API_KEY` on 2026-07-31 even though no workflow or runtime reads it. Delete it from `lukaskourilcz/aifirst`, then remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project. Rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials or the optional OwnDashboard sentinel pair if you still use that receiver. [imp:5] [owner:me] [time:20m] [kind:setup]
 
 ## Product decisions
@@ -28,5 +28,8 @@ credentials or judgment; there is no second generation setup to maintain here.
 - Vercel Web Analytics is enabled.
 - The repository contains no scraper, editorial model client, article writer,
   media generator, social console or weekly/regeneration workflow.
+- The exact package consumer was rehearsed in a clean checkout on 2026-08-01:
+  it wrote the bilingual issue and hero, accepted an identical replay as a no-op,
+  passed content validation and produced both article routes in a production build.
 - `/admin` in Caught Up is a noindex handoff link to the protected BoardlessAI
   social archive. Caught Up itself has no operator login or content database.
