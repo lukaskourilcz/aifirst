@@ -12,6 +12,7 @@ export function IssueMasthead({
   heroPhoto,
   heroAlt,
   heroCaption,
+  heroAttribution,
   locale,
 }: {
   label: string;
@@ -24,6 +25,7 @@ export function IssueMasthead({
   heroPhoto: string | null;
   heroAlt: string;
   heroCaption?: string;
+  heroAttribution?: { author: string; license: string; sourceUrl: string; text: string };
   locale: Locale;
 }) {
   const t = dict(locale).common;
@@ -61,7 +63,13 @@ export function IssueMasthead({
             fetchPriority="high"
             decoding="async"
           />
-          {heroCaption ? <figcaption>{heroCaption}</figcaption> : null}
+          {heroAttribution ? (
+            <figcaption>
+              <a href={heroAttribution.sourceUrl} target="_blank" rel="noopener noreferrer">
+                {heroAttribution.text || `${heroAttribution.author} · ${heroAttribution.license}`}
+              </a>
+            </figcaption>
+          ) : heroCaption ? <figcaption>{heroCaption}</figcaption> : null}
         </figure>
       ) : null}
     </section>

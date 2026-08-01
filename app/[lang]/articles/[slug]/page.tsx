@@ -124,6 +124,7 @@ export default async function ArticlePage({
 
   return (
     <>
+      {fm.generation?.package_hash ? <meta name="boardless-content-hash" content={fm.generation.package_hash} /> : null}
       <ReadingProgress />
       <StructuredData data={{
         "@context": "https://schema.org",
@@ -170,6 +171,12 @@ export default async function ArticlePage({
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
+        heroAttribution={heroPhoto === fm.illustration.path && fm.illustration.attribution ? {
+          author: fm.illustration.attribution.author,
+          license: fm.illustration.attribution.license,
+          sourceUrl: fm.illustration.attribution.source_url,
+          text: fm.illustration.attribution.text,
+        } : undefined}
         locale={locale}
       />
 

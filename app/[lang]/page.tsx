@@ -97,6 +97,7 @@ export default async function HomePage({
 
   return (
     <>
+      {fm.generation?.package_hash ? <meta name="boardless-content-hash" content={fm.generation.package_hash} /> : null}
       <StructuredData data={{
         "@context": "https://schema.org",
         "@graph": [
@@ -149,6 +150,12 @@ export default async function HomePage({
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
+        heroAttribution={heroPhoto === fm.illustration.path && fm.illustration.attribution ? {
+          author: fm.illustration.attribution.author,
+          license: fm.illustration.attribution.license,
+          sourceUrl: fm.illustration.attribution.source_url,
+          text: fm.illustration.attribution.text,
+        } : undefined}
         locale={locale}
       />
 

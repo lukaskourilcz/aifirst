@@ -19,6 +19,9 @@ async function tempRoot() {
 
 function deliveryFixture(): Record<string, any> {
   const value = structuredClone(validFixture) as Record<string, any>;
+  const svg = (width: number, height: number) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" fill="#111"/></svg>`;
+  value.image.hero_bytes_base64 = Buffer.from(svg(1600, 900)).toString("base64");
+  value.image.thumb_bytes_base64 = Buffer.from(svg(640, 360)).toString("base64");
   value.article.en.frontmatter.why_it_matters.push("Production limits still decide the realized saving.");
   value.article.cs.frontmatter.why_it_matters.push("Skutečnou úsporu stále určují produkční limity.");
   value.futureConsumerField = { accepted: true };
@@ -69,7 +72,8 @@ describe("edition package consumer", () => {
       "content/articles/2026-08-04.cs.mdx",
       "content/articles/2026-08-04.en.mdx",
       "public/data/board/2026-08-04.json",
-      "public/illustrations/2026-08-04.webp",
+      "public/images/editions/2026-08-04-measured-model-price-cut/hero.svg",
+      "public/images/editions/2026-08-04-measured-model-price-cut/thumb.svg",
     ]);
     expect((await materializeEditionPackage(pkg, root)).status).toBe("noop");
     const board = JSON.parse(await fs.readFile(path.join(root, "public/data/board/2026-08-04.json"), "utf8"));
@@ -127,7 +131,7 @@ describe("edition package consumer", () => {
     const mutations = [
       async (root: string) => fs.appendFile(path.join(root, "content/articles/2026-08-04.cs.mdx"), "\nchanged\n"),
       async (root: string) => fs.appendFile(path.join(root, "public/data/board/2026-08-04.json"), "\n"),
-      async (root: string) => fs.appendFile(path.join(root, "public/illustrations/2026-08-04.webp"), Buffer.from([0])),
+      async (root: string) => fs.appendFile(path.join(root, "public/images/editions/2026-08-04-measured-model-price-cut/hero.svg"), Buffer.from([0])),
       async (root: string) => fs.rm(path.join(root, "content/articles/2026-08-04.cs.mdx")),
     ];
     for (const mutate of mutations) {

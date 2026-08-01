@@ -50,6 +50,7 @@ export type GenerationProvenance = {
   cited_sources?: number;
   image_provider?: string;
   cost?: { amount: number; currency: string };
+  package_hash?: string;
 };
 
 export type Sponsor = {
@@ -72,7 +73,21 @@ export type ArticleFrontmatter = {
   alternative_headlines?: string[];
   tags: string[];
   sources: SourceRef[];
-  illustration: { path?: string; prompt: string; alt: string };
+  illustration: {
+    path?: string;
+    thumbnail_path?: string;
+    prompt: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    origin?: "photo" | "svg";
+    attribution?: {
+      license: string;
+      author: string;
+      source_url: string;
+      text: string;
+    };
+  };
   signal_strength?: number;
   schema_version?: number;
   why_it_matters?: string[];
@@ -145,7 +160,7 @@ export function hasRealIllustration(illustrationPath?: string): boolean {
   let real = false;
   if (existsSync(abs)) {
     try {
-      real = statSync(abs).size >= REAL_ILLUSTRATION_MIN_BYTES;
+      real = illustrationPath.startsWith("/images/editions/") || statSync(abs).size >= REAL_ILLUSTRATION_MIN_BYTES;
     } catch {
       real = false;
     }
@@ -169,6 +184,12 @@ export function resolveHeroPhoto(fm: Partial<ArticleFrontmatter>): string | null
     if (img) return img;
   }
   return null;
+}
+
+function resolveThumbnailPhoto(fm: Partial<ArticleFrontmatter>): string | null {
+  const thumbnail = fm.illustration?.thumbnail_path;
+  if (hasRealIllustration(thumbnail)) return thumbnail ?? null;
+  return resolveHeroPhoto(fm);
 }
 
 export async function readMdxFiles(dir: string): Promise<string[]> {
@@ -252,7 +273,7 @@ function toSummary(
   fallback: boolean,
 ): ArticleSummary | null {
   if (!fm.slug || !fm.date || !fm.title) return null;
-  const heroPhoto = resolveHeroPhoto(fm) ?? undefined;
+  const heroPhoto = resolveThumbnailPhoto(fm) ?? undefined;
   return {
     slug: fm.slug,
     date: fm.date,

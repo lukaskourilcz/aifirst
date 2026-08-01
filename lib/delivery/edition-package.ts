@@ -6,10 +6,29 @@ import editionPackageSchema from "../../contracts/edition-package.schema.json";
 import type { ArticleFrontmatter } from "../content.js";
 import { serializeDeliveredMdx } from "./mdx.js";
 import { translationStructureErrors, validateArticleFrontmatter } from "../editorial/validation.js";
+import sharp from "sharp";
 
 type LocalizedArticle = {
   frontmatter: ArticleFrontmatter;
   body: string;
+};
+
+export type ArticleImage = {
+  hero_path: string;
+  thumb_path: string;
+  width: number;
+  height: number;
+  alt_en: string;
+  alt_cs: string;
+  license: {
+    name: "CC0" | "CC BY" | "CC BY-SA" | "Pexels License" | "Pixabay Content License" | "BoardlessAI deterministic";
+    author: string;
+    source_url: string;
+    attribution_html: string;
+  };
+  origin: "photo" | "svg";
+  hero_bytes_base64: string;
+  thumb_bytes_base64: string;
 };
 
 export type EditionPackage = {
@@ -26,6 +45,7 @@ export type EditionPackage = {
   };
   status: "edition" | "no_edition";
   article?: { en: LocalizedArticle; cs: LocalizedArticle };
+  image?: ArticleImage;
   hero?: { path: string; bytesBase64: string };
 };
 
@@ -86,6 +106,7 @@ function contentErrors(pkg: EditionPackage): string[] {
   if (pkg.idempotencyKey !== editionPackageHash(pkg)) return ["idempotencyKey does not match the canonical package hash"];
   if (pkg.status === "no_edition") return [];
   if (!pkg.article) return ["edition package is missing article content"];
+  if (!pkg.image) return ["edition package is missing its required image block"];
 
   const errors: string[] = [];
   const entries = (["en", "cs"] as const).map((locale) => {
@@ -101,18 +122,30 @@ function contentErrors(pkg: EditionPackage): string[] {
     return { file, fm: localized.frontmatter };
   }).filter((entry): entry is { file: string; fm: ArticleFrontmatter } => entry !== null);
   errors.push(...translationStructureErrors(entries));
-  if (pkg.hero) {
-    if (pkg.hero.path !== `public/illustrations/${pkg.date}.webp`) errors.push("hero path must match the authorized date path");
-    for (const locale of ["en", "cs"] as const) {
-      if (pkg.article[locale].frontmatter.illustration.path !== `/illustrations/${pkg.date}.webp`) {
-        errors.push(`${pkg.date}.${locale}.mdx: illustration.path must match the delivered hero`);
-      }
+  const slug = pkg.article.en.frontmatter.slug;
+  const assetPattern = new RegExp(`^public/images/editions/${slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/(hero|thumb)\\.(webp|png|svg)$`);
+  if (!assetPattern.test(pkg.image.hero_path) || !pkg.image.hero_path.includes("/hero.")) {
+    errors.push("image.hero_path must use the article's authorized hero path");
+  }
+  if (!assetPattern.test(pkg.image.thumb_path) || !pkg.image.thumb_path.includes("/thumb.")) {
+    errors.push("image.thumb_path must use the article's authorized thumbnail path");
+  }
+  if (pkg.image.hero_path === pkg.image.thumb_path) errors.push("hero and thumbnail paths must differ");
+  if (Buffer.byteLength(pkg.image.hero_bytes_base64, "base64") > 800_000) errors.push("hero image exceeds 800 kB");
+  if (Buffer.byteLength(pkg.image.thumb_bytes_base64, "base64") > 300_000) errors.push("thumbnail image exceeds 300 kB");
+  const expectedPath = pkg.image.hero_path.replace(/^public/, "");
+  const expectedThumb = pkg.image.thumb_path.replace(/^public/, "");
+  for (const locale of ["en", "cs"] as const) {
+    const illustration = pkg.article[locale].frontmatter.illustration;
+    if (illustration.path?.startsWith("/images/") && illustration.path !== expectedPath) {
+      errors.push(`${pkg.date}.${locale}.mdx: illustration.path must match the delivered image`);
     }
-  } else {
-    for (const locale of ["en", "cs"] as const) {
-      if (pkg.article[locale].frontmatter.illustration.path !== undefined) {
-        errors.push(`${pkg.date}.${locale}.mdx: illustration.path requires a delivered hero`);
-      }
+    if (illustration.thumbnail_path && illustration.thumbnail_path !== expectedThumb) {
+      errors.push(`${pkg.date}.${locale}.mdx: illustration.thumbnail_path must match the delivered image`);
+    }
+    const expectedAlt = locale === "en" ? pkg.image.alt_en : pkg.image.alt_cs;
+    if (illustration.origin && illustration.alt !== expectedAlt) {
+      errors.push(`${pkg.date}.${locale}.mdx: illustration.alt must match the delivered locale`);
     }
   }
   return errors;
@@ -138,6 +171,9 @@ function boardBytes(pkg: EditionPackage): string {
     ...(pkg.status === "edition" ? { whyThisStory: pkg.board.whyThisStory } : { noEditionReason: pkg.board.noEditionReason }),
     roomUrl: pkg.board.roomUrl,
     ...(pkg.generation.costUsd === undefined ? {} : { generationCostUsd: pkg.generation.costUsd }),
+    ...(pkg.status === "edition" && pkg.image
+      ? { image: { heroPath: pkg.image.hero_path, thumbPath: pkg.image.thumb_path, origin: pkg.image.origin } }
+      : {}),
   };
   return `${JSON.stringify(context, null, 2)}\n`;
 }
@@ -178,8 +214,34 @@ async function writePrepared(files: Array<{ file: string; bytes: string | Buffer
   }
 }
 
+async function validateImageBytes(pkg: EditionPackage): Promise<void> {
+  if (pkg.status !== "edition" || !pkg.image) return;
+  const hero = Buffer.from(pkg.image.hero_bytes_base64, "base64");
+  const thumb = Buffer.from(pkg.image.thumb_bytes_base64, "base64");
+  if (!hero.length || !thumb.length) throw new DeliveryError("content_invalid", "delivered image bytes are empty");
+  try {
+    const [heroMetadata, thumbMetadata] = await Promise.all([sharp(hero).metadata(), sharp(thumb).metadata()]);
+    if (heroMetadata.width !== pkg.image.width || heroMetadata.height !== pkg.image.height) {
+      throw new Error(`hero dimensions ${heroMetadata.width ?? 0}x${heroMetadata.height ?? 0} differ from ${pkg.image.width}x${pkg.image.height}`);
+    }
+    if (thumbMetadata.width !== 640 || thumbMetadata.height !== 360) {
+      throw new Error(`thumbnail dimensions ${thumbMetadata.width ?? 0}x${thumbMetadata.height ?? 0} differ from 640x360`);
+    }
+    if (pkg.image.origin === "photo" && !["webp", "png", "jpeg"].includes(heroMetadata.format ?? "")) {
+      throw new Error("licensed photo is not a supported raster image");
+    }
+    if (pkg.image.origin === "svg" && heroMetadata.format !== "svg") {
+      throw new Error("FRAME fallback must contain SVG bytes");
+    }
+  } catch (error) {
+    if (error instanceof DeliveryError) throw error;
+    throw new DeliveryError("content_invalid", error instanceof Error ? error.message : "delivered image is invalid");
+  }
+}
+
 export async function materializeEditionPackage(value: unknown, root = process.cwd()): Promise<DeliveryResult> {
   const pkg = validateDeliveryPackage(value);
+  await validateImageBytes(pkg);
   const boardFile = path.join(root, "public", "data", "board", `${pkg.date}.json`);
   const englishFile = path.join(root, "content", "articles", `${pkg.date}.en.mdx`);
   const prepared: Array<{ file: string; bytes: string | Buffer }> = [{ file: boardFile, bytes: boardBytes(pkg) }];
@@ -188,7 +250,12 @@ export async function materializeEditionPackage(value: unknown, root = process.c
       { file: englishFile, bytes: mdxBytes(pkg.article.en) },
       { file: path.join(root, "content", "articles", `${pkg.date}.cs.mdx`), bytes: mdxBytes(pkg.article.cs) },
     );
-    if (pkg.hero) prepared.push({ file: path.join(root, "public", "illustrations", `${pkg.date}.webp`), bytes: Buffer.from(pkg.hero.bytesBase64, "base64") });
+    if (pkg.image) {
+      prepared.push(
+        { file: path.join(root, pkg.image.hero_path), bytes: Buffer.from(pkg.image.hero_bytes_base64, "base64") },
+        { file: path.join(root, pkg.image.thumb_path), bytes: Buffer.from(pkg.image.thumb_bytes_base64, "base64") },
+      );
+    }
   }
 
   const existing = await Promise.all(prepared.map(({ file }) => existingBytes(file)));

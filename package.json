@@ -21,8 +21,6 @@
     "e2e": "playwright test"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
     "gray-matter": "^4.0.3",
     "next": "^15.5.22",
     "next-mdx-remote": "^6.0.0",

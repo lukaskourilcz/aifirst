@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { IBM_Plex_Mono, Source_Serif_4, Space_Grotesk } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
 import { siteUrl } from "@/lib/config";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -10,7 +8,6 @@ import { brand } from "@/lib/brand";
 import "./globals.css";
 
 const d = dict(DEFAULT_LOCALE);
-const vercelTelemetryEnabled = process.env.VERCEL === "1";
 
 // Source Serif 4 carries long-form reading and descriptive editorial copy.
 // Latin Extended keeps the Czech edition native.
@@ -65,8 +62,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${display.variable} ${mono.variable}`}>
       <body>
         {children}
-        {vercelTelemetryEnabled ? <SpeedInsights /> : null}
-        {vercelTelemetryEnabled ? <Analytics /> : null}
       </body>
     </html>
   );
