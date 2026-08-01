@@ -9,7 +9,7 @@ It is not a producer and a dashboard outage cannot block the reader.
 - BoardlessAI in `lukaskourilcz/quorum` owns collection, edition production,
   budgets, meeting records, delivery status and reconciliation.
 - The `boardlessai-delivery` GitHub App may write only dated article MDX, the
-  matching optional hero and sanitized board JSON in aifirst.
+  matching required hero for each new article and sanitized board JSON in aifirst.
 - aifirst owns independent content/build validation and the reader.
 - `daily.yml` is only a 07:00 UTC missed-publication sentinel.
 
