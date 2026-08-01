@@ -56,8 +56,8 @@ write an edition or call a provider.
 ## Validation boundary
 
 The delivery consumer validates the `edition-package/1` schema, canonical hash,
-exact English/Czech MDX bytes, optional hero path, authorized output paths and
-same-date replay. A replay succeeds only when every existing output is complete
+exact English/Czech MDX bytes, the required hero and attribution, authorized
+output paths and same-date replay. A replay succeeds only when every existing output is complete
 and byte-identical. Content checks then validate schema-v2 provenance, source
 registry IDs, bilingual linkage, corrections, sponsorship safety and board
 context before Vercel builds.

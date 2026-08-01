@@ -7,8 +7,6 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Required for unattended BoardlessAI delivery
 
-- [x] **Install the `boardlessai-delivery` GitHub App on `lukaskourilcz/aifirst`** — the scoped installation token succeeded on 2026-08-01. Keep repository Contents read/write as its only write permission and keep the App ID and private key only in BoardlessAI Actions secrets. [imp:5] [owner:me] [time:30m] [kind:setup]
-- [ ] **Review the first three delivered editions** — for each delivery, check the English article at `/articles/<slug>`, the Czech article at `/cs/articles/<slug>`, source links, board context, the Vercel deployment and any enabled social drafts in the protected [BoardlessAI admin](https://boardless-ai.vercel.app/admin). Social drafting is switched off for now. [imp:5] [owner:me] [time:60m] [kind:content]
 - [ ] **Remove the retired aifirst Anthropic secret and audit Vercel** — GitHub still listed `ANTHROPIC_API_KEY` on 2026-07-31 even though no workflow or runtime reads it. Delete it from `lukaskourilcz/aifirst`, then remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project. Rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials or the optional OwnDashboard sentinel pair if you still use that receiver. [imp:5] [owner:me] [time:20m] [kind:setup]
 
 ## Product decisions
@@ -25,7 +23,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 - Vercel Pro coverage is confirmed; the production branch is `main` and the
   canonical reader URL is `https://caughtup-ai.vercel.app`.
-- Vercel Web Analytics is enabled.
+- Visitor and engagement analytics are deliberately removed for this phase.
 - The repository contains no scraper, editorial model client, article writer,
   media generator, social console or weekly/regeneration workflow.
 - The exact package consumer was rehearsed in a clean checkout on 2026-08-01:

@@ -100,7 +100,7 @@ pnpm check:content
 pnpm build
 ```
 
-The consumer can write only dated English/Czech MDX, the matching optional hero,
+The consumer can write only dated English/Czech MDX, the matching required hero,
 and sanitized board JSON. A delivered date is immutable: a complete,
 byte-identical replay succeeds without a write. A missing or changed output file
 is a reconciliation error even when another file still carries the package
@@ -162,8 +162,8 @@ dates, sponsorship safety and weekly linkage.
 
 Existing provider-independent share/newsletter artifacts remain readable. New
 editorial generation, measured costs, source outcomes and social packs stay in
-BoardlessAI; the delivery boundary exposes only article bytes, one optional
-dated hero and sanitized board context. The weekly page and feeds continue to
+BoardlessAI; the delivery boundary exposes only article bytes, one required
+dated hero for each new article and sanitized board context. The weekly page and feeds continue to
 render committed content until a future board proposal replaces the retired
 writer. The protected social archive is at BoardlessAI `/admin`; Caught Up
 `/admin` is only a noindex handoff link.

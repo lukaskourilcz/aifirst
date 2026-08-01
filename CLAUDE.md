@@ -83,11 +83,12 @@ Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avo
 
 ## Media boundary
 
-BoardlessAI owns illustration selection, generation and provenance. Caught Up
-accepts only the optional dated WebP authorized by `edition-package/1`, serves
-it locally and renders a complete text-first issue when it is absent. Do not
-add provider credentials, generation adapters, Topic-cover production or
-social-media assets to this repository.
+BoardlessAI owns illustration selection, generation and provenance. Every new
+`edition-package/1` article must include exactly one dated WebP with validated
+dimensions and attribution; Caught Up rehosts and serves it locally. Historical
+and legacy issues may still have no image, so the reader must keep its complete
+text-first fallback. Do not add provider credentials, generation adapters,
+Topic-cover production or social-media assets to this repository.
 
 ## Responsive, accessibility, localization, and states
 

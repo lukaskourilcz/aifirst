@@ -132,8 +132,8 @@ new board proposal instead of a dormant fallback.
 3. Reject a wrong major, content mismatch or unauthorized hero path.
 4. If the English date already exists, accept only the same package hash as a
    success no-op; a different hash fails closed.
-5. Materialize only dated English/Czech MDX, optional dated WebP and sanitized
-   board JSON through temporary files.
+5. Materialize only dated English/Czech MDX, the required dated WebP and
+   sanitized board JSON through temporary files.
 6. Run `check:content`, commit only those authorized paths, and let Vercel run
    the same validation independently during build.
 

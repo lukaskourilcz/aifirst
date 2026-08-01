@@ -11,7 +11,7 @@ reader.
 - **Reader:** Next.js App Router, React and strict TypeScript.
 - **Content:** Git-tracked MDX in `content/articles/`; Git is canonical.
 - **Delivery:** `edition-package/1` consumer restricted to dated bilingual MDX,
-  one optional dated WebP and sanitized board context.
+  one required dated WebP for each new article and sanitized board context.
 - **Automation:** GitHub Actions CI plus a Prague-aware missed-publication
   sentinel; no generation workflow runs here.
 - **Deployment:** Vercel Pro static/SSG output with Web Analytics and Speed
