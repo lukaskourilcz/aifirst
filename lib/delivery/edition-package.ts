@@ -155,6 +155,18 @@ function asBuffer(bytes: string | Buffer): Buffer {
   return Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
 }
 
+function isProvisionalNoEditionBoard(bytes: Buffer | null, pkg: EditionPackage): boolean {
+  if (!bytes || pkg.status !== "edition") return false;
+  try {
+    const board = JSON.parse(bytes.toString("utf8")) as Record<string, unknown>;
+    return board.schemaVersion === "board-context/1" &&
+      board.date === pkg.date &&
+      board.status === "no_edition";
+  } catch {
+    return false;
+  }
+}
+
 async function writePrepared(files: Array<{ file: string; bytes: string | Buffer }>): Promise<void> {
   for (const { file } of files) await fs.mkdir(path.dirname(file), { recursive: true });
   const staged = files.map(({ file, bytes }) => ({ file, temp: `${file}.boardlessai-${process.pid}.tmp`, bytes }));
@@ -181,6 +193,18 @@ export async function materializeEditionPackage(value: unknown, root = process.c
 
   const existing = await Promise.all(prepared.map(({ file }) => existingBytes(file)));
   if (existing.some((bytes) => bytes !== null)) {
+    const [existingBoard, ...existingArticleFiles] = existing;
+    if (
+      isProvisionalNoEditionBoard(existingBoard ?? null, pkg) &&
+      existingArticleFiles.every((bytes) => bytes === null)
+    ) {
+      await writePrepared(prepared);
+      return {
+        status: "written",
+        packageHash: pkg.idempotencyKey,
+        paths: prepared.map(({ file }) => path.relative(root, file)),
+      };
+    }
     const conflictIndex = existing.findIndex((bytes, index) => bytes === null || !bytes.equals(asBuffer(prepared[index]!.bytes)));
     if (conflictIndex === -1) return { status: "noop", packageHash: pkg.idempotencyKey, paths: [] };
     const conflictFile = prepared[conflictIndex]!.file;

@@ -84,6 +84,34 @@ describe("edition package consumer", () => {
     await expect(materializeEditionPackage(second, root)).rejects.toMatchObject({ code: "hash_conflict" });
   });
 
+  it("upgrades a provisional same-day no-edition board to the first real edition", async () => {
+    const root = await tempRoot();
+    const provisional: Record<string, any> = {
+      schemaVersion: "edition-package/1",
+      date: "2026-08-04",
+      idempotencyKey: "0".repeat(64),
+      status: "no_edition",
+      board: {
+        meetingRef: "meetings/2026-08-04-cu-edition",
+        roomUrl: "https://boardless.example/meetings/2026-08-04-cu-edition",
+        noEditionReason: "content_invalid_after_regeneration",
+      },
+      generation: { models: { curation: "claude-sonnet-4-6" }, costUsd: 0.03 },
+      reason: "cu-edition decision meetings/2026-08-04-cu-edition",
+    };
+    provisional.idempotencyKey = editionPackageHash(provisional);
+    await materializeEditionPackage(provisional, root);
+
+    const result = await materializeEditionPackage(deliveryFixture(), root);
+    expect(result.status).toBe("written");
+    const board = JSON.parse(await fs.readFile(
+      path.join(root, "public/data/board/2026-08-04.json"),
+      "utf8"
+    ));
+    expect(board).toMatchObject({ status: "edition" });
+    await expect(fs.stat(path.join(root, "content/articles/2026-08-04.en.mdx"))).resolves.toBeDefined();
+  });
+
   it("fails closed when any replayed sibling is missing or changed", async () => {
     const pkg = deliveryFixture();
     const mutations = [
