@@ -5,9 +5,11 @@ owner actions without preserving the retired in-repository generation setup.
 
 ## 1. Install the delivery App
 
-Create or use the GitHub App named `boardlessai-delivery`, install it only on
-`lukaskourilcz/aifirst`, and grant only repository contents read/write. Put the
-App ID and private key in the Quorum repository’s Actions secrets as
+Create or use the GitHub App named `boardlessai-delivery`, include
+`lukaskourilcz/aifirst` in its approved repository installation, and grant only
+repository contents read/write. The same installation can include the separately
+approved MMA Files content target. Put the App ID and private key in the BoardlessAI
+repository’s Actions secrets as
 `DELIVERY_APP_ID` and `DELIVERY_APP_PRIVATE_KEY`. Do not add either secret to
 aifirst or Vercel.
 
@@ -30,14 +32,14 @@ For three consecutive live editions:
    `/cs/articles/<slug>`.
 2. Check that both editions cite the same evidence and that Czech reads
    naturally rather than as a literal translation.
-3. Open the protected [BoardlessAI admin](https://quorum-site-chi.vercel.app/admin)
-   and review both Instagram carousels, captions and Threads posts.
+3. Open the protected [BoardlessAI admin](https://boardless-ai.vercel.app/admin)
+   and review the edition record. Social production is currently switched off.
 4. Confirm the aifirst validation workflow and the Vercel production deployment
    succeeded.
 
-The admin uses browser Basic Auth. Configure `ADMIN_USER` and `ADMIN_PASSWORD`
-in the BoardlessAI Vercel project if they are not already present. Social items
-remain drafts; carousel autopublishing is not enabled.
+The admin uses a username/password login and a signed session. Configure
+`ADMIN_USER` and `ADMIN_PASSWORD` in the BoardlessAI Vercel project if they are
+not already present. Social production remains off and autopublishing is not enabled.
 
 Optional health, Jina and OwnDashboard tasks remain listed in `NEEDED.md` with
 their exact scope. None is required to publish the reader.
