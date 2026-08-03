@@ -159,3 +159,43 @@ describe("edition package consumer", () => {
     await expect(fs.stat(path.join(root, "content/articles/2026-08-05.en.mdx"))).rejects.toMatchObject({ code: "ENOENT" });
   });
 });
+
+describe("a Czech-only edition", () => {
+  // Both magazines are moving to Czech only. The consumer has to accept a package with no
+  // English half before the orchestrator ever sends one, because delivery fails closed and
+  // reverts: a consumer one step behind rejects a package that is perfectly good.
+  function czechOnlyFixture(): Record<string, any> {
+    const value = deliveryFixture();
+    delete value.article.en;
+    const hash = editionPackageHash(value);
+    value.idempotencyKey = hash;
+    value.article.cs.frontmatter.generation.package_hash = hash;
+    return value;
+  }
+
+  it("is accepted and writes only the Czech article", async () => {
+    const root = await tempRoot();
+    const value = czechOnlyFixture();
+    const result = await materializeEditionPackage(value, root);
+    expect(result.status).toBe("written");
+    const written = result.paths.map((file) => file.split(path.sep).join("/")).sort();
+    expect(written).toEqual([
+      `content/articles/${value.date}.cs.mdx`,
+      `public/data/board/${value.date}.json`,
+      value.image.hero_path,
+      value.image.thumb_path,
+    ].sort());
+    expect(written.some((file) => file.endsWith(".en.mdx")), "no empty English file").toBe(false);
+    const body = await fs.readFile(path.join(root, "content", "articles", `${value.date}.cs.mdx`), "utf8");
+    expect(matter(body).data.lang).toBe("cs");
+  });
+
+  it("is still rejected when Czech is the half that is missing", () => {
+    const value = deliveryFixture();
+    delete value.article.cs;
+    const hash = editionPackageHash(value);
+    value.idempotencyKey = hash;
+    value.article.en.frontmatter.generation.package_hash = hash;
+    expect(() => validateDeliveryPackage(value)).toThrow(DeliveryError);
+  });
+});

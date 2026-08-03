@@ -188,8 +188,11 @@ export default async function ArticlePage({
       <section className="article-with-aside enter enter-2">
         <article className="article-with-aside__main">
           {article.fallback && (
-            <p className="fallback-notice">
-              {d.article.enOnlyNotice}
+            // Name the language actually being served. The notice was hard-coded to English,
+            // so a Czech-only issue read at /en announced itself as English-only while
+            // rendering Czech.
+            <p className="fallback-notice" lang={article.lang}>
+              {article.lang === "cs" ? d.article.csOnlyNotice : d.article.enOnlyNotice}
             </p>
           )}
           {isWeekly && fm.digest && (

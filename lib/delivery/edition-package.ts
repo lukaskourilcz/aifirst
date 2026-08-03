@@ -122,7 +122,9 @@ function contentErrors(pkg: EditionPackage): string[] {
     return { file, fm: localized.frontmatter };
   }).filter((entry): entry is { file: string; fm: ArticleFrontmatter } => entry !== null);
   errors.push(...translationStructureErrors(entries));
-  const slug = pkg.article.en.frontmatter.slug;
+  // Czech is the locale that is always delivered; English is optional and on its way out.
+  // The slug is identical across locales, so it is read from the half that cannot be absent.
+  const slug = pkg.article.cs.frontmatter.slug;
   const assetPattern = new RegExp(`^public/images/editions/${slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/(hero|thumb)\\.(webp|png|svg)$`);
   if (!assetPattern.test(pkg.image.hero_path) || !pkg.image.hero_path.includes("/hero.")) {
     errors.push("image.hero_path must use the article's authorized hero path");
@@ -135,8 +137,8 @@ function contentErrors(pkg: EditionPackage): string[] {
   if (Buffer.byteLength(pkg.image.thumb_bytes_base64, "base64") > 300_000) errors.push("thumbnail image exceeds 300 kB");
   const expectedPath = pkg.image.hero_path.replace(/^public/, "");
   const expectedThumb = pkg.image.thumb_path.replace(/^public/, "");
-  for (const locale of ["en", "cs"] as const) {
-    const illustration = pkg.article[locale].frontmatter.illustration;
+  for (const locale of (["en", "cs"] as const).filter((value) => pkg.article?.[value])) {
+    const illustration = pkg.article[locale]!.frontmatter.illustration;
     if (illustration.path?.startsWith("/images/") && illustration.path !== expectedPath) {
       errors.push(`${pkg.date}.${locale}.mdx: illustration.path must match the delivered image`);
     }
@@ -243,13 +245,15 @@ export async function materializeEditionPackage(value: unknown, root = process.c
   const pkg = validateDeliveryPackage(value);
   await validateImageBytes(pkg);
   const boardFile = path.join(root, "public", "data", "board", `${pkg.date}.json`);
-  const englishFile = path.join(root, "content", "articles", `${pkg.date}.en.mdx`);
   const prepared: Array<{ file: string; bytes: string | Buffer }> = [{ file: boardFile, bytes: boardBytes(pkg) }];
   if (pkg.status === "edition" && pkg.article) {
-    prepared.push(
-      { file: englishFile, bytes: mdxBytes(pkg.article.en) },
-      { file: path.join(root, "content", "articles", `${pkg.date}.cs.mdx`), bytes: mdxBytes(pkg.article.cs) },
-    );
+    // One file per locale the package carries, rather than a fixed pair. A Czech-only package
+    // must not write an empty .en.mdx, and the workflow stages exactly what is written here.
+    for (const locale of ["en", "cs"] as const) {
+      const localized = pkg.article[locale];
+      if (!localized) continue;
+      prepared.push({ file: path.join(root, "content", "articles", `${pkg.date}.${locale}.mdx`), bytes: mdxBytes(localized) });
+    }
     if (pkg.image) {
       prepared.push(
         { file: path.join(root, pkg.image.hero_path), bytes: Buffer.from(pkg.image.hero_bytes_base64, "base64") },
