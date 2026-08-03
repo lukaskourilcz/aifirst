@@ -1,21 +1,22 @@
 import type { ContentLang, Locale } from "./i18n/config";
 
-/**
- * The reader-facing brand.
- *
- * The name has changed twice and the internal identifiers have not, on purpose: the repository
- * is still `aifirst` and the venture is still `caught-up` in every contract, state path and
- * Actions variable. A rename that reaches identifiers invalidates sealed package hashes and
- * silently breaks settings the owner configured by hand. Only the words readers see change.
- */
 export const brand = {
-  name: "DNESKAi",
-  legalName: "DNESKAi",
+  name: "Caught Up",
+  /**
+   * The name shown in the navigation lockup.
+   *
+   * Held apart from `name` on purpose, so the new name can appear where readers see it
+   * without moving page titles, feed metadata, structured data, the JSON endpoints or the
+   * drawn covers — all of which still say Caught Up, as do the repository, the venture id
+   * and the Actions variables.
+   */
+  wordmark: "DNESKAi",
+  legalName: "Caught Up",
   repositoryName: "aifirst",
-  title: "DNESKAi — To podstatné z AI. Každý den.",
-  shortDescription: "To podstatné z AI. Každý den.",
+  title: "Caught Up — The AI stories that actually mattered today",
+  shortDescription: "The AI stories that actually mattered today.",
   description:
-    "Jedno vydání a máte přehled. DNESKAi vybírá a vysvětluje, co se v AI opravdu stalo — bez šumu.",
+    "One edition and you’re caught up on AI. Caught Up selects and explains the developments that actually mattered, without the noise.",
   locale: {
     en: {
       tagline: "The AI stories that actually mattered today.",

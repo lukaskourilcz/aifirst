@@ -15,7 +15,7 @@ export function BrandLockup({ compact = false }: { compact?: boolean }) {
   return (
     <span className={compact ? "brand-lockup brand-lockup--compact" : "brand-lockup"}>
       <BrandMark compact={compact} />
-      <span className="brand-lockup__word">{brand.name}</span>
+      <span className="brand-lockup__word">{brand.wordmark}</span>
     </span>
   );
 }

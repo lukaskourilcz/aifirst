@@ -2,8 +2,9 @@ import { describe, expect, it } from "vitest";
 import { brand, localizedBrand } from "../brand";
 
 describe("brand", () => {
-  it("uses DNESKAi without translating the name", () => {
-    expect(brand.name).toBe("DNESKAi");
+  it("uses one untranslated name, and a wordmark that can differ from it", () => {
+    expect(brand.name).toBe("Caught Up");
+    expect(brand.wordmark).toBe("DNESKAi");
     expect(localizedBrand("en").name).toBe(localizedBrand("cs").name);
   });
 
