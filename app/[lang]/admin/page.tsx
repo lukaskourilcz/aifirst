@@ -17,8 +17,8 @@ export default async function AdminMigrationPage({ params }: { params: Promise<{
       title={czech ? "Provoz je v BoardlessAI." : "Operations live in BoardlessAI."}
       kickerTone="warning"
       intro={czech
-        ? "Caught Up je statická čtečka. Chráněný admin v BoardlessAI uchovává české i anglické podklady pro Instagram a Threads spolu s provozním stavem."
-        : "Caught Up is a static reader. The protected BoardlessAI admin stores the English and Czech Instagram and Threads drafts alongside operating state."}
+        ? "DNESKAi je statická čtečka. Chráněný admin v BoardlessAI uchovává české i anglické podklady pro Instagram a Threads spolu s provozním stavem."
+        : "DNESKAi is a static reader. The protected BoardlessAI admin stores the English and Czech Instagram and Threads drafts alongside operating state."}
     >
       <p className="admin-migration__action">
         <Link href={boardlessAdmin} target="_blank" rel="noreferrer noopener">

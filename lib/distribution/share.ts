@@ -36,7 +36,7 @@ export function createArticleDistributionPack(article: Article, locale: Locale):
     alternativeHeadlines: fm.alternative_headlines ?? [],
     summary: fm.dek,
     socialPost: `${fm.title}\n\n${fm.dek}\n\n${canonicalUrl}`,
-    linkedInPost: `${fm.title}\n\n${fm.dek}\n\nRead Caught Up: ${canonicalUrl}`,
+    linkedInPost: `${fm.title}\n\n${fm.dek}\n\nRead DNESKAi: ${canonicalUrl}`,
     blueskyPost: `${fm.title} — ${fm.dek} ${canonicalUrl}`.slice(0, 300),
     newsletterExcerpt: fm.dek,
     quoteCardText: fm.why_it_matters?.[0] ?? fm.dek,

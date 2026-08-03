@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { brand, localizedBrand } from "../brand";
 
 describe("brand", () => {
-  it("uses Caught Up without translating the name", () => {
-    expect(brand.name).toBe("Caught Up");
+  it("uses DNESKAi without translating the name", () => {
+    expect(brand.name).toBe("DNESKAi");
     expect(localizedBrand("en").name).toBe(localizedBrand("cs").name);
   });
 

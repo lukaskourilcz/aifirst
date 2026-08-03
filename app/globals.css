@@ -1,4 +1,4 @@
-/* Caught Up design foundations: calm editorial intelligence, a finite
+/* DNESKAi design foundations: calm editorial intelligence, a finite
    reading arc, and one blueprint-blue completion mark. */
 
 :root {
@@ -116,7 +116,7 @@
   --shadow-subtle: none;
 }
 
-/* Caught Up editorial modules. These stay server-rendered and use the existing
+/* DNESKAi editorial modules. These stay server-rendered and use the existing
    paper/ink tokens so the rebrand adds no client-side bundle cost. */
 .editorial-highlights {
   display: grid;

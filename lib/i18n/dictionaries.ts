@@ -8,9 +8,9 @@ const en = {
     htmlLang: "en",
     name: "English",
     switchTo: "čeština",
-    siteTitle: "Caught Up — The AI stories that actually mattered today",
+    siteTitle: "DNESKAi — The AI stories that actually mattered today",
     siteDescription:
-      "One edition and you’re caught up on AI. Caught Up selects and explains the developments that actually mattered, without the noise.",
+      "One edition and you’re caught up on AI. DNESKAi selects and explains the developments that actually mattered, without the noise.",
     tagline: "The AI stories that actually mattered today.",
   },
   nav: {
@@ -195,9 +195,9 @@ const en = {
   about: {
     kicker: "about",
     title: "A calmer way to follow AI.",
-    intro: "Caught Up is a selective daily publication about AI. Its automated newsroom reviews a curated set of sources, identifies what materially changed, and produces one edition designed to leave the reader fully caught up.",
+    intro: "DNESKAi is a selective daily publication about AI. Its automated newsroom reviews a curated set of sources, identifies what materially changed, and produces one edition designed to leave the reader fully caught up.",
     problemTitle: "Why it exists",
-    problemBody: "AI news repeats itself, overstates announcements and makes every release feel urgent. Caught Up selects fewer stories, explains the practical change and makes uncertainty visible.",
+    problemBody: "AI news repeats itself, overstates announcements and makes every release feel urgent. DNESKAi selects fewer stories, explains the practical change and makes uncertainty visible.",
     methodTitle: "How stories are selected",
     methodBody: "A committed source registry is scraped on a schedule. The pipeline weighs source diversity and relevance, then asks language models for structured editorial output. Git stores every published edition.",
     automationTitle: "The automated newsroom",
@@ -315,7 +315,7 @@ const en = {
   },
   health: {
     kicker: "publication status",
-    title: "Caught Up status",
+    title: "DNESKAi status",
     intro: "A reader-safe view of publication freshness. Internal workflow and provider details remain private.",
     overallStatus: "Overall status",
     healthyTitle: "Publishing is current",
@@ -336,7 +336,7 @@ const en = {
   colophon: {
     kicker: "colophon",
     title: "How this magazine is made.",
-    intro1: "Caught Up is a selective daily publication about AI and technology. Each morning a pipeline reviews",
+    intro1: "DNESKAi is a selective daily publication about AI and technology. Each morning a pipeline reviews",
     intro2:
       "sources, an LLM curates the most interesting items of the past 24 hours, and writes a single feature plus a constellation of shorter pieces.",
     intro3: "issues have shipped so far.",
@@ -411,9 +411,9 @@ const cs: Dict = {
     htmlLang: "cs",
     name: "Čeština",
     switchTo: "english",
-    siteTitle: "Caught Up — To podstatné z AI. Každý den.",
+    siteTitle: "DNESKAi — To podstatné z AI. Každý den.",
     siteDescription:
-      "Jedno vydání a máte přehled. Caught Up vybírá a vysvětluje podstatné změny v AI bez zbytečného šumu.",
+      "Jedno vydání a máte přehled. DNESKAi vybírá a vysvětluje podstatné změny v AI bez zbytečného šumu.",
     tagline: "To podstatné z AI. Každý den.",
   },
   nav: {
@@ -598,9 +598,9 @@ const cs: Dict = {
   about: {
     kicker: "o projektu",
     title: "Klidnější způsob, jak sledovat AI.",
-    intro: "Caught Up je výběrová denní publikace o AI. Automatizovaná redakce prochází kurátorované zdroje, hledá podstatné změny a vytváří jedno vydání, po kterém máte přehled.",
+    intro: "DNESKAi je výběrová denní publikace o AI. Automatizovaná redakce prochází kurátorované zdroje, hledá podstatné změny a vytváří jedno vydání, po kterém máte přehled.",
     problemTitle: "Proč existuje",
-    problemBody: "Zprávy o AI se opakují, přehánějí oznámení a z každého vydání dělají naléhavou událost. Caught Up vybírá méně příběhů, vysvětluje praktickou změnu a ukazuje nejistotu.",
+    problemBody: "Zprávy o AI se opakují, přehánějí oznámení a z každého vydání dělají naléhavou událost. DNESKAi vybírá méně příběhů, vysvětluje praktickou změnu a ukazuje nejistotu.",
     methodTitle: "Jak se vybírají příběhy",
     methodBody: "Naplánovaná pipeline prochází zdroje uložené v Gitu. Zvažuje pestrost a relevanci a od jazykových modelů vyžaduje strukturovaný redakční výstup. Git uchovává každé vydání.",
     automationTitle: "Automatizovaná redakce",
@@ -718,7 +718,7 @@ const cs: Dict = {
   },
   health: {
     kicker: "stav publikace",
-    title: "Stav Caught Up",
+    title: "Stav DNESKAi",
     intro: "Veřejný a bezpečný přehled aktuálnosti publikace. Detaily workflow a poskytovatelů zůstávají neveřejné.",
     overallStatus: "Celkový stav",
     healthyTitle: "Vydávání je aktuální",
@@ -739,7 +739,7 @@ const cs: Dict = {
   colophon: {
     kicker: "tiráž",
     title: "Jak tento magazín vzniká.",
-    intro1: "Caught Up je výběrová denní publikace o AI a technologiích. Každé ráno pipeline projde",
+    intro1: "DNESKAi je výběrová denní publikace o AI a technologiích. Každé ráno pipeline projde",
     intro2:
       "zdrojů, LLM vybere nejzajímavější položky za posledních 24 hodin a napíše jeden hlavní článek plus několik kratších textů.",
     intro3: "vydání zatím vyšlo.",
