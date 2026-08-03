@@ -6,7 +6,7 @@
 import { listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { classifyPublicHealth } from "@/lib/public-health";
-import { localePath } from "@/lib/i18n/config";
+import { localePath, resolveLocale } from "@/lib/i18n/config";
 
 export const dynamic = "force-static";
 
@@ -41,7 +41,7 @@ export async function GET() {
             date: latest.date,
             type: latest.type ?? "daily",
             age_hours: latestAgeHours,
-            url: `${siteUrl()}${localePath(latest.lang ?? "en", `/articles/${latest.slug}`)}`,
+            url: `${siteUrl()}${localePath(resolveLocale(latest.lang), `/articles/${latest.slug}`)}`,
           }
         : null,
       total_issues: all.length,

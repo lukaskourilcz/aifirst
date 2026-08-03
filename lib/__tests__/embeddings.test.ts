@@ -25,7 +25,7 @@ describe("relatedBySimilarity", () => {
 
   it("returns null when the article has no embedding (caller falls back to tags)", () => {
     // No embeddings file on disk during tests → loadEmbeddings returns null.
-    expect(relatedBySimilarity(current, all, "en", 3)).toBeNull();
+    expect(relatedBySimilarity(current, all, "cs", 3)).toBeNull();
   });
 
   it("ranks by cosine similarity, excludes self, drops weak matches", () => {

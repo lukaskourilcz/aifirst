@@ -56,7 +56,7 @@ beforeAll(async () => {
 
 describe("listTagsByFrequency", () => {
   it("orders by frequency desc then alpha", async () => {
-    const tags = await listTagsByFrequency("en", dir);
+    const tags = await listTagsByFrequency("cs", dir);
     expect(tags[0]?.tag).toBe("ai");
     expect(tags[0]?.count).toBe(2);
     const others = tags.slice(1).map((t) => t.tag);
@@ -66,11 +66,11 @@ describe("listTagsByFrequency", () => {
 
 describe("listArticlesByTag", () => {
   it("returns matching articles newest-first", async () => {
-    const ai = await listArticlesByTag("ai", "en", dir);
+    const ai = await listArticlesByTag("ai", "cs", dir);
     expect(ai.map((a) => a.slug)).toEqual(["b", "a"]);
   });
   it("returns empty for unknown tag", async () => {
-    expect(await listArticlesByTag("missing", "en", dir)).toEqual([]);
+    expect(await listArticlesByTag("missing", "cs", dir)).toEqual([]);
   });
 });
 
@@ -94,7 +94,7 @@ describe("relatedArticles", () => {
 
 describe("sourceCitationStats", () => {
   it("counts unique sources across issues", async () => {
-    const stats = await sourceCitationStats("en", dir);
+    const stats = await sourceCitationStats("cs", dir);
     expect(stats.get("anthropic-news")?.count).toBe(2);
     expect(stats.get("anthropic-news")?.latestDate).toBe("2026-05-11");
     expect(stats.get("openai-blog")?.count).toBe(1);
@@ -104,7 +104,7 @@ describe("sourceCitationStats", () => {
 
 describe("buildSearchIndex", () => {
   it("returns one entry per article with searchable fields", async () => {
-    const index = await buildSearchIndex("en", dir);
+    const index = await buildSearchIndex("cs", dir);
     expect(index).toHaveLength(3);
     const c = index.find((e) => e.slug === "c");
     expect(c?.tags).toEqual(["policy"]);

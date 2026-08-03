@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { DEFAULT_LOCALE, localePath, type Locale } from "./config";
+import { DEFAULT_LOCALE, LOCALES, localePath, type Locale } from "./config";
 
 // The canonical + hreflang + Atom-autodiscovery block for a page that exists
-// in both locales. `path` is the unprefixed site path (e.g. "/" or
-// "/articles/2026-05-10"); the same path is emitted for each locale so search
-// engines can pair the translations. Shared by the home and article pages.
+// `path` is the unprefixed site path (e.g. "/" or "/articles/2026-05-10"). With one published
+// locale this emits one canonical and one hreflang, which is what a single-language site
+// should say rather than advertising a translation that no longer exists.
 export function localeAlternates(
   locale: Locale,
   path: string,
-  availableLocales: readonly Locale[] = ["en", "cs"],
+  availableLocales: readonly Locale[] = LOCALES,
 ): NonNullable<Metadata["alternates"]> {
   const available: readonly Locale[] = availableLocales.length ? availableLocales : [DEFAULT_LOCALE];
   const firstAvailable = available[0] ?? DEFAULT_LOCALE;

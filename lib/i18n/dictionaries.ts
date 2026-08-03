@@ -1,4 +1,4 @@
-import type { Locale } from "./config";
+import type { ContentLang, Locale } from "./config";
 
 // English is the canonical shape; the Czech dictionary must match it
 // key-for-key (enforced by the `Dict` type below), so a missing
@@ -807,7 +807,9 @@ const cs: Dict = {
   },
 };
 
-export const DICTIONARIES: Record<Locale, Dict> = { cs, en };
+// The English strings stay for the four legacy English-only issues still in the archive.
+// getDictionary only ever receives a served locale, so nothing reaches them by accident.
+export const DICTIONARIES: Record<ContentLang, Dict> = { cs, en };
 
 export function dict(locale: Locale): Dict {
   return DICTIONARIES[locale];

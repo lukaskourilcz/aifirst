@@ -48,44 +48,45 @@ beforeAll(async () => {
 
 describe("listArticles", () => {
   it("returns articles sorted newest first", async () => {
-    const list = await listArticles("en", dir);
+    const list = await listArticles("cs", dir);
     expect(list.map((a) => a.slug)).toEqual(["b-newer", "a-older"]);
   });
 
   it("ignores non-mdx files", async () => {
-    const list = await listArticles("en", dir);
+    const list = await listArticles("cs", dir);
     expect(list).toHaveLength(2);
   });
 
   it("returns an empty list if the directory does not exist", async () => {
-    const list = await listArticles("en", path.join(dir, "missing"));
+    const list = await listArticles("cs", path.join(dir, "missing"));
     expect(list).toEqual([]);
   });
 });
 
 describe("getArticle", () => {
   it("finds an article by slug", async () => {
-    const article = await getArticle("a-older", "en", dir);
+    const article = await getArticle("a-older", "cs", dir);
     expect(article?.frontmatter.title).toBe("A older");
     expect(article?.mdx.trim()).toBe("Body of A.");
   });
 
   it("returns null for an unknown slug", async () => {
-    expect(await getArticle("missing", "en", dir)).toBeNull();
+    expect(await getArticle("missing", "cs", dir)).toBeNull();
   });
 
   it("reports only committed locales and canonicalizes fallback pages", async () => {
     expect(await getArticleLocales("a-older", dir)).toEqual(["en"]);
-    expect(localeAlternates("cs", "/articles/a-older", ["en"])).toEqual(expect.objectContaining({
+    // One published locale, so the page advertises one alternate and points x-default at it.
+    expect(localeAlternates("cs", "/articles/a-older", ["cs"])).toEqual(expect.objectContaining({
       canonical: "/articles/a-older",
-      languages: { en: "/articles/a-older", "x-default": "/articles/a-older" },
+      languages: { cs: "/articles/a-older", "x-default": "/articles/a-older" },
     }));
   });
 });
 
 describe("getLatestArticle", () => {
   it("returns the newest article", async () => {
-    const latest = await getLatestArticle("en", dir);
+    const latest = await getLatestArticle("cs", dir);
     expect(latest?.slug).toBe("b-newer");
   });
 });

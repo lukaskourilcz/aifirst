@@ -216,7 +216,7 @@ test("feeds expose language, entry links, publication time and categories", asyn
     const response = await request.get(route);
     expect(response.ok(), route).toBe(true);
     const xml = await response.text();
-    expect(xml).toContain('xml:lang="en"');
+    expect(xml).toContain('xml:lang="cs"');
     expect(xml).toContain("<published>");
     expect(xml).toContain("<category");
     expect(xml).toMatch(/<link href="[^"]+\/articles\/[^"]+"\/>/);

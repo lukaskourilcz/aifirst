@@ -8,7 +8,7 @@ import {
 import type { Article } from "./content";
 import { siteUrl } from "./config";
 import { atomDocument, atomEntry, feedUpdated } from "./feed";
-import { localePath, type Locale } from "./i18n/config";
+import { DEFAULT_LOCALE, localePath, type Locale } from "./i18n/config";
 import { dict } from "./i18n/dictionaries";
 import { brand } from "./brand";
 import { articlesForTopic, loadTopicsConfig } from "./topics/config";
@@ -32,7 +32,8 @@ function entryForArticle(article: Article, base: string, extraCategories: string
   ];
   return atomEntry({
     title: fm.title,
-    url: `${base}${localePath(article.lang, `/articles/${article.slug}`)}`,
+    url: `${base}${// One published locale, so every feed URL is the unprefixed one.
+    localePath(DEFAULT_LOCALE, `/articles/${article.slug}`)}`,
     published: fm.generation?.generated_at ?? fm.date,
     updated: correctedAt(article),
     summary: fm.dek,

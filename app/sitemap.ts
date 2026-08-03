@@ -7,13 +7,12 @@ import { loadSources } from "@/lib/sources";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
-  const [englishArticles, czechArticles, topicsConfig, sources] = await Promise.all([
-    listArticles("en"),
+  const [czechArticles, topicsConfig, sources] = await Promise.all([
     listArticles("cs"),
     loadTopicsConfig(),
     loadSources(),
   ]);
-  const articles = englishArticles;
+  const articles = czechArticles;
   const topics = publishedTopics(topicsConfig, articles);
 
   const staticPaths: Array<{
@@ -35,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const articleVariants = await Promise.all(
     LOCALES.flatMap((locale) => {
-      const localeArticles = locale === "en" ? englishArticles : czechArticles;
+      const localeArticles = czechArticles;
       return localeArticles
         .filter((article) => !article.fallback)
         .map(async (summary) => {

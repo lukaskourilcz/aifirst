@@ -4,7 +4,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { byDateDesc } from "./helpers/date";
 import { groupBy } from "./helpers/group";
-import { DEFAULT_LOCALE, isLocale, type Locale } from "./i18n/config";
+import { CONTENT_LANGS, DEFAULT_LOCALE, isContentLang, isLocale, type ContentLang, type Locale } from "./i18n/config";
 import { ogImageFor } from "./og";
 
 export type Dispatch = {
@@ -68,7 +68,7 @@ export type ArticleFrontmatter = {
   title: string;
   slug: string;
   date: string;
-  lang?: Locale;
+  lang?: ContentLang;
   dek: string;
   alternative_headlines?: string[];
   tags: string[];
@@ -113,9 +113,10 @@ export type Article = {
   slug: string;
   frontmatter: ArticleFrontmatter;
   mdx: string;
-  // Language actually returned, and whether it fell back from the
-  // requested locale (e.g. a legacy English-only issue viewed in Czech).
-  lang: Locale;
+  // Language actually returned, and whether it fell back from the requested locale — a legacy
+  // English-only issue served on a Czech-only site. This is the file's language, not a locale
+  // the site publishes.
+  lang: ContentLang;
   fallback: boolean;
   modifiedAt?: string;
 };
@@ -128,7 +129,7 @@ export type ArticleSummary = {
   tags?: string[];
   signal_strength?: number;
   type?: IssueType;
-  lang?: Locale;
+  lang?: ContentLang;
   fallback?: boolean;
   // Resolved cover thumbnail — real illustration or a cached og:image from
   // the article's sources. Absent when the article has no real picture, so
@@ -204,13 +205,13 @@ export async function readMdxFiles(dir: string): Promise<string[]> {
 type RawEntry = {
   file: string;
   fm: Partial<ArticleFrontmatter>;
-  lang: Locale;
+  lang: ContentLang;
 };
 
 // The content language of a file: explicit `lang` frontmatter wins, then
 // a `.cs.mdx` / `.en.mdx` filename suffix, else legacy files are English.
-function entryLang(file: string, fm: Partial<ArticleFrontmatter>): Locale {
-  if (fm.lang && isLocale(fm.lang)) return fm.lang;
+function entryLang(file: string, fm: Partial<ArticleFrontmatter>): ContentLang {
+  if (fm.lang && isContentLang(fm.lang)) return fm.lang;
   if (file.endsWith(".cs.mdx")) return "cs";
   if (file.endsWith(".en.mdx")) return "en";
   return "en";
@@ -230,7 +231,7 @@ async function readEntries(dir: string): Promise<RawEntry[]> {
 
 type ResolvedEntry = {
   fm: Partial<ArticleFrontmatter>;
-  lang: Locale;
+  lang: ContentLang;
   fallback: boolean;
 };
 
@@ -242,6 +243,8 @@ function pickForLocale(
 ): { entry: RawEntry; fallback: boolean } | null {
   const wanted = candidates.find((e) => e.lang === locale);
   if (wanted) return { entry: wanted, fallback: false };
+  // Four May articles exist only in English. Serving one at its own URL under an honest
+  // notice beats deleting it or 404ing a page that has been live for months.
   const english = candidates.find((e) => e.lang === "en");
   if (english) return { entry: english, fallback: true };
   const first = candidates[0];
@@ -269,7 +272,7 @@ function resolveByLocale(
 
 function toSummary(
   fm: Partial<ArticleFrontmatter>,
-  lang: Locale,
+  lang: ContentLang,
   fallback: boolean,
 ): ArticleSummary | null {
   if (!fm.slug || !fm.date || !fm.title) return null;
@@ -325,13 +328,13 @@ export async function getArticle(
 export async function getArticleLocales(
   slug: string,
   dir: string = defaultContentDir(),
-): Promise<Locale[]> {
+): Promise<ContentLang[]> {
   const locales = new Set(
     (await readEntries(dir))
       .filter((entry) => entry.fm.slug === slug)
       .map((entry) => entry.lang),
   );
-  return (["en", "cs"] as const).filter((locale) => locales.has(locale));
+  return CONTENT_LANGS.filter((lang) => locales.has(lang));
 }
 
 export async function listCorrections(

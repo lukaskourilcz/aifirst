@@ -22,7 +22,7 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
 
   return (
     <>
-      {locale !== "en" ? <HtmlLang locale={locale} /> : null}
+      <HtmlLang locale={locale} />
       <article className="print-layout">
         <header className="print-masthead">
           <div className="print-masthead-row"><BrandLockup compact /><span>{common.issue} {article.frontmatter.date}</span></div>

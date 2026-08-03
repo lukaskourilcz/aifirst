@@ -1,4 +1,4 @@
-import type { Locale } from "./i18n/config";
+import type { ContentLang, Locale } from "./i18n/config";
 
 export const brand = {
   name: "Caught Up",
@@ -21,7 +21,7 @@ export const brand = {
       shortPromise: "Pochopte, co bylo důležité. Bez šumu.",
       completion: "Máte přehled.",
     },
-  } satisfies Record<Locale, {
+  } satisfies Record<ContentLang, {
     tagline: string;
     promise: string;
     shortPromise: string;
@@ -29,6 +29,6 @@ export const brand = {
   }>,
 } as const;
 
-export function localizedBrand(locale: Locale) {
+export function localizedBrand(locale: ContentLang) {
   return { ...brand, ...brand.locale[locale] };
 }

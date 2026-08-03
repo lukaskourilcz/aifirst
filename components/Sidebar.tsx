@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { buildSearchIndex, getArticle, listArticles } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -79,7 +78,6 @@ export async function Sidebar({ locale }: { locale: Locale }) {
         ))}
         <div className="nav-divider" aria-hidden />
         <SearchPalette index={index} locale={locale} />
-        <LanguageSwitcher locale={locale} />
       </nav>
 
       <section className="sidebar-status" data-tone={status} aria-label={d.common.publicationStatus}>

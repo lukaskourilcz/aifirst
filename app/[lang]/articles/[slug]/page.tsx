@@ -66,7 +66,7 @@ export async function generateMetadata({
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
-    alternates: localeAlternates(lang, articlePath, availableLocales),
+    alternates: localeAlternates(lang, articlePath),
     openGraph: {
       type: "article",
       title: article.frontmatter.title,
