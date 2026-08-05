@@ -167,6 +167,7 @@ describe("a Czech-only edition", () => {
   function czechOnlyFixture(): Record<string, any> {
     const value = deliveryFixture();
     delete value.article.en;
+    delete value.image.alt_en;
     const hash = editionPackageHash(value);
     value.idempotencyKey = hash;
     value.article.cs.frontmatter.generation.package_hash = hash;
@@ -197,5 +198,15 @@ describe("a Czech-only edition", () => {
     value.idempotencyKey = hash;
     value.article.en.frontmatter.generation.package_hash = hash;
     expect(() => validateDeliveryPackage(value)).toThrow(DeliveryError);
+  });
+
+  it("still requires English image text when an English article is present", () => {
+    const value = deliveryFixture();
+    delete value.image.alt_en;
+    const hash = editionPackageHash(value);
+    value.idempotencyKey = hash;
+    value.article.en.frontmatter.generation.package_hash = hash;
+    value.article.cs.frontmatter.generation.package_hash = hash;
+    expect(() => validateDeliveryPackage(value)).toThrow(/alt_en is required/);
   });
 });

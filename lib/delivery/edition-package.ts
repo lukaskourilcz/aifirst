@@ -18,7 +18,7 @@ export type ArticleImage = {
   thumb_path: string;
   width: number;
   height: number;
-  alt_en: string;
+  alt_en?: string;
   alt_cs: string;
   license: {
     name: "CC0" | "CC BY" | "CC BY-SA" | "Pexels License" | "Pixabay Content License" | "BoardlessAI deterministic";
@@ -122,6 +122,9 @@ function contentErrors(pkg: EditionPackage): string[] {
     return { file, fm: localized.frontmatter };
   }).filter((entry): entry is { file: string; fm: ArticleFrontmatter } => entry !== null);
   errors.push(...translationStructureErrors(entries));
+  if (pkg.article.en && !pkg.image.alt_en) {
+    errors.push("image.alt_en is required when article.en is present");
+  }
   // Czech is the locale that is always delivered; English is optional and on its way out.
   // The slug is identical across locales, so it is read from the half that cannot be absent.
   const slug = pkg.article.cs.frontmatter.slug;
