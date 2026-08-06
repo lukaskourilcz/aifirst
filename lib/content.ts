@@ -76,7 +76,12 @@ export type ArticleFrontmatter = {
   illustration: {
     path?: string;
     thumbnail_path?: string;
-    prompt: string;
+    /**
+     * Legacy only. Upstream stopped emitting it: nothing has ever generated an image from it,
+     * and it was the text that ended up captioning real photographs with imagined illustrations.
+     * Existing MDX still carries it, so the field stays readable and stays optional.
+     */
+    prompt?: string;
     alt: string;
     width?: number;
     height?: number;

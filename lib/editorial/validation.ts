@@ -37,8 +37,13 @@ export function validateArticleFrontmatter(raw: Record<string, unknown>, file: s
   if (raw.signal_strength !== undefined && (typeof raw.signal_strength !== "number" || raw.signal_strength < 0 || raw.signal_strength > 100)) errors.push(`${file}: signal_strength must be within 0-100`);
 
   const illustration = raw.illustration;
-  if (!illustration || typeof illustration !== "object" || typeof (illustration as { prompt?: unknown }).prompt !== "string" || typeof (illustration as { alt?: unknown }).alt !== "string") {
-    errors.push(`${file}: illustration must contain prompt and alt; path is optional for the no-image provider`);
+  // `prompt` is legacy. Upstream stopped emitting it -- nothing ever generated an image from it,
+  // and it was the text that captioned real photographs with imagined illustrations -- so it is
+  // read when present and never required. `alt` is what a reader depends on and stays required.
+  if (!illustration || typeof illustration !== "object" || typeof (illustration as { alt?: unknown }).alt !== "string") {
+    errors.push(`${file}: illustration must contain alt; path and prompt are optional`);
+  } else if ((illustration as { prompt?: unknown }).prompt !== undefined && typeof (illustration as { prompt?: unknown }).prompt !== "string") {
+    errors.push(`${file}: illustration.prompt must be a string when present`);
   }
 
   const sourceUrls = new Set<string>();
