@@ -1,22 +1,22 @@
-# Caught Up repository control document
+# DNESKAi repository control document
 
-This repository publishes **Caught Up**, a bilingual, Git-native daily briefing about the AI and technology stories that actually mattered. The repository/package, bot identity, compatibility environment variables, and other stable technical identifiers intentionally remain `aifirst`.
+This repository publishes **DNESKAi**, a Czech, Git-native daily briefing about the AI and technology stories that actually mattered. The repository/package, bot identity, compatibility environment variables, and other stable technical identifiers intentionally remain `aifirst`, and the venture id upstream remains `caught-up`.
 
 ## Product
 
-Caught Up reduces AI-news overload. A reader should open Today, understand the lead development, why it matters, what changed, Briefs, Watchlist, and evidence, then reach **You’re caught up. / Máte přehled.** and feel able to stop scrolling.
+DNESKAi reduces AI-news overload. A reader should open Today, understand the lead development, why it matters, what changed, Briefs, Watchlist, and evidence, then reach **Máte přehled.** and feel able to stop scrolling.
 
-Primary readers are busy developers, founders, product/technology leaders, AI practitioners, and informed professionals. Secondary readers include researchers, analysts, journalists, search/feed/weekly readers, and English/Czech audiences. Operators use GitHub Actions and eventually optional OwnDashboard controls; operator functionality stays separate from the public reader experience.
+Primary readers are busy Czech developers, founders, product/technology leaders, AI practitioners, and informed professionals. Secondary readers include researchers, analysts, journalists, and search/feed/weekly readers. Operators use GitHub Actions and eventually optional OwnDashboard controls; operator functionality stays separate from the public reader experience.
 
 Public positioning:
 
-- English: “The AI stories that actually mattered today.” / “One edition and you’re caught up on AI.”
-- Czech: “To podstatné z AI. Každý den.” / “Jedno vydání a máte přehled.”
+- “To podstatné z AI. Každý den.” / “Jedno vydání a máte přehled.”
 - Never translate the brand name.
 
 ## Reader routes and terminology
 
-English is unprefixed; Czech uses `/cs`.
+Czech serves at the root. The `/cs` prefix and the English routes behind it are legacy
+compatibility only; nothing new is published under them.
 
 - Primary: `/` Today, `/radar`, `/topics`, `/weekly`, `/archive`, `/about`
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
@@ -33,6 +33,9 @@ The static path is deliberate:
 
 `BoardlessAI/quorum source + edition gates → EditionPackage v1 → content-only GitHub App commit → aifirst validation → Next.js static build → Vercel CDN`
 
+Every edition is written once, natively in Czech, upstream. There is no translation stage
+anywhere in this pipeline and none is coming back.
+
 - Git and MDX are canonical. No content database, runtime CMS, reader auth/accounts, comments, per-request generation, runtime summary/chat, or runtime OwnDashboard dependency.
 - Reader pages never scrape sources or call a model.
 - Keep server components by default. Client boundaries are limited to actual interaction such as search, reading progress, keyboard help, or copy feedback.
@@ -42,10 +45,10 @@ The static path is deliberate:
 
 ## Content and delivery
 
-`lib/content.ts` is the frontmatter/read contract and legacy compatibility layer. `lib/delivery/` is the only write boundary and validates `edition-package/1`, exact MDX serialization, bilingual parity, authorized paths and same-date hashes. Schema v2 adds `why_it_matters`, `what_changed`, `uncertainty`, structured evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, and alternative headlines while retaining legacy MDX.
+`lib/content.ts` is the frontmatter/read contract and legacy compatibility layer. `lib/delivery/` is the only write boundary and validates `edition-package/1`, exact MDX serialization, the required Czech article, authorized paths and same-date hashes. An English article is accepted only as legacy and is never required. Schema v2 adds `why_it_matters`, `what_changed`, `uncertainty`, structured evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, and alternative headlines while retaining legacy MDX.
 
 - Editorial production, source collection, regeneration, illustration composition and social promotion are owned by Quorum. Do not recreate dormant fallbacks here.
-- The daily workflow is a sentinel only. Weekly pages render existing committed content; there is no weekly generation workflow.
+- The daily workflow is a sentinel only: it checks that the day has either a Czech article whose `package_hash` matches the board record, or an honest no-edition board record. Weekly pages render existing committed content; there is no weekly generation workflow.
 - Never fabricate sources, provenance, metrics, human review, or cost.
 
 ## Important paths and reuse
@@ -83,16 +86,19 @@ Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avo
 
 ## Media boundary
 
-BoardlessAI owns illustration selection, generation and provenance. Every new
-`edition-package/1` article must include exactly one dated WebP with validated
-dimensions and attribution; Caught Up rehosts and serves it locally. Historical
-and legacy issues may still have no image, so the reader must keep its complete
-text-first fallback. Do not add provider credentials, generation adapters,
-Topic-cover production or social-media assets to this repository.
+BoardlessAI owns illustration selection, provenance and licensing. Every new
+`edition-package/1` article carries a hero and a thumbnail under
+`public/images/editions/<slug>/`, in WebP, PNG or SVG, with attribution;
+DNESKAi rehosts and serves them locally. The deterministic SVG plate is a
+legitimate delivered state, not a failure — a day whose licensed search found
+no usable photo still ships. Historical and legacy issues may have no image at
+all, so the reader keeps its complete text-first fallback. Do not add provider
+credentials, generation adapters, Topic-cover production or social-media assets
+to this repository.
 
 ## Responsive, accessibility, localization, and states
 
-Validate 360, 430, 768, 1024, 1280–1440, and 1600px where layout changes; include 320px reflow when relevant. Test Czech and long copy. No horizontal page overflow; wide tables may use an accessible scroll region.
+Validate 360, 430, 768, 1024, 1280–1440, and 1600px where layout changes; include 320px reflow when relevant. Test long Czech copy, which sets the wrapping worst case. No horizontal page overflow; wide tables may use an accessible scroll region.
 
 Maintain skip links, landmarks, one clear page `h1`, current navigation, keyboard order, visible focus, dialog containment/Escape/restoration, accessible names, live feedback, source/corrections/sponsorship semantics, 44px touch targets, non-color state cues, contrast, zoom, reduced motion, and correct image alt/decorative handling.
 
@@ -126,7 +132,7 @@ before changing gray or status colors, and mirror palette changes in
 
 ## Project AI workflows
 
-Skills:
+Skills (their slugs keep the `caught-up-` prefix, which is the stable venture id):
 
 - `caught-up-brand-system`
 - `caught-up-editorial-ui`
