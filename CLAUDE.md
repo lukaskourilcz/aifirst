@@ -2,6 +2,8 @@
 
 This repository publishes **DNESKAi**, a Czech, Git-native daily briefing about the AI and technology stories that actually mattered. The repository/package, bot identity, compatibility environment variables, and other stable technical identifiers intentionally remain `aifirst`, and the venture id upstream remains `caught-up`.
 
+**The name is deliberately split, and this is not drift to fix.** `brand.wordmark` is DNESKAi and appears where a reader looks at the publication: the navigation lockup, the footer and print. `brand.name` is still Caught Up and carries everything a machine reads or a link previews — page titles, Open Graph and Twitter cards, `openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the drawn covers. Moving `name` renames every indexed title and every social card at once, which is the owner's call and has not been made. Do not "re-align" `lib/brand.ts` or the dictionaries to make the two match.
+
 ## Product
 
 DNESKAi reduces AI-news overload. A reader should open Today, understand the lead development, why it matters, what changed, Briefs, Watchlist, and evidence, then reach **Máte přehled.** and feel able to stop scrolling.
@@ -18,7 +20,7 @@ Public positioning:
 Czech serves at the root. The `/cs` prefix and the English routes behind it are legacy
 compatibility only; nothing new is published under them.
 
-- Primary: `/` Today, `/radar`, `/topics`, `/weekly`, `/archive`, `/about`
+- Primary: `/` Today, `/radar`, `/topics`, `/weekly`, `/archive`, `/about`, `/pulse`
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
 - Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`, `/search`
 - Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/Sources/health JSON; static Open Graph
