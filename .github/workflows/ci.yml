@@ -1,8 +1,15 @@
 name: ci
 
 on:
+  # A delivery commit was already built and gated by quorum's delivery step minutes before it
+  # landed here; rebuilding it pays for the same verification twice. These three paths are what
+  # a delivery writes and nothing else does. Pull requests stay unfiltered.
   push:
     branches: [main, "claude/**"]
+    paths-ignore:
+      - "content/**"
+      - "public/data/**"
+      - "public/images/editions/**"
   pull_request:
   workflow_dispatch: {}
 
