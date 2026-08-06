@@ -1,11 +1,22 @@
-# Caught Up brand system
+# DNESKAi brand system
 
 Status: canonical direction. Token and component mappings are updated with the
 production implementation.
 
+## Two names, on purpose
+
+`brand.wordmark` is **DNESKAi** and is what a reader sees: the navigation lockup,
+the footer and print. `brand.name` is still **Caught Up** and carries everything a
+machine reads or a link previews — page titles, Open Graph and Twitter cards,
+`openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the
+drawn covers, as do the repository, the venture id and the Actions variables.
+Moving `name` renames every indexed title and every social card in one commit; that
+is the owner's call and it has not been made. Do not "re-align" the two.
+
 ## Positioning
 
-- Brand: **Caught Up** (never translated).
+- Wordmark: **DNESKAi** (never translated).
+- Metadata name: **Caught Up** (never translated).
 - English tagline: **The AI stories that actually mattered today.**
 - English promise: **One edition and you’re caught up on AI.**
 - English support: **Understand what mattered. Skip the noise.**
@@ -25,9 +36,10 @@ in a briefing, resolved status, and permission to stop. It is deterministic
 SVG/CSS, scales from favicon to social composition, and is not a generated
 raster.
 
-The wordmark uses the exact text `Caught Up` in the editorial serif. The dot is
-a separate mark; public prose does not rename the publication to “Caught Up.”
-The lockup must remain legible at small sizes, in Czech contexts, and in print.
+The wordmark uses the exact text `DNESKAi` in the editorial serif — `BrandMark`
+renders `brand.wordmark`, so the lockup follows that field and nothing else. The
+dot is a separate mark. The lockup must remain legible at small sizes, in Czech
+contexts, and in print.
 
 ## Color behavior
 
