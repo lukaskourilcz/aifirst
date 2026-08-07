@@ -1,0 +1,765 @@
+{
+  "schemaVersion": "boardless-dataset/1",
+  "dataset": "ai-facts",
+  "anchor": "2026-07-01",
+  "categories": {
+    "history": { "en": "History", "cs": "Historie" },
+    "models": { "en": "Models", "cs": "Modely" },
+    "hardware": { "en": "Hardware & compute", "cs": "Hardware a výpočty" },
+    "science": { "en": "AI in science", "cs": "AI ve vědě" },
+    "business": { "en": "Business", "cs": "Byznys" },
+    "culture": { "en": "Culture & society", "cs": "Kultura a společnost" }
+  },
+  "entries": [
+    {
+      "id": "ai-001",
+      "slug": "chatgpt-nejrychlejsi-aplikace",
+      "category": "business",
+      "en": {
+        "short": "ChatGPT reached 100 million users in two months — the fastest-growing consumer app in history at the time",
+        "full": "ChatGPT launched on 30 November 2022 as a low-key 'research preview'. It hit a million users in five days and an estimated 100 million monthly users within two months — the fastest consumer-application growth ever recorded at the time, per a UBS study."
+      },
+      "cs": {
+        "short": "ChatGPT získal 100 milionů uživatelů za dva měsíce — tehdy nejrychleji rostoucí aplikace historie",
+        "full": "ChatGPT vyšel 30. listopadu 2022 jako nenápadný 'výzkumný náhled'. Milion uživatelů měl za pět dní a odhadem 100 milionů měsíčních uživatelů za dva měsíce — podle studie UBS tehdy nejrychlejší růst spotřebitelské aplikace v historii."
+      },
+      "verified": "2026-08-07",
+      "source": "UBS/Similarweb analysis, Feb 2023"
+    },
+    {
+      "id": "ai-002",
+      "slug": "slovo-robot-je-ceske",
+      "category": "culture",
+      "en": {
+        "short": "The word 'robot' is Czech — Karel Čapek introduced it to the world in 1920",
+        "full": "The world's word for an artificial worker is Czech: Karel Čapek introduced 'robot' in his 1920 play R.U.R., deriving it from 'robota' (drudgery) — and credited his brother, the painter Josef Čapek, with suggesting it. Every robotics lab on Earth speaks a bit of Czech."
+      },
+      "cs": {
+        "short": "Slovo 'robot' je české — světu ho v roce 1920 dal Karel Čapek",
+        "full": "Slovo, kterým celý svět označuje umělého pracovníka, je české: Karel Čapek ho uvedl v dramatu R.U.R. z roku 1920, odvozené od 'roboty' — a autorství nápadu připsal bratru Josefovi. Každá robotická laboratoř na světě tak mluví trochu česky."
+      },
+      "verified": "2026-08-07",
+      "source": "Karel Čapek, R.U.R. (1920)"
+    },
+    {
+      "id": "ai-003",
+      "slug": "alphago-tah-37",
+      "category": "history",
+      "en": {
+        "short": "AlphaGo's 'Move 37' had a 1-in-10,000 chance of being played by a human — and it won the game",
+        "full": "In March 2016, DeepMind's AlphaGo beat Go legend Lee Sedol 4-1 in a match watched by an estimated 200 million people. Its famous 'Move 37' was a play AlphaGo estimated a human would make once in 10,000 times — commentators first called it a mistake, then a masterpiece."
+      },
+      "cs": {
+        "short": "'Tah 37' od AlphaGo by člověk zahrál s pravděpodobností 1 : 10 000 — a vyhrál partii",
+        "full": "V březnu 2016 porazil systém AlphaGo od DeepMind legendu hry go Lee Sedola 4:1 v zápase, který sledovalo odhadem 200 milionů lidí. Slavný 'tah 37' by podle vlastního odhadu AlphaGo zahrál člověk jednou z 10 000 případů — komentátoři ho nejdřív označili za chybu, pak za mistrovské dílo."
+      },
+      "verified": "2026-08-07",
+      "source": "DeepMind AlphaGo match records, 2016"
+    },
+    {
+      "id": "ai-004",
+      "slug": "nvidia-ctyri-biliony",
+      "category": "business",
+      "en": {
+        "short": "A gaming-card maker became the first $4 trillion company in history — because of AI",
+        "full": "Nvidia, founded in 1993 to make graphics cards for gamers, became the most valuable company in the world on demand for AI chips — and in July 2025 the first company in history to close above a $4 trillion market value."
+      },
+      "cs": {
+        "short": "Výrobce herních grafik se stal první firmou historie s hodnotou 4 bilionů dolarů — díky AI",
+        "full": "Nvidia, založená v roce 1993 kvůli grafickým kartám pro hráče, se na poptávce po AI čipech stala nejhodnotnější firmou světa — a v červenci 2025 první společností v historii, která uzavřela obchodování nad hranicí 4 bilionů dolarů."
+      },
+      "verified": "2026-08-07",
+      "source": "Market data, July 2025"
+    },
+    {
+      "id": "ai-005",
+      "slug": "transformer-osm-autoru",
+      "category": "history",
+      "en": {
+        "short": "The 2017 paper behind every modern chatbot had 8 authors — all of whom left Google",
+        "full": "'Attention Is All You Need' (2017) introduced the Transformer, the architecture behind essentially every modern language model, and became one of the most-cited papers of the century. All eight Google authors later left — most to found or join AI startups collectively worth billions."
+      },
+      "cs": {
+        "short": "Studie z roku 2017, na které stojí všechny dnešní chatboty, měla 8 autorů — a všichni z Googlu odešli",
+        "full": "Studie 'Attention Is All You Need' (2017) představila architekturu Transformer, na níž stojí prakticky každý moderní jazykový model, a patří k nejcitovanějším pracím století. Všech osm autorů z Googlu později odešlo — většina zakládat nebo posílit AI startupy v souhrnné hodnotě miliard dolarů."
+      },
+      "verified": "2026-08-07",
+      "source": "Vaswani et al., 2017; author career coverage"
+    },
+    {
+      "id": "ai-006",
+      "slug": "deepseek-rekordni-propad",
+      "category": "business",
+      "en": {
+        "short": "A Chinese model trained for a claimed ~$6M wiped ~$589 billion off Nvidia in one day — the largest single-day loss ever",
+        "full": "In January 2025, Chinese lab DeepSeek released R1, claiming headline training costs around $5.6 million. On 27 January, Nvidia's market value fell by roughly $589 billion — the largest one-day loss of value by any company in stock-market history."
+      },
+      "cs": {
+        "short": "Čínský model s údajnými náklady ~6 mil. dolarů smazal Nvidii ~589 miliard za den — největší jednodenní propad historie",
+        "full": "V lednu 2025 vydala čínská laboratoř DeepSeek model R1 s udávanými náklady na trénink kolem 5,6 milionu dolarů. 27. ledna spadla tržní hodnota Nvidie zhruba o 589 miliard dolarů — největší jednodenní ztráta hodnoty firmy v historii burz."
+      },
+      "verified": "2026-08-07",
+      "source": "DeepSeek R1 technical report; market data, 27 Jan 2025"
+    },
+    {
+      "id": "ai-007",
+      "slug": "dartmouth-1956",
+      "category": "history",
+      "en": {
+        "short": "The term 'artificial intelligence' was coined in 1956 — for a workshop expected to crack it in one summer",
+        "full": "John McCarthy coined 'artificial intelligence' for the 1956 Dartmouth summer workshop, whose proposal suggested a significant advance could be made if 'a carefully selected group of scientists work on it together for a summer'. The field is still working on it, seventy years later."
+      },
+      "cs": {
+        "short": "Pojem 'umělá inteligence' vznikl v roce 1956 — pro workshop, který ji měl vyřešit za jedno léto",
+        "full": "John McCarthy vymyslel pojem 'artificial intelligence' pro letní workshop v Dartmouthu v roce 1956. Návrh projektu tvrdil, že výrazný pokrok nastane, když na problému 'pečlivě vybraná skupina vědců společně stráví jedno léto'. Obor na tom pracuje dodnes, o sedmdesát let později."
+      },
+      "verified": "2026-08-07",
+      "source": "Dartmouth workshop proposal, 1955"
+    },
+    {
+      "id": "ai-008",
+      "slug": "alphafold-vyresil-proteiny",
+      "category": "science",
+      "en": {
+        "short": "AlphaFold predicted the structures of ~200 million proteins — a 50-year scientific problem, solved and given away",
+        "full": "Protein-structure prediction was a grand challenge of biology for half a century. DeepMind's AlphaFold cracked it, and its public database grew to roughly 200 million predicted structures — nearly every protein known to science — free for any researcher, with millions of scientists using it."
+      },
+      "cs": {
+        "short": "AlphaFold předpověděl struktury ~200 milionů proteinů — 50 let starý vědecký problém, vyřešený a rozdaný zdarma",
+        "full": "Predikce struktury proteinů byla půl století velkou výzvou biologie. AlphaFold od DeepMind ji rozlouskl a jeho veřejná databáze narostla na zhruba 200 milionů predikovaných struktur — téměř všechny proteiny, které věda zná — zdarma pro každého; využívají ji miliony vědců."
+      },
+      "verified": "2026-08-07",
+      "source": "AlphaFold Protein Structure Database"
+    },
+    {
+      "id": "ai-009",
+      "slug": "alexnet-herni-grafiky",
+      "category": "history",
+      "en": {
+        "short": "The deep-learning revolution started on two consumer gaming GPUs in 2012",
+        "full": "AlexNet, the network that ignited the deep-learning era by crushing the 2012 ImageNet competition, was trained on two consumer NVIDIA GTX 580 gaming cards. A decade later, frontier models train on clusters of tens of thousands of data-center GPUs."
+      },
+      "cs": {
+        "short": "Revoluce hlubokého učení začala v roce 2012 na dvou běžných herních grafikách",
+        "full": "AlexNet, síť, která rozpoutala éru hlubokého učení drtivým vítězstvím v soutěži ImageNet 2012, se trénovala na dvou běžných herních kartách NVIDIA GTX 580. O dekádu později se špičkové modely trénují na clusterech desítek tisíc datacentrových GPU."
+      },
+      "verified": "2026-08-07",
+      "source": "Krizhevsky, Sutskever, Hinton (2012)"
+    },
+    {
+      "id": "ai-010",
+      "slug": "ai-act-prvni-zakon",
+      "category": "culture",
+      "en": {
+        "short": "The EU passed the world's first comprehensive AI law — with fines up to 7% of global revenue",
+        "full": "The EU AI Act, in force since 1 August 2024, is the world's first comprehensive AI law. It sorts systems into risk tiers, bans some uses outright, and can fine violators up to 7% of global annual revenue — rules that apply in Czechia as across the Union."
+      },
+      "cs": {
+        "short": "EU přijala první ucelený zákon o AI na světě — s pokutami až 7 % globálního obratu",
+        "full": "Akt o umělé inteligenci, účinný od 1. srpna 2024, je první ucelený zákon o AI na světě. Systémy třídí podle rizika, některá použití rovnou zakazuje a za porušení může uložit pokutu až 7 % celosvětového ročního obratu — pravidla platí v Česku stejně jako v celé Unii."
+      },
+      "verified": "2026-08-07",
+      "source": "EU AI Act (Regulation 2024/1689)"
+    },
+    {
+      "id": "ai-011",
+      "slug": "gpt4-advokatni-zkousky",
+      "category": "models",
+      "en": {
+        "short": "GPT-4 passed a simulated bar exam in the top 10% of test takers — its predecessor was in the bottom 10%",
+        "full": "OpenAI reported in 2023 that GPT-4 passed a simulated US bar exam with a score around the top 10% of test takers. GPT-3.5, released months earlier, had scored around the bottom 10% — a single model generation crossed the professional threshold."
+      },
+      "cs": {
+        "short": "GPT-4 složil simulované advokátní zkoušky mezi 10 % nejlepších — jeho předchůdce byl mezi 10 % nejhorších",
+        "full": "OpenAI v roce 2023 uvedla, že GPT-4 složil simulovanou americkou advokátní zkoušku s výsledkem kolem horních 10 % uchazečů. GPT-3.5, vydaný jen o měsíce dříve, skončil kolem dolních 10 % — jediná modelová generace překročila profesní laťku."
+      },
+      "verified": "2026-08-07",
+      "source": "OpenAI GPT-4 technical report, 2023"
+    },
+    {
+      "id": "ai-012",
+      "slug": "nobelovky-2024",
+      "category": "science",
+      "en": {
+        "short": "AI swept two Nobel Prizes in one year: Physics for neural networks, Chemistry for AlphaFold",
+        "full": "In 2024, Geoffrey Hinton and John Hopfield won the Nobel Prize in Physics for foundational neural-network work, while Demis Hassabis and John Jumper shared the Chemistry prize for AlphaFold — the first year AI research took two Nobels at once."
+      },
+      "cs": {
+        "short": "AI v jednom roce posbírala dvě Nobelovy ceny: fyziku za neuronové sítě, chemii za AlphaFold",
+        "full": "V roce 2024 získali Geoffrey Hinton a John Hopfield Nobelovu cenu za fyziku za základy neuronových sítí a Demis Hassabis s Johnem Jumperem se podělili o cenu za chemii za AlphaFold — poprvé si výzkum AI odnesl dvě Nobelovy ceny naráz."
+      },
+      "verified": "2026-08-07",
+      "source": "Nobel Prize announcements, October 2024"
+    },
+    {
+      "id": "ai-013",
+      "slug": "kontextove-okno-lotr",
+      "category": "models",
+      "en": {
+        "short": "Context windows grew ~4,000× in a few years — some models can read the whole Lord of the Rings in one prompt, three times over",
+        "full": "Early GPT-3 handled about 2,048 tokens of context. By 2024, Gemini 1.5 accepted up to 2 million tokens — roughly 1.5 million words, enough to fit the entire Lord of the Rings trilogy about three times into a single prompt."
+      },
+      "cs": {
+        "short": "Kontextová okna narostla ~4000×: některé modely přečtou celého Pána prstenů v jednom promptu, a to třikrát",
+        "full": "Rané GPT-3 zvládlo kontext zhruba 2 048 tokenů. V roce 2024 přijímalo Gemini 1.5 až 2 miliony tokenů — asi 1,5 milionu slov, takže by se do jediného promptu vešla celá trilogie Pána prstenů přibližně třikrát."
+      },
+      "verified": "2026-08-07",
+      "source": "OpenAI and Google model documentation"
+    },
+    {
+      "id": "ai-014",
+      "slug": "turing-1950",
+      "category": "history",
+      "en": {
+        "short": "Alan Turing proposed the test for machine intelligence in 1950 — before 'AI' was even a word",
+        "full": "Alan Turing's 1950 paper 'Computing Machinery and Intelligence' opened with 'Can machines think?' and proposed the imitation game — the Turing test — six years before the term 'artificial intelligence' existed. He predicted machines would credibly imitate humans by around 2000."
+      },
+      "cs": {
+        "short": "Alan Turing navrhl test strojové inteligence v roce 1950 — dřív, než slovo 'AI' vůbec existovalo",
+        "full": "Turingova studie 'Computing Machinery and Intelligence' z roku 1950 začínala otázkou 'Mohou stroje myslet?' a navrhla imitační hru — Turingův test — šest let předtím, než vznikl pojem 'umělá inteligence'. Turing předpověděl, že stroje budou věrohodně napodobovat člověka kolem roku 2000."
+      },
+      "verified": "2026-08-07",
+      "source": "Turing, Mind (1950)"
+    },
+    {
+      "id": "ai-015",
+      "slug": "altman-pet-dni",
+      "category": "business",
+      "en": {
+        "short": "OpenAI fired Sam Altman on a Friday — and rehired him within five days after ~95% of staff threatened to quit",
+        "full": "On 17 November 2023, OpenAI's board fired CEO Sam Altman. Over the weekend Microsoft offered to hire him, and more than 700 of roughly 770 OpenAI employees signed a letter threatening to leave. Within five days Altman was back as CEO and the board was rebuilt."
+      },
+      "cs": {
+        "short": "OpenAI v pátek vyhodila Sama Altmana — a do pěti dnů ho vzala zpět, když výpovědí hrozilo ~95 % firmy",
+        "full": "17. listopadu 2023 správní rada OpenAI odvolala ředitele Sama Altmana. Přes víkend mu Microsoft nabídl práci a přes 700 z asi 770 zaměstnanců OpenAI podepsalo dopis s pohrůžkou odchodu. Do pěti dnů byl Altman zpět ve funkci a rada se přeskládala."
+      },
+      "verified": "2026-08-07",
+      "source": "OpenAI board crisis coverage, Nov 2023"
+    },
+    {
+      "id": "ai-016",
+      "slug": "halicin-antibiotikum",
+      "category": "science",
+      "en": {
+        "short": "The first antibiotic discovered by AI was named after HAL 9000",
+        "full": "In 2020, MIT researchers used a neural network to screen millions of molecules and found a powerful new antibiotic effective against drug-resistant bacteria. They named it halicin — after HAL 9000, the AI from 2001: A Space Odyssey."
+      },
+      "cs": {
+        "short": "První antibiotikum objevené umělou inteligencí dostalo jméno po HAL 9000",
+        "full": "Výzkumníci z MIT v roce 2020 nechali neuronovou síť prosít miliony molekul a našli silné nové antibiotikum účinné i na rezistentní bakterie. Pojmenovali ho halicin — po HAL 9000, umělé inteligenci z filmu 2001: Vesmírná odysea."
+      },
+      "verified": "2026-08-07",
+      "source": "Stokes et al., Cell (2020)"
+    },
+    {
+      "id": "ai-017",
+      "slug": "eliza-1966",
+      "category": "history",
+      "en": {
+        "short": "The first chatbot ran in 1966 — and its creator's secretary asked him to leave the room so she could talk to it",
+        "full": "Joseph Weizenbaum's ELIZA (1966) parodied a psychotherapist using simple pattern matching. People confided in it anyway — famously, Weizenbaum's secretary asked him to leave the room during her session. Unsettled by how readily humans bonded with a program, he became one of AI's earliest critics."
+      },
+      "cs": {
+        "short": "První chatbot běžel už v roce 1966 — a sekretářka jeho tvůrce ho poprosila, ať odejde z místnosti, že chce mluvit o samotě",
+        "full": "ELIZA Josepha Weizenbauma (1966) parodovala psychoterapeuta pomocí jednoduchého porovnávání vzorů. Lidé se jí přesto svěřovali — Weizenbaumova sekretářka ho proslule požádala, aby odešel z místnosti, že chce mluvit o samotě. Weizenbauma zaskočilo, jak snadno si lidé k programu vytvořili vztah, a stal se jedním z prvních kritiků AI."
+      },
+      "verified": "2026-08-07",
+      "source": "Weizenbaum, Computer Power and Human Reason (1976)"
+    },
+    {
+      "id": "ai-018",
+      "slug": "cestina-stoji-vic-tokenu",
+      "category": "models",
+      "en": {
+        "short": "The same sentence costs significantly more tokens in Czech than in English — tokenizers were trained mostly on English",
+        "full": "Language models bill and think in tokens, and their tokenizers were trained on predominantly English text. The same sentence therefore splits into significantly more tokens in Czech — often nearly twice as many — making Czech prompts literally more expensive and context windows effectively smaller."
+      },
+      "cs": {
+        "short": "Stejná věta stojí v češtině výrazně víc tokenů než v angličtině — tokenizéry se učily hlavně na angličtině",
+        "full": "Jazykové modely účtují i 'přemýšlejí' v tokenech a jejich tokenizéry vznikly převážně na anglickém textu. Stejná věta se proto v češtině rozpadne na výrazně víc tokenů — často téměř dvakrát tolik — takže české prompty jsou doslova dražší a kontextové okno je fakticky menší."
+      },
+      "verified": "2026-08-07",
+      "source": "Tokenizer behavior, documented across BPE vocabularies"
+    },
+    {
+      "id": "ai-019",
+      "slug": "midjourney-vyhral-soutez",
+      "category": "culture",
+      "en": {
+        "short": "An AI image won a US state-fair art prize in 2022 — and was later refused copyright registration",
+        "full": "Jason Allen's Midjourney-generated 'Théâtre D'opéra Spatial' won first prize in digital arts at the 2022 Colorado State Fair, before most judges knew such tools existed. The US Copyright Office later refused to register it — AI-generated imagery lacked human authorship."
+      },
+      "cs": {
+        "short": "Obraz z AI vyhrál v roce 2022 uměleckou soutěž v Coloradu — a později mu úřad odmítl přiznat autorská práva",
+        "full": "'Théâtre D'opéra Spatial', který Jason Allen vygeneroval v Midjourney, vyhrál v roce 2022 první cenu za digitální umění na Colorado State Fair — dřív, než většina porotců o takových nástrojích věděla. Americký úřad pro autorská práva pak registraci odmítl: obrazu generovanému AI chybí lidské autorství."
+      },
+      "verified": "2026-08-07",
+      "source": "Colorado State Fair 2022; US Copyright Office decision"
+    },
+    {
+      "id": "ai-020",
+      "slug": "vypocty-se-zdvojnasobuji",
+      "category": "hardware",
+      "en": {
+        "short": "Training compute for frontier AI has doubled roughly every six months — four times faster than Moore's law",
+        "full": "Epoch AI's analyses show the compute used to train frontier models doubling roughly every six months since around 2010 — a pace about four times faster than Moore's law, sustained for over a decade and paid for in ever-larger GPU clusters."
+      },
+      "cs": {
+        "short": "Výpočty na trénink špičkové AI se zdvojnásobují zhruba každých šest měsíců — čtyřikrát rychleji než Moorův zákon",
+        "full": "Analýzy Epoch AI ukazují, že výpočetní výkon na trénink špičkových modelů se od roku 2010 zdvojnásobuje zhruba každých šest měsíců — asi čtyřikrát rychleji, než velel Moorův zákon. Tempo se drží přes dekádu a platí se stále většími clustery GPU."
+      },
+      "verified": "2026-08-07",
+      "source": "Epoch AI compute trends"
+    },
+    {
+      "id": "ai-021",
+      "slug": "deep-blue-1997",
+      "category": "history",
+      "en": {
+        "short": "Deep Blue beat Kasparov in 1997 while checking up to 200 million positions per second",
+        "full": "IBM's Deep Blue defeated world chess champion Garry Kasparov in their 1997 rematch — the first time a computer beat a reigning world champion in a classical match — evaluating up to around 200 million chess positions per second. Kasparov later helped popularize 'centaur' chess, pairing humans with machines."
+      },
+      "cs": {
+        "short": "Deep Blue porazil Kasparova v roce 1997 — při prověřování až 200 milionů pozic za sekundu",
+        "full": "Deep Blue od IBM porazil v odvetě roku 1997 mistra světa v šachu Garryho Kasparova — poprvé stroj přehrál úřadujícího šampiona v klasickém zápase — a vyhodnocoval přitom až kolem 200 milionů pozic za sekundu. Kasparov později spolupopularizoval 'kentauří' šach, spojení člověka se strojem."
+      },
+      "verified": "2026-08-07",
+      "source": "IBM Deep Blue match records, 1997"
+    },
+    {
+      "id": "ai-022",
+      "slug": "recaptcha-prepsala-knihy",
+      "category": "culture",
+      "en": {
+        "short": "Every CAPTCHA you solved helped digitize books and newspapers — for free",
+        "full": "reCAPTCHA turned proving-you're-human into unpaid transcription: the distorted words people typed helped digitize the New York Times archive and Google Books, and later image challenges labeled photos useful for training vision systems. Humanity proofread the archives one login at a time."
+      },
+      "cs": {
+        "short": "Každá vyplněná CAPTCHA pomáhala zadarmo digitalizovat knihy a noviny",
+        "full": "Systém reCAPTCHA proměnil dokazování, že nejste robot, v neplacený přepis: rozmazaná slova, která lidé opisovali, pomohla digitalizovat archiv New York Times a Google Books, a pozdější obrázkové úlohy popisovaly fotky užitečné pro trénink strojového vidění. Lidstvo korigovalo archivy jedno přihlášení za druhým."
+      },
+      "verified": "2026-08-07",
+      "source": "reCAPTCHA project, von Ahn et al."
+    },
+    {
+      "id": "ai-023",
+      "slug": "llama-uniklo-na-4chan",
+      "category": "models",
+      "en": {
+        "short": "Meta's LLaMA leaked on 4chan within a week of release — accidentally kick-starting the open-weights era",
+        "full": "In March 2023, Meta shared its LLaMA model weights with approved researchers; within about a week they were leaked on 4chan for anyone to download. The leak seeded an explosion of community-run models and helped push the industry toward openly released weights."
+      },
+      "cs": {
+        "short": "Váhy modelu LLaMA od Mety unikly do týdne na 4chan — a nechtěně odstartovaly éru otevřených modelů",
+        "full": "V březnu 2023 poskytla Meta váhy modelu LLaMA schváleným výzkumníkům; zhruba do týdne se objevily na fóru 4chan ke stažení komukoli. Únik zasel explozi komunitních modelů a přispěl k posunu oboru směrem k otevřeně vydávaným vahám."
+      },
+      "verified": "2026-08-07",
+      "source": "LLaMA leak coverage, March 2023"
+    },
+    {
+      "id": "ai-024",
+      "slug": "alphago-zero-100-0",
+      "category": "models",
+      "en": {
+        "short": "AlphaGo Zero learned Go from scratch with no human games — and beat the champion-beating AlphaGo 100-0",
+        "full": "AlphaGo Zero (2017) started from random play and learned Go purely from self-play, with no human game data. After about three days of training it defeated the version of AlphaGo that had beaten Lee Sedol by 100 games to 0."
+      },
+      "cs": {
+        "short": "AlphaGo Zero se naučilo go od nuly bez lidských partií — a verzi, která porazila šampiona, zdolalo 100:0",
+        "full": "AlphaGo Zero (2017) začalo od náhodných tahů a go se naučilo čistě hraním samo se sebou, bez dat z lidských partií. Po zhruba třech dnech tréninku porazilo verzi AlphaGo, která zdolala Lee Sedola, poměrem 100:0."
+      },
+      "verified": "2026-08-07",
+      "source": "Silver et al., Nature (2017)"
+    },
+    {
+      "id": "ai-025",
+      "slug": "datacentra-jako-japonsko",
+      "category": "hardware",
+      "en": {
+        "short": "Data centres used ~1.5% of world electricity in 2024 — and the IEA expects that to roughly double by 2030, driven by AI",
+        "full": "The International Energy Agency put data-centre electricity use at about 415 TWh in 2024, roughly 1.5% of global consumption, and projects it approaching 945 TWh by 2030 — comparable to Japan's entire current electricity use — with AI the main driver of the growth."
+      },
+      "cs": {
+        "short": "Datacentra v roce 2024 spotřebovala ~1,5 % světové elektřiny — a podle IEA se to do roku 2030 kvůli AI zhruba zdvojnásobí",
+        "full": "Mezinárodní energetická agentura odhadla spotřebu datacenter v roce 2024 na asi 415 TWh, zhruba 1,5 % světové elektřiny, a do roku 2030 čeká růst k 945 TWh — což se blíží celé dnešní spotřebě Japonska. Hlavním tahounem růstu je AI."
+      },
+      "verified": "2026-08-07",
+      "source": "IEA, Energy and AI report (2025)"
+    },
+    {
+      "id": "ai-026",
+      "slug": "sophia-obcanstvi",
+      "category": "culture",
+      "en": {
+        "short": "Saudi Arabia granted citizenship to a robot in 2017 — the first 'robot citizen' in history",
+        "full": "In October 2017, Saudi Arabia granted citizenship to Sophia, a humanoid robot built by Hanson Robotics — a marketing spectacle that made her history's first 'robot citizen' and set off debates about why a machine received rights before many humans."
+      },
+      "cs": {
+        "short": "Saúdská Arábie udělila v roce 2017 občanství robotovi — prvnímu 'robotímu občanovi' historie",
+        "full": "V říjnu 2017 udělila Saúdská Arábie občanství Sophii, humanoidnímu robotovi od Hanson Robotics — marketingová podívaná z ní udělala prvního 'robotího občana' historie a rozpoutala debatu, proč stroj dostal práva dřív než mnozí lidé."
+      },
+      "verified": "2026-08-07",
+      "source": "Future Investment Initiative, Riyadh 2017"
+    },
+    {
+      "id": "ai-027",
+      "slug": "zlato-z-matematicke-olympiady",
+      "category": "models",
+      "en": {
+        "short": "In 2025, AI systems hit gold-medal standard at the International Mathematical Olympiad for the first time",
+        "full": "In July 2025, systems from Google DeepMind and OpenAI solved five of six problems from that year's International Mathematical Olympiad under competition-style conditions — the first time AI reached the gold-medal standard at the world's hardest high-school math contest."
+      },
+      "cs": {
+        "short": "V roce 2025 dosáhla AI poprvé na zlatou úroveň Mezinárodní matematické olympiády",
+        "full": "V červenci 2025 vyřešily systémy Google DeepMind a OpenAI pět ze šesti úloh ročníku Mezinárodní matematické olympiády v soutěžních podmínkách — poprvé, kdy AI dosáhla zlaté medailové úrovně nejtěžší středoškolské matematické soutěže světa."
+      },
+      "verified": "2026-08-07",
+      "source": "DeepMind and OpenAI IMO 2025 results"
+    },
+    {
+      "id": "ai-028",
+      "slug": "perceptron-1958",
+      "category": "history",
+      "en": {
+        "short": "In 1958 the New York Times reported a machine that would 'walk, talk, see and reproduce' — it was one layer of neurons",
+        "full": "When Frank Rosenblatt demonstrated the Perceptron in 1958, the New York Times relayed Navy claims of a machine expected to 'walk, talk, see, write, reproduce itself and be conscious of its existence'. A 1969 book proving the single layer's limits helped freeze funding for a decade — the first AI winter."
+      },
+      "cs": {
+        "short": "V roce 1958 psal New York Times o stroji, který bude 'chodit, mluvit, vidět a rozmnožovat se' — byla to jedna vrstva neuronů",
+        "full": "Když Frank Rosenblatt v roce 1958 předvedl Perceptron, New York Times citoval očekávání námořnictva, že stroj bude 'chodit, mluvit, vidět, psát, rozmnožovat se a být si vědom své existence'. Kniha z roku 1969, která dokázala meze jediné vrstvy, pak na dekádu zmrazila financování — první zima AI."
+      },
+      "verified": "2026-08-07",
+      "source": "NYT (1958); Minsky & Papert, Perceptrons (1969)"
+    },
+    {
+      "id": "ai-029",
+      "slug": "waymo-bez-ridice",
+      "category": "science",
+      "en": {
+        "short": "By 2025, Waymo's driverless cars were giving over 250,000 paid rides every week",
+        "full": "Waymo's robotaxis went from research project to routine: by 2025 the company reported more than 250,000 paid fully-driverless rides per week across US cities, with tens of millions of autonomous miles driven and safety data showing far fewer injury crashes than human drivers in the same conditions."
+      },
+      "cs": {
+        "short": "Auta Waymo bez řidiče vozila v roce 2025 přes 250 000 platících jízd týdně",
+        "full": "Robotaxíky Waymo přešly z výzkumu do rutiny: v roce 2025 firma hlásila přes 250 000 placených plně autonomních jízd týdně v amerických městech, desítky milionů najetých autonomních mil a bezpečnostní data s výrazně menším počtem nehod se zraněním, než mají lidští řidiči ve stejných podmínkách."
+      },
+      "verified": "2026-08-07",
+      "source": "Waymo ridership and safety reports, 2025"
+    },
+    {
+      "id": "ai-030",
+      "slug": "gpt2-prilis-nebezpecny",
+      "category": "history",
+      "en": {
+        "short": "In 2019 OpenAI called GPT-2 too dangerous to release in full — it had 1.5 billion parameters; today's models are thousands of times bigger",
+        "full": "In February 2019, OpenAI withheld the full 1.5-billion-parameter GPT-2, saying it was too risky to release because of potential misuse — then published it in stages within the year. Models thousands of times larger are now standard products."
+      },
+      "cs": {
+        "short": "OpenAI v roce 2019 označila GPT-2 za příliš nebezpečný k vydání — měl 1,5 miliardy parametrů; dnešní modely jsou tisíckrát větší",
+        "full": "V únoru 2019 OpenAI zadržela plnou verzi GPT-2 s 1,5 miliardy parametrů s tím, že vydání je kvůli možnému zneužití příliš riskantní — a do konce roku ji po částech zveřejnila. Modely tisíckrát větší jsou dnes běžný produkt."
+      },
+      "verified": "2026-08-07",
+      "source": "OpenAI GPT-2 staged release, 2019"
+    },
+    {
+      "id": "ai-031",
+      "slug": "h100-jako-superpocitac",
+      "category": "hardware",
+      "en": {
+        "short": "One modern AI GPU matches the double-precision power of the fastest supercomputer on Earth from 2002",
+        "full": "A single NVIDIA H100 delivers on the order of 30+ teraflops of double-precision compute — comparable to Japan's Earth Simulator, the fastest supercomputer in the world from 2002 to 2004, which filled a purpose-built hall. AI clusters chain tens of thousands of such chips."
+      },
+      "cs": {
+        "short": "Jedna moderní AI grafika má výkon nejrychlejšího superpočítače světa z roku 2002",
+        "full": "Jediná NVIDIA H100 zvládne řádově přes 30 teraflopů ve dvojité přesnosti — srovnatelně s japonským Earth Simulatorem, nejrychlejším superpočítačem světa let 2002 až 2004, který plnil celou halu. AI clustery řadí desítky tisíc takových čipů vedle sebe."
+      },
+      "verified": "2026-08-07",
+      "source": "NVIDIA H100 specs; TOP500 history"
+    },
+    {
+      "id": "ai-032",
+      "slug": "hinton-odesel-varovat",
+      "category": "culture",
+      "en": {
+        "short": "The 'godfather of AI' quit Google in 2023 so he could warn about his own field freely",
+        "full": "Geoffrey Hinton, whose work made deep learning possible, resigned from Google in May 2023 explicitly so he could speak freely about AI risks — saying part of him regrets his life's work. A year later that same work won him the Nobel Prize in Physics."
+      },
+      "cs": {
+        "short": "'Kmotr AI' v roce 2023 odešel z Googlu, aby mohl před vlastním oborem svobodně varovat",
+        "full": "Geoffrey Hinton, jehož práce umožnila hluboké učení, v květnu 2023 rezignoval v Googlu výslovně proto, aby mohl svobodně mluvit o rizicích AI — s tím, že části svého životního díla lituje. O rok později mu totéž dílo vyneslo Nobelovu cenu za fyziku."
+      },
+      "verified": "2026-08-07",
+      "source": "Hinton resignation interviews, May 2023; Nobel 2024"
+    },
+    {
+      "id": "ai-033",
+      "slug": "gpt3-175-miliard",
+      "category": "models",
+      "en": {
+        "short": "GPT-3 jumped to 175 billion parameters in 2020 — over 100× its predecessor — and learned tasks nobody trained it for",
+        "full": "GPT-3 (2020) scaled to 175 billion parameters, more than a hundred times GPT-2, and showed 'few-shot' abilities nobody explicitly trained: translation, arithmetic, code. Its paper made scale itself look like an algorithm — the bet the whole industry then took."
+      },
+      "cs": {
+        "short": "GPT-3 v roce 2020 skočil na 175 miliard parametrů — přes 100× víc než předchůdce — a uměl úlohy, na které ho nikdo netrénoval",
+        "full": "GPT-3 (2020) narostl na 175 miliard parametrů, více než stonásobek GPT-2, a předvedl schopnosti 'few-shot', které nikdo cíleně netrénoval: překlad, počítání, kód. Jeho studie ukázala škálování jako samostatný algoritmus — sázku, kterou pak podnikl celý obor."
+      },
+      "verified": "2026-08-07",
+      "source": "Brown et al., 2020"
+    },
+    {
+      "id": "ai-034",
+      "slug": "pokerovy-stroj-za-150-dolaru",
+      "category": "models",
+      "en": {
+        "short": "The AI that beat poker pros at six-player no-limit hold'em trained on about $150 of cloud compute",
+        "full": "Pluribus (2019) beat elite professionals at six-player no-limit Texas hold'em — a game of hidden information and bluffing long considered out of reach. Its creators reported the training cost as the equivalent of roughly $144 of cloud computing."
+      },
+      "cs": {
+        "short": "AI, která porazila profesionály v šestihráčovém no-limit hold'emu, se natrénovala za zhruba 150 dolarů v cloudu",
+        "full": "Pluribus (2019) porazil elitní profesionály v šestihráčovém no-limit Texas hold'emu — hře skrytých informací a blafování, dlouho považované za nedostižnou. Autoři vyčíslili trénink na ekvivalent zhruba 144 dolarů cloudových výpočtů."
+      },
+      "verified": "2026-08-07",
+      "source": "Brown & Sandholm, Science (2019)"
+    },
+    {
+      "id": "ai-035",
+      "slug": "imagenet-49-tisic-lidi",
+      "category": "history",
+      "en": {
+        "short": "ImageNet was labeled by ~49,000 crowd workers from 167 countries — and made the deep-learning era possible",
+        "full": "Fei-Fei Li's ImageNet assembled over 14 million labeled images, annotated by roughly 49,000 Amazon Mechanical Turk workers from 167 countries. Colleagues advised against the project; its 2012 competition then produced AlexNet and set off the deep-learning era."
+      },
+      "cs": {
+        "short": "ImageNet popsalo ~49 000 lidí ze 167 zemí — a umožnili tím éru hlubokého učení",
+        "full": "ImageNet Fei-Fei Li shromáždil přes 14 milionů popsaných obrázků, které anotovalo zhruba 49 000 pracovníků platformy Mechanical Turk ze 167 zemí. Kolegové projekt rozmlouvali; jeho soutěž v roce 2012 pak zrodila AlexNet a odstartovala éru hlubokého učení."
+      },
+      "verified": "2026-08-07",
+      "source": "ImageNet project history, Fei-Fei Li"
+    },
+    {
+      "id": "ai-036",
+      "slug": "halucinovat-slovo-roku",
+      "category": "culture",
+      "en": {
+        "short": "'Hallucinate' was Cambridge Dictionary's 2023 Word of the Year — because of AI; Collins picked 'AI' itself",
+        "full": "In 2023, Cambridge Dictionary named 'hallucinate' its Word of the Year for the new AI sense — a model confidently producing false information — while Collins simply chose 'AI'. The industry's failure mode entered the language faster than its fixes."
+      },
+      "cs": {
+        "short": "'Halucinovat' bylo slovem roku 2023 slovníku Cambridge — kvůli AI; Collins vybral rovnou 'AI'",
+        "full": "Cambridge Dictionary vyhlásil slovem roku 2023 'hallucinate' v novém významu z AI — model sebejistě produkující nepravdy — a slovník Collins zvolil rovnou 'AI'. Selhání oboru vstoupilo do jazyka rychleji než jeho opravy."
+      },
+      "verified": "2026-08-07",
+      "source": "Cambridge Dictionary and Collins WOTY 2023"
+    },
+    {
+      "id": "ai-037",
+      "slug": "ctvrtina-kodu-googlu",
+      "category": "business",
+      "en": {
+        "short": "Google's CEO said in late 2024 that more than a quarter of the company's new code is written by AI",
+        "full": "On an October 2024 earnings call, Sundar Pichai said more than 25% of all new code at Google is generated by AI and then reviewed by engineers — a concrete number for how fast AI moved inside the world's biggest software companies."
+      },
+      "cs": {
+        "short": "Šéf Googlu koncem roku 2024 uvedl, že přes čtvrtinu nového kódu firmy píše AI",
+        "full": "Sundar Pichai na výsledkovém callu v říjnu 2024 řekl, že více než 25 % veškerého nového kódu v Googlu generuje AI a inženýři ho následně kontrolují — konkrétní číslo o tom, jak rychle AI pronikla do největších softwarových firem světa."
+      },
+      "verified": "2026-08-07",
+      "source": "Alphabet Q3 2024 earnings call"
+    },
+    {
+      "id": "ai-038",
+      "slug": "gnome-800-let-materialu",
+      "category": "science",
+      "en": {
+        "short": "DeepMind's GNoME predicted 2.2 million new crystal materials — what it called ~800 years' worth of knowledge",
+        "full": "In 2023, DeepMind's GNoME system predicted 2.2 million previously unknown crystal structures, about 380,000 of them stable candidates for real materials — an expansion the team described as roughly 800 years of accumulated knowledge, released openly to materials scientists."
+      },
+      "cs": {
+        "short": "Systém GNoME od DeepMind předpověděl 2,2 milionu nových krystalických materiálů — podle autorů ~800 let poznání",
+        "full": "Systém GNoME od DeepMind v roce 2023 předpověděl 2,2 milionu dosud neznámých krystalických struktur, z toho asi 380 000 stabilních kandidátů na reálné materiály — rozšíření, které tým popsal jako zhruba 800 let nahromaděného poznání, zveřejněné materiálovým vědcům zdarma."
+      },
+      "verified": "2026-08-07",
+      "source": "Merchant et al., Nature (2023)"
+    },
+    {
+      "id": "ai-039",
+      "slug": "chinchilla-podvyzivene-modely",
+      "category": "models",
+      "en": {
+        "short": "The 2022 'Chinchilla' paper showed most big models were badly undertrained — data mattered as much as size",
+        "full": "DeepMind's 2022 Chinchilla paper showed the era's giant models were undertrained for their size: compute is best spent scaling parameters and training data together, roughly 20 tokens per parameter. Smaller-but-better-fed Chinchilla beat models far larger — and rewrote industry training recipes."
+      },
+      "cs": {
+        "short": "Studie 'Chinchilla' z roku 2022 ukázala, že velké modely byly podtrénované — data rozhodují stejně jako velikost",
+        "full": "Studie Chinchilla od DeepMind z roku 2022 ukázala, že obří modely té doby byly na svou velikost podtrénované: výpočty se vyplatí dělit mezi parametry a trénovací data společně, zhruba 20 tokenů na parametr. Menší, ale lépe 'nakrmená' Chinchilla porazila mnohem větší modely — a přepsala tréninkové recepty oboru."
+      },
+      "verified": "2026-08-07",
+      "source": "Hoffmann et al., 2022"
+    },
+    {
+      "id": "ai-040",
+      "slug": "lee-sedol-konec-kariery",
+      "category": "culture",
+      "en": {
+        "short": "Lee Sedol won a single game against AlphaGo — then retired from Go, saying AI 'cannot be defeated'",
+        "full": "Lee Sedol's Game 4 win — built on a move so unlikely it was dubbed 'God's touch' — remains the only game a human ever took from AlphaGo in that match. He retired professionally in 2019, saying that with AI 'even if I become the number one, there is an entity that cannot be defeated'."
+      },
+      "cs": {
+        "short": "Lee Sedol vyhrál nad AlphaGo jedinou partii — a pak ukončil kariéru se slovy, že AI 'nelze porazit'",
+        "full": "Výhra Lee Sedola ve čtvrté partii — postavená na tahu tak nepravděpodobném, že se mu přezdívá 'boží dotek' — zůstala jedinou partií, kterou v zápase člověk nad AlphaGo získal. V roce 2019 ukončil profesionální kariéru se slovy, že i kdyby byl jednička, 'existuje entita, kterou nelze porazit'."
+      },
+      "verified": "2026-08-07",
+      "source": "AlphaGo match, Game 4 (2016); Lee retirement, 2019"
+    },
+    {
+      "id": "ai-041",
+      "slug": "graphcast-predpoved-za-minutu",
+      "category": "science",
+      "en": {
+        "short": "An AI model produces a 10-day global weather forecast in under a minute on one chip — beating supercomputer models",
+        "full": "DeepMind's GraphCast generates a 10-day global weather forecast in less than a minute on a single TPU, outperforming the European gold-standard physics model on the large majority of measured targets — forecasts that otherwise take hours on supercomputers."
+      },
+      "cs": {
+        "short": "AI model spočítá desetidenní předpověď počasí pro celý svět pod minutu na jednom čipu — a poráží superpočítače",
+        "full": "GraphCast od DeepMind vygeneruje desetidenní globální předpověď počasí za méně než minutu na jediném čipu TPU a na velké většině měřených ukazatelů překonává evropský fyzikální model, zlatý standard oboru — předpovědi, které jinak superpočítačům trvají hodiny."
+      },
+      "verified": "2026-08-07",
+      "source": "Lam et al., Science (2023)"
+    },
+    {
+      "id": "ai-042",
+      "slug": "anthropic-sourozenci",
+      "category": "business",
+      "en": {
+        "short": "Anthropic was founded in 2021 by siblings who left OpenAI to put safety first — and built Claude into a frontier lab",
+        "full": "Anthropic was founded in 2021 by Dario and Daniela Amodei with a group of former OpenAI researchers who wanted safety research at the core of frontier AI. Within a few years, its Claude models were competing at the industry's front line."
+      },
+      "cs": {
+        "short": "Anthropic založili v roce 2021 sourozenci, kteří odešli z OpenAI kvůli důrazu na bezpečnost — a z Claudea udělali špičku",
+        "full": "Anthropic založili v roce 2021 Dario a Daniela Amodeiovi se skupinou bývalých výzkumníků OpenAI, kteří chtěli mít bezpečnostní výzkum v jádru vývoje špičkové AI. Během několika let jejich modely Claude konkurovaly na první linii oboru."
+      },
+      "verified": "2026-08-07",
+      "source": "Anthropic founding, 2021"
+    },
+    {
+      "id": "ai-043",
+      "slug": "deepfake-jmeno-z-redditu",
+      "category": "culture",
+      "en": {
+        "short": "The word 'deepfake' comes from a Reddit username in 2017",
+        "full": "The term 'deepfake' entered the language in late 2017 from the Reddit username 'deepfakes', an account posting AI face-swapped videos. Within a few years the coinage of one anonymous account named a global category of synthetic media — and of law."
+      },
+      "cs": {
+        "short": "Slovo 'deepfake' vzniklo v roce 2017 z přezdívky na Redditu",
+        "full": "Pojem 'deepfake' vstoupil do jazyka koncem roku 2017 z redditové přezdívky 'deepfakes' — účtu, který zveřejňoval videa s AI výměnou tváří. Během pár let výtvor jednoho anonymního účtu pojmenoval celosvětovou kategorii syntetických médií — i legislativy."
+      },
+      "verified": "2026-08-07",
+      "source": "Origin of the term, Reddit 2017"
+    },
+    {
+      "id": "ai-044",
+      "slug": "zima-ai-lighthill",
+      "category": "history",
+      "en": {
+        "short": "AI has frozen over before: a single 1973 report helped cut funding for a decade — the field calls them 'AI winters'",
+        "full": "The 1973 Lighthill Report for the British government judged AI's grand promises unmet and helped collapse research funding in the UK and beyond; a second freeze followed in the late 1980s. The field named these collapses 'AI winters' — a standing reminder that hype has failed before."
+      },
+      "cs": {
+        "short": "AI už zamrzla dřív: jediná zpráva z roku 1973 pomohla na dekádu utnout financování — obor tomu říká 'zimy AI'",
+        "full": "Lighthillova zpráva pro britskou vládu z roku 1973 shledala velké sliby AI nesplněnými a pomohla zhroutit financování výzkumu v Británii i jinde; druhé zamrznutí přišlo koncem 80. let. Obor tyto propady pojmenoval 'zimy AI' — trvalá připomínka, že humbuk už selhal dřív."
+      },
+      "verified": "2026-08-07",
+      "source": "Lighthill Report (1973); AI winter historiography"
+    },
+    {
+      "id": "ai-045",
+      "slug": "gpt4-pres-100-milionu",
+      "category": "business",
+      "en": {
+        "short": "Training GPT-4 cost more than $100 million, according to OpenAI's CEO",
+        "full": "Sam Altman said the training of GPT-4 cost 'more than' $100 million. Estimates for later frontier runs go higher still — a scale of scientific experiment that, a decade earlier, trained on two gaming GPUs."
+      },
+      "cs": {
+        "short": "Trénink GPT-4 stál podle šéfa OpenAI přes 100 milionů dolarů",
+        "full": "Sam Altman uvedl, že trénink GPT-4 stál 'víc než' 100 milionů dolarů. Odhady pozdějších špičkových běhů jdou ještě výš — rozměr vědeckého experimentu, který se o dekádu dřív vešel na dvě herní grafiky."
+      },
+      "verified": "2026-08-07",
+      "source": "Altman interview, Wired (2023)"
+    },
+    {
+      "id": "ai-046",
+      "slug": "moravcuv-paradox",
+      "category": "history",
+      "en": {
+        "short": "Moravec's paradox: AI finds chess easy and walking hard — the opposite of humans",
+        "full": "Roboticist Hans Moravec observed in the 1980s that computers excel at what humans find hard — logic, chess, calculus — while failing at what a toddler does effortlessly: seeing, grasping, walking. Decades later the paradox still shapes robotics, where dexterity lags far behind language."
+      },
+      "cs": {
+        "short": "Moravcův paradox: pro AI jsou šachy snadné a chůze těžká — přesně naopak než pro člověka",
+        "full": "Robotik Hans Moravec si v 80. letech všiml, že počítače vynikají v tom, co je pro lidi těžké — logika, šachy, integrály — a selhávají v tom, co batole zvládá bez námahy: vidět, uchopit, jít. Paradox formuje robotiku dodnes; zručnost zaostává daleko za jazykem."
+      },
+      "verified": "2026-08-07",
+      "source": "Moravec, Mind Children (1988)"
+    },
+    {
+      "id": "ai-047",
+      "slug": "cena-inteligence-pada",
+      "category": "business",
+      "en": {
+        "short": "The price of GPT-4-level output fell roughly 100× between 2023 and 2024 — per public API price lists",
+        "full": "OpenAI's GPT-4 launched in March 2023 at $60 per million output tokens; by mid-2024, GPT-4o mini offered comparable everyday capability at $0.60 — a roughly 100× price collapse in about 18 months, mirrored across the industry."
+      },
+      "cs": {
+        "short": "Cena výstupu na úrovni GPT-4 spadla mezi lety 2023 a 2024 zhruba 100× — podle veřejných ceníků API",
+        "full": "GPT-4 od OpenAI startoval v březnu 2023 na 60 dolarech za milion výstupních tokenů; v polovině roku 2024 nabízel GPT-4o mini srovnatelnou běžnou užitečnost za 0,60 dolaru — zhruba stonásobný cenový propad za asi 18 měsíců, který se opakoval napříč oborem."
+      },
+      "verified": "2026-08-07",
+      "source": "OpenAI public API pricing, 2023-2024"
+    },
+    {
+      "id": "ai-048",
+      "slug": "dota-a-starcraft-2019",
+      "category": "models",
+      "en": {
+        "short": "In 2019 AI beat the world champions at Dota 2 and reached Grandmaster in StarCraft II",
+        "full": "In April 2019, OpenAI Five beat OG, the reigning world champions, at Dota 2; the same year DeepMind's AlphaStar reached Grandmaster rank in StarCraft II, above 99.8% of ranked human players — real-time games of teamwork, deception and incomplete information."
+      },
+      "cs": {
+        "short": "V roce 2019 porazila AI mistry světa v Dota 2 a dosáhla na Grandmastera ve StarCraftu II",
+        "full": "V dubnu 2019 porazil systém OpenAI Five úřadující mistry světa z týmu OG v Dota 2; tentýž rok dosáhl AlphaStar od DeepMind ve StarCraftu II hodnosti Grandmaster, nad 99,8 % hodnocených hráčů — v realtimových hrách týmové spolupráce, klamání a neúplných informací."
+      },
+      "verified": "2026-08-07",
+      "source": "OpenAI Five vs OG; AlphaStar, Nature (2019)"
+    },
+    {
+      "id": "ai-049",
+      "slug": "backprop-1986",
+      "category": "history",
+      "en": {
+        "short": "The algorithm training every neural network today was popularized in 1986 — then waited ~25 years for hardware to catch up",
+        "full": "Rumelhart, Hinton and Williams' 1986 paper popularized backpropagation, the learning algorithm behind essentially every modern neural network. The math was ready decades before the compute: it took until the GPU era around 2010 for deep networks to become practical."
+      },
+      "cs": {
+        "short": "Algoritmus, kterým se dnes učí každá neuronová síť, byl popularizován v roce 1986 — a ~25 let čekal na hardware",
+        "full": "Studie Rumelharta, Hintona a Williamse z roku 1986 popularizovala backpropagation, učicí algoritmus prakticky každé moderní neuronové sítě. Matematika byla hotová dekády před výpočetním výkonem: hluboké sítě se staly praktickými až s érou GPU kolem roku 2010."
+      },
+      "verified": "2026-08-07",
+      "source": "Rumelhart, Hinton, Williams, Nature (1986)"
+    },
+    {
+      "id": "ai-050",
+      "slug": "fotograf-odmitl-cenu",
+      "category": "culture",
+      "en": {
+        "short": "A photographer won the Sony World Photography Award with an AI image — and refused the prize to prove a point",
+        "full": "In April 2023, Boris Eldagsen won a Sony World Photography Award category with 'Pseudomnesia: The Electrician', then revealed it was AI-generated and refused the prize — he had entered, he said, to test whether competitions were ready. They were not."
+      },
+      "cs": {
+        "short": "Fotograf vyhrál Sony World Photography Award se snímkem z AI — a cenu odmítl, aby něco dokázal",
+        "full": "V dubnu 2023 vyhrál Boris Eldagsen kategorii Sony World Photography Awards se snímkem 'Pseudomnesia: The Electrician', pak odhalil, že jde o obraz z AI, a cenu odmítl — přihlásil ho prý proto, aby otestoval, zda jsou soutěže připravené. Nebyly."
+      },
+      "verified": "2026-08-07",
+      "source": "Sony World Photography Awards, April 2023"
+    }
+  ]
+}

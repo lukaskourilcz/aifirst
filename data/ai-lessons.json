@@ -1,0 +1,977 @@
+{
+  "schemaVersion": "boardless-dataset/1",
+  "dataset": "ai-lessons",
+  "anchor": "2026-07-01",
+  "categories": {
+    "models": { "en": "Models", "cs": "Modely" },
+    "hardware": { "en": "Hardware", "cs": "Hardware" },
+    "training": { "en": "Training", "cs": "Trénink" },
+    "inference": { "en": "Inference", "cs": "Inference" },
+    "data": { "en": "Data", "cs": "Data" },
+    "agents": { "en": "Agents & tooling", "cs": "Agenti a nástroje" },
+    "safety": { "en": "Safety & evals", "cs": "Bezpečnost a hodnocení" },
+    "economics": { "en": "Economics", "cs": "Ekonomika" }
+  },
+  "entries": [
+    {
+      "id": "lex-001",
+      "slug": "machine-learning",
+      "term": "Machine learning",
+      "category": "models",
+      "en": {
+        "short": "Software that learns rules from examples instead of being given them",
+        "full": "Machine learning is the approach where a program improves at a task by finding patterns in examples, rather than following rules a programmer wrote by hand. Nearly everything called 'AI' today — including language models — is machine learning underneath."
+      },
+      "cs": {
+        "short": "Software, který se pravidla učí z příkladů, místo aby je dostal předepsaná",
+        "full": "Strojové učení je přístup, kdy se program v úloze zlepšuje hledáním vzorů v příkladech, místo aby se řídil pravidly napsanými programátorem. Téměř vše, čemu se dnes říká 'AI' — včetně jazykových modelů — je uvnitř strojové učení."
+      },
+      "verified": "2026-08-07",
+      "source": "Standard ML textbooks (Mitchell, 1997)"
+    },
+    {
+      "id": "lex-002",
+      "slug": "neural-network",
+      "term": "Neural network",
+      "category": "models",
+      "en": {
+        "short": "Layers of simple numeric units that together learn to transform inputs into outputs",
+        "full": "A neural network is many layers of simple units, each multiplying inputs by learned weights and passing the result on. No single unit understands anything; stacked in millions, they learn to map text to text, pixels to labels, sound to words. 'Deep learning' just means many layers."
+      },
+      "cs": {
+        "short": "Vrstvy jednoduchých početních jednotek, které se společně naučí převádět vstupy na výstupy",
+        "full": "Neuronová síť je mnoho vrstev jednoduchých jednotek; každá násobí vstupy naučenými vahami a posílá výsledek dál. Žádná jednotka sama nic nechápe, ale v milionech naskládané na sebe se naučí převádět text na text, pixely na popisky, zvuk na slova. 'Hluboké učení' znamená prostě hodně vrstev."
+      },
+      "verified": "2026-08-07",
+      "source": "Standard deep-learning literature (Goodfellow et al.)"
+    },
+    {
+      "id": "lex-003",
+      "slug": "llm",
+      "term": "LLM",
+      "category": "models",
+      "en": {
+        "short": "Large language model — a neural network trained on huge text corpora to predict the next token",
+        "full": "A large language model is a neural network trained on enormous amounts of text to do one thing: predict the next token. At sufficient scale that single skill yields translation, summarization, coding and conversation. ChatGPT, Claude and Gemini are all LLMs with extra training for dialogue."
+      },
+      "cs": {
+        "short": "Velký jazykový model — neuronová síť natrénovaná na obřích textech, aby předpovídala další token",
+        "full": "Velký jazykový model je neuronová síť natrénovaná na obrovském množství textu na jedinou úlohu: předpovědět další token. V dostatečném měřítku z této jediné dovednosti vznikne překlad, shrnutí, programování i konverzace. ChatGPT, Claude i Gemini jsou LLM s dodatečným tréninkem pro dialog."
+      },
+      "verified": "2026-08-07",
+      "source": "GPT-3 paper (Brown et al., 2020) and successors"
+    },
+    {
+      "id": "lex-004",
+      "slug": "token",
+      "term": "Token",
+      "category": "inference",
+      "en": {
+        "short": "The chunk of text a model actually reads and writes — usually a word piece, not a whole word",
+        "full": "Models don't process letters or words but tokens: frequent chunks of characters from a fixed vocabulary. 'Praha' may be one token, a rare Czech word may be four. Models are priced, limited and measured in tokens — which is why the same sentence costs more in Czech than in English."
+      },
+      "cs": {
+        "short": "Kousek textu, který model doopravdy čte a píše — obvykle část slova, ne celé slovo",
+        "full": "Modely nezpracovávají písmena ani slova, ale tokeny: časté úseky znaků z pevného slovníku. 'Praha' může být jeden token, vzácné české slovo klidně čtyři. V tokenech se modely účtují, omezují i měří — proto stejná věta stojí v češtině víc než v angličtině."
+      },
+      "verified": "2026-08-07",
+      "source": "BPE tokenization (Sennrich et al., 2016); provider docs"
+    },
+    {
+      "id": "lex-005",
+      "slug": "gpu",
+      "term": "GPU",
+      "category": "hardware",
+      "en": {
+        "short": "The graphics chip that turned out to be perfect for AI: thousands of small cores computing in parallel",
+        "full": "A graphics processing unit was built to color millions of pixels at once — thousands of small cores doing simple math in parallel. Neural networks need exactly that, so GPUs became the engine of the AI era, the most sought-after hardware in tech, and the foundation of Nvidia's rise."
+      },
+      "cs": {
+        "short": "Grafický čip, který se ukázal jako ideální pro AI: tisíce malých jader počítajících paralelně",
+        "full": "Grafický procesor vznikl, aby naráz obarvil miliony pixelů — tisíce malých jader dělajících jednoduchou matematiku paralelně. Neuronové sítě potřebují přesně tohle, a tak se GPU staly motorem éry AI, nejžádanějším hardwarem v technologiích a základem vzestupu Nvidie."
+      },
+      "verified": "2026-08-07",
+      "source": "GPGPU literature; AlexNet (2012)"
+    },
+    {
+      "id": "lex-006",
+      "slug": "parameters",
+      "term": "Parameters",
+      "category": "models",
+      "en": {
+        "short": "The learned numbers inside a model — its entire 'knowledge', often billions of them",
+        "full": "Parameters (weights) are the numbers a model adjusts during training; everything it 'knows' is encoded in them. Model sizes are quoted in parameters — GPT-3 had 175 billion. More parameters mean more capacity, more memory to store them, and more compute to run them."
+      },
+      "cs": {
+        "short": "Naučená čísla uvnitř modelu — celé jeho 'vědění', často v miliardách",
+        "full": "Parametry (váhy) jsou čísla, která model během tréninku ladí; vše, co 'ví', je zakódováno v nich. Velikost modelů se udává v parametrech — GPT-3 měl 175 miliard. Víc parametrů znamená větší kapacitu, víc paměti na uložení a víc výpočtů na provoz."
+      },
+      "verified": "2026-08-07",
+      "source": "Standard ML terminology"
+    },
+    {
+      "id": "lex-007",
+      "slug": "pretraining",
+      "term": "Pretraining",
+      "category": "training",
+      "en": {
+        "short": "The massive first phase of training: months of next-token prediction over much of the internet",
+        "full": "Pretraining is the expensive foundation phase: the model reads trillions of tokens and learns to predict the next one, absorbing grammar, facts and reasoning patterns along the way. It costs the vast majority of a frontier model's budget; everything after is comparatively cheap refinement."
+      },
+      "cs": {
+        "short": "Mohutná první fáze tréninku: měsíce předpovídání dalšího tokenu nad velkou částí internetu",
+        "full": "Pretraining je drahá základová fáze: model přečte biliony tokenů a učí se předpovídat ten další, přičemž cestou nasaje gramatiku, fakta i vzorce uvažování. Spolkne drtivou většinu rozpočtu špičkového modelu; vše ostatní je proti tomu levné dolaďování."
+      },
+      "verified": "2026-08-07",
+      "source": "LLM training literature"
+    },
+    {
+      "id": "lex-008",
+      "slug": "inference",
+      "term": "Inference",
+      "category": "inference",
+      "en": {
+        "short": "Running a trained model to get answers — where all the day-to-day cost lives",
+        "full": "Inference is using a finished model: every chat reply, every generated image is inference. Training happens once; inference happens billions of times a day, so its speed and cost dominate AI economics — and most engineering effort now goes into making it cheaper."
+      },
+      "cs": {
+        "short": "Provoz natrénovaného modelu — tady vzniká veškerý každodenní náklad",
+        "full": "Inference je používání hotového modelu: každá odpověď v chatu, každý vygenerovaný obrázek je inference. Trénink proběhne jednou; inference miliardkrát denně, takže její rychlost a cena určují ekonomiku AI — a většina inženýrského úsilí dnes směřuje k jejímu zlevnění."
+      },
+      "verified": "2026-08-07",
+      "source": "Standard ML terminology"
+    },
+    {
+      "id": "lex-009",
+      "slug": "prompt",
+      "term": "Prompt",
+      "category": "agents",
+      "en": {
+        "short": "Everything you hand the model before it answers — its entire working brief",
+        "full": "The prompt is the full input a model sees: your question, the conversation so far, pasted documents, instructions. The model has no memory beyond it (and its training), so what is and isn't in the prompt largely decides the quality of the answer."
+      },
+      "cs": {
+        "short": "Vše, co modelu předáte, než odpoví — celé jeho pracovní zadání",
+        "full": "Prompt je úplný vstup, který model vidí: vaše otázka, dosavadní konverzace, vložené dokumenty, instrukce. Mimo prompt (a svůj trénink) model žádnou paměť nemá, takže co v promptu je a co chybí, do velké míry rozhoduje o kvalitě odpovědi."
+      },
+      "verified": "2026-08-07",
+      "source": "Provider documentation"
+    },
+    {
+      "id": "lex-010",
+      "slug": "context-window",
+      "term": "Context window",
+      "category": "inference",
+      "en": {
+        "short": "The maximum amount of text a model can hold in mind at once, measured in tokens",
+        "full": "The context window is the model's working memory: the maximum tokens it can consider in one go — prompt and answer combined. Anything beyond it is invisible. Windows grew from ~2 thousand tokens (GPT-3) to millions, enabling whole-book and whole-codebase workflows."
+      },
+      "cs": {
+        "short": "Maximum textu, které model udrží v hlavě najednou, měřené v tokenech",
+        "full": "Kontextové okno je pracovní paměť modelu: maximum tokenů, které dokáže zvážit naráz — prompt i odpověď dohromady. Co se nevejde, model nevidí. Okna narostla z ~2 tisíc tokenů (GPT-3) na miliony, což umožnilo pracovat s celými knihami i kódovými bázemi."
+      },
+      "verified": "2026-08-07",
+      "source": "Model documentation across providers"
+    },
+    {
+      "id": "lex-011",
+      "slug": "transformer",
+      "term": "Transformer",
+      "category": "models",
+      "en": {
+        "short": "The 2017 architecture behind virtually every modern AI model",
+        "full": "The Transformer, introduced in Google's 2017 paper 'Attention Is All You Need', processes all tokens in parallel and lets each attend to every other. That parallelism fit GPUs perfectly and scaled — the 'T' in GPT, and the architecture under essentially every frontier model since."
+      },
+      "cs": {
+        "short": "Architektura z roku 2017, na které stojí prakticky každý moderní model AI",
+        "full": "Transformer, představený v roce 2017 ve studii Googlu 'Attention Is All You Need', zpracovává všechny tokeny paralelně a každému dovoluje sledovat všechny ostatní. Tato paralelnost dokonale sedla GPU a škálovala — je to ono 'T' v GPT a architektura prakticky každého špičkového modelu od té doby."
+      },
+      "verified": "2026-08-07",
+      "source": "Vaswani et al., 2017"
+    },
+    {
+      "id": "lex-012",
+      "slug": "attention",
+      "term": "Attention",
+      "category": "models",
+      "en": {
+        "short": "The mechanism letting each word weigh every other word when computing meaning",
+        "full": "Attention lets the model decide, for each token, which other tokens matter right now — linking 'it' to the noun it refers to, a verb to its subject. It is the Transformer's core trick and the reason models handle long-range structure that older architectures lost."
+      },
+      "cs": {
+        "short": "Mechanismus, kterým každé slovo váží všechna ostatní při výpočtu významu",
+        "full": "Attention dovoluje modelu u každého tokenu rozhodnout, které ostatní tokeny jsou právě teď důležité — spojit 'ono' s podstatným jménem, k němuž odkazuje, sloveso s podmětem. Je to jádro Transformeru a důvod, proč modely zvládají vazby na dlouhou vzdálenost, které starší architektury ztrácely."
+      },
+      "verified": "2026-08-07",
+      "source": "Vaswani et al., 2017"
+    },
+    {
+      "id": "lex-013",
+      "slug": "cpu",
+      "term": "CPU",
+      "category": "hardware",
+      "en": {
+        "short": "The computer's general-purpose brain: few powerful cores, built for sequential logic — not for AI math",
+        "full": "A central processing unit runs everything general on a computer with a handful of powerful cores optimized for sequential logic and branching. Neural networks instead need millions of identical multiplications at once — which is why AI runs on GPUs while the CPU orchestrates around them."
+      },
+      "cs": {
+        "short": "Univerzální mozek počítače: pár výkonných jader stavěných na postupnou logiku — ne na matematiku AI",
+        "full": "Centrální procesor obstarává v počítači vše obecné hrstkou výkonných jader optimalizovaných pro postupnou logiku a větvení. Neuronové sítě ale potřebují miliony stejných násobení naráz — proto AI běží na GPU, zatímco CPU kolem nich diriguje."
+      },
+      "verified": "2026-08-07",
+      "source": "Computer architecture fundamentals"
+    },
+    {
+      "id": "lex-014",
+      "slug": "fine-tuning",
+      "term": "Fine-tuning",
+      "category": "training",
+      "en": {
+        "short": "Taking a pretrained model and training it further on a narrow dataset to specialize it",
+        "full": "Fine-tuning continues training an already-pretrained model on a smaller, targeted dataset — a company's support tickets, legal contracts, a house style. It buys specialization for a fraction of pretraining's cost, which is why one foundation model spawns thousands of variants."
+      },
+      "cs": {
+        "short": "Dotrénování hotového modelu na úzkých datech, aby se specializoval",
+        "full": "Fine-tuning pokračuje v tréninku už předtrénovaného modelu na menší, cílené sadě dat — firemních tiketech podpory, právních smlouvách, domácím stylu psaní. Specializaci pořídí za zlomek ceny pretrainingu, a proto z jednoho základového modelu vznikají tisíce variant."
+      },
+      "verified": "2026-08-07",
+      "source": "Transfer-learning literature"
+    },
+    {
+      "id": "lex-015",
+      "slug": "hallucination",
+      "term": "Hallucination",
+      "category": "safety",
+      "en": {
+        "short": "When a model states false things fluently and confidently — a side effect of predicting plausible text",
+        "full": "A hallucination is confident, fluent output that is simply false — an invented citation, date or API. It is not a bug in one product but a consequence of how LLMs work: they generate plausible continuations, and plausible is not the same as true. Verification remains the reader's job."
+      },
+      "cs": {
+        "short": "Když model plynule a sebejistě tvrdí nepravdy — vedlejší účinek predikce věrohodného textu",
+        "full": "Halucinace je sebejistý, plynulý výstup, který je prostě nepravdivý — vymyšlená citace, datum nebo API. Není to chyba jednoho produktu, ale důsledek fungování LLM: generují věrohodná pokračování, a věrohodné není totéž co pravdivé. Ověřování zůstává na čtenáři."
+      },
+      "verified": "2026-08-07",
+      "source": "LLM evaluation literature"
+    },
+    {
+      "id": "lex-016",
+      "slug": "embedding",
+      "term": "Embedding",
+      "category": "data",
+      "en": {
+        "short": "Text turned into a list of numbers where similar meanings land close together",
+        "full": "An embedding represents text (or an image) as a vector — hundreds of numbers — positioned so that similar meanings sit near each other. 'Invoice' and 'faktura' land close despite sharing no letters. Embeddings power semantic search, recommendations and retrieval for AI."
+      },
+      "cs": {
+        "short": "Text převedený na řadu čísel, kde podobné významy leží blízko sebe",
+        "full": "Embedding reprezentuje text (nebo obrázek) jako vektor — stovky čísel — umístěný tak, aby podobné významy ležely blízko sebe. 'Invoice' a 'faktura' skončí vedle sebe, ač nesdílejí jediné písmeno. Embeddingy pohánějí sémantické vyhledávání, doporučování i dohledávání podkladů pro AI."
+      },
+      "verified": "2026-08-07",
+      "source": "word2vec (2013) through modern embedding models"
+    },
+    {
+      "id": "lex-017",
+      "slug": "dataset",
+      "term": "Dataset",
+      "category": "data",
+      "en": {
+        "short": "The collection of examples a model learns from — its quality sets the model's ceiling",
+        "full": "A dataset is the curated collection of examples a model trains on: web text, code, labeled images. Scale matters, but quality decides the ceiling — garbage in, garbage out at billion-token scale. Frontier labs now guard dataset composition as closely as architecture."
+      },
+      "cs": {
+        "short": "Sbírka příkladů, ze kterých se model učí — její kvalita určuje strop modelu",
+        "full": "Dataset je uspořádaná sbírka příkladů, na nichž se model trénuje: text z webu, kód, popsané obrázky. Objem je důležitý, ale strop určuje kvalita — odpad dovnitř, odpad ven, jen v miliardách tokenů. Špičkové laboratoře dnes střeží složení datasetů stejně přísně jako architekturu."
+      },
+      "verified": "2026-08-07",
+      "source": "ML data-curation literature"
+    },
+    {
+      "id": "lex-018",
+      "slug": "rlhf",
+      "term": "RLHF",
+      "category": "training",
+      "en": {
+        "short": "Reinforcement learning from human feedback — how raw text predictors become helpful assistants",
+        "full": "RLHF trains a model on human preferences: people rank candidate answers, a reward model learns those rankings, and the LLM is optimized against it. It is the step that turned raw next-token predictors into assistants that follow instructions — the technique behind ChatGPT's breakthrough."
+      },
+      "cs": {
+        "short": "Posilované učení z lidské zpětné vazby — jak se z prediktorů textu stali užiteční asistenti",
+        "full": "RLHF trénuje model na lidských preferencích: lidé řadí kandidátské odpovědi, odměnový model se jejich pořadí naučí a LLM se proti němu optimalizuje. Právě tenhle krok proměnil syrové prediktory dalšího tokenu v asistenty, kteří plní pokyny — technika stojící za průlomem ChatGPT."
+      },
+      "verified": "2026-08-07",
+      "source": "InstructGPT (Ouyang et al., 2022)"
+    },
+    {
+      "id": "lex-019",
+      "slug": "agent",
+      "term": "Agent",
+      "category": "agents",
+      "en": {
+        "short": "An AI that doesn't just answer but acts: plans steps, uses tools, checks results, iterates",
+        "full": "An agent is a model wrapped in a loop: it plans, calls tools (search, code, browsers, files), reads the results and decides the next step until the task is done. The shift from answering questions to completing tasks is the defining AI product trend of this era."
+      },
+      "cs": {
+        "short": "AI, která jen neodpovídá, ale jedná: plánuje kroky, používá nástroje, kontroluje výsledky a opakuje",
+        "full": "Agent je model obalený smyčkou: plánuje, volá nástroje (vyhledávání, kód, prohlížeč, soubory), čte výsledky a rozhoduje o dalším kroku, dokud úkol nedokončí. Posun od odpovídání na otázky k dokončování úkolů je určující produktový trend této éry AI."
+      },
+      "verified": "2026-08-07",
+      "source": "Agent frameworks and provider docs, 2023-2025"
+    },
+    {
+      "id": "lex-020",
+      "slug": "api",
+      "term": "API",
+      "category": "economics",
+      "en": {
+        "short": "The paid interface through which apps call someone else's model — the business model of AI labs",
+        "full": "An application programming interface lets software call a model over the network: send a prompt, get tokens back, pay per token. Most 'AI products' are apps built on someone else's model API — which is why token prices and rate limits shape the whole industry's economics."
+      },
+      "cs": {
+        "short": "Placené rozhraní, přes které aplikace volají cizí model — obchodní model AI laboratoří",
+        "full": "API dovoluje softwaru volat model po síti: pošleš prompt, dostaneš tokeny, platíš za token. Většina 'AI produktů' jsou aplikace postavené na cizím modelovém API — proto ceny tokenů a limity požadavků formují ekonomiku celého oboru."
+      },
+      "verified": "2026-08-07",
+      "source": "Provider API documentation"
+    },
+    {
+      "id": "lex-021",
+      "slug": "multimodal",
+      "term": "Multimodal",
+      "category": "models",
+      "en": {
+        "short": "A model that handles more than text: images, audio, video in and out",
+        "full": "A multimodal model works across media — reading images, hearing audio, sometimes generating both — in one system, in one conversation. It's what lets an assistant read a screenshot of an error, describe a photo, or hold a spoken conversation."
+      },
+      "cs": {
+        "short": "Model, který zvládá víc než text: obrázky, zvuk i video na vstupu i výstupu",
+        "full": "Multimodální model pracuje napříč médii — čte obrázky, slyší zvuk, někdy obojí i generuje — v jednom systému a jedné konverzaci. Díky tomu asistent přečte screenshot chyby, popíše fotku nebo vede mluvený rozhovor."
+      },
+      "verified": "2026-08-07",
+      "source": "GPT-4V, Gemini, Claude multimodal documentation"
+    },
+    {
+      "id": "lex-022",
+      "slug": "tool-calling",
+      "term": "Tool calling",
+      "category": "agents",
+      "en": {
+        "short": "Letting the model invoke functions — search, code, databases — instead of only writing prose",
+        "full": "Tool calling (function calling) lets a model output a structured request — 'call the weather API with city=Brno' — that the surrounding software executes, feeding results back. It grounds models in live data and real actions, and it is the mechanism agents are built on."
+      },
+      "cs": {
+        "short": "Model smí volat funkce — vyhledávání, kód, databáze — místo aby jen psal text",
+        "full": "Tool calling (volání funkcí) dovoluje modelu vypsat strukturovaný požadavek — 'zavolej API počasí s city=Brno' — který okolní software vykoná a výsledek vrátí. Ukotvuje modely v živých datech a skutečných akcích a je to mechanismus, na němž stojí agenti."
+      },
+      "verified": "2026-08-07",
+      "source": "Function-calling APIs, 2023-2025"
+    },
+    {
+      "id": "lex-023",
+      "slug": "quantization",
+      "term": "Quantization",
+      "category": "inference",
+      "en": {
+        "short": "Storing model weights in fewer bits so it runs smaller, faster and cheaper — with a small accuracy cost",
+        "full": "Quantization compresses a model by storing weights at lower precision — 16-bit numbers squeezed to 8 or 4 bits. Memory and cost drop severalfold while quality falls only slightly. It's the technique that lets open models run on a laptop or phone instead of a data center."
+      },
+      "cs": {
+        "short": "Uložení vah modelu v méně bitech, aby běžel menší, rychlejší a levnější — za malou cenu v přesnosti",
+        "full": "Kvantizace model komprimuje uložením vah v nižší přesnosti — 16bitová čísla stlačí na 8 nebo 4 bity. Paměť a náklady klesnou několikanásobně, kvalita jen mírně. Právě díky ní běží otevřené modely na notebooku nebo telefonu místo v datacentru."
+      },
+      "verified": "2026-08-07",
+      "source": "Quantization literature (GPTQ, GGUF ecosystems)"
+    },
+    {
+      "id": "lex-024",
+      "slug": "vram",
+      "term": "VRAM",
+      "category": "hardware",
+      "en": {
+        "short": "The GPU's own memory — the hard limit on how big a model fits on a card",
+        "full": "VRAM is the memory soldered onto a GPU, far faster than system RAM. A model's weights must fit in it to run well, so VRAM — 80 GB on data-center cards, 8-24 GB on consumer ones — is the practical limit on what runs where, and a big reason AI hardware is expensive."
+      },
+      "cs": {
+        "short": "Vlastní paměť GPU — tvrdý limit toho, jak velký model se na kartu vejde",
+        "full": "VRAM je paměť napájená přímo na GPU, mnohem rychlejší než systémová RAM. Váhy modelu se do ní musejí vejít, aby běžel svižně, takže VRAM — 80 GB u datacentrových karet, 8-24 GB u herních — je praktická hranice toho, co kde poběží, a velký důvod, proč je AI hardware drahý."
+      },
+      "verified": "2026-08-07",
+      "source": "GPU specifications"
+    },
+    {
+      "id": "lex-025",
+      "slug": "chain-of-thought",
+      "term": "Chain of thought",
+      "category": "agents",
+      "en": {
+        "short": "Making the model write out intermediate reasoning steps before the answer — accuracy jumps",
+        "full": "Chain-of-thought prompting has the model reason step by step in text before answering. Writing the intermediate steps measurably improves math, logic and planning — and the idea grew into 'reasoning models' that deliberate internally at length before replying."
+      },
+      "cs": {
+        "short": "Model nejdřív vypíše mezikroky uvažování a teprve pak odpoví — přesnost skokově roste",
+        "full": "Chain-of-thought vede model k tomu, aby před odpovědí uvažoval krok za krokem v textu. Vypsání mezikroků měřitelně zlepšuje matematiku, logiku i plánování — a z nápadu vyrostly 'reasoning modely', které před odpovědí dlouze rozvažují uvnitř."
+      },
+      "verified": "2026-08-07",
+      "source": "Wei et al., 2022"
+    },
+    {
+      "id": "lex-026",
+      "slug": "data-labeling",
+      "term": "Data labeling",
+      "category": "data",
+      "en": {
+        "short": "Humans annotating examples so models can learn from them — AI's least visible workforce",
+        "full": "Labeling is the human work of annotating data: tagging images, ranking model answers, marking toxicity. Modern AI rests on millions of hours of it, much performed by low-paid workers worldwide — the industry's least visible but essential layer."
+      },
+      "cs": {
+        "short": "Lidé popisují příklady, aby se z nich modely mohly učit — nejméně viditelná pracovní síla AI",
+        "full": "Labeling je lidská práce s anotací dat: štítkování obrázků, řazení odpovědí modelu, značení toxicity. Moderní AI stojí na milionech hodin takové práce, z velké části odvedené špatně placenými pracovníky po celém světě — nejméně viditelná, ale nezbytná vrstva oboru."
+      },
+      "verified": "2026-08-07",
+      "source": "ImageNet history; RLHF pipelines"
+    },
+    {
+      "id": "lex-027",
+      "slug": "temperature",
+      "term": "Temperature",
+      "category": "inference",
+      "en": {
+        "short": "The randomness dial: low = predictable and repeatable, high = varied and creative",
+        "full": "Temperature controls how the model picks among candidate tokens. Near zero it takes the most likely one every time — stable, repeatable, dull. Higher values give unlikely tokens a chance — more variety and creativity, more risk of nonsense. Same model, different personality."
+      },
+      "cs": {
+        "short": "Kolečko náhodnosti: nízká = předvídatelné a opakovatelné, vysoká = pestré a kreativní",
+        "full": "Temperature řídí, jak model vybírá z kandidátských tokenů. Blízko nule bere pokaždé ten nejpravděpodobnější — stabilní, opakovatelné, nudné. Vyšší hodnoty dají šanci i méně pravděpodobným tokenům — víc pestrosti a nápadů, ale i rizika nesmyslů. Stejný model, jiná povaha."
+      },
+      "verified": "2026-08-07",
+      "source": "Sampling parameters, provider docs"
+    },
+    {
+      "id": "lex-028",
+      "slug": "open-weights",
+      "term": "Open weights",
+      "category": "economics",
+      "en": {
+        "short": "Models whose weights anyone can download and run — free to use, not always free to see how they were made",
+        "full": "An open-weights model publishes its trained parameters for anyone to download, run locally and fine-tune (Llama, Mistral, DeepSeek). It's not full open source — training data and code often stay private — but it moved real capability outside the big labs' clouds."
+      },
+      "cs": {
+        "short": "Modely s vahami ke stažení pro každého — zdarma k použití, ne vždy s recepturou vzniku",
+        "full": "Model s otevřenými vahami zveřejňuje natrénované parametry: kdokoli si je stáhne, spustí lokálně a doladí (Llama, Mistral, DeepSeek). Není to plný open source — trénovací data a kód často zůstávají soukromé — ale přenesl skutečné schopnosti mimo cloudy velkých laboratoří."
+      },
+      "verified": "2026-08-07",
+      "source": "Open-weights releases, 2023-2025"
+    },
+    {
+      "id": "lex-029",
+      "slug": "distillation",
+      "term": "Distillation",
+      "category": "training",
+      "en": {
+        "short": "Training a small, cheap model to imitate a big one — keeping most quality at a fraction of the cost",
+        "full": "Distillation uses a large 'teacher' model's outputs to train a small 'student', transferring much of the capability into something far cheaper to run. It's why capable mini models exist — and why labs argue about competitors training on each other's outputs."
+      },
+      "cs": {
+        "short": "Trénink malého levného modelu, aby napodobil velký — většina kvality za zlomek nákladů",
+        "full": "Destilace používá výstupy velkého modelu-'učitele' k tréninku malého 'žáka' a přenese velkou část schopností do něčeho mnohem levnějšího na provoz. Díky ní existují schopné mini modely — a laboratoře se přou, kdo trénoval na čích výstupech."
+      },
+      "verified": "2026-08-07",
+      "source": "Hinton et al., 2015; modern mini-model families"
+    },
+    {
+      "id": "lex-030",
+      "slug": "rag",
+      "term": "RAG",
+      "category": "data",
+      "en": {
+        "short": "Retrieval-augmented generation: fetch relevant documents first, then have the model answer from them",
+        "full": "RAG bolts a search step onto generation: the system retrieves relevant passages (typically via embeddings) and puts them into the prompt, so the model answers from your documents rather than from memory alone. It cuts hallucinations, enables citations, and keeps knowledge current without retraining."
+      },
+      "cs": {
+        "short": "Generování obohacené vyhledáváním: nejdřív najdi relevantní dokumenty, pak z nich nech model odpovědět",
+        "full": "RAG přišroubuje ke generování krok vyhledávání: systém dohledá relevantní pasáže (typicky přes embeddingy) a vloží je do promptu, takže model odpovídá z vašich dokumentů, ne jen z paměti. Omezuje halucinace, umožňuje citace a udržuje znalosti aktuální bez přetrénování."
+      },
+      "verified": "2026-08-07",
+      "source": "Lewis et al., 2020; production RAG patterns"
+    },
+    {
+      "id": "lex-031",
+      "slug": "vector-database",
+      "term": "Vector database",
+      "category": "data",
+      "en": {
+        "short": "A database that stores embeddings and finds 'nearest in meaning' fast",
+        "full": "A vector database indexes embeddings so that 'find the most similar items' stays fast across millions of entries. It is the storage layer under semantic search and most RAG systems — the query is not a keyword but a point in meaning-space."
+      },
+      "cs": {
+        "short": "Databáze, která ukládá embeddingy a rychle hledá 'nejbližší významem'",
+        "full": "Vektorová databáze indexuje embeddingy tak, aby dotaz 'najdi nejpodobnější položky' zůstal rychlý i nad miliony záznamů. Je to úložná vrstva pod sémantickým vyhledáváním a většinou systémů RAG — dotazem není klíčové slovo, ale bod v prostoru významů."
+      },
+      "verified": "2026-08-07",
+      "source": "ANN search literature; vector DB products"
+    },
+    {
+      "id": "lex-032",
+      "slug": "cuda",
+      "term": "CUDA",
+      "category": "hardware",
+      "en": {
+        "short": "Nvidia's programming platform for GPUs — and one of the deepest moats in tech",
+        "full": "CUDA is Nvidia's platform for programming its GPUs for general computation. Nearly two decades of tools, libraries and trained developers mean AI software works on Nvidia first — a software moat competitors with comparable chips still struggle to cross."
+      },
+      "cs": {
+        "short": "Programovací platforma Nvidie pro GPU — a jeden z nejhlubších příkopů v technologiích",
+        "full": "CUDA je platforma Nvidie pro obecné výpočty na jejích GPU. Skoro dvě dekády nástrojů, knihoven a vyškolených vývojářů znamenají, že AI software funguje nejdřív na Nvidii — softwarový příkop, který konkurenti se srovnatelnými čipy stále obtížně překonávají."
+      },
+      "verified": "2026-08-07",
+      "source": "CUDA ecosystem since 2007"
+    },
+    {
+      "id": "lex-033",
+      "slug": "in-context-learning",
+      "term": "In-context learning",
+      "category": "agents",
+      "en": {
+        "short": "Teaching the model inside the prompt — show a few examples, get the pattern back, no training involved",
+        "full": "In-context learning is a model picking up a task from the prompt itself: show three example email replies in your tone and it writes the fourth. Nothing is trained or stored — the 'learning' lives only for that conversation. Few-shot prompting is this."
+      },
+      "cs": {
+        "short": "Učení uvnitř promptu — ukažte pár příkladů a model vzor převezme, bez jakéhokoli tréninku",
+        "full": "In-context learning znamená, že model úlohu pochytí přímo z promptu: ukažte tři vzorové odpovědi ve svém tónu a čtvrtou napíše sám. Nic se netrénuje ani neukládá — 'naučené' žije jen v dané konverzaci. Few-shot prompting je přesně tohle."
+      },
+      "verified": "2026-08-07",
+      "source": "GPT-3 paper (Brown et al., 2020)"
+    },
+    {
+      "id": "lex-034",
+      "slug": "prompt-engineering",
+      "term": "Prompt engineering",
+      "category": "agents",
+      "en": {
+        "short": "The craft of writing inputs that reliably get the output you want",
+        "full": "Prompt engineering is deliberately structuring instructions, context, examples and output format so a model performs reliably. Less mystical than its reputation: clear brief, relevant context, defined format. As models improve it converges with simply writing well."
+      },
+      "cs": {
+        "short": "Řemeslo psaní vstupů, které spolehlivě vedou k požadovanému výstupu",
+        "full": "Prompt engineering je promyšlené skládání instrukcí, kontextu, příkladů a formátu výstupu, aby model fungoval spolehlivě. Méně mystické, než zní: jasné zadání, relevantní kontext, definovaný formát. S lepšími modely splývá prostě s uměním dobře psát."
+      },
+      "verified": "2026-08-07",
+      "source": "Provider prompting guides"
+    },
+    {
+      "id": "lex-035",
+      "slug": "reasoning-model",
+      "term": "Reasoning model",
+      "category": "agents",
+      "en": {
+        "short": "A model trained to think at length before answering — spending extra compute per question on purpose",
+        "full": "Reasoning models (OpenAI's o-series, DeepSeek R1, extended-thinking Claude) are trained to deliberate internally — exploring, backtracking, checking — before replying. They trade seconds and tokens for large gains on math, code and planning, creating a new dial: how much thinking to buy per question."
+      },
+      "cs": {
+        "short": "Model natrénovaný před odpovědí dlouze přemýšlet — záměrně utrácí výpočty navíc za každou otázku",
+        "full": "Reasoning modely (řada o od OpenAI, DeepSeek R1, Claude s rozšířeným přemýšlením) jsou trénované vnitřně rozvažovat — zkoušet, vracet se, ověřovat — než odpovědí. Vyměňují sekundy a tokeny za velké zisky v matematice, kódu a plánování, a přidávají nové kolečko: kolik přemýšlení si u otázky koupit."
+      },
+      "verified": "2026-08-07",
+      "source": "o1/R1 model cards, 2024-2025"
+    },
+    {
+      "id": "lex-036",
+      "slug": "tpu",
+      "term": "TPU",
+      "category": "hardware",
+      "en": {
+        "short": "Google's custom AI chip — proof the giants would rather build silicon than queue for GPUs",
+        "full": "The Tensor Processing Unit is Google's in-house chip built specifically for neural-network math, powering its data centers since 2015. Amazon, Microsoft and Meta followed with their own silicon — the clearest sign of how strategic AI compute has become."
+      },
+      "cs": {
+        "short": "Vlastní AI čip Googlu — důkaz, že giganti si raději postaví křemík, než aby stáli frontu na GPU",
+        "full": "Tensor Processing Unit je čip, který si Google od roku 2015 staví přímo pro matematiku neuronových sítí ve svých datacentrech. Amazon, Microsoft i Meta přišly s vlastním křemíkem po něm — nejjasnější známka toho, jak strategickými se AI výpočty staly."
+      },
+      "verified": "2026-08-07",
+      "source": "Google TPU papers since 2017"
+    },
+    {
+      "id": "lex-037",
+      "slug": "scaling-laws",
+      "term": "Scaling laws",
+      "category": "training",
+      "en": {
+        "short": "The empirical finding that models get predictably better as you add compute, data and parameters",
+        "full": "Scaling laws describe how model quality improves smoothly and predictably as compute, data and parameters grow together. They turned AI progress into an investment equation — if performance is predictable, spending billions is a plan, not a gamble — and they are why frontier budgets exploded."
+      },
+      "cs": {
+        "short": "Empirický poznatek, že modely se předvídatelně zlepšují s přidáváním výpočtů, dat a parametrů",
+        "full": "Škálovací zákony popisují, jak kvalita modelu hladce a předvídatelně roste, když se výpočty, data a parametry zvětšují společně. Proměnily pokrok AI v investiční rovnici — když je výkon předvídatelný, jsou miliardy plán, ne sázka — a stojí za explozí rozpočtů špičkových laboratoří."
+      },
+      "verified": "2026-08-07",
+      "source": "Kaplan et al., 2020; Hoffmann et al., 2022"
+    },
+    {
+      "id": "lex-038",
+      "slug": "alignment",
+      "term": "Alignment",
+      "category": "safety",
+      "en": {
+        "short": "Making AI systems actually pursue what people intend — not just what the training signal rewards",
+        "full": "Alignment is the research problem of getting AI systems to reliably do what their operators and society intend, even as capabilities grow. Misalignment today looks like sycophancy or reward-hacking; the field's concern is that stakes rise with autonomy."
+      },
+      "cs": {
+        "short": "Zajistit, aby AI skutečně sledovala lidský záměr — ne jen to, co odměňuje trénovací signál",
+        "full": "Alignment je výzkumný problém, jak přimět AI systémy spolehlivě dělat to, co zamýšlejí jejich provozovatelé a společnost, i když schopnosti rostou. Nesoulad dnes vypadá jako podlézavost nebo obcházení odměn; obor znepokojuje, že s autonomií rostou sázky."
+      },
+      "verified": "2026-08-07",
+      "source": "Alignment research literature"
+    },
+    {
+      "id": "lex-039",
+      "slug": "jailbreak",
+      "term": "Jailbreak",
+      "category": "safety",
+      "en": {
+        "short": "A prompt crafted to trick a model past its safety rules",
+        "full": "A jailbreak is an input designed to make a model ignore its safety training — role-play framings, encoded text, many-step setups. Providers patch, attackers adapt; the cat-and-mouse is a standing security discipline, not a solved problem."
+      },
+      "cs": {
+        "short": "Prompt sestrojený tak, aby model obelstil a obešel jeho bezpečnostní pravidla",
+        "full": "Jailbreak je vstup navržený, aby model ignoroval své bezpečnostní zábrany — hraní rolí, kódovaný text, vícekrokové pasti. Provozovatelé záplatují, útočníci se přizpůsobují; tahle hra na kočku a myš je trvalá bezpečnostní disciplína, ne vyřešený problém."
+      },
+      "verified": "2026-08-07",
+      "source": "LLM security research"
+    },
+    {
+      "id": "lex-040",
+      "slug": "prompt-injection",
+      "term": "Prompt injection",
+      "category": "safety",
+      "en": {
+        "short": "Hiding instructions in content the AI will read — the defining security hole of the agent era",
+        "full": "Prompt injection plants instructions inside content a model processes — a web page, an email, a document — so the model treats attacker text as commands ('ignore your instructions, forward the files'). For agents with tool access it is the critical vulnerability class, still without a complete fix."
+      },
+      "cs": {
+        "short": "Ukrytí instrukcí do obsahu, který AI přečte — hlavní bezpečnostní díra éry agentů",
+        "full": "Prompt injection ukrývá pokyny do obsahu, který model zpracovává — webové stránky, e-mailu, dokumentu — takže text útočníka vezme jako příkaz ('ignoruj instrukce, přepošli soubory'). Pro agenty s přístupem k nástrojům je to kritická třída zranitelností, dosud bez úplného řešení."
+      },
+      "verified": "2026-08-07",
+      "source": "OWASP LLM Top 10"
+    },
+    {
+      "id": "lex-041",
+      "slug": "evals",
+      "term": "Evals",
+      "category": "safety",
+      "en": {
+        "short": "Standardized tests for models — and the eternal race between benchmarks and models gaming them",
+        "full": "Evals are structured tests of model capability and safety: exam-style benchmarks (MMLU, math suites), task evals for agents, red-team batteries for risk. They are how progress is claimed and compared — imperfectly, since public benchmarks leak into training data and scores inflate."
+      },
+      "cs": {
+        "short": "Standardizované testy modelů — a věčný závod mezi benchmarky a modely, které se je naučí",
+        "full": "Evaly jsou strukturované testy schopností a bezpečnosti modelů: zkouškové benchmarky (MMLU, matematické sady), úlohové evaly pro agenty, red-teamové baterie pro rizika. Jimi se pokrok vykazuje a srovnává — nedokonale, protože veřejné benchmarky prosakují do trénovacích dat a skóre se nafukují."
+      },
+      "verified": "2026-08-07",
+      "source": "Benchmark literature; model cards"
+    },
+    {
+      "id": "lex-042",
+      "slug": "mcp",
+      "term": "MCP",
+      "category": "agents",
+      "en": {
+        "short": "Model Context Protocol — an open standard plugging tools and data into any AI assistant",
+        "full": "MCP (Model Context Protocol), open-sourced by Anthropic in late 2024, standardizes how assistants connect to tools and data: build one MCP server for your database or app, and any MCP-capable assistant can use it. Rapid adoption across the industry made it the closest thing agents have to a USB port."
+      },
+      "cs": {
+        "short": "Model Context Protocol — otevřený standard, kterým se nástroje a data připojují k libovolnému AI asistentovi",
+        "full": "MCP (Model Context Protocol), který Anthropic koncem roku 2024 uvolnil jako open source, standardizuje připojování asistentů k nástrojům a datům: postavíte jeden MCP server pro svou databázi či aplikaci a použije ho každý asistent s podporou MCP. Rychlé rozšíření napříč oborem z něj udělalo nejbližší obdobu USB portu pro agenty."
+      },
+      "verified": "2026-08-07",
+      "source": "MCP specification, Anthropic 2024"
+    },
+    {
+      "id": "lex-043",
+      "slug": "kv-cache",
+      "term": "KV cache",
+      "category": "inference",
+      "en": {
+        "short": "The memory trick that keeps chat responsive: remember the processed conversation instead of re-reading it",
+        "full": "The KV (key-value) cache stores the attention computations for tokens already processed, so each new token doesn't re-read the whole conversation. It's why long chats stay responsive — and a top consumer of GPU memory, which is what 'prompt caching' discounts are built on."
+      },
+      "cs": {
+        "short": "Paměťový trik, který drží chat svižný: zapamatuj si zpracovanou konverzaci, místo abys ji četl znovu",
+        "full": "KV (key-value) cache ukládá výpočty attention pro už zpracované tokeny, takže každý nový token nečte celou konverzaci znovu. Díky ní zůstávají dlouhé chaty svižné — a je to velký žrout paměti GPU, na kterém stojí i slevy za 'prompt caching'."
+      },
+      "verified": "2026-08-07",
+      "source": "Transformer inference optimization literature"
+    },
+    {
+      "id": "lex-044",
+      "slug": "lora",
+      "term": "LoRA",
+      "category": "training",
+      "en": {
+        "short": "Fine-tuning on the cheap: train a tiny add-on instead of the whole model",
+        "full": "LoRA (low-rank adaptation) freezes the original model and trains only small added matrices — often under 1% of the parameters. Specialization that once needed a data center fits on one GPU, and 'adapters' can be swapped like plugins. It made custom models a hobbyist activity."
+      },
+      "cs": {
+        "short": "Levný fine-tuning: natrénuj drobný přídavek místo celého modelu",
+        "full": "LoRA (low-rank adaptation) původní model zmrazí a trénuje jen malé přidané matice — často pod 1 % parametrů. Specializace, na kterou dřív bylo třeba datacentrum, se vejde na jedno GPU a 'adaptéry' se dají vyměňovat jako pluginy. Vlastní modely se díky ní staly koníčkem."
+      },
+      "verified": "2026-08-07",
+      "source": "Hu et al., 2021"
+    },
+    {
+      "id": "lex-045",
+      "slug": "synthetic-data",
+      "term": "Synthetic data",
+      "category": "data",
+      "en": {
+        "short": "Training data generated by models — the answer to the internet running out of text",
+        "full": "Synthetic data is model-generated training material: worked math solutions, code with tests, dialogue variations. With high-quality human text finite, frontier labs generate and filter synthetic data at scale — betting careful curation avoids the degradation of models feeding on themselves."
+      },
+      "cs": {
+        "short": "Trénovací data vygenerovaná modely — odpověď na docházející text internetu",
+        "full": "Syntetická data jsou trénovací materiál vyrobený modely: vypočítaná matematická řešení, kód s testy, variace dialogů. Kvalitního lidského textu je konečně, a tak špičkové laboratoře syntetická data hromadně generují a filtrují — sázejí na to, že pečlivá kurátorská práce odvrátí degradaci modelů krmících se sebou samými."
+      },
+      "verified": "2026-08-07",
+      "source": "Synthetic-data pipelines; Epoch data estimates"
+    },
+    {
+      "id": "lex-046",
+      "slug": "overfitting",
+      "term": "Overfitting",
+      "category": "training",
+      "en": {
+        "short": "When a model memorizes its training data instead of learning the pattern — great on tests it has seen, lost on new ones",
+        "full": "Overfitting is memorizing the training set instead of learning what generalizes: performance looks great on seen data and collapses on new data. It's the reason models are judged on held-out tests — and why a benchmark leaking into training data quietly invalidates the score."
+      },
+      "cs": {
+        "short": "Když se model nabifluje trénovací data místo pochopení vzoru — skvělý na tom, co viděl, ztracený na novém",
+        "full": "Overfitting znamená nabiflovat se trénovací sadu místo naučení toho, co zobecňuje: na viděných datech výsledky září, na nových se hroutí. Proto se modely posuzují na odložených testech — a proto benchmark proteklý do trénovacích dat potichu znehodnotí skóre."
+      },
+      "verified": "2026-08-07",
+      "source": "Standard ML methodology"
+    },
+    {
+      "id": "lex-047",
+      "slug": "backpropagation",
+      "term": "Backpropagation",
+      "category": "training",
+      "en": {
+        "short": "The algorithm behind all neural-net learning: trace each error backward and nudge every weight",
+        "full": "Backpropagation computes, for every weight in the network, how much it contributed to the current error — then nudges each one to reduce it. Repeated trillions of times, this is what 'training' physically is, essentially unchanged since 1986."
+      },
+      "cs": {
+        "short": "Algoritmus, kterým se učí všechny neuronové sítě: chybu protrasuj zpět a posuň každou váhu",
+        "full": "Backpropagation spočítá pro každou váhu v síti, jak moc přispěla k aktuální chybě — a každou pak posune tak, aby se chyba zmenšila. Zopakováno bilionkrát je tohle fyzická podstata 'tréninku', v jádru nezměněná od roku 1986."
+      },
+      "verified": "2026-08-07",
+      "source": "Rumelhart, Hinton, Williams (1986)"
+    },
+    {
+      "id": "lex-048",
+      "slug": "mixture-of-experts",
+      "term": "Mixture of experts",
+      "category": "models",
+      "en": {
+        "short": "A model built of specialist sub-networks, waking only a few per token — huge capacity, modest cost",
+        "full": "A mixture-of-experts model splits its layers into many 'experts' and routes each token to just a few of them, so only a fraction of the parameters compute at any moment. Total capacity can be enormous while per-token cost stays modest — the architecture behind many frontier and open flagship models."
+      },
+      "cs": {
+        "short": "Model složený ze specializovaných podsítí, z nichž se pro každý token probudí jen pár — obří kapacita, mírná cena",
+        "full": "Model mixture-of-experts rozdělí vrstvy na mnoho 'expertů' a každý token pošle jen několika z nich, takže v každém okamžiku počítá zlomek parametrů. Celková kapacita může být obrovská, zatímco cena za token zůstává mírná — architektura řady špičkových i otevřených vlajkových modelů."
+      },
+      "verified": "2026-08-07",
+      "source": "MoE literature (Switch Transformer; Mixtral; DeepSeek)"
+    },
+    {
+      "id": "lex-049",
+      "slug": "diffusion-model",
+      "term": "Diffusion model",
+      "category": "models",
+      "en": {
+        "short": "The image generator that learns by destroying pictures with noise, then reversing the process",
+        "full": "Diffusion models train by adding noise to images until only static remains — and learning to undo each step. Generation runs the reversal from pure noise, guided by your text prompt. Stable Diffusion, Midjourney and most video generators work this way."
+      },
+      "cs": {
+        "short": "Generátor obrázků, který se učí ničením snímků šumem — a pak proces obrací",
+        "full": "Difuzní modely se trénují přidáváním šumu do obrázků, dokud nezbude jen zrnění — a učí se každý krok vracet zpět. Generování pak spouští obrácený postup z čistého šumu, vedený vaším textovým zadáním. Takhle fungují Stable Diffusion, Midjourney i většina generátorů videa."
+      },
+      "verified": "2026-08-07",
+      "source": "Ho et al., 2020; Stable Diffusion (2022)"
+    },
+    {
+      "id": "lex-050",
+      "slug": "red-teaming",
+      "term": "Red teaming",
+      "category": "safety",
+      "en": {
+        "short": "Paying people to attack your model before the internet does",
+        "full": "Red teaming is adversarial testing: experts (and automated attackers) probe a model for harmful outputs, jailbreaks, bias and dangerous capabilities before and after release. Frontier labs run standing red teams and publish parts of the results in model cards — the AI equivalent of penetration testing."
+      },
+      "cs": {
+        "short": "Platit lidi, aby váš model napadli dřív, než to udělá internet",
+        "full": "Red teaming je nepřátelské testování: experti (i automatizovaní útočníci) zkoušejí z modelu dostat škodlivé výstupy, jailbreaky, předpojatost a nebezpečné schopnosti před vydáním i po něm. Špičkové laboratoře drží stálé red teamy a část výsledků zveřejňují v kartách modelů — obdoba penetračních testů v AI."
+      },
+      "verified": "2026-08-07",
+      "source": "Model cards; red-team methodology papers"
+    },
+    {
+      "id": "lex-051",
+      "slug": "npu",
+      "term": "NPU",
+      "category": "hardware",
+      "en": {
+        "short": "The small AI chip inside your phone and laptop — models running locally, no cloud involved",
+        "full": "A neural processing unit is a power-efficient AI accelerator built into phones and laptops. It runs smaller models on the device itself — transcription, photo magic, translation — with no server round-trip: faster, offline-capable, and private, since the data never leaves the machine."
+      },
+      "cs": {
+        "short": "Malý AI čip v telefonu a notebooku — modely běží lokálně, bez cloudu",
+        "full": "Neural processing unit je úsporný AI akcelerátor zabudovaný do telefonů a notebooků. Menší modely pouští přímo v zařízení — přepis řeči, úpravy fotek, překlad — bez cesty na server: rychleji, offline a soukromě, protože data stroj nikdy neopustí."
+      },
+      "verified": "2026-08-07",
+      "source": "Apple/Qualcomm/Intel NPU documentation"
+    },
+    {
+      "id": "lex-052",
+      "slug": "data-center",
+      "term": "Data center",
+      "category": "hardware",
+      "en": {
+        "short": "The physical home of AI: warehouses of GPUs measured in megawatts, not square meters",
+        "full": "AI lives in data centers — halls of racked GPUs with industrial power and cooling. New AI builds are described by power draw (hundreds of megawatts, gigawatts planned) because electricity, not floor space, is the limit; siting now revolves around grid capacity and cooling water."
+      },
+      "cs": {
+        "short": "Fyzický domov AI: haly plné GPU, měřené v megawattech, ne v metrech čtverečních",
+        "full": "AI bydlí v datacentrech — halách s racky GPU, průmyslovým napájením a chlazením. Nové AI stavby se popisují odběrem (stovky megawattů, v plánech gigawatty), protože limitem je elektřina, ne podlahová plocha; o umístění dnes rozhoduje kapacita sítě a chladicí voda."
+      },
+      "verified": "2026-08-07",
+      "source": "IEA Energy and AI (2025); hyperscaler disclosures"
+    },
+    {
+      "id": "lex-053",
+      "slug": "token-pricing",
+      "term": "Per-token pricing",
+      "category": "economics",
+      "en": {
+        "short": "AI is billed like a utility: per million tokens in and out — output costing several times more",
+        "full": "Model APIs charge per million tokens, with separate input and output rates — output typically costs several times more because generating is heavier than reading. Product margins live and die on token math: context length, caching and model choice are all pricing decisions."
+      },
+      "cs": {
+        "short": "AI se účtuje jako energie: za milion tokenů na vstupu a výstupu — výstup je několikrát dražší",
+        "full": "Modelová API účtují za milion tokenů, zvlášť vstup a výstup — výstup bývá několikanásobně dražší, protože generovat je náročnější než číst. Marže produktů stojí a padají s tokenovou matematikou: délka kontextu, cachování i volba modelu jsou cenová rozhodnutí."
+      },
+      "verified": "2026-08-07",
+      "source": "Public provider price lists"
+    },
+    {
+      "id": "lex-054",
+      "slug": "compute",
+      "term": "Compute",
+      "category": "economics",
+      "en": {
+        "short": "Raw processing power — the strategic commodity of the AI era, measured in FLOPs and GPU-hours",
+        "full": "'Compute' is the industry's word for processing power as a resource: FLOPs, GPU-hours, cluster time. It is the scarce input frontier progress runs on — allocated between training and inference, hoarded, export-controlled, and the reason 'GPU-rich' and 'GPU-poor' became real categories of company."
+      },
+      "cs": {
+        "short": "Hrubý výpočetní výkon — strategická komodita éry AI, měřená ve FLOPech a GPU-hodinách",
+        "full": "'Compute' je oborové slovo pro výpočetní výkon jako surovinu: FLOPy, GPU-hodiny, čas na clusteru. Je to vzácný vstup, na němž běží špičkový pokrok — dělí se mezi trénink a inferenci, hromadí se, podléhá exportním kontrolám a rozdělil firmy na reálné kategorie 'GPU-rich' a 'GPU-poor'."
+      },
+      "verified": "2026-08-07",
+      "source": "Epoch AI; export-control coverage"
+    },
+    {
+      "id": "lex-055",
+      "slug": "wrapper",
+      "term": "Wrapper",
+      "category": "economics",
+      "en": {
+        "short": "An app that is mostly someone else's model underneath — dismissive nickname, sometimes great business",
+        "full": "A 'wrapper' is a product whose core is a third-party model API plus interface and workflow. The term is dismissive — no moat, one price change from trouble — yet well-built wrappers with real distribution and domain depth have become substantial businesses. The insult and the opportunity are the same fact."
+      },
+      "cs": {
+        "short": "Aplikace, která je uvnitř hlavně cizí model — posměšná nálepka, občas skvělý byznys",
+        "full": "'Wrapper' je produkt, jehož jádrem je cizí modelové API plus rozhraní a workflow. Nálepka je posměšná — žádný příkop, jedna změna ceníku od potíží — ale dobře postavené wrappery se skutečnou distribucí a znalostí domény vyrostly v pořádné firmy. Urážka i příležitost jsou tentýž fakt."
+      },
+      "verified": "2026-08-07",
+      "source": "AI product commentary, 2023-2025"
+    },
+    {
+      "id": "lex-056",
+      "slug": "moat",
+      "term": "Moat",
+      "category": "economics",
+      "en": {
+        "short": "What stops competitors from copying you — in AI, famously scarce ('we have no moat')",
+        "full": "A moat is a durable competitive advantage. In AI the debate is what actually holds: models get copied and prices collapse, while data flywheels, distribution, switching costs and ecosystems (like CUDA) endure. A leaked 2023 Google memo — 'We have no moat, and neither does OpenAI' — named the anxiety."
+      },
+      "cs": {
+        "short": "To, co konkurenci brání vás okopírovat — v AI proslule vzácné ('nemáme žádný příkop')",
+        "full": "Moat (příkop) je trvalá konkurenční výhoda. V AI se vede spor, co skutečně drží: modely se kopírují a ceny hroutí, zatímco datové setrvačníky, distribuce, náklady na přechod a ekosystémy (jako CUDA) vydrží. Uniklé memo z Googlu z roku 2023 — 'Nemáme žádný příkop a OpenAI také ne' — dalo té úzkosti jméno."
+      },
+      "verified": "2026-08-07",
+      "source": "Leaked Google memo, May 2023; strategy commentary"
+    },
+    {
+      "id": "lex-057",
+      "slug": "harness",
+      "term": "Harness",
+      "category": "agents",
+      "en": {
+        "short": "The software scaffolding around a model that turns it into a working agent — often worth more than model choice",
+        "full": "A harness is everything wrapped around the model to make it effective: system prompts, tools, memory and context management, retries, guardrails, evaluation hooks. The same model performs wildly differently in different harnesses — much of 'agent quality' is harness engineering, not model choice."
+      },
+      "cs": {
+        "short": "Softwarová konstrukce kolem modelu, která z něj dělá funkčního agenta — často důležitější než volba modelu",
+        "full": "Harness (postroj) je vše obalené kolem modelu, aby fungoval: systémové prompty, nástroje, správa paměti a kontextu, opakované pokusy, zábrany, měřicí háčky. Tentýž model podává v různých harnessech divoce různé výkony — velká část 'kvality agenta' je inženýrství harnessu, ne volba modelu."
+      },
+      "verified": "2026-08-07",
+      "source": "Agent engineering practice, 2023-2025"
+    },
+    {
+      "id": "lex-058",
+      "slug": "deepfake",
+      "term": "Deepfake",
+      "category": "safety",
+      "en": {
+        "short": "Synthetic audio or video of a real person — now cheap enough to fool banks, voters and families",
+        "full": "A deepfake is AI-synthesized media of a real person doing or saying something they didn't. Once a research demo, now commodity fraud tooling: cloned voices for scam calls, fabricated executives on video conferences. Detection lags generation, so provenance and verification, not eyesight, are the defense."
+      },
+      "cs": {
+        "short": "Syntetické audio nebo video skutečného člověka — už dost levné, aby klamalo banky, voliče i rodiny",
+        "full": "Deepfake je AI syntéza médií, v níž skutečný člověk dělá nebo říká, co nikdy neřekl. Z výzkumného dema je běžný podvodný nástroj: klonované hlasy pro podvodné hovory, falešní manažeři na videokonferencích. Detekce zaostává za generováním — obranou je původ a ověřování, ne oko."
+      },
+      "verified": "2026-08-07",
+      "source": "Deepfake fraud case coverage, 2019-2025"
+    },
+    {
+      "id": "lex-059",
+      "slug": "ai-slop",
+      "term": "AI slop",
+      "category": "safety",
+      "en": {
+        "short": "The flood of low-effort machine-generated content clogging the web — the pollution problem of generative AI",
+        "full": "'Slop' is careless mass-produced AI content: filler articles, fake photos, spam books, bot comments. It pollutes search results and social feeds and — by contaminating future training data — the models themselves. The word became mainstream in 2024 as the web's new litter."
+      },
+      "cs": {
+        "short": "Záplava lacino generovaného obsahu ucpávající web — problém znečištění generativní AI",
+        "full": "'Slop' je bezstarostně chrlený AI obsah: vycpávkové články, falešné fotky, spamové knihy, robotické komentáře. Znečišťuje vyhledávání a sociální sítě a — kontaminací budoucích trénovacích dat — i samotné modely. Slovo v roce 2024 zdomácnělo jako název pro nový odpad webu."
+      },
+      "verified": "2026-08-07",
+      "source": "Slop discourse, 2024-2025"
+    },
+    {
+      "id": "lex-060",
+      "slug": "agi",
+      "term": "AGI",
+      "category": "models",
+      "en": {
+        "short": "Artificial general intelligence: AI matching humans across most cognitive work — definition contested, stakes not",
+        "full": "AGI means AI that matches or exceeds human ability across most cognitive work, not just single tasks. There is no agreed definition or test — one lab's charter milestone is another's marketing term — yet it anchors the field's biggest investments, timelines and safety debates. The dictionary's last entry is the field's open question."
+      },
+      "cs": {
+        "short": "Obecná umělá inteligence: AI na lidské úrovni ve většině duševní práce — definice sporná, sázky ne",
+        "full": "AGI označuje AI, která se vyrovná člověku nebo ho předčí ve většině duševní práce, ne jen v jednotlivých úlohách. Shodná definice ani test neexistují — co je pro jednu laboratoř milník charty, je pro druhou marketing — přesto AGI kotví největší investice, odhady i bezpečnostní debaty oboru. Poslední heslo slovníčku je otevřená otázka oboru."
+      },
+      "verified": "2026-08-07",
+      "source": "Lab charters and AGI definitions debate"
+    }
+  ]
+}
