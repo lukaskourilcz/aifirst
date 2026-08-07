@@ -1,6 +1,6 @@
 # Caught Up — monetization
 
-A bilingual technology briefing produced by BoardlessAI and served as a static
+A Czech technology briefing produced by BoardlessAI and served as a static
 reader. Revenue depends on trust and audience; the producer boundary does not
 change the need for sponsor approval, disclosure and measurable traffic.
 

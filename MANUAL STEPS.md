@@ -16,12 +16,12 @@ them.
 
 ## 2. Let the automated release check decide
 
-Each new delivery must contain the English article, Czech article, exactly one
-validated image and its attribution. BoardlessAI then:
+Each new delivery must contain the Czech article, exactly one validated image
+and its attribution. An English article is legacy and is never required. BoardlessAI then:
 
 1. commits only the authorized dated files;
 2. waits for repository validation and the Vercel deployment;
-3. checks both language routes, the content hash, image dimensions and attribution;
+3. checks the article route, the content hash, image dimensions and attribution;
 4. retries the same package once without another model call;
 5. reverts and pauses Caught Up if the second check fails.
 

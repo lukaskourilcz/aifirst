@@ -4,8 +4,8 @@ Status: current architecture record, updated 2026-07-31.
 
 ## Current system
 
-Caught Up is the static bilingual reader for BoardlessAI Venture 001. English
-uses unprefixed routes and Czech uses `/cs`. Git-tracked MDX remains canonical;
+Caught Up is the static Czech reader for BoardlessAI Venture 001. Czech is the
+only published locale and serves at the root; `/cs/*` redirects there. Git-tracked MDX remains canonical;
 the reader has no content database, CMS, account system, runtime AI call or
 runtime dependency on the producer.
 
@@ -70,10 +70,10 @@ write an edition or call a provider.
 ## Validation boundary
 
 The delivery consumer validates the `edition-package/1` schema, canonical hash,
-exact English/Czech MDX bytes, the required hero and attribution, authorized
+exact Czech MDX bytes, the required hero and attribution, authorized
 output paths and same-date replay. A replay succeeds only when every existing output is complete
 and byte-identical. Content checks then validate schema-v2 provenance, source
-registry IDs, bilingual linkage, corrections, sponsorship safety and board
+registry IDs, corrections, sponsorship safety and board
 context before Vercel builds.
 
 Release validation remains:

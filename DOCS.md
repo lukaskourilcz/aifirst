@@ -22,7 +22,8 @@ does not activate a second generator in this repository.
 
 ## Reader routes
 
-English is unprefixed and Czech uses `/cs`.
+Czech is the only published locale and serves at the root, unprefixed.
+`/cs/*` permanently redirects there.
 
 - `/` — Today
 - `/articles/[slug]` — issue detail
@@ -52,7 +53,8 @@ Compatibility decisions:
 - The old `?lang=cs` print URL permanently redirects to the Czech static path.
 
 Primary navigation is Today, Radar, Topics, Weekly, Archive and About. Search
-and the language switcher remain available in the sidebar. Sources, glossary,
+remains available in the sidebar; there is no language switcher, because there
+is no second locale to switch to. Sources, glossary,
 corrections and feeds are visible from the footer or relevant reading context.
 
 ## Rendering and localization
@@ -63,10 +65,11 @@ retired `/promotion` route returns 404.
 
 `lib/i18n/config.ts` owns locale conventions. `localeAlternates` emits
 localized canonical, `hreflang` and `x-default` links. Localized feeds use the
-same URL convention. UI, About, Topics, Radar and Weekly are bilingual.
+same URL convention. Every reader surface renders in Czech.
 
-BoardlessAI deliveries contain both English and Czech when status is `edition`.
-The reader preserves its existing locale, canonical and hreflang behavior. A
+A BoardlessAI delivery carries the Czech article when status is `edition`; an
+English article is accepted only as legacy and is never required. The reader
+preserves its existing locale, canonical and hreflang behavior. A
 NO_EDITION package contains only sanitized board context.
 
 ## Content model
@@ -126,18 +129,19 @@ Radar deterministically composes existing tag trend, signal, Watchlist, pulse
 and issue timeline data. It does not expose scrape failures, raw operator logs
 or cost.
 
-Weekly renders the existing committed schema-v2 bilingual archive and feeds.
+Weekly renders the existing committed schema-v2 archive and feeds.
 Its former writer and workflow are retired; a future replacement requires a
 new board proposal instead of a dormant fallback.
 
 ## Delivery pipeline
 
 1. Parse `edition-package/1` with the mirrored contract.
-2. Verify the canonical idempotency hash and exact bilingual MDX bytes.
+2. Verify the canonical idempotency hash and exact MDX bytes.
 3. Reject a wrong major, content mismatch or unauthorized hero path.
-4. If the English date already exists, accept only the same package hash as a
+4. If the date already exists, accept only the same package hash as a
    success no-op; a different hash fails closed.
-5. Materialize only dated English/Czech MDX, the required dated WebP and
+5. Materialize only dated Czech MDX (plus a legacy English file when one is
+   supplied), the required dated WebP and
    sanitized board JSON through temporary files.
 6. Run `check:content`, commit only those authorized paths, and let Vercel run
    the same validation independently during build.
@@ -156,7 +160,7 @@ live only in Quorum. Changes branch, validate, show a diff and pass CI.
 ## Workflow controls
 
 `daily.yml` runs only at 07:00 UTC and may be dispatched with an optional date.
-It checks for that Prague day's English article or a valid NO_EDITION board
+It checks for that Prague day's Czech article or a valid NO_EDITION board
 record. If both are missing, it opens one `missed-day: <date>` issue and fails.
 It has contents read and issues write permissions; there are no generation,
 weekly or regeneration workflows.

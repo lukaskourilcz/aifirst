@@ -3,7 +3,9 @@
 **The AI stories that actually mattered today.** One edition and you’re caught
 up on AI.
 
-Caught Up is a bilingual, Git-native AI publication. BoardlessAI owns source
+Caught Up is a Czech, Git-native AI publication. Czech is the only published
+locale: every edition is written once, natively in Czech, upstream — there is no
+translation stage anywhere in this pipeline. BoardlessAI owns source
 collection, curation, writing and quality control in the separate `quorum`
 repository. Its bounded GitHub App delivers schema-valid content commits here;
 Next.js independently validates them and materializes the reader at build time.
@@ -15,11 +17,11 @@ technical identifier, not the public publication name.
 
 - Publish a complete daily edition with a lead story, Why it matters, Briefs,
   Watchlist, uncertainty, signal strength, corrections and a source ledger.
-- Render the existing bilingual weekly archive without a dormant weekly writer.
+- Render the existing weekly archive without a dormant weekly writer.
 - Turn the archive’s existing tags, statistics, trends and pulse data into
   curated Topics and a static Radar view.
-- Serve English at unprefixed URLs and Czech under `/cs`, while exposing only
-  real locale files in canonicals, hreflang, sitemaps and feeds.
+- Serve Czech at unprefixed URLs, while exposing only real locale files in
+  canonicals, sitemaps and feeds.
 - Preserve legacy MDX, article URLs, tag URLs and feed consumers while
   redirecting renamed reader surfaces to the new product structure.
 - Generate Atom feeds, static JSON contracts, share packs, newsletter files,
@@ -52,7 +54,10 @@ Reader growth increases static delivery, not editorial model usage.
 | `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`, `/api/sources.json` | Build-time JSON contracts |
 | `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
 
-English is unprefixed and Czech mirrors supported routes under `/cs`.
+Czech serves at the root, unprefixed. `/cs/*` permanently redirects there — the
+prefix and the English routes behind it are retired compatibility, and nothing
+new is published under them. A few early issues were written in English and
+remain in the archive as stored files; they are not a second locale.
 `/stats` and `/trends` permanently redirect to `/radar`, `/tags` to `/topics`,
 and `/colophon` to `/about`. Legacy article and tag-detail URLs remain valid.
 `/admin` is a noindex migration notice; operations belong in GitHub Actions and
@@ -101,7 +106,8 @@ pnpm check:content
 pnpm build
 ```
 
-The consumer can write only dated English/Czech MDX, the matching required hero,
+The consumer can write only dated Czech MDX (English is accepted as legacy and
+is never required), the matching required hero,
 and sanitized board JSON. A delivered date is immutable: a complete,
 byte-identical replay succeeds without a write. A missing or changed output file
 is a reconciliation error even when another file still carries the package

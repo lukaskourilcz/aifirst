@@ -1,8 +1,9 @@
 # Caught Up (`aifirst`)
 
-Caught Up is a bilingual, Git-native daily briefing about the AI and technology
-stories that mattered. BoardlessAI produces and reviews each English/Czech
-edition, then a narrowly scoped GitHub App delivers validated MDX and optional
+Caught Up is a Czech, Git-native daily briefing about the AI and technology
+stories that mattered. Czech is the only published locale; every edition is
+written once, natively in Czech, and there is no translation stage. BoardlessAI
+produces and reviews each edition, then a narrowly scoped GitHub App delivers validated MDX and optional
 hero media. This repository independently validates and publishes the static
 reader.
 
@@ -14,7 +15,7 @@ reader.
   and a daily verified fact on Today, plus the `/lekce` archive. Server-rendered
   at build time from the newest edition's date; no client JavaScript, no runtime
   cost. `config/banner.json` reserves one partner slot, empty by default.
-- **Delivery:** `edition-package/1` consumer restricted to dated bilingual MDX,
+- **Delivery:** `edition-package/1` consumer restricted to the dated Czech MDX,
   one required dated WebP for each new article and sanitized board context.
 - **Automation:** GitHub Actions CI plus a Prague-aware missed-publication
   sentinel; no generation workflow runs here.

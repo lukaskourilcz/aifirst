@@ -13,7 +13,7 @@ additionally probes desktop (1280 × 800), tablet (820 × 1180), and mobile
 
 Routes reviewed directly or through the route audit:
 
-- Today in English and Czech
+- Today at the Czech root
 - a recent legacy issue, an older legacy issue, and print
 - Radar, Topics, a Topic detail, Weekly, Archive, and Search
 - About, Sources, Glossary, Corrections, and Health
@@ -34,11 +34,10 @@ meeting or decision that never happened.
   package heading to wrap removed the overflow without hiding data. The tablet
   publication strip also received a tighter signal meter so Czech metadata
   cannot widen the document while fonts settle.
-- English and Czech Today and Weekly views wrap without clipping. The brand remains untranslated.
+- Czech Today and Weekly views wrap without clipping. The brand remains untranslated.
 - Search moves focus to the query input, contains keyboard focus, closes with Escape, restores the trigger, and announces result counts.
-- The language switcher uses a document navigation that changes the URL,
-  localized route, and document language in one load. Desktop, tablet, and
-  mobile checks reach the Czech Today route.
+- The language switcher was retired with the move to a single published locale.
+  Desktop, tablet, and mobile checks reach the Czech Today route at the root.
 - The skip link moves focus to `#main-content`. Current navigation, dialogs, the visible provenance record, and copy feedback retain semantic names and keyboard operation.
 - Today and issue pages now expose a real-data publication strip. Legacy issues identify missing review and cost telemetry as not recorded or unavailable rather than displaying demo values.
 - Desktop navigation uses numeric issue-desk indices. Compact navigation
@@ -59,7 +58,7 @@ meeting or decision that never happened.
 - The canonical dark palette, three-font hierarchy, publication-data strip,
   indexed navigation, real freshness panel, provenance record, evidence
   badges, Radar meters, source panels, archive rows, and no-image layouts were
-  inspected directly in English and Czech.
+  inspected directly in Czech.
 - The additive making-of note and quiet no-edition archive row fit the existing
   editorial hierarchy at 1280 and 390 CSS pixels. Both remained within the
   viewport; the about-page sponsorship disclosure and empty, honest board

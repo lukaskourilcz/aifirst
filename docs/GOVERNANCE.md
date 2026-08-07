@@ -6,7 +6,7 @@ It has no write path to Caught Up code.
 
 ## Ring 1: autonomous
 
-The board may select one daily story or record `NO_EDITION`, write bilingual
+The board may select one daily story or record `NO_EDITION`, write Czech
 article content inside the quality gates, create deterministic social drafts,
 choose the publishing rhythm within one edition a day, turn an already approved
 sponsor slot on or off, and select existing BoardlessAI layout variants.
@@ -38,7 +38,7 @@ The delivery contract may write only:
 Every other path remains outside board authority.
 
 The additive consumer validates `edition-package/1`, its canonical package hash,
-the bilingual schema-v2 content and the same-date replay rule before it writes
+the schema-v2 content and the same-date replay rule before it writes
 those paths. An equal replay succeeds only when every authorized output file is
 present and byte-identical. Missing or changed siblings fail closed for human
 reconciliation. Public board JSON contains only the decision rationale or

@@ -1,6 +1,6 @@
 # NEEDED — manual owner actions for Caught Up
 
-Caught Up is a static bilingual reader. BoardlessAI owns source collection,
+Caught Up is a static Czech reader. BoardlessAI owns source collection,
 edition meetings, writing, Czech localization, illustrations, social drafts and
 delivery. This file contains only actions that require the owner’s accounts,
 credentials or judgment; there is no second generation setup to maintain here.
@@ -31,7 +31,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 - The repository contains no scraper, editorial model client, article writer,
   media generator, social console or weekly/regeneration workflow.
 - The exact package consumer was rehearsed in a clean checkout on 2026-08-01:
-  it wrote the bilingual issue and hero, accepted an identical replay as a no-op,
+  it wrote the issue and hero, accepted an identical replay as a no-op,
   passed content validation and produced both article routes in a production build.
 - `/admin` in Caught Up is a noindex handoff link to the protected BoardlessAI
   social archive. Caught Up itself has no operator login or content database.
