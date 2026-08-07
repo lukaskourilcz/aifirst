@@ -564,6 +564,59 @@
   color: var(--text-tertiary);
   overflow-wrap: anywhere;
 }
+
+/* /lekce — the revealed curriculum, one table per category. */
+.lesson-group { margin-bottom: var(--space-7); }
+.lesson-group__title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  letter-spacing: var(--tracking-heading);
+}
+.lesson-table { width: 100%; min-width: 520px; border-collapse: collapse; }
+.lesson-table th,
+.lesson-table td {
+  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: baseline;
+}
+.lesson-table thead th {
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.lesson-table tbody th { width: 32%; font-weight: 400; }
+.lesson-table__term {
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.lesson-table__meta {
+  display: block;
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+}
+/* Today's term is marked by the word itself, never by colour alone. */
+.lesson-table__today { color: var(--text-primary); font-weight: 600; }
+.lesson-table__description {
+  font-family: var(--font-reading);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
 .issue-topics { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .issue-print-action { margin-top: var(--space-5); text-align: right; }
 .fallback-notice { margin: 0 0 var(--space-5); padding: var(--space-3); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); color: var(--text-primary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
