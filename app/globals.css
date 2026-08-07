@@ -565,6 +565,26 @@
   overflow-wrap: anywhere;
 }
 
+/* Partner belt after the completion mark. Empty by default: the component
+   returns null, so these rules only ever apply to a configured creative. */
+.banner-slot { margin-top: var(--section-gap); text-align: center; }
+.banner-slot__label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.banner-slot__link { display: inline-block; border-bottom: none; }
+.banner-slot__creative { display: block; max-width: 100%; height: auto; }
+.banner-slot__creative--mobile { display: none; }
+@media (max-width: 480px) {
+  .banner-slot__creative--desktop { display: none; }
+  .banner-slot__creative--mobile { display: block; }
+}
+
 /* /lekce — the revealed curriculum, one table per category. */
 .lesson-group { margin-bottom: var(--space-7); }
 .lesson-group__title {

@@ -4,6 +4,7 @@ import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
 import { Wire } from "@/components/Wire";
+import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { DailyLesson } from "@/components/editorial/DailyLesson";
 import { DidYouKnow } from "@/components/editorial/DidYouKnow";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
@@ -203,6 +204,7 @@ export default async function HomePage({
         <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
         <span className="caught-up-completion__message">{publication.completion}</span>
       </p>
+      <BannerSlot id="today-partner-belt" locale={locale} />
       <FeedActions locale={locale} />
 
       {/* Recent issues feed */}

@@ -33,12 +33,12 @@ function creative(value: unknown): BannerCreative | null {
 }
 
 /**
- * The creative configured for `id`, or `null` when the slot is inactive,
- * missing, incomplete, or points anywhere outside `public/images/banners/`.
- * Anything malformed reads as empty — a bad config never throws during render.
+ * One configured slot, or `null` when it is inactive, incomplete, or points
+ * anywhere outside `public/images/banners/`. Anything malformed reads as empty
+ * — a bad config never throws during render.
  */
-export function bannerSlot(id: string): BannerSlot | null {
-  const slot = config.slots[id];
+export function parseSlot(value: unknown): BannerSlot | null {
+  const slot = value;
   if (typeof slot !== "object" || slot === null) return null;
 
   const { active, advertiser, href, alt } = slot as Record<string, unknown>;
@@ -52,4 +52,9 @@ export function bannerSlot(id: string): BannerSlot | null {
   if (desktop === null || mobile === null) return null;
 
   return { advertiser, href, alt, desktop, mobile };
+}
+
+/** The creative configured for `id`, or `null` while the slot is empty. */
+export function bannerSlot(id: string): BannerSlot | null {
+  return parseSlot(config.slots[id]);
 }
