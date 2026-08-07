@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "banner-slot/1",
+  "slots": {
+    "today-partner-belt": {
+      "active": false,
+      "advertiser": null,
+      "href": null,
+      "alt": null,
+      "desktop": null,
+      "mobile": null
+    }
+  }
+}
