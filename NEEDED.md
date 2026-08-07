@@ -7,7 +7,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Required for unattended BoardlessAI delivery
 
-- [ ] **Remove the retired aifirst Anthropic secret and audit Vercel** — GitHub still listed `ANTHROPIC_API_KEY` on 2026-07-31 even though no workflow or runtime reads it. Delete it from `lukaskourilcz/aifirst`, then remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project. Rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials or the optional OwnDashboard sentinel pair if you still use that receiver. [imp:5] [owner:me] [time:20m] [kind:setup]
+- [ ] **Finish the Vercel half of the credential audit** — the retired `ANTHROPIC_API_KEY` Actions secret was deleted from `lukaskourilcz/aifirst` on 2026-08-07. Still open: remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project, and rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials or the optional OwnDashboard sentinel pair if you still use that receiver. [imp:4] [owner:me] [time:15m] [kind:setup]
 
 ## Product decisions
 
@@ -25,6 +25,11 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Already complete
 
+- The repository is public as of 2026-08-07, which is what restores Actions:
+  standard runners are unmetered on public repositories, so the free-tier
+  minutes that had been exhausted no longer gate CI or the daily sentinel.
+- The retired `ANTHROPIC_API_KEY` Actions secret is deleted. A history and
+  working-tree sweep of this repository found no committed credential.
 - Vercel Pro coverage is confirmed; the production branch is `main` and the
   canonical reader URL is `https://caughtup-ai.vercel.app`.
 - Visitor and engagement analytics are deliberately removed for this phase.
