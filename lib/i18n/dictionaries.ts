@@ -83,6 +83,22 @@ const en = {
     recentEditions: "Recent editions",
     nextRun: "next run",
   },
+  daily: {
+    lessonKicker: "Today's AI lesson",
+    lessonLink: "Full description →",
+    factKicker: "Did you know…",
+    verified: "Verified",
+    lessonsTitle: "AI lessons",
+    lessonsIntro:
+      "One term a day, from the daily briefing. Everything revealed so far, grouped by category.",
+    lessonsMetaDescription:
+      "The AI vocabulary DNESKAi has explained so far — one term a day, grouped by category.",
+    term: "Term",
+    description: "Description",
+    today: "Today",
+    revealedOn: "revealed",
+    partnerLabel: "Partner",
+  },
   article: {
     weeklyDigest: "weekly digest",
     printView: "print view",
@@ -485,6 +501,22 @@ const cs: Dict = {
     leadStory: "hlavní příběh",
     recentEditions: "Poslední vydání",
     nextRun: "příští běh",
+  },
+  daily: {
+    lessonKicker: "Dnešní AI lekce",
+    lessonLink: "Celý popis →",
+    factKicker: "Víte, že…",
+    verified: "Ověřeno",
+    lessonsTitle: "AI lekce",
+    lessonsIntro:
+      "Každý den jeden pojem z denního vydání. Vše, co už bylo odhaleno, seřazené podle kategorií.",
+    lessonsMetaDescription:
+      "Slovníček AI pojmů, které DNESKAi dosud vysvětlilo — každý den jeden, podle kategorií.",
+    term: "Termín",
+    description: "Popis",
+    today: "Dnes",
+    revealedOn: "odhaleno",
+    partnerLabel: "Partner",
   },
   article: {
     weeklyDigest: "týdenní souhrn",

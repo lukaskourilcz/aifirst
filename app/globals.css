@@ -457,6 +457,113 @@
   font-variant-numeric: tabular-nums;
 }
 .issue-reference-blocks { margin-top: var(--block-gap); }
+
+/* Daily widgets — one lesson and one fact per edition, both resolved at build
+   time. The lesson strip sits inside the hero viewport, so it is budgeted to a
+   single row above 480px and two wrapped lines below it; it must never push the
+   lead headline out of view. */
+.daily-lesson {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  min-width: 0;
+}
+.daily-lesson__kicker {
+  flex: 0 0 auto;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+.daily-lesson__body {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+.daily-lesson__term {
+  flex: 0 0 auto;
+  font-family: var(--font-editorial);
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.daily-lesson__short {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  color: var(--text-secondary);
+}
+.daily-lesson__link {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: none;
+}
+
+@media (max-width: 860px) {
+  .daily-lesson__kicker { flex-basis: 100%; }
+  .daily-lesson { flex-wrap: wrap; row-gap: var(--space-2); }
+}
+@media (max-width: 480px) {
+  /* Two lines at most: the term above its gloss, the link beside the kicker. */
+  .daily-lesson { column-gap: var(--space-3); }
+  .daily-lesson__kicker { flex-basis: auto; }
+  .daily-lesson__body { flex-basis: 100%; flex-wrap: wrap; row-gap: 2px; }
+  .daily-lesson__term { flex-basis: 100%; }
+  .daily-lesson__link { margin-left: auto; }
+}
+
+.did-you-know {
+  margin-top: var(--section-gap);
+  padding: var(--space-5);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-reading);
+}
+.did-you-know__kicker {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+.did-you-know__fact {
+  max-width: var(--reading);
+  margin: 0;
+  font-family: var(--font-reading);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+}
+.did-you-know__meta {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: var(--leading-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+  overflow-wrap: anywhere;
+}
 .issue-topics { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .issue-print-action { margin-top: var(--space-5); text-align: right; }
 .fallback-notice { margin: 0 0 var(--space-5); padding: var(--space-3); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); color: var(--text-primary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }

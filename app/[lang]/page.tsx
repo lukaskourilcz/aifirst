@@ -4,6 +4,8 @@ import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
 import { Wire } from "@/components/Wire";
+import { DailyLesson } from "@/components/editorial/DailyLesson";
+import { DidYouKnow } from "@/components/editorial/DidYouKnow";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
@@ -139,6 +141,7 @@ export default async function HomePage({
         locale={locale}
         showHumanReview={false}
       />
+      <DailyLesson dateKey={fm.date} locale={locale} />
       <IssueMasthead
         label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.leadStory}
         title={fm.title}
@@ -192,6 +195,7 @@ export default async function HomePage({
         )}
         {hasSources && <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />}
         <Provenance article={latest} locale={locale} />
+        <DidYouKnow dateKey={fm.date} locale={locale} />
       </section>
 
       <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
