@@ -39,6 +39,20 @@ Every other path is outside the delivery App’s authority.
 - `/promotion` is retired and returns 404.
 - `/admin` is a noindex handoff to the protected BoardlessAI social archive.
 - Legacy MDX and the storage keys `dispatches` and `wire` remain supported.
+- `/lekce` is additive: the archive of AI terms the daily lesson strip has
+  revealed. It is in the sitemap but not the navigation, and it does not touch
+  `/glossary`.
+
+## Daily datasets
+
+`data/ai-facts.json` and `data/ai-lessons.json` are a second, additive read
+surface beside the edition pipeline. They are append-only, carry `verified` and
+`source` on every entry, and arrive through the same content-only delivery
+channel — `data/README.md` is the contract. `lib/daily.ts` turns the newest
+edition's date into one entry per day with no clock and no randomness, so builds
+stay reproducible. `config/banner.json` reserves one partner slot on Today and
+ships inactive; nothing renders and no space is reserved until a local creative
+is committed.
 
 ## Removed at cutover
 

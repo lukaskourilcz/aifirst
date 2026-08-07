@@ -34,6 +34,7 @@ English is unprefixed and Czech uses `/cs`.
 - `/about` — trust center
 - `/corrections` — public correction history
 - `/sources`, `/sources/[id]`, `/glossary`, `/search` — secondary reference
+- `/lekce` — the revealed AI-lesson curriculum, one table per category
 - `/feed.xml`, `/weekly/feed.xml`, `/topics/[slug]/feed.xml` — Atom
 - `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`,
   `/api/sources.json` and `/api/health.json` — static, public syndication/health
@@ -107,6 +108,10 @@ New issues can display:
 - corrections and generation provenance
 - related issues, topics, previous/next navigation and feed actions
 - completion state: “You’re caught up.”
+- a daily AI lesson strip above the masthead and a daily verified fact closing
+  the reference blocks, both picked from the edition date and both text-only
+- a partner belt after the completion mark, empty unless `config/banner.json`
+  activates a slot with local creatives
 
 Legacy issues omit unavailable sections; no facts or provenance are invented.
 

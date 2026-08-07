@@ -46,6 +46,7 @@ Reader growth increases static delivery, not editorial model usage.
 | `/topics`, `/topics/[slug]` | Curated destinations backed by existing tag metadata |
 | `/archive` | Filterable context-rich issue history |
 | `/about`, `/sources`, `/glossary`, `/corrections`, `/health` | Methodology, accountability and sanitized publication health |
+| `/lekce` | Every AI term the daily lesson strip has revealed, grouped by category |
 | `/search` | Static client-side discovery over committed content |
 | `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
 | `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`, `/api/sources.json` | Build-time JSON contracts |

@@ -13,6 +13,10 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 - [ ] **Confirm whether technical names should stay `aifirst`** — the public product is Caught Up, while the GitHub repository and Vercel project still use `aifirst`. Leaving them unchanged is supported; rename them only if public consistency is worth the migration work. [imp:2] [owner:me] [time:30m] [kind:decision]
 
+## Partner slot
+
+- [ ] **Supply the devShark banner creative and its target URL** — the slot `today-partner-belt` is built and empty. It needs a 728×90 and a 320×100 image committed under `public/images/banners/`, the alt text, and the destination link; then flip `active` to `true` in `config/banner.json`. Until all of that exists the slot renders nothing, which is the correct state. [imp:2] [owner:me] [time:20m] [kind:content]
+
 ## Optional reader operations
 
 - [ ] **Add a read-only GitHub token in Vercel only if private workflow history should appear in health** — set `GITHUB_TOKEN` with the narrowest repository read permission; the public health JSON never exposes it. [imp:2] [owner:me] [time:20m] [kind:deploy]
@@ -31,3 +35,7 @@ credentials or judgment; there is no second generation setup to maintain here.
   passed content validation and produced both article routes in a production build.
 - `/admin` in Caught Up is a noindex handoff link to the protected BoardlessAI
   social archive. Caught Up itself has no operator login or content database.
+- The daily lesson strip, the "Víte, že…" fact block and the `/lekce` archive
+  ship from `data/`. They need no owner action: the datasets are committed, the
+  pick is deterministic from the edition date, and appends arrive through the
+  existing delivery channel (`data/README.md`).

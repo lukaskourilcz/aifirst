@@ -53,6 +53,28 @@ anywhere in this pipeline and none is coming back.
 - The daily workflow is a sentinel only: it checks that the day has either a Czech article whose `package_hash` matches the board record, or an honest no-edition board record. Weekly pages render existing committed content; there is no weekly generation workflow.
 - Never fabricate sources, provenance, metrics, human review, or cost.
 
+## Daily widgets and the banner slot
+
+Three Server Components on Today read `data/`, not the edition pipeline. They add
+no client JavaScript and make no network or model call.
+
+- **`DailyLesson`** sits between `PublicationData` and `IssueMasthead`, inside the
+  hero viewport, and links to `/lekce`. **`DidYouKnow`** closes
+  `section.issue-reference-blocks`. Both take the lead edition's date as a prop.
+- The pick is `daysBetween(anchor, dateKey) % length` from `lib/daily.ts`. The date
+  is the newest edition's `frontmatter.date` — a Prague publishing day by contract —
+  never a clock. Nothing in these paths may call `new Date()`, `Date.now()` or
+  `Math.random()`, or the build stops being reproducible.
+- `data/ai-facts.json` and `data/ai-lessons.json` are append-only; `data/README.md`
+  is the contract and `lib/__tests__/datasets.test.ts` is the gate. Counts are
+  asserted as minimums so an append needs no test edit.
+- The lessons are a dated curriculum, `glossary.yml` is a reference list. They
+  coexist; do not merge them or cross-wire their loaders.
+- **`BannerSlot`** renders `config/banner.json` and ships empty — it returns `null`
+  and reserves no space. A creative must be a local file under
+  `public/images/banners/` with explicit dimensions; anything else reads as empty.
+  No ad script, no third-party host, no tracking, so CSP is untouched.
+
 ## Important paths and reuse
 
 - `app/`: App Router pages, feeds, JSON, metadata, OG, print
@@ -61,7 +83,8 @@ anywhere in this pipeline and none is coming back.
 - `lib/i18n/`: locale dictionaries/path/metadata helpers
 - `lib/editorial/`: validation/config-facing editorial contracts
 - `lib/sources.ts`, `sources.yml`: read-only citation registry
-- `config/`: topics and board changelog configuration
+- `data/`, `lib/daily.ts`, `lib/facts.ts`, `lib/lessons.ts`: the daily-widget datasets and their build-time read surface, separate from the edition pipeline
+- `config/`: topics, board changelog and banner-slot configuration
 - `docs/design/`: product audit, thesis, brand/design system and QA
 - `.claude/`: project skills, agents, and executable workflow commands
 

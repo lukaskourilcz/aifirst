@@ -5,6 +5,7 @@ A BoardlessAI producer plus a static Vercel Pro reader. The stack is in `about-p
 ## What it costs
 
 - **aifirst incremental editorial cost:** $0 — no scraper, model client or media generator remains here.
+- **Daily widgets and `/lekce`:** $0 forever — committed JSON, rendered on the server at build time, no dependency and no request.
 - **Producer cost:** measured and capped in the separate Quorum budget ledger.
 
 ## When to scale

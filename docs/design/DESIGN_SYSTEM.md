@@ -75,6 +75,15 @@ from assistive technology when decorative.
 
 Existing domain components remain authoritative: Editorial Highlights, Briefs, Watchlist, Source Ledger, Provenance, Corrections, Sponsorship, Topics, Issue Navigation, Feed Actions, and completion. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong boundary colors are reserved for evidence, corrections, sponsorship, warning, and completion states.
 
+Three daily modules sit alongside them. The lesson strip above the masthead is a
+single hairline-bounded row — mono kicker, term in the display face, one gloss
+truncated to the row, one link — held to 56px above 768px so it cannot displace
+the lead headline. The fact block closes the reference blocks in the same
+bordered idiom as its siblings, with the prose serif for the fact and a mono
+line for its verification receipt. The partner belt after the completion mark is
+empty by default and renders nothing at all until a local creative is
+configured. All three are text-first: no imagery, no chart, no decoration.
+
 ## Focus, motion, and interaction
 
 All interactive controls use a two-pixel blueprint focus ring with visible

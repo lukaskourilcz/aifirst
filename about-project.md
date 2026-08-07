@@ -10,6 +10,10 @@ reader.
 
 - **Reader:** Next.js App Router, React and strict TypeScript.
 - **Content:** Git-tracked MDX in `content/articles/`; Git is canonical.
+- **Daily widgets:** append-only JSON datasets in `data/` drive a daily AI lesson
+  and a daily verified fact on Today, plus the `/lekce` archive. Server-rendered
+  at build time from the newest edition's date; no client JavaScript, no runtime
+  cost. `config/banner.json` reserves one partner slot, empty by default.
 - **Delivery:** `edition-package/1` consumer restricted to dated bilingual MDX,
   one required dated WebP for each new article and sanitized board context.
 - **Automation:** GitHub Actions CI plus a Prague-aware missed-publication
