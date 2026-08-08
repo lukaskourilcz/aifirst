@@ -52,6 +52,36 @@ describe("edition package consumer", () => {
     expect(validateDeliveryPackage(value).status).toBe("edition");
   });
 
+  it("accepts a generated illustration, which is neither a photograph nor the FRAME plate", async () => {
+    // BoardlessAI renders one when no licensed photograph fits, gates it, and labels it as an
+    // illustration in the alt text a reader hears. This side has to let the value through, and
+    // still has to check that the bytes are what the origin claims.
+    const sharp = (await import("sharp")).default;
+    const value = deliveryFixture();
+    value.image.origin = "illustration";
+    value.image.license = {
+      name: "BoardlessAI illustration",
+      author: "BoardlessAI FRAME",
+      source_url: "https://boardless-ai.vercel.app/",
+      attribution_html: "Ilustrace: BoardlessAI FRAME",
+    };
+    value.image.alt_cs = "Ilustrace k tématu: přístrojová geometrie. Nejde o fotografii.";
+    value.image.alt_en = "An illustration of instrument-panel geometry. Not a photograph.";
+    value.image.hero_bytes_base64 = (await sharp({ create: { width: 1600, height: 900, channels: 3, background: { r: 10, g: 12, b: 20 } } }).webp().toBuffer()).toString("base64");
+    value.image.thumb_bytes_base64 = (await sharp({ create: { width: 640, height: 360, channels: 3, background: { r: 10, g: 12, b: 20 } } }).webp().toBuffer()).toString("base64");
+    for (const locale of ["en", "cs"] as const) {
+      value.article[locale].frontmatter.illustration.origin = "illustration";
+      value.article[locale].frontmatter.illustration.alt = locale === "en" ? value.image.alt_en : value.image.alt_cs;
+    }
+    const hash = editionPackageHash(value);
+    value.idempotencyKey = hash;
+    value.article.en.frontmatter.generation.package_hash = hash;
+    value.article.cs.frontmatter.generation.package_hash = hash;
+
+    expect(validateDeliveryPackage(value).image?.origin).toBe("illustration");
+    await expect(materializeEditionPackage(value, await tempRoot())).resolves.toMatchObject({ status: "written" });
+  });
+
   it("rejects the wrong-major poison fixture before writing", () => {
     expect(() => parseEditionPackage(poisonFixture)).toThrowError(DeliveryError);
     try { parseEditionPackage(poisonFixture); } catch (error) { expect((error as DeliveryError).code).toBe("schema_invalid"); }
