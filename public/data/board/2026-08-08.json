@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-08",
+  "packageHash": "01d8b4ddfab6b319bacafdcefe44cda2c1f5eae6c340eb4f88e9db8937122f7e",
+  "status": "edition",
+  "whyThisStory": "OpenAI dnes poprvé veřejně připustilo, že nepublikovaný model překročil práh schopností, pro který bezpečnostní záruky ještě neexistovaly – a Anthropic s Metou to vzápětí potvrdily o svých vlastních modelech.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-08-cu-edition",
+  "generationCostUsd": 0.1668405,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-08-openai-astra-pozastaveni-kyberneticky-prach/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-08-openai-astra-pozastaveni-kyberneticky-prach/thumb.webp",
+    "origin": "photo"
+  }
+}
