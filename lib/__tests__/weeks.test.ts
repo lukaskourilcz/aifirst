@@ -12,6 +12,7 @@ import {
   weekOf,
   weekRangeLabel,
   weekTitle,
+  weekBeforeWindow,
   withinLastDays,
 } from "../weeks";
 import type { ArticleSummary } from "../content";
@@ -150,5 +151,35 @@ describe("grouping", () => {
     expect(groupByWeek([])).toEqual([]);
     expect(groupByDay([])).toEqual([]);
     expect(withinLastDays([], "2026-08-09", 7)).toEqual([]);
+  });
+});
+
+describe("the week chain never points at a page that was not built", () => {
+  it("skips a quiet week and lands on one that has an edition", () => {
+    // Nothing published in w31; the action must jump past it to w30.
+    const articles = [article("2026-08-07"), article("2026-08-03"), article("2026-07-22")];
+    const older = weekBeforeWindow(articles, "2026-08-09");
+    expect(older?.id).toBe("2026-w30");
+    expect(older?.articles.map((a) => a.date)).toEqual(["2026-07-22"]);
+  });
+
+  it("returns null when the window already covers the whole archive", () => {
+    expect(weekBeforeWindow([article("2026-08-07")], "2026-08-09")).toBeNull();
+    expect(weekBeforeWindow([], "2026-08-09")).toBeNull();
+  });
+
+  it("never returns a week that overlaps the window", () => {
+    const articles = [article("2026-08-09"), article("2026-08-04"), article("2026-07-30")];
+    const older = weekBeforeWindow(articles, "2026-08-09");
+    // The window opens on 2026-08-03, so the chosen week must end before it.
+    expect(older && older.end < "2026-08-03").toBe(true);
+  });
+
+  it("agrees with the pages generateStaticParams would build", () => {
+    const articles = [article("2026-08-09"), article("2026-07-22"), article("2026-06-10")];
+    const built = new Set(groupByWeek(articles).map((w) => w.id));
+    const older = weekBeforeWindow(articles, "2026-08-09");
+    expect(older).not.toBeNull();
+    expect(built.has(older!.id)).toBe(true);
   });
 });

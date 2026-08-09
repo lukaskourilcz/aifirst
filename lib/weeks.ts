@@ -180,3 +180,20 @@ export function groupByDay(articles: ArticleSummary[]): Array<{ date: string; ar
     .map(([date, list]) => ({ date, articles: list }))
     .sort((a, b) => b.date.localeCompare(a.date));
 }
+
+/**
+ * The newest week that lies entirely before the last-`days` window, and that
+ * actually has an edition.
+ *
+ * The chain must never point at a page `generateStaticParams` did not build,
+ * so this picks from real week groups rather than doing anchor-minus-seven
+ * arithmetic: a quiet week has no page, and the action has to skip it.
+ */
+export function weekBeforeWindow(
+  articles: ArticleSummary[],
+  anchor: string,
+  days = 7,
+): WeekGroup | null {
+  const windowStart = addDays(anchor, -(days - 1));
+  return groupByWeek(articles).find((group) => group.end < windowStart) ?? null;
+}

@@ -3,6 +3,11 @@ import { test, expect, type Page } from "@playwright/test";
 const ROUTES = [
   "/",
   "/cs",
+  "/tyden",
+  "/o-cem-se-mluvi",
+  "/ai-modely",
+  "/podcasty",
+  "/akce",
   "/archive",
   "/cs/archive",
   "/topics",
@@ -89,11 +94,13 @@ test("the lead meta row carries the date and reading time and nothing else", asy
   }
 });
 
-test("the article body renders inline on the article page, with no gate", async ({ page }) => {
+test("the lead headline goes to the article, and the body renders with no gate", async ({ page }) => {
   await page.goto("/");
-  await page.locator(".lead__title a").click();
-  await expect(page).toHaveURL(/\/articles\//);
-  // The first article paragraph is visible without any additional click.
+  await expect(page.locator(".lead__title a")).toHaveAttribute("href", /\/articles\//);
+
+  // A fixed edition, so the assertion measures the layout rather than whichever
+  // edition happens to be lead on the day the suite runs.
+  await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   const paragraphs = page.locator(".article-body p");
   await expect(paragraphs.first()).toBeVisible();
   expect(await paragraphs.count()).toBeGreaterThan(0);
@@ -137,8 +144,7 @@ for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["
 }
 
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
-  await page.goto("/");
-  await page.locator(".lead__title a").click();
+  await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
   // The run record is operator data and no longer reaches a reader page.
   await expect(page.locator("section.provenance")).toHaveCount(0);
@@ -149,16 +155,14 @@ test("legacy Czech print query resolves to the static Czech route", async ({ pag
   await expect(page).toHaveURL(/\/cs\/articles\/2026-07-05-deepmind-blitz-anthropic-reckoning\/print$/);
 });
 
-test("language switcher reaches the Czech mirror of the home page", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("link", { name: /čeština/i }).click();
-  await expect(page).toHaveURL(/\/cs\/?$/);
+test("the legacy /cs path still serves the Czech home page", async ({ page }) => {
+  await page.goto("/cs");
   await expect(page.locator(".lead__title")).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("lang", "cs");
 });
 
 test("inline links carry the Blueprint Blue (#2f5ae6)", async ({ page }) => {
-  await page.goto("/");
-  await page.locator(".lead__title a").click();
+  await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   // The first <a> inside .article-body is the heading-anchor link (slate by
   // design); the editorial in-body links come right after.
   const links = page.locator(".article-body a:not(.anchor-link)");
@@ -269,9 +273,9 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
 
 test("topic detail separates latest coverage, timeline and recurring entities", async ({ page }) => {
   await page.goto("/topics/ai-models");
-  await expect(page.getByRole("heading", { name: /latest coverage/i })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /^timeline$/i })).toBeVisible();
-  const entities = page.getByRole("heading", { name: /recurring entities/i });
+  await expect(page.getByRole("heading", { name: /nejnovější články/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /časová osa/i })).toBeVisible();
+  const entities = page.getByRole("heading", { name: /opakující se entity/i });
   if (await entities.count()) await expect(entities).toBeVisible();
 });
 
@@ -295,8 +299,7 @@ test("feeds expose language, entry links, publication time and categories", asyn
 
 test("source evidence class stays separate and reduced motion disables entrances", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
-  await page.locator(".lead__title a").click();
+  await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   await expect(page.locator(".source-ledger")).toBeVisible();
   const headers = await page.locator(".source-ledger th").allTextContents();
   expect(headers.join(" ")).toMatch(/evidence class|třída důkazu/i);
@@ -342,12 +345,117 @@ test("public JSON contracts and security headers remain available", async ({ req
   expect(home.headers()["x-frame-options"]).toBe("DENY");
 });
 
-test("board transparency is additive and does not fabricate historical context", async ({ page }) => {
+test("the about page is a magazine, not a run record", async ({ page }) => {
   await page.goto("/about");
-  await expect(page.getByRole("heading", { name: "Sponsorship" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Board changelog" })).toBeVisible();
-  await expect(page.getByText("No board-initiated product changes have shipped yet.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Inzerce" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Opravy" })).toBeVisible();
+  // Board changelog, meeting records, model roles and run cost are operator
+  // vocabulary and no longer appear on a reader page.
+  const copy = (await page.locator("main").innerText()).toLowerCase();
+  for (const forbidden of [
+    "changelog",
+    "záznam jednání",
+    "runtime",
+    "github actions",
+    "automatizovaná redakce",
+    "kontrola člověkem",
+    "profil modelu",
+    "cena běhu",
+  ]) {
+    expect(copy, `about page still mentions ${forbidden}`).not.toContain(forbidden);
+  }
 
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   await expect(page.locator(".making-of")).toHaveCount(0);
+  await expect(page.locator("section.provenance")).toHaveCount(0);
+});
+
+test("the section routes render their honest empty states", async ({ page }) => {
+  // Every stream and event file ships as a valid empty envelope, so these are
+  // the states a reader sees on day one.
+  await page.goto("/o-cem-se-mluvi");
+  await expect(page.getByText("Dnes zatím nic nového.")).toBeVisible();
+
+  await page.goto("/podcasty");
+  await expect(page.getByText("Dnes nevyšla žádná nová epizoda.")).toBeVisible();
+
+  await page.goto("/ai-modely");
+  await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
+
+  await page.goto("/akce");
+  await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();
+});
+
+test("the week chain reaches back through every published week", async ({ page }) => {
+  await page.goto("/tyden");
+  await expect(page.locator(".feed-row").first()).toBeVisible();
+
+  // Follow the chain to its end; every hop is a static page.
+  const seen = new Set<string>();
+  for (let hop = 0; hop < 12; hop += 1) {
+    const action = page.locator(".week-action");
+    if ((await action.count()) === 0) break;
+    const href = await action.getAttribute("href");
+    expect(href, "the chain must not loop").not.toBe(null);
+    expect(seen.has(href!), `revisited ${href}`).toBe(false);
+    seen.add(href!);
+    const response = await page.goto(href!);
+    expect(response?.status(), `dead week page ${href}`).toBeLessThan(400);
+  }
+  // The oldest week ends with a quiet line into the archive, not a dead control.
+  await expect(page.locator(".archive-exhausted")).toBeVisible();
+});
+
+test("events expose both scopes as linkable anchors with zero JavaScript", async ({ page }) => {
+  await page.goto("/akce");
+  await expect(page.locator("#cesko")).toBeAttached();
+  await expect(page.locator("#svet")).toBeAttached();
+  const nav = page.locator(".scope-nav");
+  await expect(nav).toHaveAttribute("aria-label", "Rozsah akcí");
+  await expect(nav.locator('a[href="#cesko"]')).toBeVisible();
+  await expect(nav.locator('a[href="#svet"]')).toBeVisible();
+});
+
+test("the new section routes are in the sitemap", async ({ request }) => {
+  const xml = await (await request.get("/sitemap.xml")).text();
+  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+    expect(xml, `${path} missing from the sitemap`).toContain(`${path}<`);
+  }
+});
+
+test("the ad reservation holds 300x250 and carries no script", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const box = page.locator(".ad-slot__box");
+  await expect(box).toBeVisible();
+  const rect = await box.boundingBox();
+  expect(rect?.width).toBe(300);
+  expect(rect?.height).toBe(250);
+  await expect(box).toContainText("Místo pro reklamu");
+  // One unit per page, right rail only.
+  await expect(page.locator(".ad-slot")).toHaveCount(1);
+});
+
+test("the magazine's own copy carries no em-dash", async ({ page }) => {
+  // Scoped to chrome the redesign writes. Edition titles, deks and dataset
+  // entries are immutable published content that predates the rule, so they
+  // are excluded here and enforced going forward in the writer prompt.
+  const OWN = [
+    ".page-header",
+    ".empty-line",
+    ".week-action",
+    ".archive-exhausted",
+    ".section-head",
+    ".rail-module__kicker",
+    ".event-scope__heading",
+    ".scope-nav",
+    ".about-sections h2",
+    ".footer-nav",
+  ].join(", ");
+
+  for (const route of ["/", "/tyden", "/akce", "/podcasty", "/o-cem-se-mluvi", "/ai-modely", "/about"]) {
+    await page.goto(route);
+    const chunks = await page.locator(OWN).allInnerTexts();
+    expect(chunks.join(" "), `em-dash in ${route}`).not.toContain("\u2014");
+  }
 });

@@ -18,7 +18,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
 import { loadEvents, splitByAnchor } from "@/lib/events";
 import { listBoardContexts } from "@/lib/board";
-import { czechNumericDate, previousWeek, weekTitle, withinLastDays } from "@/lib/weeks";
+import { czechNumericDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -77,6 +77,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
     (a) => noEditionToday || a.slug !== latest.slug,
   );
   const { upcoming } = splitByAnchor(loadEvents(), anchor);
+  const older = weekBeforeWindow(allArticles, anchor);
 
   const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
   const modifiedTime = lastCorrection
@@ -176,12 +177,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
                   <FeedRow key={article.slug} article={article} locale={locale} />
                 ))}
               </ul>
-              <WeekAction
-                locale={locale}
-                href={lp(`/tyden/${previousWeek(anchor).id}`)}
-                kicker={t.previousWeek}
-                label={weekTitle(previousWeek(anchor))}
-              />
+              {older ? (
+                <WeekAction
+                  locale={locale}
+                  href={lp(`/tyden/${older.id}`)}
+                  kicker={t.previousWeek}
+                  label={weekTitle(older)}
+                />
+              ) : null}
             </section>
           ) : null}
 
