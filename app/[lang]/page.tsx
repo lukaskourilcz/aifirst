@@ -11,9 +11,7 @@ import { EditorialHighlights } from "@/components/editorial/EditorialHighlights"
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
-import { PublicationData } from "@/components/editorial/PublicationData";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
-import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
@@ -137,11 +135,6 @@ export default async function HomePage({
         <p className="eyebrow">{publication.name} · {d.common.today}</p>
         <p>{publication.promise}</p>
       </header>
-      <PublicationData
-        frontmatter={fm}
-        locale={locale}
-        showHumanReview={false}
-      />
       <DailyLesson dateKey={fm.date} locale={locale} />
       <IssueMasthead
         label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.leadStory}
@@ -150,7 +143,6 @@ export default async function HomePage({
         date={fm.date}
         readingMinutes={reading}
         tags={fm.tags}
-        sourceCount={fm.sources.length}
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
@@ -195,7 +187,6 @@ export default async function HomePage({
           <GlossaryBlock terms={resolvedGlossary} locale={locale} />
         )}
         {hasSources && <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />}
-        <Provenance article={latest} locale={locale} />
         <DidYouKnow dateKey={fm.date} locale={locale} />
       </section>
 
@@ -240,9 +231,6 @@ export default async function HomePage({
                   <div className="post-card__copy">
                     <p className="post-card__meta">
                       <span>{a.date}</span>
-                      {a.signal_strength !== undefined ? (
-                        <span>{d.common.signal} {String(a.signal_strength).padStart(2, "0")}</span>
-                      ) : null}
                     </p>
                     <h3 className="post-card__title">{a.title}</h3>
                     {a.dek ? <p className="post-card__dek">{a.dek}</p> : null}

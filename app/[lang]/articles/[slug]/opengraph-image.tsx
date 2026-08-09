@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getArticle, listArticles } from "@/lib/content";
 import { OG } from "@/lib/og-theme";
-import { signalBars } from "@/lib/helpers/signal";
 import { brand } from "@/lib/brand";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -26,11 +25,8 @@ export default async function Image({
   const dek = article?.frontmatter.dek ?? "";
   const date = article?.frontmatter.date ?? "";
   const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
-  const signal = article?.frontmatter.signal_strength ?? 0;
-  const { clamped, filled, bars } = signalBars(signal);
   const issueLabel = lang === "cs" ? "vydání" : "issue";
   const featureLabel = lang === "cs" ? "hlavní téma" : "lead development";
-  const signalLabel = lang === "cs" ? "signál" : "signal";
 
   return new ImageResponse(
     (
@@ -164,31 +160,6 @@ export default async function Image({
             {tags.map((t) => (
               <span key={t}>{t}</span>
             ))}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-            }}
-          >
-            <span>{signalLabel}</span>
-            <div style={{ display: "flex", gap: 3 }}>
-              {Array.from({ length: bars }, (_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    width: 5,
-                    height: 14,
-                    backgroundColor: i < filled ? OG.accent : OG.fog,
-                  }}
-                />
-              ))}
-            </div>
-            <span style={{ color: OG.ink }}>
-              {String(clamped).padStart(2, "0")}
-            </span>
           </div>
         </div>
       </div>

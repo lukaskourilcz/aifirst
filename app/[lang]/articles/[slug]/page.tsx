@@ -13,9 +13,6 @@ import { EditorialHighlights } from "@/components/editorial/EditorialHighlights"
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
-import { MakingOf } from "@/components/editorial/MakingOf";
-import { PublicationData } from "@/components/editorial/PublicationData";
-import { Provenance } from "@/components/editorial/Provenance";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
@@ -159,7 +156,6 @@ export default async function ArticlePage({
         ],
       }} />
 
-      <PublicationData frontmatter={fm} locale={locale} />
       <IssueMasthead
         label={isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
         title={fm.title}
@@ -167,7 +163,6 @@ export default async function ArticlePage({
         date={fm.date}
         readingMinutes={reading}
         tags={fm.tags}
-        sourceCount={fm.sources.length}
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
@@ -182,7 +177,6 @@ export default async function ArticlePage({
 
       <SponsorBlock sponsor={fm.sponsor} />
       <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} uncertainty={fm.uncertainty} locale={locale} />
-      <MakingOf date={fm.date} locale={locale} />
 
       {/* Body + dispatches sidebar */}
       <section className="article-with-aside enter enter-2">
@@ -230,7 +224,6 @@ export default async function ArticlePage({
           </nav>
         ) : null}
         <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />
-        <Provenance article={article} locale={locale} />
         <p className="issue-print-action">
           <a
             href={localePath(locale, `/articles/${article.slug}/print`)}

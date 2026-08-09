@@ -8,7 +8,6 @@ export function IssueMasthead({
   date,
   readingMinutes,
   tags,
-  sourceCount,
   heroPhoto,
   heroAlt,
   heroCaption,
@@ -21,7 +20,6 @@ export function IssueMasthead({
   date: string;
   readingMinutes: number;
   tags?: string[];
-  sourceCount: number;
   heroPhoto: string | null;
   heroAlt: string;
   heroCaption?: string;
@@ -39,12 +37,12 @@ export function IssueMasthead({
         <p className="hero__eyebrow">{label}</p>
         <h1 id="issue-title" className="hero__title">{title}</h1>
         <p className="hero__dek">{dek}</p>
-        <div className="hero__meta" aria-label={locale === "cs" ? "Údaje o vydání" : "Issue details"}>
+        {/* Date and reading time, and nothing else: no source count, no
+            signal, no cost. */}
+        <div className="hero__meta" aria-label={locale === "cs" ? "Datum a délka čtení" : "Date and reading time"}>
           <time dateTime={date}>{date}</time>
           <span aria-hidden>·</span>
           <span>{readingMinutes} {t.minutesShort} {t.readMinutes}</span>
-          <span aria-hidden>·</span>
-          <span>{sourceCount} {t.sources}</span>
         </div>
         {tags?.length ? (
           <ul className="hero__topics" aria-label={locale === "cs" ? "Témata vydání" : "Issue topics"}>
