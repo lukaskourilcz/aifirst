@@ -105,7 +105,7 @@ Use the completion mark through `BrandMark`/`BrandLockup`, a near-black instrume
 
 Today is the product, not a marketing landing page. Radar is editorial intelligence, not an operator dashboard. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
 
-The public reader uses one dark theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
+The public reader uses one light theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
 
 Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
 
@@ -150,8 +150,11 @@ Before editing, inspect branch/status/staged and unstaged diffs/recent log. Pres
 
 Tokens live in the palette block at the top of `app/globals.css`. Prefer the
 semantic roles (`--surface-*`, `--text-*`, `--border-*`, `--accent-*`,
-`--status-*`, `--focus-ring`) in new rules. The dark palette's metadata floor is
-`#8d949f`; do not introduce dimmer text. Re-measure text and status contrast
+`--status-*`, `--focus-ring`) in new rules. The light palette's metadata floor is
+`#5f6672`, which holds 5.02:1 on its worst surface; do not introduce dimmer
+text. Controls whose border carries the affordance use `--border-control`
+(`#8e8e88`), because the grouping hairlines cannot reach 3:1 on paper without
+becoming noise. Re-measure text and status contrast
 before changing gray or status colors, and mirror palette changes in
 `lib/og-theme.ts` because `next/og` cannot read CSS variables.
 

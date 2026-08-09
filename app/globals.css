@@ -2,45 +2,51 @@
    reading arc, and one blueprint-blue completion mark. */
 
 :root {
-  /* Instrument-panel palette. Production components consume the semantic
-     roles below; compatibility aliases keep legacy routes on the same system. */
-  --color-blueprint-blue: #4d7cff;
-  --color-blueprint-blue-hover: #6f95ff;
-  --color-ink-black: #eceef2;
-  --color-carbon: #c8ccd4;
-  --color-slate: #8d949f;
-  --color-fog: #23262c;
-  --color-paper: #14161a;
-  --color-stone: #101216;
-  --color-canvas: #0c0d10;
-  --color-mint: #00bc7d;
-  --color-rust: #e5484d;
+  /* Light newsroom palette. Production components consume the semantic
+     roles below; compatibility aliases keep legacy routes on the same system.
+     The hue is unchanged; the lightness is not. */
+  --color-blueprint-blue: #2f5ae6;
+  --color-blueprint-blue-hover: #1d43bb;
+  --color-ink-black: #14161a;
+  --color-carbon: #3c4149;
+  --color-slate: #5f6672;
+  --color-fog: #e2e2de;
+  --color-paper: #ffffff;
+  --color-stone: #efefec;
+  --color-canvas: #f7f7f5;
+  --color-mint: #067a52;
+  --color-rust: #c0272c;
   /* Semantic color roles. */
   --surface-page: var(--color-canvas);
   --surface-reading: var(--color-paper);
   --surface-subtle: var(--color-stone);
-  --surface-emphasis: #151b2b;
+  --surface-emphasis: #eaf0ff;
   --text-primary: var(--color-ink-black);
   --text-secondary: var(--color-carbon);
   --text-tertiary: var(--color-slate);
   --border-subtle: var(--color-fog);
-  --border-strong: #2c3037;
+  --border-strong: #c9c9c3;
+  /* Grouping hairlines cannot reach the 3:1 non-text minimum on paper without
+     becoming noise. Controls whose border is the affordance use this instead:
+     the search input, the ad reservation and the week-boundary action. */
+  --border-control: #8e8e88;
   --accent-primary: var(--color-blueprint-blue);
   --accent-primary-hover: var(--color-blueprint-blue-hover);
   --status-complete: var(--color-mint);
-  --status-warning: #e8a33d;
+  --status-warning: #8a5a0d;
   --status-correction: var(--color-rust);
   --focus-ring: var(--color-blueprint-blue);
-  --selection-background: rgba(77, 124, 255, 0.28);
-  --danger-line: #3d2420;
-  --danger-surface: #1a1512;
-  --hover-line: #3a4150;
+  --selection-background: rgba(47, 90, 230, 0.18);
+  --danger-line: #f0c9ca;
+  --danger-surface: #fdf4f4;
+  --sponsor-surface: #fdf7e8;
+  --hover-line: #b3b3ab;
 
   /* Compatibility aliases for existing components. */
   --ink-primary: var(--text-primary);
   --ink-muted: var(--text-tertiary);
   --ink-dim: var(--text-tertiary);
-  --numeric-ghost: rgba(236, 238, 242, 0.035);
+  --numeric-ghost: rgba(20, 22, 26, 0.045);
 
   /* Space Grotesk, Source Serif 4 and IBM Plex Mono are self-hosted. */
   --font-editorial: var(--font-display-loaded), "Space Grotesk",
@@ -58,19 +64,25 @@
   --text-caption: 0.6875rem;
   --text-body-sm: 0.9rem;
   --text-body: 1rem;
-  --text-lead: clamp(1.18rem, 1.7vw, 1.3125rem);
+  --text-lead: clamp(1.0625rem, 0.95rem + 0.35vw, 1.25rem);
+  --text-row: clamp(1.125rem, 0.98rem + 0.5vw, 1.35rem);
   --text-subheading: clamp(1.35rem, 2vw, 1.55rem);
-  --text-heading: clamp(2rem, 3.8vw, 2.875rem);
-  --text-display: clamp(2.375rem, 5vw, 4rem);
+  --text-heading: clamp(1.75rem, 1.3rem + 1.6vw, 2.375rem);
+  --text-display: clamp(2.4rem, 1.6rem + 2.6vw, 4rem);
   --leading-caption: 1.4;
   --leading-body-sm: 1.5;
   --leading-body: 1.68;
+  --leading-row: 1.22;
   --leading-subheading: 1.2;
   --leading-heading: 1.06;
+  --tracking-display: -0.04em;
   --tracking-heading: -0.035em;
+  --tracking-row: -0.02em;
+  --tracking-label: 0.14em;
+  --tracking-kicker: 0.16em;
 
   --leading-lead: 1.5;
-  --leading-display: 1.04;
+  --leading-display: 1.02;
 
   /* Motion */
   --dur-instant: 80ms;
@@ -83,6 +95,7 @@
   /* Layout */
   --container: 1360px;
   --sidebar-width: 244px;
+  --rail-width: 300px;
   --reading: 35em;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -99,7 +112,7 @@
   --section-gap: var(--space-7);
   --gutter-gap: var(--space-8);
   --mobile-gutter: clamp(1rem, 4vw, 1.5rem);
-  --surface-hover: #181b20;
+  --surface-hover: #f2f2ef;
 
   --radius-sm: 0;
   --radius-md: 0;
@@ -294,7 +307,7 @@
 .topic-card { display: flex; height: 100%; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); color: var(--text-primary); }
 .topic-card:hover { border-color: var(--hover-line); color: var(--text-primary); }
 .topic-card h2 { margin: 0; font-size: 1.35rem; }
-.topic-card p { margin: 0; color: #9aa1ab; font-family: var(--font-reading); }
+.topic-card p { margin: 0; color: var(--text-secondary); font-family: var(--font-reading); }
 .topic-card .label { margin-top: auto; padding-top: 12px; color: var(--color-blueprint-blue); }
 .topic-timeline { margin: 0; padding-left: 20px; }
 .topic-timeline li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--color-fog); }
@@ -1265,7 +1278,7 @@ hr {
   font-family: var(--font-reading);
   font-size: var(--text-lead);
   line-height: 1.55;
-  color: #b6bcc6;
+  color: var(--text-secondary);
   margin: 20px 0 0;
   max-width: 56ch;
 }
@@ -1407,7 +1420,7 @@ hr {
 }
 .post-card__dek {
   margin: var(--space-2) 0 0;
-  color: #9aa1ab;
+  color: var(--text-secondary);
   font-family: var(--font-reading);
   font-size: 0.96875rem;
   line-height: 1.5;
@@ -1733,7 +1746,7 @@ input[type="search"]:focus {
   font-family: var(--font-reading);
   font-size: 0.875rem;
   line-height: 1.55;
-  color: #9aa1ab;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -1974,7 +1987,7 @@ svg { max-width: 100%; }
 .archive-card p {
   max-width: 70ch;
   margin: 0;
-  color: #9aa1ab;
+  color: var(--text-secondary);
   font-family: var(--font-reading);
   line-height: 1.5;
 }
@@ -2038,7 +2051,7 @@ svg { max-width: 100%; }
 .weekly-cover__kicker { margin: 0; }
 .weekly-cover h2 { max-width: 24ch; margin: 0; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1; }
 .weekly-cover h2 a { color: var(--text-primary); }
-.weekly-cover__dek { max-width: 68ch; margin: 0; color: #9aa1ab; font-family: var(--font-reading); font-size: var(--text-lead); line-height: 1.5; }
+.weekly-cover__dek { max-width: 68ch; margin: 0; color: var(--text-secondary); font-family: var(--font-reading); font-size: var(--text-lead); line-height: 1.5; }
 .weekly-cover__meta { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
 .weekly-badge { margin: 0 0 var(--space-6); padding: var(--space-4); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); }
 .weekly-badge p { margin: 0 0 var(--space-2); }
@@ -2062,7 +2075,7 @@ svg { max-width: 100%; }
 .related-issues li a:hover { border-color: var(--hover-line); color: var(--text-primary); }
 .related-issues img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
 .related-issues strong { font-family: var(--font-editorial); font-size: 1.0625rem; line-height: 1.25; }
-.related-issues__dek { color: #9aa1ab; font-family: var(--font-reading); font-size: 0.875rem; line-height: 1.5; }
+.related-issues__dek { color: var(--text-secondary); font-family: var(--font-reading); font-size: 0.875rem; line-height: 1.5; }
 
 .about-stats {
   display: grid;
