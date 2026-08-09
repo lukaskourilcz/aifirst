@@ -8,6 +8,15 @@
       "alt": null,
       "desktop": null,
       "mobile": null
+    },
+    "rail-square": {
+      "active": false,
+      "placeholder": true,
+      "advertiser": null,
+      "href": null,
+      "alt": null,
+      "desktop": null,
+      "mobile": null
     }
   }
 }

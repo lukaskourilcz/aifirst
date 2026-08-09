@@ -1008,6 +1008,31 @@ hr {
 }
 
 /* ------------------------------------------------------------------ */
+/* Ad reservation — one unit per page, right rail only                 */
+/* ------------------------------------------------------------------ */
+
+/* Fixed 300x250 in both axes at every viewport, so a later creative replaces
+   the inner node with zero layout shift. Below the rail breakpoint it centres
+   in the main column and still never scales. No leaderboard, no in-feed unit,
+   no sticky unit. */
+.ad-slot { margin-inline: auto; width: 300px; }
+.ad-slot__box {
+  width: 300px;
+  height: 250px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--border-control);
+  background: var(--surface-page);
+}
+.ad-slot__box span {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ------------------------------------------------------------------ */
 /* Mobile top bar and drawer (below 960)                               */
 /* ------------------------------------------------------------------ */
 

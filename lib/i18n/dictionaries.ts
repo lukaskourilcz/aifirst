@@ -66,6 +66,10 @@ const en = {
     cited: "cited",
     unavailable: "unavailable",
   },
+  ads: {
+    slot: "Advertising space",
+    region: "Advertising space",
+  },
   home: {
     emptyKicker: "no issue yet",
     emptyTitle: "The first issue is being written.",
@@ -457,6 +461,10 @@ const cs: Dict = {
     skipToContent: "Přeskočit na obsah",
     cited: "citováno",
     unavailable: "nedostupné",
+  },
+  ads: {
+    slot: "Místo pro reklamu",
+    region: "Reklamní prostor",
   },
   home: {
     emptyKicker: "zatím žádné vydání",

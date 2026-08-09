@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { bannerSlot, parseSlot } from "../banner.js";
+import { bannerPlaceholder, bannerSlot, isPlaceholderSlot, parseSlot } from "../banner.js";
 
 const FILLED = {
   active: true,
@@ -74,3 +74,49 @@ const FILLED_RESULT = {
   desktop: FILLED.desktop,
   mobile: FILLED.mobile,
 };
+
+describe("the placeholder rule", () => {
+  it("reserves the box only when the slot is empty and opts in", () => {
+    expect(isPlaceholderSlot({ active: false, placeholder: true })).toBe(true);
+  });
+
+  it("keeps render-null when placeholder is absent or false", () => {
+    expect(isPlaceholderSlot({ active: false })).toBe(false);
+    expect(isPlaceholderSlot({ active: false, placeholder: false })).toBe(false);
+  });
+
+  it("does not reserve a second box once a creative exists", () => {
+    // A filled slot is its own reservation, so placeholder stops applying.
+    expect(isPlaceholderSlot({ ...FILLED, placeholder: true })).toBe(false);
+  });
+
+  it("only accepts a real boolean", () => {
+    for (const value of ["true", 1, {}, []]) {
+      expect(isPlaceholderSlot({ active: false, placeholder: value })).toBe(false);
+    }
+  });
+
+  it("never throws on junk", () => {
+    for (const junk of [null, undefined, 42, "banner", [], {}]) {
+      expect(() => isPlaceholderSlot(junk)).not.toThrow();
+      expect(isPlaceholderSlot(junk)).toBe(false);
+    }
+  });
+});
+
+describe("the shipped slots", () => {
+  it("ships the rail square empty but reserved", () => {
+    expect(bannerSlot("rail-square")).toBeNull();
+    expect(bannerPlaceholder("rail-square")).toBe(true);
+  });
+
+  it("leaves the partner belt collapsing exactly as before", () => {
+    expect(bannerSlot("today-partner-belt")).toBeNull();
+    expect(bannerPlaceholder("today-partner-belt")).toBe(false);
+  });
+
+  it("treats an unknown slot id as empty and unreserved", () => {
+    expect(bannerSlot("no-such-slot")).toBeNull();
+    expect(bannerPlaceholder("no-such-slot")).toBe(false);
+  });
+});
