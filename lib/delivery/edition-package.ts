@@ -21,12 +21,17 @@ export type ArticleImage = {
   alt_en?: string;
   alt_cs: string;
   license: {
-    name: "CC0" | "CC BY" | "CC BY-SA" | "Pexels License" | "Pixabay Content License" | "BoardlessAI deterministic";
+    name: "CC0" | "CC BY" | "CC BY-SA" | "Pexels License" | "Pixabay Content License" | "BoardlessAI deterministic" | "BoardlessAI illustration";
     author: string;
     source_url: string;
     attribution_html: string;
   };
-  origin: "photo" | "svg";
+  /**
+   * What the picture is. `photo` was taken by somebody, `svg` is the deterministic FRAME plate,
+   * and `illustration` was rendered by a machine — BoardlessAI labels it as one in its own alt
+   * text, and this side checks the bytes match what the origin claims.
+   */
+  origin: "photo" | "svg" | "illustration";
   hero_bytes_base64: string;
   thumb_bytes_base64: string;
 };
@@ -232,8 +237,8 @@ async function validateImageBytes(pkg: EditionPackage): Promise<void> {
     if (thumbMetadata.width !== 640 || thumbMetadata.height !== 360) {
       throw new Error(`thumbnail dimensions ${thumbMetadata.width ?? 0}x${thumbMetadata.height ?? 0} differ from 640x360`);
     }
-    if (pkg.image.origin === "photo" && !["webp", "png", "jpeg"].includes(heroMetadata.format ?? "")) {
-      throw new Error("licensed photo is not a supported raster image");
+    if (["photo", "illustration"].includes(pkg.image.origin) && !["webp", "png", "jpeg"].includes(heroMetadata.format ?? "")) {
+      throw new Error("a photograph or illustration must be a supported raster image");
     }
     if (pkg.image.origin === "svg" && heroMetadata.format !== "svg") {
       throw new Error("FRAME fallback must contain SVG bytes");
