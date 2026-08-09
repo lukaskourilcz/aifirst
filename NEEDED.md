@@ -9,6 +9,15 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 - [ ] **Finish the Vercel half of the credential audit** — the retired `ANTHROPIC_API_KEY` Actions secret was deleted from `lukaskourilcz/aifirst` on 2026-08-07. Still open: remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project, and rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials. The old OwnDashboard sentinel pair can go too — nothing reads it any more. [imp:4] [owner:me] [time:15m] [kind:setup]
 
+## Redesign hand-off (docs/redesign/)
+
+- [ ] **Run the Claude Design prompt** — paste `docs/redesign/claude-design-prompt.md` into Claude Design and save its complete output as `docs/redesign/design-spec.md` in this repo; the implementation prompt consumes it. [imp:5] [owner:me] [time:30m] [kind:decision]
+- [ ] **Run the Opus implementation prompt** — after the design spec lands (or accepting its fallback tokens), run `docs/redesign/opus-implementation-prompt.md` in Claude Code with both repos checked out. [imp:5] [owner:me] [time:30m] [kind:setup]
+- [ ] **Confirm the curated source registries** — approve or edit the Medium/Substack seed list and fill the Czech podcast slots in `docs/redesign/README.md` §6–7 before the quorum fetchers ship. [imp:3] [owner:me] [time:30m] [kind:decision]
+- [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
+- [ ] **Decide the brand unification** — moving `brand.name` Caught Up → DNESKAi renames every indexed title, OG card, feed and JSON `publication` field at once; pre-launch is the cheapest moment. The implementation prompt executes it only on an explicit yes. [imp:4] [owner:me] [time:15m] [kind:decision]
+- [ ] **Supply the 300×250 rail creative when a deal exists** — the redesign ships the square slot as a „Místo pro reklamu" placeholder; a real creative needs the image under `public/images/banners/` plus config, same rules as the belt slot. [imp:1] [owner:me] [time:20m] [kind:content]
+
 ## Product decisions
 
 - [ ] **Confirm whether technical names should stay `aifirst`** — the public product is Caught Up, while the GitHub repository and Vercel project still use `aifirst`. Leaving them unchanged is supported; rename them only if public consistency is worth the migration work. [imp:2] [owner:me] [time:30m] [kind:decision]
