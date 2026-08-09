@@ -64,6 +64,14 @@ export type Sponsor = {
 
 export type IssueType = "daily" | "weekly";
 
+/** The section keys an edition can be filed under. English by contract. */
+export const ARTICLE_CATEGORIES = ["ai-models"] as const;
+export type ArticleCategory = (typeof ARTICLE_CATEGORIES)[number];
+
+export function isArticleCategory(value: unknown): value is ArticleCategory {
+  return typeof value === "string" && (ARTICLE_CATEGORIES as readonly string[]).includes(value);
+}
+
 export type ArticleFrontmatter = {
   title: string;
   slug: string;
@@ -72,6 +80,12 @@ export type ArticleFrontmatter = {
   dek: string;
   alternative_headlines?: string[];
   tags: string[];
+  /**
+   * Machine keys assigned upstream, separate from `tags`, which stay Czech.
+   * Absent is the normal state: an uncategorised edition is correct more often
+   * than a miscategorised one.
+   */
+  categories?: ArticleCategory[];
   sources: SourceRef[];
   illustration: {
     path?: string;
@@ -132,6 +146,7 @@ export type ArticleSummary = {
   title: string;
   dek?: string;
   tags?: string[];
+  categories?: ArticleCategory[];
   signal_strength?: number;
   type?: IssueType;
   lang?: ContentLang;
@@ -288,6 +303,9 @@ function toSummary(
     title: fm.title,
     dek: fm.dek,
     tags: fm.tags,
+    // Unknown values are dropped rather than failing the read: a category the
+    // reader does not know about yet must not take a published edition down.
+    categories: fm.categories?.filter(isArticleCategory),
     signal_strength: fm.signal_strength,
     type: fm.type ?? "daily",
     lang,
