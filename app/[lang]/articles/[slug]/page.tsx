@@ -6,6 +6,7 @@ import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
+import { AdPlaceholder } from "@/components/editorial/BannerSlot";
 import { Wire } from "@/components/Wire";
 import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
@@ -156,6 +157,8 @@ export default async function ArticlePage({
         ],
       }} />
 
+      <div className="page-with-rail">
+        <div className="page-with-rail__main">
       <IssueMasthead
         label={isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
         title={fm.title}
@@ -163,6 +166,7 @@ export default async function ArticlePage({
         date={fm.date}
         readingMinutes={reading}
         tags={fm.tags}
+        categories={fm.categories}
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
@@ -234,7 +238,6 @@ export default async function ArticlePage({
             ↗ {d.article.printView}
           </a>
         </p>
-        <RelatedIssues items={related} locale={locale} />
         <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
         <p className="caught-up-completion">
           <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
@@ -242,6 +245,20 @@ export default async function ArticlePage({
         </p>
         <FeedActions locale={locale} />
       </section>
+        </div>
+
+        {/* Rail per spec §4.4: the reservation and related editions, nothing
+            else. It drops below 1280 and reflows into the main column. */}
+        <aside className="right-rail">
+          <AdPlaceholder locale={locale} />
+          {related.length > 0 ? (
+            <div className="rail-module">
+              <p className="rail-module__kicker">{d.article.related}</p>
+              <RelatedIssues items={related} locale={locale} variant="rail" />
+            </div>
+          ) : null}
+        </aside>
+      </div>
     </>
   );
 }

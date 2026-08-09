@@ -459,3 +459,25 @@ test("the magazine's own copy carries no em-dash", async ({ page }) => {
     expect(chunks.join(" "), `em-dash in ${route}`).not.toContain("\u2014");
   }
 });
+
+test("the article page carries the rail and files chips only when tagged", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  // A schema-v2 edition: the legacy May and July issues predate
+  // why_it_matters, and a missing highlights block is a real legacy state.
+  await page.goto("/articles/2026-08-05-spacex-jde-po-operatorech-ai-zlevnuje");
+
+  // Reading spine survives the re-skin.
+  await expect(page.locator(".editorial-highlights")).toBeVisible();
+  await expect(page.locator(".source-ledger")).toBeVisible();
+  await expect(page.locator(".article-body p").first()).toBeVisible();
+
+  // Rail: the reservation and related editions, nothing else.
+  const rail = page.locator(".right-rail");
+  await expect(rail.locator(".ad-slot__box")).toBeVisible();
+  await expect(rail.locator(".rail-related a").first()).toBeVisible();
+
+  // This edition has no category, so the row is absent rather than empty.
+  await expect(page.locator(".hero__categories")).toHaveCount(0);
+  // Topic tags are a separate row and are not conflated with categories.
+  await expect(page.locator(".hero__topics")).toBeVisible();
+});
