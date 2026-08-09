@@ -163,15 +163,71 @@ test("inline links carry the Blueprint Blue (#2f5ae6)", async ({ page }) => {
   );
 });
 
-test("active navigation is exposed and mobile targets are large enough", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+test("the desktop rail exposes the active section and holds 44px targets", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/weekly");
   const active = page.locator('.nav-rail a[aria-current="page"]');
   await expect(active).toHaveAttribute("href", /\/weekly$/);
-  for (const item of await page.locator(".nav-rail .nav-item").all()) {
+  // Primary sections are 44px; the secondary group is deliberately 36px and is
+  // not a touch surface at this width.
+  for (const item of await page.locator(".nav-rail > a.nav-item").all()) {
     const box = await item.boundingBox();
     expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
   }
+});
+
+test("the rail contains exactly the sections and search, and no status record", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  // Six indexed sections as direct children, six secondary links, one search
+  // control, and no status record of any kind.
+  await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(6);
+  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(6);
+  await expect(page.locator(".sidebar-status")).toHaveCount(0);
+  await expect(page.locator(".sidebar .nav-item--button")).toHaveCount(1);
+});
+
+test("below 960 the drawer replaces the rail and behaves for the keyboard", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/weekly");
+
+  await expect(page.locator(".sidebar")).toBeHidden();
+  const trigger = page.locator(".topbar__trigger");
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+  await trigger.click();
+  const drawer = page.locator('[role="dialog"] .drawer');
+  await expect(drawer).toBeVisible();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator(".drawer__close")).toBeFocused();
+  await expect(page.locator("html")).toHaveCSS("overflow", "hidden");
+  await expect(drawer.locator('[aria-current="page"]')).toHaveAttribute("href", /\/weekly$/);
+
+  for (const item of await page.locator(".drawer__item").all()) {
+    const box = await item.boundingBox();
+    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+  }
+
+  await page.keyboard.press("Escape");
+  await expect(drawer).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
+});
+
+test("the footer social row is named, sized and not yet focusable", async ({ page }) => {
+  await page.goto("/");
+  const items = page.locator(".social-row__item");
+  await expect(items).toHaveCount(4);
+  for (const name of ["Facebook", "Instagram", "Threads", "X"]) {
+    await expect(page.getByRole("img", { name, exact: true })).toBeVisible();
+  }
+  for (const item of await items.all()) {
+    const box = await item.boundingBox();
+    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
+    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+  }
+  // Placeholders: no destination yet, so nothing focusable and no link.
+  await expect(page.locator(".social-row a")).toHaveCount(0);
 });
 
 test("skip link and keyboard search work, trap focus, and restore the trigger", async ({ page }) => {

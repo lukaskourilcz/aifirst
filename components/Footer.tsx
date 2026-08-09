@@ -2,6 +2,7 @@ import Link from "next/link";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { BrandLockup } from "./BrandMark";
+import { SocialRow } from "./SocialRow";
 
 export function Footer({ locale }: { locale: Locale }) {
   const d = dict(locale);
@@ -20,9 +21,6 @@ export function Footer({ locale }: { locale: Locale }) {
           <p className="footer-description">
             {d.footer.description}
           </p>
-          <p className="label footer-cadence">
-            {d.footer.staticBuild}
-          </p>
         </div>
         <nav aria-label={d.footer.read} className="footer-nav">
           <p className="footer-nav__heading">{d.footer.read}</p>
@@ -39,6 +37,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <Link href={lp("/sources")}>{t.sources}</Link>
           <a href={lp("/feed.xml")}>{d.common.atomFeed} ↗</a>
         </nav>
+        <SocialRow heading={d.footer.follow} />
       </div>
     </footer>
   );

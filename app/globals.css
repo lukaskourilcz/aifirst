@@ -1018,19 +1018,19 @@ hr {
 .nav-item {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  font-family: var(--font-mono);
-  font-size: 0.71875rem;
+  gap: 0;
+  padding: 0 12px 0 0;
+  font-family: var(--font-editorial);
+  font-size: 0.9375rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text-secondary);
   border-radius: 0;
   position: relative;
   border-left: 2px solid transparent;
   transition:
-    background var(--dur-fast) var(--ease-out),
+    background var(--dur-instant) var(--ease-out),
     border-left-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out);
   min-height: 44px;
@@ -1047,7 +1047,7 @@ hr {
 }
 
 .nav-item:hover {
-  background: var(--surface-subtle);
+  background: var(--surface-hover);
   color: var(--text-primary);
 }
 
@@ -1072,10 +1072,26 @@ hr {
   flex: 0 0 auto;
   color: var(--text-tertiary);
   font-family: var(--font-mono);
-  font-size: 0.59375rem;
+  font-size: var(--text-caption);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.08em;
 }
+
+/* Secondary group: the rest of the magazine. No index, one step quieter, and
+   36px tall so the six primary sections keep the visual weight. */
+.nav-rail__secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-rail__secondary .nav-item {
+  min-height: 36px;
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+  padding-left: 1.75rem;
+}
+.nav-rail__secondary .nav-item:hover { color: var(--text-primary); }
+.nav-rail__secondary .nav-item--active { color: var(--accent-primary); }
 .nav-item--active .nav-item__index { color: var(--accent-primary); }
 .nav-item__glyph svg {
   width: 16px;
@@ -1091,6 +1107,156 @@ hr {
   border-top: 1px solid var(--border-subtle);
   margin: 12px 0;
 }
+
+/* ------------------------------------------------------------------ */
+/* Mobile top bar and drawer (below 960)                               */
+/* ------------------------------------------------------------------ */
+
+.topbar { display: none; }
+
+@media (max-width: 960px) {
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    height: 56px;
+    margin: 0 calc(-1 * var(--mobile-gutter));
+    padding: 0 var(--mobile-gutter);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--surface-page);
+  }
+  .topbar__brand {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-primary);
+  }
+  .topbar__trigger {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  /* Three 2px bars, 18px wide, 5px apart, drawn from currentColor. */
+  .topbar__bars,
+  .topbar__bars::before,
+  .topbar__bars::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+  }
+  .topbar__bars {
+    position: relative;
+  }
+  .topbar__bars::before,
+  .topbar__bars::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+  .topbar__bars::before { top: -5px; }
+  .topbar__bars::after { top: 5px; }
+
+  /* The palette trigger is a full nav row in the rail; in the bar it is the
+     44x44 magnifier alone. */
+  .topbar__search { justify-self: end; }
+  .topbar__search .nav-item {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-left: 0;
+  }
+  .topbar__search .nav-item__label { display: none; }
+}
+
+.modal-overlay[data-align="drawer"] {
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+}
+.modal-overlay[data-align="drawer"] .modal-panel {
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background: var(--surface-page);
+  animation: drawer-in var(--dur-medium) var(--ease-out);
+}
+@keyframes drawer-in {
+  from { transform: translateX(-100%); }
+  to { transform: none; }
+}
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: 0 var(--mobile-gutter);
+}
+.drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+.drawer__close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+.drawer__nav { display: flex; flex-direction: column; }
+.drawer__item {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-editorial);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+.drawer__item[aria-current="page"] { color: var(--accent-primary); }
+.drawer__index {
+  width: 2.25rem;
+  flex: 0 0 auto;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+.drawer__item--secondary {
+  min-height: 48px;
+  padding-left: 2.25rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+.drawer__divider {
+  border-top: 1px solid var(--border-strong);
+  margin: var(--space-4) 0 0;
+}
+.drawer__search { margin-top: auto; padding: var(--space-5) 0; }
+.drawer__search .nav-item { padding-left: 0; }
 
 .sidebar__heading {
   font-family: var(--font-suisse-intl);
@@ -1124,103 +1290,12 @@ hr {
   margin: 0;
 }
 
+/* Below 960 the rail is replaced outright by the top bar and the drawer, not
+   flattened into a scrolling strip. */
 @media (max-width: 960px) {
-  .sidebar__card { display: none; }
-  .nav-rail {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 0;
-    scrollbar-width: none;
-  }
-  .nav-rail::-webkit-scrollbar { display: none; }
-  .nav-item {
-    flex: 0 0 auto;
-    padding: 0.65rem 0.8rem;
-  }
-  .nav-item--active {
-    border-left-color: transparent;
-    border-bottom: 2px solid var(--accent-primary);
-    border-radius: 0;
-  }
-  .nav-item__index { display: none; }
-  .sidebar__heading,
-  .nav-divider { display: none; }
-  .sidebar__strapline,
-  .sidebar-status { display: none; }
+  .sidebar { display: none; }
 }
 
-.sidebar-status {
-  margin-top: auto;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-  font-family: var(--font-mono);
-}
-.sidebar-status__header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-tertiary);
-  font-size: 0.59375rem;
-  line-height: 1.4;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.sidebar-status__dot {
-  width: 6px;
-  height: 6px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--text-tertiary);
-}
-.sidebar-status[data-tone="healthy"] .sidebar-status__header { color: var(--status-complete); }
-.sidebar-status[data-tone="healthy"] .sidebar-status__dot {
-  background: var(--status-complete);
-  animation: status-pulse 2.6s ease-in-out infinite;
-}
-.sidebar-status[data-tone="degraded"] .sidebar-status__header,
-.sidebar-status[data-tone="stale"] .sidebar-status__header { color: var(--status-warning); }
-.sidebar-status[data-tone="degraded"] .sidebar-status__dot,
-.sidebar-status[data-tone="stale"] .sidebar-status__dot { background: var(--status-warning); }
-.sidebar-status[data-tone="failed"] .sidebar-status__header { color: var(--status-correction); }
-.sidebar-status[data-tone="failed"] .sidebar-status__dot { background: var(--status-correction); }
-.sidebar-status dl {
-  display: grid;
-  gap: 7px;
-  margin: 0;
-  padding: 11px 12px;
-  font-size: 0.625rem;
-  line-height: 1.35;
-}
-.sidebar-status dl div {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-.sidebar-status dt {
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-}
-.sidebar-status dd {
-  margin: 0;
-  color: var(--text-primary);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-.sidebar-status__signal {
-  padding: 10px 12px 12px;
-  border-top: 1px solid var(--border-subtle);
-}
-.sidebar-status__signal .signal-strength {
-  width: 100%;
-  justify-content: space-between;
-}
-
-@keyframes status-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
 
 /* ------------------------------------------------------------------ */
 /* Hero Panel — top of the feed                                        */
@@ -1877,18 +1952,47 @@ svg { max-width: 100%; }
 }
 
 /* Footer block (lives inside shell main column). */
+/* The last column is sized for the social row's four 44px targets on one line
+   (4x44 + 3x8 = 200px). The footer sits inside the main column, so the
+   collapse points are earlier than the raw viewport widths suggest. */
 .footer-grid {
   display: grid;
-  grid-template-columns: minmax(240px, 1.5fr) repeat(2, minmax(130px, 0.5fr));
+  grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(120px, 0.5fr)) minmax(200px, 0.6fr);
   gap: 32px;
   align-items: start;
-  padding-top: 32px;
-  border-top: 2px solid var(--border-strong);
+  padding-top: 48px;
+  padding-bottom: 64px;
+  border-top: 1px solid var(--border-strong);
+}
+.footer-grid > * { min-width: 0; }
+
+@media (max-width: 1200px) {
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 430px) {
+  .footer-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 .footer-brand { margin: 0 0 var(--space-3); }
-.footer-description { margin: 0; max-width: 52ch; color: var(--text-tertiary); font-size: var(--text-body-sm); }
-.footer-cadence { margin-top: var(--space-3); }
+.footer-description {
+  margin: 0;
+  max-width: 40ch;
+  color: var(--text-secondary);
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+}
+
+/* The hit area exists from day one, so swapping the span for an anchor when
+   the accounts are real reflows nothing. */
+.social-row { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+.social-row__item {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text-tertiary);
+  border: 1px solid transparent;
+}
 
 .footer-nav {
   display: flex;
