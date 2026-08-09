@@ -1,30 +1,33 @@
-# Caught Up design system
+# DNESKAi design system
 
-Status: instrument-panel redesign, 2026-07-30
+Status: light newsroom redesign, 2026-08-09. Values are authoritative in
+`docs/redesign/design-spec.md` §2 and in the `:root` block of `app/globals.css`.
 
 This document describes the production system in `app/globals.css`, the shared shell components, and deterministic brand assets. It is not a gallery of aspirational components.
 
 ## Principles
 
-The interface expresses editorial intelligence through a dark publishing instrument and a finite reading arc. It uses hierarchy, evidence, rhythm, and real publication data instead of decorative dashboards or card stacks. The visual endpoint is the completion mark: blueprint blue at the brand level and a resolved green state at the end of an edition.
+The interface is a magazine on a paper canvas with a finite reading arc. It uses hierarchy, evidence and rhythm rather than dashboards or card stacks, and it shows the reader no production data at all. The visual endpoint is the completion mark: blueprint blue at the brand level and a resolved green state at the end of an edition.
 
 ## Color roles
 
 Production components should use semantic roles:
 
-- `--surface-page` (`#0c0d10`), `--surface-reading` (`#14161a`),
+- `--surface-page` (`#f7f7f5`), `--surface-reading` (`#ffffff`),
   `--surface-subtle` (`#101216`), and `--surface-emphasis`
 - `--text-primary` (`#eceef2`), `--text-secondary` (`#c8ccd4`), and
-  `--text-tertiary` (`#8d949f`)
+  `--text-tertiary` (`#5f6672`)
 - `--border-subtle` (`#23262c`) and `--border-strong` (`#2c3037`)
-- `--accent-primary` (`#4d7cff`) and `--accent-primary-hover` (`#6f95ff`)
+- `--accent-primary` (`#2f5ae6`) and `--accent-primary-hover` (`#1d43bb`)
+- `--border-control` (`#8e8e88`) for the three controls whose border is the
+  affordance: search input, ad reservation, week-boundary action
 - `--status-complete` (`#00bc7d`), `--status-warning` (`#e8a33d`), and
   `--status-correction` (`#e5484d`)
 - `--focus-ring` and `--selection-background`
 
 Raw palette variables remain compatibility aliases while existing routes are
 migrated. New production patterns must not introduce repeated literal colors.
-Caught Up has one dark reader theme. Print stays black on white. `#8d949f` is
+DNESKAi has one light reader theme. Print stays black on white. `#5f6672` is
 the lightest text color; dimmer values may appear only in decoration.
 
 ## Typography
@@ -64,7 +67,7 @@ and nested rounded cards are not part of the system.
 
 `BrandMark` and `BrandLockup` are the shared public brand components.
 `public/brand/completion-mark.svg` and `app/icon.svg` use deterministic
-completion geometry. The readable name remains `Caught Up` without a
+completion geometry. The readable name is `DNESKAi` without a
 punctuation rename.
 
 Primary navigation uses indexed label rows. Search retains its 16px,

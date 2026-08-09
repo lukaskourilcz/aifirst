@@ -1056,6 +1056,10 @@ hr {
     justify-self: center;
     display: inline-flex;
     align-items: center;
+    /* The wordmark is a link home, so it is a touch target like the two
+       triggers beside it and takes the same 44px minimum. */
+    min-height: 44px;
+    padding: 0 var(--space-2);
     color: var(--text-primary);
   }
   .topbar__trigger {
