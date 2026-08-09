@@ -10,17 +10,41 @@ You are implementing the DNESKAi launch redesign end to end, across two
 repositories. Before touching anything, read in full: `CLAUDE.md` in **both**
 repos, `docs/redesign/README.md` (the brief), `docs/redesign/design-spec.md`
 (the Claude Design output — token values and layout/component specs), and the
-newest `state/decisions/*.md` in quorum. If `design-spec.md` does not exist,
-proceed with the fallback baseline in **Appendix A** and structure the CSS so the
-final token values are a drop-in swap.
+newest `state/decisions/*.md` in quorum. `design-spec.md` is committed and
+**authoritative**: its decision summary (light canvas, accent `#2f5ae6`), token
+sheet (§2, including the new `--border-control` and `--sponsor-surface`), grid
+(§3), page and component specs (§4–6), contrast table (§7.1), removal map (§9)
+and build order (§10) override Appendix A, which remains only as an emergency
+fallback if the spec file is ever missing.
 
-The work has three parts. Part A rebuilds the aifirst reader as a
+The work has four parts. Part A rebuilds the aifirst reader as a
 TechCrunch-style Czech AI magazine with left-rail navigation and six categories.
 Part B extends the quorum engine: agent-assigned category tags, two new
 stream fetchers, two new delivery contracts, and a DNESKAi engine tab (manual
 Events entry) in the existing admin. Part C is a single owner-gated brand step.
-Work in the order A1→A9, B1→B5, C; every numbered step must leave both repos
-releasable (`pnpm verify` green in aifirst, `pnpm test` green in quorum).
+Part D is the final cleanup sweep of both repositories. The work is tracked as
+GitHub issues (one per numbered section below) — follow **Working method** next;
+every completed issue must leave both repos releasable (`pnpm verify` green in
+aifirst, `pnpm test` green in quorum).
+
+## Working method — issues, branches, merges
+
+- Work the GitHub issues **one at a time**, in the order the kickoff prompt
+  lists them (aifirst A1→A10, then quorum B1→B6, then C only if the owner has
+  approved it in the issue, then close out). One issue = one coherent block of
+  commits.
+- Branches: aifirst work continues on `claude/dneskai-magazine-redesign-yw9bv1`
+  (it already carries the brief and the design spec); in quorum, create the
+  same branch name from `main`.
+- Commit frequently — small, coherent steps with honest subjects. Reference the
+  issue in commits; put `Closes #<n>` in the final commit of each issue so the
+  eventual merge to main closes it automatically. Comment on an issue only when
+  something genuinely blocks or changes scope.
+- Push the work branches as you go. **Do not push or merge to `main` in either
+  repository until every issue in BOTH repos is complete** and the full gates
+  are green in both. Then merge aifirst first (the reader renders empty stream
+  files gracefully), quorum second, and delete the work branches local + remote
+  per both repos' conventions. Never force-push main.
 
 ## Global non-negotiables
 
@@ -64,6 +88,19 @@ releasable (`pnpm verify` green in aifirst, `pnpm test` green in quorum).
   board JSON, frontmatter `generation`, `/health` (noindex) and `health.json`
   stay exactly as they are — operators keep the telemetry, readers never see it.
   Prune the removed dictionary keys and delete components that end up unused.
+- **Human Czech, zero slop.** Everything a reader can see must read as if a
+  Czech editor wrote it. Hard rules: **no em-dash (—, U+2014) anywhere** in
+  reader-facing text or new Czech strings; where a dash is genuinely needed,
+  Czech convention is the en-dash (–) — spaced as a clause pause, unspaced or
+  spaced per norm in ranges („28.–30. 9.", „28. 7. – 3. 8. 2026") — but prefer
+  restructuring into shorter sentences. Correct Czech typography throughout:
+  „lower-upper" quotation marks, non-breaking space after one-letter
+  prepositions and conjunctions (k, s, v, z, o, u, a, i), Czech number/date
+  spacing (10 %, 28. 9.). No AI-pattern prose in any shipped copy: no hype
+  adjectives, no „v dnešní době" openers, no symmetrical triad sentences, no
+  emoji, no filler transitions. Apply the vendored `stop-slop` skill to every
+  string, doc line and commit body you write, in both repos. Verification is
+  mechanical: grep the built reader HTML for U+2014 — zero matches.
 - Commit in small coherent steps per repo convention (aifirst: incremental
   checkpoints; quorum: phase commits). Report test results truthfully.
 
@@ -283,6 +320,12 @@ and 1280px reviewed against the design spec.
   `edition-topic-warmup.test.ts` and `edition-publication-gate.test.ts` must
   pass unmodified. Add unit tests: category emitted → lands in frontmatter;
   invalid value → dropped; absent → absent.
+- While in `WRITE_SYSTEM`, add the human-Czech prose rules for article output
+  (mirroring the global non-negotiable): no em-dash ever, Czech en-dash and
+  quotation conventions, natural Czech idiom, no AI-pattern phrasing. Add the
+  same rules to `orchestrator/prompts/hacek.md` (the Czech language editor) so
+  drafting and review both enforce them. This adds editorial constraints; it
+  must not weaken any existing quality gate or its tests.
 
 ### B2. Stream contracts and fetchers (no model, no spend)
 
@@ -397,6 +440,39 @@ cheapest moment. Keep it as its own commit so it can be reverted alone.
 
 ---
 
+# PART D — final cleanup sweep (both repositories)
+
+Runs last, after every feature issue and before the merges to main. The goal:
+both repositories contain only relevant, current documents — no stale task
+lists, no superseded plans, no orphaned files.
+
+**aifirst.** Audit every Markdown and doc file. Deletion candidates to verify
+(grep for inbound references first; if something links to a file, update the
+reference or keep the file with a one-line supersession note):
+`docs/CAUGHT_UP_IMPLEMENTATION.md`, `docs/OWNDASHBOARD_INTEGRATION.md`
+(OwnDashboard integration is retired), `docs/design/PRODUCT_UX_AUDIT.md` and
+`docs/design/REFERENCE_RESEARCH.md` (both historical and superseded by the new
+system docs from A9). Prune `NEEDED.md`: drop completed "Already complete"
+narration that no longer earns its place and any ticked item older than the
+redesign; keep the file and its marker format. Remove orphaned assets or
+scratch files the redesign itself left behind. **Never delete**: `CLAUDE.md`,
+`about-project.md`, `scaling.md`, `monetization.md`, `NEEDED.md`,
+`data/README.md`, `LICENSE`, anything under `.claude/` (vendored skills carry
+`UPSTREAM.md` pinning), `contracts/`, or content/delivery files.
+
+**quorum.** Same audit, tighter guardrails: prune stale completed items from
+`docs/NEEDED.md`, remove superseded loose docs, and sweep redesign leftovers —
+but **never touch** `state/**` (decisions, INBOX, EVIDENCE, ledgers are
+council/owner-owned), `orchestrator/prompts/`, `contracts/`, `config/`,
+vendored skills, or any guard test.
+
+Rule for both: when unsure whether a file is dead, keep it and list it in the
+final report under "kept but suspicious" instead of deleting. The sweep is
+about documents and orphans, not a code refactor — do not rename or restructure
+code in this part.
+
+---
+
 # Acceptance checklist (verify each, literally)
 
 1. A newly delivered edition appears on Dnes as the lead, in `/tyden`, and — if
@@ -446,6 +522,16 @@ cheapest moment. Keep it as its own commit so it can be reverted alone.
     names, ready to accept URLs via config.
 18. Reader-facing copy contains no AI-operations vocabulary (models, agents,
     runs, builds, costs); the About page reads as a founder-run magazine.
+19. The Part D sweep ran in both repos: superseded docs are gone or carry a
+    supersession note, stale completed task-list content is pruned, `state/**`
+    and vendored skills are untouched, and the final report lists every
+    deletion plus anything kept-but-suspicious.
+20. Every redesign issue is closed by the merges, main is green in both repos
+    (aifirst merged first), and the work branches are deleted local + remote.
+21. The built reader HTML contains zero U+2014 em-dashes; new Czech strings
+    follow Czech typographic convention (quotes, en-dash, non-breaking spaces);
+    a read-through of all new UI copy finds no AI-tell phrasing, per the
+    `stop-slop` skill.
 
 ---
 

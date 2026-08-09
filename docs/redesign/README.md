@@ -8,11 +8,14 @@ in `lukaskourilcz/quorum` behind it.
 
 How to use it:
 
-1. Run `claude-design-prompt.md` in **Claude Design**. Save its full output as
-   `docs/redesign/design-spec.md` in this repo.
-2. Run `opus-implementation-prompt.md` in **Claude Code (Opus)** with both repos
-   checked out. It consumes the design spec and carries a fallback token baseline,
-   so it can start even before the spec lands.
+1. ~~Run `claude-design-prompt.md` in Claude Design~~ — done 2026-08-09; the
+   output is committed as `design-spec.md` and is the authoritative design.
+2. Paste `opus-kickoff-prompt.md` into a Claude Code session on **Opus, Max
+   effort, with both repositories attached**. It works the 17 prepared GitHub
+   issues in order (aifirst #37–#46 + gated #47, quorum #89–#94), commits
+   frequently on the work branches, and merges to main only when everything in
+   both repos is complete. `opus-implementation-prompt.md` stays the spec bible
+   the issues point into.
 
 ## 1. Where the product stands today
 
@@ -247,20 +250,23 @@ the feed starts. Everything else is specified in `claude-design-prompt.md`.
 
 Fits `budget-2026-08e` unchanged: $30 all-in, $25 model/API share, $1.00 daily pace.
 
-## 13. Rollout order
+## 13. Rollout order — issue-driven
 
-1. **Design spec** (Claude Design) → `docs/redesign/design-spec.md`.
-2. **aifirst redesign** — tokens/theme, shell + drawer, front page, `/tyden` chain,
-   category rendering, ad placeholder. Ships alone; new sections can be hidden
-   until data exists.
-3. **aifirst data surfaces** — schemas, loaders, empty states, pages for streams
-   and events (render fine with empty files from day one).
-4. **quorum categories** — frontmatter + writer prompt + package passthrough.
-5. **quorum streams + delivery kinds** — fetchers, contracts, workflow allowlists.
-6. **quorum admin (DNESKAi tab: Akce + engine status)** — last, because the reader
-   renders an empty events file gracefully from step 3.
+The work is cut into GitHub issues, executed strictly one at a time on branch
+`claude/dneskai-magazine-redesign-yw9bv1` in each repo, with frequent commits.
+Nothing is pushed or merged to `main` until every issue in **both** repos is
+done and the full gates are green; then aifirst merges first, quorum second,
+and the work branches are deleted.
 
-Each step leaves both repos releasable (`pnpm verify` + `pnpm e2e` green).
+aifirst: #37 theme → #38 shell → #39 telemetry removal → #42 data layer →
+#43 ad slot → #40 front page → #41 article page → #44 section routes →
+#45 docs truth pass. quorum: #89 writer categories → #90 stream fetchers →
+#91 events + admin → #92 delivery jobs → #93 docs. Then the gate check on
+aifirst #47 (brand unification, owner-approved only) and the closing cleanup
+sweeps: aifirst #46 and quorum #94.
+
+Each issue leaves both repos releasable (`pnpm verify` + `pnpm e2e` in aifirst,
+`pnpm test` in quorum).
 
 ## 14. Open owner decisions
 

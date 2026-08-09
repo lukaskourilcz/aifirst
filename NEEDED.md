@@ -11,11 +11,11 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Redesign hand-off (docs/redesign/)
 
-- [ ] **Run the Claude Design prompt** — paste `docs/redesign/claude-design-prompt.md` into Claude Design and save its complete output as `docs/redesign/design-spec.md` in this repo; the implementation prompt consumes it. [imp:5] [owner:me] [time:30m] [kind:decision]
-- [ ] **Run the Opus implementation prompt** — after the design spec lands (or accepting its fallback tokens), run `docs/redesign/opus-implementation-prompt.md` in Claude Code with both repos checked out. [imp:5] [owner:me] [time:30m] [kind:setup]
+- [x] **Run the Claude Design prompt** — done 2026-08-09; the output is committed as `docs/redesign/design-spec.md` and is the authoritative design.
+- [ ] **Kick off the Opus build** — paste `docs/redesign/opus-kickoff-prompt.md` into a Claude Code session on Opus, Max effort, with both repos attached. It works the 17 prepared issues in order (aifirst #37–#46, quorum #89–#94, gated #47) and merges to main only when both repos are complete. [imp:5] [owner:me] [time:15m] [kind:setup]
+- [ ] **Answer the brand gate on issue #47** — comment an explicit yes on `aifirst#47` if Caught Up → DNESKAi should ship with the redesign; silence keeps it parked without blocking the merge. [imp:4] [owner:me] [time:5m] [kind:decision]
 - [ ] **Confirm the curated source registries** — approve or edit the Medium/Substack seed list and fill the Czech podcast slots in `docs/redesign/README.md` §6–7 before the quorum fetchers ship. [imp:3] [owner:me] [time:30m] [kind:decision]
 - [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
-- [ ] **Decide the brand unification** — moving `brand.name` Caught Up → DNESKAi renames every indexed title, OG card, feed and JSON `publication` field at once; pre-launch is the cheapest moment. The implementation prompt executes it only on an explicit yes. [imp:4] [owner:me] [time:15m] [kind:decision]
 - [ ] **Supply the 300×250 rail creative when a deal exists** — the redesign ships the square slot as a „Místo pro reklamu" placeholder; a real creative needs the image under `public/images/banners/` plus config, same rules as the belt slot. [imp:1] [owner:me] [time:20m] [kind:content]
 - [ ] **Provide the social profile URLs** — the footer ships Facebook, Instagram, Threads and X as linkless icons; once the accounts exist, drop their URLs into the footer social config and the icons become links. [imp:2] [owner:me] [time:10m] [kind:content]
 
