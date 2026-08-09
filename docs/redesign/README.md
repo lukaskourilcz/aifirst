@@ -270,10 +270,10 @@ Each issue leaves both repos releasable (`pnpm verify` + `pnpm e2e` in aifirst,
 
 ## 14. Open owner decisions
 
-- **Brand unification** — moving `brand.name` Caught Up → DNESKAi renames every
-  indexed title, OG card, feed and JSON `publication` field at once. Pre-launch is
-  the cheapest moment it will ever be. The implementation prompt contains it as an
-  explicitly gated step: it runs only if you say yes when Opus asks.
+- **Brand unification — decided.** Approved 2026-08-09; the official name is
+  DNESKAi. Recorded on aifirst issue #47 and executed with the build right
+  before the documentation pass. Technical identifiers (`aifirst` repo/package,
+  the `caught-up` venture id, env names) stay unchanged.
 - **Canvas polarity** — light (recommended) vs staying dark; Claude Design argues,
   you sign off.
 - **Source registries** — confirm/extend the Medium/Substack seed list (§6) and

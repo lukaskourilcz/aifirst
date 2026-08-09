@@ -21,8 +21,9 @@ The work has four parts. Part A rebuilds the aifirst reader as a
 TechCrunch-style Czech AI magazine with left-rail navigation and six categories.
 Part B extends the quorum engine: agent-assigned category tags, two new
 stream fetchers, two new delivery contracts, and a DNESKAi engine tab (manual
-Events entry) in the existing admin. Part C is a single owner-gated brand step.
-Part D is the final cleanup sweep of both repositories. The work is tracked as
+Events entry) in the existing admin. Part C is the brand unification, approved
+by the owner on 2026-08-09. Part D is the final cleanup sweep of both
+repositories. The work is tracked as
 GitHub issues (one per numbered section below) — follow **Working method** next;
 every completed issue must leave both repos releasable (`pnpm verify` green in
 aifirst, `pnpm test` green in quorum).
@@ -30,9 +31,9 @@ aifirst, `pnpm test` green in quorum).
 ## Working method — issues, branches, merges
 
 - Work the GitHub issues **one at a time**, in the order the kickoff prompt
-  lists them (aifirst A1→A10, then quorum B1→B6, then C only if the owner has
-  approved it in the issue, then close out). One issue = one coherent block of
-  commits.
+  lists them. The approved brand step C runs right before the A9 documentation
+  pass so the docs record the unified name once; the two cleanup sweeps close
+  out. One issue = one coherent block of commits.
 - Branches: aifirst work continues on `claude/dneskai-magazine-redesign-yw9bv1`
   (it already carries the brief and the design spec); in quorum, create the
   same branch name from `main`.
@@ -425,10 +426,11 @@ through the store's test harness.
 
 ---
 
-# PART C — owner-gated: brand unification
+# PART C — brand unification (approved 2026-08-09)
 
-Only if the operator explicitly answers **yes** when you ask (if running
-unattended: skip, and record the open decision in `NEEDED.md`): flip
+The owner approved this in writing on 2026-08-09: „yes on aifirst. The official
+name is DNESKAi." The approval is recorded on aifirst issue #47. Execute it in
+the kickoff order, right before the A9 documentation pass: flip
 `brand.name` from "Caught Up" to "DNESKAi" in `lib/brand.ts`, then chase every
 machine-facing consumer — page titles, `openGraph.siteName`, JSON-LD,
 `app/api/*.json` `publication` fields, feed titles, OG covers, newsletter

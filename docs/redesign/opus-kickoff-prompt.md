@@ -47,21 +47,22 @@ aifirst, in this order (A6 and A7 land before the front page needs them):
 6. [#40 A4 Front page](https://github.com/lukaskourilcz/aifirst/issues/40)
 7. [#41 A5 Article page + chips](https://github.com/lukaskourilcz/aifirst/issues/41)
 8. [#44 A8 Section routes + SEO](https://github.com/lukaskourilcz/aifirst/issues/44)
-9. [#45 A9 Documentation truth pass](https://github.com/lukaskourilcz/aifirst/issues/45)
+9. [#47 C Brand unification](https://github.com/lukaskourilcz/aifirst/issues/47):
+   approved by the owner on 2026-08-09, recorded on the issue. The official
+   machine-facing name is DNESKAi. One dedicated commit, revertible alone.
+10. [#45 A9 Documentation truth pass](https://github.com/lukaskourilcz/aifirst/issues/45)
+    (documents the unified name in the same pass)
 
 then quorum:
 
-10. [#89 B1 Writer categories](https://github.com/lukaskourilcz/quorum/issues/89)
-11. [#90 B2 Stream contracts + fetchers](https://github.com/lukaskourilcz/quorum/issues/90)
-12. [#91 B3 Events store + admin Akce tab](https://github.com/lukaskourilcz/quorum/issues/91)
-13. [#92 B4 cycle.yml delivery jobs + allowlists](https://github.com/lukaskourilcz/quorum/issues/92)
-14. [#93 B5 Quorum docs truth pass](https://github.com/lukaskourilcz/quorum/issues/93)
+11. [#89 B1 Writer categories](https://github.com/lukaskourilcz/quorum/issues/89)
+12. [#90 B2 Stream contracts + fetchers](https://github.com/lukaskourilcz/quorum/issues/90)
+13. [#91 B3 Events store + admin Akce tab](https://github.com/lukaskourilcz/quorum/issues/91)
+14. [#92 B4 cycle.yml delivery jobs + allowlists](https://github.com/lukaskourilcz/quorum/issues/92)
+15. [#93 B5 Quorum docs truth pass](https://github.com/lukaskourilcz/quorum/issues/93)
 
-then the gate check and the closing sweep:
+then the closing sweep:
 
-15. [#47 C Brand unification](https://github.com/lukaskourilcz/aifirst/issues/47):
-    proceed only if the owner has commented an explicit yes on the issue.
-    No comment means leave it open, untouched, and continue.
 16. [#46 A10 Cleanup sweep aifirst](https://github.com/lukaskourilcz/aifirst/issues/46)
 17. [#94 B6 Cleanup sweep quorum](https://github.com/lukaskourilcz/quorum/issues/94)
 
