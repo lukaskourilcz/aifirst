@@ -1,90 +1,91 @@
-# Caught Up visual QA
+# DNESKAi visual QA
 
-Last reviewed: 2026-07-31
+Status: light newsroom redesign, 2026-08-09.
 
-This is the evidence record for the implemented Caught Up interface. It is not a screenshot baseline. Temporary captures, traces, and Playwright output remain ignored and are not production assets.
+This is the evidence record for the shipped interface. It is not a screenshot
+baseline: temporary captures, traces and Playwright output stay ignored and are
+never production assets.
 
-## Review matrix
+## Responsive matrix
 
-The instrument-panel production build was reviewed in Chromium at 320, 360,
-430, 768, 820, 1024, 1280, and 1600 CSS pixels. The automated audit
-additionally probes desktop (1280 × 800), tablet (820 × 1180), and mobile
-(390 × 844).
+Measured against the production build in Chromium, eight widths by eight
+routes, sixty-four combinations. Each cell records horizontal overflow, which
+navigation surface is present, whether the right rail is in the layout, the
+count of level-one headings, and the number of touch targets under 44px.
 
-Routes reviewed directly or through the route audit:
+| Width | Left rail | Top bar | Right rail | Overflow | `h1` | Targets under 44px |
+| --- | --- | --- | --- | --- | --- | --- |
+| 320 | hidden | yes | reflowed into main | 0 | 1 | 0 |
+| 360 | hidden | yes | reflowed into main | 0 | 1 | 0 |
+| 430 | hidden | yes | reflowed into main | 0 | 1 | 0 |
+| 768 | hidden | yes | reflowed into main | 0 | 1 | 0 |
+| 820 | hidden | yes | reflowed into main | 0 | 1 | 0 |
+| 1024 | yes | hidden | reflowed into main | 0 | 1 | 0 |
+| 1280 | yes | hidden | own column | 0 | 1 | 0 |
+| 1600 | yes | hidden | own column | 0 | 1 | 0 |
 
-- Today at the Czech root
-- a recent legacy issue, an older legacy issue, and print
-- Radar, Topics, a Topic detail, Weekly, Archive, and Search
-- About, Sources, Glossary, Corrections, and Health
-- the no-image Today state
+Routes covered: `/`, `/tyden`, `/akce`, `/podcasty`, `/o-cem-se-mluvi`,
+`/ai-modely`, `/about` and an article page. `/about` has no right rail by
+design; every other route carries one.
 
-Committed historical editions do not carry BoardlessAI board context. The
-making-of and no-edition branches were reviewed with temporary validated board
-records, then those records were removed so the public archive does not claim a
-meeting or decision that never happened.
+Two defects the matrix found and this release fixed:
 
-## Findings and fixes
+- The mobile top-bar wordmark was a 20px touch target at every width below 960.
+  It is a link home, so it now takes the same 44px minimum as the menu and
+  search triggers beside it.
+- The social row is 200px of 44px targets and overflowed its footer column by
+  35px at 1280. The column is sized for it and the row wraps as a safety net.
 
-- The shell changes from a fixed 244px publication rail to compact horizontal
-  navigation below 960px. Primary destinations remain visible; none are hidden
-  behind a decorative interaction.
-- No horizontal document overflow was found at the reviewed widths. Wide evidence tables retain an explicit scroll region rather than dropping columns.
-- A long package name initially widened Radar by 27px at 320px. Allowing the
-  package heading to wrap removed the overflow without hiding data. The tablet
-  publication strip also received a tighter signal meter so Czech metadata
-  cannot widen the document while fonts settle.
-- Czech Today and Weekly views wrap without clipping. The brand remains untranslated.
-- Search moves focus to the query input, contains keyboard focus, closes with Escape, restores the trigger, and announces result counts.
-- The language switcher was retired with the move to a single published locale.
-  Desktop, tablet, and mobile checks reach the Czech Today route at the root.
-- The skip link moves focus to `#main-content`. Current navigation, dialogs, the visible provenance record, and copy feedback retain semantic names and keyboard operation.
-- Today and issue pages now expose a real-data publication strip. Legacy issues identify missing review and cost telemetry as not recorded or unavailable rather than displaying demo values.
-- Desktop navigation uses numeric issue-desk indices. Compact navigation
-  removes the indices, preserves labels, and retains 44px targets.
-- Source evidence classifications are text-labelled badges, and Radar meters retain exact textual values beside every visual bar.
-- Reduced-motion mode disables entrance animations and the current-publication
-  pulse. The interface does not use parallax, auto-playing media, motion
-  frameworks, or continuous decorative loops.
-- The current Today issue has no hero image and renders the intentional `hero--no-photo` treatment.
-- Weekly uses a deterministic, code-rendered edition cover. Print remains
-  black on white; its article prose, links, lockup, editorial highlights,
-  sources, and corrections were inspected independently from the dark screen
-  theme.
-- Browser console inspection found no errors or hydration warnings on the representative production routes.
-- The Playwright audit writes a single serial findings report and no longer multiplies the viewport audit across device projects. The latest audit produced an empty findings list.
-- Playwright builds and serves the production app. This avoids Next 15
-  development-cache races when four workers request uncompiled routes.
-- The canonical dark palette, three-font hierarchy, publication-data strip,
-  indexed navigation, real freshness panel, provenance record, evidence
-  badges, Radar meters, source panels, archive rows, and no-image layouts were
-  inspected directly in Czech.
-- The additive making-of note and quiet no-edition archive row fit the existing
-  editorial hierarchy at 1280 and 390 CSS pixels. Both remained within the
-  viewport; the about-page sponsorship disclosure and empty, honest board
-  changelog used existing typography and spacing.
+The secondary rail group is 36px by design (spec §5) and is deliberately
+excluded from the 44px rule: it is a pointer surface only, because below 960 the
+rail is replaced by the drawer, whose items are 48px and 56px.
 
-## Automated coverage
+## Contrast
 
-`e2e/smoke.spec.ts` verifies route status, a single visible page heading, overflow, navigation, compatibility redirects, legacy print routing, language switching, source semantics, topic composition, feeds, search focus behavior, touch targets, reduced motion, deterministic no-media states, noindex/operator boundaries, public JSON contracts, CSP, frame denial, board disclosures, and the absence of fabricated historical making-of data.
+Verified by computation against the tokens as they exist in
+`app/globals.css`, not against the spec table. All forty text/surface pairs
+clear AA 4.5:1. The metadata floor `#5f6672` holds 5.02:1 on its worst surface
+(`--surface-subtle`). `--border-control` reaches 3.29:1 on the reading surface
+and 3.07:1 on the page, so the search field, ad reservation and week action meet
+1.4.11. Reversed and tinted pairs clear as well: white on accent 5.64:1, the
+correction colour on its danger surface 5.44:1, the warning colour on the
+sponsor surface 5.54:1.
 
-`e2e/audit.spec.ts` records shell fill, overflow, and heading anomalies for the representative route matrix at three widths. Audit output is temporary and must not be committed.
+## Keyboard and semantics
 
-The final 2026-07-30 production-build run completed with 154 passing checks and
-2 expected non-desktop skips. The audit findings list was empty.
+- The skip link moves focus to `#main-content`.
+- The rail marks the active section with `aria-current="page"`. This release
+  fixed a defect where no rail item was ever marked current on any non-home
+  route, because only the home href accounted for the `/cs` prefix the router
+  reports.
+- The mobile drawer traps focus, moves focus to its close button, closes on
+  Escape, restores focus to the menu trigger, and locks body scroll while open.
+- Headings run without skips and every route has exactly one `h1`.
+- `/akce` uses a labelled `nav` for its scope anchors and works with zero
+  JavaScript.
+- Outbound links carry `rel="noopener noreferrer"` and a screen-reader note
+  that they open a new window. English stream titles carry `lang="en"`.
+- The social row exposes accessible names and is deliberately not focusable
+  while the accounts do not exist.
 
-## Manual review protocol
+## States inspected
 
-For future visual changes:
+No-edition day, empty streams, empty events, an uncategorised edition, a legacy
+edition with no highlights block, an edition with no hero photo, and the
+archive-exhausted end of the week chain. Each renders one honest sentence rather
+than a skeleton, a badge or a placeholder row.
 
-1. Build and serve the production app locally.
-2. Review Today, one issue, Radar, Topics, Weekly, Archive, Search, About, trust surfaces, and print at the matrix above.
-3. Include Czech and the longest available content; do not invent content to fill an empty state.
-4. Exercise search, skip navigation, provenance links, language switching, and reduced motion with the keyboard.
-5. Inspect console output, horizontal overflow, table scrolling, image intrinsic sizing, and focus visibility.
-6. Run `pnpm e2e`; retain screenshots only when the repository intentionally establishes a visual baseline.
+## Motion
 
-BoardlessAI-delivered article heroes must be reviewed in the real route at all
-relevant crops, checked for accessibility and optimized file size, and verified
-against the package provenance. Caught Up has no separate media-production
-queue.
+Colour transitions survive `prefers-reduced-motion: reduce`, because they are
+not motion. The drawer slide, the entry translate and the week-action arrow
+nudge do not. The status pulse was deleted with the status record.
+
+## Known and accepted
+
+- Three published editions and one dataset entry carry an em-dash in their own
+  prose. Editions and dataset entries are immutable; the rule is enforced going
+  forward in the upstream writer prompt.
+- The `2026-08-08` edition renders with no body. Its delivered MDX wraps the
+  whole body in a JSX expression. This is a content defect filed for the owner,
+  not a layout defect.

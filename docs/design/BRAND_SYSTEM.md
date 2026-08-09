@@ -6,7 +6,7 @@ production implementation.
 ## Two names, on purpose
 
 `brand.wordmark` is **DNESKAi** and is what a reader sees: the navigation lockup,
-the footer and print. `brand.name` is still **Caught Up** and carries everything a
+the footer and print. `brand.name` is **DNESKAi** too, and carries everything a
 machine reads or a link previews — page titles, Open Graph and Twitter cards,
 `openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the
 drawn covers, as do the repository, the venture id and the Actions variables.
@@ -16,7 +16,7 @@ is the owner's call and it has not been made. Do not "re-align" the two.
 ## Positioning
 
 - Wordmark: **DNESKAi** (never translated).
-- Metadata name: **Caught Up** (never translated).
+- Metadata name: **DNESKAi** (never translated). `brand.legalName` stays Caught Up.
 - English tagline: **The AI stories that actually mattered today.**
 - English promise: **One edition and you’re caught up on AI.**
 - English support: **Understand what mattered. Skip the noise.**
@@ -43,7 +43,7 @@ contexts, and in print.
 
 ## Color behavior
 
-- Blueprint blue: identity, links, focus, selected navigation, signal emphasis.
+- Blueprint blue `#2f5ae6`: identity, links, focus, active navigation, kickers.
 - Near-black and cool charcoal: page, panel, and sunken hierarchy.
 - Cool white and gray: primary, reading, support, and metadata text.
 - Mint: rare completion/healthy state, always paired with text.
@@ -65,7 +65,7 @@ Both faces include Latin Extended for Czech.
 
 ## Visual language
 
-- Finite technical briefing, research dossier, publishing instrument, source
+- Finite edition, magazine on paper, evidence kept visible, source
   annotation, issue filing, and the completion mark.
 - Flat surfaces, collapsing hairline grids, controlled crops, zero radii, no
   decorative elevation.

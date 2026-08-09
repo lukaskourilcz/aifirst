@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { AIPulse } from "@/components/AIPulse";
 import { IssueRow } from "@/components/IssueRow";
 import { PageShell } from "@/components/PageShell";
-import { SignalStrength } from "@/components/SignalStrength";
 import { Wire } from "@/components/Wire";
 import { buildRadar } from "@/lib/radar";
 import { loadPulse } from "@/lib/pulse";
@@ -47,21 +46,6 @@ export default async function RadarPage({ params }: { params: Promise<{ lang: Lo
         <section><h2>{t.recurring}</h2><TopicBars rows={radar.recurring} locale={locale} /></section>
       </div>
       {radar.watchlist.length ? <section className="route-section"><Wire items={radar.watchlist} locale={locale} /></section> : null}
-      <section className="route-section">
-        <h2>{t.strongest}</h2>
-        <ul className="dense-list">
-          {radar.strongest.map((article) => <IssueRow
-            key={article.slug}
-            href={localePath(locale, `/articles/${article.slug}`)}
-            date={article.date}
-            title={article.title}
-            variant="meta"
-            trailing={article.signal_strength === undefined
-              ? <span className="label">{dict(locale).common.signal} —</span>
-              : <SignalStrength value={article.signal_strength} label={dict(locale).common.signal} />}
-          />)}
-        </ul>
-      </section>
       {radar.cooled.length ? <section className="route-section"><h2>{t.cooled}</h2><TopicBars rows={radar.cooled} locale={locale} /></section> : null}
       {pulse ? <section className="route-section"><h2>{t.pulse}</h2><AIPulse pulse={pulse} locale={locale} /></section> : null}
       <section className="route-section">

@@ -6,11 +6,28 @@ import { dict } from "@/lib/i18n/dictionaries";
 export function RelatedIssues({
   items,
   locale,
+  variant = "block",
 }: {
   items: ArticleSummary[];
   locale: Locale;
+  /** "rail" is the compact numbered list used in the article right rail. */
+  variant?: "block" | "rail";
 }) {
   if (!items.length) return null;
+
+  if (variant === "rail") {
+    return (
+      <ol className="rail-related">
+        {items.slice(0, 3).map((a, i) => (
+          <li key={a.slug}>
+            <span aria-hidden className="rail-related__index">{String(i + 1).padStart(2, "0")}</span>
+            <Link href={localePath(locale, `/articles/${a.slug}`)}>{a.title}</Link>
+          </li>
+        ))}
+      </ol>
+    );
+  }
+
   return (
     <section aria-label={dict(locale).article.related} className="related-issues">
       <p className="label related-issues__label">

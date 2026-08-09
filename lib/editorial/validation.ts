@@ -1,4 +1,5 @@
 import type { ArticleFrontmatter } from "../content";
+import { ARTICLE_CATEGORIES } from "../content";
 
 function validDate(value: unknown): value is string {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -29,6 +30,19 @@ export function validateArticleFrontmatter(raw: Record<string, unknown>, file: s
   if (typeof raw.date === "string" && !file.startsWith(raw.date)) errors.push(`${file}: filename does not start with frontmatter date ${raw.date}`);
   if (!nonEmptyStrings(raw.tags)) errors.push(`${file}: tags must be a non-empty string array`);
   if (raw.alternative_headlines !== undefined && !nonEmptyStrings(raw.alternative_headlines, 1, 3)) errors.push(`${file}: alternative_headlines must contain 1-3 non-empty strings`);
+  // Absent is fine and common. Present but unknown is a content error, because
+  // a category the reader cannot route is a silently missing section.
+  if (raw.categories !== undefined) {
+    if (!Array.isArray(raw.categories)) {
+      errors.push(`${file}: categories must be an array if present`);
+    } else {
+      for (const value of raw.categories) {
+        if (typeof value !== "string" || !(ARTICLE_CATEGORIES as readonly string[]).includes(value)) {
+          errors.push(`${file}: unknown category ${JSON.stringify(value)}; allowed: ${ARTICLE_CATEGORIES.join(", ")}`);
+        }
+      }
+    }
+  }
   if (!Array.isArray(raw.sources)) errors.push(`${file}: sources must be an array`);
   if (raw.dispatches !== undefined && !Array.isArray(raw.dispatches)) errors.push(`${file}: dispatches must be an array if present`);
   if (raw.wire !== undefined && !Array.isArray(raw.wire)) errors.push(`${file}: wire must be an array if present`);

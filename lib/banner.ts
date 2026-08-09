@@ -58,3 +58,23 @@ export function parseSlot(value: unknown): BannerSlot | null {
 export function bannerSlot(id: string): BannerSlot | null {
   return parseSlot(config.slots[id]);
 }
+
+/**
+ * Whether an empty slot still reserves its box.
+ *
+ * `placeholder: true` is what keeps the right rail the same height with and
+ * without a creative, so filling the slot later shifts nothing. It only applies
+ * while the slot is empty: once a real creative is configured the creative is
+ * the reservation. Absent or false keeps the original render-null behaviour,
+ * which is why `today-partner-belt` is unaffected.
+ */
+export function isPlaceholderSlot(value: unknown): boolean {
+  if (typeof value !== "object" || value === null) return false;
+  const slot = value as Record<string, unknown>;
+  if (parseSlot(slot) !== null) return false;
+  return slot.placeholder === true;
+}
+
+export function bannerPlaceholder(id: string): boolean {
+  return isPlaceholderSlot(config.slots[id]);
+}

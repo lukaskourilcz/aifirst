@@ -64,10 +64,6 @@ export default async function ArchivePage({
                     {a.dek ? <p>{a.dek}</p> : null}
                     {a.tags?.length ? <div className="archive-card__topics">{a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div> : null}
                   </div>
-                  <div className="archive-card__signal">
-                    <span>{a.signal_strength === undefined ? "—" : String(a.signal_strength).padStart(2, "0")}</span>
-                    <small>{common.signal}</small>
-                  </div>
                 </Link>
               </li>
             ) : (

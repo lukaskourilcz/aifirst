@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isCurrentPath } from "@/lib/helpers/path";
 
 export function NavLink({
   href,
@@ -13,12 +14,7 @@ export function NavLink({
   index?: string;
 }) {
   const pathname = usePathname();
-  const normalizedHref = href.replace(/\/$/, "") || "/";
-  const visiblePath = pathname.replace(/^\/en(?=\/|$)/, "");
-  const normalizedPath = visiblePath.replace(/\/$/, "") || "/";
-  const current = normalizedHref === "/"
-    ? normalizedPath === "/" || normalizedPath === "/cs"
-    : normalizedPath === normalizedHref || normalizedPath.startsWith(`${normalizedHref}/`);
+  const current = isCurrentPath(pathname, href);
 
   return (
     <Link

@@ -1,6 +1,22 @@
-import { bannerSlot } from "@/lib/banner";
+import { bannerPlaceholder, bannerSlot } from "@/lib/banner";
 import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+
+/**
+ * The reserved 300×250 box. Fixed in both axes at every viewport, so a later
+ * creative replaces the inner node and the rail does not move a pixel. It is
+ * the only boxed thing in the rail, which is what marks it as not editorial.
+ */
+export function AdPlaceholder({ locale }: { locale: Locale }) {
+  const t = dict(locale).ads;
+  return (
+    <aside className="ad-slot" aria-label={t.region}>
+      <div className="ad-slot__box">
+        <span>{t.slot}</span>
+      </div>
+    </aside>
+  );
+}
 
 /**
  * A partner belt reserved after the completion mark — the back page of the
@@ -14,7 +30,9 @@ import { dict } from "@/lib/i18n/dictionaries";
  */
 export function BannerSlot({ id, locale }: { id: string; locale: Locale }) {
   const slot = bannerSlot(id);
-  if (slot === null) return null;
+  // An empty slot either reserves its box or renders nothing at all. Which one
+  // is config, so the belt keeps collapsing while the rail square holds space.
+  if (slot === null) return bannerPlaceholder(id) ? <AdPlaceholder locale={locale} /> : null;
   const t = dict(locale).daily;
 
   return (

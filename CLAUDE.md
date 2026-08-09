@@ -2,7 +2,9 @@
 
 This repository publishes **DNESKAi**, a Czech, Git-native daily briefing about the AI and technology stories that actually mattered. The repository/package, bot identity, compatibility environment variables, and other stable technical identifiers intentionally remain `aifirst`, and the venture id upstream remains `caught-up`.
 
-**The name is deliberately split, and this is not drift to fix.** `brand.wordmark` is DNESKAi and appears where a reader looks at the publication: the navigation lockup, the footer and print. `brand.name` is still Caught Up and carries everything a machine reads or a link previews — page titles, Open Graph and Twitter cards, `openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the drawn covers. Moving `name` renames every indexed title and every social card at once, which is the owner's call and has not been made. Do not "re-align" `lib/brand.ts` or the dictionaries to make the two match.
+**The name is unified.** `brand.name` and `brand.wordmark` are both DNESKAi, and that name carries everything: the navigation lockup, the footer, print, page titles, Open Graph and Twitter cards, `openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the drawn covers. The owner approved the switch on 2026-08-09; the split that preceded it existed only so the new name could reach readers before every indexed title moved at once.
+
+`brand.legalName` stays Caught Up, and the repository, package, bot identity, venture id (`caught-up`), skill slugs, compatibility environment variables and Actions variables all stay `aifirst`/`caught-up`. Those are stable identifiers, not the publication name, and renaming them is not a branding decision.
 
 ## Product
 
@@ -20,7 +22,11 @@ Public positioning:
 Czech serves at the root. The `/cs` prefix and the English routes behind it are legacy
 compatibility only; nothing new is published under them.
 
-- Primary: `/` Today, `/radar`, `/topics`, `/weekly`, `/archive`, `/about`, `/pulse`
+- Sections: `/` Dnes, `/tyden` and `/tyden/[week]`, `/o-cem-se-mluvi`,
+  `/ai-modely`, `/podcasty`, `/akce`
+- Secondary: `/radar`, `/topics`, `/weekly`, `/archive`, `/lekce`, `/about`, `/pulse`.
+  The rail labels these in Czech; the paths stay English and are a compatibility
+  contract. This redesign creates no Czech aliases for them.
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
 - Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`, `/search`
 - Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/Sources/health JSON; static Open Graph
@@ -42,7 +48,11 @@ anywhere in this pipeline and none is coming back.
 - Reader pages never scrape sources or call a model.
 - Keep server components by default. Client boundaries are limited to actual interaction such as search, reading progress, keyboard help, or copy feedback.
 - Preserve delivery idempotency, static Next routes, Vercel delivery, CSP, analytics, and compatibility contracts.
-- No code path in this repository may scrape, call an editorial model, regenerate an edition, or accept BoardlessAI writes outside the four delivery paths.
+- No code path in this repository may scrape, call an editorial model,
+  regenerate an edition, or accept BoardlessAI writes outside the authorized
+  delivery paths: dated MDX, the edition's hero and thumbnail, board JSON, the
+  two append-only datasets, and the three synced stream and event files.
+  `docs/GOVERNANCE.md` is the enumeration.
 - Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking.
 
 ## Content and delivery
@@ -58,9 +68,9 @@ anywhere in this pipeline and none is coming back.
 Three Server Components on Today read `data/`, not the edition pipeline. They add
 no client JavaScript and make no network or model call.
 
-- **`DailyLesson`** sits between `PublicationData` and `IssueMasthead`, inside the
-  hero viewport, and links to `/lekce`. **`DidYouKnow`** closes
-  `section.issue-reference-blocks`. Both take the lead edition's date as a prop.
+- **`DailyLesson`** and **`DidYouKnow`** live in the right rail through their
+  `variant="rail"` form and both take the lead edition's date as a prop. The
+  strip and block variants remain for any surface that wants them inline.
 - The pick is `daysBetween(anchor, dateKey) % length` from `lib/daily.ts`. The date
   is the newest edition's `frontmatter.date` — a Prague publishing day by contract —
   never a clock. Nothing in these paths may call `new Date()`, `Date.now()` or
@@ -70,8 +80,12 @@ no client JavaScript and make no network or model call.
   asserted as minimums so an append needs no test edit.
 - The lessons are a dated curriculum, `glossary.yml` is a reference list. They
   coexist; do not merge them or cross-wire their loaders.
-- **`BannerSlot`** renders `config/banner.json` and ships empty — it returns `null`
-  and reserves no space. A creative must be a local file under
+- **`BannerSlot`** renders `config/banner.json` and both slots ship empty. An
+  empty slot either collapses or reserves its box, and which one is config:
+  `today-partner-belt` returns `null` and reserves no space, while `rail-square`
+  carries `placeholder: true` and holds a 300×250 reservation so filling it later
+  shifts nothing. The flag stops applying once a real creative exists, because a
+  filled slot is its own reservation. A creative must be a local file under
   `public/images/banners/` with explicit dimensions; anything else reads as empty.
   No ad script, no third-party host, no tracking, so CSP is untouched.
 
@@ -101,11 +115,17 @@ The design thesis is **editorial intelligence presented as a precise publishing 
 - `docs/design/DESIGN_SYSTEM.md`
 - `docs/design/VISUAL_QA.md`
 
-Use the completion mark through `BrandMark`/`BrandLockup`, a near-black instrument canvas, cool panel surfaces, electric blueprint blue, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
+Use the completion mark through `BrandMark`/`BrandLockup`, a light paper canvas, white reading surfaces, blueprint blue `#2f5ae6`, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
+
+**The reader shows no production instrumentation and never describes itself as
+AI-operated.** No run costs, model names, candidate counts, signal scores, agent
+references or build vocabulary in reader copy. Telemetry lives only in `/health`,
+`/api/health.json` and the BoardlessAI admin. Keep the journalism trust
+surfaces: source ledger, corrections, sponsor labelling, the completion mark.
 
 Today is the product, not a marketing landing page. Radar is editorial intelligence, not an operator dashboard. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
 
-The public reader uses one dark theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
+The public reader uses one light theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
 
 Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
 
@@ -150,8 +170,11 @@ Before editing, inspect branch/status/staged and unstaged diffs/recent log. Pres
 
 Tokens live in the palette block at the top of `app/globals.css`. Prefer the
 semantic roles (`--surface-*`, `--text-*`, `--border-*`, `--accent-*`,
-`--status-*`, `--focus-ring`) in new rules. The dark palette's metadata floor is
-`#8d949f`; do not introduce dimmer text. Re-measure text and status contrast
+`--status-*`, `--focus-ring`) in new rules. The light palette's metadata floor is
+`#5f6672`, which holds 5.02:1 on its worst surface; do not introduce dimmer
+text. Controls whose border carries the affordance use `--border-control`
+(`#8e8e88`), because the grouping hairlines cannot reach 3:1 on paper without
+becoming noise. Re-measure text and status contrast
 before changing gray or status colors, and mirror palette changes in
 `lib/og-theme.ts` because `next/og` cannot read CSS variables.
 

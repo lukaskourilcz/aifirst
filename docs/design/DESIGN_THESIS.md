@@ -1,67 +1,41 @@
-# Caught Up design thesis
+# DNESKAi design thesis
 
-## Editorial intelligence as a precise publishing instrument
+## A Czech AI magazine that respects the reader's attention
 
-Caught Up should feel like a composed European technology briefing running on
-a visible, trustworthy publishing system. The dark instrument canvas combines
-editorial judgment with compact publication data. Each finite edition opens
-with the run record and lead story, distinguishes change from consequence,
-keeps evidence within reach, and ends with permission to stop.
+DNESKAi should feel like a composed European technology magazine on paper: a
+light canvas, a clear hierarchy, and an edition that visibly ends. It is
+scanned several times a day across editions, external links, podcasts and
+events, so the design has to hold mixed-source content without letting any of
+it pretend to be editorial.
 
-The identity is built from five behaviors:
+The publication does not present itself as a system. A reader gets a magazine.
 
-1. **Three type systems, three jobs.** Space Grotesk handles display and
-   interface hierarchy. Source Serif 4 carries deks, reading prose, and
-   definitions. IBM Plex Mono identifies dates, run values, navigation,
-   captions, tags, and measured data.
-2. **The final period as a product mark.** A blueprint-blue mark represents the
-   final item, a resolved status, and the sentence “You’re caught up.” It is
-   used consistently, never as a pulsing activity indicator.
-3. **Evidence is visible but not noisy.** Sources, corrections, uncertainty,
-   and provenance use precise rules and compact labels. They do not compete
-   with the opening paragraph.
-4. **Instrument density follows the task.** Today and article pages keep a
-   measured reading column inside a denser technical frame. Radar is
-   comparative; Topics are curated; Weekly has cover hierarchy; Archive and
-   Search are efficient; Sources and Glossary behave like reference indexes.
-   Operator and social work remains outside the public reader.
-5. **Completion is an end, not a reward.** The closing state uses a quiet
-   typographic pause, the period mark, and a secondary feed action. There is no
-   streak, confetti, badge, or urgency loop.
+## What the design is for
 
-## Composition
+1. **Reaching the end.** The completion mark closes the edition, not the page.
+   Everything above it is today; everything below is recirculation.
+2. **Making the change legible.** A headline says what happened, a dek says why
+   it matters, and the highlights separate confirmed fact from open question.
+3. **Showing the evidence.** The source ledger, corrections and the sponsor
+   label stay, because those are what a magazine owes a reader.
+4. **Never faking volume.** No skeleton rows, no "coming soon" badges, no
+   invented engagement, no "most popular". An empty section says it is empty in
+   one honest sentence.
 
-- Near-black canvas with cool panel and sunken surfaces.
-- One-pixel hairlines create sections and collapsing data grids; stronger
-  boundaries are reserved for corrections, sponsorship, source evidence, and
-  completion.
-- A wide publication grid contains a reading measure near 68ch and a compact
-  evidence rail only when content supports it.
-- Controlled asymmetry comes from masthead/date columns, numbered Briefs,
-  signal annotations, and selected media crops, not from overlapping fake UI.
-- Radius is zero. Status dots are the only circular interface elements.
+## The visual system
 
-## Motion
+Light canvas, zero radius, one-pixel hairlines, three families with fixed jobs,
+and one accent. Density comes from rules and spacing, not from boxes: the right
+rail is a column of rules, and the only boxed thing on the page is the ad
+reservation, which is what marks it as not editorial.
 
-Motion is brief and orienting: an eight-pixel main-column entrance, dialog
-state, reading progress, and an operational-status pulse when the status is
-current. It uses CSS or existing small listeners, respects reduced motion, and
-never competes with prose.
+## What it is not
 
-## Anti-positioning
+Not a SaaS landing page, not a chatbot, not a terminal, not a dashboard. No
+neon, scanlines, parallax, glow, gradients, glass, mascots, testimonials,
+fake charts, invented metrics or infinite-feed styling. No generated imagery as
+filler, and no generated UI standing in for real UI.
 
-Caught Up is not a SaaS landing page, AI chatbot, cyberpunk terminal, live
-trading surface, social feed, or collection of rounded cards. It avoids neon,
-glass, glow, fake charts, generic AI imagery, invented metrics, marketing
-superlatives, and generated product screenshots.
-
-## Route intent
-
-- **Today:** one complete editorial arc.
-- **Article:** durable reading and verification.
-- **Radar:** real movement and recurrence, expressed with accessible text,
-  lists, bars, and timelines.
-- **Topics:** recognizable editorial dossiers rather than raw tag buckets.
-- **Weekly:** a distinct cover and summary of the week.
-- **Archive/Search:** dense retrieval.
-- **About/Sources/Glossary/Corrections/Health:** trust and reference.
+It is also not an operator surface. Run costs, model names, candidate counts,
+signal scores and build vocabulary belong to `/health` and the BoardlessAI
+admin, and never to a reader page.

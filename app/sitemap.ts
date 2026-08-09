@@ -4,6 +4,7 @@ import { siteUrl } from "@/lib/config";
 import { LOCALES, localePath } from "@/lib/i18n/config";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
 import { loadSources } from "@/lib/sources";
+import { groupByWeek } from "@/lib/weeks";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
@@ -21,6 +22,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: number;
   }> = [
     { path: "/", changeFrequency: "daily", priority: 1 },
+    { path: "/tyden", changeFrequency: "daily", priority: 0.9 },
+    { path: "/o-cem-se-mluvi", changeFrequency: "daily", priority: 0.7 },
+    { path: "/ai-modely", changeFrequency: "weekly", priority: 0.7 },
+    { path: "/podcasty", changeFrequency: "daily", priority: 0.7 },
+    { path: "/akce", changeFrequency: "weekly", priority: 0.7 },
     { path: "/radar", changeFrequency: "daily", priority: 0.8 },
     { path: "/topics", changeFrequency: "weekly", priority: 0.8 },
     { path: "/weekly", changeFrequency: "weekly", priority: 0.8 },
@@ -32,6 +38,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/corrections", changeFrequency: "weekly", priority: 0.4 },
     { path: "/search", changeFrequency: "weekly", priority: 0.4 },
   ];
+
+  const weekPaths = groupByWeek(articles).map((week) => ({
+    path: `/tyden/${week.id}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.4,
+  }));
+  staticPaths.push(...weekPaths);
 
   const articleVariants = await Promise.all(
     LOCALES.flatMap((locale) => {

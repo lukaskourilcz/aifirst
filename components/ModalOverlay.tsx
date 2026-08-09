@@ -8,9 +8,12 @@ type Props = {
   onClose: () => void;
   // Accessible name for the dialog.
   ariaLabel: string;
-  // Where the panel sits vertically: "start" hugs the top (search), "center"
-  // centres it (keyboard help).
-  align?: "start" | "center";
+  // Where the panel sits: "start" hugs the top (search), "center" centres it
+  // (keyboard help), "drawer" fills the screen from the left (mobile nav).
+  align?: "start" | "center" | "drawer";
+  // Lock body scroll while the dialog is open. The drawer needs it because it
+  // covers the page; the palette overlays a short panel and does not.
+  lockScroll?: boolean;
   // Stacking order; the keyboard-help overlay sits above the search palette.
   zIndex?: number;
   // Max panel width in px.
@@ -26,12 +29,23 @@ export function ModalOverlay({
   onClose,
   ariaLabel,
   align = "center",
+  lockScroll = false,
   zIndex = 20,
   width = 640,
   returnFocusRef,
   children,
 }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!lockScroll) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    return () => {
+      root.style.overflow = previous;
+    };
+  }, [lockScroll]);
 
   useEffect(() => {
     const previous = returnFocusRef?.current ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);

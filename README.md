@@ -1,4 +1,4 @@
-# Caught Up
+# DNESKAi
 
 **The AI stories that actually mattered today.** One edition and you’re caught
 up on AI.
@@ -95,8 +95,8 @@ pnpm e2e
 `pnpm verify` runs lint, TypeScript, all unit tests, content/config validation, a
 production build and the compressed-JavaScript guard. The current measured
 shared Next.js/React runtime is 102 kB gzip and the enforced page-entry ceiling
-is 110 kB; the original 80 kB product target is documented as a framework-level
-constraint in `docs/CAUGHT_UP_IMPLEMENTATION.md`.
+is 110 kB. The 80 kB figure that used to appear here was an aspiration, not a
+measurement, and the shared framework runtime alone is above it.
 
 ## Validate a delivery locally
 
@@ -198,10 +198,10 @@ See [`NEEDED.md`](NEEDED.md) for the exact remaining operator checklist.
 ## Documentation
 
 - [`DOCS.md`](DOCS.md) — detailed architecture and operational reference
-- [`docs/CAUGHT_UP_IMPLEMENTATION.md`](docs/CAUGHT_UP_IMPLEMENTATION.md) — BoardlessAI cutover and current compatibility record
-- [`docs/OWNDASHBOARD_INTEGRATION.md`](docs/OWNDASHBOARD_INTEGRATION.md) — optional control-plane contract
+- [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) — what BoardlessAI may write, and where
 - [`scaling.md`](scaling.md) — current cost baseline and scaling notes
-- [`docs/design/PRODUCT_UX_AUDIT.md`](docs/design/PRODUCT_UX_AUDIT.md) — route, task, state and reuse audit
+- [`docs/REDESIGN.md`](docs/REDESIGN.md) — the canonical reader direction
+- [`docs/redesign/design-spec.md`](docs/redesign/design-spec.md) — authoritative token, grid and component values
 - [`docs/design/DESIGN_THESIS.md`](docs/design/DESIGN_THESIS.md) and [`docs/design/BRAND_SYSTEM.md`](docs/design/BRAND_SYSTEM.md) — product and identity direction
 - [`docs/design/DESIGN_SYSTEM.md`](docs/design/DESIGN_SYSTEM.md) — implemented tokens, composition, motion, responsive and print rules
 - [`docs/design/VISUAL_QA.md`](docs/design/VISUAL_QA.md) — actual route/viewport review protocol and findings

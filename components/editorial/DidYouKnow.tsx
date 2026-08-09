@@ -10,13 +10,28 @@ import { dict } from "@/lib/i18n/dictionaries";
 export function DidYouKnow({
   dateKey,
   locale,
+  variant = "block",
 }: {
   dateKey: string | undefined;
   locale: Locale;
+  /** "rail" renders inside the right-rail module frame instead of as a block. */
+  variant?: "block" | "rail";
 }) {
   const { entry } = factOfTheDay(dateKey);
   const t = dict(locale).daily;
   const text = locale === "cs" ? entry.cs : entry.en;
+
+  if (variant === "rail") {
+    return (
+      <section className="rail-module" aria-labelledby="did-you-know-heading">
+        <h2 id="did-you-know-heading" className="rail-module__kicker">{t.factKicker}</h2>
+        <p className="rail-module__body">{text.full}</p>
+        <p className="rail-module__meta">
+          {t.verified} <time dateTime={entry.verified}>{entry.verified}</time> · {entry.source}
+        </p>
+      </section>
+    );
+  }
 
   return (
     <aside className="did-you-know" aria-labelledby="did-you-know-heading">
