@@ -9,12 +9,12 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 - [ ] **Finish the Vercel half of the credential audit** — the retired `ANTHROPIC_API_KEY` Actions secret was deleted from `lukaskourilcz/aifirst` on 2026-08-07. Still open: remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project, and rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials. The old OwnDashboard sentinel pair can go too — nothing reads it any more. [imp:4] [owner:me] [time:15m] [kind:setup]
 
-## Redesign hand-off (docs/redesign/)
+## Redesign hand-off
 
 - [x] **Run the Claude Design prompt** — done 2026-08-09; the output is committed as `docs/redesign/design-spec.md` and is the authoritative design.
 - [x] **Kick off the Opus build** — done 2026-08-09. The reader half is built: theme, shell, telemetry removal, data layer, ad slot, front page, article page, the six section routes, the brand unification and this documentation pass.
 - [x] **Answer the brand gate on issue #47** — approved 2026-08-09: the official name is DNESKAi. Recorded on the issue; the kickoff schedules the rename right before the documentation pass.
-- [ ] **Confirm the curated source registries** — approve or edit the Medium/Substack seed list and fill the Czech podcast slots in `docs/redesign/README.md` §6–7 before the quorum fetchers ship. [imp:3] [owner:me] [time:30m] [kind:decision]
+- [ ] **Confirm the curated source registries** — approve or edit the seed list in quorum's `config/caught-up-streams.json`: three Medium tags, nine Substacks and eight podcast shows, of which eight ship disabled because their channel id could not be resolved without guessing, plus two empty slots for the Czech AI shows you pick. [imp:3] [owner:me] [time:30m] [kind:decision]
 - [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
 - [ ] **Supply the 300×250 rail creative when a deal exists** — the redesign ships the square slot as a „Místo pro reklamu" placeholder; a real creative needs the image under `public/images/banners/` plus config, same rules as the belt slot. [imp:1] [owner:me] [time:20m] [kind:content]
 - [ ] **Provide the social profile URLs** — the footer ships Facebook, Instagram, Threads and X as linkless icons; once the accounts exist, drop their URLs into the footer social config and the icons become links. [imp:2] [owner:me] [time:10m] [kind:content]
@@ -40,21 +40,17 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Already complete
 
-- The repository is public as of 2026-08-07, which is what restores Actions:
-  standard runners are unmetered on public repositories, so the free-tier
-  minutes that had been exhausted no longer gate CI or the daily sentinel.
-- The retired `ANTHROPIC_API_KEY` Actions secret is deleted. A history and
-  working-tree sweep of this repository found no committed credential.
-- Vercel Pro coverage is confirmed; the production branch is `main` and the
-  canonical reader URL is `https://caughtup-ai.vercel.app`.
-- Visitor and engagement analytics are deliberately removed for this phase.
+- The repository is public, which is what restores Actions: standard runners are
+  unmetered on public repositories.
+- The retired `ANTHROPIC_API_KEY` Actions secret is deleted, and a history sweep
+  found no committed credential.
+- Vercel Pro is confirmed; production is `main` and the reader is at
+  `https://caughtup-ai.vercel.app`.
+- Visitor and engagement analytics are deliberately absent for this phase.
 - The repository contains no scraper, editorial model client, article writer,
   media generator, social console or weekly/regeneration workflow.
-- The exact package consumer was rehearsed in a clean checkout on 2026-08-01:
-  it wrote the issue and hero, accepted an identical replay as a no-op,
-  passed content validation and produced both article routes in a production build.
-- `/admin` in Caught Up is a noindex handoff link to the protected BoardlessAI
-  social archive. Caught Up itself has no operator login or content database.
+- `/admin` is a noindex handoff link to the protected BoardlessAI social
+  archive. This repository has no operator login and no content database.
 - The daily lesson and the "Víte, že…" fact now sit in the right rail, and the
   `/lekce` archive is unchanged. They need no owner action: the datasets are
   committed, the pick is deterministic from the edition date, and appends arrive

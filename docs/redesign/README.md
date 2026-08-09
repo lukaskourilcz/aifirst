@@ -1,21 +1,22 @@
 # DNESKAi launch redesign — brainstorm and working brief
 
-Date: 2026-08-09 · Owner: Lukáš · Status: brief ready, implementation not started
+Date: 2026-08-09 · Owner: Lukáš · Status: shipped
 
-This folder is the complete hand-off for turning DNESKAi from a single-edition
-reading instrument into a TechCrunch-style Czech AI magazine, plus the engine work
-in `lukaskourilcz/quorum` behind it.
+This was the hand-off for turning DNESKAi from a single-edition reading
+instrument into a Czech AI magazine, plus the engine work in
+`lukaskourilcz/quorum` behind it. The work is done, so what remains here is the
+reasoning rather than the instructions.
 
-How to use it:
+- `design-spec.md`, beside this file, is the authoritative design: token sheet,
+  grid, page and component specs, contrast table.
+- `docs/REDESIGN.md` is the short canonical statement of the direction.
+- The three prompt files that drove the build (the Claude Design prompt, the
+  kickoff and the implementation bible) were spent instructions and are gone.
+  What they specified is now the code, the tests and the design documents.
 
-1. ~~Run `claude-design-prompt.md` in Claude Design~~ — done 2026-08-09; the
-   output is committed as `design-spec.md` and is the authoritative design.
-2. Paste `opus-kickoff-prompt.md` into a Claude Code session on **Opus, Max
-   effort, with both repositories attached**. It works the 17 prepared GitHub
-   issues in order (aifirst #37–#46 + gated #47, quorum #89–#94), commits
-   frequently on the work branches, and merges to main only when everything in
-   both repos is complete. `opus-implementation-prompt.md` stays the spec bible
-   the issues point into.
+Kept below: why the product changed job, the source research behind the streams,
+and the cost picture. The registry those sections describe now lives in quorum's
+`config/caught-up-streams.json`, which is the copy to edit.
 
 ## 1. Where the product stands today
 
@@ -232,7 +233,7 @@ relaunch), with one vivid accent (derive an accessible blue from the current
 print stays black on white, and the token **names** in `app/globals.css` +
 `lib/og-theme.ts` literals are the delivery format. Mobile: top bar + full-screen
 drawer (TechCrunch mobile pattern), single column, thumbnails intact, ad box after
-the feed starts. Everything else is specified in `claude-design-prompt.md`.
+the feed starts. Everything else is specified in `design-spec.md`.
 
 ## 12. Cost picture
 
