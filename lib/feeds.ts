@@ -98,7 +98,7 @@ export async function buildTagFeed(
 
   const tagPath = `/tags/${encodeURIComponent(tag)}`;
   return atomDocument({
-    title: `${brand.name} — #${tag}`,
+    title: `${brand.name}: #${tag}`,
     alternateHref: `${base}${localePath(locale, tagPath)}`,
     selfHref: `${base}${localePath(locale, `${tagPath}/feed.xml`)}`,
     id: `${base}${localePath(locale, tagPath)}`,
@@ -121,7 +121,7 @@ export async function buildWeeklyFeed(locale: Locale): Promise<string> {
     }
   }
   return atomDocument({
-    title: `${brand.name} — ${dict(locale).weekly.kicker}`,
+    title: `${brand.name}: ${dict(locale).weekly.kicker}`,
     alternateHref: `${base}${localePath(locale, "/weekly")}`,
     selfHref: `${base}${localePath(locale, "/weekly/feed.xml")}`,
     id: `${base}${localePath(locale, "/weekly")}`,
@@ -154,7 +154,7 @@ export async function buildTopicFeed(locale: Locale, slug: string): Promise<stri
   }
   const topicPath = `/topics/${slug}`;
   return atomDocument({
-    title: `${brand.name} — ${topic?.title[locale] ?? slug}`,
+    title: `${brand.name}: ${topic?.title[locale] ?? slug}`,
     alternateHref: `${base}${localePath(locale, topicPath)}`,
     selfHref: `${base}${localePath(locale, `${topicPath}/feed.xml`)}`,
     id: `${base}${localePath(locale, topicPath)}`,

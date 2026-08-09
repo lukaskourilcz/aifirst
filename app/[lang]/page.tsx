@@ -1,36 +1,24 @@
 import Link from "next/link";
-import { Dispatches } from "@/components/Dispatches";
-import { EditorsNote } from "@/components/EditorsNote";
-import { GlossaryBlock } from "@/components/GlossaryBlock";
-import { Mdx } from "@/components/Mdx";
-import { Wire } from "@/components/Wire";
-import { BannerSlot } from "@/components/editorial/BannerSlot";
-import { DailyLesson } from "@/components/editorial/DailyLesson";
-import { DidYouKnow } from "@/components/editorial/DidYouKnow";
-import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
+import type { Metadata } from "next";
+import { CondensedBriefs, LeadPackage } from "@/components/editorial/LeadPackage";
+import { FeedRow } from "@/components/editorial/FeedRow";
+import { RightRail } from "@/components/editorial/RightRail";
+import { WeekAction } from "@/components/editorial/WeekAction";
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
-import { IssueMasthead } from "@/components/editorial/IssueMasthead";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
-import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
-import {
-  adjacentIssues,
-  getArticle,
-  listArticles,
-  resolveHeroPhoto,
-} from "@/lib/content";
-import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
-import { githubRepo } from "@/lib/config";
+import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
+import { githubRepo, siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
-import type { Metadata } from "next";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
-import { loadSources } from "@/lib/sources";
-import { siteUrl } from "@/lib/config";
+import { loadEvents, splitByAnchor } from "@/lib/events";
+import { listBoardContexts } from "@/lib/board";
+import { czechNumericDate, previousWeek, weekTitle, withinLastDays } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -43,38 +31,24 @@ export async function generateMetadata({
   return { alternates: localeAlternates(lang, "/") };
 }
 
-
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}) {
+export default async function HomePage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const d = dict(locale);
+  const t = d.sections;
   const publication = localizedBrand(locale);
   const lp = localePrefixer(locale);
 
   const allArticles = await listArticles(locale);
   const leadSummary = allArticles.find((article) => (article.type ?? "daily") === "daily") ?? allArticles[0];
   const latest = leadSummary ? await getArticle(leadSummary.slug, locale) : null;
-  const archive = allArticles.slice(0, 9);
-  const [glossary, sourceRegistry] = await Promise.all([loadGlossary(), loadSources()]);
-  const repo = githubRepo();
 
   if (!latest) {
     return (
       <section className="publication-empty-state">
         <p className="eyebrow">{d.home.emptyKicker}</p>
         <h1>{d.home.emptyTitle}</h1>
-        <p>
-          {d.home.emptyBody}
-        </p>
-        <a
-          href={`https://github.com/${repo}`}
-          className="ghost"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
+        <p>{d.home.emptyBody}</p>
+        <a href={`https://github.com/${githubRepo()}`} className="ghost" target="_blank" rel="noreferrer noopener">
           {d.home.emptyRepoCta} ↗
         </a>
       </section>
@@ -83,14 +57,27 @@ export default async function HomePage({
 
   const fm = latest.frontmatter;
   const heroPhoto = resolveHeroPhoto(fm);
-  const resolvedGlossary = resolveGlossaryTerms(fm.glossary_terms, glossary);
-  const hasGlossary = resolvedGlossary.length > 0;
-  const hasSources = (fm.sources?.length ?? 0) > 0;
-  const dispatches = (fm.dispatches ?? []).slice(0, 6);
-  const back = archive.filter((a) => a.slug !== latest.slug).slice(0, 6);
   const reading = readingMinutes(latest.mdx);
   const adjacent = adjacentIssues(latest.slug, allArticles);
   const base = siteUrl();
+  const articleHref = lp(`/articles/${latest.slug}`);
+
+  // Some days have no edition. The board records that honestly, and a record
+  // dated after the newest article is what makes today one of those days. The
+  // page says so rather than promoting a back issue into the lead slot.
+  const boards = await listBoardContexts();
+  const newestBoard = [...boards].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const noEditionToday =
+    newestBoard !== undefined && newestBoard.status === "no_edition" && newestBoard.date > fm.date;
+
+  // Every date on this page is measured against the newest record, never a
+  // clock, so the same content always builds the same HTML.
+  const anchor = noEditionToday && newestBoard ? newestBoard.date : fm.date;
+  const week = withinLastDays(allArticles, anchor, 7).filter(
+    (a) => noEditionToday || a.slug !== latest.slug,
+  );
+  const { upcoming } = splitByAnchor(loadEvents(), anchor);
+
   const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
   const modifiedTime = lastCorrection
     ? `${lastCorrection.date}T00:00:00Z`
@@ -98,156 +85,112 @@ export default async function HomePage({
 
   return (
     <>
-      {fm.generation?.package_hash ? <meta name="boardless-content-hash" content={fm.generation.package_hash} /> : null}
-      <StructuredData data={{
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Organization",
-            "@id": `${base}/#organization`,
-            name: publication.name,
-            url: base,
-          },
-          {
-            "@type": "WebSite",
-            "@id": `${base}/#website`,
-            name: publication.name,
-            description: publication.promise,
-            url: `${base}${lp("/")}`,
-            inLanguage: locale,
-            publisher: { "@id": `${base}/#organization` },
-          },
-          {
-            "@type": "NewsArticle",
-            headline: fm.title,
-            description: fm.dek,
-            datePublished: fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`,
-            dateModified: modifiedTime,
-            inLanguage: latest.lang,
-            mainEntityOfPage: `${base}${lp(`/articles/${latest.slug}`)}`,
-            author: { "@id": `${base}/#organization` },
-            publisher: { "@id": `${base}/#organization` },
-            ...(heroPhoto ? { image: `${base}${heroPhoto}` } : {}),
-          },
-        ],
-      }} />
-      <header className="edition-intro">
-        <p className="eyebrow">{publication.name} · {d.common.today}</p>
-        <p>{publication.promise}</p>
-      </header>
-      <DailyLesson dateKey={fm.date} locale={locale} />
-      <IssueMasthead
-        label={(fm.type ?? "daily") === "weekly" ? d.article.weeklyDigest : d.home.leadStory}
-        title={fm.title}
-        dek={fm.dek}
-        date={fm.date}
-        readingMinutes={reading}
-        tags={fm.tags}
-        heroPhoto={heroPhoto}
-        heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
-        heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
-        heroAttribution={heroPhoto === fm.illustration.path && fm.illustration.attribution ? {
-          author: fm.illustration.attribution.author,
-          license: fm.illustration.attribution.license,
-          sourceUrl: fm.illustration.attribution.source_url,
-          text: fm.illustration.attribution.text,
-        } : undefined}
-        locale={locale}
+      {fm.generation?.package_hash ? (
+        <meta name="boardless-content-hash" content={fm.generation.package_hash} />
+      ) : null}
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Organization", "@id": `${base}/#organization`, name: publication.name, url: base },
+            {
+              "@type": "WebSite",
+              "@id": `${base}/#website`,
+              name: publication.name,
+              description: publication.promise,
+              url: `${base}${lp("/")}`,
+              inLanguage: locale,
+              publisher: { "@id": `${base}/#organization` },
+            },
+            {
+              "@type": "NewsArticle",
+              headline: fm.title,
+              description: fm.dek,
+              datePublished: fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`,
+              dateModified: modifiedTime,
+              inLanguage: latest.lang,
+              mainEntityOfPage: `${base}${articleHref}`,
+              author: { "@id": `${base}/#organization` },
+              publisher: { "@id": `${base}/#organization` },
+              ...(heroPhoto ? { image: `${base}${heroPhoto}` } : {}),
+            },
+          ],
+        }}
       />
 
-      <SponsorBlock sponsor={fm.sponsor} />
-      <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} uncertainty={fm.uncertainty} locale={locale} />
+      <div className="page-with-rail">
+        <div className="page-with-rail__main">
+          <header className="edition-intro">
+            <p className="eyebrow">{publication.name} · {d.common.today}</p>
+            <p>{publication.promise}</p>
+          </header>
 
-      {/* Article body + dispatches sidebar (sidebar's grid cell ends with the
-          article's intrinsic height, so the sticky sidebar releases at the
-          article's lowest point — no overflow below the body). */}
-      <section className="article-with-aside enter enter-2">
-        <article className="article-with-aside__main" id="briefing">
-          <EditorsNote note={fm.editors_note} locale={locale} />
-          <div className="article-body">
-            <Mdx source={latest.mdx} />
-          </div>
-        </article>
+          {noEditionToday ? (
+            /* Tertiary, not warning amber: a day without an edition is a normal
+               editorial state, and colouring it would reintroduce the status
+               telemetry this redesign removed. */
+            <section className="no-edition" aria-labelledby="no-edition-title">
+              <p className="no-edition__kicker">
+                {t.noEditionKicker}
+                {newestBoard ? (
+                  <>
+                    <span aria-hidden> · </span>
+                    <time dateTime={newestBoard.date}>{czechNumericDate(newestBoard.date)}</time>
+                  </>
+                ) : null}
+              </p>
+              <h1 id="no-edition-title" className="no-edition__title">{t.noEditionTitle}</h1>
+              <p className="no-edition__body">{t.noEditionBody}</p>
+            </section>
+          ) : (
+            <>
+              <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} />
 
-        {(dispatches.length > 0 || (fm.wire ?? []).length > 0) && (
-          <aside
-            className="article-with-aside__side"
-            aria-label={d.article.dispatchesLabel}
-          >
-            <Dispatches items={dispatches} locale={locale} variant="aside" />
-            <Wire items={fm.wire ?? []} locale={locale} variant="aside" />
-          </aside>
-        )}
-      </section>
+              <SponsorBlock sponsor={fm.sponsor} />
+              <CondensedBriefs
+                dispatches={fm.dispatches ?? []}
+                wire={fm.wire ?? []}
+                locale={locale}
+                articleHref={articleHref}
+              />
+              <CorrectionsNotice corrections={fm.corrections} locale={locale} />
 
-      {/* Secondary blocks (Glossary + Sources) below the article */}
-      <section className="issue-reference-blocks">
-        <CorrectionsNotice corrections={fm.corrections} locale={locale} />
-        {hasGlossary && (
-          <GlossaryBlock terms={resolvedGlossary} locale={locale} />
-        )}
-        {hasSources && <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />}
-        <DidYouKnow dateKey={fm.date} locale={locale} />
-      </section>
+              {/* The mark closes the edition, not the page: everything above is
+                  today's edition, everything below is recirculation. There is
+                  no mark on a day with no edition to complete. */}
+              <p className="caught-up-completion">
+                <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
+                <span className="caught-up-completion__message">{publication.completion}</span>
+              </p>
+            </>
+          )}
 
-      <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
-      <p className="caught-up-completion">
-        <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
-        <span className="caught-up-completion__message">{publication.completion}</span>
-      </p>
-      <BannerSlot id="today-partner-belt" locale={locale} />
-      <FeedActions locale={locale} />
+          {week.length > 0 ? (
+            <section className="feed-section" aria-labelledby="last-week">
+              <div className="section-head">
+                <h2 id="last-week" className="section-head__title">{t.lastWeek}</h2>
+                <Link href={lp("/tyden")} className="label">{t.all} →</Link>
+              </div>
+              <ul className="feed-list">
+                {week.map((article) => (
+                  <FeedRow key={article.slug} article={article} locale={locale} />
+                ))}
+              </ul>
+              <WeekAction
+                locale={locale}
+                href={lp(`/tyden/${previousWeek(anchor).id}`)}
+                kicker={t.previousWeek}
+                label={weekTitle(previousWeek(anchor))}
+              />
+            </section>
+          ) : null}
 
-      {/* Recent issues feed */}
-      {back.length > 0 && (
-        <section className="recent-issues">
-          <div className="section-head">
-            <h2 className="section-head__title">{d.home.recentEditions}</h2>
-            <Link href={lp("/archive")} className="label">
-              {d.nav.archive} →
-            </Link>
-          </div>
-          <ul className="card-grid card-grid--feed recent-issues__list">
-            {back.map((a) => (
-              <li key={a.slug}>
-                <Link
-                  href={lp(`/articles/${a.slug}`)}
-                  className={
-                    a.heroPhoto
-                      ? "post-card"
-                      : "post-card post-card--no-thumb"
-                  }
-                >
-                  {a.heroPhoto ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={a.heroPhoto}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      className="post-card__thumb"
-                    />
-                  ) : null}
-                  <div className="post-card__copy">
-                    <p className="post-card__meta">
-                      <span>{a.date}</span>
-                    </p>
-                    <h3 className="post-card__title">{a.title}</h3>
-                    {a.dek ? <p className="post-card__dek">{a.dek}</p> : null}
-                  </div>
-                  {a.tags?.length ? (
-                    <div className="post-card__chips">
-                      {a.tags.slice(0, 3).map((t) => (
-                        <span key={t} className="chip">{t}</span>
-                      ))}
-                    </div>
-                  ) : null}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+          <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
+          <FeedActions locale={locale} />
+        </div>
+
+        <RightRail locale={locale} dateKey={fm.date} events={upcoming} />
+      </div>
     </>
   );
 }

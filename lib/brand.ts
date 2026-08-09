@@ -13,7 +13,7 @@ export const brand = {
   wordmark: "DNESKAi",
   legalName: "Caught Up",
   repositoryName: "aifirst",
-  title: "Caught Up — The AI stories that actually mattered today",
+  title: "Caught Up: The AI stories that actually mattered today",
   shortDescription: "The AI stories that actually mattered today.",
   description:
     "One edition and you’re caught up on AI. Caught Up selects and explains the developments that actually mattered, without the noise.",

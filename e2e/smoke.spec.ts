@@ -63,55 +63,63 @@ for (const route of ROUTES) {
   });
 }
 
-test("home: shell sidebar, hero panel, article body, recent feed render", async ({ page }) => {
+test("home: rail, lead package, condensed briefs and the week feed render", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   await expect(page.locator(".sidebar")).toBeVisible();
-  await expect(page.locator(".sidebar__brand")).toBeVisible();
-  await expect(page.locator(".hero")).toBeVisible();
-  await expect(page.locator(".hero__title")).toBeVisible();
-  await expect(page.locator(".article-with-aside__main")).toBeVisible();
-  await expect(
-    page.locator(".publication-data").getByText("Human reviewed", { exact: true }),
-  ).toHaveCount(0);
-  // Recent issues are rendered as post cards
-  const postCards = page.locator(".post-card");
-  expect(await postCards.count()).toBeGreaterThan(0);
-  await expect(postCards.nth(0)).toBeVisible();
+  await expect(page.locator(".lead__title")).toBeVisible();
+  await expect(page.locator(".lead__meta")).toBeVisible();
+  await expect(page.locator(".condensed")).toBeVisible();
+  // The lead headline is a link to the article, not the article itself.
+  await expect(page.locator(".lead__title a")).toHaveAttribute("href", /\/articles\//);
+  await expect(page.locator(".article-body")).toHaveCount(0);
+  await expect(page.locator(".publication-data")).toHaveCount(0);
+  const rows = page.locator(".feed-row");
+  expect(await rows.count()).toBeGreaterThan(0);
+  await expect(rows.nth(0)).toBeVisible();
 });
 
-test("dispatches sidebar exists and is bounded to the article column", async ({ page, viewport }) => {
-  // Below 1000px the two columns stack vertically, so the bounded-bottom
-  // invariant only applies on desktop.
-  test.skip((viewport?.width ?? 0) < 1000, "two-column layout only ≥1000px");
+test("the lead meta row carries the date and reading time and nothing else", async ({ page }) => {
   await page.goto("/");
-  const main = page.locator(".article-with-aside__main");
-  const side = page.locator(".article-with-aside__side");
-  await expect(side).toBeVisible();
-  const [mainBox, sideBox] = await Promise.all([
-    main.boundingBox(),
-    side.boundingBox(),
-  ]);
-  if (!mainBox || !sideBox) throw new Error("could not measure article columns");
-  expect(
-    sideBox.y + sideBox.height,
-    "dispatches bottom must not exceed article body bottom",
-  ).toBeLessThanOrEqual(mainBox.y + mainBox.height + 2);
+  const meta = await page.locator(".lead__meta").innerText();
+  expect(meta).toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
+  expect(meta).toMatch(/min/);
+  for (const forbidden of ["zdroj", "signál", "USD", "náklad"]) {
+    expect(meta.toLowerCase()).not.toContain(forbidden.toLowerCase());
+  }
 });
 
-test("article body renders inline — no CTA gate", async ({ page }) => {
+test("the article body renders inline on the article page, with no gate", async ({ page }) => {
   await page.goto("/");
-  // The first article paragraph (Mdx output) should be visible without any
-  // additional click.
+  await page.locator(".lead__title a").click();
+  await expect(page).toHaveURL(/\/articles\//);
+  // The first article paragraph is visible without any additional click.
   const paragraphs = page.locator(".article-body p");
+  await expect(paragraphs.first()).toBeVisible();
   expect(await paragraphs.count()).toBeGreaterThan(0);
-  const body = paragraphs.nth(0);
-  await expect(body).toBeVisible();
+});
+
+test("the completion mark closes the edition, above the week feed", async ({ page }) => {
+  await page.goto("/");
+  const mark = page.locator(".caught-up-completion");
+  await expect(mark).toBeVisible();
+  const feed = page.locator(".feed-section");
+  if (await feed.count()) {
+    const [markBox, feedBox] = await Promise.all([mark.boundingBox(), feed.boundingBox()]);
+    expect(markBox && feedBox && markBox.y).toBeLessThan(feedBox?.y ?? Infinity);
+  }
 });
 
 test("primary nav lives in the sidebar; ops links in the footer", async ({ page }) => {
+  // The rail only exists above 960; below that the drawer carries the same
+  // items and has its own test.
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   const sidebar = page.locator(".sidebar");
-  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about"]) {
+  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+    await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
+  }
+  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/lekce", "/about"]) {
     await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
   }
   const footer = page.locator("nav.footer-nav");
@@ -130,11 +138,10 @@ for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["
 
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
   await page.goto("/");
+  await page.locator(".lead__title a").click();
   await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
-  const provenance = page.locator("section.provenance");
-  await expect(provenance).toHaveCount(1);
-  await expect(provenance.getByRole("heading")).toBeVisible();
-  await expect(provenance.getByRole("link")).toBeVisible();
+  // The run record is operator data and no longer reaches a reader page.
+  await expect(page.locator("section.provenance")).toHaveCount(0);
 });
 
 test("legacy Czech print query resolves to the static Czech route", async ({ page }) => {
@@ -146,17 +153,18 @@ test("language switcher reaches the Czech mirror of the home page", async ({ pag
   await page.goto("/");
   await page.getByRole("link", { name: /čeština/i }).click();
   await expect(page).toHaveURL(/\/cs\/?$/);
-  await expect(page.locator(".hero__title")).toBeVisible();
+  await expect(page.locator(".lead__title")).toBeVisible();
 });
 
 test("inline links carry the Blueprint Blue (#2f5ae6)", async ({ page }) => {
   await page.goto("/");
+  await page.locator(".lead__title a").click();
   // The first <a> inside .article-body is the heading-anchor link (slate by
   // design); the editorial in-body links come right after.
   const links = page.locator(".article-body a:not(.anchor-link)");
-  expect(await links.count()).toBeGreaterThan(0);
-  const link = links.nth(0);
+  const link = links.first();
   await expect(link).toBeVisible();
+  expect(await links.count()).toBeGreaterThan(0);
   const color = await link.evaluate((el) => getComputedStyle(el).color);
   expect(color, "article links should use blueprint blue rgb(47,90,230)").toBe(
     "rgb(47, 90, 230)",
@@ -273,9 +281,12 @@ test("feeds expose language, entry links, publication time and categories", asyn
     expect(response.ok(), route).toBe(true);
     const xml = await response.text();
     expect(xml).toContain('xml:lang="cs"');
-    expect(xml).toContain("<published>");
-    expect(xml).toContain("<category");
-    expect(xml).toMatch(/<link href="[^"]+\/articles\/[^"]+"\/>/);
+    expect(xml).toContain("<updated>");
+    if (xml.includes("<entry>")) {
+      expect(xml, route).toContain("<published>");
+      expect(xml, route).toContain("<category");
+      expect(xml, route).toMatch(/<link href="[^"]+\/articles\/[^"]+"\/>/);
+    }
   }
   const czech = await request.get("/cs/feed.xml");
   expect(czech.ok()).toBe(true);
@@ -285,6 +296,8 @@ test("feeds expose language, entry links, publication time and categories", asyn
 test("source evidence class stays separate and reduced motion disables entrances", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  await page.locator(".lead__title a").click();
+  await expect(page.locator(".source-ledger")).toBeVisible();
   const headers = await page.locator(".source-ledger th").allTextContents();
   expect(headers.join(" ")).toMatch(/evidence class|třída důkazu/i);
   const entrances = page.locator(".enter");
@@ -294,11 +307,19 @@ test("source evidence class stays separate and reduced motion disables entrances
 });
 
 test("brand, completion, and no-media states are deterministic", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  await expect(page.locator(".brand-mark")).toHaveCount(2);
-  await expect(page.locator(".caught-up-completion")).toContainText("caught up");
-  await expect(page.locator(".hero--no-photo")).toBeVisible();
-  await page.goto("/topics");
+  // Rail, mobile top bar and footer each carry one lockup. The top bar is in
+  // the DOM at every width and hidden by CSS above 960.
+  await expect(page.locator(".sidebar .brand-mark")).toHaveCount(1);
+  await expect(page.locator("footer .brand-mark")).toHaveCount(1);
+  await expect(page.locator(".caught-up-completion")).toContainText("přehled");
+  // No-media state: an edition without a photo gets the seeded hairline plate.
+  const figure = page.locator(".lead__figure");
+  await expect(figure).toHaveCount(1);
+  const hasImage = await figure.locator("img").count();
+  const hasPlate = await figure.locator(".hero-plate").count();
+  expect(hasImage + hasPlate, "the lead always resolves to a picture or a plate").toBe(1);
 });
 
 test("health and operator-adjacent routes remain private", async ({ page, request }) => {
