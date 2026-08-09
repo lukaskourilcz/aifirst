@@ -17,6 +17,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
 - [ ] **Decide the brand unification** — moving `brand.name` Caught Up → DNESKAi renames every indexed title, OG card, feed and JSON `publication` field at once; pre-launch is the cheapest moment. The implementation prompt executes it only on an explicit yes. [imp:4] [owner:me] [time:15m] [kind:decision]
 - [ ] **Supply the 300×250 rail creative when a deal exists** — the redesign ships the square slot as a „Místo pro reklamu" placeholder; a real creative needs the image under `public/images/banners/` plus config, same rules as the belt slot. [imp:1] [owner:me] [time:20m] [kind:content]
+- [ ] **Provide the social profile URLs** — the footer ships Facebook, Instagram, Threads and X as linkless icons; once the accounts exist, drop their URLs into the footer social config and the icons become links. [imp:2] [owner:me] [time:10m] [kind:content]
 
 ## Product decisions
 

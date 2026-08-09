@@ -48,6 +48,22 @@ releasable (`pnpm verify` green in aifirst, `pnpm test` green in quorum).
 - **Honest states everywhere**: no-edition day, empty streams, no events,
   missing images, tagless articles. Never fabricate content, metrics, or
   engagement. There is no "Most Popular" — do not invent one.
+- **Regular-magazine presentation.** The reader must not present itself as an
+  AI-operated system, and no production instrumentation reaches readers. Remove
+  from every reader route (including Radar, Témata, Archiv, O magazínu): the
+  `PublicationData` strip (Datum vydání · Prověřené → citované zdroje ·
+  Naměřené náklady · signál; dictionary keys around
+  `lib/i18n/dictionaries.ts:544–559`), the `SignalStrength` meter and its
+  `Sparkline` usage, the publication-status banner („Vydávání je částečně
+  omezené" / „Vydávání je aktuální", `lib/i18n/dictionaries.ts:756–758`), the
+  `Provenance` („Jak toto vydání vzniklo") and `MakingOf` blocks, and the footer
+  line „statický build · bez runtime volání modelů". No run costs, model names,
+  candidate counts, agent references or build vocabulary anywhere in reader
+  copy. Keep the journalism trust surfaces: `SourceLedger` citations,
+  corrections, sponsor labeling, completion mark. Underlying data contracts,
+  board JSON, frontmatter `generation`, `/health` (noindex) and `health.json`
+  stay exactly as they are — operators keep the telemetry, readers never see it.
+  Prune the removed dictionary keys and delete components that end up unused.
 - Commit in small coherent steps per repo convention (aifirst: incremental
   checkpoints; quorum: phase commits). Report test results truthfully.
 
@@ -75,10 +91,16 @@ display-scale hero headlines and 1.125–1.35rem bold feed-row headlines.
 Rework `components/Sidebar.tsx`: brand lockup (unchanged `BrandLockup`),
 primary nav = the six categories (Appendix C, numbered `01`–`06` via the
 existing `NavLink` pattern), divider, secondary group (Radar, Témata, Týdeník,
-Archiv, Lekce, Hledání), `SearchPalette` stays, and the status record
-(issue date, run cost, signal) stays in the rail or moves per design spec —
-never deleted. `components/Footer.tsx` gains the trust group (O magazínu,
-Zdroje, Korekce, Glosář, Puls, Atom) and keeps the brand/description column.
+Archiv, Lekce, O magazínu), and `SearchPalette`. That is the complete rail —
+**delete the `sidebar-status` panel** (status tone, issue date, run time,
+candidates → cited, run cost, signal) with no replacement anywhere in the
+reader. `components/Footer.tsx` keeps its current link groups and the
+brand/description column, **drops the „statický build · bez runtime volání
+modelů" label**, and gains a social row: Facebook, Instagram, Threads, X as
+monochrome inline SVGs (hand-drawn paths, no icon library) — linkless,
+non-focusable placeholders with accessible names for now, structured (e.g. a
+small config map) so real profile URLs later turn them into links without
+layout change.
 
 Below the rail-collapse breakpoint, add a mobile top bar (wordmark, menu
 trigger, search trigger) and a full-screen nav drawer with the complete rail
@@ -94,9 +116,11 @@ Rebuild Dnes as the TechCrunch-style front page per the design spec, keeping
 every existing data source and honesty element:
 
 - Keep: `boardless-content-hash` meta, `StructuredData`, edition-intro eyebrow,
-  `PublicationData`, `SponsorBlock`, `CorrectionsNotice`, `Provenance`,
-  `IssueNavigation`, `FeedActions`, and the completion mark „Máte přehled." at
-  the end of the edition content.
+  `SponsorBlock`, `CorrectionsNotice`, `IssueNavigation`, `FeedActions`, and the
+  completion mark „Máte přehled." at the end of the edition content. Removed
+  per the presentation rule: `PublicationData`, `Provenance`, `SignalStrength`
+  and the status banner — nothing on the front page shows costs, source-path
+  counts or signal scores.
 - Lead package: hero = today's edition (kicker „Dnešní vydání", display
   headline linking to the article, dek, meta row, hero image 21:9 via
   `resolveHeroPhoto` with the SVG-plate/text-first fallback) beside a condensed
@@ -122,9 +146,10 @@ every existing data source and honesty element:
 
 ### A4. Article page and category chips
 
-`app/[lang]/articles/[slug]/page.tsx` re-skins to the new tokens; structure
-(35em measure, `EditorialHighlights`, `SourceLedger`, `Provenance`,
-corrections, print link) is preserved. Add a category chip row: `categories`
+`app/[lang]/articles/[slug]/page.tsx` re-skins to the new tokens; the reading
+structure (35em measure, `EditorialHighlights`, `SourceLedger`, corrections,
+print link) is preserved, while `Provenance`, `MakingOf` and any signal display
+stop rendering per the presentation rule. Add a category chip row: `categories`
 from frontmatter render as links („AI modely" → `/ai-modely`) beside the
 existing topic chips without conflating the two. Right rail per design spec
 (ad box + related editions).
@@ -212,8 +237,12 @@ as the new canonical direction), `docs/design/DESIGN_THESIS.md`,
 stream/event paths), `data/README.md` (new contracts), `CLAUDE.md` (reader
 routes list, theme sentence, metadata floor, banner-slot paragraph, "four
 delivery paths" sentence → the updated enumeration), `about-project.md`, and
-`NEEDED.md` (tick what this work finishes; add what it newly needs). Apply
-stop-slop to every sentence you write.
+`NEEDED.md` (tick what this work finishes; add what it newly needs). Record the
+presentation repositioning explicitly: the reader shows no production
+instrumentation and never self-describes as AI-operated; telemetry lives only
+in `/health`, `health.json` and the BoardlessAI admin. Rewrite the reader's
+About page copy accordingly — a regular magazine with a founder, not an agent
+roster. Apply stop-slop to every sentence you write.
 
 **Part A release gate**: `pnpm verify` and `pnpm e2e` fully green; bundle
 report for every page ≤110 kB; screenshots of Dnes, `/tyden`, `/akce` at 390px
@@ -406,6 +435,17 @@ cheapest moment. Keep it as its own commit so it can be reverted alone.
     every aifirst page ≤110 kB gzip page-entry.
 15. Docs match reality (A9/B5), including the corrected `docs/GOVERNANCE.md`
     path list.
+16. No reader route renders „Údaje o vydání", „Prověřené → citované zdroje",
+    „Naměřené náklady", „signál", „Vydávání je částečně omezené", „Vydávání je
+    aktuální", „Jak toto vydání vzniklo" or „statický build" — verify by
+    grepping the built HTML output, and confirm `/health` + `health.json` still
+    carry the operator data.
+17. The left rail contains exactly: lockup, six primary sections, the secondary
+    section group, search. The footer shows the existing link groups plus four
+    linkless social icons (Facebook, Instagram, Threads, X) with accessible
+    names, ready to accept URLs via config.
+18. Reader-facing copy contains no AI-operations vocabulary (models, agents,
+    runs, builds, costs); the About page reads as a founder-run magazine.
 
 ---
 
@@ -461,7 +501,8 @@ Trust: O magazínu, Zdroje, Korekce, Glosář, Puls. Actions: „Objevit předch
 týden", „Zpět na dnešek", „Všechny akce". Events: „Česko" / „Svět" (storage
 `cz`/`global`), „Proběhlé", „online", „zdarma". Ad: „Místo pro reklamu".
 Kickers: „Dnešní vydání", „Ve zkratce", „Na radaru", „Denní lekce",
-„Víte, že…", „Nejbližší akce". Empty states: „Dnes zatím nic nového." (streams),
+„Víte, že…", „Nejbližší akce", „Sledujte nás" (social row).
+Empty states: „Dnes zatím nic nového." (streams),
 „Žádné nadcházející akce." (events), „Tato kategorie se teprve plní." (AI
 modely). Completion: „Máte přehled." Week label: „Týden 28. 7. – 3. 8. 2026".
 

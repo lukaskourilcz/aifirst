@@ -27,16 +27,38 @@ Three deliberate exceptions:
 
 1. **Navigation lives in a fixed LEFT rail, never a top nav bar.** The current site
    already has a 244px left sidebar inside a 1360px container — keep that shell
-   concept: brand lockup on top, numbered primary categories, a divider, a secondary
-   group, and a compact status record (issue date, run cost, signal strength) that you
-   may move to the rail bottom or the footer, but must not delete — it is the
-   publication's honesty instrument.
+   concept: brand lockup on top, numbered primary categories, a divider, the
+   secondary section group, and the search control. **Nothing else lives in the
+   rail** — no status records, no run data, no metrics of any kind.
 2. **No top leaderboard ad. Ever.** The only ad unit on the site is **one square
    300×250 box in the right rail**, shipped as an empty placeholder at launch: dashed
    hairline border, mono label „Místo pro reklamu". Reserve its exact space so nothing
    shifts when a creative later fills it.
 3. **Czech-only.** Every piece of UI copy is Czech. English appears only as data
    (titles of external Medium/Substack posts and podcast episodes).
+
+## Present it as a regular magazine
+
+DNESKAi must read like a normal online magazine run by its founder — not like an
+AI-operations dashboard. The current site exposes production instrumentation to
+readers; the redesign removes **all** of it, on every page (including Radar,
+Témata, Archiv and O magazínu):
+
+- The publication-data strip („Údaje o vydání": Datum vydání · Prověřené →
+  citované zdroje · Naměřené náklady · signál) — gone entirely, nowhere redesigned
+  back in. The hero meta row is simply date · reading minutes.
+- The signal-strength meter and any sparkline/score of it — gone.
+- The publication-status banner („Vydávání je částečně omezené" / „Vydávání je
+  aktuální") — gone from every reader page.
+- The „Jak toto vydání vzniklo" provenance block and any making-of module — gone
+  from reader surfaces.
+- The footer line „statický build · bez runtime volání modelů" — gone. No
+  AI/tech-ops jargon anywhere: no run costs, model names, candidate counts, agent
+  references or build vocabulary in reader-facing copy.
+
+What stays, because regular magazines have them: the source ledger („Přehled
+zdrojů" — plain citations), corrections, the sponsor label, and the completion
+ritual. Trust here is expressed through journalism conventions, not telemetry.
 
 ## Product facts the design must be honest about
 
@@ -68,8 +90,12 @@ Primary left-rail categories, in order (Czech label → route):
 6. **Akce** → `/akce` (events, two scopes: „Česko" and „Svět"; manually curated)
 
 Secondary rail group (smaller, after a divider): Radar, Témata, Týdeník, Archiv,
-Lekce, Hledání. Footer keeps trust surfaces: O magazínu, Zdroje, Korekce, Glosář,
-Atom feed.
+Lekce, O magazínu — plus the search control. The rail contains sections and
+search, nothing more. The footer keeps its current link groups (Radar, Témata,
+Týdeník, Archiv / O magazínu, Korekce, Glosář, Zdroje, Atom) and gains a social
+row: Facebook, Instagram, Threads and X as monochrome icons — **no destinations
+yet**, non-interactive placeholders with accessible names, designed so real links
+drop in later without layout change.
 
 Category logic to express visually: every new article is on **Dnes** the day it ships
 and stays in **Poslední týden** for seven days; a model-focused article additionally
@@ -79,8 +105,8 @@ that is normal, not a gap to fill.
 ## Page specifications
 
 **1. Dnes (`/`) — the front page.** TechCrunch-style lead package: hero = today's
-edition (kicker „Dnešní vydání" + date, display-size headline, dek, meta row: reading
-minutes · source count · signal), hero image 21:9 when a real photo exists, SVG-plate
+edition (kicker „Dnešní vydání" + date, display-size headline, dek, meta row:
+date · reading minutes), hero image 21:9 when a real photo exists, SVG-plate
 variant otherwise. Beside/under it, a condensed secondary column reusing today's
 Briefs („Ve zkratce") and Watchlist („Na radaru") items as short headline links.
 Below the lead package: the „Poslední týden" feed (row anatomy per TechCrunch). Right
@@ -91,8 +117,8 @@ ritual end of the edition content. Design the no-edition-day variant of this pag
 
 **2. Article page.** Keep the reading structure (35em measure, serif prose,
 highlights: proč to je důležité / co se změnilo / nejistota; source ledger;
-provenance; corrections). Re-skin to the new system; add the category chip row; right
-rail carries the ad box and related editions. Print stays black on white.
+corrections). Re-skin to the new system; add the category chip row; right rail
+carries the ad box and related editions. Print stays black on white.
 
 **3. Poslední týden (`/tyden`).** Feed of the last 7 publishing days. The terminal
 element is a full-width action: **„Objevit předchozí týden"** — a real link to a
@@ -187,7 +213,9 @@ lorem ipsum, never fabricated statistics.
    relevant): nav-rail item, mobile drawer + top bar, hero package (photo and
    SVG-plate variants), feed row, category chip, external-link card, podcast row,
    event card, ad placeholder box (exact 300×250 reservation), widget module frame,
-   week-boundary action, empty-state line, completion mark treatment, footer.
+   week-boundary action, empty-state line, completion mark treatment, footer, and
+   the social icon row (Facebook / Instagram / Threads / X — monochrome inline
+   icons, linkless placeholders for now).
 5. **Accessibility table**: contrast ratio for every text/surface pair, focus-ring
    spec, reduced-motion stance (what animates at all, what stops).
 6. **OG card + print notes**: one OG composition consistent with the new tokens;

@@ -44,6 +44,18 @@ wires to the owner's ad deals through config only.
 Czech-only remains absolute for UI and house content. External stream items
 (Medium/Substack posts, podcast episodes) keep their original titles as data.
 
+**Presentation rule (owner decision, 2026-08-09):** DNESKAi presents as a regular
+online magazine with a founder — never as an AI-operated system. All production
+instrumentation leaves the reader on every page: the „Údaje o vydání" strip
+(Datum vydání · Prověřené → citované zdroje · Naměřené náklady · signál), the
+signal meter, the „Vydávání je částečně omezené" status banner, the „Jak toto
+vydání vzniklo" provenance and making-of blocks, and the footer's „statický
+build · bez runtime volání modelů" line. No AI/ops jargon in reader copy at all.
+Telemetry survives only in `/health`, `health.json` and the BoardlessAI admin.
+Journalism trust surfaces stay: source citations, corrections, sponsor labels,
+„Máte přehled." The footer additionally gains a social row — Facebook,
+Instagram, Threads, X — as linkless monochrome icons until the profiles exist.
+
 ## 3. Information architecture
 
 Primary rail (new):
@@ -57,8 +69,10 @@ Primary rail (new):
 | Podcasty | `/podcasty` | `data/podcasts.json` (YouTube + audio releases) | daily fetch |
 | Akce | `/akce` | `data/events.json`, owner-curated, scopes `cz`/`global` | manual |
 
-Secondary rail group: Radar, Témata, Týdeník, Archiv, Lekce, Hledání.
-Footer/trust: O magazínu, Zdroje, Korekce, Glosář, Puls, Atom.
+Secondary rail group: Radar, Témata, Týdeník, Archiv, Lekce, O magazínu — plus
+the search control. The rail holds sections and search, nothing else (the old
+sidebar status record is removed, not relocated). Footer: current link groups
+stay, plus the linkless social icon row.
 
 All existing routes and redirects survive (`/stats`,`/trends`→`/radar`,
 `/tags`→`/topics`, `/colophon`→`/about`, `/cs` legacy behavior, feeds, JSON,
@@ -205,7 +219,9 @@ untouched). A real creative later needs only config + a local file under
 ## 11. Design direction (what Claude Design decides, and inside what rails)
 
 Keep: zero radius, hairlines, the three type families and their jobs, the
-completion ritual, honest states, no fake metrics. Decide: canvas polarity —
+completion ritual, honest states, no fake metrics — and the presentation rule
+from §2: no instrument strips, status banners, provenance blocks or build
+vocabulary anywhere a reader looks. Decide: canvas polarity —
 recommendation is a **light newsroom canvas** for launch (TechCrunch-adjacent
 scanning surface, carries ads and mixed-source content better, visibly marks the
 relaunch), with one vivid accent (derive an accessible blue from the current
