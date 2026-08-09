@@ -2,7 +2,9 @@
 
 This repository publishes **DNESKAi**, a Czech, Git-native daily briefing about the AI and technology stories that actually mattered. The repository/package, bot identity, compatibility environment variables, and other stable technical identifiers intentionally remain `aifirst`, and the venture id upstream remains `caught-up`.
 
-**The name is deliberately split, and this is not drift to fix.** `brand.wordmark` is DNESKAi and appears where a reader looks at the publication: the navigation lockup, the footer and print. `brand.name` is still Caught Up and carries everything a machine reads or a link previews — page titles, Open Graph and Twitter cards, `openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the drawn covers. Moving `name` renames every indexed title and every social card at once, which is the owner's call and has not been made. Do not "re-align" `lib/brand.ts` or the dictionaries to make the two match.
+**The name is unified.** `brand.name` and `brand.wordmark` are both DNESKAi, and that name carries everything: the navigation lockup, the footer, print, page titles, Open Graph and Twitter cards, `openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the drawn covers. The owner approved the switch on 2026-08-09; the split that preceded it existed only so the new name could reach readers before every indexed title moved at once.
+
+`brand.legalName` stays Caught Up, and the repository, package, bot identity, venture id (`caught-up`), skill slugs, compatibility environment variables and Actions variables all stay `aifirst`/`caught-up`. Those are stable identifiers, not the publication name, and renaming them is not a branding decision.
 
 ## Product
 

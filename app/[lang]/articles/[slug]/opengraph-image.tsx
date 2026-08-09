@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n/config";
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Caught Up issue";
+export const alt = "Vydání DNESKAi";
 
 export async function generateStaticParams() {
   const all = await listArticles();
