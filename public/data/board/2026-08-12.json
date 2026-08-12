@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-12",
+  "packageHash": "387e85565895f0ef3389fb4619f5a13eebb34c746302b4ce3a2229da861a9e10",
+  "status": "edition",
+  "whyThisStory": "Gemini překonal miliardu uživatelů za kratší dobu než jakýkoli jiný produkt Googlu, čímž se přímý souboj s ChatGPT stává měřitelným – a tato změna měřítka zasahuje každého, kdo staví na AI API.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-12-cu-edition",
+  "generationCostUsd": 0.1649685,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-12-gemini-miliarda-uzivatel-reasoning-traces-openai-sdk/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-12-gemini-miliarda-uzivatel-reasoning-traces-openai-sdk/thumb.webp",
+    "origin": "photo"
+  }
+}
