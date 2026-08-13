@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-13",
+  "packageHash": "97015f04cb42279c97f7ed8ec8862a80c561c71e9dd95bb45f126d7501996835",
+  "status": "edition",
+  "whyThisStory": "Útok na zásobovací řetězec přes AI nástroj zasáhl 2 500 uživatelů a ukázal, že bezpečnostní týmy nestíhají tempo adopce AI nástrojů – to se týká každé firmy, která v posledních dvou letech nasadila nový AI balíček.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-13-cu-edition",
+  "generationCostUsd": 0.1861365,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-13-supply-chain-utok-ai-balicek-uniky-prihlasovaci-udaje/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-13-supply-chain-utok-ai-balicek-uniky-prihlasovaci-udaje/thumb.webp",
+    "origin": "photo"
+  }
+}
