@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-14",
+  "packageHash": "461a94663c9192654ce61f6f62875c3ba19dc9f723d98a843dece5dbfb2148b1",
+  "status": "edition",
+  "whyThisStory": "OpenAI je pro technologický průmysl referenčním bodem; souběh personálních odchodů, bezpečnostních otázek a nového produktu s dopadem na soukromí se dotýká každého, kdo AI nasazuje nebo hodnotí.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-14-cu-edition",
+  "generationCostUsd": 0.2904855,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-14-openai-odchody-bezpecnostni-kultura/hero.svg",
+    "thumbPath": "public/images/editions/2026-08-14-openai-odchody-bezpecnostni-kultura/thumb.svg",
+    "origin": "svg"
+  }
+}
