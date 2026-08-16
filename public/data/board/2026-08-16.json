@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-16",
+  "packageHash": "871ebd0651e8420b4baf6e71c506c2f431cedaf162d55bfda177d7acbe50b05e",
+  "status": "edition",
+  "whyThisStory": "Alibaba's Qwen překonal 3 miliardy stažení – to je distribuční milník, který mění váhu čínských otevřených modelů v globální AI infrastruktuře pro výzkumníky i firmy.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-16-cu-edition",
+  "generationCostUsd": 0.1631055,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-16-alibaba-modely-3-miliardy-stazeni-marvel-x-men-llama-kimi/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-16-alibaba-modely-3-miliardy-stazeni-marvel-x-men-llama-kimi/thumb.webp",
+    "origin": "photo"
+  }
+}
