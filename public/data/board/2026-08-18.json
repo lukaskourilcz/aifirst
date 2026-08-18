@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-18",
+  "packageHash": "78a805e6617b94eef9b82d1687ac6b37cafd301d8bc77d864012855d50eacc6e",
+  "status": "edition",
+  "whyThisStory": "Anthropic za dva měsíce přidal 18 miliard dolarů anualizovaného obratu, což mění podmínky každého dalšího kola fundraisingu i připravovaného IPO – a výsledky Qwenu 3.8 27B ve stejný den ukazují, že tento závod není jen o penězích, ale i o tom, kdo potřebuje jak velký model.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-18-cu-edition",
+  "generationCostUsd": 0.1653615,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-18-anthropic-65-miliard-qwen-meta-naklady/hero.svg",
+    "thumbPath": "public/images/editions/2026-08-18-anthropic-65-miliard-qwen-meta-naklady/thumb.svg",
+    "origin": "svg"
+  }
+}
