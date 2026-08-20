@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-20",
+  "packageHash": "8c437f11ad7e718c84a2d1687e38e53d3986af86d0b38fe9c3095cab489ae697",
+  "status": "edition",
+  "whyThisStory": "Tři příběhy z jednoho dne ukazují, jak se AI infrastruktura, podniková virtualizace a osobní data propojují do rozhodnutí, která zasáhnou vývojáře, IT oddělení i běžné zaměstnance dříve, než si uvědomí možnosti odporu.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-20-cu-edition",
+  "generationCostUsd": 0.293538,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-20-stripe-kupuje-openrouter-vmware-na-azure-konci-spirit-data-googlu/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-20-stripe-kupuje-openrouter-vmware-na-azure-konci-spirit-data-googlu/thumb.webp",
+    "origin": "photo"
+  }
+}
