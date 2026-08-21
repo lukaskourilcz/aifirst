@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-21",
+  "packageHash": "94220c5a537605e8aa6716fef094ea50af0301fc6acdcf88598751a076dc207e",
+  "status": "edition",
+  "whyThisStory": "Supermicro případ posouvá americkou exportní regulaci od pokut k přímým personálním důsledkům – to se dotýká každé firmy v dodavatelském řetězci serverového hardwaru.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-21-cu-edition",
+  "generationCostUsd": 0.1656525,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-21-supermicro-propusteni-pozoruhodne-chatgpt-vyhledavani/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-21-supermicro-propusteni-pozoruhodne-chatgpt-vyhledavani/thumb.webp",
+    "origin": "photo"
+  }
+}
