@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-22",
+  "packageHash": "e424431832dff26356e5888368f675ebb22ffc891b6aee36ffa8bb80e6e9543e",
+  "status": "edition",
+  "whyThisStory": "[\"Pokuta 400 milionů dolarů pro TikTok nastavuje nový standard vymáhání dětské online bezpečnosti a dopadá na každou platformu, která zpracovává data mladistvých uživatelů.\"]",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-22-cu-edition",
+  "generationCostUsd": 0.1752345,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-22-tiktok-400-millionu-pokuta-paramount-warner-nvidia/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-22-tiktok-400-millionu-pokuta-paramount-warner-nvidia/thumb.webp",
+    "origin": "photo"
+  }
+}
