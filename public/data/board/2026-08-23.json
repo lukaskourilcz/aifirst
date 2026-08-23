@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-23",
+  "packageHash": "8025eeb6c50d966b97dc37233a252246d2c7cae16aff64f5689ac82d112c1720",
+  "status": "edition",
+  "whyThisStory": "Torvaldsův přímý popis konkrétní ladicí relace je vzácný první pohled na to, kde AI asistence v kernelové práci opravdu stojí, a koriguje zároveň přehnaný optimismus i přehnaný pesimismus kolem nástrojů pro vývojáře.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-23-cu-edition",
+  "generationCostUsd": 0.1642155,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-23-linus-torvalds-ai-ladeni-jadra-linux/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-23-linus-torvalds-ai-ladeni-jadra-linux/thumb.webp",
+    "origin": "photo"
+  }
+}
