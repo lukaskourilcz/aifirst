@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-25",
+  "packageHash": "e51d5aa6dceb9e194e8ee78ac8b866ff44fe933270ac0f0ddada09bfdbca0fd3",
+  "status": "edition",
+  "whyThisStory": "longtime Arm ekosystém a mainframový svět se dosud rozcházely; IBM dual-ISA čip je první konkrétní konstrukce, která překlenuje obě platformy bez emulace a mění výpočet pro ISV i zákazníky zvažující migraci.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-25-cu-edition",
+  "generationCostUsd": 0.1676085,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-25-ibm-dual-isa-mainframe-microsoft-vodoznak-sec-ai-fond/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-25-ibm-dual-isa-mainframe-microsoft-vodoznak-sec-ai-fond/thumb.webp",
+    "origin": "photo"
+  }
+}
