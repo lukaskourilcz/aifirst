@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-26",
+  "packageHash": "03bfef977a1803c0ac7b2c7e2eeaf15a764e560fed66359813adf788d9981b35",
+  "status": "edition",
+  "whyThisStory": "Odchod klíčového manažera infrastruktury z OpenAI a zdvojnásobení valuace robotického startupu Generalist v řádu měsíců jsou dva konkrétní signály o tom, kde AI průmysl právě stojí – a kam teče kapitál.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-26-cu-edition",
+  "generationCostUsd": 0.1607715,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-26-openai-odchody-robotika-valuace/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-26-openai-odchody-robotika-valuace/thumb.webp",
+    "origin": "photo"
+  }
+}
