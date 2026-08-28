@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-08-28",
+  "packageHash": "40015192a614a0baae4789c7dd186c617550c2bc03f9f2730a5b04dbbc82a2bb",
+  "status": "edition",
+  "whyThisStory": "Soudní rozhodnutí o blacklistu mění to, jak může výkonná moc USA trestat AI společnosti – a zároveň bezpečnostní mezera v Claude Code ukazuje, že agenturní AI má vážné problémy dřív, než se stačí rozšířit.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-28-cu-edition",
+  "generationCostUsd": 0.1549695,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-28-anthropic-soud-blacklist-xai-zaloba-alphabet/hero.svg",
+    "thumbPath": "public/images/editions/2026-08-28-anthropic-soud-blacklist-xai-zaloba-alphabet/thumb.svg",
+    "origin": "svg"
+  }
+}
