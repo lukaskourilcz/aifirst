@@ -35,6 +35,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Newly needed after the redesign
 
+- [ ] **Implement the 2026-08 design modernization set** — six scoped issues under tracking issue #54: the overlay hero (headline inside the lead image, the owner's request) plus front page, Briefs/Watchlist rows, article page, cover cards and legacy-theme cleanup. Work order, Mobbin references and gates are on the epic. [imp:4] [owner:ai] [time:6h] [kind:content]
 - [ ] **Decide what to do about the blank 2026-08-08 edition** — that edition renders a headline and no body. Its delivered MDX wraps the whole body in a JSX expression, so MDX evaluates it to nothing; every other edition renders normally. It is the newest edition, so it is currently the lead on the front page. Editing a delivered edition risks the same-date replay guard, so the call is the owner's: correct the file, or reissue it upstream. [imp:5] [owner:me] [time:20m] [kind:content]
 - [ ] **Point the Vercel project at the DNESKAi name where it is public-facing** — the rename moved every page title, feed title, Open Graph card and JSON `publication` field. Anything outside this repository that still says Caught Up to a reader (deployment display name, any external listing) is the owner's to update. The canonical URL itself is unaffected. [imp:2] [owner:me] [time:15m] [kind:deploy]
 
