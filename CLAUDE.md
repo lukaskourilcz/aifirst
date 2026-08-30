@@ -102,7 +102,7 @@ no client JavaScript and make no network or model call.
 - `docs/design/`: product audit, thesis, brand/design system and QA
 - `.claude/`: project skills, agents, and executable workflow commands
 
-Search before creating. Prefer extending `PageShell`, `IssueRow`, `IssueMasthead`, existing editorial components, `SourceLedger`, `Provenance`, `EditorialHighlights`, `FeedActions`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, content/feed/topic/Radar/signal helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
+Search before creating. Prefer extending `PageShell`, `IssueRow`, `IssueMasthead`, existing editorial components, `SourceLedger`, `EditorialHighlights`, `FeedActions`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, content/feed/topic/Radar/signal helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
 
 TypeScript is strict and `noUncheckedIndexedAccess` is enabled. Keep server-reached relative value imports extensionless. Never commit `.env.local`, secrets, generated caches, rejected media, or private run reports.
 

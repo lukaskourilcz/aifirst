@@ -14,15 +14,15 @@ The interface is a magazine on a paper canvas with a finite reading arc. It uses
 Production components should use semantic roles:
 
 - `--surface-page` (`#f7f7f5`), `--surface-reading` (`#ffffff`),
-  `--surface-subtle` (`#101216`), and `--surface-emphasis`
-- `--text-primary` (`#eceef2`), `--text-secondary` (`#c8ccd4`), and
+  `--surface-subtle` (`#efefec`), and `--surface-emphasis` (`#eaf0ff`)
+- `--text-primary` (`#14161a`), `--text-secondary` (`#3c4149`), and
   `--text-tertiary` (`#5f6672`)
-- `--border-subtle` (`#23262c`) and `--border-strong` (`#2c3037`)
+- `--border-subtle` (`#e2e2de`) and `--border-strong` (`#c9c9c3`)
 - `--accent-primary` (`#2f5ae6`) and `--accent-primary-hover` (`#1d43bb`)
 - `--border-control` (`#8e8e88`) for the three controls whose border is the
   affordance: search input, ad reservation, week-boundary action
-- `--status-complete` (`#00bc7d`), `--status-warning` (`#e8a33d`), and
-  `--status-correction` (`#e5484d`)
+- `--status-complete` (`#067a52`), `--status-warning` (`#8a5a0d`), and
+  `--status-correction` (`#c0272c`)
 - `--focus-ring` and `--selection-background`
 
 Raw palette variables remain compatibility aliases while existing routes are
@@ -76,7 +76,7 @@ from assistive technology when decorative.
 
 ## Editorial modules and state
 
-Existing domain components remain authoritative: Editorial Highlights, Briefs, Watchlist, Source Ledger, Provenance, Corrections, Sponsorship, Topics, Issue Navigation, Feed Actions, and completion. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong boundary colors are reserved for evidence, corrections, sponsorship, warning, and completion states.
+Existing domain components remain authoritative: Editorial Highlights, Briefs, Watchlist, Source Ledger, Corrections, Sponsorship, Topics, Issue Navigation, Feed Actions, and completion. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong boundary colors are reserved for evidence, corrections, sponsorship, warning, and completion states.
 
 Three daily modules sit alongside them. The lesson strip above the masthead is a
 single hairline-bounded row — mono kicker, term in the display face, one gloss

@@ -594,11 +594,6 @@ body {
 body {
   min-height: 100vh;
   text-wrap: pretty;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-  background-position: -1px -1px;
-  background-size: 64px 64px;
 }
 
 .skip-link {
