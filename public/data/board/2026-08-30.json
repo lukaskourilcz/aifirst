@@ -1,9 +1,14 @@
 {
   "schemaVersion": "board-context/1",
   "date": "2026-08-30",
-  "packageHash": "64fba5fa75959d6807b896d95fa4752269b8d9e0f9ba09189a08dd6f3be97b92",
-  "status": "no_edition",
-  "noEditionReason": "The desk could not assemble a shortlist from today's sources, so nothing was written.",
+  "packageHash": "2aa54a65f81a2cb0bf7d74b0c7577858649bc3bf912d38bb8e60f4281041b19f",
+  "status": "edition",
+  "whyThisStory": "\">Žaloba hudebních vydavatelů na Anthropic přichází po rozsudku v kauze Bartz a rozšiřuje právní tlak na celý sektor – výsledek ovlivní, jak mohou AI laboratoře legálně získávat trénovací data.",
   "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-08-30-cu-edition",
-  "generationCostUsd": 0.057699
+  "generationCostUsd": 0.282063,
+  "image": {
+    "heroPath": "public/images/editions/2026-08-30-sony-warner-anthropic-roman-teleskop-open-source/hero.webp",
+    "thumbPath": "public/images/editions/2026-08-30-sony-warner-anthropic-roman-teleskop-open-source/thumb.webp",
+    "origin": "photo"
+  }
 }
