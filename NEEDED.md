@@ -42,6 +42,14 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Already complete
 
+- The magazine-grade design set is built: the headline now sits on a paper
+  plate inside the lead image on Today and on article pages, Today reads as a
+  composed front page on one masthead and one spacing ladder, Briefs and
+  Watchlist share a digest row on every surface, the article opening band and
+  reading surfaces are aligned to that language, and Weekly, Archive and
+  Related render through one cover card. The reader's raw ISO dates are gone
+  from the article page and the archive.
+
 - The repository is public, which is what restores Actions: standard runners are
   unmetered on public repositories.
 - The retired `ANTHROPIC_API_KEY` Actions secret is deleted, and a history sweep
