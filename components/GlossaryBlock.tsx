@@ -3,6 +3,7 @@ import type { GlossaryTerm } from "@/lib/glossary";
 import { slugForTerm, glossaryDefinition } from "@/lib/glossary";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { SectionMasthead } from "./editorial/SectionMasthead";
 
 export function GlossaryBlock({
   terms,
@@ -13,17 +14,8 @@ export function GlossaryBlock({
 }) {
   if (!terms.length) return null;
   return (
-    <section
-      aria-label="Glossary for this issue"
-      style={{
-        marginTop: "var(--gutter-gap)",
-        paddingTop: 32,
-        borderTop: "1px solid var(--color-fog)",
-      }}
-    >
-      <p className="label" style={{ marginBottom: 16 }}>
-        {dict(locale).article.glossaryForIssue}
-      </p>
+    <section className="issue-glossary" aria-labelledby="issue-glossary-heading">
+      <SectionMasthead id="issue-glossary-heading" kicker={dict(locale).article.glossaryForIssue} />
       <div style={{ margin: 0 }}>
         {terms.map((t) => (
           <details

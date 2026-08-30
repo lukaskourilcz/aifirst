@@ -2,6 +2,9 @@ import Link from "next/link";
 import type { ArticleSummary } from "@/lib/content";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { czechLongDate } from "@/lib/weeks";
+import { CoverCard } from "./editorial/CoverCard";
+import { SectionMasthead } from "./editorial/SectionMasthead";
 
 export function RelatedIssues({
   items,
@@ -29,22 +32,20 @@ export function RelatedIssues({
   }
 
   return (
-    <section aria-label={dict(locale).article.related} className="related-issues">
-      <p className="label related-issues__label">
-        {dict(locale).article.related}
-      </p>
-      <ul>
+    <section aria-labelledby="related-issues-heading" className="related-issues">
+      <SectionMasthead id="related-issues-heading" kicker={dict(locale).article.related} />
+      <ul className="cover-grid">
         {items.map((a) => (
           <li key={a.slug}>
-            <Link href={localePath(locale, `/articles/${a.slug}`)}>
-              {a.heroPhoto ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={a.heroPhoto} alt="" loading="lazy" decoding="async" />
-              ) : null}
-              <span className="label">{a.date}</span>
-              <strong>{a.title}</strong>
-              {a.dek ? <span className="related-issues__dek">{a.dek}</span> : null}
-            </Link>
+            <CoverCard
+              href={localePath(locale, `/articles/${a.slug}`)}
+              kicker={<time dateTime={a.date}>{czechLongDate(a.date)}</time>}
+              title={a.title}
+              dek={a.dek}
+              media={a.heroPhoto}
+              mediaWidth={300}
+              mediaHeight={200}
+            />
           </li>
         ))}
       </ul>

@@ -112,6 +112,11 @@
   --section-gap: var(--space-7);
   --gutter-gap: var(--space-8);
   --mobile-gutter: clamp(1rem, 4vw, 1.5rem);
+  /* How far the copy plate rides up over a lead image. Depth is deliberate
+     rather than a fraction of the plate: the plate's height follows the
+     headline, and a percentage would swallow a short image on a long Czech
+     title. */
+  --plate-overlap: clamp(2.5rem, 5vw, 5rem);
   --surface-hover: #f2f2ef;
 
   --radius-sm: 0;
@@ -139,19 +144,44 @@
 }
 
 .editorial-highlights section {
+  position: relative;
   border: 1px solid var(--border-subtle);
   border-top: 2px solid var(--accent-primary);
   padding: var(--space-4);
   background: var(--surface-reading);
 }
-.editorial-highlight--changed { border-top-color: var(--border-strong) !important; }
-.editorial-highlight--uncertainty { border-top-color: var(--status-warning) !important; }
+/* Scoped to the grid so these beat `.editorial-highlights section`, whose
+   element selector would otherwise outrank a bare class. That is what the
+   !important these rules used to carry was compensating for. */
+.editorial-highlights .editorial-highlight--changed { border-top-color: var(--border-strong); }
+.editorial-highlights .editorial-highlight--uncertainty { border-top-color: var(--status-warning); }
 
-.editorial-highlights h2,
-.source-ledger h2,
-.corrections-notice h2 {
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
-  margin: 0 0 12px;
+/* Uncertainty is the one panel a reader must not mistake for a finding, so it
+   cannot rest on its amber rule alone: a second hairline under the top border
+   marks it by count as well as by colour. */
+.editorial-highlights .editorial-highlight--uncertainty::before {
+  content: "";
+  position: absolute;
+  inset: 3px 0 auto;
+  height: 1px;
+  background: var(--status-warning);
+}
+
+/* Mono kickers turn three headed panels into one instrument cluster, matching
+   the section mastheads that open every other block on the page. The ledger
+   and corrections headings used to share this rule; they render through
+   SectionMasthead now, and keeping it would have overridden the masthead's own
+   type with a subheading size. */
+.editorial-highlight__kicker {
+  margin: 0 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
 .editorial-highlights ul {
@@ -171,7 +201,13 @@
 
 .table-scroll { overflow-x: auto; }
 .table-scroll:focus-visible { outline-offset: 3px; }
-.source-ledger table { width: 100%; border-collapse: collapse; min-width: 640px; }
+/* 640px squeezed the two prose columns into six-line stacks in the main
+   column once the rail was present. The table already lives in an accessible
+   scroll region, so giving it the width its content needs costs nothing but
+   the scroll it was already doing. */
+.source-ledger table { width: 100%; border-collapse: collapse; min-width: 780px; }
+.source-ledger td:nth-child(2) { min-width: 15em; }
+.source-ledger td:last-child { min-width: 18em; }
 .source-ledger th,
 .source-ledger td { padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
 .source-ledger th { font-family: var(--font-mono); font-size: 0.59375rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-tertiary); }
@@ -351,24 +387,41 @@
 .reading-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 11; pointer-events: none; background: var(--border-subtle); }
 .reading-progress > div { height: 100%; transform-origin: left; transform: scaleX(0); background: var(--color-blueprint-blue); }
 
-.edition-intro {
+/* The front-page dateline. A 2px rule over it opens the page the way the
+   section mastheads below open each block, so the whole column reads on one
+   system of rules. */
+.dateline {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-5);
-  padding: var(--space-4) 0 var(--space-5);
+  padding: var(--space-3) 0 var(--space-4);
+  border-top: 2px solid var(--border-strong);
   border-bottom: 1px solid var(--border-subtle);
 }
-.edition-intro p {
+.dateline p {
   margin: 0;
   font-family: var(--font-mono);
   font-size: 0.625rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.edition-intro > :last-child { color: var(--text-tertiary); text-align: right; }
+.dateline__name { color: var(--accent-primary); }
+.dateline__edition { color: var(--text-secondary); }
+.dateline__promise { color: var(--text-tertiary); text-align: right; }
+
+/* Two mono lines cannot share 430px without one of them breaking mid-word. */
+@media (max-width: 430px) {
+  .dateline { display: grid; gap: var(--space-2); }
+  .dateline__promise { text-align: left; }
+}
 
 .issue-reference-blocks { margin-top: var(--block-gap); }
+/* Corrections, glossary, topics, ledger and the print link are one stack on
+   one ladder; each previously carried its own top margin or inline style. */
+.issue-reference-blocks > * + * { margin-top: var(--section-gap); }
+.issue-glossary { margin: 0; }
+.source-ledger { margin-top: 0; padding-top: 0; border-top: 0; }
 
 /* Daily widgets — one lesson and one fact per edition, both resolved at build
    time. The lesson strip sits inside the hero viewport, so it is budgeted to a
@@ -594,11 +647,6 @@ body {
 body {
   min-height: 100vh;
   text-wrap: pretty;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-  background-position: -1px -1px;
-  background-size: 64px 64px;
 }
 
 .skip-link {
@@ -1233,8 +1281,20 @@ hr {
   padding: 38px 0 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 32px;
+  gap: 0;
   margin: 0 0 var(--section-gap);
+}
+
+/* Meta, category chips and topics left .hero__copy so the plate can carry the
+   eyebrow, headline and dek alone. The spacing they had inside the copy block
+   is reproduced here, so the stacked variant is unchanged. */
+/* The opening band: meta, chips and topics under one hairline, so the eyebrow,
+   headline and dek above read as the opening and everything here reads as the
+   record. */
+.hero__details {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .hero--no-photo {
@@ -1292,7 +1352,7 @@ hr {
   align-items: center;
   column-gap: 12px;
   row-gap: 8px;
-  margin: 20px 0 0;
+  margin: 0;
   font-family: var(--font-mono);
   font-size: 0.625rem;
   font-weight: 500;
@@ -1327,7 +1387,7 @@ hr {
 }
 
 .hero__figure {
-  margin: 0;
+  margin: 32px 0 0;
   padding: 10px;
   border: 1px solid var(--border-subtle);
   background: var(--surface-reading);
@@ -1348,6 +1408,81 @@ hr {
   line-height: 1.55;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Overlay masthead — the headline sits inside the lead image          */
+/* ------------------------------------------------------------------ */
+/* The copy rides up onto an opaque --surface-reading plate that overlaps the
+   image. Opaque, not a scrim: DESIGN_THESIS bans decorative gradients, and a
+   solid plate holds text contrast on any photograph instead of depending on
+   how dark that photograph happens to be.
+
+   The plate overlaps in normal flow, which is what keeps long Czech headlines
+   safe: the plate grows downward with the copy instead of being clipped by the
+   image. It also means everything after the plate clears the overlap, which is
+   why the image credit is a sibling below the plate rather than a caption
+   pinned to the image's bottom edge, where the plate would cover it. */
+
+.hero--overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero--overlay .hero__media {
+  order: 1;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-reading);
+}
+
+.hero__credit {
+  order: 2;
+  margin: 10px 2px 0;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.59375rem;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero--overlay .hero__copy { order: 3; padding-top: var(--space-4); }
+.hero--overlay .hero__details { order: 4; }
+
+@media (min-width: 768px) {
+  /* Past 768px the plate overlaps. The credit moves back under the plate so it
+     stays fully visible below the image edge. */
+  .hero--overlay .hero__copy {
+    order: 2;
+    position: relative;
+    z-index: 1;
+    max-width: min(34em, 85%);
+    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    background: var(--surface-reading);
+    border: 1px solid var(--border-subtle);
+  }
+  .hero--overlay .hero__credit { order: 3; margin: var(--space-3) 2px 0 var(--space-5); }
+  .hero--overlay .hero__details { margin-left: var(--space-5); }
+  /* The plate is the measure now, so the copy's own caps would double-constrain
+     it into a narrow column. */
+  .hero--overlay .hero__title,
+  .hero--overlay .hero__dek { max-width: none; }
+  /* Same reason as the front-page plate: display size overruns a 34em plate and
+     leaves the image a strip. */
+  .hero--overlay .hero__title {
+    font-size: var(--text-heading);
+    line-height: var(--leading-heading);
+  }
+  .hero--overlay .hero__dek {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    margin-top: var(--space-4);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -1528,23 +1663,36 @@ input[type="search"]:focus {
 /* Section heading row                                                 */
 /* ------------------------------------------------------------------ */
 
-.section-head {
+/* One masthead for every section: mono kicker, 2px rule, optional action. It
+   replaced a subheading-and-hairline row on the week feed and three separate
+   bare kickers on the digest surfaces. */
+.masthead {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-fog);
+  gap: var(--space-4);
+  margin: 0 0 var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--border-strong);
 }
 
-.section-head__title {
-  font-family: var(--font-suisse-intl);
-  font-size: var(--text-subheading);
-  font-weight: 600;
-  letter-spacing: -0.2px;
-  color: var(--color-ink-black);
+.masthead__kicker {
   margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.masthead__action {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-primary);
 }
 
 /* ------------------------------------------------------------------ */
@@ -1624,42 +1772,99 @@ input[type="search"]:focus {
   }
 }
 
-/* Dispatches inside the sidebar — vertical stack of compact cards. */
-.dispatches--aside {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-}
+/* ------------------------------------------------------------------ */
+/* Digest rows — Briefs and Watchlist share one anatomy                */
+/* ------------------------------------------------------------------ */
+/* Today, the article aside and Radar previously had three different row
+   treatments: a card stack, a plain link list and a two-column grid. They are
+   one row now: tabular mono index, title, an optional serif summary clamped to
+   two lines, an optional mono meta line, hairline dividers between rows. The
+   whole row is the link, which is what carries the 44px target. */
 
-.dispatches__eyebrow {
-  width: 100%;
+.digest { margin-top: var(--section-gap); }
+.digest--aside { margin-top: 30px; }
+.digest--wire { padding: var(--space-5) 0 0; border-top: 2px solid var(--border-strong); }
+
+.digest__heading { margin: 0 0 var(--space-4); }
+
+.digest-list {
+  list-style: none;
   margin: 0;
-  padding: 11px 14px;
-  border: 1px solid var(--border-subtle);
-  border-bottom: 0;
-  color: var(--text-primary);
+  padding: 0;
+  border-top: 1px solid var(--border-subtle);
 }
-.dispatches__header { margin-bottom: var(--space-4); }
-.dispatches__header .label { margin: 0; }
-.dispatches__header h2 { margin: var(--space-2) 0 0; }
-.dispatches__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); list-style: none; margin: 0; padding: 0; }
-.dispatches__grid li { display: flex; flex-direction: column; gap: var(--space-2); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
 
-.wire { margin-top: var(--section-gap); padding: var(--space-5) 0 0; border-top: 2px solid var(--border-strong); }
-.wire--aside { margin-top: 30px; padding-top: var(--space-4); border-top-width: 1px; }
-.wire__header { margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
-.wire--aside .wire__header { margin-bottom: var(--space-3); padding: 0; border: 0; }
-.wire__header .label { margin: 0; }
-.wire__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); list-style: none; margin: 0; padding: 0; }
-.wire--aside .wire__list { display: flex; flex-direction: column; gap: 0; }
-.wire__list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
-.wire--aside .wire__list li { padding: 12px 0; border-bottom: 1px solid var(--border-subtle); }
-.wire__number { min-width: 22px; text-align: right; font-size: 0.6875rem; }
-.wire__link { color: var(--text-primary); font-size: var(--text-body-sm); font-weight: 600; line-height: 1.35; }
-.wire--aside .wire__link { font-family: var(--font-editorial); font-size: 0.90625rem; }
-.wire__source { display: block; margin-top: 2px; font-size: 0.625rem; }
+.digest-row { border-bottom: 1px solid var(--border-subtle); }
+
+.digest-row__link,
+.digest-row--plain {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: var(--space-2);
+  /* 12px each side plus the row's own content clears 44px comfortably; the
+     title's line box alone would not. */
+  padding: 12px 0;
+  min-height: 44px;
+  color: var(--text-primary);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.digest-row__link { align-items: start; }
+.digest-row--plain { align-items: start; }
+
+.digest-row__link:hover { background: var(--surface-hover); }
+.digest-row__link:hover .digest-row__title { color: var(--accent-primary); }
+
+.digest-row__index {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+  padding-left: var(--space-2);
+  /* The index sits on the title's first line rather than the row's top edge. */
+  line-height: 1.55;
+}
+
+.digest-row__copy { display: block; min-width: 0; }
+
+.digest-row__title {
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: var(--text-row);
+  font-weight: 600;
+  line-height: var(--leading-row);
+  letter-spacing: var(--tracking-row);
+  color: inherit;
+  /* Long Czech compounds must break rather than push the row wide. */
+  overflow-wrap: anywhere;
+}
+
+.digest-row__summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-top: var(--space-2);
+  font-family: var(--font-reading);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  color: var(--text-secondary);
+}
+
+.digest-row__meta {
+  display: block;
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* The aside is a bounded column, so its titles step down one size. The summary
+   stays: a two-line clamp is what makes the row worth reading. */
+.digest--aside .digest-row__title { font-size: 1rem; }
+
 
 .modal-overlay {
   position: fixed;
@@ -1708,57 +1913,6 @@ input[type="search"]:focus {
   .keycap.label { display: none; }
 }
 
-.dispatch-card {
-  background: var(--surface-reading);
-  border: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  border-radius: 0;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition:
-    background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
-}
-.dispatch-card:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-subtle);
-}
-
-.dispatch-card__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-primary);
-  margin: 0;
-}
-
-.dispatch-card__title {
-  font-family: var(--font-editorial);
-  font-size: 1rem;
-  line-height: 1.28;
-  font-weight: 600;
-  color: var(--color-ink-black);
-  margin: 0;
-}
-
-.dispatch-card__body {
-  font-family: var(--font-reading);
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.dispatch-card__source {
-  font-size: var(--text-caption);
-  font-weight: 500;
-  color: var(--color-blueprint-blue);
-}
-
 /* ------------------------------------------------------------------ */
 /* Anchored headings, lists, body                                      */
 /* ------------------------------------------------------------------ */
@@ -1803,14 +1957,32 @@ input[type="search"]:focus {
   color: var(--text-primary);
   border-bottom-color: var(--text-primary);
 }
+/* A pull quote, not a callout box: serif at reading scale, a 2px accent rule
+   on the left, and no oversized quotation glyph. The prose measure holds, so a
+   quote sits inside the column rather than breaking out of it. */
 .article-body blockquote {
-  padding: 24px 26px;
-  border-left-width: 2px;
-  background: var(--surface-reading);
-  font-family: var(--font-editorial);
-  font-size: 1.5rem;
-  line-height: 1.32;
-  letter-spacing: -0.02em;
+  margin: var(--space-6) 0;
+  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  border-left: 2px solid var(--accent-primary);
+  background: none;
+  font-family: var(--font-reading);
+  font-size: 1.25rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--text-primary);
+}
+.article-body blockquote p { margin: 0; }
+.article-body blockquote p + p { margin-top: var(--space-3); }
+/* An attribution line reads as the quote's source, not as more of the quote. */
+.article-body blockquote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-style: normal;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 .article-body pre {
   overflow-x: auto;
@@ -1981,65 +2153,143 @@ svg { max-width: 100%; }
   margin: 0;
   display: grid;
   gap: 0;
-  border-top: 1px solid var(--border-strong);
+  border-top: 2px solid var(--border-strong);
 }
+/* Grid items default to min-width:auto, so a card's min-content width pushed
+   it past the list at 320px. */
+.archive-list > li { min-width: 0; }
 
-.archive-card {
+/* ------------------------------------------------------------------ */
+/* Cover cards — Weekly, Archive and Related share one anatomy         */
+/* ------------------------------------------------------------------ */
+/* Media, a mono kicker, a title on a paper plate that overlaps the media's
+   bottom edge, a hairline and a --hover-line hover. The archive is a dense
+   list so it takes the row layout; the grid surfaces stack. Crops stay per
+   surface, which is why the ratio lives on each surface's media rule rather
+   than here. */
+
+.cover-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 110px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-5);
-  align-items: center;
-  padding: var(--space-5) 0 var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cover-grid li { min-width: 0; }
+
+.cover-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
   color: inherit;
-  border: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  background: transparent;
   text-decoration: none;
 }
-.archive-card--with-media {
-  grid-template-columns: 140px minmax(0, 1fr) 110px;
-}
-.archive-card__media {
+
+.cover-card__media { display: block; min-width: 0; }
+.cover-card__media img {
   display: block;
-  width: 140px;
-  aspect-ratio: 4 / 3;
-  border: 1px solid var(--border-subtle);
+  width: 100%;
+  height: auto;
   object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.cover-card:hover .cover-card__media img { border-color: var(--hover-line); }
+
+.cover-card__plate {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-reading);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.cover-card:hover .cover-card__plate { border-color: var(--hover-line); }
+
+/* The small-scale hero plate: it rides up over the media's bottom edge, inset
+   from the left so the crop still reads as a picture. A drawn .svg cover never
+   gets the overlap, so those cards keep the plate directly under the media. */
+.cover-card--overlap .cover-card__plate {
+  position: relative;
+  z-index: 1;
+  margin: calc(-1 * var(--space-6)) 0 0 var(--space-4);
 }
 
-.archive-card:hover {
-  border-color: var(--accent-primary);
+/* No media, no empty box: the plate stands on its own with the same spacing. */
+.cover-card--text-first .cover-card__plate { margin: 0; }
+
+.cover-card__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
-.archive-card h2 {
-  margin: 8px 0;
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-}
-
-.archive-card p {
-  max-width: 70ch;
+.cover-card__title {
   margin: 0;
+  font-family: var(--font-editorial);
+  font-size: var(--text-row);
+  font-weight: 600;
+  line-height: var(--leading-row);
+  letter-spacing: var(--tracking-row);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+.cover-card:hover .cover-card__title { color: var(--accent-primary); }
+
+.cover-card__dek {
   color: var(--text-secondary);
   font-family: var(--font-reading);
-  line-height: 1.5;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
 }
 
-.archive-card__meta,
-.archive-card__topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
+.cover-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-tertiary);
 }
+
+.cover-card__topics { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* Grid surfaces: 3:2 covers. */
+.cover-card--card .cover-card__media img { aspect-ratio: 3 / 2; }
+
+/* Archive: a row, media on the left at the 4:3 crop it already used. The plate
+   sits beside the media rather than over it — an overlap inside a 140px
+   thumbnail would cover the picture rather than compose with it. */
+.cover-card--row {
+  flex-direction: row;
+  align-items: start;
+  gap: var(--space-5);
+  padding: var(--space-5) 0 var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.cover-card--row .cover-card__media { flex: none; width: 140px; }
+.cover-card--row .cover-card__media img { aspect-ratio: 4 / 3; }
+.cover-card--row .cover-card__plate {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.cover-card--row:hover .cover-card__plate { border: 0; }
+.cover-card--row .cover-card__title { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
+.cover-card--row .cover-card__dek { max-width: 70ch; font-size: var(--text-body); }
+
+@media (max-width: 600px) {
+  .cover-card--row { flex-direction: column; gap: var(--space-3); }
+  .cover-card--row .cover-card__media { width: 100%; }
+}
+
 @media (max-width: 700px) {
   .topic-grid { grid-template-columns: 1fr; }
-  .archive-card,
-  .archive-card--with-media { grid-template-columns: 1fr; }
-  .archive-card__media { width: min(100%, 320px); }
-}
-
-.archive-card__topics {
-  margin-top: 14px;
-  gap: 8px;
 }
 
 /* Discovery, trust, and operator-adjacent routes. */
@@ -2058,7 +2308,16 @@ svg { max-width: 100%; }
 .weekly-cover { position: relative; display: grid; grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr); gap: var(--space-5); margin-top: var(--section-gap); padding: var(--space-6); border: 1px solid var(--border-subtle); background: var(--surface-reading); overflow: hidden; }
 .weekly-cover--with-media { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); align-items: center; }
 .weekly-cover__media { display: block; }
-.weekly-cover__media img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.weekly-cover__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.weekly-cover__media:hover img { border-color: var(--hover-line); }
 .weekly-cover__index { grid-row: 1 / span 4; align-self: start; color: var(--numeric-ghost); font-family: var(--font-editorial); font-size: clamp(7rem, 18vw, 14rem); font-weight: 700; line-height: 0.72; }
 .weekly-cover--with-media .weekly-cover__index { position: absolute; right: var(--space-4); top: var(--space-4); }
 .weekly-cover__copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
@@ -2081,15 +2340,7 @@ svg { max-width: 100%; }
 .tag-detail__related { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
 
-.related-issues { margin-top: var(--gutter-gap); padding-top: var(--space-6); border-top: 1px solid var(--border-strong); }
-.related-issues__label { margin-bottom: var(--space-4); }
-.related-issues ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-5); list-style: none; padding: 0; margin: 0; }
-.related-issues li { min-width: 0; }
-.related-issues li a { display: flex; height: 100%; flex-direction: column; gap: var(--space-2); padding: 12px; border: 1px solid var(--border-subtle); background: var(--surface-reading); color: var(--text-primary); }
-.related-issues li a:hover { border-color: var(--hover-line); color: var(--text-primary); }
-.related-issues img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.related-issues strong { font-family: var(--font-editorial); font-size: 1.0625rem; line-height: 1.25; }
-.related-issues__dek { color: var(--text-secondary); font-family: var(--font-reading); font-size: 0.875rem; line-height: 1.5; }
+.related-issues { margin-top: var(--gutter-gap); }
 
 .about-stats {
   display: grid;
@@ -2396,6 +2647,49 @@ svg { max-width: 100%; }
   object-fit: cover;
   border: 1px solid var(--border-subtle);
 }
+
+/* The front-page lead uses the same plate as the article masthead. The meta row
+   is already a sibling of the copy, so nothing here has a caption to clear. */
+.lead--overlay .lead__copy { padding-top: var(--space-4); }
+
+@media (min-width: 768px) {
+  .lead--overlay .lead__copy {
+    position: relative;
+    z-index: 1;
+    max-width: min(34em, 85%);
+    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    background: var(--surface-reading);
+    border: 1px solid var(--border-subtle);
+  }
+  .lead--overlay .lead__title,
+  .lead--overlay .lead__dek { max-width: none; }
+  /* Display size is built for the full column. Inside a plate roughly 34em
+     wide it wraps to four or five lines, and the plate then stands more than
+     twice as tall as the 21:9 image it is supposed to sit on. One step down
+     keeps the plate and the image in the same order of size, which is what
+     makes the overlap read as composition rather than as a text block with a
+     strip of photograph above it. */
+  .lead--overlay .lead__title {
+    font-size: var(--text-heading);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+  .lead--overlay .lead__title[data-long="true"] {
+    font-size: var(--text-subheading);
+    line-height: var(--leading-subheading);
+  }
+  /* The dek is a summary here, not the article. Three lines is enough to carry
+     the point and keeps the plate's height predictable across editions. */
+  .lead--overlay .lead__dek {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+  .lead--overlay .lead__meta { margin-left: var(--space-5); }
+}
 .hero-plate {
   position: relative;
   width: 100%;
@@ -2418,35 +2712,15 @@ svg { max-width: 100%; }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6);
-  margin-top: 32px;
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--border-subtle);
+  /* One ladder between front-page sections: every gap is --section-gap, so the
+     rhythm is a system rather than a per-section number. */
+  margin-top: var(--section-gap);
 }
 @media (max-width: 1023px) { .condensed { grid-template-columns: minmax(0, 1fr); } }
-.condensed__kicker {
-  margin: 0 0 var(--space-3);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-.condensed__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-.condensed__list li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-2); }
-.condensed__index {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-tertiary);
-}
-.condensed__list a {
-  font-family: var(--font-editorial);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--text-primary);
-}
-.condensed__list a:hover { color: var(--accent-primary); }
+/* Today's two columns are narrower than the main measure, so their titles
+   step down as well. Briefs carry a body and show a summary; Watchlist items
+   have only a source, and their rows are shorter for it. */
+.condensed .digest-row__title { font-size: 1rem; }
 
 /* No-edition day */
 .no-edition { padding: 40px 0 var(--space-6); border-bottom: 1px solid var(--border-strong); }
@@ -2477,8 +2751,8 @@ svg { max-width: 100%; }
 }
 
 /* Feed */
-.feed-section { margin-top: 56px; }
-.feed-list { list-style: none; margin: 20px 0 0; padding: 0; }
+.feed-section { margin-top: var(--section-gap); }
+.feed-list { list-style: none; margin: 0; padding: 0; }
 .feed-row { border-bottom: 1px solid var(--border-subtle); }
 .feed-row__link {
   display: grid;
@@ -2546,6 +2820,14 @@ svg { max-width: 100%; }
 @media (max-width: 1023px) {
   .feed-row__link { grid-template-columns: minmax(0, 1fr) 140px; }
   .feed-row__thumb { width: 140px; height: 105px; }
+}
+
+/* Past 1280 the main column has width to spare, so the thumbnail takes some of
+   it. The 4:3 ratio and the explicit width/height attributes are unchanged, so
+   nothing shifts while the image loads. */
+@media (min-width: 1280px) {
+  .feed-row__link { grid-template-columns: minmax(0, 1fr) 200px; }
+  .feed-row__thumb { width: 200px; height: 150px; }
 }
 @media (max-width: 767px) {
   .feed-row__link { grid-template-columns: minmax(0, 1fr) 120px; }

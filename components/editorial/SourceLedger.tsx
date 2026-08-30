@@ -4,6 +4,7 @@ import type { Source } from "@/lib/sources";
 import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
+import { SectionMasthead } from "./SectionMasthead";
 
 function hostname(url: string): string {
   try {
@@ -28,7 +29,7 @@ export function SourceLedger({
 
   return (
     <section className="source-ledger" aria-labelledby="source-ledger-heading">
-      <h2 id="source-ledger-heading">{t.sourceLedger}</h2>
+      <SectionMasthead id="source-ledger-heading" kicker={t.sourceLedger} />
       <div className="table-scroll" tabIndex={0} role="region" aria-label={t.sourceLedger}>
         <table>
           <caption className="sr-only">{t.sourceLedger}</caption>

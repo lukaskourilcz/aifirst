@@ -1,5 +1,7 @@
 import Link from "next/link";
-import type { Article } from "@/lib/content";
+import { isDrawnPlate, type Article, type Dispatch, type WireItem } from "@/lib/content";
+import { DigestRow } from "./DigestRow";
+import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { czechNumericDate } from "@/lib/weeks";
@@ -52,9 +54,33 @@ export function LeadPackage({
   const common = dict(locale).common;
   const href = localePath(locale, `/articles/${article.slug}`);
   const long = fm.title.length > 100;
+  // The copy plate composites over a photograph only. A drawn .svg cover is
+  // already composed upstream, and the oldest ones burn the headline into the
+  // artwork, so those keep the stacked rendering and the title is never doubled.
+  const overlay = heroPhoto !== null && !isDrawnPlate(heroPhoto);
+
+  const figure = (
+    <Link href={href} className="lead__figure" tabIndex={-1} aria-hidden="true">
+      {heroPhoto ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={heroPhoto}
+          alt=""
+          width={680}
+          height={291}
+          decoding="async"
+          className="lead__image"
+        />
+      ) : (
+        <HeroPlate slug={article.slug} ratio="21 / 9" />
+      )}
+    </Link>
+  );
 
   return (
-    <section className="lead" aria-labelledby="lead-title">
+    <section className={overlay ? "lead lead--overlay" : "lead"} aria-labelledby="lead-title">
+      {overlay ? figure : null}
+
       <div className="lead__copy">
         <p className="lead__kicker">
           {t.todaysEdition}
@@ -65,28 +91,17 @@ export function LeadPackage({
           <Link href={href}>{fm.title}</Link>
         </h1>
         <p className="lead__dek">{fm.dek}</p>
-        <p className="lead__meta">
-          <time dateTime={fm.date}>{czechNumericDate(fm.date)}</time>
-          <span aria-hidden> · </span>
-          <span>{readingMinutes} {common.minutesShort} {common.readMinutes}</span>
-        </p>
       </div>
 
-      <Link href={href} className="lead__figure" tabIndex={-1} aria-hidden="true">
-        {heroPhoto ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src={heroPhoto}
-            alt=""
-            width={680}
-            height={291}
-            decoding="async"
-            className="lead__image"
-          />
-        ) : (
-          <HeroPlate slug={article.slug} ratio="21 / 9" />
-        )}
-      </Link>
+      {/* Outside the plate by contract: the plate carries the headline, the
+          meta row stays on the page under the image. */}
+      <p className="lead__meta">
+        <time dateTime={fm.date}>{czechNumericDate(fm.date)}</time>
+        <span aria-hidden> · </span>
+        <span>{readingMinutes} {common.minutesShort} {common.readMinutes}</span>
+      </p>
+
+      {overlay ? null : figure}
     </section>
   );
 }
@@ -101,8 +116,8 @@ export function CondensedBriefs({
   locale,
   articleHref,
 }: {
-  dispatches: Array<{ title: string }>;
-  wire: Array<{ title: string; url?: string }>;
+  dispatches: Dispatch[];
+  wire: WireItem[];
   locale: Locale;
   articleHref: string;
 }) {
@@ -115,13 +130,18 @@ export function CondensedBriefs({
     <div className="condensed">
       {briefs.length > 0 ? (
         <section className="condensed__column" aria-labelledby="condensed-briefs">
-          <h2 id="condensed-briefs" className="condensed__kicker">{t.briefs}</h2>
-          <ol className="condensed__list">
+          <SectionMasthead id="condensed-briefs" kicker={t.briefs} />
+          <ol className="digest-list">
             {briefs.map((item, i) => (
-              <li key={item.title}>
-                <span aria-hidden className="condensed__index">{String(i + 1).padStart(2, "0")}</span>
-                <Link href={articleHref}>{item.title}</Link>
-              </li>
+              <DigestRow
+                key={item.title}
+                index={i + 1}
+                title={item.title}
+                summary={item.body}
+                meta={item.topic}
+                href={articleHref}
+                locale={locale}
+              />
             ))}
           </ol>
         </section>
@@ -129,21 +149,18 @@ export function CondensedBriefs({
 
       {watch.length > 0 ? (
         <section className="condensed__column" aria-labelledby="condensed-watchlist">
-          <h2 id="condensed-watchlist" className="condensed__kicker">{t.watchlist}</h2>
-          <ol className="condensed__list">
+          <SectionMasthead id="condensed-watchlist" kicker={t.watchlist} />
+          <ol className="digest-list">
             {watch.map((item, i) => (
-              <li key={item.title}>
-                <span aria-hidden className="condensed__index">{String(i + 1).padStart(2, "0")}</span>
-                {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                    <span aria-hidden> ↗</span>
-                    <span className="sr-only"> {t.opensInNewWindow}</span>
-                  </a>
-                ) : (
-                  <Link href={articleHref}>{item.title}</Link>
-                )}
-              </li>
+              <DigestRow
+                key={item.url}
+                index={i + 1}
+                title={item.title}
+                meta={item.source}
+                href={item.url}
+                external
+                locale={locale}
+              />
             ))}
           </ol>
         </section>

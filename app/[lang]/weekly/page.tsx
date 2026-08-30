@@ -47,8 +47,10 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
         <section className={latest.heroPhoto ? "weekly-cover weekly-cover--with-media" : "weekly-cover"}>
           {latest.heroPhoto ? (
             <Link className="weekly-cover__media" href={localePath(locale, `/articles/${latest.slug}`)}>
+              {/* Explicit dimensions carry the 4:3 ratio before the stylesheet
+                  arrives, so the cover does not shift as it loads. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={latest.heroPhoto} alt="" loading="eager" decoding="async" />
+              <img src={latest.heroPhoto} alt="" width={480} height={360} loading="eager" decoding="async" />
             </Link>
           ) : null}
           <div className="weekly-cover__index" aria-hidden>W</div>

@@ -35,10 +35,20 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Newly needed after the redesign
 
+- [ ] **Settle the five publication days that never received a record** — `2026-08-09`, `08-10`, `08-11`, `08-17` and `08-29` have neither a Czech edition nor a NO_EDITION board record, so the daily sentinel keeps them open as issues #36, #49, #50, #52 and #53. Each needs BoardlessAI to deliver one or the other: an edition whose `package_hash` matches its board record, or a `board-context/1` record carrying a real `packageHash` and a truthful `noEditionReason`. This repository cannot close them, because writing either artifact here would mean inventing a hash and a reason for a run it has no record of. `2026-08-17` is the one that needs a judgment call rather than a re-run: it was delivered as `2026-08-17-openai-preparedness-tym-stripe-openrouter` and then reverted in `6d31084` with no reason recorded, so the choice is to reissue it or to state why it was pulled. [imp:3] [owner:me] [time:30m] [kind:content]
+- [ ] **Ask BoardlessAI to re-deliver the drawn SVG cover plates in the light palette** — six delivered `hero.svg` plates are dark `#101116` panels with rounded corners and mint `#79f2c0` strokes, which is the pre-redesign theme rendered full width whenever such an edition leads. Two separate problems: `2026-08-03` is the oldest generator and also burns the headline into the artwork under a `CAUGHT UP · FRAME` kicker, so it carries the retired name; `2026-08-14`, `08-15`, `08-18`, `08-19` and `08-28` come from the current generator, which already says DNESKAi and no longer repeats the headline but still emits the dark, rounded, mint plate. The newest of them is the 2026-08-28 edition, so this is live rather than historical, and every future plate will have it until the generator's palette moves. Illustration belongs to BoardlessAI under the media boundary in `CLAUDE.md`, so this repository must not redraw them; the reader side is already safe because live text is never overlaid on an `.svg` hero. [imp:3] [owner:me] [time:30m] [kind:content]
 - [ ] **Decide what to do about the blank 2026-08-08 edition** — that edition renders a headline and no body. Its delivered MDX wraps the whole body in a JSX expression, so MDX evaluates it to nothing; every other edition renders normally. It is the newest edition, so it is currently the lead on the front page. Editing a delivered edition risks the same-date replay guard, so the call is the owner's: correct the file, or reissue it upstream. [imp:5] [owner:me] [time:20m] [kind:content]
 - [ ] **Point the Vercel project at the DNESKAi name where it is public-facing** — the rename moved every page title, feed title, Open Graph card and JSON `publication` field. Anything outside this repository that still says Caught Up to a reader (deployment display name, any external listing) is the owner's to update. The canonical URL itself is unaffected. [imp:2] [owner:me] [time:15m] [kind:deploy]
 
 ## Already complete
+
+- The magazine-grade design set is built: the headline now sits on a paper
+  plate inside the lead image on Today and on article pages, Today reads as a
+  composed front page on one masthead and one spacing ladder, Briefs and
+  Watchlist share a digest row on every surface, the article opening band and
+  reading surfaces are aligned to that language, and Weekly, Archive and
+  Related render through one cover card. The reader's raw ISO dates are gone
+  from the article page and the archive.
 
 - The repository is public, which is what restores Actions: standard runners are
   unmetered on public repositories.
