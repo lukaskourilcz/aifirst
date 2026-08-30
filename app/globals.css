@@ -1704,42 +1704,108 @@ input[type="search"]:focus {
   }
 }
 
-/* Dispatches inside the sidebar — vertical stack of compact cards. */
-.dispatches--aside {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-}
+/* ------------------------------------------------------------------ */
+/* Digest rows — Briefs and Watchlist share one anatomy                */
+/* ------------------------------------------------------------------ */
+/* Today, the article aside and Radar previously had three different row
+   treatments: a card stack, a plain link list and a two-column grid. They are
+   one row now: tabular mono index, title, an optional serif summary clamped to
+   two lines, an optional mono meta line, hairline dividers between rows. The
+   whole row is the link, which is what carries the 44px target. */
 
-.dispatches__eyebrow {
-  width: 100%;
+.digest { margin-top: var(--section-gap); }
+.digest--aside { margin-top: 30px; }
+.digest--wire { padding: var(--space-5) 0 0; border-top: 2px solid var(--border-strong); }
+
+.digest__kicker {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.digest__header { margin-bottom: var(--space-4); }
+.digest__heading { margin: var(--space-2) 0 0; }
+
+.digest-list {
+  list-style: none;
   margin: 0;
-  padding: 11px 14px;
-  border: 1px solid var(--border-subtle);
-  border-bottom: 0;
-  color: var(--text-primary);
+  padding: 0;
+  border-top: 1px solid var(--border-subtle);
 }
-.dispatches__header { margin-bottom: var(--space-4); }
-.dispatches__header .label { margin: 0; }
-.dispatches__header h2 { margin: var(--space-2) 0 0; }
-.dispatches__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); list-style: none; margin: 0; padding: 0; }
-.dispatches__grid li { display: flex; flex-direction: column; gap: var(--space-2); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
 
-.wire { margin-top: var(--section-gap); padding: var(--space-5) 0 0; border-top: 2px solid var(--border-strong); }
-.wire--aside { margin-top: 30px; padding-top: var(--space-4); border-top-width: 1px; }
-.wire__header { margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
-.wire--aside .wire__header { margin-bottom: var(--space-3); padding: 0; border: 0; }
-.wire__header .label { margin: 0; }
-.wire__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); list-style: none; margin: 0; padding: 0; }
-.wire--aside .wire__list { display: flex; flex-direction: column; gap: 0; }
-.wire__list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
-.wire--aside .wire__list li { padding: 12px 0; border-bottom: 1px solid var(--border-subtle); }
-.wire__number { min-width: 22px; text-align: right; font-size: 0.6875rem; }
-.wire__link { color: var(--text-primary); font-size: var(--text-body-sm); font-weight: 600; line-height: 1.35; }
-.wire--aside .wire__link { font-family: var(--font-editorial); font-size: 0.90625rem; }
-.wire__source { display: block; margin-top: 2px; font-size: 0.625rem; }
+.digest-row { border-bottom: 1px solid var(--border-subtle); }
+
+.digest-row__link,
+.digest-row--plain {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: var(--space-2);
+  /* 12px each side plus the row's own content clears 44px comfortably; the
+     title's line box alone would not. */
+  padding: 12px 0;
+  min-height: 44px;
+  color: var(--text-primary);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.digest-row__link { align-items: start; }
+.digest-row--plain { align-items: start; }
+
+.digest-row__link:hover { background: var(--surface-hover); }
+.digest-row__link:hover .digest-row__title { color: var(--accent-primary); }
+
+.digest-row__index {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+  padding-left: var(--space-2);
+  /* The index sits on the title's first line rather than the row's top edge. */
+  line-height: 1.55;
+}
+
+.digest-row__copy { display: block; min-width: 0; }
+
+.digest-row__title {
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: var(--text-row);
+  font-weight: 600;
+  line-height: var(--leading-row);
+  letter-spacing: var(--tracking-row);
+  color: inherit;
+  /* Long Czech compounds must break rather than push the row wide. */
+  overflow-wrap: anywhere;
+}
+
+.digest-row__summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-top: var(--space-2);
+  font-family: var(--font-reading);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  color: var(--text-secondary);
+}
+
+.digest-row__meta {
+  display: block;
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* The aside is a bounded column, so its titles step down one size. The summary
+   stays: a two-line clamp is what makes the row worth reading. */
+.digest--aside .digest-row__title { font-size: 1rem; }
+
 
 .modal-overlay {
   position: fixed;
@@ -1786,57 +1852,6 @@ input[type="search"]:focus {
   .modal-panel { max-height: calc(100vh - 2 * var(--space-4)); }
   .keyboard-help__list li { grid-template-columns: 1fr; gap: var(--space-2); }
   .keycap.label { display: none; }
-}
-
-.dispatch-card {
-  background: var(--surface-reading);
-  border: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  border-radius: 0;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition:
-    background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
-}
-.dispatch-card:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-subtle);
-}
-
-.dispatch-card__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-primary);
-  margin: 0;
-}
-
-.dispatch-card__title {
-  font-family: var(--font-editorial);
-  font-size: 1rem;
-  line-height: 1.28;
-  font-weight: 600;
-  color: var(--color-ink-black);
-  margin: 0;
-}
-
-.dispatch-card__body {
-  font-family: var(--font-reading);
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.dispatch-card__source {
-  font-size: var(--text-caption);
-  font-weight: 500;
-  color: var(--color-blueprint-blue);
 }
 
 /* ------------------------------------------------------------------ */
@@ -2554,22 +2569,10 @@ svg { max-width: 100%; }
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
-.condensed__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-.condensed__list li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-2); }
-.condensed__index {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-tertiary);
-}
-.condensed__list a {
-  font-family: var(--font-editorial);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--text-primary);
-}
-.condensed__list a:hover { color: var(--accent-primary); }
+/* Today's two columns are narrower than the main measure, so their titles
+   step down as well. Briefs carry a body and show a summary; Watchlist items
+   have only a source, and their rows are shorter for it. */
+.condensed .digest-row__title { font-size: 1rem; }
 
 /* No-edition day */
 .no-edition { padding: 40px 0 var(--space-6); border-bottom: 1px solid var(--border-strong); }

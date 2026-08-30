@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { isDrawnPlate, type Article } from "@/lib/content";
+import { isDrawnPlate, type Article, type Dispatch, type WireItem } from "@/lib/content";
+import { DigestRow } from "./DigestRow";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { czechNumericDate } from "@/lib/weeks";
@@ -114,8 +115,8 @@ export function CondensedBriefs({
   locale,
   articleHref,
 }: {
-  dispatches: Array<{ title: string }>;
-  wire: Array<{ title: string; url?: string }>;
+  dispatches: Dispatch[];
+  wire: WireItem[];
   locale: Locale;
   articleHref: string;
 }) {
@@ -129,12 +130,17 @@ export function CondensedBriefs({
       {briefs.length > 0 ? (
         <section className="condensed__column" aria-labelledby="condensed-briefs">
           <h2 id="condensed-briefs" className="condensed__kicker">{t.briefs}</h2>
-          <ol className="condensed__list">
+          <ol className="digest-list">
             {briefs.map((item, i) => (
-              <li key={item.title}>
-                <span aria-hidden className="condensed__index">{String(i + 1).padStart(2, "0")}</span>
-                <Link href={articleHref}>{item.title}</Link>
-              </li>
+              <DigestRow
+                key={item.title}
+                index={i + 1}
+                title={item.title}
+                summary={item.body}
+                meta={item.topic}
+                href={articleHref}
+                locale={locale}
+              />
             ))}
           </ol>
         </section>
@@ -143,20 +149,17 @@ export function CondensedBriefs({
       {watch.length > 0 ? (
         <section className="condensed__column" aria-labelledby="condensed-watchlist">
           <h2 id="condensed-watchlist" className="condensed__kicker">{t.watchlist}</h2>
-          <ol className="condensed__list">
+          <ol className="digest-list">
             {watch.map((item, i) => (
-              <li key={item.title}>
-                <span aria-hidden className="condensed__index">{String(i + 1).padStart(2, "0")}</span>
-                {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                    <span aria-hidden> ↗</span>
-                    <span className="sr-only"> {t.opensInNewWindow}</span>
-                  </a>
-                ) : (
-                  <Link href={articleHref}>{item.title}</Link>
-                )}
-              </li>
+              <DigestRow
+                key={item.url}
+                index={i + 1}
+                title={item.title}
+                meta={item.source}
+                href={item.url}
+                external
+                locale={locale}
+              />
             ))}
           </ol>
         </section>
