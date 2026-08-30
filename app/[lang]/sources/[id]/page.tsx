@@ -1,3 +1,4 @@
+import { czechDisplayDate } from "@/lib/weeks";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -55,7 +56,7 @@ export default async function SourceDetailPage({
       <dl className="source-summary">
         <div><dt>{t.weight}</dt><dd>{String(weightPct).padStart(2, "0")}</dd></div>
         <div><dt>{t.citations}</dt><dd>×{stat?.count ?? 0}</dd></div>
-        <div><dt>{t.lastCited}</dt><dd>{stat?.latestDate ?? "—"}</dd></div>
+        <div><dt>{t.lastCited}</dt><dd>{stat?.latestDate ? czechDisplayDate(stat.latestDate) : "—"}</dd></div>
       </dl>
 
       {source.tags?.length ? (

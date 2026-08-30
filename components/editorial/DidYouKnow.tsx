@@ -1,4 +1,5 @@
 import { factOfTheDay } from "@/lib/facts";
+import { czechNumericDate } from "@/lib/weeks";
 import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { WidgetModule } from "./RightRail";
@@ -27,7 +28,7 @@ export function DidYouKnow({
       <WidgetModule kicker={t.factKicker} headingId="did-you-know-heading">
         <p className="rail-module__body">{text.full}</p>
         <p className="rail-module__meta">
-          {t.verified} <time dateTime={entry.verified}>{entry.verified}</time> · {entry.source}
+          {t.verified} <time dateTime={entry.verified}>{czechNumericDate(entry.verified)}</time> · {entry.source}
         </p>
       </WidgetModule>
     );
@@ -40,7 +41,7 @@ export function DidYouKnow({
       </h2>
       <p className="did-you-know__fact">{text.full}</p>
       <p className="did-you-know__meta">
-        {t.verified} <time dateTime={entry.verified}>{entry.verified}</time> · {entry.source}
+        {t.verified} <time dateTime={entry.verified}>{czechNumericDate(entry.verified)}</time> · {entry.source}
       </p>
     </aside>
   );

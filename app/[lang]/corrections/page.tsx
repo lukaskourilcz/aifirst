@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { czechNumericDate } from "@/lib/weeks";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import { listCorrections } from "@/lib/content";
@@ -25,7 +26,7 @@ export default async function CorrectionsPage({ params }: { params: Promise<{ la
         <ol className="corrections-ledger">
           {corrections.map((correction) => (
             <li key={`${correction.article.slug}-${correction.date}-${correction.description}`}>
-              <time dateTime={correction.date}>{correction.date}</time>
+              <time dateTime={correction.date}>{czechNumericDate(correction.date)}</time>
               <span>
                 <Link href={localePath(locale, `/articles/${correction.article.slug}`)}>{correction.article.title}</Link>
                 {correction.section ? <strong>{correction.section}</strong> : null}

@@ -1,3 +1,4 @@
+import { czechDisplayDate } from "@/lib/weeks";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
@@ -71,7 +72,7 @@ export default async function LessonsPage({
                           <span className="lesson-table__term">{entry.term}</span>
                           <span className="lesson-table__meta">
                             {t.revealedOn}{" "}
-                            <time dateTime={revealedOn}>{revealedOn}</time>
+                            <time dateTime={revealedOn}>{czechDisplayDate(revealedOn)}</time>
                             {index === todayIndex ? (
                               <span className="lesson-table__today"> · {t.today}</span>
                             ) : null}

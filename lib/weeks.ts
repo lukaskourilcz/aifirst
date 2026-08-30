@@ -143,6 +143,17 @@ export function czechNumericDate(dateKey: string): string {
 }
 
 /**
+ * Czech numeric form for a bare `YYYY-MM-DD` key; any other string is
+ * returned unchanged. For display sites fed by data whose shape is not
+ * guaranteed to be a date key — dataset timestamps, composed range labels —
+ * so a malformed value degrades to itself instead of to a broken date.
+ */
+const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
+export function czechDisplayDate(value: string): string {
+  return DATE_KEY.test(value) ? czechNumericDate(value) : value;
+}
+
+/**
  * The last `days` publishing days up to and including `anchor`. Calendar days,
  * not editions: a week with a no-edition day still ends at the same boundary.
  */

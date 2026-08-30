@@ -1,3 +1,4 @@
+import { czechDisplayDate } from "@/lib/weeks";
 import Link from "next/link";
 import { Sparkline } from "./Sparkline";
 import { type Locale, localePath } from "@/lib/i18n/config";
@@ -79,7 +80,7 @@ export function SourceCard({
 
       <p className="label label--muted source-card__citation">
         {t.cited} {String(citations).padStart(2, "0")} ×
-        {latestDate ? ` · ${t.last} ${latestDate}` : ` · ${t.never}`}
+        {latestDate ? ` · ${t.last} ${czechDisplayDate(latestDate)}` : ` · ${t.never}`}
       </p>
 
       {cadence && cadence.some((n) => n > 0) && (

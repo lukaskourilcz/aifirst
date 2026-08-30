@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
 import { SectionMasthead } from "./SectionMasthead";
+import { czechDisplayDate } from "@/lib/weeks";
 
 function hostname(url: string): string {
   try {
@@ -58,7 +59,7 @@ export function SourceLedger({
                       {source.title}
                     </a>
                     <span className="source-ledger__publisher">
-                      {publisher}{source.published_at ? ` · ${source.published_at.slice(0, 10)}` : ""}
+                      {publisher}{source.published_at ? ` · ${czechDisplayDate(source.published_at.slice(0, 10))}` : ""}
                     </span>
                     {registered ? (
                       <Link className="source-ledger__profile" href={localePath(locale, `/sources/${registered.id}`)}>

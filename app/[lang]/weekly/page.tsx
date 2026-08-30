@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { czechNumericDate } from "@/lib/weeks";
 import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueRow } from "@/components/IssueRow";
 import { PageShell } from "@/components/PageShell";
@@ -59,7 +60,7 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
             <h2><Link href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</Link></h2>
             {latest.dek ? <p className="weekly-cover__dek">{latest.dek}</p> : null}
             <p className="label weekly-cover__meta">
-              {latest.digest ? `${t.dateRange}: ${latest.digest.from} → ${latest.digest.to}` : latest.date}
+              {latest.digest ? `${t.dateRange}: ${czechNumericDate(latest.digest.from)} → ${czechNumericDate(latest.digest.to)}` : czechNumericDate(latest.date)}
               {(latest.tags ?? []).filter((tag) => tag !== "weekly").length
                 ? ` · ${t.topics}: ${(latest.tags ?? []).filter((tag) => tag !== "weekly").join(", ")}`
                 : ""}
@@ -71,7 +72,7 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
         <section className="route-section">
           <h2>{t.archive}</h2>
           <ul className="dense-list">
-            {issues.slice(1).map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.digest ? `${article.digest.from} → ${article.digest.to}` : article.date} title={article.title} variant="meta" trailing={<span className="label">{(article.tags ?? []).filter((tag) => tag !== "weekly").slice(0, 2).join(" · ")}</span>} />)}
+            {issues.slice(1).map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.digest ? `${czechNumericDate(article.digest.from)} → ${czechNumericDate(article.digest.to)}` : article.date} title={article.title} variant="meta" trailing={<span className="label">{(article.tags ?? []).filter((tag) => tag !== "weekly").slice(0, 2).join(" · ")}</span>} />)}
           </ul>
         </section>
       ) : null}
