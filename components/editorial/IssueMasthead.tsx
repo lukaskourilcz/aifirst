@@ -3,6 +3,7 @@ import Link from "next/link";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
 import { isDrawnPlate, type ArticleCategory } from "@/lib/content";
+import { czechLongDate } from "@/lib/weeks";
 
 // Machine keys upstream, Czech labels here. Categories are separate from tags
 // and the two never merge into one row.
@@ -53,7 +54,9 @@ export function IssueMasthead({
       {/* Date and reading time, and nothing else: no source count, no
           signal, no cost. */}
       <div className="hero__meta" aria-label={locale === "cs" ? "Datum a délka čtení" : "Date and reading time"}>
-        <time dateTime={date}>{date}</time>
+        {/* The raw ISO key was reaching the reader here. The date is the
+            publication's own long Czech form everywhere else on the site. */}
+        <time dateTime={date}>{czechLongDate(date)}</time>
         <span aria-hidden>·</span>
         <span>{readingMinutes} {t.minutesShort} {t.readMinutes}</span>
       </div>

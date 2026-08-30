@@ -24,7 +24,7 @@ export function EditorialHighlights({
     <div className="editorial-highlights">
       {sections.map(({ key, title, items }) => (
         <section key={key} className={`editorial-highlight editorial-highlight--${key}`} aria-labelledby={`highlight-${key}`}>
-          <h2 id={`highlight-${key}`}>{title}</h2>
+          <h2 id={`highlight-${key}`} className="editorial-highlight__kicker">{title}</h2>
           <ul>
             {items.map((item) => <li key={item}>{item}</li>)}
           </ul>

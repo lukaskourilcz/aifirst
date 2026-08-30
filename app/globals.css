@@ -144,19 +144,44 @@
 }
 
 .editorial-highlights section {
+  position: relative;
   border: 1px solid var(--border-subtle);
   border-top: 2px solid var(--accent-primary);
   padding: var(--space-4);
   background: var(--surface-reading);
 }
-.editorial-highlight--changed { border-top-color: var(--border-strong) !important; }
-.editorial-highlight--uncertainty { border-top-color: var(--status-warning) !important; }
+/* Scoped to the grid so these beat `.editorial-highlights section`, whose
+   element selector would otherwise outrank a bare class. That is what the
+   !important these rules used to carry was compensating for. */
+.editorial-highlights .editorial-highlight--changed { border-top-color: var(--border-strong); }
+.editorial-highlights .editorial-highlight--uncertainty { border-top-color: var(--status-warning); }
 
-.editorial-highlights h2,
-.source-ledger h2,
-.corrections-notice h2 {
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
-  margin: 0 0 12px;
+/* Uncertainty is the one panel a reader must not mistake for a finding, so it
+   cannot rest on its amber rule alone: a second hairline under the top border
+   marks it by count as well as by colour. */
+.editorial-highlights .editorial-highlight--uncertainty::before {
+  content: "";
+  position: absolute;
+  inset: 3px 0 auto;
+  height: 1px;
+  background: var(--status-warning);
+}
+
+/* Mono kickers turn three headed panels into one instrument cluster, matching
+   the section mastheads that open every other block on the page. The ledger
+   and corrections headings used to share this rule; they render through
+   SectionMasthead now, and keeping it would have overridden the masthead's own
+   type with a subheading size. */
+.editorial-highlight__kicker {
+  margin: 0 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
 .editorial-highlights ul {
@@ -176,7 +201,13 @@
 
 .table-scroll { overflow-x: auto; }
 .table-scroll:focus-visible { outline-offset: 3px; }
-.source-ledger table { width: 100%; border-collapse: collapse; min-width: 640px; }
+/* 640px squeezed the two prose columns into six-line stacks in the main
+   column once the rail was present. The table already lives in an accessible
+   scroll region, so giving it the width its content needs costs nothing but
+   the scroll it was already doing. */
+.source-ledger table { width: 100%; border-collapse: collapse; min-width: 780px; }
+.source-ledger td:nth-child(2) { min-width: 15em; }
+.source-ledger td:last-child { min-width: 18em; }
 .source-ledger th,
 .source-ledger td { padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
 .source-ledger th { font-family: var(--font-mono); font-size: 0.59375rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-tertiary); }
@@ -386,6 +417,11 @@
 }
 
 .issue-reference-blocks { margin-top: var(--block-gap); }
+/* Corrections, glossary, topics, ledger and the print link are one stack on
+   one ladder; each previously carried its own top margin or inline style. */
+.issue-reference-blocks > * + * { margin-top: var(--section-gap); }
+.issue-glossary { margin: 0; }
+.source-ledger { margin-top: 0; padding-top: 0; border-top: 0; }
 
 /* Daily widgets — one lesson and one fact per edition, both resolved at build
    time. The lesson strip sits inside the hero viewport, so it is budgeted to a
@@ -1252,7 +1288,14 @@ hr {
 /* Meta, category chips and topics left .hero__copy so the plate can carry the
    eyebrow, headline and dek alone. The spacing they had inside the copy block
    is reproduced here, so the stacked variant is unchanged. */
-.hero__details { margin-top: 20px; }
+/* The opening band: meta, chips and topics under one hairline, so the eyebrow,
+   headline and dek above read as the opening and everything here reads as the
+   record. */
+.hero__details {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
 
 .hero--no-photo {
   grid-template-columns: 1fr;
@@ -1914,14 +1957,32 @@ input[type="search"]:focus {
   color: var(--text-primary);
   border-bottom-color: var(--text-primary);
 }
+/* A pull quote, not a callout box: serif at reading scale, a 2px accent rule
+   on the left, and no oversized quotation glyph. The prose measure holds, so a
+   quote sits inside the column rather than breaking out of it. */
 .article-body blockquote {
-  padding: 24px 26px;
-  border-left-width: 2px;
-  background: var(--surface-reading);
-  font-family: var(--font-editorial);
-  font-size: 1.5rem;
-  line-height: 1.32;
-  letter-spacing: -0.02em;
+  margin: var(--space-6) 0;
+  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  border-left: 2px solid var(--accent-primary);
+  background: none;
+  font-family: var(--font-reading);
+  font-size: 1.25rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--text-primary);
+}
+.article-body blockquote p { margin: 0; }
+.article-body blockquote p + p { margin-top: var(--space-3); }
+/* An attribution line reads as the quote's source, not as more of the quote. */
+.article-body blockquote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-style: normal;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 .article-body pre {
   overflow-x: auto;
