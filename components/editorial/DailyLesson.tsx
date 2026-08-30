@@ -2,6 +2,7 @@ import Link from "next/link";
 import { lessonOfTheDay } from "@/lib/lessons";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { WidgetModule } from "./RightRail";
 
 /**
  * One AI term a day, sitting inside the hero viewport above the masthead. The
@@ -26,16 +27,16 @@ export function DailyLesson({
 
   if (variant === "rail") {
     return (
-      <section className="rail-module" aria-labelledby="daily-lesson-heading">
-        <h2 id="daily-lesson-heading" className="rail-module__kicker">{t.lessonKicker}</h2>
+      <WidgetModule
+        kicker={t.lessonKicker}
+        headingId="daily-lesson-heading"
+        action={{ href: lp("/lekce"), label: t.lessonLink }}
+      >
         <p className="rail-module__body">
           <b className="rail-module__term">{entry.term}</b>
           <span>{text.short}</span>
         </p>
-        <p className="rail-module__action">
-          <Link href={lp("/lekce")}>{t.lessonLink}</Link>
-        </p>
-      </section>
+      </WidgetModule>
     );
   }
 

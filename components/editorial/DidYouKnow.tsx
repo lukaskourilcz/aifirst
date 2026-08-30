@@ -1,6 +1,7 @@
 import { factOfTheDay } from "@/lib/facts";
 import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { WidgetModule } from "./RightRail";
 
 /**
  * One verified AI fact a day, closing the reference blocks below the briefing.
@@ -23,13 +24,12 @@ export function DidYouKnow({
 
   if (variant === "rail") {
     return (
-      <section className="rail-module" aria-labelledby="did-you-know-heading">
-        <h2 id="did-you-know-heading" className="rail-module__kicker">{t.factKicker}</h2>
+      <WidgetModule kicker={t.factKicker} headingId="did-you-know-heading">
         <p className="rail-module__body">{text.full}</p>
         <p className="rail-module__meta">
           {t.verified} <time dateTime={entry.verified}>{entry.verified}</time> · {entry.source}
         </p>
-      </section>
+      </WidgetModule>
     );
   }
 

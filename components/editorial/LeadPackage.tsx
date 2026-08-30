@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { isDrawnPlate, type Article, type Dispatch, type WireItem } from "@/lib/content";
 import { DigestRow } from "./DigestRow";
+import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { czechNumericDate } from "@/lib/weeks";
@@ -129,7 +130,7 @@ export function CondensedBriefs({
     <div className="condensed">
       {briefs.length > 0 ? (
         <section className="condensed__column" aria-labelledby="condensed-briefs">
-          <h2 id="condensed-briefs" className="condensed__kicker">{t.briefs}</h2>
+          <SectionMasthead id="condensed-briefs" kicker={t.briefs} />
           <ol className="digest-list">
             {briefs.map((item, i) => (
               <DigestRow
@@ -148,7 +149,7 @@ export function CondensedBriefs({
 
       {watch.length > 0 ? (
         <section className="condensed__column" aria-labelledby="condensed-watchlist">
-          <h2 id="condensed-watchlist" className="condensed__kicker">{t.watchlist}</h2>
+          <SectionMasthead id="condensed-watchlist" kicker={t.watchlist} />
           <ol className="digest-list">
             {watch.map((item, i) => (
               <DigestRow

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { CondensedBriefs, LeadPackage } from "@/components/editorial/LeadPackage";
+import { SectionMasthead } from "@/components/editorial/SectionMasthead";
 import { FeedRow } from "@/components/editorial/FeedRow";
 import { RightRail } from "@/components/editorial/RightRail";
 import { WeekAction } from "@/components/editorial/WeekAction";
@@ -18,7 +19,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
 import { loadEvents, splitByAnchor } from "@/lib/events";
 import { listBoardContexts } from "@/lib/board";
-import { czechNumericDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
+import { czechLongDate, czechNumericDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -121,9 +122,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
 
       <div className="page-with-rail">
         <div className="page-with-rail__main">
-          <header className="edition-intro">
-            <p className="eyebrow">{publication.name} · {d.common.today}</p>
-            <p>{publication.promise}</p>
+          {/* The front page dateline: who is publishing and for which day on
+              the left, the promise on the right. Below 430px the promise drops
+              under the dateline rather than squeezing beside it. */}
+          <header className="dateline">
+            <p className="dateline__edition">
+              <span className="dateline__name">{publication.name}</span>
+              <span aria-hidden> · </span>
+              <time dateTime={anchor}>{czechLongDate(anchor)}</time>
+            </p>
+            <p className="dateline__promise">{publication.promise}</p>
           </header>
 
           {noEditionToday ? (
@@ -168,10 +176,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
 
           {week.length > 0 ? (
             <section className="feed-section" aria-labelledby="last-week">
-              <div className="section-head">
-                <h2 id="last-week" className="section-head__title">{t.lastWeek}</h2>
-                <Link href={lp("/tyden")} className="label">{t.all} →</Link>
-              </div>
+              <SectionMasthead
+                id="last-week"
+                kicker={t.lastWeek}
+                action={{ href: lp("/tyden"), label: t.all }}
+              />
               <ul className="feed-list">
                 {week.map((article) => (
                   <FeedRow key={article.slug} article={article} locale={locale} />

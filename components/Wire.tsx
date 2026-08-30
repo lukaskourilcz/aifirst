@@ -2,6 +2,7 @@ import type { WireItem } from "@/lib/content";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
+import { SectionMasthead } from "./editorial/SectionMasthead";
 
 type Props = {
   items: WireItem[];
@@ -25,7 +26,7 @@ export function Wire({ items, locale, variant = "default" }: Props) {
       aria-label={heading}
       className={isAside ? "digest digest--aside" : "digest digest--wire"}
     >
-      <p className="digest__kicker">{heading}</p>
+      <SectionMasthead kicker={heading} heading={false} />
       <ol className="digest-list">
         {items.slice(0, isAside ? 6 : items.length).map((item, i) => (
           <DigestRow

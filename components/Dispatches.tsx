@@ -2,6 +2,7 @@ import type { Dispatch } from "@/lib/content";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
+import { SectionMasthead } from "./editorial/SectionMasthead";
 
 type Props = {
   items: Dispatch[];
@@ -57,7 +58,7 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
   if (isAside) {
     return (
       <section aria-label={t.dispatchesLabel} className="digest digest--aside">
-        <p className="digest__kicker">{t.dispatchesLabel}</p>
+        <SectionMasthead kicker={t.dispatchesLabel} heading={false} />
         {rows}
       </section>
     );
@@ -65,10 +66,8 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
 
   return (
     <section aria-label={t.dispatchesLabel} className="digest">
-      <header className="digest__header">
-        <p className="digest__kicker">{t.dispatchesLabel}</p>
-        <h2 className="digest__heading">{t.dispatchesHeading}</h2>
-      </header>
+      <SectionMasthead kicker={t.dispatchesLabel} heading={false} />
+      <h2 className="digest__heading">{t.dispatchesHeading}</h2>
       {rows}
     </section>
   );

@@ -14,16 +14,23 @@ import { eventDateBlock, type MagazineEvent } from "@/lib/events";
  */
 export function WidgetModule({
   kicker,
+  headingId,
   children,
   action,
 }: {
   kicker: string;
+  /** Renders the kicker as the section's h2 and labels the region with it. */
+  headingId?: string;
   children: ReactNode;
   action?: { href: string; label: string };
 }) {
   return (
-    <section className="rail-module">
-      <p className="rail-module__kicker">{kicker}</p>
+    <section className="rail-module" aria-labelledby={headingId}>
+      {headingId ? (
+        <h2 id={headingId} className="rail-module__kicker">{kicker}</h2>
+      ) : (
+        <p className="rail-module__kicker">{kicker}</p>
+      )}
       {children}
       {action ? (
         <p className="rail-module__action">
