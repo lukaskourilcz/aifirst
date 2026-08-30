@@ -1,4 +1,5 @@
 import { Sparkline } from "./Sparkline";
+import { czechDisplayDate } from "@/lib/weeks";
 import type { Pulse } from "@/lib/pulse";
 import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -58,7 +59,7 @@ export function AIPulse({ pulse, locale }: Props) {
             </p>
             {pulse.modelsUpdated && (
               <span className="label label--muted">
-                {t.updated} {pulse.modelsUpdated}
+                {t.updated} {czechDisplayDate(pulse.modelsUpdated)}
               </span>
             )}
           </div>

@@ -7,6 +7,7 @@ import { PageShell } from "@/components/PageShell";
 import { getArticle, listArticles } from "@/lib/content";
 import { loadGlossary, slugForTerm } from "@/lib/glossary";
 import { localePath, type Locale } from "@/lib/i18n/config";
+import { czechNumericDate } from "@/lib/weeks";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
@@ -100,7 +101,7 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
       <section className="route-section">
         <h2>{t.timeline}</h2>
         <ol className="topic-timeline">
-          {articles.map((article) => <li key={article.slug}><time dateTime={article.date}>{article.date}</time><Link href={localePath(locale, `/articles/${article.slug}`)}>{article.title}</Link></li>)}
+          {articles.map((article) => <li key={article.slug}><time dateTime={article.date}>{czechNumericDate(article.date)}</time><Link href={localePath(locale, `/articles/${article.slug}`)}>{article.title}</Link></li>)}
         </ol>
       </section>
       {recurringEntities.length ? (

@@ -1,3 +1,4 @@
+import { czechDisplayDate } from "@/lib/weeks";
 import { PageShell } from "@/components/PageShell";
 import type { Metadata } from "next";
 import { loadGlossary, slugForTerm, glossaryDefinition } from "@/lib/glossary";
@@ -58,7 +59,7 @@ export default async function GlossaryPage({
                   )}
                   {t.first_seen && (
                     <p className="label label--muted glossary-entry__meta">
-                      {tr.firstSeen} {t.first_seen}
+                      {tr.firstSeen} {czechDisplayDate(t.first_seen)}
                     </p>
                   )}
                 </dt>

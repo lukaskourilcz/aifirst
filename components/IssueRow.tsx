@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
+import { czechDisplayDate } from "@/lib/weeks";
 
 type Props = {
   // Already locale-prefixed destination (e.g. localePath(locale, `/articles/x`)).
@@ -42,7 +43,10 @@ export function IssueRow({
       style={{ "--row-padding": padding, "--row-title-size": titleSize, "--row-title-color": titleColor } as CSSProperties}
     >
       <Link href={href} className="label">
-        {date}
+        {/* Callers pass either a publishing-day key or an already-composed
+            label (the weekly listing sends a "from → to" range); only the
+            bare key is a machine value the reader should not see. */}
+        {czechDisplayDate(date)}
         {dateSuffix}
       </Link>
       <Link href={href} className="entry-row__title">

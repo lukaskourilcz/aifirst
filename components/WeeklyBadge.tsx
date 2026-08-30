@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { czechNumericDate } from "@/lib/weeks";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
@@ -21,7 +22,7 @@ export function WeeklyBadge({
   return (
     <aside className="weekly-badge">
       <p className="label label--accent">
-        {t.digest} · {from} → {to}
+        {t.digest} · {czechNumericDate(from)} → {czechNumericDate(to)}
       </p>
       <p className="label label--muted">
         {t.covering} {coveredSlugs.length} {t.dailyIssue}
