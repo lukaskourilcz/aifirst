@@ -229,6 +229,10 @@ mobile order at <960 (§4.2).
 **Hero image** is 21:9 at every width: 680×291 (≥1441), 616×264 (1280), 720×309 (768),
 358×153 (390), 288×123 (320).
 
+From 768px up a photographic hero renders first and the copy plate overlaps its
+lower left; see §「Photo variant」 below and the Media section of
+`docs/design/DESIGN_SYSTEM.md`. The crop is unchanged — the plate sits over it.
+
 ---
 
 ## 4. Page specs
@@ -286,9 +290,15 @@ Legend: `│` column edge, `─` 1px hairline, `═` 2px rule, `▒` `--surface-
 ```
 
 Vertical metrics, main column: lead package top padding 40px; kicker→headline 18px;
-headline→dek 16px; dek→meta 14px; meta→hero image 24px; hero image→condensed column
-32px; condensed column→completion 48px; completion block 96px tall, 2px rules top and
-bottom; completion→feed header 56px; feed header→first row 20px; row padding 20px 0.
+headline→dek 16px; dek→meta 14px; hero image→condensed column 32px; condensed
+column→completion 48px; completion block 96px tall, 2px rules top and bottom;
+completion→feed header 56px; feed header→first row 20px; row padding 20px 0.
+
+On a photographic lead at ≥768px the order inverts: the image comes first and the
+copy plate rides up over it by `--plate-overlap`, `clamp(2.5rem, 5vw, 5rem)`. The
+plate is `min(34em, 85%)` wide, inset `--space-5` from the left, padded
+`--space-4 --space-5 --space-5`. The meta row follows the plate on the page, never
+inside it.
 
 Component inventory — main: hero package (photo variant), condensed briefs column
 (2×4 headline links), completion mark, section head, feed row ×7, week-boundary action.
@@ -605,6 +615,15 @@ Space Grotesk 700, `--tracking-display`, `--leading-display`, `--text-primary`,
 `max-width: 46ch`. Meta row mono `--text-caption`, `--text-tertiary`:
 `date · N min čtení`. **Nothing else in the meta row** — no source counts, no signal,
 no cost. Image 21:9, no frame padding, hairline `--border-subtle` all round.
+
+At ≥768px this variant composes rather than stacks: the image renders first and
+the kicker, headline and dek sit on an opaque `--surface-reading` plate overlapping
+its lower left. Inside the plate the headline drops to `--text-heading`
+(`--text-subheading` past the 100-character `data-long` threshold) and the dek
+clamps to three lines, both caps released so the plate is the measure. Below 768px
+the plate flattens: image first, copy flush beneath at full width, no overlap, no
+clamp. The pattern applies to photographs only — never to the SVG-plate variant
+below.
 
 **SVG-plate variant** (no photo). Same 21:9 box filled `--surface-subtle` with a
 deterministic 45° hairline stripe pattern — `--border-subtle` strokes, 1px wide,

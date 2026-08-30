@@ -112,6 +112,11 @@
   --section-gap: var(--space-7);
   --gutter-gap: var(--space-8);
   --mobile-gutter: clamp(1rem, 4vw, 1.5rem);
+  /* How far the copy plate rides up over a lead image. Depth is deliberate
+     rather than a fraction of the plate: the plate's height follows the
+     headline, and a percentage would swallow a short image on a long Czech
+     title. */
+  --plate-overlap: clamp(2.5rem, 5vw, 5rem);
   --surface-hover: #f2f2ef;
 
   --radius-sm: 0;
@@ -1228,9 +1233,14 @@ hr {
   padding: 38px 0 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 32px;
+  gap: 0;
   margin: 0 0 var(--section-gap);
 }
+
+/* Meta, category chips and topics left .hero__copy so the plate can carry the
+   eyebrow, headline and dek alone. The spacing they had inside the copy block
+   is reproduced here, so the stacked variant is unchanged. */
+.hero__details { margin-top: 20px; }
 
 .hero--no-photo {
   grid-template-columns: 1fr;
@@ -1287,7 +1297,7 @@ hr {
   align-items: center;
   column-gap: 12px;
   row-gap: 8px;
-  margin: 20px 0 0;
+  margin: 0;
   font-family: var(--font-mono);
   font-size: 0.625rem;
   font-weight: 500;
@@ -1322,7 +1332,7 @@ hr {
 }
 
 .hero__figure {
-  margin: 0;
+  margin: 32px 0 0;
   padding: 10px;
   border: 1px solid var(--border-subtle);
   background: var(--surface-reading);
@@ -1343,6 +1353,81 @@ hr {
   line-height: 1.55;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Overlay masthead — the headline sits inside the lead image          */
+/* ------------------------------------------------------------------ */
+/* The copy rides up onto an opaque --surface-reading plate that overlaps the
+   image. Opaque, not a scrim: DESIGN_THESIS bans decorative gradients, and a
+   solid plate holds text contrast on any photograph instead of depending on
+   how dark that photograph happens to be.
+
+   The plate overlaps in normal flow, which is what keeps long Czech headlines
+   safe: the plate grows downward with the copy instead of being clipped by the
+   image. It also means everything after the plate clears the overlap, which is
+   why the image credit is a sibling below the plate rather than a caption
+   pinned to the image's bottom edge, where the plate would cover it. */
+
+.hero--overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero--overlay .hero__media {
+  order: 1;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-reading);
+}
+
+.hero__credit {
+  order: 2;
+  margin: 10px 2px 0;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.59375rem;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero--overlay .hero__copy { order: 3; padding-top: var(--space-4); }
+.hero--overlay .hero__details { order: 4; }
+
+@media (min-width: 768px) {
+  /* Past 768px the plate overlaps. The credit moves back under the plate so it
+     stays fully visible below the image edge. */
+  .hero--overlay .hero__copy {
+    order: 2;
+    position: relative;
+    z-index: 1;
+    max-width: min(34em, 85%);
+    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    background: var(--surface-reading);
+    border: 1px solid var(--border-subtle);
+  }
+  .hero--overlay .hero__credit { order: 3; margin: var(--space-3) 2px 0 var(--space-5); }
+  .hero--overlay .hero__details { margin-left: var(--space-5); }
+  /* The plate is the measure now, so the copy's own caps would double-constrain
+     it into a narrow column. */
+  .hero--overlay .hero__title,
+  .hero--overlay .hero__dek { max-width: none; }
+  /* Same reason as the front-page plate: display size overruns a 34em plate and
+     leaves the image a strip. */
+  .hero--overlay .hero__title {
+    font-size: var(--text-heading);
+    line-height: var(--leading-heading);
+  }
+  .hero--overlay .hero__dek {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    margin-top: var(--space-4);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -2390,6 +2475,49 @@ svg { max-width: 100%; }
   aspect-ratio: 21 / 9;
   object-fit: cover;
   border: 1px solid var(--border-subtle);
+}
+
+/* The front-page lead uses the same plate as the article masthead. The meta row
+   is already a sibling of the copy, so nothing here has a caption to clear. */
+.lead--overlay .lead__copy { padding-top: var(--space-4); }
+
+@media (min-width: 768px) {
+  .lead--overlay .lead__copy {
+    position: relative;
+    z-index: 1;
+    max-width: min(34em, 85%);
+    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    background: var(--surface-reading);
+    border: 1px solid var(--border-subtle);
+  }
+  .lead--overlay .lead__title,
+  .lead--overlay .lead__dek { max-width: none; }
+  /* Display size is built for the full column. Inside a plate roughly 34em
+     wide it wraps to four or five lines, and the plate then stands more than
+     twice as tall as the 21:9 image it is supposed to sit on. One step down
+     keeps the plate and the image in the same order of size, which is what
+     makes the overlap read as composition rather than as a text block with a
+     strip of photograph above it. */
+  .lead--overlay .lead__title {
+    font-size: var(--text-heading);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+  .lead--overlay .lead__title[data-long="true"] {
+    font-size: var(--text-subheading);
+    line-height: var(--leading-subheading);
+  }
+  /* The dek is a summary here, not the article. Three lines is enough to carry
+     the point and keeps the plate's height predictable across editions. */
+  .lead--overlay .lead__dek {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+  .lead--overlay .lead__meta { margin-left: var(--space-5); }
 }
 .hero-plate {
   position: relative;

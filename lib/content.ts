@@ -190,6 +190,13 @@ export function hasRealIllustration(illustrationPath?: string): boolean {
   return real;
 }
 
+// A delivered .svg cover is a drawn plate: it arrives already composed, and on
+// the oldest generator it has the headline burned into the artwork. Live text is
+// never laid over one, so every overlay treatment checks this first.
+export function isDrawnPlate(heroPath: string | null | undefined): boolean {
+  return typeof heroPath === "string" && heroPath.toLowerCase().endsWith(".svg");
+}
+
 // Best available cover for frontmatter: prefer a real delivered illustration,
 // otherwise a cached og:image from one of the article's own
 // sources or wire items. Returns null when nothing usable is available.

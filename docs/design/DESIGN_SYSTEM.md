@@ -103,8 +103,45 @@ gradient is used. `prefers-reduced-motion` removes non-essential animation.
 Authentic UI is always rendered from production code and data. An optional
 BoardlessAI-delivered article hero uses the existing 21:9 lead, 3:2 related and
 4:3 archive/weekly crops. Missing media renders as no media, never as a fake
-placeholder. Caught Up does not select providers or produce Topic, campaign or
+placeholder. DNESKAi does not select providers or produce Topic, campaign or
 social assets; those responsibilities remain in BoardlessAI.
+
+### The overlay plate
+
+From 768px up, a photographic hero carries its own copy: the image renders
+first at full column width in its 21:9 crop, and the eyebrow, headline and dek
+move onto a plate that overlaps the image's lower left. The plate is solid
+`--surface-reading` with a 1px `--border-subtle` hairline and no radius. It is
+opaque on purpose. Text never sits on photo pixels, so contrast holds on any
+photograph without the scrim `DESIGN_THESIS.md` bans, and the result does not
+depend on how dark a given image happens to be.
+
+Three rules make the pattern survive real editions:
+
+- **The plate overlaps in normal flow**, pulled up by `--plate-overlap`. It
+  grows downward with the copy rather than being clipped by the image, which is
+  what makes a long Czech headline safe. Everything rendered after the plate
+  clears the overlap, so the article's image credit is a sibling below the
+  plate rather than a caption pinned to the image's bottom edge, where the
+  plate would cover it.
+- **The type steps down inside the plate.** Display size is built for the full
+  column; in a plate roughly 34em wide it wraps to four or five lines and the
+  plate ends up more than twice the height of the 21:9 image it sits on. The
+  headline drops one step and the dek clamps to three lines, which keeps plate
+  and image in the same order of size.
+- **Only a photograph gets a plate.** A delivered `.svg` cover is a drawn plate
+  that arrives already composed, and the oldest ones have the headline burned
+  into the artwork, so laying live text over one would double the title. Those
+  keep the stacked rendering, as do heroes recovered from the og cache's
+  raster fallback (which get a plate, having no caption to clear) and editions
+  with no image at all.
+
+Below 768px there is no overlap: the image renders first and the copy sits
+flush beneath it at full width. At 320–430px a Czech headline needs the whole
+column, and an inset plate would fight it.
+
+Meta rows, category chips and topics stay below the image on every variant.
+Only the eyebrow, headline and dek ever move onto the plate.
 
 ## Responsive and print rules
 
