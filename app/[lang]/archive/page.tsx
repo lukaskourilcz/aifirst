@@ -6,6 +6,8 @@ import { getArticle, listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { czechLongDate } from "@/lib/weeks";
+import { CoverCard } from "@/components/editorial/CoverCard";
 import { readingMinutes } from "@/lib/text";
 import { localeAlternates } from "@/lib/i18n/metadata";
 
@@ -48,28 +50,42 @@ export default async function ArchivePage({
           <ul className="archive-list">
             {issues.map((a) => a.kind === "article" ? (
               <li key={a.slug}>
-                <Link className={a.heroPhoto ? "archive-card archive-card--with-media" : "archive-card"} href={lp(`/articles/${a.slug}`)}>
-                  {a.heroPhoto ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img className="archive-card__media" src={a.heroPhoto} alt="" loading="lazy" decoding="async" />
-                  ) : null}
-                  <div className="archive-card__copy">
-                    <div className="archive-card__meta label">
-                      <time dateTime={a.date}>{a.date}</time>
+                <CoverCard
+                  layout="row"
+                  headingLevel={2}
+                  href={lp(`/articles/${a.slug}`)}
+                  kicker={
+                    <>
+                      <time dateTime={a.date}>{czechLongDate(a.date)}</time>
+                      <span aria-hidden> · </span>
                       <span>{a.type === "weekly" ? common.weekly : (locale === "cs" ? "denní" : "daily")}</span>
+                      <span aria-hidden> · </span>
                       <span>{a.lang?.toUpperCase()}</span>
-                      {a.reading ? <span>{a.reading} {common.minutesShort} {common.readMinutes}</span> : null}
-                    </div>
-                    <h2>{a.title}</h2>
-                    {a.dek ? <p>{a.dek}</p> : null}
-                    {a.tags?.length ? <div className="archive-card__topics">{a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div> : null}
-                  </div>
-                </Link>
+                      {a.reading ? (
+                        <>
+                          <span aria-hidden> · </span>
+                          <span>{a.reading} {common.minutesShort} {common.readMinutes}</span>
+                        </>
+                      ) : null}
+                    </>
+                  }
+                  title={a.title}
+                  dek={a.dek}
+                  media={a.heroPhoto}
+                  mediaWidth={140}
+                  mediaHeight={105}
+                >
+                  {a.tags?.length ? (
+                    <span className="cover-card__topics">
+                      {a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}
+                    </span>
+                  ) : null}
+                </CoverCard>
               </li>
             ) : (
               <li key={`no-edition-${a.date}`} className="archive-system-row">
                 <div>
-                  <p className="label"><time dateTime={a.date}>{a.date}</time> · {locale === "cs" ? "systém" : "system"}</p>
+                  <p className="label"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "systém" : "system"}</p>
                   <p>{locale === "cs" ? "Bez vydání" : "No edition"} — {a.noEditionReason || (locale === "cs" ? "pipeline vydání vynechala" : "the pipeline missed")}</p>
                 </div>
                 <a href={a.roomUrl} target="_blank" rel="noreferrer noopener">{locale === "cs" ? "Přečíst diskusi" : "Read the argument"} ↗</a>

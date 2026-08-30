@@ -2153,65 +2153,143 @@ svg { max-width: 100%; }
   margin: 0;
   display: grid;
   gap: 0;
-  border-top: 1px solid var(--border-strong);
+  border-top: 2px solid var(--border-strong);
 }
+/* Grid items default to min-width:auto, so a card's min-content width pushed
+   it past the list at 320px. */
+.archive-list > li { min-width: 0; }
 
-.archive-card {
+/* ------------------------------------------------------------------ */
+/* Cover cards — Weekly, Archive and Related share one anatomy         */
+/* ------------------------------------------------------------------ */
+/* Media, a mono kicker, a title on a paper plate that overlaps the media's
+   bottom edge, a hairline and a --hover-line hover. The archive is a dense
+   list so it takes the row layout; the grid surfaces stack. Crops stay per
+   surface, which is why the ratio lives on each surface's media rule rather
+   than here. */
+
+.cover-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 110px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-5);
-  align-items: center;
-  padding: var(--space-5) 0 var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cover-grid li { min-width: 0; }
+
+.cover-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
   color: inherit;
-  border: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  background: transparent;
   text-decoration: none;
 }
-.archive-card--with-media {
-  grid-template-columns: 140px minmax(0, 1fr) 110px;
-}
-.archive-card__media {
+
+.cover-card__media { display: block; min-width: 0; }
+.cover-card__media img {
   display: block;
-  width: 140px;
-  aspect-ratio: 4 / 3;
-  border: 1px solid var(--border-subtle);
+  width: 100%;
+  height: auto;
   object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.cover-card:hover .cover-card__media img { border-color: var(--hover-line); }
+
+.cover-card__plate {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-reading);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.cover-card:hover .cover-card__plate { border-color: var(--hover-line); }
+
+/* The small-scale hero plate: it rides up over the media's bottom edge, inset
+   from the left so the crop still reads as a picture. A drawn .svg cover never
+   gets the overlap, so those cards keep the plate directly under the media. */
+.cover-card--overlap .cover-card__plate {
+  position: relative;
+  z-index: 1;
+  margin: calc(-1 * var(--space-6)) 0 0 var(--space-4);
 }
 
-.archive-card:hover {
-  border-color: var(--accent-primary);
+/* No media, no empty box: the plate stands on its own with the same spacing. */
+.cover-card--text-first .cover-card__plate { margin: 0; }
+
+.cover-card__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
-.archive-card h2 {
-  margin: 8px 0;
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-}
-
-.archive-card p {
-  max-width: 70ch;
+.cover-card__title {
   margin: 0;
+  font-family: var(--font-editorial);
+  font-size: var(--text-row);
+  font-weight: 600;
+  line-height: var(--leading-row);
+  letter-spacing: var(--tracking-row);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+.cover-card:hover .cover-card__title { color: var(--accent-primary); }
+
+.cover-card__dek {
   color: var(--text-secondary);
   font-family: var(--font-reading);
-  line-height: 1.5;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
 }
 
-.archive-card__meta,
-.archive-card__topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
+.cover-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-tertiary);
 }
+
+.cover-card__topics { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* Grid surfaces: 3:2 covers. */
+.cover-card--card .cover-card__media img { aspect-ratio: 3 / 2; }
+
+/* Archive: a row, media on the left at the 4:3 crop it already used. The plate
+   sits beside the media rather than over it — an overlap inside a 140px
+   thumbnail would cover the picture rather than compose with it. */
+.cover-card--row {
+  flex-direction: row;
+  align-items: start;
+  gap: var(--space-5);
+  padding: var(--space-5) 0 var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.cover-card--row .cover-card__media { flex: none; width: 140px; }
+.cover-card--row .cover-card__media img { aspect-ratio: 4 / 3; }
+.cover-card--row .cover-card__plate {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.cover-card--row:hover .cover-card__plate { border: 0; }
+.cover-card--row .cover-card__title { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
+.cover-card--row .cover-card__dek { max-width: 70ch; font-size: var(--text-body); }
+
+@media (max-width: 600px) {
+  .cover-card--row { flex-direction: column; gap: var(--space-3); }
+  .cover-card--row .cover-card__media { width: 100%; }
+}
+
 @media (max-width: 700px) {
   .topic-grid { grid-template-columns: 1fr; }
-  .archive-card,
-  .archive-card--with-media { grid-template-columns: 1fr; }
-  .archive-card__media { width: min(100%, 320px); }
-}
-
-.archive-card__topics {
-  margin-top: 14px;
-  gap: 8px;
 }
 
 /* Discovery, trust, and operator-adjacent routes. */
@@ -2230,7 +2308,16 @@ svg { max-width: 100%; }
 .weekly-cover { position: relative; display: grid; grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr); gap: var(--space-5); margin-top: var(--section-gap); padding: var(--space-6); border: 1px solid var(--border-subtle); background: var(--surface-reading); overflow: hidden; }
 .weekly-cover--with-media { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); align-items: center; }
 .weekly-cover__media { display: block; }
-.weekly-cover__media img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.weekly-cover__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.weekly-cover__media:hover img { border-color: var(--hover-line); }
 .weekly-cover__index { grid-row: 1 / span 4; align-self: start; color: var(--numeric-ghost); font-family: var(--font-editorial); font-size: clamp(7rem, 18vw, 14rem); font-weight: 700; line-height: 0.72; }
 .weekly-cover--with-media .weekly-cover__index { position: absolute; right: var(--space-4); top: var(--space-4); }
 .weekly-cover__copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
@@ -2253,15 +2340,7 @@ svg { max-width: 100%; }
 .tag-detail__related { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
 
-.related-issues { margin-top: var(--gutter-gap); padding-top: var(--space-6); border-top: 1px solid var(--border-strong); }
-.related-issues__label { margin-bottom: var(--space-4); }
-.related-issues ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-5); list-style: none; padding: 0; margin: 0; }
-.related-issues li { min-width: 0; }
-.related-issues li a { display: flex; height: 100%; flex-direction: column; gap: var(--space-2); padding: 12px; border: 1px solid var(--border-subtle); background: var(--surface-reading); color: var(--text-primary); }
-.related-issues li a:hover { border-color: var(--hover-line); color: var(--text-primary); }
-.related-issues img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.related-issues strong { font-family: var(--font-editorial); font-size: 1.0625rem; line-height: 1.25; }
-.related-issues__dek { color: var(--text-secondary); font-family: var(--font-reading); font-size: 0.875rem; line-height: 1.5; }
+.related-issues { margin-top: var(--gutter-gap); }
 
 .about-stats {
   display: grid;

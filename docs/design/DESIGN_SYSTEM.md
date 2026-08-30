@@ -143,6 +143,28 @@ column, and an inset plate would fight it.
 Meta rows, category chips and topics stay below the image on every variant.
 Only the eyebrow, headline and dek ever move onto the plate.
 
+### Cover cards
+
+Weekly, Archive and Related editions render through one card: media, a mono
+kicker, the title on a paper plate, a hairline, and a `--hover-line` hover.
+Crops stay per surface — 3:2 on the grid surfaces, 4:3 on Archive and Weekly —
+because the crop is what distinguishes them; the anatomy is what unifies them.
+
+Archive is a dense list, so it takes the card's `row` layout: media at 140px on
+the left, copy beside it rather than under a plate. An overlap inside a 140px
+thumbnail would cover the picture instead of composing with it. Below 600px the
+row stacks.
+
+Two rules carry over from the hero plate. A drawn `.svg` cover never gets the
+overlap, for the same reason it never gets a live-text hero. And a card with no
+media renders text-first with the same spacing rather than reserving an empty
+box — historical and legacy issues have no image, and that is a state, not a
+gap to fill.
+
+Every cover image carries explicit `width` and `height` attributes even where
+the crop is set in CSS, so the ratio is known before the stylesheet arrives and
+lists do not shift as covers load.
+
 ## Responsive and print rules
 
 Layouts must reflow at 320/360, 430, 768, 1024, 1280–1440, and 1600+ widths without hiding editorial information. Wide evidence tables use labelled horizontal scroll containers. Long Czech headings and source titles must wrap without forcing page overflow.
