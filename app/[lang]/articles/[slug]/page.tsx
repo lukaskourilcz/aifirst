@@ -1,3 +1,4 @@
+import { editorialHold, heldArticleSlugs } from "@/lib/editorial-holds";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Dispatches } from "@/components/Dispatches";
@@ -43,7 +44,7 @@ export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const all = await listArticles();
-  return all.map((a) => ({ slug: a.slug }));
+  return [...all.map((a) => ({ slug: a.slug })), ...heldArticleSlugs().map(slug => ({ slug }))];
 }
 
 export async function generateMetadata({
@@ -54,6 +55,12 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   const article = await getArticle(slug, lang);
   if (!article) return {};
+  if (editorialHold(slug)) return {
+    title: "Vydání dočasně staženo",
+    description: editorialHold(slug)!.reason,
+    robots: { index: false, follow: false },
+    openGraph: { title: "Vydání dočasně staženo", description: editorialHold(slug)!.reason, images: [] },
+  };
   const articlePath = `/articles/${slug}`;
   const availableLocales = await getArticleLocales(slug);
   const heroPhoto = resolveHeroPhoto(article.frontmatter);
@@ -85,6 +92,15 @@ export default async function ArticlePage({
   const { lang: locale, slug } = await params;
   const article = await getArticle(slug, locale);
   if (!article) notFound();
+  const hold = editorialHold(slug);
+  if (hold) return (
+    <section className="section">
+      <h1>Vydání dočasně staženo</h1>
+      <p>{hold.reason}</p>
+      <p><time dateTime={hold.date}>{hold.date}</time></p>
+      <p><Link href={localePath(locale, "/")}>Zpět na aktuální vydání</Link></p>
+    </section>
+  );
 
   const d = dict(locale);
   const all = await listArticles(locale);

@@ -542,10 +542,10 @@
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
-.banner-slot__link { display: inline-block; border-bottom: none; }
+.banner-slot__link { max-width: 100%; display: inline-block; border-bottom: none; }
 .banner-slot__creative { display: block; max-width: 100%; height: auto; }
 .banner-slot__creative--mobile { display: none; }
-@media (max-width: 480px) {
+@media (max-width: 760px) {
   .banner-slot__creative--desktop { display: none; }
   .banner-slot__creative--mobile { display: block; }
 }
@@ -1063,7 +1063,7 @@ hr {
    the inner node with zero layout shift. Below the rail breakpoint it centres
    in the main column and still never scales. No leaderboard, no in-feed unit,
    no sticky unit. */
-.ad-slot { margin-inline: auto; width: 300px; }
+.ad-slot { margin-inline: auto; width: 300px; max-width: 100%; }
 .ad-slot__box {
   width: 300px;
   height: 250px;

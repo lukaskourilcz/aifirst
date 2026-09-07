@@ -1,10 +1,10 @@
-# Caught Up agent instructions
+# DNESKAi agent instructions
 
 Read `CLAUDE.md` before changing this repository; it is the authoritative product, architecture, design, validation, and Git control document. Then load only the relevant project skill under `.claude/skills/`.
 
 ## Work rules
 
-- Public brand: Caught Up. Keep stable internal `aifirst` identifiers where compatibility requires them; never run a blind rename.
+- Public brand: DNESKAi. Keep stable internal `aifirst` identifiers where compatibility requires them; never run a blind rename.
 - Search before creating. Reuse the existing content, locale, feed, topic, Radar, component, CSS-token, modal, icon, and test systems.
 - Preserve Git/MDX canonical storage, static reader rendering, legacy MDX/routes, Czech at the unprefixed root with `/cs/*` redirecting there, feeds/JSON/SEO, CSP, optional OwnDashboard, and the bounded delivery contract.
 - Use semantic tokens and calm editorial hierarchy. Never reintroduce terminal/neon/fake-UI styling or generic AI media.

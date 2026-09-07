@@ -92,6 +92,6 @@ jobs:
           if gh issue list --state open --limit 100 --json title | jq -e --arg title "$title" 'any(.[]; .title == $title)' >/dev/null; then
             echo "open issue already exists: $title"
           else
-            gh issue create --title "$title" --body "The 07:00 UTC sentinel found neither a complete EN/CS edition with matching BoardlessAI board/package hashes nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
+            gh issue create --title "$title" --body "The 07:00 UTC sentinel found neither a complete Czech edition with matching BoardlessAI board/package hashes nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
           fi
           exit 1

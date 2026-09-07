@@ -1,3 +1,4 @@
+import { editorialHold } from "./editorial-holds";
 import fs from "node:fs/promises";
 import { existsSync, statSync } from "node:fs";
 import path from "node:path";
@@ -302,7 +303,7 @@ function toSummary(
   lang: ContentLang,
   fallback: boolean,
 ): ArticleSummary | null {
-  if (!fm.slug || !fm.date || !fm.title) return null;
+  if (!fm.slug || !fm.date || !fm.title || editorialHold(fm.slug)) return null;
   const heroPhoto = resolveThumbnailPhoto(fm) ?? undefined;
   return {
     slug: fm.slug,

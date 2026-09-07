@@ -11,8 +11,8 @@ const FILLED = {
 };
 
 describe("bannerSlot", () => {
-  it("ships empty: the committed config activates nothing", () => {
-    expect(bannerSlot("today-partner-belt")).toBeNull();
+  it("ships the reciprocal MMA FILES promotion", () => {
+    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("MMA FILES");
   });
 
   it("returns null for a slot that does not exist", () => {
@@ -105,13 +105,13 @@ describe("the placeholder rule", () => {
 });
 
 describe("the shipped slots", () => {
-  it("ships the rail square empty but reserved", () => {
-    expect(bannerSlot("rail-square")).toBeNull();
-    expect(bannerPlaceholder("rail-square")).toBe(true);
+  it("ships the filled rail square", () => {
+    expect(bannerSlot("rail-square")?.advertiser).toBe("MMA FILES");
+    expect(bannerPlaceholder("rail-square")).toBe(false);
   });
 
-  it("leaves the partner belt collapsing exactly as before", () => {
-    expect(bannerSlot("today-partner-belt")).toBeNull();
+  it("does not add a placeholder behind the partner belt", () => {
+    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("MMA FILES");
     expect(bannerPlaceholder("today-partner-belt")).toBe(false);
   });
 
@@ -120,3 +120,6 @@ describe("the shipped slots", () => {
     expect(bannerPlaceholder("no-such-slot")).toBe(false);
   });
 });
+
+it.each(["javascript:alert(1)", "http://example.com", "https://user:pass@example.com", "/relative"])("rejects unsafe destination %s", href => { expect(parseSlot({ ...FILLED, href })).toBeNull(); });
+it.each(["/images/banners/../private.svg", "/images/banners/%2e%2e/x.svg", "/images/banners/x.svg?query"])("rejects unsafe asset %s", src => { expect(parseSlot({ ...FILLED, desktop: { ...FILLED.desktop, src } })).toBeNull(); });
