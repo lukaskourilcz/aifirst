@@ -86,8 +86,8 @@ Supporting values already referenced by production CSS, re-tuned:
 
 `--border-subtle` (1.30:1) and `--border-strong` (1.66:1) are grouping hairlines, not
 affordances, and they cannot reach the 3:1 non-text minimum without becoming visual
-noise on a paper canvas. Three elements need a border that *is* the affordance —
-the search input, the ad reservation box, and the week-boundary action. Those use
+noise on a paper canvas. Two elements need a border that *is* the affordance —
+the search input and the week-boundary action. Those use
 `--border-control` (3.29:1 on `--surface-reading`, 3.07:1 on `--surface-page`).
 Everything else keeps the hairlines.
 
@@ -193,7 +193,7 @@ export const OG = {
 ## 3. Grid
 
 Container 1360px, `box-sizing: border-box`, `padding: 0 var(--mobile-gutter)`.
-Left rail 244px fixed. Right rail 300px (the ad reservation defines it).
+Left rail 244px fixed. Right rail 300px to match the partner creative.
 
 | Viewport | Inner | Left rail | Gap | Main | Gap | Right rail |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -302,7 +302,7 @@ inside it.
 
 Component inventory — main: hero package (photo variant), condensed briefs column
 (2×4 headline links), completion mark, section head, feed row ×7, week-boundary action.
-Right rail: ad placeholder, widget module frame ×3, subscribe module.
+Right rail: reciprocal partner creative, widget module frame ×3, subscribe module.
 Rail: brand lockup, nav item ×6 indexed, divider, nav item ×6 secondary, search control.
 
 **Condensed briefs column.** „Ve zkratce" reuses `fm.dispatches` (title only, link to
@@ -693,32 +693,27 @@ Date block: 72px wide (56 at ≤430), `--surface-subtle`, hairline right; day mo
 Past events: all text one step down (`--text-tertiary`), date block
 `--surface-page`, no hover state, inside a closed `<details>`.
 
-### 6.9 Ad placeholder — exact reservation
+### 6.9 Reciprocal partner creative — exact reservation
 
 ```html
-<aside class="ad-slot" aria-label="Reklamní prostor">
-  <div class="ad-slot__box"><span>Místo pro reklamu</span></div>
+<aside class="banner-slot" aria-label="Partnerský obsah">
+  <a href="https://mma-files.vercel.app" rel="sponsored noopener noreferrer">
+    <picture><!-- local 300×250 MMA FILES creative --></picture>
+  </a>
 </aside>
 ```
 
 ```css
-.ad-slot__box{
+.right-rail .banner-slot__creative{
   width:300px; height:250px;              /* reserved at every viewport */
-  display:grid; place-items:center;
-  border:1px dashed var(--border-control);
-  background:var(--surface-page);
-}
-.ad-slot__box span{
-  font-family:var(--font-mono); font-size:var(--text-caption);
-  letter-spacing:var(--tracking-label); text-transform:uppercase;
-  color:var(--text-tertiary);
+  display:block;
 }
 ```
 
-The box is fixed 300×250 in both axes, so a later creative replaces the inner node
-with zero layout shift. Below 1280 the `.ad-slot` is `margin-inline:auto` in the main
-column and the 300×250 never scales. One unit per page, right rail only. No
-leaderboard, no in-feed unit, no sticky unit, ever.
+The creative is fixed 300×250 in both axes. Below 1280 the rail reflows into the
+main column and the creative stays centered at its intrinsic size. The homepage
+also carries the reciprocal partner belt after the completion mark. There is no
+in-feed or sticky unit.
 
 ### 6.10 Widget module frame
 
@@ -732,8 +727,8 @@ Link →                        mono --text-caption, --accent-primary
 ```
 
 Padding 16px 0, modules separated by 1px `--border-subtle`, no card fill — the rail is
-a column of rules, not a stack of boxes. Only the ad box has a box, which is what
-marks it as not editorial.
+a column of rules, not a stack of boxes. The partner creative is the deliberately
+non-editorial element.
 
 ### 6.11 Week-boundary action
 
@@ -838,7 +833,7 @@ Tinted notice surfaces: `--text-primary` on `--danger-surface` #fdf4f4 16.75:1,
 16.94:1, `--status-warning` on it 5.54:1.
 
 Non-text: `--border-control` #8e8e88 reaches 3.29:1 on white and 3.07:1 on page, so the
-search field, ad reservation and week action meet 1.4.11. `--border-subtle` (1.30:1)
+search field and week action meet 1.4.11. `--border-subtle` (1.30:1)
 and `--border-strong` (1.66:1) are decorative grouping only and never carry the sole
 meaning of a control or a boundary.
 

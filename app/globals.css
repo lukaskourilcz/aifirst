@@ -28,7 +28,7 @@
   --border-strong: #c9c9c3;
   /* Grouping hairlines cannot reach the 3:1 non-text minimum on paper without
      becoming noise. Controls whose border is the affordance use this instead:
-     the search input, the ad reservation and the week-boundary action. */
+     the search input and the week-boundary action. */
   --border-control: #8e8e88;
   --accent-primary: var(--color-blueprint-blue);
   --accent-primary-hover: var(--color-blueprint-blue-hover);
@@ -530,8 +530,8 @@
   overflow-wrap: anywhere;
 }
 
-/* Partner belt after the completion mark. Empty by default: the component
-   returns null, so these rules only ever apply to a configured creative. */
+/* Partner belt after the completion mark. An empty config still returns null,
+   so these rules apply only when a creative is present. */
 .banner-slot { margin-top: var(--section-gap); text-align: center; }
 .banner-slot__label {
   margin: 0 0 var(--space-2);
@@ -545,6 +545,7 @@
 .banner-slot__link { max-width: 100%; display: inline-block; border-bottom: none; }
 .banner-slot__creative { display: block; max-width: 100%; height: auto; }
 .banner-slot__creative--mobile { display: none; }
+.right-rail > .banner-slot { margin-top: 0; }
 @media (max-width: 760px) {
   .banner-slot__creative--desktop { display: none; }
   .banner-slot__creative--mobile { display: block; }
@@ -2536,7 +2537,7 @@ svg { max-width: 100%; }
 /* Front page: lead package, condensed briefs, feed, right rail        */
 /* ------------------------------------------------------------------ */
 
-/* The right rail is 300px because the ad reservation defines it. It drops
+/* The right rail matches the 300px partner creative. It drops
    below 1280 and its modules reflow into the main column in rail order. */
 .page-with-rail {
   display: grid;

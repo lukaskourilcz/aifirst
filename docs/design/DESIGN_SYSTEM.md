@@ -19,8 +19,8 @@ Production components should use semantic roles:
   `--text-tertiary` (`#5f6672`)
 - `--border-subtle` (`#e2e2de`) and `--border-strong` (`#c9c9c3`)
 - `--accent-primary` (`#2f5ae6`) and `--accent-primary-hover` (`#1d43bb`)
-- `--border-control` (`#8e8e88`) for the three controls whose border is the
-  affordance: search input, ad reservation, week-boundary action
+- `--border-control` (`#8e8e88`) for controls whose border is the affordance:
+  the search input and week-boundary action
 - `--status-complete` (`#067a52`), `--status-warning` (`#8a5a0d`), and
   `--status-correction` (`#c0272c`)
 - `--focus-ring` and `--selection-background`

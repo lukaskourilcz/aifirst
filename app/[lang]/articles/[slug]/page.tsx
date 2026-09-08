@@ -7,7 +7,7 @@ import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
-import { AdPlaceholder } from "@/components/editorial/BannerSlot";
+import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { Wire } from "@/components/Wire";
 import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
@@ -263,10 +263,10 @@ export default async function ArticlePage({
       </section>
         </div>
 
-        {/* Rail per spec §4.4: the reservation and related editions, nothing
+        {/* Rail per spec §4.4: the partner creative and related editions, nothing
             else. It drops below 1280 and reflows into the main column. */}
         <aside className="right-rail">
-          <AdPlaceholder locale={locale} />
+          <BannerSlot id="rail-square" locale={locale} />
           {related.length > 0 ? (
             <div className="rail-module">
               <p className="rail-module__kicker">{d.article.related}</p>

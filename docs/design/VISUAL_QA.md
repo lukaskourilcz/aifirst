@@ -46,7 +46,7 @@ Verified by computation against the tokens as they exist in
 `app/globals.css`, not against the spec table. All forty text/surface pairs
 clear AA 4.5:1. The metadata floor `#5f6672` holds 5.02:1 on its worst surface
 (`--surface-subtle`). `--border-control` reaches 3.29:1 on the reading surface
-and 3.07:1 on the page, so the search field, ad reservation and week action meet
+and 3.07:1 on the page, so the search field and week action meet
 1.4.11. Reversed and tinted pairs clear as well: white on accent 5.64:1, the
 correction colour on its danger surface 5.44:1, the warning colour on the
 sponsor surface 5.54:1.

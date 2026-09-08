@@ -38,8 +38,8 @@ its worst surface.
 
 `--border-control` (`#8e8e88`) is the one new border token. The grouping
 hairlines are 1.30:1 and 1.66:1, which is correct for grouping and useless as an
-affordance, so the three controls whose border *is* the affordance use it
-instead: the search input, the ad reservation and the week-boundary action.
+affordance, so controls whose border *is* the affordance use it instead: the
+search input and the week-boundary action.
 
 ## Type roles
 
@@ -56,7 +56,7 @@ dek and meta row leave a 900px viewport.
 ## Layout
 
 A 244px left rail and a 300px right rail inside a 1360px container. The right
-rail is 300px because the ad reservation defines it; it drops below 1280 and its
+rail matches the 300px partner creative; it drops below 1280 and its
 modules reflow into the main column in the same order. The left rail collapses
 below 960 into a sticky top bar and a full-screen drawer.
 

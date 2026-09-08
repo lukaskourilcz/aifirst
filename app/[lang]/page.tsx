@@ -10,6 +10,7 @@ import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
+import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
 import { githubRepo, siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
@@ -171,6 +172,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
                 <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
                 <span className="caught-up-completion__message">{publication.completion}</span>
               </p>
+              <BannerSlot id="today-partner-belt" locale={locale} />
             </>
           )}
 

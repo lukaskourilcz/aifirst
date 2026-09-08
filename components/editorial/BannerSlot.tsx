@@ -20,9 +20,8 @@ export function AdPlaceholder({ locale }: { locale: Locale }) {
 
 /**
  * A partner belt reserved after the completion mark — the back page of the
- * edition, where a partner cannot dilute the briefing. 728×90 desktop and
- * 320×100 mobile are IAB standard sizes, so a future creative is a drop-in
- * local file.
+ * edition, where a partner cannot dilute the briefing. The configured 728×90
+ * desktop and 320×100 mobile creatives remain local files.
  *
  * Renders nothing and reserves no space while the slot is empty. When it is
  * filled, both images carry explicit dimensions and the page is still static,

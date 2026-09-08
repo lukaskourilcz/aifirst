@@ -117,6 +117,30 @@ test("the completion mark closes the edition, above the week feed", async ({ pag
   }
 });
 
+test("the reciprocal MMA FILES promotion renders without overflow at launch widths", async ({ page }) => {
+  for (const viewport of [
+    { width: 360, height: 800 },
+    { width: 768, height: 1024 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    const banners = page.locator('.banner-slot a[href="https://mma-files.vercel.app"]');
+    await expect(banners).toHaveCount(2);
+    await expect(banners.nth(0)).toBeVisible();
+    await expect(banners.nth(1)).toBeVisible();
+    await expect(banners.nth(0)).toHaveAttribute("rel", "sponsored noopener noreferrer");
+
+    const visibleCreatives = page.locator(".banner-slot__creative:visible");
+    await expect(visibleCreatives).toHaveCount(2);
+    for (const creative of await visibleCreatives.all()) {
+      await expect(creative).toHaveAttribute("alt", "MMA FILES. UFC a Oktagon. Číst partnerský magazín.");
+    }
+    await assertNoHorizontalOverflow(page);
+  }
+});
+
 test("primary nav lives in the sidebar; ops links in the footer", async ({ page }) => {
   // The rail only exists above 960; below that the drawer carries the same
   // items and has its own test.
@@ -423,17 +447,16 @@ test("the new section routes are in the sitemap", async ({ request }) => {
   }
 });
 
-test("the ad reservation holds 300x250 and carries no script", async ({ page }) => {
+test("the rail partner creative holds 300x250 and carries no script", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  const box = page.locator(".ad-slot__box");
-  await expect(box).toBeVisible();
-  const rect = await box.boundingBox();
+  const creative = page.locator(".right-rail .banner-slot__creative:visible");
+  await expect(creative).toBeVisible();
+  const rect = await creative.boundingBox();
   expect(rect?.width).toBe(300);
   expect(rect?.height).toBe(250);
-  await expect(box).toContainText("Místo pro reklamu");
-  // One unit per page, right rail only.
-  await expect(page.locator(".ad-slot")).toHaveCount(1);
+  await expect(page.locator(".right-rail .banner-slot")).toHaveCount(1);
+  await expect(page.locator(".banner-slot script")).toHaveCount(0);
 });
 
 test("the magazine's own copy carries no em-dash", async ({ page }) => {
@@ -471,9 +494,9 @@ test("the article page carries the rail and files chips only when tagged", async
   await expect(page.locator(".source-ledger")).toBeVisible();
   await expect(page.locator(".article-body p").first()).toBeVisible();
 
-  // Rail: the reservation and related editions, nothing else.
+  // Rail: the configured partner creative and related editions, nothing else.
   const rail = page.locator(".right-rail");
-  await expect(rail.locator(".ad-slot__box")).toBeVisible();
+  await expect(rail.locator('.banner-slot a[href="https://mma-files.vercel.app"]')).toBeVisible();
   await expect(rail.locator(".rail-related a").first()).toBeVisible();
 
   // This edition has no category, so the row is absent rather than empty.
