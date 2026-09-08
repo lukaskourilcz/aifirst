@@ -16,16 +16,11 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [x] **Answer the brand gate on issue #47** — approved 2026-08-09: the official name is DNESKAi. Recorded on the issue; the kickoff schedules the rename right before the documentation pass.
 - [ ] **Confirm the curated source registries** — approve or edit the seed list in quorum's `config/caught-up-streams.json`: three Medium tags, nine Substacks and eight podcast shows, of which eight ship disabled because their channel id could not be resolved without guessing, plus two empty slots for the Czech AI shows you pick. [imp:3] [owner:me] [time:30m] [kind:decision]
 - [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
-- [ ] **Supply the 300×250 rail creative when a deal exists** — the redesign ships the square slot as a „Místo pro reklamu" placeholder; a real creative needs the image under `public/images/banners/` plus config, same rules as the belt slot. [imp:1] [owner:me] [time:20m] [kind:content]
 - [ ] **Provide the social profile URLs** — the footer ships Facebook, Instagram, Threads and X as linkless icons; once the accounts exist, drop their URLs into the footer social config and the icons become links. [imp:2] [owner:me] [time:10m] [kind:content]
 
 ## Product decisions
 
 - [x] **Confirm whether technical names should stay `aifirst`** — settled 2026-08-09 with the brand unification. The publication is DNESKAi everywhere a reader or a machine meets it; the repository, package, venture id and environment variables stay `aifirst`/`caught-up` as stable identifiers, and `brand.legalName` stays Caught Up.
-
-## Partner slot
-
-- [ ] **Supply the devShark banner creative and its target URL** — the slot `today-partner-belt` is built and empty. It needs a 728×90 and a 320×100 image committed under `public/images/banners/`, the alt text, and the destination link; then flip `active` to `true` in `config/banner.json`. Until all of that exists the slot renders nothing, which is the correct state. [imp:2] [owner:me] [time:20m] [kind:content]
 
 ## Optional reader operations
 
@@ -41,6 +36,11 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [ ] **Point the Vercel project at the DNESKAi name where it is public-facing** — the rename moved every page title, feed title, Open Graph card and JSON `publication` field. Anything outside this repository that still says Caught Up to a reader (deployment display name, any external listing) is the owner's to update. The canonical URL itself is unaffected. [imp:2] [owner:me] [time:15m] [kind:deploy]
 
 ## Already complete
+
+- The reciprocal MMA FILES promotion uses local 728×90, 320×100 and 300×250
+  creatives from `config/banner.json`. The partner belt follows the homepage
+  completion mark, while the square creative fills reader rails without scripts
+  or third-party tracking.
 
 - The magazine-grade design set is built: the headline now sits on a paper
   plate inside the lead image on Today and on article pages, Today reads as a

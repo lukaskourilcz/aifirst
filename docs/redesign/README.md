@@ -29,7 +29,7 @@ and the cost picture. The registry those sections describe now lives in quorum's
   hairlines, Space Grotesk + Source Serif 4 + IBM Plex Mono.
 - Daily widgets (`DailyLesson`, `DidYouKnow`) read append-only datasets in `data/`,
   picked deterministically from the newest edition's date — never a clock.
-- `BannerSlot` exists (`banner-slot/1` config), currently one inactive 728×90 belt.
+- `BannerSlot` uses the `banner-slot/1` config for the reciprocal partner belt and rail creative.
 - Brand is split on purpose: `wordmark` DNESKAi (what readers see), `name` Caught Up
   (titles, OG, feeds, JSON). Unifying them is an owner call — see §14.
 - Bundle gate: 110 kB gzip page-entry ceiling. Client JS today: search palette,
@@ -41,9 +41,9 @@ Keep the edition as the spine and the „Máte přehled." ritual as the finish l
 make the front page a **scanning surface**: a TechCrunch-style lead package, a
 week-deep feed, and three new external streams that give the site daily volume
 without writing more house articles. Navigation stays in the left rail (never a top
-nav), there is no top leaderboard ad, and the only ad unit is one square 300×250 in
-the right rail — shipped as a visible „Místo pro reklamu" placeholder that later
-wires to the owner's ad deals through config only.
+nav), and there is no top leaderboard ad. The reciprocal partner belt sits after
+the completion mark, while the 300×250 creative occupies the right rail. Both use
+local files and destinations from config only.
 
 Czech-only remains absolute for UI and house content. External stream items
 (Medium/Substack posts, podcast episodes) keep their original titles as data.
@@ -216,9 +216,9 @@ Extend `banner-slot/1` with a second slot `rail-square` (300×250) and one new
 optional field `placeholder`. Rules: with `active:false, placeholder:true` the
 component renders the reserved 300×250 box — dashed hairline, mono label
 „Místo pro reklamu" — so the layout never shifts; with `placeholder:false` it
-stays invisible (current ship-empty behavior, and the existing belt slot is
-untouched). A real creative later needs only config + a local file under
-`public/images/banners/` — no scripts, no third-party hosts, CSP unchanged.
+stays invisible. A real creative needs only config + a local file under
+`public/images/banners/`; the launch config supplies both MMA FILES placements
+without scripts or third-party hosts, so CSP stays unchanged.
 
 ## 11. Design direction (what Claude Design decides, and inside what rails)
 

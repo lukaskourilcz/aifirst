@@ -2,15 +2,15 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { AdPlaceholder } from "./BannerSlot";
+import { BannerSlot } from "./BannerSlot";
 import { DailyLesson } from "./DailyLesson";
 import { DidYouKnow } from "./DidYouKnow";
 import { eventDateBlock, type MagazineEvent } from "@/lib/events";
 
 /**
  * The shared module frame. The rail is a column of rules, not a stack of
- * boxes: only the ad reservation has a box, which is what marks it as the one
- * thing in the rail that is not editorial.
+ * boxes. The configured partner creative is the one deliberately non-editorial
+ * element in the rail.
  */
 export function WidgetModule({
   kicker,
@@ -98,7 +98,7 @@ export function RightRail({
 }) {
   return (
     <aside className="right-rail">
-      <AdPlaceholder locale={locale} />
+      <BannerSlot id="rail-square" locale={locale} />
       {dateKey ? (
         <>
           <DailyLesson dateKey={dateKey} locale={locale} variant="rail" />

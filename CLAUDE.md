@@ -80,13 +80,14 @@ no client JavaScript and make no network or model call.
   asserted as minimums so an append needs no test edit.
 - The lessons are a dated curriculum, `glossary.yml` is a reference list. They
   coexist; do not merge them or cross-wire their loaders.
-- **`BannerSlot`** renders `config/banner.json` and both slots ship empty. An
-  empty slot either collapses or reserves its box, and which one is config:
-  `today-partner-belt` returns `null` and reserves no space, while `rail-square`
-  carries `placeholder: true` and holds a 300×250 reservation so filling it later
-  shifts nothing. The flag stops applying once a real creative exists, because a
-  filled slot is its own reservation. A creative must be a local file under
-  `public/images/banners/` with explicit dimensions; anything else reads as empty.
+- **`BannerSlot`** renders `config/banner.json`; the launch config fills the
+  `today-partner-belt` and `rail-square` slots with reciprocal MMA FILES creatives.
+  An empty slot either collapses or reserves its box, and which one is config:
+  `today-partner-belt` reserves no space when empty, while `rail-square` may carry
+  `placeholder: true` and hold a 300×250 reservation. The flag stops applying once
+  a real creative exists, because a filled slot is its own reservation. A creative
+  must be a local file under `public/images/banners/` with explicit dimensions;
+  anything else reads as empty.
   No ad script, no third-party host, no tracking, so CSP is untouched.
 
 ## Important paths and reuse
