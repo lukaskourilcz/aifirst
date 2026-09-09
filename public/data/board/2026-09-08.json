@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-08",
+  "packageHash": "192fbdf95bb883e488c92760c6b8ec95d403da356c0f7d196a280ec19d25cbea",
+  "status": "edition",
+  "whyThisStory": "\">Mistralovo kolo přepisuje měřítka pro otevřené AI modely a australská legislativa zavádí první vymahatelný nárok na opt-out z algoritmického řazení – obojí ve stejný den mění podmínky pro firmy i regulátory.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-08-cu-edition",
+  "generationCostUsd": 0.270519,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-08-mistral-tri-miliardy-otevrene-modely-australie-algoritmy/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-08-mistral-tri-miliardy-otevrene-modely-australie-algoritmy/thumb.webp",
+    "origin": "photo"
+  }
+}
