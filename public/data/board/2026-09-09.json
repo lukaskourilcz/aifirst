@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-09",
+  "packageHash": "8cf065aa82bebfb1e8350b7e19f506d1b573bfa67e5b9649e5f45899a9b49ea9",
+  "status": "edition",
+  "whyThisStory": "Spor o autorství matematického objevu odhaluje mezeru v tom, jak AI laboratoře nakládají s daty uživatelů – a Terence Tao naznačuje, že jde o hrozbu pro otevřenou vědu jako celek.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-09-cu-edition",
+  "generationCostUsd": 0.1732005,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-09-openai-navier-stokes-kontroverze-patchtuesday-distilace/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-09-openai-navier-stokes-kontroverze-patchtuesday-distilace/thumb.webp",
+    "origin": "illustration"
+  }
+}
