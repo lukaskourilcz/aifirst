@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-10",
+  "packageHash": "81fef2247f7ad69fe3e0998486241f2a264cf894fdea515a94967ea0b9b6c859",
+  "status": "edition",
+  "whyThisStory": "WeWorm je první veřejně doložené demo, kde konkrétní tým uvedl přesnou časovou osu vývoje kybernetické zbraně s pomocí AI – to mění debatu o bezpečnostních rizicích z abstraktní na měřitelnou.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-10-cu-edition",
+  "generationCostUsd": 0.1765725,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-10-weworm-automattic-mullenweg-ai-bezpecnost/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-10-weworm-automattic-mullenweg-ai-bezpecnost/thumb.webp",
+    "origin": "photo"
+  }
+}
