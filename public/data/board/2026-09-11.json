@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-11",
+  "packageHash": "0f317e6be0b037ca41b8f39c9b569cbb228f088388b084f97e803134cd87b67b",
+  "status": "edition",
+  "whyThisStory": "Microsoft Rust je formální politická změna, která přepisuje pravidla náboru a investic do nástrojů pro největšího světového dodavatele softwaru – a přichází ve stejný den, kdy Anthropic a Nvidia otevírají debatu o tom, kdo nese odpovědnost za rizika AI.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-11-cu-edition",
+  "generationCostUsd": 0.1743075,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-11-microsoft-rust-anthropic-bezpecnost-ai/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-11-microsoft-rust-anthropic-bezpecnost-ai/thumb.webp",
+    "origin": "photo"
+  }
+}
