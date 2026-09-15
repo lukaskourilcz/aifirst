@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-12",
+  "packageHash": "832df46f370b8dbe20f6999f2f763d18d8018d9625368e6dd8f2e67d6394d2ef",
+  "status": "edition",
+  "whyThisStory": "Útok na RubyGems, húsíjské střely přes Claude a GPT-6 bez dozoru v produkci se odehrály ve stejném týdnu – a dohromady mění, jak se bude diskutovat o odpovědnosti za autonomní AI systémy.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-12-cu-edition",
+  "generationCostUsd": 0.1740975,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-12-ai-agenti-rubygems-utok-dohled/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-12-ai-agenti-rubygems-utok-dohled/thumb.webp",
+    "origin": "photo"
+  }
+}
