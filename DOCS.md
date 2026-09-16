@@ -111,7 +111,12 @@ survives.
 checks real dates, URLs, source duplication, registered schema-v2 source IDs,
 field bounds, weekly coverage, provenance, measured cost, corrections,
 sponsorship safety and deterministic translation linkage (date, type, source
-URLs, topics/tags, signal, correction shape and weekly coverage).
+URLs, topics/tags, signal, correction shape and weekly coverage). For a
+`practical` block it also checks the item count, the variant, the kinds,
+duplicate titles, URLs written into a title or body, and that every
+`source_url` is one the same file already cites in `sources` or `wire`. The
+block is not compared across locales: an item written for Czech readers has no
+English counterpart to drift from.
 
 ## Reader composition
 

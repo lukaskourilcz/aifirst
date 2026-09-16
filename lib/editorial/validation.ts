@@ -1,5 +1,5 @@
 import type { ArticleFrontmatter } from "../content";
-import { ARTICLE_CATEGORIES } from "../content";
+import { ARTICLE_CATEGORIES, PRACTICAL_KINDS, PRACTICAL_VARIANTS } from "../content";
 
 function validDate(value: unknown): value is string {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -128,6 +128,90 @@ export function validateArticleFrontmatter(raw: Record<string, unknown>, file: s
     errors.push(`${file}: unsupported schema_version`);
   }
 
+  return errors;
+}
+
+/**
+ * The practical block, checked against what a reader depends on rather than
+ * against upstream's authoring arithmetic.
+ *
+ * Absent is the normal state and produces nothing. What fails is a block the
+ * reader would render wrongly or could not trust: a shape the resolver would
+ * throw items away from, an unknown kind, two items the reader cannot tell
+ * apart, a raw URL in prose that is already a link, and a source_url this same
+ * file does not cite.
+ *
+ * Deliberately not checked here: the 40-600 character body bound and the
+ * one-item / three-tools-plus-a-prompt composition. Both are upstream's own
+ * contract, enforced where the block is written; a second copy of them in this
+ * repository could only drift and start rejecting editions that are correct.
+ * The item count is checked, because the reader truncates at four and a
+ * silently dropped fifth item is invisible loss.
+ */
+export function practicalErrors(fm: Record<string, unknown>, file: string): string[] {
+  const raw = fm.practical;
+  if (raw === undefined) return [];
+  const errors: string[] = [];
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    errors.push(`${file}: practical must be an object when present`);
+    return errors;
+  }
+  const block = raw as { variant?: unknown; items?: unknown };
+  if (typeof block.variant !== "string" || !(PRACTICAL_VARIANTS as readonly string[]).includes(block.variant)) {
+    errors.push(`${file}: practical.variant must be one of ${PRACTICAL_VARIANTS.join(", ")}`);
+  }
+  if (!Array.isArray(block.items) || block.items.length < 1 || block.items.length > 4) {
+    errors.push(`${file}: practical.items must hold 1-4 items`);
+    return errors;
+  }
+
+  // Every source_url has to be grounded in a citation this file already
+  // carries, so the block can never send a reader somewhere the edition itself
+  // never cited.
+  const cited = new Set<string>();
+  for (const source of Array.isArray(fm.sources) ? fm.sources : []) {
+    const url = (source as { url?: unknown } | null)?.url;
+    if (typeof url === "string") cited.add(url);
+  }
+  for (const item of Array.isArray(fm.wire) ? fm.wire : []) {
+    const url = (item as { url?: unknown } | null)?.url;
+    if (typeof url === "string") cited.add(url);
+  }
+
+  const titles = new Set<string>();
+  for (const [index, candidate] of block.items.entries()) {
+    const at = `${file}: practical.items[${index}]`;
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) {
+      errors.push(`${at} must be an object`);
+      continue;
+    }
+    const item = candidate as Record<string, unknown>;
+    const title = item.title;
+    const body = item.body;
+    const sourceUrl = item.source_url;
+    if (typeof item.kind !== "string" || !(PRACTICAL_KINDS as readonly string[]).includes(item.kind)) {
+      errors.push(`${at}.kind must be one of ${PRACTICAL_KINDS.join(", ")}`);
+    }
+    if (typeof title !== "string" || title.trim() === "") errors.push(`${at}.title is required`);
+    if (typeof body !== "string" || body.trim() === "") errors.push(`${at}.body is required`);
+    if (typeof sourceUrl !== "string" || !sourceUrl.startsWith("https://")) {
+      errors.push(`${at}.source_url must be an https URL`);
+    } else if (!cited.has(sourceUrl)) {
+      errors.push(`${at}.source_url ${sourceUrl} is not cited in this file's sources or wire`);
+    }
+    // The row is already a link; a URL spelled out in the prose is a second,
+    // unclickable one.
+    for (const [field, value] of [["title", title], ["body", body]] as const) {
+      if (typeof value === "string" && /https?:\/\//i.test(value)) {
+        errors.push(`${at}.${field} must not contain a URL`);
+      }
+    }
+    if (typeof title === "string") {
+      const key = title.trim().toLowerCase();
+      if (titles.has(key)) errors.push(`${at}.title duplicates an earlier practical item`);
+      titles.add(key);
+    }
+  }
   return errors;
 }
 

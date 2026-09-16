@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { translationStructureErrors, validateArticleFrontmatter } from "../validation";
+import { practicalErrors, translationStructureErrors, validateArticleFrontmatter } from "../validation";
 import type { ArticleFrontmatter } from "../../content";
 
 const legacy: Record<string, unknown> = {
@@ -81,5 +81,66 @@ describe("article validation", () => {
       expect.stringContaining("signal strength drifts"),
       expect.stringContaining("translation_of"),
     ]));
+  });
+});
+
+describe("the practical block in committed content", () => {
+  const cited = "https://example.com";
+  const wired = "https://example.com/wire";
+  const base: Record<string, unknown> = { ...legacy, wire: [{ title: "W", url: wired, source: "Example" }] };
+  const item = (overrides: Record<string, unknown> = {}) => ({
+    kind: "tool",
+    title: "Nástroj",
+    body: "Forty characters of body copy is the upstream minimum, so this one clears it.",
+    source_url: cited,
+    ...overrides,
+  });
+  const errorsFor = (practical: unknown) => practicalErrors({ ...base, practical }, "2026-01-01.cs.mdx");
+
+  it("says nothing when the block is absent, which is every edition so far", () => {
+    expect(practicalErrors(base, "2026-01-01.cs.mdx")).toEqual([]);
+  });
+
+  it("accepts a grounded block, including one that cites a wire item", () => {
+    expect(errorsFor({ variant: "daily", items: [item()] })).toEqual([]);
+    expect(errorsFor({ variant: "friday-tools", items: [item({ source_url: wired })] })).toEqual([]);
+  });
+
+  it("rejects a non-object block and an item list the reader cannot render whole", () => {
+    expect(errorsFor("nope").join()).toContain("practical must be an object");
+    expect(errorsFor({ variant: "daily", items: [] }).join()).toContain("must hold 1-4 items");
+    expect(errorsFor({ variant: "daily", items: [item(), item(), item(), item(), item()] }).join()).toContain("must hold 1-4 items");
+  });
+
+  it("rejects an unknown variant and an unknown kind", () => {
+    expect(errorsFor({ variant: "monday-hacks", items: [item()] }).join()).toContain("practical.variant must be one of");
+    expect(errorsFor({ variant: "daily", items: [item({ kind: "webinar" })] }).join()).toContain("kind must be one of");
+  });
+
+  it("rejects a missing key, a non-object item and a downgraded URL", () => {
+    expect(errorsFor({ variant: "daily", items: [item({ title: undefined })] }).join()).toContain("title is required");
+    expect(errorsFor({ variant: "daily", items: ["a string"] }).join()).toContain("must be an object");
+    expect(errorsFor({ variant: "daily", items: [item({ source_url: "http://example.com" })] }).join()).toContain("must be an https URL");
+  });
+
+  it("rejects two items a reader cannot tell apart", () => {
+    expect(errorsFor({ variant: "daily", items: [item(), item({ title: " nástroj " })] }).join()).toContain("duplicates an earlier practical item");
+  });
+
+  it("rejects a URL spelled out in the title or the body", () => {
+    expect(errorsFor({ variant: "daily", items: [item({ title: "Viz https://example.com" })] }).join()).toContain("title must not contain a URL");
+    expect(errorsFor({ variant: "daily", items: [item({ body: "Otevřete http://example.com a zkuste to sami." })] }).join()).toContain("body must not contain a URL");
+  });
+
+  it("rejects a source_url this file never cited", () => {
+    expect(errorsFor({ variant: "daily", items: [item({ source_url: "https://example.com/never-cited" })] }).join()).toContain("is not cited in this file's sources or wire");
+  });
+
+  it("lets a Czech-only block stand: the block is not compared across locales", () => {
+    // A practical item is written for one language's readers. Requiring both
+    // halves to carry the same one would fail a legitimately Czech-only block.
+    const en = legacy as unknown as ArticleFrontmatter;
+    const cs = { ...legacy, practical: { variant: "daily", items: [item()] } } as unknown as ArticleFrontmatter;
+    expect(translationStructureErrors([{ file: "en", fm: en }, { file: "cs", fm: cs }])).toEqual([]);
   });
 });

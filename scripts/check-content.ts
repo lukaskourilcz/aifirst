@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { readMdxFiles, type ArticleFrontmatter } from "../lib/content.js";
-import { validateArticleFrontmatter, translationStructureErrors } from "../lib/editorial/validation.js";
+import { practicalErrors, validateArticleFrontmatter, translationStructureErrors } from "../lib/editorial/validation.js";
 import { loadTopicsConfig } from "../lib/topics/config.js";
 import { loadSources } from "../lib/sources.js";
 import { boardChangelogErrors, boardContextErrors } from "../lib/board.js";
@@ -19,6 +19,10 @@ async function main() {
   for (const file of files) {
     const { data, content } = matter(await fs.readFile(path.join(dir, file), "utf8"));
     errors.push(...validateArticleFrontmatter(data as Record<string, unknown>, file));
+    // Separate from the frontmatter validator on purpose: the practical block
+    // is grounded against this same file's own citations, which is a check the
+    // delivery boundary cannot make from the package alone.
+    errors.push(...practicalErrors(data as Record<string, unknown>, file));
     if (!content.trim()) errors.push(`${file}: body is empty`);
     entries.push({ file, fm: data as ArticleFrontmatter });
   }
