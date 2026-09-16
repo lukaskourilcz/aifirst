@@ -21,12 +21,18 @@ import { StructuredData } from "@/components/editorial/StructuredData";
 import {
   adjacentIssues,
   getArticle,
-  getArticleLocales,
   listArticles,
   relatedArticles,
   resolveHeroPhoto,
   type ArticleSummary,
 } from "@/lib/content";
+import {
+  articleGraph,
+  indexableHero,
+  lastModifiedAt,
+  publishedAt,
+} from "@/lib/editorial/structured-data";
+import { articleMarkdownPath } from "@/lib/distribution/llms";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
 import { relatedBySimilarity } from "@/lib/embeddings";
 import { readingMinutes } from "@/lib/text";
@@ -62,23 +68,38 @@ export async function generateMetadata({
     openGraph: { title: "Vydání dočasně staženo", description: editorialHold(slug)!.reason, images: [] },
   };
   const articlePath = `/articles/${slug}`;
-  const availableLocales = await getArticleLocales(slug);
-  const heroPhoto = resolveHeroPhoto(article.frontmatter);
-  const lastCorrection = [...(article.frontmatter.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
-  const modifiedTime = lastCorrection
-    ? `${lastCorrection.date}T00:00:00Z`
-    : article.frontmatter.generation?.generated_at ?? `${article.frontmatter.date}T06:00:00Z`;
+  // The Open Graph card is the delivered hero or nothing. Leaving `images`
+  // unset is what lets the file-based 1200x630 card in this segment apply;
+  // naming a cached 480x360 source thumbnail here would suppress it.
+  const hero = indexableHero(article.frontmatter);
+  // Advertise the chrome-free markdown copy beside the Atom autodiscovery link
+  // the shared helper already emits. Held editions return above, so a withdrawn
+  // issue still advertises nothing.
+  const alternates = localeAlternates(lang, articlePath);
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
-    alternates: localeAlternates(lang, articlePath),
+    alternates: {
+      ...alternates,
+      types: { ...(alternates.types ?? {}), "text/markdown": articleMarkdownPath(slug) },
+    },
     openGraph: {
       type: "article",
       title: article.frontmatter.title,
       description: article.frontmatter.dek,
-      publishedTime: `${article.frontmatter.date}T06:00:00Z`,
-      modifiedTime,
-      ...(heroPhoto ? { images: [{ url: heroPhoto }] } : {}),
+      publishedTime: publishedAt(article.frontmatter),
+      modifiedTime: lastModifiedAt(article.frontmatter),
+      ...(hero
+        ? {
+            images: [
+              {
+                url: hero.path,
+                ...(hero.width !== undefined ? { width: hero.width } : {}),
+                ...(hero.height !== undefined ? { height: hero.height } : {}),
+              },
+            ],
+          }
+        : {}),
     },
   };
 }
@@ -131,47 +152,30 @@ export default async function ArticlePage({
   const topics = topicsForArticle(topicsConfig, summary);
   const base = siteUrl();
   const publication = localizedBrand(locale);
-  const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
-  const modifiedTime = lastCorrection
-    ? `${lastCorrection.date}T00:00:00Z`
-    : fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`;
+  const articleHref = localePath(locale, `/articles/${article.slug}`);
 
   return (
     <>
       {fm.generation?.package_hash ? <meta name="boardless-content-hash" content={fm.generation.package_hash} /> : null}
       <ReadingProgress />
-      <StructuredData data={{
-        "@context": "https://schema.org",
-        "@graph": [
+      <StructuredData data={articleGraph({
+        fm,
+        base,
+        url: `${base}${articleHref}`,
+        inLanguage: article.lang,
+        isWeekly,
+        about: topics.map((topic) => topic.title[locale]),
+        hero: indexableHero(fm),
+        organizationName: publication.name,
+        breadcrumbs: [
+          { name: publication.name, item: `${base}${localePath(locale, "/")}` },
           {
-            "@type": "Organization",
-            "@id": `${base}/#organization`,
-            name: publication.name,
-            url: base,
+            name: isWeekly ? d.nav.weekly : d.nav.archive,
+            item: `${base}${localePath(locale, isWeekly ? "/weekly" : "/archive")}`,
           },
-          {
-            "@type": isWeekly ? "Article" : "NewsArticle",
-            headline: fm.title,
-            description: fm.dek,
-            datePublished: fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`,
-            dateModified: modifiedTime,
-            inLanguage: article.lang,
-            mainEntityOfPage: `${base}${localePath(locale, `/articles/${article.slug}`)}`,
-            author: { "@id": `${base}/#organization` },
-            publisher: { "@id": `${base}/#organization` },
-            about: topics.map((topic) => topic.title[locale]),
-            ...(heroPhoto ? { image: `${base}${heroPhoto}` } : {}),
-          },
-          {
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: publication.name, item: `${base}${localePath(locale, "/")}` },
-              { "@type": "ListItem", position: 2, name: isWeekly ? d.nav.weekly : d.nav.archive, item: `${base}${localePath(locale, isWeekly ? "/weekly" : "/archive")}` },
-              { "@type": "ListItem", position: 3, name: fm.title, item: `${base}${localePath(locale, `/articles/${article.slug}`)}` },
-            ],
-          },
+          { name: fm.title, item: `${base}${articleHref}` },
         ],
-      }} />
+      })} />
 
       <div className="page-with-rail">
         <div className="page-with-rail__main">
@@ -195,7 +199,7 @@ export default async function ArticlePage({
         locale={locale}
       />
 
-      <SponsorBlock sponsor={fm.sponsor} />
+      <SponsorBlock sponsor={fm.sponsor} locale={locale} />
       <EditorialHighlights whyItMatters={fm.why_it_matters} whatChanged={fm.what_changed} uncertainty={fm.uncertainty} locale={locale} />
 
       {/* Body + dispatches sidebar */}

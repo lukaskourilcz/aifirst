@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "partner-rate-card/1",
+  "currency": "CZK",
+  "vatNote": "",
+  "booking": {
+    "kind": "none",
+    "href": ""
+  },
+  "packages": [
+    { "id": "belt", "slot": "today-partner-belt", "priceCzk": null, "period": "month" },
+    { "id": "rail", "slot": "rail-square", "priceCzk": null, "period": "month" },
+    { "id": "edition", "slot": "sponsor-block", "priceCzk": null, "period": "edition" }
+  ]
+}

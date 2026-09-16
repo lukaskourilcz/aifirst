@@ -1,5 +1,14 @@
 {
   "schemaVersion": "banner-slot/1",
+  "inventory": {
+    "maxPerEdition": 3,
+    "maxPerSurface": 2,
+    "slots": [
+      { "id": "today-partner-belt", "surfaces": ["today"] },
+      { "id": "rail-square", "surfaces": ["today", "article", "weekly", "section"] },
+      { "id": "weekly-belt", "surfaces": ["weekly"] }
+    ]
+  },
   "slots": {
     "today-partner-belt": {
       "active": true,
@@ -33,6 +42,9 @@
         "width": 300,
         "height": 250
       }
+    },
+    "weekly-belt": {
+      "active": false
     }
   }
 }

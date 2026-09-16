@@ -7,6 +7,8 @@ import { validateArticleFrontmatter, translationStructureErrors } from "../lib/e
 import { loadTopicsConfig } from "../lib/topics/config.js";
 import { loadSources } from "../lib/sources.js";
 import { boardChangelogErrors, boardContextErrors } from "../lib/board.js";
+import { bannerInventoryErrors } from "../lib/banner.js";
+import { partnerRateCardErrors } from "../lib/partner.js";
 
 async function main() {
   const dir = path.join(process.cwd(), "content", "articles");
@@ -58,12 +60,24 @@ async function main() {
   } catch {
     errors.push("board changelog: config/board-changelog.json must be valid JSON");
   }
+  try {
+    const banner = JSON.parse(await fs.readFile(path.join(process.cwd(), "config", "banner.json"), "utf8")) as unknown;
+    errors.push(...bannerInventoryErrors(banner).map((error) => `banner config: ${error}`));
+  } catch {
+    errors.push("banner config: config/banner.json must be valid JSON");
+  }
+  try {
+    const partner = JSON.parse(await fs.readFile(path.join(process.cwd(), "config", "partner.json"), "utf8")) as unknown;
+    errors.push(...partnerRateCardErrors(partner).map((error) => `partner rate card: ${error}`));
+  } catch {
+    errors.push("partner rate card: config/partner.json must be valid JSON");
+  }
 
   if (errors.length) {
     console.error(`[check] ${errors.length} issue(s) found:\n\n${errors.map((error) => `  ${error}`).join("\n")}`);
     process.exit(1);
   }
-  console.log(`[check] ${files.length} MDX file(s), ${boardFiles.length} board context file(s), and configs validated, no issues`);
+  console.log(`[check] ${files.length} MDX file(s), ${boardFiles.length} board context file(s), the banner inventory, the partner rate card, and configs validated, no issues`);
 }
 
 main().catch((error) => {

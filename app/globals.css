@@ -2381,6 +2381,48 @@ svg { max-width: 100%; }
 .board-changelog time { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); }
 .trust-links { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-6); margin-top: var(--space-7); padding: var(--space-5) 0; border-top: 2px solid var(--border-strong); }
 
+/* The partner rate card. It reuses the About page's numbered section shell and
+   adds only what a price list needs: a package column, an inventory list and
+   the one filled action in the system. Flat surfaces, hairline rules, no cards. */
+.partner-card { max-width: 72ch; }
+.partner-card section { max-width: 92ch; }
+.partner-packages { display: grid; gap: var(--space-5); margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+.partner-package { padding-top: var(--space-5); border-top: 1px solid var(--border-subtle); }
+.partner-packages > .partner-package:first-child { padding-top: 0; border-top: 0; }
+.partner-package__name { margin: 0 0 var(--space-2); font-family: var(--font-editorial); font-size: var(--text-subheading); letter-spacing: var(--tracking-heading); }
+.about-sections .partner-package__summary { margin: 0 0 var(--space-3); }
+.partner-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); margin: 0 0 var(--space-4); }
+.about-sections .partner-price { font-family: var(--font-mono); }
+.partner-price__amount { color: var(--text-primary); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.partner-price__request { color: var(--text-tertiary); font-size: var(--text-body-sm); }
+.partner-package__includes-heading { display: block; margin: 0 0 var(--space-2); }
+.partner-includes { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.partner-includes li { position: relative; padding-left: var(--space-4); color: var(--text-secondary); font-family: var(--font-reading); font-size: 1.0625rem; line-height: 1.6; }
+.partner-includes li::before { content: ""; position: absolute; top: 0.72em; left: 0; width: 10px; height: 1px; background: var(--border-strong); }
+
+.partner-formats { margin: var(--space-4) 0 0; }
+.partner-format { padding: var(--space-3) 0; border-top: 1px solid var(--border-subtle); }
+.partner-formats > .partner-format:first-child { border-top: 0; }
+.partner-format dt { display: grid; gap: var(--space-1); }
+.partner-format__name { color: var(--text-primary); font-family: var(--font-editorial); font-weight: 500; }
+.partner-format__where { display: block; }
+.partner-format dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-4); margin: 0; }
+.partner-format__size { color: var(--text-secondary); font-family: var(--font-mono); font-size: var(--text-body-sm); font-variant-numeric: tabular-nums; }
+.partner-state { font-family: var(--font-mono); font-size: var(--text-caption); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+.partner-state--taken { color: var(--status-warning); }
+.partner-state--free { color: var(--status-complete); }
+.partner-state--per-edition { color: var(--text-tertiary); }
+
+.partner-reach { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--space-4) var(--space-5); margin: var(--space-4) 0 0; }
+.partner-reach > div { display: grid; gap: var(--space-1); align-content: start; padding-top: var(--space-2); border-top: 1px solid var(--border-subtle); }
+.partner-reach dt { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); letter-spacing: var(--tracking-label); line-height: var(--leading-caption); text-transform: uppercase; }
+.partner-reach dd { margin: 0; color: var(--text-primary); font-family: var(--font-editorial); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+
+.about-sections .partner-note { margin-top: var(--space-4); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-body-sm); line-height: 1.55; }
+.partner-rule__link { margin: var(--space-4) 0 0; }
+.partner-booking { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); margin: var(--space-4) 0 0; }
+.partner-booking__cta { min-height: 44px; }
+
 .making-of { max-width: 82ch; margin: var(--space-5) 0 var(--space-6); padding: var(--space-4) 0; border-block: 1px solid var(--border-subtle); }
 .making-of p { margin: 0; color: var(--text-secondary); }
 .making-of p + p { margin-top: var(--space-2); }
@@ -2530,6 +2572,8 @@ svg { max-width: 100%; }
   }
   .provenance dd { text-align: left; }
   .about-sections section, .corrections-ledger > li { grid-template-columns: 1fr; gap: var(--space-2); }
+  .partner-format, .partner-reach > div { grid-template-columns: 1fr; }
+  .partner-booking { align-items: flex-start; }
   .reference-list li { display: block; }
 }
 
@@ -2584,6 +2628,52 @@ svg { max-width: 100%; }
   color: var(--text-tertiary);
 }
 .rail-module__action a { color: var(--accent-primary); }
+
+/* The subscribe form renders only when config/subscribe.json carries a
+   provider; the module is the Atom link alone otherwise. It stacks inside the
+   300px rail column and reflows with the rest of the rail below 1280. The
+   input and the button carry their own affordance, so both use
+   --border-control rather than a grouping hairline. */
+.subscribe-form {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  min-width: 0;
+}
+.subscribe-form__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.subscribe-form__input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-family: var(--font-suisse-intl);
+  font-size: var(--text-body-sm);
+  color: var(--text-primary);
+  background: var(--surface-reading);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-inputs);
+}
+.subscribe-form__input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.subscribe-form__submit {
+  justify-content: center;
+  min-height: 44px;
+}
+.subscribe-form__note {
+  margin: 0;
+  font-family: var(--font-reading);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  color: var(--text-secondary);
+}
 
 .rail-events { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
 .rail-events li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }

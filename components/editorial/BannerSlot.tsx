@@ -28,6 +28,8 @@ export function AdPlaceholder({ locale }: { locale: Locale }) {
  * so the belt causes no layout shift.
  */
 export function BannerSlot({ id, locale }: { id: string; locale: Locale }) {
+  // The inventory is capped: an id outside `inventory.slots` in
+  // `config/banner.json` reads as empty here, whatever creative it carries.
   const slot = bannerSlot(id);
   // An empty slot either reserves its box or renders nothing at all. Which one
   // is config, so the belt keeps collapsing while the rail square holds space.

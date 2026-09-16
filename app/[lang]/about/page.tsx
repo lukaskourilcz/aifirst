@@ -46,6 +46,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
         ))}
       </div>
       <nav aria-label={locale === "cs" ? "Transparentnost" : "Transparency"} className="trust-links">
+        <Link href={localePath(locale, "/partner")}>{t.partnerCard} →</Link>
         <Link href={localePath(locale, "/sources")}>{t.sourceDirectory} →</Link>
         <Link href={localePath(locale, "/corrections")}>{t.corrections} →</Link>
         <Link href={localePath(locale, "/glossary")}>{dict(locale).nav.glossary} →</Link>

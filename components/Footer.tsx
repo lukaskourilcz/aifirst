@@ -32,6 +32,7 @@ export function Footer({ locale }: { locale: Locale }) {
         <nav aria-label={d.footer.trust} className="footer-nav">
           <p className="footer-nav__heading">{d.footer.trust}</p>
           <Link href={lp("/about")}>{t.about}</Link>
+          <Link href={lp("/partner")}>{t.partner}</Link>
           <Link href={lp("/corrections")}>{t.corrections}</Link>
           <Link href={lp("/glossary")}>{t.glossary}</Link>
           <Link href={lp("/sources")}>{t.sources}</Link>

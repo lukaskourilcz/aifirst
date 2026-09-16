@@ -12,6 +12,7 @@ import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
+import { articleNode, indexableHero, organizationNode, websiteNode } from "@/lib/editorial/structured-data";
 import { githubRepo, siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
@@ -81,11 +82,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
   const { upcoming } = splitByAnchor(loadEvents(), anchor);
   const older = weekBeforeWindow(allArticles, anchor);
 
-  const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
-  const modifiedTime = lastCorrection
-    ? `${lastCorrection.date}T00:00:00Z`
-    : fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`;
-
   return (
     <>
       {fm.generation?.package_hash ? (
@@ -95,28 +91,25 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
         data={{
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", "@id": `${base}/#organization`, name: publication.name, url: base },
-            {
-              "@type": "WebSite",
-              "@id": `${base}/#website`,
+            organizationNode({ base, name: publication.name }),
+            websiteNode({
+              base,
               name: publication.name,
               description: publication.promise,
               url: `${base}${lp("/")}`,
               inLanguage: locale,
-              publisher: { "@id": `${base}/#organization` },
-            },
-            {
-              "@type": "NewsArticle",
-              headline: fm.title,
-              description: fm.dek,
-              datePublished: fm.generation?.generated_at ?? `${fm.date}T06:00:00Z`,
-              dateModified: modifiedTime,
+            }),
+            // The lead edition's own delivered hero, never a cached source
+            // thumbnail: the front page declares the same article image the
+            // article page does.
+            articleNode({
+              fm,
+              base,
+              url: `${base}${articleHref}`,
               inLanguage: latest.lang,
-              mainEntityOfPage: `${base}${articleHref}`,
-              author: { "@id": `${base}/#organization` },
-              publisher: { "@id": `${base}/#organization` },
-              ...(heroPhoto ? { image: `${base}${heroPhoto}` } : {}),
-            },
+              isWeekly: (fm.type ?? "daily") === "weekly",
+              hero: indexableHero(fm),
+            }),
           ],
         }}
       />
@@ -156,7 +149,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             <>
               <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} />
 
-              <SponsorBlock sponsor={fm.sponsor} />
+              <SponsorBlock sponsor={fm.sponsor} locale={locale} />
               <CondensedBriefs
                 dispatches={fm.dispatches ?? []}
                 wire={fm.wire ?? []}

@@ -712,8 +712,12 @@ Past events: all text one step down (`--text-tertiary`), date block
 
 The creative is fixed 300×250 in both axes. Below 1280 the rail reflows into the
 main column and the creative stays centered at its intrinsic size. The homepage
-also carries the reciprocal partner belt after the completion mark. There is no
-in-feed or sticky unit.
+also carries the reciprocal partner belt after the completion mark, and `/tyden`
+and `/tyden/[week]` carry a Weekly belt in the same position relative to their
+closing action. Those three placements are the whole inventory, declared and
+capped in `config/banner.json` at three creatives overall and two on any one
+surface. There is no in-feed or sticky unit, and a slot the inventory does not
+declare renders nothing.
 
 ### 6.10 Widget module frame
 

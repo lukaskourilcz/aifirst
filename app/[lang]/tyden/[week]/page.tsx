@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
+import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { FeedRow } from "@/components/editorial/FeedRow";
 import { RightRail } from "@/components/editorial/RightRail";
 import { ArchiveExhausted, WeekAction } from "@/components/editorial/WeekAction";
@@ -99,6 +100,10 @@ export default async function WeekArchivePage({
           ) : (
             <ArchiveExhausted locale={locale} />
           )}
+
+          {/* Same Weekly belt as the current week, so both weekly surfaces
+              carry one placement and never a second. */}
+          <BannerSlot id="weekly-belt" locale={locale} />
         </PageShell>
       </div>
       <RightRail locale={locale} dateKey={anchor} events={upcoming} />

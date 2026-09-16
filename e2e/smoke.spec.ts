@@ -15,6 +15,7 @@ const ROUTES = [
   "/radar",
   "/weekly",
   "/about",
+  "/partner",
   "/corrections",
   "/sources",
   "/glossary",
@@ -131,6 +132,10 @@ test("the reciprocal MMA FILES promotion renders without overflow at launch widt
     await expect(banners.nth(0)).toBeVisible();
     await expect(banners.nth(1)).toBeVisible();
     await expect(banners.nth(0)).toHaveAttribute("rel", "sponsored noopener noreferrer");
+
+    // Today holds the belt and the rail square, which is the declared cap of
+    // two placements on one surface.
+    await expect(page.locator(".banner-slot")).toHaveCount(2);
 
     const visibleCreatives = page.locator(".banner-slot__creative:visible");
     await expect(visibleCreatives).toHaveCount(2);
@@ -321,6 +326,50 @@ test("feeds expose language, entry links, publication time and categories", asyn
   expect(await czech.text()).toContain('xml:lang="cs"');
 });
 
+test("feeds name their author and declare each enclosure's real media type", async ({ request }) => {
+  for (const route of ["/feed.xml", "/weekly/feed.xml", "/topics/ai-models/feed.xml"]) {
+    const xml = await (await request.get(route)).text();
+    // RFC 4287 section 4.1.1: a feed without an author is invalid.
+    expect(xml, route).toMatch(/<author>\s*<name>[^<]+<\/name>/);
+    for (const match of xml.matchAll(/<link href="([^"]+)" rel="enclosure" type="([^"]+)"/g)) {
+      const href = match[1] ?? "";
+      const expected = href.endsWith(".svg") ? "image/svg+xml" : "image/webp";
+      expect(match[2], href).toBe(expected);
+    }
+  }
+});
+
+test("reading pages ask for a large image preview and describe themselves as an Article", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /max-image-preview:large/i);
+
+  const href = await page.locator('a[href^="/articles/"]:not([href$="/print"])').first().getAttribute("href");
+  expect(href, "the front page links an edition").toBeTruthy();
+  await page.goto(href!);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /max-image-preview:large/i);
+
+  const graphs = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const nodes = graphs.flatMap((raw) => (JSON.parse(raw)["@graph"] ?? []) as Array<Record<string, unknown>>);
+  const article = nodes.find((node) => node["@type"] === "NewsArticle" || node["@type"] === "Article");
+  expect(article, "an article page publishes an Article node").toBeTruthy();
+  expect(article?.headline).toBeTruthy();
+  expect(String(article?.datePublished)).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+  expect(String(article?.dateModified)).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+  expect(article?.author).toBeTruthy();
+
+  const organization = nodes.find((node) => node["@type"] === "Organization");
+  expect(organization?.["@id"]).toBe((article?.author as { "@id": string })["@id"]);
+
+  // Discover only offers a large preview from 1200px up, so a declared
+  // ImageObject must clear it; an edition without a hero declares no image at
+  // all rather than a narrow cached thumbnail.
+  const image = article?.image;
+  if (image && typeof image === "object") {
+    expect((image as { width: number }).width).toBeGreaterThanOrEqual(1200);
+  }
+  if (typeof image === "string") expect(image).not.toContain("/og-cache/");
+});
+
 test("source evidence class stays separate and reduced motion disables entrances", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
@@ -369,6 +418,50 @@ test("public JSON contracts and security headers remain available", async ({ req
   expect(home.headers()["x-frame-options"]).toBe("DENY");
 });
 
+test("the subscribe module is Atom-only while no email provider is configured", async ({ page, request }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/");
+  const subscribe = page.locator(".right-rail .rail-module").filter({ hasText: /odebírat/i }).first();
+  await expect(subscribe.locator('a[href$="/feed.xml"]')).toHaveCount(1);
+  // config/subscribe.json ships empty, so no address is collected anywhere and
+  // form-action carries no provider origin.
+  await expect(page.locator('input[type="email"]')).toHaveCount(0);
+  await expect(subscribe).not.toContainText("e-mail");
+
+  const csp = (await request.get("/")).headers()["content-security-policy"] ?? "";
+  expect(csp).toContain("form-action 'self'");
+  expect(csp).toMatch(/form-action 'self';/);
+});
+
+test("llms.txt indexes the editions and each one resolves as chrome-free markdown", async ({ request }) => {
+  const index = await request.get("/llms.txt");
+  expect(index.ok()).toBe(true);
+  expect(index.headers()["content-type"]).toContain("text/plain");
+  const body = await index.text();
+  expect(body.startsWith("# DNESKAi")).toBe(true);
+  expect(body).toContain("## Optional");
+
+  const first = /\]\((https?:\/\/[^)]+\/articles\/([^/)]+)\.md)\)/.exec(body);
+  expect(first, "llms.txt lists at least one edition").not.toBeNull();
+  const slug = first?.[2] ?? "";
+  for (const route of [`/articles/${slug}.md`, `/articles/${slug}/index.md`]) {
+    const markdown = await request.get(route);
+    expect(markdown.ok(), route).toBe(true);
+    expect(markdown.headers()["content-type"], route).toContain("text/markdown");
+    const text = await markdown.text();
+    expect(text.startsWith("# "), route).toBe(true);
+    expect(text, route).not.toContain("<html");
+    expect(text, route).not.toContain("<body");
+    // Run instrumentation stays in /health, never in a document readers open.
+    for (const key of ["package_hash", "source_candidates", "human_reviewed"]) {
+      expect(text, `${key} in ${route}`).not.toContain(key);
+    }
+  }
+
+  const withdrawn = await request.get("/articles/2026-08-08-openai-astra-pozastaveni-kyberneticky-prach.md");
+  expect(withdrawn.status()).toBe(404);
+});
+
 test("the about page is a magazine, not a run record", async ({ page }) => {
   await page.goto("/about");
   await expect(page.getByRole("heading", { name: "Inzerce" })).toBeVisible();
@@ -395,19 +488,28 @@ test("the about page is a magazine, not a run record", async ({ page }) => {
 });
 
 test("the section routes render their honest empty states", async ({ page }) => {
-  // Every stream and event file ships as a valid empty envelope, so these are
-  // the states a reader sees on day one.
+  // The stream files ship as valid empty envelopes, so these two are the states
+  // a reader sees on day one and they stay exact.
   await page.goto("/o-cem-se-mluvi");
   await expect(page.getByText("Dnes zatím nic nového.")).toBeVisible();
 
   await page.goto("/podcasty");
   await expect(page.getByText("Dnes nevyšla žádná nová epizoda.")).toBeVisible();
 
+  // These two fill up from committed content — /ai-modely from editions filed
+  // under `ai-models`, /akce from the events store — so pinning them to the
+  // empty line made the suite fail the day an edition earned the category.
+  // What has to hold either way is that the route renders one honest state and
+  // never a half-empty shell: the empty lines, or a real feed.
   await page.goto("/ai-modely");
-  await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
+  await expect(
+    page.getByText("Zatím tu není žádné vydání zaměřené na modely.").or(page.locator(".feed-list")).first(),
+  ).toBeVisible();
 
   await page.goto("/akce");
-  await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();
+  await expect(
+    page.getByText("Zatím tu nejsou žádné nadcházející akce.").or(page.locator("ul.events")).first(),
+  ).toBeVisible();
 });
 
 test("the week chain reaches back through every published week", async ({ page }) => {
@@ -442,9 +544,27 @@ test("events expose both scopes as linkable anchors with zero JavaScript", async
 
 test("the new section routes are in the sitemap", async ({ request }) => {
   const xml = await (await request.get("/sitemap.xml")).text();
-  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce", "/partner"]) {
     expect(xml, `${path} missing from the sitemap`).toContain(`${path}<`);
   }
+});
+
+test("the news sitemap names the publication and robots.txt advertises it", async ({ request }) => {
+  const response = await request.get("/news-sitemap.xml");
+  expect(response.ok()).toBe(true);
+  expect(response.headers()["content-type"]).toContain("xml");
+  const xml = await response.text();
+  expect(xml).toContain('xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"');
+  if (xml.includes("<url>")) {
+    expect(xml).toContain("<news:name>DNESKAi</news:name>");
+    expect(xml).toMatch(/<news:language>[a-z]{2,3}<\/news:language>/);
+    // A bare date is not a news:publication_date; Google wants an instant.
+    expect(xml).toMatch(/<news:publication_date>\d{4}-\d{2}-\d{2}T[^<]+<\/news:publication_date>/);
+    expect(xml).toMatch(/<loc>https?:\/\/[^<]+\/articles\/[^<]+<\/loc>/);
+  }
+
+  const robots = await (await request.get("/robots.txt")).text();
+  expect(robots).toContain("news-sitemap.xml");
 });
 
 test("the rail partner creative holds 300x250 and carries no script", async ({ page }) => {
@@ -457,6 +577,59 @@ test("the rail partner creative holds 300x250 and carries no script", async ({ p
   expect(rect?.height).toBe(250);
   await expect(page.locator(".right-rail .banner-slot")).toHaveCount(1);
   await expect(page.locator(".banner-slot script")).toHaveCount(0);
+});
+
+test("the weekly surface stays inside the declared inventory", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/tyden");
+  // The Weekly belt is declared but unsold, so it renders nothing and Weekly
+  // carries the rail square alone. Either way it can never exceed two.
+  const banners = page.locator(".banner-slot");
+  expect(await banners.count()).toBeLessThanOrEqual(2);
+  await expect(page.locator(".banner-slot script")).toHaveCount(0);
+  await expect(page.locator(".right-rail .banner-slot")).toHaveCount(1);
+});
+
+test("the partner page sells only what the inventory declares", async ({ page }) => {
+  await page.goto("/partner");
+
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).toHaveText("Partnerství s DNESKAi.");
+
+  // Every package is quoted individually until the owner sets a rate, so the
+  // page must show the on-request state and never a number nobody agreed to.
+  const packages = page.locator(".partner-package");
+  expect(await packages.count()).toBeGreaterThan(0);
+  await expect(page.locator(".partner-price__request").first()).toBeVisible();
+  await expect(page.locator(".partner-price__amount")).toHaveCount(0);
+
+  // The inventory rows are read back out of the same config the reader
+  // surfaces render from, so the belt reads as taken and the unsold Weekly
+  // belt reads as free.
+  await expect(page.locator(".partner-format")).toHaveCount(4);
+  await expect(page.locator(".partner-state--taken")).toHaveCount(2);
+  await expect(page.locator(".partner-state--free")).toHaveCount(1);
+
+  // No traffic figure is claimed anywhere, and nothing is embedded.
+  await expect(page.locator(".partner-reach")).toBeVisible();
+  await expect(page.locator(".partner-card script, .partner-card iframe, .partner-card form")).toHaveCount(0);
+
+  // No booking destination is configured, so there is a stated empty state
+  // rather than a dead button.
+  await expect(page.locator(".partner-booking__cta")).toHaveCount(0);
+  await expect(page.locator("#booking .route-empty-state")).toBeVisible();
+});
+
+test("the partner page is reachable from the footer and the about page", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  await expect(page.locator('nav.footer-nav a[href$="/partner"]')).toHaveCount(1);
+  // The rail stays sections plus search; the trust nav is the second entry point.
+  await expect(page.locator('.sidebar a[href$="/partner"]')).toHaveCount(0);
+
+  await page.goto("/about");
+  await expect(page.locator('.trust-links a[href$="/partner"]')).toHaveCount(1);
+  await expect(page.locator("#sponsorship")).toBeVisible();
 });
 
 test("the magazine's own copy carries no em-dash", async ({ page }) => {
@@ -476,7 +649,7 @@ test("the magazine's own copy carries no em-dash", async ({ page }) => {
     ".footer-nav",
   ].join(", ");
 
-  for (const route of ["/", "/tyden", "/akce", "/podcasty", "/o-cem-se-mluvi", "/ai-modely", "/about"]) {
+  for (const route of ["/", "/tyden", "/akce", "/podcasty", "/o-cem-se-mluvi", "/ai-modely", "/about", "/partner"]) {
     await page.goto(route);
     const chunks = await page.locator(OWN).allInnerTexts();
     expect(chunks.join(" "), `em-dash in ${route}`).not.toContain("\u2014");

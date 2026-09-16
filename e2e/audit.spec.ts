@@ -22,6 +22,7 @@ const ROUTES = [
   "/sources",
   "/glossary",
   "/about",
+  "/partner",
   "/corrections",
   "/health",
 ];

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
+import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { FeedRow } from "@/components/editorial/FeedRow";
 import { RightRail } from "@/components/editorial/RightRail";
 import { ArchiveExhausted, WeekAction } from "@/components/editorial/WeekAction";
@@ -64,6 +65,11 @@ export default async function WeekPage({ params }: { params: Promise<{ lang: Loc
           ) : (
             <ArchiveExhausted locale={locale} />
           )}
+
+          {/* The Weekly belt, the third and last declared placement. It sits
+              after the week is read out, the way the Today belt sits after the
+              completion mark, and renders nothing while it is unsold. */}
+          <BannerSlot id="weekly-belt" locale={locale} />
         </PageShell>
       </div>
       <RightRail locale={locale} dateKey={anchor} events={upcoming} />

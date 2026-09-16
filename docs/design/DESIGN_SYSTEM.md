@@ -87,6 +87,44 @@ line for its verification receipt. The partner belt after the completion mark is
 empty by default and renders nothing at all until a local creative is
 configured. All three are text-first: no imagery, no chart, no decoration.
 
+## Sponsorship inventory
+
+The inventory is declared and capped in `config/banner.json`, which is the
+single source of the numbers below; the design system does not restate them
+anywhere a reader-facing count could drift from the configuration.
+
+Three placements exist and no fourth may be added without changing that file:
+`today-partner-belt` after the completion mark on Today, `rail-square` in the
+right rail, and `weekly-belt` after the week is read out on `/tyden` and
+`/tyden/[week]`. The caps are at most three filled creatives across the
+configuration and at most two on any one surface. An id the inventory does not
+declare reads as empty, and `pnpm check:content` fails the release gate on an
+over-cap or undeclared placement, so the cap is a mechanism rather than a
+convention.
+
+Every placement is labelled. A banner carries the `Partner` label above the
+creative and an accessible region name of `Partner: <advertiser>`; a
+frontmatter sponsor block carries the edition's own label and an accessible
+region name built from the magazine's word for paid placement. Every paid
+destination carries `rel="sponsored"`. Creatives are local files under
+`public/images/banners/` with explicit dimensions, so there is no ad script, no
+third-party host, no tracking and no change to the CSP.
+
+Sponsorship never affects editorial placement. Paying for a slot does not
+decide which story leads, how stories are ordered, or what reaches Briefs and
+Watchlist, and the reader is told so in the sponsorship section of `/about`.
+Slots sit after editorial content, never inside a feed and never sticky.
+
+`/partner` is where that inventory is offered. It reuses the About page's
+numbered section shell and adds only what a price list needs: a package column,
+an inventory list and the one filled action in the system. Its inventory rows
+are read back out of `config/banner.json` through `bannerSlot`, so a size or a
+sold state on that page is the same value the reader surfaces render from.
+Prices and the booking destination live in `config/partner.json` and are the
+owner's; until they are set the page renders "price on request" and a stated
+absence of a booking link rather than a dead button. It quotes no traffic or
+subscriber number, because none is measured, and says so in place of the figure.
+
 ## Focus, motion, and interaction
 
 All interactive controls use a two-pixel blueprint focus ring with visible

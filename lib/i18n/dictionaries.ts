@@ -19,6 +19,7 @@ const en = {
     topics: "topics",
     weekly: "weekly",
     about: "about",
+    partner: "partnership",
     corrections: "corrections",
     archive: "archive",
     tags: "tags",
@@ -104,7 +105,13 @@ const en = {
     upcomingEvents: "Next events",
     allEvents: "All events",
     subscribe: "Subscribe",
-    subscribeBody: "Every edition by Atom, or in your inbox.",
+    // Atom is the only channel that exists. The inbox line below is used only
+    // when `config/subscribe.json` carries a provider, so the rail never
+    // promises a list that has not been set up.
+    subscribeBody: "Every edition by Atom.",
+    subscribeEmailBody: "Every edition by Atom, or in your inbox.",
+    subscribeEmailLabel: "Your email",
+    subscribeEmailSubmit: "Subscribe",
     opensInNewWindow: "(opens in a new window)",
     today: "Today",
     yesterday: "yesterday",
@@ -265,7 +272,8 @@ const en = {
     privacyTitle: "Accessibility and privacy",
     privacyBody: "The site is built on semantic HTML with visible focus, and it respects reduced-motion preferences. No advertising scripts and no behavioural tracking run here.",
     sponsorshipTitle: "Advertising",
-    sponsorshipBody: "Paid placement is always labelled and never tracks the reader. Partner links carry the sponsored marker, and no third-party measurement pixels are allowed.",
+    sponsorshipBody: "Paid placement is always labelled and never tracks the reader. Partner links carry the sponsored marker, and no third-party measurement pixels are allowed. The inventory is small and fixed: at most three placements in an edition and at most two on a single page. Paying for one never decides which story leads, how stories are ordered, or what reaches the briefs and the watchlist.",
+    partnerCard: "Partnership and rate card",
     sourceDirectory: "Browse the source directory",
     corrections: "Read the correction record",
     repository: "Open the repository",
@@ -423,6 +431,97 @@ const en = {
     tipBefore: "tip · press",
     tipAfter: "then a letter to navigate",
   },
+  // The only line of llms.txt that is written rather than reused. Everything
+  // else in that file is a heading the reader already sees somewhere.
+  llms: {
+    intro:
+      "Every edition below also has a markdown copy without navigation: why it matters, what changed, what remains uncertain, Briefs, Watchlist and the full source list. When you quote it, name the edition, the date and the link.",
+  },
+  // The rate card. Every word a partner reads lives here; `config/partner.json`
+  // carries only the commercial values, so a price is never hard-coded in copy.
+  partner: {
+    kicker: "partnership",
+    title: "Partnering with DNESKAi.",
+    intro:
+      "One belt on Today, one square in the right rail and one block inside an edition. This page says what can be booked, how it is arranged, and what paying for it never changes.",
+    packagesHeading: "Packages",
+    includesHeading: "Includes",
+    priceOnRequest: "Price on request",
+    priceNote: "No rate has been published yet, so every package is quoted individually.",
+    packagesEmpty: "No package is on offer right now.",
+    perEdition: "per edition",
+    perWeek: "per week",
+    perMonth: "per month",
+    vatUnset: "Whether prices are quoted with or without VAT is not settled yet.",
+    packages: {
+      belt: {
+        name: "Partner belt",
+        summary:
+          "A 728×90 belt on Today, right after the end of the edition, and 320×100 on a phone.",
+        includes: [
+          "A local image file served from the magazine, with no script and no tracking.",
+          "A visible Partner label above the belt and a sponsored marker on the link.",
+          "A position after the edition ends, so it does not interrupt the briefing.",
+        ],
+      },
+      rail: {
+        name: "Right-rail square",
+        summary:
+          "A 300×250 square in the right rail on Today, on article pages, on Weekly and on the section pages.",
+        includes: [
+          "The same local image and sponsored marker as the belt.",
+          "A box that is reserved whether it is filled or not, so nothing on the page moves.",
+          "One square per page, never two.",
+        ],
+      },
+      edition: {
+        name: "Edition sponsor",
+        summary:
+          "A labelled block inside one edition: a name, a short line of copy and one link.",
+        includes: [
+          "The block sits inside the edition and stays with it in the archive.",
+          "The label is visible and the link carries the sponsored marker.",
+          "The copy is yours; the edition around it is not for sale.",
+        ],
+      },
+    },
+    formatsHeading: "The inventory",
+    formatsIntro:
+      "Three banner placements exist and a fourth cannot be added without changing the configuration the site is built from. The edition sponsor is arranged separately, on a chosen edition. The state below is what the site is serving right now.",
+    formatWhere: "where",
+    formatSize: "size",
+    formatState: "state",
+    sizeUnset: "size not set yet",
+    sponsorBlockSize: "copy, one link and an optional image",
+    stateTaken: "taken",
+    stateFree: "free",
+    statePerEdition: "arranged on a chosen edition",
+    slots: {
+      "today-partner-belt": { name: "Partner belt", where: "Today, after the end of the edition" },
+      "rail-square": {
+        name: "Right-rail square",
+        where: "the right rail on Today, articles, Weekly and the sections",
+      },
+      "weekly-belt": { name: "Weekly belt", where: "Weekly and the weekly archive, under the closing link" },
+      "sponsor-block": { name: "Edition sponsor", where: "inside one edition" },
+    },
+    reachHeading: "Numbers that can be checked",
+    reachEditions: "editions in the archive",
+    reachSpan: "publishing since",
+    reachSources: "sources in the registry",
+    reachTopics: "curated topics",
+    reachCadence: "cadence",
+    reachCadenceValue: "one edition every weekday",
+    reachNote:
+      "DNESKAi measures no visits and no reader behaviour, so this page quotes no traffic and no subscriber count. The numbers above are counted from what is published and can be checked in the archive.",
+    rulesHeading: "The rule",
+    rulesLink: "More of the magazine's rules",
+    bookHeading: "Arranging a placement",
+    bookBody: "Placements are arranged directly. No form, no widget and no third-party booking script.",
+    bookCta: "Arrange a placement",
+    bookUnavailable:
+      "There is no partner contact published yet. The button appears here as soon as there is one.",
+  },
   notFound: {
     kicker: "404 · not found",
     title: "This issue was never published.",
@@ -456,6 +555,7 @@ const cs: Dict = {
     topics: "témata",
     weekly: "týden",
     about: "o projektu",
+    partner: "partnerství",
     corrections: "opravy",
     archive: "archiv",
     tags: "témata",
@@ -539,7 +639,10 @@ const cs: Dict = {
     upcomingEvents: "Nejbližší akce",
     allEvents: "Všechny akce",
     subscribe: "Odebírat",
-    subscribeBody: "Každé vydání přes Atom, nebo do e-mailu.",
+    subscribeBody: "Každé vydání přes Atom.",
+    subscribeEmailBody: "Každé vydání přes Atom, nebo do e-mailu.",
+    subscribeEmailLabel: "Váš e-mail",
+    subscribeEmailSubmit: "Odebírat",
     opensInNewWindow: "(otevře se v novém okně)",
     today: "Dnes",
     yesterday: "včera",
@@ -700,7 +803,8 @@ const cs: Dict = {
     privacyTitle: "Přístupnost a soukromí",
     privacyBody: "Web stojí na sémantickém HTML s viditelným fokusem a respektuje omezení pohybu. Neběží tu reklamní skripty ani sledování chování.",
     sponsorshipTitle: "Inzerce",
-    sponsorshipBody: "Placené umístění je vždy označené a nikdy nesleduje čtenáře. Odkazy partnerů nesou příslušné označení a měřicí pixely třetích stran tu nejsou povolené.",
+    sponsorshipBody: "Placené umístění je vždy označené a nikdy nesleduje čtenáře. Odkazy partnerů nesou příslušné označení a měřicí pixely třetích stran tu nejsou povolené. Inzertních míst je málo a jejich počet je pevně daný: nejvýš tři na vydání a nejvýš dvě na jedné stránce. Zaplacené místo nikdy neovlivní, která zpráva vede vydání, jak jsou zprávy seřazené, ani co se dostane do rubrik Ve zkratce a Na radaru.",
+    partnerCard: "Partnerství a ceník",
     sourceDirectory: "Přehled zdrojů",
     corrections: "Záznam oprav",
     repository: "Otevřít repozitář",
@@ -857,6 +961,91 @@ const cs: Dict = {
     goTrends: "na radar",
     tipBefore: "tip · stiskněte",
     tipAfter: "a poté písmeno pro navigaci",
+  },
+  llms: {
+    intro:
+      "Každé vydání níže má i markdownovou kopii bez navigace: proč na tom záleží, co se změnilo, co zůstává nejisté, Ve zkratce, Na radaru a celý seznam zdrojů. Při citování uveďte název vydání, datum a odkaz.",
+  },
+  partner: {
+    kicker: "partnerství",
+    title: "Partnerství s DNESKAi.",
+    intro:
+      "Jeden pás na Dnes, jeden čtverec v pravém sloupci a jeden blok uvnitř vydání. Tahle stránka říká, co se dá zamluvit, jak se to domlouvá a co placené místo nikdy nezmění.",
+    packagesHeading: "Balíčky",
+    includesHeading: "Obsahuje",
+    priceOnRequest: "Cena na vyžádání",
+    priceNote: "Ceník zatím zveřejněný není, takže se každý balíček domlouvá individuálně.",
+    packagesEmpty: "Právě teď se nenabízí žádný balíček.",
+    perEdition: "za vydání",
+    perWeek: "za týden",
+    perMonth: "za měsíc",
+    vatUnset: "Zda jsou ceny s DPH, nebo bez ní, zatím není stanovené.",
+    packages: {
+      belt: {
+        name: "Partnerský pás",
+        summary: "Pás 728×90 na Dnes, hned za koncem vydání, a 320×100 na telefonu.",
+        includes: [
+          "Vlastní obrázek uložený přímo u magazínu, bez skriptu a bez sledování.",
+          "Viditelné označení Partner nad pásem a označení sponsored na odkazu.",
+          "Místo až za koncem vydání, takže nepřerušuje čtení.",
+        ],
+      },
+      rail: {
+        name: "Čtverec v pravém sloupci",
+        summary:
+          "Formát 300×250 v pravém sloupci na Dnes, u článků, na Týdnu a na stránkách rubrik.",
+        includes: [
+          "Stejný vlastní obrázek a stejné označení sponsored jako u pásu.",
+          "Místo má rezervovanou velikost, ať je obsazené nebo ne, takže se stránka nehýbe.",
+          "Na jedné stránce je vždy jeden čtverec, nikdy dva.",
+        ],
+      },
+      edition: {
+        name: "Sponzor vydání",
+        summary: "Označený blok uvnitř jednoho vydání: jméno, krátký text a jeden odkaz.",
+        includes: [
+          "Blok je součástí vydání a zůstává s ním i v archivu.",
+          "Označení je viditelné a odkaz nese značku sponsored.",
+          "Text je váš; vydání kolem něj na prodej není.",
+        ],
+      },
+    },
+    formatsHeading: "Inventář",
+    formatsIntro:
+      "Bannerová místa jsou tři a čtvrté nejde přidat bez zásahu do konfigurace, ze které se web sestavuje. Sponzor vydání se domlouvá zvlášť, na konkrétní vydání. Stav níže odpovídá tomu, co web právě zobrazuje.",
+    formatWhere: "kde",
+    formatSize: "rozměr",
+    formatState: "stav",
+    sizeUnset: "rozměr zatím nestanovený",
+    sponsorBlockSize: "text, jeden odkaz a volitelně obrázek",
+    stateTaken: "obsazeno",
+    stateFree: "volné",
+    statePerEdition: "domlouvá se na konkrétní vydání",
+    slots: {
+      "today-partner-belt": { name: "Partnerský pás", where: "Dnes, za koncem vydání" },
+      "rail-square": {
+        name: "Čtverec v pravém sloupci",
+        where: "pravý sloupec na Dnes, u článků, na Týdnu a v rubrikách",
+      },
+      "weekly-belt": { name: "Týdenní pás", where: "Týden a archiv týdnů, pod závěrečným odkazem" },
+      "sponsor-block": { name: "Sponzor vydání", where: "uvnitř jednoho vydání" },
+    },
+    reachHeading: "Čísla, která se dají ověřit",
+    reachEditions: "vydání v archivu",
+    reachSpan: "vychází od",
+    reachSources: "zdrojů v registru",
+    reachTopics: "kurátorovaných témat",
+    reachCadence: "rytmus",
+    reachCadenceValue: "jedno vydání každý všední den",
+    reachNote:
+      "DNESKAi neměří návštěvnost ani chování čtenářů, takže tady nenajdete počet návštěv ani odběratelů. Čísla výše jsou spočítaná z publikovaného obsahu a dají se v archivu zkontrolovat.",
+    rulesHeading: "Pravidlo",
+    rulesLink: "Další pravidla magazínu",
+    bookHeading: "Domluva",
+    bookBody: "Místo se domlouvá napřímo. Žádný formulář, žádný widget a žádný rezervační skript třetí strany.",
+    bookCta: "Domluvit místo",
+    bookUnavailable:
+      "Kontakt pro partnery zatím zveřejněný není. Jakmile bude, objeví se tlačítko přímo tady.",
   },
   notFound: {
     kicker: "404 · nenalezeno",
