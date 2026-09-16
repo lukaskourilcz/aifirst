@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "subscribe-channel/1",
+  "provider": null,
+  "action": null,
+  "emailField": "email",
+  "hiddenFields": {},
+  "privacyNote": null
+}

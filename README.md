@@ -53,6 +53,7 @@ Reader growth increases static delivery, not editorial model usage.
 | `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
 | `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`, `/api/sources.json` | Build-time JSON contracts |
 | `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
+| `/llms.txt`, `/articles/[slug].md` | Build-time markdown index and chrome-free edition copies for assistants |
 
 Czech serves at the root, unprefixed. `/cs/*` permanently redirects there — the
 prefix and the English routes behind it are retired compatibility, and nothing

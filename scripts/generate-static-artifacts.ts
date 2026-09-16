@@ -14,9 +14,10 @@ async function main() {
       const article = await getArticle(summary.slug, locale);
       if (!article) continue;
       shareFiles.push(await writeArticleDistributionPack(article, locale));
-      if (article.frontmatter.type === "weekly") {
-        newsletterFiles.push(...await writeNewsletterArtifact(article, locale));
-      }
+      // Every published edition gets an email artifact, not just the weekly
+      // digest: the daily edition is the product, and the template renders the
+      // whole package rather than a title and a link.
+      newsletterFiles.push(...await writeNewsletterArtifact(article, locale));
     }
   }
 

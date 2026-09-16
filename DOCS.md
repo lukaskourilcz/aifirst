@@ -33,10 +33,15 @@ Czech is the only published locale and serves at the root, unprefixed.
 - `/weekly` — weekly index and feed call to action
 - `/archive` — complete context-rich archive
 - `/about` — trust center
+- `/partner` — the sponsorship rate card, the declared inventory and the rule
 - `/corrections` — public correction history
 - `/sources`, `/sources/[id]`, `/glossary`, `/search` — secondary reference
 - `/lekce` — the revealed AI-lesson curriculum, one table per category
 - `/feed.xml`, `/weekly/feed.xml`, `/topics/[slug]/feed.xml` — Atom
+- `/llms.txt` — the llmstxt.org index: publication name, summary, sections,
+  reference surfaces and the recent editions as markdown links
+- `/articles/[slug].md` — the edition without the reader shell, prerendered at
+  `/articles/[slug]/index.md` and aliased by a rewrite in `next.config.mjs`
 - `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`,
   `/api/sources.json` and `/api/health.json` — static, public syndication/health
   contracts
@@ -114,7 +119,10 @@ New issues can display:
 - a daily AI lesson strip above the masthead and a daily verified fact closing
   the reference blocks, both picked from the edition date and both text-only
 - a partner belt after the completion mark, empty unless `config/banner.json`
-  activates a slot with local creatives
+  activates a slot with local creatives. The belt is one of exactly three
+  declared placements, the others being the rail square and the Weekly belt on
+  `/tyden` and `/tyden/[week]`; at most three creatives may be configured and at
+  most two may reach one surface
 
 Legacy issues omit unavailable sections; no facts or provenance are invented.
 
@@ -179,15 +187,59 @@ generation callback or mutation control. Producer operations belong to Quorum.
 ## SEO and distribution
 
 - Caught Up metadata and restrained editorial Open Graph visuals
+- a root `robots` meta of `index, follow, max-image-preview:large,
+  max-snippet:-1, max-video-preview:-1`; Next replaces the field per segment, so
+  the health, admin, print and editorial-hold routes keep their own `noindex`
 - Article/NewsArticle, Organization, WebSite, BreadcrumbList and CollectionPage
-  structured data where semantically applicable
-- localized canonical/hreflang/x-default links and article metadata
+  structured data where semantically applicable, built once in
+  `lib/editorial/structured-data.ts` so the front page and the article page
+  cannot disagree
+- the Article image is the delivered hero and nothing else. It ships as an
+  `ImageObject` with width and height once the hero clears the 1200 px
+  large-preview floor, as a bare URL for the undimensioned pre-schema-v2
+  archive, and is absent when an edition has no hero — such an edition gets the
+  static 1200x630 branded card rather than a 480x360 cached source thumbnail
+- `dateModified` follows the newest correction, then the delivery timestamp,
+  then the 06:00 UTC publishing slot
+- localized canonical/hreflang/x-default links and article metadata; each
+  reading page also advertises its markdown copy as a `text/markdown` alternate
+- an `/llms.txt` index and one `/articles/[slug].md` document per published
+  edition, both built in `lib/distribution/llms.ts` from the same committed
+  content the reading pages use. Withdrawn editions and legacy English-only
+  issues are excluded exactly as they are from the feeds, the generation block
+  never reaches either document, and neither costs a model call. `/llms-full.txt`
+  is deliberately absent: concatenating the archive would add nothing over the
+  index plus per-edition markdown
 - one static sitemap covering general pages, articles, weekly editions, topics
   and source profiles; small archive size does not justify multiple files yet
+- a separate `/news-sitemap.xml` in Google's news-sitemap format, listing the
+  editions inside a two-day window with the publication name, the file's own
+  language, the publication instant and the headline, capped at the
+  specification's 1,000 entries. It is a second document because
+  `MetadataRoute.Sitemap` cannot express the `news:` namespace, and `robots.txt`
+  advertises both. The window is anchored to the newest edition's own date, not
+  to a clock, so the same content tree always builds the same XML; a rebuild
+  days after the last edition therefore still lists it, which is harmless
+  because Google ignores entries older than two days either way. A weekly
+  edition inside the window is listed like any other, because it is a published
+  edition at the same `/articles/[slug]` URL
 - operator, health, deprecated duplicates, previews and empty topics excluded
 - deterministic internal related/topic/source/glossary/adjacent links
-- localized site, weekly, topic and preserved tag feeds
+- localized site, weekly, topic and preserved tag feeds, each naming the
+  publication as its `atom:author` and declaring every enclosure's real media
+  type, so a drawn `.svg` plate is no longer announced as a WebP photograph
 - static JSON syndication and locale-specific distribution packs
+- a provider-independent edition email: `pnpm generate:artifacts` renders every
+  published edition into `email.html`, `email.txt` and `metadata.json` under the
+  gitignored `generated/`, following the reading page's structure rather than
+  sending a title and a link. Nothing here delivers mail or holds a list
+- an email subscribe surface that stays inert until it is configured.
+  `config/subscribe.json` ships empty, so `lib/subscribe.ts` resolves to no
+  channel, the rail's subscribe module is the Atom link alone, and `form-action`
+  stays at `'self'`. A configured provider adds a native POST form and that
+  provider's origin to `form-action`, derived from the same file. The parsing is
+  fail-closed and a channel without a consent sentence is no channel at all.
+  `docs/distribution-email.md` records the open provider decision
 
 The single sitemap is intentional for the current small archive. Next.js
 supports nested/generated sitemap partitions when URL count or build time makes
@@ -198,7 +250,9 @@ segmentation useful; the current output is well below search-engine limits.
 `next.config.mjs` preserves HSTS, strict CSP, frame denial, MIME-sniffing
 protection, restrictive permissions policy and no `X-Powered-By`. External
 links use safe relationships. Sponsor images must be local paths and cannot
-inject HTML or script. Public health contains status/cadence only—no secrets,
+inject HTML or script. The sponsorship inventory in `config/banner.json` is
+capped and `pnpm check:content` fails on a configuration that exceeds it or that
+carries a placement the inventory does not declare. Public health contains status/cadence only—no secrets,
 stack traces, internal URLs or cost ledger. Vercel telemetry components render
 only in the Vercel environment, preventing local 404/script errors.
 
@@ -222,6 +276,33 @@ keyboard/search behavior.
 ceiling per page entry. `pnpm verify` runs it after every production build so a
 later change cannot silently erase the measured improvement.
 
+`pnpm check:images` measures every delivered hero and thumbnail with `sharp`:
+the hero must exist, be WebP/PNG/JPEG/SVG and be at least 1200 px wide, a
+thumbnail must be exactly 640x360, and a schema-v2 edition must declare
+dimensions that match its bytes and carry both files. Legacy editions predate
+the media boundary and may still carry no picture at all.
+
+`pnpm check:feeds` builds every Atom feed for every locale and runs
+`lib/feed-validation.ts` over it. That validator is the offline equivalent of
+the W3C Feed Validation Service, which needs a live public URL: it scans XML
+well-formedness and then the RFC 4287 subset the service reports as errors —
+feed `id`/`title`/`updated`, a typed `rel="self"` link, an author at feed or
+entry level, per-entry `id`/`title`/`updated`/`published` and a summary or
+content, RFC 3339 timestamps, unique entry ids, and a media type on every
+enclosure. The same pass builds `/news-sitemap.xml` and checks it against
+Google's news-sitemap requirements: both namespaces, absolute and unique `loc`
+values, the 1,000-entry cap, and a complete `news:news` block with a publication
+name, a language code, an RFC 3339 `publication_date` and a title on every URL.
+It adds no dependency.
+
+`pnpm check:feeds:w3c` is the same script with `--w3c`: it additionally posts the
+site, Weekly and Topic feeds to the real W3C Feed Validation Service and reports
+the errors it returns. It is opt-in and deliberately outside `pnpm verify` and
+CI, because a shared third-party service being slow or unreachable must not be
+able to fail a release. Run it after a change to the feed builders. Tag feeds are
+preserved compatibility URLs produced by the same code, so they are checked
+offline only, and the news sitemap is not an Atom feed and is not sent at all.
+
 The final 2026-07-22 overhaul validation passed 31 Vitest files and 127 tests,
 8 MDX files plus configuration, 199 static/SSG route outputs, and 25 guarded
 page entries with a maximum of 103.7 kB gzip. Playwright passed 154 tests with
@@ -232,6 +313,9 @@ Validation commands:
 
 ```bash
 pnpm verify
+pnpm check:images
+pnpm check:feeds
+pnpm check:feeds:w3c   # opt-in, network
 pnpm e2e
 pnpm generate:artifacts
 ```

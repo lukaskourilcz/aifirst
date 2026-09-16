@@ -5,7 +5,9 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { BannerSlot } from "./BannerSlot";
 import { DailyLesson } from "./DailyLesson";
 import { DidYouKnow } from "./DidYouKnow";
+import { SubscribeForm } from "./SubscribeForm";
 import { eventDateBlock, type MagazineEvent } from "@/lib/events";
+import { subscribeChannel } from "@/lib/subscribe";
 
 /**
  * The shared module frame. The rail is a column of rules, not a stack of
@@ -69,12 +71,19 @@ export function EventsTeaser({ events, locale }: { events: MagazineEvent[]; loca
   );
 }
 
+/**
+ * Atom always, email only when `config/subscribe.json` carries a provider. The
+ * body copy follows the same switch, so a reader is never told about an inbox
+ * the site cannot deliver to.
+ */
 export function SubscribeModule({ locale }: { locale: Locale }) {
   const t = dict(locale).sections;
   const d = dict(locale);
+  const email = subscribeChannel() !== null;
   return (
     <WidgetModule kicker={t.subscribe}>
-      <p className="rail-module__body">{t.subscribeBody}</p>
+      <p className="rail-module__body">{email ? t.subscribeEmailBody : t.subscribeBody}</p>
+      <SubscribeForm locale={locale} />
       <p className="rail-module__action">
         <a href={localePath(locale, "/feed.xml")}>{d.common.atomFeed} ↗</a>
       </p>

@@ -24,7 +24,8 @@ compatibility only; nothing new is published under them.
 
 - Sections: `/` Dnes, `/tyden` and `/tyden/[week]`, `/o-cem-se-mluvi`,
   `/ai-modely`, `/podcasty`, `/akce`
-- Secondary: `/radar`, `/topics`, `/weekly`, `/archive`, `/lekce`, `/about`, `/pulse`.
+- Secondary: `/radar`, `/topics`, `/weekly`, `/archive`, `/lekce`, `/about`,
+  `/partner`, `/pulse`.
   The rail labels these in Czech; the paths stay English and are a compatibility
   contract. This redesign creates no Czech aliases for them.
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
@@ -80,7 +81,13 @@ no client JavaScript and make no network or model call.
   asserted as minimums so an append needs no test edit.
 - The lessons are a dated curriculum, `glossary.yml` is a reference list. They
   coexist; do not merge them or cross-wire their loaders.
-- **`BannerSlot`** renders `config/banner.json`; the launch config fills the
+- **`BannerSlot`** renders `config/banner.json`, whose `inventory` block declares
+  the whole sponsorship inventory and caps it: `today-partner-belt`,
+  `rail-square` and `weekly-belt`, at most three filled creatives and at most two
+  on one surface. An undeclared id reads as empty and `pnpm check:content` fails
+  on an over-cap configuration. Sponsorship never affects editorial placement or
+  ranking, and the reader is told so in the `/about` sponsorship section. The
+  launch config fills the
   `today-partner-belt` and `rail-square` slots with reciprocal MMA FILES creatives.
   An empty slot either collapses or reserves its box, and which one is config:
   `today-partner-belt` reserves no space when empty, while `rail-square` may carry
@@ -89,6 +96,15 @@ no client JavaScript and make no network or model call.
   must be a local file under `public/images/banners/` with explicit dimensions;
   anything else reads as empty.
   No ad script, no third-party host, no tracking, so CSP is untouched.
+- **`PartnerRateCard`** on `/partner` sells that same inventory. `config/partner.json`
+  carries only the commercial values (price, period, booking destination, VAT
+  wording) and `lib/partner.ts` parses it the way `lib/banner.ts` parses a slot:
+  never throwing, anything malformed reading as absent. Every word lives in
+  `lib/i18n/dictionaries.ts`, the inventory rows are read back through
+  `bannerSlot` so they cannot drift from what renders, and a price the owner has
+  not set renders as "on request" rather than as a number. `pnpm check:content`
+  runs `partnerRateCardErrors` over the file. The page quotes no traffic or
+  subscriber figure, because the site measures none, and says so.
 
 ## Important paths and reuse
 
