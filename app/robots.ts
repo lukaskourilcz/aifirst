@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       { userAgent: "*", allow: "/", disallow: ["/admin", "/health", "/stats", "/trends", "/colophon"] },
     ],
-    sitemap: `${siteUrl()}/sitemap.xml`,
+    sitemap: [`${siteUrl()}/sitemap.xml`, `${siteUrl()}/news-sitemap.xml`],
   };
 }

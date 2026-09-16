@@ -37,6 +37,8 @@ Czech is the only published locale and serves at the root, unprefixed.
 - `/sources`, `/sources/[id]`, `/glossary`, `/search` — secondary reference
 - `/lekce` — the revealed AI-lesson curriculum, one table per category
 - `/feed.xml`, `/weekly/feed.xml`, `/topics/[slug]/feed.xml` — Atom
+- `/sitemap.xml`, `/news-sitemap.xml`, `/llms.txt` — the search sitemap, the
+  two-day Google News sitemap and the llms.txt index of the publication
 - `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`,
   `/api/sources.json` and `/api/health.json` — static, public syndication/health
   contracts
@@ -184,6 +186,11 @@ generation callback or mutation control. Producer operations belong to Quorum.
 - localized canonical/hreflang/x-default links and article metadata
 - one static sitemap covering general pages, articles, weekly editions, topics
   and source profiles; small archive size does not justify multiple files yet
+- a Google News sitemap limited to the two publishing days ending on the newest
+  edition, and a root robots block that allows large image previews so the
+  edition hero qualifies for Discover
+- `/llms.txt`, an index of sections, recent editions and the JSON and Atom
+  contracts for agents; it links, it does not duplicate
 - operator, health, deprecated duplicates, previews and empty topics excluded
 - deterministic internal related/topic/source/glossary/adjacent links
 - localized site, weekly, topic and preserved tag feeds

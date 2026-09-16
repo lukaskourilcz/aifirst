@@ -44,6 +44,16 @@ export const metadata: Metadata = {
   },
   description: d.meta.siteDescription,
   metadataBase: new URL(siteUrl()),
+  // Google Discover only surfaces pages that allow large image previews; the
+  // default preview size hides the edition hero. Operator and hold pages set
+  // their own noindex `robots` block, which replaces this one wholesale.
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
   openGraph: {
     type: "website",
     siteName: brand.name,

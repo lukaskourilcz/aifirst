@@ -15,6 +15,14 @@ change the need for sponsor approval, disclosure and measurable traffic.
 **Recommendation:** grow the newsletter first (sponsor slots have the best
 CPM), add contextual ads once traffic is real; keep a light donation link.
 
+## Placement cap
+
+At most two paid placements per page: the partner belt after the completion
+mark and the rail square, both configured in `config/banner.json` and both
+labelled as partner creatives. The Rundown sells three slots an issue and EJAJ.cz
+marks every paid item; a fixed, small inventory is what keeps the reading promise
+intact and makes each slot easier to price.
+
 ## The partner belt
 
 One slot exists already: `today-partner-belt`, after the completion mark on

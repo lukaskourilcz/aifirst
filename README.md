@@ -51,6 +51,7 @@ Reader growth increases static delivery, not editorial model usage.
 | `/lekce` | Every AI term the daily lesson strip has revealed, grouped by category |
 | `/search` | Static client-side discovery over committed content |
 | `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
+| `/sitemap.xml`, `/news-sitemap.xml`, `/llms.txt` | Search sitemap, the two-day Google News sitemap and the agent-readable index |
 | `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`, `/api/sources.json` | Build-time JSON contracts |
 | `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
 

@@ -58,7 +58,20 @@ export type DeliveryResult = {
   status: "written" | "noop";
   packageHash: string;
   paths: string[];
+  /**
+   * Advisory findings that do not stop a delivery. The contract accepts the
+   * package; the workflow log carries these so the producer can act on them.
+   */
+  warnings: string[];
 };
+
+/**
+ * The narrowest hero Google Discover will surface. Below it the edition still
+ * ships, because a plate or a small licensed photograph is a legitimate
+ * delivered state, but the run says so instead of leaving the reason in
+ * Search Console.
+ */
+export const DISCOVER_MIN_HERO_WIDTH = 1200;
 
 export class DeliveryError extends Error {
   constructor(public readonly code: "schema_invalid" | "content_invalid" | "hash_conflict", message: string) {
@@ -224,8 +237,9 @@ async function writePrepared(files: Array<{ file: string; bytes: string | Buffer
   }
 }
 
-async function validateImageBytes(pkg: EditionPackage): Promise<void> {
-  if (pkg.status !== "edition" || !pkg.image) return;
+async function validateImageBytes(pkg: EditionPackage): Promise<string[]> {
+  if (pkg.status !== "edition" || !pkg.image) return [];
+  const warnings: string[] = [];
   const hero = Buffer.from(pkg.image.hero_bytes_base64, "base64");
   const thumb = Buffer.from(pkg.image.thumb_bytes_base64, "base64");
   if (!hero.length || !thumb.length) throw new DeliveryError("content_invalid", "delivered image bytes are empty");
@@ -243,15 +257,19 @@ async function validateImageBytes(pkg: EditionPackage): Promise<void> {
     if (pkg.image.origin === "svg" && heroMetadata.format !== "svg") {
       throw new Error("FRAME fallback must contain SVG bytes");
     }
+    if (["photo", "illustration"].includes(pkg.image.origin) && pkg.image.width < DISCOVER_MIN_HERO_WIDTH) {
+      warnings.push(`hero is ${pkg.image.width}px wide; Google Discover needs at least ${DISCOVER_MIN_HERO_WIDTH}px to show a large preview`);
+    }
   } catch (error) {
     if (error instanceof DeliveryError) throw error;
     throw new DeliveryError("content_invalid", error instanceof Error ? error.message : "delivered image is invalid");
   }
+  return warnings;
 }
 
 export async function materializeEditionPackage(value: unknown, root = process.cwd()): Promise<DeliveryResult> {
   const pkg = validateDeliveryPackage(value);
-  await validateImageBytes(pkg);
+  const warnings = await validateImageBytes(pkg);
   const boardFile = path.join(root, "public", "data", "board", `${pkg.date}.json`);
   const prepared: Array<{ file: string; bytes: string | Buffer }> = [{ file: boardFile, bytes: boardBytes(pkg) }];
   if (pkg.status === "edition" && pkg.article) {
@@ -282,10 +300,11 @@ export async function materializeEditionPackage(value: unknown, root = process.c
         status: "written",
         packageHash: pkg.idempotencyKey,
         paths: prepared.map(({ file }) => path.relative(root, file)),
+        warnings,
       };
     }
     const conflictIndex = existing.findIndex((bytes, index) => bytes === null || !bytes.equals(asBuffer(prepared[index]!.bytes)));
-    if (conflictIndex === -1) return { status: "noop", packageHash: pkg.idempotencyKey, paths: [] };
+    if (conflictIndex === -1) return { status: "noop", packageHash: pkg.idempotencyKey, paths: [], warnings };
     const conflictFile = prepared[conflictIndex]!.file;
     throw new DeliveryError(
       "hash_conflict",
@@ -298,5 +317,6 @@ export async function materializeEditionPackage(value: unknown, root = process.c
     status: "written",
     packageHash: pkg.idempotencyKey,
     paths: prepared.map(({ file }) => path.relative(root, file)),
+    warnings,
   };
 }
