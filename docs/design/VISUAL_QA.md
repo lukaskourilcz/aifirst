@@ -89,3 +89,27 @@ nudge do not. The status pulse was deleted with the status record.
 - The `2026-08-08` edition renders with no body. Its delivered MDX wraps the
   whole body in a JSX expression. This is a content defect filed for the owner,
   not a layout defect.
+
+## Gate run — 2026-09-16
+
+`pnpm verify` passed: lint, TypeScript, 27 unit-test files, the content and
+config checks, the build, and the bundle guard at 31 page entries within the
+110 kB gzip ceiling, the largest being the article route at 103.7 kB.
+
+`pnpm e2e` passed: 210 of 210 across desktop, tablet and mobile.
+
+Two things were needed to get there, and both are recorded rather than
+smoothed over.
+
+- The suite could not launch a browser in the build container: this repository
+  pins Playwright 1.61, whose Chromium revision is not the one the image
+  carries. The run used a browser path that maps the expected revision onto the
+  installed one. On any machine that has run `pnpm exec playwright install`
+  this does not arise.
+- `the section routes render their honest empty states` asserted the launch
+  copy on `/ai-modely`. Five editions now carry the `ai-models` category, so
+  the route renders its feed and the assertion had been failing on `main` since
+  the first of those editions landed. It now asserts the feed and the absence
+  of the launch copy, so a filter that silently stops matching fails instead of
+  passing as a plausible empty page. The three stream and event routes still
+  ship empty envelopes and keep their empty-state assertions.
