@@ -44,6 +44,16 @@ export const metadata: Metadata = {
   },
   description: d.meta.siteDescription,
   metadataBase: new URL(siteUrl()),
+  // Discover and the news surfaces only offer a large image preview when the
+  // page asks for one. Next replaces this field per segment, so the noindex
+  // health, admin, print and editorial-hold routes keep their own robots value.
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
   openGraph: {
     type: "website",
     siteName: brand.name,

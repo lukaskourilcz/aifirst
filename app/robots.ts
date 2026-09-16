@@ -6,6 +6,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       { userAgent: "*", allow: "/", disallow: ["/admin", "/health", "/stats", "/trends", "/colophon"] },
     ],
-    sitemap: `${siteUrl()}/sitemap.xml`,
+    // The general sitemap plus the Google News sitemap, which covers only the
+    // last two days of editions and is a separate document by specification.
+    sitemap: [`${siteUrl()}/sitemap.xml`, `${siteUrl()}/news-sitemap.xml`],
   };
 }

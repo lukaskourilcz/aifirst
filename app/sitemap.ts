@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getArticle, listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
+import { lastModifiedAt } from "@/lib/editorial/structured-data";
 import { LOCALES, localePath } from "@/lib/i18n/config";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
 import { loadSources } from "@/lib/sources";
@@ -35,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/glossary", changeFrequency: "monthly", priority: 0.4 },
     { path: "/lekce", changeFrequency: "daily", priority: 0.4 },
     { path: "/about", changeFrequency: "monthly", priority: 0.5 },
+    { path: "/partner", changeFrequency: "monthly", priority: 0.4 },
     { path: "/corrections", changeFrequency: "weekly", priority: 0.4 },
     { path: "/search", changeFrequency: "weekly", priority: 0.4 },
   ];
@@ -53,11 +55,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .filter((article) => !article.fallback)
         .map(async (summary) => {
           const article = await getArticle(summary.slug, locale);
-          const lastCorrection = [...(article?.frontmatter.corrections ?? [])]
-            .sort((a, b) => b.date.localeCompare(a.date))[0];
           return {
             url: `${base}${localePath(locale, `/articles/${summary.slug}`)}`,
-            lastModified: lastCorrection?.date ?? article?.frontmatter.generation?.generated_at ?? summary.date,
+            // One correction rule, shared with the article pages and the feeds.
+            lastModified: article ? lastModifiedAt(article.frontmatter) : summary.date,
             changeFrequency: "yearly" as const,
             priority: 0.6,
           };

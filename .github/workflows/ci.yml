@@ -48,6 +48,9 @@ jobs:
       - name: Validate committed content
         run: pnpm check:content
 
+      - name: Validate feeds and the news sitemap
+        run: pnpm check:feeds
+
       - name: Build
         env:
           NEXT_PUBLIC_SITE_URL: https://aifirst.example

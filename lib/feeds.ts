@@ -1,3 +1,5 @@
+import { statSync } from "node:fs";
+import path from "node:path";
 import {
   listArticles,
   getArticle,
@@ -7,22 +9,50 @@ import {
 } from "./content";
 import type { Article } from "./content";
 import { siteUrl } from "./config";
-import { atomDocument, atomEntry, feedUpdated } from "./feed";
+import {
+  NEWS_SITEMAP_MAX_ENTRIES,
+  atomDocument,
+  atomEntry,
+  feedUpdated,
+  imageMimeType,
+  newsSitemapDocument,
+  newsUrl,
+  newsWindowStart,
+  type FeedAuthor,
+} from "./feed";
+import { lastModifiedAt, publishedAt } from "./editorial/structured-data";
 import { DEFAULT_LOCALE, localePath, type Locale } from "./i18n/config";
 import { dict } from "./i18n/dictionaries";
 import { brand } from "./brand";
 import { articlesForTopic, loadTopicsConfig } from "./topics/config";
 
+// Every feed speaks for the same publication, and RFC 4287 wants that said
+// once at feed level rather than inferred.
+function feedAuthor(): FeedAuthor {
+  return { name: brand.name, uri: siteUrl() };
+}
+
+// The enclosure's byte length, when the file is one we host. A missing or
+// unreadable file costs the attribute, never the entry.
+function localFileSize(sitePath: string): number | undefined {
+  try {
+    const size = statSync(path.join(process.cwd(), "public", sitePath.replace(/^\//, ""))).size;
+    return size > 0 ? size : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+// `lastModifiedAt` is the single correction rule, shared with the article
+// pages so a feed and a page can never disagree about when an edition changed.
 function correctedAt(article: Article): string {
-  const correction = [...(article.frontmatter.corrections ?? [])]
-    .sort((a, b) => b.date.localeCompare(a.date))[0];
-  return correction?.date
-    ?? article.frontmatter.generation?.generated_at
-    ?? article.frontmatter.date;
+  return lastModifiedAt(article.frontmatter);
 }
 
 function entryForArticle(article: Article, base: string, extraCategories: string[] = []): string {
   const fm = article.frontmatter;
+  const heroPath = hasRealIllustration(fm.illustration.path) ? fm.illustration.path : undefined;
+  const heroBytes = heroPath ? localFileSize(heroPath) : undefined;
   const related = [
     ...(fm.sources ?? []).map((source) => ({
       url: source.url,
@@ -34,13 +64,20 @@ function entryForArticle(article: Article, base: string, extraCategories: string
     title: fm.title,
     url: `${base}${// One published locale, so every feed URL is the unprefixed one.
     localePath(DEFAULT_LOCALE, `/articles/${article.slug}`)}`,
-    published: fm.generation?.generated_at ?? fm.date,
+    published: publishedAt(fm),
     updated: correctedAt(article),
     summary: fm.dek,
     categories: [...new Set([...(fm.tags ?? []), ...extraCategories])],
     language: article.lang,
-    imageUrl: hasRealIllustration(fm.illustration.path) ? `${base}${fm.illustration.path}` : undefined,
+    ...(heroPath
+      ? {
+          imageUrl: `${base}${heroPath}`,
+          imageType: imageMimeType(heroPath),
+          ...(heroBytes !== undefined ? { imageLength: heroBytes } : {}),
+        }
+      : {}),
     related,
+    author: feedAuthor(),
   });
 }
 
@@ -69,6 +106,7 @@ export async function buildSiteFeed(locale: Locale): Promise<string> {
     updated: feedUpdated(updated.sort().at(-1) ?? summaries[0]?.date),
     language: locale,
     entries,
+    author: feedAuthor(),
   });
 }
 
@@ -105,6 +143,7 @@ export async function buildTagFeed(
     updated: feedUpdated(updated.sort().at(-1) ?? issues[0]?.date),
     language: locale,
     entries,
+    author: feedAuthor(),
   });
 }
 
@@ -128,6 +167,7 @@ export async function buildWeeklyFeed(locale: Locale): Promise<string> {
     updated: feedUpdated(updated.sort().at(-1) ?? issues[0]?.date),
     language: locale,
     entries,
+    author: feedAuthor(),
   });
 }
 
@@ -161,7 +201,48 @@ export async function buildTopicFeed(locale: Locale, slug: string): Promise<stri
     updated: feedUpdated(updated.sort().at(-1) ?? issues[0]?.date),
     language: locale,
     entries,
+    author: feedAuthor(),
   });
+}
+
+/**
+ * The Google News sitemap: the editions published inside the two-day window,
+ * capped at the specification's 1,000 entries.
+ *
+ * Two decisions worth stating. The window is anchored to the newest edition's
+ * own date via `newsWindowStart`, never to a clock, so the document is a pure
+ * function of the committed content. And `<news:language>` is the file's own
+ * language rather than the served locale, because four editions in the archive
+ * are English files on a Czech-only site.
+ *
+ * Weekly editions live at the same `/articles/[slug]` URLs and are listed here
+ * when they fall inside the window. That is deliberate: a weekly is a published
+ * edition, and withholding it would be the odd choice, not including it.
+ */
+export async function buildNewsSitemap(locale: Locale, dir?: string): Promise<string> {
+  const base = siteUrl();
+  const summaries = (await listArticles(locale, dir)).filter((summary) => !summary.fallback);
+  // `listArticles` sorts newest-first, so the head of the list is the anchor.
+  const anchor = summaries[0]?.date;
+  if (!anchor) return newsSitemapDocument([]);
+
+  const start = newsWindowStart(anchor);
+  const recent = summaries.filter((summary) => summary.date >= start).slice(0, NEWS_SITEMAP_MAX_ENTRIES);
+  const urls: string[] = [];
+  for (const summary of recent) {
+    const article = await getArticle(summary.slug, locale, dir);
+    if (!article) continue;
+    urls.push(
+      newsUrl({
+        url: `${base}${localePath(DEFAULT_LOCALE, `/articles/${article.slug}`)}`,
+        title: article.frontmatter.title,
+        published: publishedAt(article.frontmatter),
+        language: article.lang,
+        publication: brand.name,
+      }),
+    );
+  }
+  return newsSitemapDocument(urls);
 }
 
 const ATOM_HEADERS = {
@@ -170,4 +251,13 @@ const ATOM_HEADERS = {
 
 export function atomResponse(body: string): Response {
   return new Response(body, { headers: ATOM_HEADERS });
+}
+
+const XML_HEADERS = {
+  "content-type": "application/xml; charset=utf-8",
+} as const;
+
+/** For XML documents that are not Atom feeds, such as the news sitemap. */
+export function xmlResponse(body: string): Response {
+  return new Response(body, { headers: XML_HEADERS });
 }

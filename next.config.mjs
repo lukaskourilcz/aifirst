@@ -6,8 +6,40 @@
 // tweets, videos, or other analytics, loosen the CSP accordingly.
 
 import bundleAnalyzer from "@next/bundle-analyzer";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const isDev = process.env.NODE_ENV !== "production";
+
+// The rail's subscribe form is a native POST to the owner's email provider, so
+// that provider's origin has to appear in `form-action` or the browser blocks
+// the submission. It is derived from `config/subscribe.json` — the same file
+// `lib/subscribe.ts` reads, with the same fail-closed rules — because a config
+// file cannot import a TypeScript module. An empty, partial or malformed
+// configuration leaves the directive at exactly `form-action 'self'`, which is
+// what ships today: no provider is chosen, so no form renders and no extra
+// origin is allowed.
+function subscribeFormActionOrigin() {
+  try {
+    const here = path.dirname(fileURLToPath(import.meta.url));
+    const config = JSON.parse(readFileSync(path.join(here, "config", "subscribe.json"), "utf8"));
+    if (typeof config !== "object" || config === null) return null;
+    const filled = (value) => typeof value === "string" && value.trim() !== "";
+    if (!filled(config.provider) || !filled(config.emailField) || !filled(config.action)) return null;
+    const note = config.privacyNote;
+    if (typeof note !== "object" || note === null) return null;
+    if (!filled(note.cs) || !filled(note.en)) return null;
+    const url = new URL(config.action);
+    if (url.protocol !== "https:" || url.username !== "" || url.password !== "") return null;
+    return url.origin;
+  } catch {
+    return null;
+  }
+}
+
+const subscribeOrigin = subscribeFormActionOrigin();
+const formAction = subscribeOrigin ? `form-action 'self' ${subscribeOrigin}` : "form-action 'self'";
 
 // Next's dev server (webpack HMR + React Refresh) uses `eval()` to load
 // modules, so the strict prod CSP that omits 'unsafe-eval' would break
@@ -44,7 +76,7 @@ const securityHeaders = [
   //   style-src 'unsafe-inline' — Next.js injects inline styles
   //   script-src 'unsafe-inline' — inline theme-init script + Vercel insights
   //   connect-src           — own origin + Vercel Speed Insights vitals beacon
-  //   form-action 'self'
+  //   form-action           — own origin, plus the configured email provider
   //   frame-ancestors 'none'
   {
     key: "Content-Security-Policy",
@@ -55,7 +87,7 @@ const securityHeaders = [
       scriptSrc,
       "font-src 'self' data:",
       "connect-src 'self' https://vitals.vercel-insights.com",
-      "form-action 'self'",
+      formAction,
       "frame-ancestors 'none'",
       "base-uri 'self'",
     ].join("; "),
@@ -66,6 +98,17 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // /articles/<slug>.md is an alias over the prerendered
+  // /articles/<slug>/index.md route handler, not runtime generation: an App
+  // Router segment is only dynamic when it ends in `]`, so a folder named
+  // `[slug].md` would be a literal path. `afterFiles` runs after the
+  // filesystem, so nothing that already resolves is shadowed, and middleware
+  // passes extension paths straight through to it.
+  async rewrites() {
+    return {
+      afterFiles: [{ source: "/articles/:slug.md", destination: "/articles/:slug/index.md" }],
+    };
+  },
   async headers() {
     return [
       {
