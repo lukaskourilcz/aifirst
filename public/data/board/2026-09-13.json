@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-13",
+  "packageHash": "07eec2c4cc81b2946806caa2980f0b320c0fe7c1929063402f8bac1ef01b19bb",
+  "status": "edition",
+  "whyThisStory": "Tři události z jediného dne ukazují totéž z různých stran: AI agenti přebírají kontrolu nad produkční infrastrukturou rychleji, než průmysl stihl nastavit pravidla – a důsledky jsou už teď viditelné.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-13-cu-edition",
+  "generationCostUsd": 0.1714575,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-13-gpt6-astra-autonomie-rubygems-amodei/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-13-gpt6-astra-autonomie-rubygems-amodei/thumb.webp",
+    "origin": "photo"
+  }
+}
