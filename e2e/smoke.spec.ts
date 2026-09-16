@@ -394,20 +394,25 @@ test("the about page is a magazine, not a run record", async ({ page }) => {
   await expect(page.locator("section.provenance")).toHaveCount(0);
 });
 
-test("the section routes render their honest empty states", async ({ page }) => {
-  // Every stream and event file ships as a valid empty envelope, so these are
-  // the states a reader sees on day one.
+test("the section routes render their honest states", async ({ page }) => {
+  // The stream and event files still ship as valid empty envelopes, so these
+  // three are the states a reader sees on day one.
   await page.goto("/o-cem-se-mluvi");
   await expect(page.getByText("Dnes zatím nic nového.")).toBeVisible();
 
   await page.goto("/podcasty");
   await expect(page.getByText("Dnes nevyšla žádná nová epizoda.")).toBeVisible();
 
-  await page.goto("/ai-modely");
-  await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
-
   await page.goto("/akce");
   await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();
+
+  // Models is the one section that has filled up: five editions now carry the
+  // ai-models category, so the honest state here is the feed, not the launch
+  // copy. Assert both halves, so a filter that silently stops matching shows
+  // up as a failure rather than as a plausible empty page.
+  await page.goto("/ai-modely");
+  await expect(page.locator(".feed-list .feed-row").first()).toBeVisible();
+  await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toHaveCount(0);
 });
 
 test("the week chain reaches back through every published week", async ({ page }) => {
