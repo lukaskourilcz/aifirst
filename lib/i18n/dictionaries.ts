@@ -176,6 +176,18 @@ const en = {
     dispatchesHeading: "The rest of what mattered.",
     dispatchSource: "source",
     wireHeading: "Watchlist",
+    // The practical block. The kicker and heading are chosen by the delivered
+    // `variant`, never by the weekday: a daily block on a Friday is legal
+    // upstream and the reader has no clock to check it against.
+    practicalLabel: "to try",
+    practicalFridayLabel: "tools of the week",
+    practicalHeading: "Something to try today.",
+    practicalFridayHeading: "Three tools and one prompt.",
+    practicalKinds: {
+      prompt: "Prompt",
+      tool: "Tool",
+      howto: "How-to",
+    },
     enOnlyNotice: "This issue is available in English only.",
     csOnlyNotice: "This issue is available in Czech only.",
     glossaryHeading: "Glossary",
@@ -707,6 +719,15 @@ const cs: Dict = {
     dispatchesHeading: "Zbytek toho podstatného.",
     dispatchSource: "zdroj",
     wireHeading: "Na radaru",
+    practicalLabel: "k vyzkoušení",
+    practicalFridayLabel: "nástroje týdne",
+    practicalHeading: "Co si dnes můžete zkusit.",
+    practicalFridayHeading: "Tři nástroje a jeden prompt.",
+    practicalKinds: {
+      prompt: "Prompt",
+      tool: "Nástroj",
+      howto: "Jak na to",
+    },
     enOnlyNotice: "Toto vydání je dostupné pouze v angličtině.",
     csOnlyNotice: "Toto vydání je dostupné pouze v češtině.",
     glossaryHeading: "Slovník",

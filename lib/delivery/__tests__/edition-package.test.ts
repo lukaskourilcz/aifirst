@@ -5,6 +5,7 @@ import matter from "gray-matter";
 import { afterEach, describe, expect, it } from "vitest";
 import validFixture from "../../../contracts/fixtures/edition-package.valid.json";
 import poisonFixture from "../../../contracts/fixtures/edition-package.poison.json";
+import { resolvePractical } from "../../content";
 import { DeliveryError, editionPackageHash, materializeEditionPackage, parseEditionPackage, validateDeliveryPackage } from "../edition-package";
 import { quoteYamlDates } from "../mdx";
 
@@ -187,6 +188,62 @@ describe("edition package consumer", () => {
     const result = await materializeEditionPackage(pkg, root);
     expect(result.paths).toEqual(["public/data/board/2026-08-05.json"]);
     await expect(fs.stat(path.join(root, "content/articles/2026-08-05.en.mdx"))).rejects.toMatchObject({ code: "ENOENT" });
+  });
+});
+
+describe("the practical block on the delivered article", () => {
+  // Upstream writes `practical` into the article frontmatter, not the package
+  // top level, and the field is optional. Nothing in this repository asks for
+  // it, so the only way to prove it survives the write boundary is to put one
+  // on the fixture, re-hash, materialize and read the file back.
+  const practical = {
+    variant: "friday-tools",
+    items: [
+      {
+        kind: "tool",
+        title: "Cenová kalkulačka",
+        body: "Spočítá, kolik vás stojí jeden tisíc tokenů u každého modelu, který dnes v redakci používáme.",
+        source_url: "https://example.com/source",
+      },
+      {
+        kind: "prompt",
+        title: "Prompt na rozpočet",
+        body: "Nechte si vypsat tři nejdražší kroky svého vlastního běhu a u každého jednu levnější variantu.",
+        source_url: "https://example.com/source",
+      },
+    ],
+  };
+
+  function practicalFixture(): Record<string, any> {
+    const value = deliveryFixture();
+    value.article.cs.frontmatter.practical = structuredClone(practical);
+    const hash = editionPackageHash(value);
+    value.idempotencyKey = hash;
+    value.article.en.frontmatter.generation.package_hash = hash;
+    value.article.cs.frontmatter.generation.package_hash = hash;
+    return value;
+  }
+
+  it("is accepted as an additive frontmatter field", () => {
+    expect(validateDeliveryPackage(practicalFixture()).status).toBe("edition");
+  });
+
+  it("reads back off disk with the same shape the reader resolves", async () => {
+    const root = await tempRoot();
+    const value = practicalFixture();
+    expect((await materializeEditionPackage(value, root)).status).toBe("written");
+    const delivered = matter(
+      await fs.readFile(path.join(root, "content/articles/2026-08-04.cs.mdx"), "utf8"),
+    );
+    expect(delivered.data.practical).toEqual(practical);
+    // The reader's own normaliser, run on the file that was actually written.
+    expect(resolvePractical(delivered.data)).toEqual(practical);
+    // The English half carries no block, and one is not invented for it.
+    const english = matter(
+      await fs.readFile(path.join(root, "content/articles/2026-08-04.en.mdx"), "utf8"),
+    );
+    expect(english.data.practical).toBeUndefined();
+    expect(resolvePractical(english.data)).toBe(null);
   });
 });
 

@@ -15,6 +15,10 @@ import { dict } from "@/lib/i18n/dictionaries";
  *
  * The whole row is the link, which is what carries the 44px target rather than
  * the title's own line box.
+ *
+ * `clamp` defaults to true, so every existing caller is untouched. The
+ * practical block turns it off: a prompt cut to two lines is not a prompt, it
+ * is a fragment the reader cannot use.
  */
 export function DigestRow({
   index,
@@ -23,6 +27,7 @@ export function DigestRow({
   meta,
   href,
   external = false,
+  clamp = true,
   locale,
 }: {
   index: number;
@@ -31,6 +36,7 @@ export function DigestRow({
   meta?: string;
   href: string;
   external?: boolean;
+  clamp?: boolean;
   locale: Locale;
 }) {
   const t = dict(locale).sections;
@@ -48,7 +54,11 @@ export function DigestRow({
             </>
           ) : null}
         </span>
-        {summary ? <span className="digest-row__summary">{summary}</span> : null}
+        {summary ? (
+          <span className={clamp ? "digest-row__summary" : "digest-row__summary digest-row__summary--full"}>
+            {summary}
+          </span>
+        ) : null}
         {meta ? <span className="digest-row__meta">{meta}</span> : null}
       </span>
     </>

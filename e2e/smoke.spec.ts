@@ -512,6 +512,33 @@ test("the section routes render their honest empty states", async ({ page }) => 
   ).toBeVisible();
 });
 
+test("the practical block is either a real block above the mark or nothing at all", async ({ page }) => {
+  // No edition carries `practical` yet: upstream's own quality gate has the
+  // item switched off. So render-nothing is the state this asserts today, and
+  // the assertion holds in both directions the way the section routes do —
+  // either a block with rows in the right place, or no shell and no heading.
+  await page.goto("/");
+  const block = page.locator("[data-practical]");
+  const mark = page.locator(".caught-up-completion");
+  await expect(mark).toBeVisible();
+
+  if (await block.count()) {
+    await expect(block.locator(".digest-row").first()).toBeVisible();
+    await expect(block.locator(".digest__heading")).toBeVisible();
+    // The kicker comes from the delivered variant, never from the weekday.
+    const variant = await block.getAttribute("data-practical");
+    expect(["daily", "friday-tools"]).toContain(variant);
+    const [blockBox, markBox] = await Promise.all([block.boundingBox(), mark.boundingBox()]);
+    expect(blockBox && markBox && blockBox.y).toBeLessThan(markBox?.y ?? Infinity);
+    // The body is the deliverable, so it is not clamped to two lines.
+    await expect(block.locator(".digest-row__summary--full").first()).toBeVisible();
+  } else {
+    await expect(page.getByText("Co si dnes můžete zkusit.")).toHaveCount(0);
+    await expect(page.getByText("Tři nástroje a jeden prompt.")).toHaveCount(0);
+    await expect(page.getByText("k vyzkoušení", { exact: true })).toHaveCount(0);
+  }
+});
+
 test("the week chain reaches back through every published week", async ({ page }) => {
   await page.goto("/tyden");
   await expect(page.locator(".feed-row").first()).toBeVisible();

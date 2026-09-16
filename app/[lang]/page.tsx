@@ -11,7 +11,8 @@ import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { BannerSlot } from "@/components/editorial/BannerSlot";
-import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
+import { PracticalBlock } from "@/components/editorial/PracticalBlock";
+import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto, resolvePractical } from "@/lib/content";
 import { articleNode, indexableHero, organizationNode, websiteNode } from "@/lib/editorial/structured-data";
 import { githubRepo, siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
@@ -60,6 +61,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
 
   const fm = latest.frontmatter;
   const heroPhoto = resolveHeroPhoto(fm);
+  // Optional and absent on every edition published so far. Nothing renders when
+  // it is missing, and nothing reserves space for it.
+  const practical = resolvePractical(fm);
   const reading = readingMinutes(latest.mdx);
   const adjacent = adjacentIssues(latest.slug, allArticles);
   const base = siteUrl();
@@ -157,6 +161,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
                 articleHref={articleHref}
               />
               <CorrectionsNotice corrections={fm.corrections} locale={locale} />
+              {practical ? (
+                <PracticalBlock items={practical.items} locale={locale} variant={practical.variant} />
+              ) : null}
 
               {/* The mark closes the edition, not the page: everything above is
                   today's edition, everything below is recirculation. There is

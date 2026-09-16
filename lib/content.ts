@@ -21,6 +21,34 @@ export type WireItem = {
   source: string;
 };
 
+/**
+ * The practical block: the one thing a reader can go and try today. Delivered
+ * upstream as an optional article-frontmatter key, never as a package field.
+ *
+ * `variant` is decided upstream by the edition's own date and is the only thing
+ * that chooses the heading. The reader must not re-derive the weekday: a
+ * `daily` block on a Friday is the honest fallback when only one usable thing
+ * was found, and this side has no clock to argue with it.
+ */
+export const PRACTICAL_KINDS = ["prompt", "tool", "howto"] as const;
+export type PracticalKind = (typeof PRACTICAL_KINDS)[number];
+
+export const PRACTICAL_VARIANTS = ["daily", "friday-tools"] as const;
+export type PracticalVariant = (typeof PRACTICAL_VARIANTS)[number];
+
+/** Every key is required upstream; nothing here is optional by design. */
+export type PracticalItem = {
+  kind: PracticalKind;
+  title: string;
+  body: string;
+  source_url: string;
+};
+
+export type PracticalBlock = {
+  variant: PracticalVariant;
+  items: PracticalItem[];
+};
+
 export type SourceRef = {
   id: string;
   url: string;
@@ -119,6 +147,12 @@ export type ArticleFrontmatter = {
   sponsor?: Sponsor;
   dispatches?: Dispatch[];
   wire?: WireItem[];
+  /**
+   * Absent on every edition published so far: upstream ships it only once its
+   * own quality gate turns the item on. Render-nothing is therefore the state
+   * that has to be right.
+   */
+  practical?: PracticalBlock;
   type?: IssueType;
   editors_note?: string;
   glossary_terms?: string[];
@@ -213,6 +247,52 @@ export function resolveHeroPhoto(fm: Partial<ArticleFrontmatter>): string | null
     if (img) return img;
   }
   return null;
+}
+
+/**
+ * The most items a practical block may render. Upstream sends one on a daily
+ * block and four on a Friday one; a fifth would be a contract change, and the
+ * reader drops it rather than growing the section to fit.
+ */
+const PRACTICAL_MAX_ITEMS = 4;
+
+/**
+ * Normalise the optional practical block into something a Server Component can
+ * render, or null.
+ *
+ * `getArticle` casts gray-matter's output straight to `ArticleFrontmatter`, so
+ * nothing has checked this field by the time a page reads it. Every rule below
+ * is therefore load-bearing: a malformed item is dropped, a block that loses
+ * every item becomes null, and an unrecognised variant falls back to `daily`
+ * rather than rendering a section with no heading.
+ */
+export function resolvePractical(fm: Partial<ArticleFrontmatter>): PracticalBlock | null {
+  const raw: unknown = fm.practical;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const block = raw as { variant?: unknown; items?: unknown };
+  if (!Array.isArray(block.items) || block.items.length === 0) return null;
+
+  const items: PracticalItem[] = [];
+  for (const candidate of block.items) {
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) continue;
+    const item = candidate as Record<string, unknown>;
+    const { kind, title, body } = item;
+    const sourceUrl = item.source_url;
+    if (typeof kind !== "string" || !(PRACTICAL_KINDS as readonly string[]).includes(kind)) continue;
+    if (typeof title !== "string" || title.trim() === "") continue;
+    if (typeof body !== "string" || body.trim() === "") continue;
+    // https only. A prompt or a tool the reader is being told to go and use is
+    // the last place to serve a downgraded link.
+    if (typeof sourceUrl !== "string" || !sourceUrl.startsWith("https://")) continue;
+    items.push({ kind: kind as PracticalKind, title, body, source_url: sourceUrl });
+  }
+  if (items.length === 0) return null;
+
+  const variant =
+    typeof block.variant === "string" && (PRACTICAL_VARIANTS as readonly string[]).includes(block.variant)
+      ? (block.variant as PracticalVariant)
+      : "daily";
+  return { variant, items: items.slice(0, PRACTICAL_MAX_ITEMS) };
 }
 
 function resolveThumbnailPhoto(fm: Partial<ArticleFrontmatter>): string | null {

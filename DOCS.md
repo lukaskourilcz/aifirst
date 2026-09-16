@@ -96,6 +96,17 @@ The existing `dispatches` and `wire` storage keys remain for compatibility;
 reader labels are Briefs and Watchlist. Existing `signal_strength`, source IDs,
 article slugs and weekly digest linkage are preserved.
 
+`practical` is an optional article-frontmatter block: a `variant` of `daily` or
+`friday-tools` and one to four items, each carrying a `kind` (`prompt`, `tool`
+or `howto`), a title, a body and an https `source_url`. No published edition
+carries one yet, so render-nothing is the only state a reader has seen. The
+variant alone chooses the heading — upstream decides it from the edition's own
+date, a `daily` block on a Friday is the honest fallback when only one usable
+thing was found, and this repository has no clock to override it with.
+`resolvePractical` in `lib/content.ts` normalises the field, drops any item that
+is malformed, of an unknown kind or not https, and returns null when nothing
+survives.
+
 `pnpm check:content` validates every MDX file and both configuration files. It
 checks real dates, URLs, source duplication, registered schema-v2 source IDs,
 field bounds, weekly coverage, provenance, measured cost, corrections,
@@ -109,6 +120,10 @@ New issues can display:
 - edition masthead, lead and reading metadata
 - Why it matters and What changed
 - Briefs and Watchlist
+- the practical block, when the edition carries one: one thing to try, or three
+  tools and a prompt, as a peer section above the completion mark and in the
+  article's reference blocks. It reuses the digest row with the two-line summary
+  clamp turned off, because a prompt cut to two lines is not a prompt
 - optional sponsor block, clearly labeled with safe link attributes
 - semantic MDX article body
 - keyboard-accessible `<details>` glossary definitions with full-entry links

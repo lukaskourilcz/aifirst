@@ -60,6 +60,13 @@ anywhere in this pipeline and none is coming back.
 
 `lib/content.ts` is the frontmatter/read contract and legacy compatibility layer. `lib/delivery/` is the only write boundary and validates `edition-package/1`, exact MDX serialization, the required Czech article, authorized paths and same-date hashes. An English article is accepted only as legacy and is never required. Schema v2 adds `why_it_matters`, `what_changed`, `uncertainty`, structured evidence-aware `sources`, `generation`, `corrections`, `translation_of`, optional `sponsor`, and alternative headlines while retaining legacy MDX.
 
+- `practical` is an optional article-frontmatter block, not a package field: a
+  `variant` of `daily` or `friday-tools` plus one to four items, each with a
+  `kind`, title, body and https `source_url`. No published edition carries one,
+  so render-nothing is the state that has to stay right. The heading comes from
+  the delivered `variant` alone — a `daily` block on a Friday is legal upstream
+  and this repository has no clock to re-derive the weekday with.
+  `resolvePractical` normalises it; `practicalErrors` gates committed editions.
 - Editorial production, source collection, regeneration, illustration composition and social promotion are owned by Quorum. Do not recreate dormant fallbacks here.
 - The daily workflow is a sentinel only: it checks that the day has either a Czech article whose `package_hash` matches the board record, or an honest no-edition board record. Weekly pages render existing committed content; there is no weekly generation workflow.
 - Never fabricate sources, provenance, metrics, human review, or cost.

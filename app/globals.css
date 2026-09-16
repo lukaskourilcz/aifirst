@@ -1852,6 +1852,17 @@ input[type="search"]:focus {
   color: var(--text-secondary);
 }
 
+/* The practical block's only deviation from the shared row: its body is the
+   deliverable, so it is not clamped. `pre-wrap` keeps a prompt's own line
+   breaks, which are part of the prompt. */
+.digest-row__summary--full {
+  display: block;
+  -webkit-line-clamp: none;
+  line-clamp: none;
+  overflow: visible;
+  white-space: pre-wrap;
+}
+
 .digest-row__meta {
   display: block;
   margin-top: var(--space-2);

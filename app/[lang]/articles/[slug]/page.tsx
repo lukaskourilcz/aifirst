@@ -8,6 +8,7 @@ import { Mdx } from "@/components/Mdx";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
 import { BannerSlot } from "@/components/editorial/BannerSlot";
+import { PracticalBlock } from "@/components/editorial/PracticalBlock";
 import { Wire } from "@/components/Wire";
 import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
@@ -24,6 +25,7 @@ import {
   listArticles,
   relatedArticles,
   resolveHeroPhoto,
+  resolvePractical,
   type ArticleSummary,
 } from "@/lib/content";
 import {
@@ -148,6 +150,7 @@ export default async function ArticlePage({
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
   const reading = readingMinutes(article.mdx);
   const heroPhoto = resolveHeroPhoto(fm);
+  const practical = resolvePractical(fm);
   const adjacent = adjacentIssues(article.slug, all);
   const topics = topicsForArticle(topicsConfig, summary);
   const base = siteUrl();
@@ -241,6 +244,9 @@ export default async function ArticlePage({
 
       <section className="issue-reference-blocks">
         <CorrectionsNotice corrections={fm.corrections} locale={locale} />
+        {practical ? (
+          <PracticalBlock items={practical.items} locale={locale} variant={practical.variant} />
+        ) : null}
         <GlossaryBlock terms={issueGlossary} locale={locale} />
         {topics.length ? (
           <nav aria-label={locale === "cs" ? "Témata článku" : "Article topics"} className="issue-topics">
