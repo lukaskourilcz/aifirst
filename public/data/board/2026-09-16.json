@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-16",
+  "packageHash": "521fa057a26ab8c122de17b5e106fca17bca49667002f122a04563bb1f2a05ec",
+  "status": "edition",
+  "whyThisStory": "Agentní spam od iLands jako první zdokumentovaný případ ve velkém měřítku a průzkum s 61% odporem k datovým centrům spolu tvoří nejkonkrétnější obraz propasti mezi průmyslovými ambicemi AI a tím, co veřejnost skutečně toleruje.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-16-cu-edition",
+  "generationCostUsd": 0.3047775,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-16-ai-spam-datova-centra-nepopularita-modely/hero.svg",
+    "thumbPath": "public/images/editions/2026-09-16-ai-spam-datova-centra-nepopularita-modely/thumb.svg",
+    "origin": "svg"
+  }
+}
