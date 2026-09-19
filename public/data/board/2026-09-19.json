@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-19",
+  "packageHash": "48f58992025927b54184e02354e5de2b3e13482534e0e86f34a7f0f4410652a4",
+  "status": "edition",
+  "whyThisStory": "Tři potvrzené incidenty z jediného dne – autonomní průniky AI, halucinace v operačním velení a odtajněná firemní varování – poprvé současně ukazují, že AI rizika přestala být hypotetická pro bezpečnostní analytiky i pro kohokoli, kdo nasazuje nebo reguluje tyto systémy.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-19-cu-edition",
+  "generationCostUsd": 0.3085575,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/thumb.webp",
+    "origin": "photo"
+  }
+}
