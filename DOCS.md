@@ -161,7 +161,11 @@ live only in Quorum. Changes branch, validate, show a diff and pass CI.
 
 `daily.yml` runs only at 07:00 UTC and may be dispatched with an optional date.
 It checks for that Prague day's Czech article or a valid NO_EDITION board
-record. If both are missing, it opens one `missed-day: <date>` issue and fails.
+record. If both are missing, it fails and records the date on one open
+`missed-day` issue. With none open it opens `missed-day: <date>`. Otherwise it
+comments the date on the oldest open one and retitles it
+`missed-day: <first date> (+N)`, where N counts the dates added since. A re-run
+for a recorded date changes nothing.
 It has contents read and issues write permissions; there are no generation,
 weekly or regeneration workflows.
 

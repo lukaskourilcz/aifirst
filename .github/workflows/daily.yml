@@ -82,16 +82,42 @@ jobs:
           echo "missing=true" >> "$GITHUB_OUTPUT"
           echo "no complete edition or honest no-edition record for $issue_date"
 
-      - name: Open one missed-day issue
+      - name: Record the missed day on one open issue
         if: steps.publication.outputs.missing == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_DATE: ${{ steps.publication.outputs.issue_date }}
         run: |
-          title="missed-day: ${ISSUE_DATE}"
-          if gh issue list --state open --limit 100 --json title | jq -e --arg title "$title" 'any(.[]; .title == $title)' >/dev/null; then
-            echo "open issue already exists: $title"
+          set -euo pipefail
+          note="The 07:00 UTC sentinel found neither a complete Czech edition with matching BoardlessAI board/package hashes nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
+          line="missed-day: ${ISSUE_DATE}"
+          # One open missed-day issue at most. The oldest open issue whose title starts with
+          # missed-day takes every later date as a comment, and its title counts them as
+          # "missed-day: <first date> (+N)". A new issue opens only when none is open.
+          open_issues="$(gh issue list --state open --search "missed-day in:title" --limit 100 --json number,title)"
+          number="$(jq -r '[.[] | select(.title | startswith("missed-day"))] | sort_by(.number) | first | .number // empty' <<<"${open_issues:-[]}")"
+          if test -z "$number"; then
+            gh issue create --title "$line" --body "$note"
+            exit 1
+          fi
+          title="$(jq -r --argjson number "$number" '.[] | select(.number == $number) | .title' <<<"$open_issues")"
+          pattern='^missed-day:[[:space:]]+([0-9]{4}-[0-9]{2}-[0-9]{2})([[:space:]]+\(\+([0-9]+)\))?[[:space:]]*$'
+          first_date=""
+          extra=0
+          if [[ "$title" =~ $pattern ]]; then
+            first_date="${BASH_REMATCH[1]}"
+            extra="${BASH_REMATCH[3]:-0}"
+          fi
+          # A re-run for a date the issue already holds changes nothing.
+          recorded="$(gh issue view "$number" --json comments | jq -r --arg line "$line" 'any(.comments[]?; (.body // "") | split("\n") | any(.[]; rtrimstr("\r") == $line))')"
+          if test "$first_date" = "$ISSUE_DATE" || test "$recorded" = "true"; then
+            echo "issue #${number} already records ${ISSUE_DATE}"
+            exit 1
+          fi
+          gh issue comment "$number" --body "$(printf '%s\n\n%s' "$line" "$note")"
+          if test -n "$first_date"; then
+            gh issue edit "$number" --title "missed-day: ${first_date} (+$((10#$extra + 1)))"
           else
-            gh issue create --title "$title" --body "The 07:00 UTC sentinel found neither a complete Czech edition with matching BoardlessAI board/package hashes nor a valid public/data/board/${ISSUE_DATE}.json NO_EDITION record."
+            echo "::warning::issue #${number} title \"${title}\" names no first date; the title stays as it is"
           fi
           exit 1

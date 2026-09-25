@@ -31,8 +31,8 @@ technical identifier, not the public publication name.
   behavior without a client-side state framework.
 - Consume only `edition-package/1` files, accept byte-identical complete replay
   as a no-op, and fail closed on schema, content or same-date byte conflicts.
-- Run a daily Prague-aware sentinel that opens one idempotent `missed-day`
-  issue when neither an edition nor an honest NO_EDITION record exists.
+- Run a daily Prague-aware sentinel that records each day with neither an
+  edition nor an honest NO_EDITION record on a single open `missed-day` issue.
 
 No database, CMS, reader login or runtime model call sits in the public path.
 Reader growth increases static delivery, not editorial model usage.
