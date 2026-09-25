@@ -80,8 +80,10 @@ no client JavaScript and make no network or model call.
   asserted as minimums so an append needs no test edit.
 - The lessons are a dated curriculum, `glossary.yml` is a reference list. They
   coexist; do not merge them or cross-wire their loaders.
-- **`BannerSlot`** renders `config/banner.json`; the launch config fills the
-  `today-partner-belt` and `rail-square` slots with reciprocal MMA FILES creatives.
+- **`BannerSlot`** renders `config/banner.json`; both slots, `today-partner-belt`
+  and `rail-square`, carry the owner's own devShark creatives, labelled
+  "devShark (vlastní projekt)" so a house project never reads as a paid partner.
+  MMA FILES is paused upstream and its reciprocal creatives are gone.
   An empty slot either collapses or reserves its box, and which one is config:
   `today-partner-belt` reserves no space when empty, while `rail-square` may carry
   `placeholder: true` and hold a 300×250 reservation. The flag stops applying once

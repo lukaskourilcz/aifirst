@@ -11,8 +11,8 @@ const FILLED = {
 };
 
 describe("bannerSlot", () => {
-  it("ships the reciprocal MMA FILES promotion", () => {
-    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("MMA FILES");
+  it("ships the devShark house promotion, labelled as the owner's own project", () => {
+    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("devShark (vlastní projekt)");
   });
 
   it("returns null for a slot that does not exist", () => {
@@ -106,12 +106,12 @@ describe("the placeholder rule", () => {
 
 describe("the shipped slots", () => {
   it("ships the filled rail square", () => {
-    expect(bannerSlot("rail-square")?.advertiser).toBe("MMA FILES");
+    expect(bannerSlot("rail-square")?.advertiser).toBe("devShark (vlastní projekt)");
     expect(bannerPlaceholder("rail-square")).toBe(false);
   });
 
   it("does not add a placeholder behind the partner belt", () => {
-    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("MMA FILES");
+    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("devShark (vlastní projekt)");
     expect(bannerPlaceholder("today-partner-belt")).toBe(false);
   });
 

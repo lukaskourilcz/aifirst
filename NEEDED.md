@@ -9,7 +9,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 `KICKOFF-25-9-2026.md` at the repository root is the order; issues #95–#97 are the steps.
 
-- [ ] **Decide the banner slots (#97)** — MMA FILES is paused upstream: devShark creatives (option A, approved in quorum's INBOX) or empty slots (option B). [imp:2] [owner:me] [time:10m] [kind:decision]
+- [x] **Decide the banner slots (#97)** — decided 2026-09-25: devShark creatives in both slots, labelled as the owner's own project. [imp:2] [owner:me] [time:10m] [kind:decision]
 - [ ] **Rename `lukaskourilcz/aifirst` to `lukaskourilcz/DNESKAi`** — after quorum #555–#564 and own-dashboard #75 are merged; then set `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/DNESKAi` on the Vercel project and update local remotes. #95 does the repository side. The package name stays `aifirst`. [imp:3] [owner:me] [time:15m] [kind:setup]
 
 ## Required for unattended BoardlessAI delivery
@@ -44,8 +44,8 @@ credentials or judgment; there is no second generation setup to maintain here.
 
 ## Already complete
 
-- The reciprocal MMA FILES promotion uses local 728×90, 320×100 and 300×250
-  creatives from `config/banner.json`. The partner belt follows the homepage
+- The devShark house promotion uses local 728×90, 320×100 and 300×250
+  creatives from `config/banner.json`, labelled as the owner's own project. The partner belt follows the homepage
   completion mark, while the square creative fills reader rails without scripts
   or third-party tracking.
 

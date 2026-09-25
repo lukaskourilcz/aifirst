@@ -21,8 +21,8 @@ reader.
 - **Streams and events:** `data/talked-about.json`, `data/podcasts.json` and
   `data/events.json` are synced wholesale by BoardlessAI and ship as valid empty
   envelopes. A failed sync costs a section, never a build.
-- **Advertising:** `config/banner.json` reserves one 300x250 rail slot and one
-  partner belt, both empty. Local files only, no script, no third-party host.
+- **Advertising:** `config/banner.json` holds one 300x250 rail slot and one
+  partner belt, both showing the owner's own devShark as a house project. Local files only, no script, no third-party host.
 - **Delivery:** `edition-package/1` consumer restricted to the dated Czech MDX,
   the hero and thumbnail for each new article, and sanitized board context.
 - **Automation:** GitHub Actions CI plus a Prague-aware missed-publication

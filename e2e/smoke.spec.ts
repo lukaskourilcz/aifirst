@@ -117,7 +117,7 @@ test("the completion mark closes the edition, above the week feed", async ({ pag
   }
 });
 
-test("the reciprocal MMA FILES promotion renders without overflow at launch widths", async ({ page }) => {
+test("the devShark house promotion renders without overflow at launch widths", async ({ page }) => {
   for (const viewport of [
     { width: 360, height: 800 },
     { width: 768, height: 1024 },
@@ -126,7 +126,7 @@ test("the reciprocal MMA FILES promotion renders without overflow at launch widt
     await page.setViewportSize(viewport);
     await page.goto("/");
 
-    const banners = page.locator('.banner-slot a[href="https://mma-files.vercel.app"]');
+    const banners = page.locator('.banner-slot a[href="https://devshark.app"]');
     await expect(banners).toHaveCount(2);
     await expect(banners.nth(0)).toBeVisible();
     await expect(banners.nth(1)).toBeVisible();
@@ -135,7 +135,7 @@ test("the reciprocal MMA FILES promotion renders without overflow at launch widt
     const visibleCreatives = page.locator(".banner-slot__creative:visible");
     await expect(visibleCreatives).toHaveCount(2);
     for (const creative of await visibleCreatives.all()) {
-      await expect(creative).toHaveAttribute("alt", "MMA FILES. UFC a Oktagon. Číst partnerský magazín.");
+      await expect(creative).toHaveAttribute("alt", "devShark, vlastní projekt. Kvízová hra, se kterou budeš lepší vývojář.");
     }
     await assertNoHorizontalOverflow(page);
   }
@@ -496,7 +496,7 @@ test("the article page carries the rail and files chips only when tagged", async
 
   // Rail: the configured partner creative and related editions, nothing else.
   const rail = page.locator(".right-rail");
-  await expect(rail.locator('.banner-slot a[href="https://mma-files.vercel.app"]')).toBeVisible();
+  await expect(rail.locator('.banner-slot a[href="https://devshark.app"]')).toBeVisible();
   await expect(rail.locator(".rail-related a").first()).toBeVisible();
 
   // This edition has no category, so the row is absent rather than empty.
