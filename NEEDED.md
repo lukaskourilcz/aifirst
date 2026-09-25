@@ -5,6 +5,13 @@ edition meetings, writing, Czech localization, illustrations, social drafts and
 delivery. This file contains only actions that require the owner’s accounts,
 credentials or judgment; there is no second generation setup to maintain here.
 
+## Kickoff 2026-09-25 · after the BoardlessAI refocus
+
+`KICKOFF-25-9-2026.md` at the repository root is the order; issues #95–#97 are the steps.
+
+- [ ] **Decide the banner slots (#97)** — MMA FILES is paused upstream: devShark creatives (option A, approved in quorum's INBOX) or empty slots (option B). [imp:2] [owner:me] [time:10m] [kind:decision]
+- [ ] **Rename `lukaskourilcz/aifirst` to `lukaskourilcz/DNESKAi`** — after quorum #555–#564 and own-dashboard #75 are merged; then set `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/DNESKAi` on the Vercel project and update local remotes. #95 does the repository side. The package name stays `aifirst`. [imp:3] [owner:me] [time:15m] [kind:setup]
+
 ## Required for unattended BoardlessAI delivery
 
 - [ ] **Finish the Vercel half of the credential audit** — the retired `ANTHROPIC_API_KEY` Actions secret was deleted from `lukaskourilcz/aifirst` on 2026-08-07. Still open: remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project, and rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials. The old OwnDashboard sentinel pair can go too — nothing reads it any more. [imp:4] [owner:me] [time:15m] [kind:setup]
