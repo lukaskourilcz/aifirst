@@ -41,7 +41,7 @@ const event = (over: Record<string, unknown> = {}) => ({
   ...over,
 });
 
-describe("the shipped files are valid empty envelopes", () => {
+describe("the shipped files are valid envelopes", () => {
   it("carries the stream contract with an items array", () => {
     for (const stream of STREAM_NAMES) {
       const file = JSON.parse(fs.readFileSync(path.join(DATA, `${stream}.json`), "utf8"));
@@ -60,9 +60,34 @@ describe("the shipped files are valid empty envelopes", () => {
     expect(file.events.length).toBeGreaterThanOrEqual(0);
   });
 
-  it("loads them without throwing", () => {
-    for (const stream of STREAM_NAMES) expect(loadStream(stream)).toEqual([]);
-    expect(loadEvents()).toEqual([]);
+  // Whatever the upstream sync delivered, the committed files must load and every item must pass
+  // the parser. This used to assert the files were empty, which refused every real delivery
+  // (aifirst#98): the talked-about and podcast pages stayed empty from launch.
+  it("loads them without throwing, and every loaded item is valid", () => {
+    for (const stream of STREAM_NAMES) {
+      const items = loadStream(stream);
+      expect(Array.isArray(items)).toBe(true);
+      for (const loaded of items) expect(parseStreamItem(loaded)).not.toBeNull();
+    }
+    const events = loadEvents();
+    expect(Array.isArray(events)).toBe(true);
+    for (const loaded of events) expect(parseEvent(loaded)).not.toBeNull();
+  });
+
+  it("loads a delivered stream with real items", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "aifirst-stream-"));
+    try {
+      fs.writeFileSync(path.join(dir, "talked-about.json"), JSON.stringify({
+        schemaVersion: "boardless-stream/1",
+        stream: "talked-about",
+        updated: "2026-09-25",
+        windowDays: 60,
+        items: [item(), item({ id: "def456", url: "https://example.com/other", title: "A second post" })],
+      }));
+      expect(loadStream("talked-about", dir).map((loaded) => loaded.id).sort()).toEqual(["abc123", "def456"]);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 
