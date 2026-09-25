@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "board-context/1",
+  "date": "2026-09-25",
+  "packageHash": "6166221acf61c6dbeccc1b78234fd96579fc341cd3ff16d413ad9578a02ff2bb",
+  "status": "edition",
+  "whyThisStory": "První potvrzený případ, kdy útočník sestavil soustavu open-source AI agentů a napadl přes dvě desítky velkých firem za průměrně 25 dolarů na cíl, mění bezpečnostní plánování pro každou organizaci s veřejně dostupnou infrastrukturou.",
+  "roomUrl": "https://boardless-ai.vercel.app/meetings/2026-09-25-cu-edition",
+  "generationCostUsd": 0.2988915,
+  "image": {
+    "heroPath": "public/images/editions/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/hero.webp",
+    "thumbPath": "public/images/editions/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/thumb.webp",
+    "origin": "photo"
+  }
+}
