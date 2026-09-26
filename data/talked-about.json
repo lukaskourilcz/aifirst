@@ -1,7 +1,1021 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-08-09",
+  "updated": "2026-09-26",
   "windowDays": 60,
-  "items": []
+  "items": [
+    {
+      "id": "0f349eab476b1386411087afa75670e826be8e98",
+      "title": "2026 Mac Guide: How to Configure a Machine for Running Large Language Models",
+      "url": "https://githubdaily.medium.com/2026-mac-guide-how-to-configure-a-machine-for-running-large-language-models-5a266115573d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Chimin",
+      "published": "2026-09-26",
+      "summary": "A friend asked me what models an M5 Ultra Mac Studio could run. He said he hadn't decided yet, but since Apple's keynote mentioned this… Continue reading on Medium »"
+    },
+    {
+      "id": "7d43a75a4405d2030efcc2d7bcf59bcae9657a85",
+      "title": "AI RumorBoard, Sept 26, Gemini 4 Pro is Coming! Google is Back?",
+      "url": "https://medium.com/@mikesulka/ai-rumorboard-sept-26-gemini-4-pro-is-coming-google-is-back-daa6ea714e25",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "aklus",
+      "published": "2026-09-26",
+      "summary": "For two weeks Gemini 4 has been like the way birders identify a rare owl: somebody hears an unusual call from inside Arena, three… Continue reading on Medium »"
+    },
+    {
+      "id": "b1b9cd4381782ec77159fb86815881b4a79e60b3",
+      "title": "Building a Real-Time Full-Duplex Voice Assistant with Gemini 3.8 Live and Python",
+      "url": "https://medium.com/@anooshmughal471/building-a-real-time-full-duplex-voice-assistant-with-gemini-3-8-live-and-python-ff0d49b7fdcf",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Qaiser Anoosh Mughal",
+      "published": "2026-09-26",
+      "summary": "Real-time voice AI is moving beyond simple question-and-answer interactions. Continue reading on Medium »"
+    },
+    {
+      "id": "682296ba051fb793add195e1b90ea7d4d4fcec6a",
+      "title": "Can Jev Replace LLMs? Why Is It So Much Cheaper & Faster?",
+      "url": "https://brainglitch.medium.com/can-jev-replace-llms-why-is-it-so-much-cheaper-faster-32e0bc260d59",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Arpit | BrainGlitch",
+      "published": "2026-09-26",
+      "summary": "TypeSafe’s new System One model is changing how we think about AI decisions, agents, and the role of LLM Continue reading on Medium »"
+    },
+    {
+      "id": "a6109168aca68350b558e652897e26f0b22d6765",
+      "title": "ECB Launches Pontes",
+      "url": "https://medium.com/@rubalcaverudick12/ecb-launches-pontes-1d5d82775dc3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "XpertraxUpdates",
+      "published": "2026-09-26",
+      "summary": "What Europe’s Blockchain Move Actually Means for Crypto Continue reading on Medium »"
+    },
+    {
+      "id": "8761c1a9f28220768e25546f09474abe3359a57a",
+      "title": "How Search Engines Find the Information We Need",
+      "url": "https://medium.com/@smitavidhate13/how-search-engines-find-the-information-we-need-c7214a3ab993",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Smitavidhate",
+      "published": "2026-09-26",
+      "summary": "A beginner-friendly introduction to Information Storage and Retrieval with real-world examples Continue reading on Medium »"
+    },
+    {
+      "id": "00f7cb2d1b36d72f82c818d40dc8004ae7f90f94",
+      "title": "I Gave AI Access to My Design Documentation. Here’s What Changed",
+      "url": "https://javascript.plainenglish.io/i-gave-ai-access-to-my-design-documentation-heres-what-changed-8dec99f5b7d6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Pallavi Sharma",
+      "published": "2026-09-26",
+      "summary": "It didn’t get smarter. It just stopped guessing. Continue reading on JavaScript in Plain English »"
+    },
+    {
+      "id": "234d85919c35e1b841787171add2c464042ccc7a",
+      "title": "LLM Content Moderation Is a Policy Layer",
+      "url": "https://medium.com/@vish98950/llm-content-moderation-is-a-policy-layer-85b4ab43acb3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Vishal Borana",
+      "published": "2026-09-26",
+      "summary": "Your rules change in a day, your models change in a month, and the architecture has to absorb the difference. Continue reading on Medium »"
+    },
+    {
+      "id": "dffb841f9e89896f01da30b4b897f416b3ea3779",
+      "title": "Testing AI Agents: A Practical Quality Engineering Journey",
+      "url": "https://medium.com/@rajesh.yemul_42550/testing-ai-agents-a-practical-quality-engineering-journey-c235982cc8d9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "rajesh yemul",
+      "published": "2026-09-26",
+      "summary": "Part 5 : Negative Testing: What Happens When the Input Is Bad? Continue reading on Medium »"
+    },
+    {
+      "id": "85016fffd15ca8ca35cdc14b0f4370162a5cac21",
+      "title": "Testing AI Agents: A Practical Quality Engineering Journey",
+      "url": "https://medium.com/@rajesh.yemul_42550/testing-ai-agents-a-practical-quality-engineering-journey-9839e454b04a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "rajesh yemul",
+      "published": "2026-09-26",
+      "summary": "Part 4: Writing Our First Functional Test for an AI Agent Continue reading on Medium »"
+    },
+    {
+      "id": "fdd924d2cb47e3a6607a926953dd96c536bbdc5c",
+      "title": "Understanding Objects in Python:",
+      "url": "https://medium.com/@gilnapradeep2003/understanding-objects-in-python-a-concept-every-ml-engineer-should-know-19f60915e11a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Gilnapradeep",
+      "published": "2026-09-26",
+      "summary": "A Concept Every ML Engineer Should Know Continue reading on Medium »"
+    },
+    {
+      "id": "0a5ae29a1ec9482cb9e4d0890972e245b274122c",
+      "title": "When models agree, are they right?",
+      "url": "https://medium.com/@tunglee0305/when-models-agree-are-they-right-a6dabe2cea2d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "tung le",
+      "published": "2026-09-26",
+      "summary": "The problem Continue reading on Medium »"
+    },
+    {
+      "id": "86ae669071a3bfc9e086702ce03a67fd52409523",
+      "title": "[AINews] The Future of Latent Space",
+      "url": "https://latent.space/p/ainews-the-future-of-latent-space",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-25",
+      "summary": "A quiet day lets us discuss the work behind the scenes - now open for business!"
+    },
+    {
+      "id": "c660a1c3fc0efdb5d21d0a159f36db1ab926ac0b",
+      "title": "Anthropic will become a Biotech AI Risk by 2029",
+      "url": "https://ai-supremacy.com/p/anthropic-will-become-a-biotech-ai",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-25",
+      "summary": "AI compute should not be used in biotechnology without significant oversight."
+    },
+    {
+      "id": "c5617bc48a5c1d6f9decd8a480151ff1494f58e5",
+      "title": "OpenRouter: from Seed to Stripe — with OpenRouter’s Alex Atallah & AMP’s Anjney Midha",
+      "url": "https://latent.space/p/openrouter",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-25",
+      "summary": "In 2023 most people doubted that there could be more than 1 or 2 frontier model labs. Now there are dozens.... and Stripe just bought the best known one for $7B."
+    },
+    {
+      "id": "cf1f7303557fdea87b8cf8417b4fe7c60370b6b9",
+      "title": "Runway’s WorldPrompt and the Engineering of Real-Time Worlds",
+      "url": "https://latent.space/p/runway",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-09-25",
+      "summary": "GWM Worlds 2 uses persistent context and timed actions to steer a world model generating video and audio in real time."
+    },
+    {
+      "id": "5bc873cae3e1be1f2e3f01364b849c5590a5ee3d",
+      "title": "[AINews] Meta Connect 2026: Muse glasses, voice, video, and Charm",
+      "url": "https://latent.space/p/ainews-meta-connect-2026-muse-glasses",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-24",
+      "summary": "Team Zuck is absolutely on fire."
+    },
+    {
+      "id": "a2f4043ac726519ec48db32ef67c92f9d6f979d0",
+      "title": "AI Evolution: Merchants of Compute",
+      "url": "https://ai-supremacy.com/p/ai-evolution-merchants-of-compute",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-24",
+      "summary": "CoreWeave and Nebius are going to have rising competition in the future of Neo Clouds."
+    },
+    {
+      "id": "70819f21132eb948f0c21fb4144bb00432d5935b",
+      "title": "Foundries vs Navigators: Lowering the Cost of Science",
+      "url": "https://latent.space/p/foundries-vs-navigators-lowering",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Adrian Sanborn",
+      "published": "2026-09-24",
+      "summary": "Guest Post: In science, thinking has gotten cheap but doing has not. This asymmetry is reshaping how research companies operate, largely inconspicuously."
+    },
+    {
+      "id": "ee6a459e4ad35a185c3f8c0a40f1880f6f7e3330",
+      "title": "There Are No Interesting Things; There Are Only Interested People",
+      "url": "https://thealgorithmicbridge.com/p/there-are-no-interesting-things-there",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-24",
+      "summary": "So, what do we do now?"
+    },
+    {
+      "id": "5e9e5737b35bdb5d58ef85743844715b2b62d2e2",
+      "title": "[AINews] Claude Opus 5.5, the new default model for AINews — and everybody cuts prices 40-50%",
+      "url": "https://latent.space/p/ainews-claude-opus-55-the-new-default",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-23",
+      "summary": "overshadowing more efficient GPT6 models from OpenAI"
+    },
+    {
+      "id": "c22650ec4f431c9c82f58587ce85eb95a792daf6",
+      "title": "🔬Bio-security is an AI Arms Race - Eric Nguyen (CEO, Radical Numerics)",
+      "url": "https://latent.space/p/bio-security-is-an-ai-arms-race-eric",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "RJ Honicky",
+      "published": "2026-09-23",
+      "summary": "Radical Numerics is using biological chain-of-thought and multimodal perception to keep up with the bio-defense arms race, design new genomes and gain insights into biology itself."
+    },
+    {
+      "id": "53de55cc7daf8d1655246e71a44e64562d6223e0",
+      "title": "[AINews] Xiaomi MiMo-V2.6-Pro 1T-A42B: the new top Open Weights model, trained for $3M",
+      "url": "https://latent.space/p/ainews-xiaomi-mimo-v26-pro-1t-a42b",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-22",
+      "summary": "crowning a new Chinese frontier lab"
+    },
+    {
+      "id": "338e39f8baa2a8c4b38758aa16ae051f6dfc189f",
+      "title": "🔬 An Oscar, Two Asteroids, and the Algorithm in Your sklearn: John Platt on AI for Science",
+      "url": "https://latent.space/p/john-platt",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Brandon Anderson",
+      "published": "2026-09-22",
+      "summary": "We talked to Google’s Oscar winning “Giganerd” about automating science, solving climate change, and how future generations can contribute to science in the age of superintelligent AI"
+    },
+    {
+      "id": "0647ffff84a0a7d35c9e576eb2f00dc6da75175a",
+      "title": "Debating RSI, the US-China Gap, and Jaggedness with JS Denain of Epoch AI",
+      "url": "https://interconnects.ai/p/debating-rsi-the-us-china-gap-and",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-09-22",
+      "summary": "Podcast #19"
+    },
+    {
+      "id": "fda9ea9b6af7bb043f6b3951d2d889bfbf8646a8",
+      "title": "The most Viral new AI model isn’t an LLM at all",
+      "url": "https://ai-supremacy.com/p/the-most-viral-new-ai-model-isnot-an-llm-jev-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-22",
+      "summary": "What is Jev in an era of agentic swarm inference?"
+    },
+    {
+      "id": "993593fe071f0b9a1ad0d4610b576cd4edd30cd5",
+      "title": "11 Charts the AI Industry Doesn’t Want You to See (pt. 2)",
+      "url": "https://thealgorithmicbridge.com/p/11-charts-the-ai-industry-doesnt",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-21",
+      "summary": "If there's an AI bubble, this is what it looks like"
+    },
+    {
+      "id": "dbc8d23447972503f96410b8b216e88f029da4b0",
+      "title": "Jev: System One models for Prod, not God — with Diogo Almeida, CEO, TypeSafe AI",
+      "url": "https://latent.space/p/jev",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-21",
+      "summary": "The definitive Jev podcast with its lead creator."
+    },
+    {
+      "id": "9b44d7e44f1cb7fc83d947f846380b9df3d09359",
+      "title": "The current balance of power in open models",
+      "url": "https://interconnects.ai/p/the-current-balance-of-power-in-open",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-09-21",
+      "summary": "The expanded form of a testimony I prepared for Congress."
+    },
+    {
+      "id": "7ddd4ae598a60a7c379f446b7e26514eca32c23f",
+      "title": "[AINews] Here are 6 Clones of Jev in 2 days",
+      "url": "https://latent.space/p/ainews-here-are-6-clones-of-jev-in",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-19",
+      "summary": "Imitation is the sincerest form of Flattery"
+    },
+    {
+      "id": "172fc02df49f69a4559794685758e85fc71f4ddc",
+      "title": "Why I still haven’t bought into true RSI",
+      "url": "https://interconnects.ai/p/where-i-stand-on-rsi",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-09-19",
+      "summary": "An “AI moderate’s” view on recent events and the trajectory of frontier models."
+    },
+    {
+      "id": "1d931365e9142c6d48d28cfd19f236ab27b276ee",
+      "title": "[AINews] not much happened today",
+      "url": "https://latent.space/p/ainews-not-much-happened-today-612",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-18",
+      "summary": "a quiet day"
+    },
+    {
+      "id": "a84fff8827c52297c423054638c600e8c85ecc73",
+      "title": "The Overhang",
+      "url": "https://oneusefulthing.org/p/the-overhang",
+      "source": {
+        "kind": "substack",
+        "name": "One Useful Thing",
+        "feed": "https://www.oneusefulthing.org/feed"
+      },
+      "author": "Ethan Mollick",
+      "published": "2026-09-18",
+      "summary": "Using your deep knowledge, wide knowledge, taste, and agency"
+    },
+    {
+      "id": "a75b42bdf8988f25970f9899b2f3b23b694943a7",
+      "title": "Visions of AI: GPT-3 Moment for Physical AI",
+      "url": "https://ai-supremacy.com/p/visions-of-ai-gpt-3-moment-for-physical-ai-skild-s1",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-18",
+      "summary": "Has embodied AI and robotics hit a milestone in 2026?"
+    },
+    {
+      "id": "cd39cd61b0ab0f3e26444f6472e5ee708350dcd1",
+      "title": "[AINews] Reality Checks on AI News (Yegge shuts down Gas Town, Databricks’ +60% Astra cost)",
+      "url": "https://latent.space/p/ainews-reality-checks-on-ai-news",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-17",
+      "summary": "A dash of cold water keeps the foomers away."
+    },
+    {
+      "id": "86bec7eaa3f61905cc6652d9a1b8fbe3bdf71c55",
+      "title": "[AINews] Jev: a “System One Model” that only decides/classifies/routes/scores — >100x faster, >200x cheaper than small frontier LLMs",
+      "url": "https://latent.space/p/ainews-jev-a-system-one-model-that",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-16",
+      "summary": "congrats to TypeSafe!"
+    },
+    {
+      "id": "1a07dfe2d299bd568302d249fde4413464ed883b",
+      "title": "A Guide to Grok Bot 2026",
+      "url": "https://ai-supremacy.com/p/a-guide-to-grok-bot-2026-autonomous-teammate-systems",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-16",
+      "summary": "How to use Grok Bot as a personal assistant"
+    },
+    {
+      "id": "b68245f7a2b04cc87010b1d3b87622b05a4af0d7",
+      "title": "Underwriting Superintelligence: Backing Agents you can Sue — Rune Kvist, AIUC",
+      "url": "https://latent.space/p/aiuc",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-16",
+      "summary": "We sit down with AIUC’s CEO on their Series A!"
+    },
+    {
+      "id": "338f54e51a481175218c8c8b492320acb1bc4316",
+      "title": "[AINews] AEF-1 standard emerges for Third Party Evaluators, as Xai, OpenAI, and Anthropic all cosign",
+      "url": "https://latent.space/p/ainews-aef-1-standard-emerges-for",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-15",
+      "summary": "Pacing gathers pace."
+    },
+    {
+      "id": "eaf5399d32affe9e679f2fbb8627973ed5611bcb",
+      "title": "Can Skills Learned in Games Transfer to Real-World Work?",
+      "url": "https://latent.space/p/good-start-labs",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-09-15",
+      "summary": "Good Start Labs trained an AI on a railroad game — and one version improved at financial research. The difference was the training design."
+    },
+    {
+      "id": "4bacd7a2c7cc463484353c27d49bc70b1f629b96",
+      "title": "AI Reality: The Race to (P)doom End-times",
+      "url": "https://ai-supremacy.com/p/p-doom-ai-supremacy-2026-frontier-slowdown-anthropic",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-14",
+      "summary": "The closed model “frontier slowdown” might hamper the AI boom until Anthropic’s IPO in 7 weeks. No boom, no bother. While frontier labs race to recursive-self-improvement capabilities in secret."
+    },
+    {
+      "id": "f2e0080689703aa632260559fe80e492182186a0",
+      "title": "Humanity’s Last Invention — Richard Socher of Recursive",
+      "url": "https://latent.space/p/recursive",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-14",
+      "summary": "Richard Socher is an NLP OG and CEO of You.com, who has now spun out an even more ambitious startup focused on RSI — already worth $5B!"
+    },
+    {
+      "id": "b234e09e0f3829514a1206db1a563d0671730a40",
+      "title": "The AI Industry Has Finally Discovered the Hardest Test: Politics",
+      "url": "https://thealgorithmicbridge.com/p/the-ai-industry-has-finally-discovered",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-14",
+      "summary": "AI CEOs want to pace the frontier. Here's what that means and why they can't do it"
+    },
+    {
+      "id": "fedd609f4c721022dde2ce9da086ad5f70b1caa1",
+      "title": "[AINews] DeepSeek v4.1-Flash: 763B-P8B-D16B novel causal Encoder–Decoder architecture with vision marks the Return of the Whale",
+      "url": "https://latent.space/p/ainews-deepseek-v41-flash-763b-p8b",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-12",
+      "summary": "We agree with Sebastian: this should have been DeepSeek v5"
+    },
+    {
+      "id": "d8e510df156f4148b551e6f30e6acdf469914866",
+      "title": "Millennium Pastimes",
+      "url": "https://thealgorithmicbridge.com/p/millennium-pastimes",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-12",
+      "summary": "Has math been solved by AI?"
+    },
+    {
+      "id": "96898eff5b6f9a04ffdeacacfaa52901303b7b25",
+      "title": "The Rise of the Forward Deployed Engineer — and How To Do the Job Right",
+      "url": "https://latent.space/p/forward-deployed-engineer-best-practices",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Vinoo Ganesh",
+      "published": "2026-09-12",
+      "summary": "Before co-founding Kepler, Vinoo Ganesh led Spark at Palantir and built Project Frontline — a pioneering program for Forward Deployed Engineers. He takes us through the best practices of FDEs."
+    },
+    {
+      "id": "17cc9677cf49370cd5239ff55da975d11a629ea5",
+      "title": "AI Insights: Is AI Adoption Slowing down?",
+      "url": "https://ai-supremacy.com/p/ai-insights-is-ai-adoption-slowing-down-ai-risk-debate",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-11",
+      "summary": "OpenAI: We’re slowing down."
+    },
+    {
+      "id": "104f245aafbf5402863a3b5f80823da7ca4e1723",
+      "title": "Open-Source AI & Open Models Reading List",
+      "url": "https://interconnects.ai/p/open-source-ai-reading-list",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-09-11",
+      "summary": "How to get up to speed on open models and their implications."
+    },
+    {
+      "id": "0078f37938d3efe592b9a815653f06f347ffcd24",
+      "title": "AI Reality: European Sovereign AI is Dying",
+      "url": "https://ai-supremacy.com/p/ai-reality-european-sovereign-ai-is-dying-mistral-series-d",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-10",
+      "summary": "Mistral’s pivot shows Europe’s struggles to compete in capital intensive markets. Mistral has raised $7.5 billion (€7 billion) so far but it wasn’t enough. It will end up a Neo Cloud."
+    },
+    {
+      "id": "f42b07b3f93832223c7ecfbe828e083a89709570",
+      "title": "One resignation turned the embers of AI fear into a wildfire",
+      "url": "https://interconnects.ai/p/one-resignation-turned-the-embers",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-09-10",
+      "summary": "Some quick notes on a truly weird week."
+    },
+    {
+      "id": "830cf44d42e5cce134a7d2edfb6c154c8187e216",
+      "title": "The Singularity Paradox",
+      "url": "https://thealgorithmicbridge.com/p/the-singularity-paradox",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-10",
+      "summary": "Or: why the singularity might not happen"
+    },
+    {
+      "id": "0512b5a83e4bd8d57e72e696ed57acc45016d106",
+      "title": "When will average people feel AI’s impact?",
+      "url": "https://interconnects.ai/p/when-will-average-people-feel-ais",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-09-09",
+      "summary": "We’re <5 years into a compounding revolution which could take a century, and how the AI industry should manage this."
+    },
+    {
+      "id": "8d81999a86daa23b75488d3d33cbe8cb4b80a84c",
+      "title": "A Bad Day For Humans, a Worse Day For Humanity",
+      "url": "https://thealgorithmicbridge.com/p/a-bad-day-for-humans-a-worse-day",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-08",
+      "summary": "A quick thought on the top stories this week"
+    },
+    {
+      "id": "200f6c6e67c9b3e08b3cf8fd397771cddfea3341",
+      "title": "GPT-6 Astra’s Achilles Heel, Trust in OpenAI is Fading",
+      "url": "https://ai-supremacy.com/p/gpt-6-astra-hugging-face-incident-2026-review",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-08",
+      "summary": "GPT-6 Astra’s get out of jail card: OpenAI’s imminent IPO has so many legal risks, it’s adding up. The Hugging Face incident is highly concerning."
+    },
+    {
+      "id": "0b82f3a3b822f138437c8e95be2a304779577162",
+      "title": "Latest open artifacts (#24): Motif-3, GLM-5.3, Hy4-preview and open model licenses",
+      "url": "https://interconnects.ai/p/latest-open-artifacts-24-motif-3",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Florian Brand",
+      "published": "2026-09-08",
+      "summary": "The open model ecosystem continues to expand in its breadth"
+    },
+    {
+      "id": "8481f18fd845e821b763109f8cca63eeba966411",
+      "title": "GPT-6 Astra: Too Good",
+      "url": "https://thealgorithmicbridge.com/p/gpt-6-astra-too-good",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-04",
+      "summary": "The only test that we have left is reality"
+    },
+    {
+      "id": "160508ce6373d96ce3571aae69f37b1b66c16909",
+      "title": "Visions of AI: An Inflection Point in Robotaxis in 2027",
+      "url": "https://ai-supremacy.com/p/visions-of-ai-an-inflection-point-for-waymo-robotaxi-launches-in-2027",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-03",
+      "summary": "Google’s Waymo leads an all-out expansion of Robotaxis that will shift gears starting in 2027."
+    },
+    {
+      "id": "5820f02a67a36023b321a31c2449d2a64c7f6eaf",
+      "title": "The AI Industry Has a Really Dark Secret You Should Know About",
+      "url": "https://thealgorithmicbridge.com/p/the-ai-industry-has-a-really-dark-70d",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-02",
+      "summary": "Review of and thoughts on the Hugging Face incident"
+    },
+    {
+      "id": "0a16ab443341ba3400012b17c653804888c827d6",
+      "title": "China’s AI Rally Is Real. Most Global Investors Are Missing It.",
+      "url": "https://ai-supremacy.com/p/chinas-ai-rally-is-real-china-ai-physicalai-ipos-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-01",
+      "summary": "How to understand China’s buzzy Physical AI and AI chip IPOs. Behind DeepSeek, humanoid robots and AI chips is a stock market reshaped by semiconductors, supply chains and a new wave of tech momentum."
+    },
+    {
+      "id": "43c454f4aa358bf31d99ac806bfbccef8aa2841c",
+      "title": "Agency and Agents",
+      "url": "https://oneusefulthing.org/p/agency-and-agents",
+      "source": {
+        "kind": "substack",
+        "name": "One Useful Thing",
+        "feed": "https://www.oneusefulthing.org/feed"
+      },
+      "author": "Ethan Mollick",
+      "published": "2026-08-31",
+      "summary": "From the Hugging Face Incident to Twilight Factories"
+    },
+    {
+      "id": "7627adb78a7860e6c37f5663520db8356133348e",
+      "title": "The AI Backlash is Accelerating",
+      "url": "https://ai-supremacy.com/p/the-ai-backlash-is-accelerating-datacenters-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-26",
+      "summary": "The most important AI bottleneck, is human."
+    },
+    {
+      "id": "7458c7d57acc301db6e5a289e25afa11fdc39623",
+      "title": "Visions of AI: the advent of world models",
+      "url": "https://ai-supremacy.com/p/visions-of-ai-the-advent-of-world",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-26",
+      "summary": "Following the breadcrumbs of Nvidia."
+    },
+    {
+      "id": "72343fccb5b0e9987685e3aacf6cb6262ec7bcef",
+      "title": "How America Turned Against the AI Industry",
+      "url": "https://thealgorithmicbridge.com/p/how-america-turned-against-the-ai",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-08-21",
+      "summary": "Is this the final chapter of the story?"
+    },
+    {
+      "id": "8b541b5ecc28c498c8dff0d0476730b779d48974",
+      "title": "Visions of AI: Automating repetitive grunt Coding tasks",
+      "url": "https://ai-supremacy.com/p/visions-of-ai-automating-repetitive-grunt-coding-tasks-2026-devin",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-20",
+      "summary": "In an era of rapid consolidation and M&A, one Coding AI startup is growing their Enterprise base at a startling pace. The era of hyper specialized routing is creating autonomous SaaS AI winners."
+    },
+    {
+      "id": "70e2efbaaf54d90492c519bbe643ce8952fbb89e",
+      "title": "We’ve never seen an Anthropic before",
+      "url": "https://ai-supremacy.com/p/we-have-never-seen-an-anthropic-before-2026-revenue-ipo",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-20",
+      "summary": "Anthropic’s IPO is going to leave OpenAI in the past."
+    },
+    {
+      "id": "9281ee7ce82e1245ad33dfbd41d68b1246ff801a",
+      "title": "Teaching Everyone to Fish for Tokens",
+      "url": "https://interconnects.ai/p/teaching-everyone-to-fish-for-tokens",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-08-17",
+      "summary": "Nvidia wants you building your own model, not buying from Anthropic/OpenAI."
+    },
+    {
+      "id": "f7617e4b22758ba93f18b884100d1ef70968faf8",
+      "title": "GLM-5.3: How Chinese labs keep stride with the frontier",
+      "url": "https://interconnects.ai/p/glm-53-how-chinese-labs-keep-stride",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-08-14",
+      "summary": "Hint: It’s really not a distillation story."
+    },
+    {
+      "id": "b0d8ebca8612b1479794c7cd63a036941a0d96d6",
+      "title": "Visions of AI: Personal Intelligence",
+      "url": "https://ai-supremacy.com/p/visions-of-ai-personal-intelligence",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-13",
+      "summary": "Igor Babuschkin's new startup profiled. Issue #1"
+    },
+    {
+      "id": "822acd1a4708135ff2c69ff4fee78539cacb2405",
+      "title": "I wrote an AI textbook — how long until AI can do it better?",
+      "url": "https://interconnects.ai/p/i-wrote-an-ai-textbook-how-long-until",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-08-12",
+      "summary": "Reflections on AI's writing ability and how AI models get more capable."
+    },
+    {
+      "id": "41fc8b828bb4d448678e3d01922793c9af605577",
+      "title": "On Substack-Pangram Partnership: It's About Sending a Message",
+      "url": "https://thealgorithmicbridge.com/p/on-substack-pangram-partnership-its",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-08-12",
+      "summary": "A bunch of false positives for a slop-free internet? Yeah, you can count me in"
+    },
+    {
+      "id": "f19bf4f6e4edd8992384e4a5fee49e8948a55d34",
+      "title": "AI Things, Bits and Bites",
+      "url": "https://ai-supremacy.com/p/ai-things-bits-and-bites-2026-1",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-11",
+      "summary": "Mid 2026 AI News in a nutshell. Issue #1. 📰"
+    },
+    {
+      "id": "e873b18ddb1c7df0249a074a98e4e80603ef9f3a",
+      "title": "5 useful things you'll learn in my new post-training textbook (shipping now!)",
+      "url": "https://interconnects.ai/p/5-useful-things-youll-learn-in-my",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-08-10",
+      "summary": "After a few long years of finding time to document my lessons from training open models, my post-training book is done!"
+    },
+    {
+      "id": "b1c1cd80e7d4988899fdc936431c15d60e1e68fb",
+      "title": "How AI's Demand for Compute could Disrupt America",
+      "url": "https://ai-supremacy.com/p/how-ai-demand-for-compute-could-disrupt-america-debt-crisis",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-10",
+      "summary": "The spectre of AI, labor participation churn, worker slice of GPD, an ageist AI, a debt binge, a cartel in waiting. An accelerating demand for compute that eats at the fabric of society."
+    },
+    {
+      "id": "e5dc0aabf9cb5fd2c50016d3ac5a23bfdf53b40e",
+      "title": "Lessons from the hacks",
+      "url": "https://interconnects.ai/p/lessons-from-the-hacks",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-08-09",
+      "summary": "Musings on model alignment, what determines safety, and where we go from here."
+    },
+    {
+      "id": "606d14618264b2906405a1676410ee6699afe713",
+      "title": "The Year AI Science and the Physical AI Industry Came Alive",
+      "url": "https://ai-supremacy.com/p/the-year-ai-science-and-the-physical-ai-went-mainstream-humanoid-robotics",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-08-06",
+      "summary": "Google Gemini Robotics 2, Unitree and AgiBot IPOs, Robot and optical transceiver bans, the compute cost problem, Negative FCF dilemma, mounting debt, circular revenue."
+    },
+    {
+      "id": "35aa235dbfbaf6635dfad8981051070a68da4d1e",
+      "title": "The Month AI Conquered Math: The Full Story",
+      "url": "https://thealgorithmicbridge.com/p/the-month-ai-conquered-math-the-full",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-08-05",
+      "summary": "The story of July 2026: the conjectures that fell, the humans who celebrate and mourn them, and the limits of what machines can conquer"
+    },
+    {
+      "id": "425bafd1a9bc072516df9f9e3bae59ddb4d218c2",
+      "title": "Introducing our Artifacts Hub and Adoption Dashboard",
+      "url": "https://interconnects.ai/p/introducing-our-artifacts-hub-and",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-08-03",
+      "summary": "Scaling our curation and measurement of the open ecosystem."
+    },
+    {
+      "id": "678a4cafe4da1bc51a58265bc4467b3034fc24d8",
+      "title": "Latest open artifacts (#23): Laguna S2.1, Inkling, & Kimi K3 show the utility of open models on the Pareto frontier",
+      "url": "https://interconnects.ai/p/latest-open-artifacts-23-laguna-s21",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Florian Brand",
+      "published": "2026-08-02",
+      "summary": "Capacity to train strong models is proliferating."
+    },
+    {
+      "id": "2baa8213907d63b2b5b61f3d38ff9f8e767dc01a",
+      "title": "The Genius of Leopold Aschenbrenner",
+      "url": "https://ai-supremacy.com/p/the-genius-of-leopold-aschenbrenner",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-07-31",
+      "summary": "Fame, fortune, prophecy, leverage and controversy. A real 'Nostradamus of AI' if you will."
+    }
+  ]
 }

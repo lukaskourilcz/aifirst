@@ -1,7 +1,143 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-08-09",
+  "updated": "2026-09-26",
   "windowDays": 60,
-  "items": []
+  "items": [
+    {
+      "id": "1eb51accd6476effa6c4eff2d538b7463000594a",
+      "title": "The Ezra Klein Show: Jensen Huang Thinks A.I. Alarmism Has Gone Too Far",
+      "url": "https://nytimes.com/column/hard-fork",
+      "source": {
+        "kind": "rss",
+        "name": "Hard Fork",
+        "feed": "https://feeds.simplecast.com/l2i9YnTd"
+      },
+      "author": "hardfork@nytimes.com (The New York Times)",
+      "published": "2026-09-25",
+      "summary": "In this episode, Ezra travels to Nvidia’s headquarters in Santa Clara, Calif., for a wide-ranging conversation with the chief executive Jensen Huang about the future of A.I. and why he thinks predictions of imminent doom are overblown. Guests: Jensen Huang, chief executive of Nv…",
+      "show": "Hard Fork",
+      "durationSec": 6498
+    },
+    {
+      "id": "408aa7a0ccc601ec2e49275f08d65c2dc99e0628",
+      "title": "From AGENTS.md to Enterprise Deployment",
+      "url": "https://share.transistor.fm/s/74934e48",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-09-24",
+      "summary": "AI agents are moving beyond laptops and prototypes and into enterprise environments where security, compliance, scalability, and reliability matter. Nick Kuhn from VMware Tanzu Platform joins Daniel and Chris to discuss what changes (and what doesn’t) when deploying agents along…",
+      "show": "Practical AI",
+      "durationSec": 2932
+    },
+    {
+      "id": "c918b6e39b2f0401e460c853bc36b53eacd1db72",
+      "title": "How to get discovered in AI search",
+      "url": "https://share.transistor.fm/s/66185604",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-09-17",
+      "summary": "AI search is changing how people discover information and how brands need to think about visibility. Daniel and Chris talk with Liam Dunne and Ben Moore, co-founders of Discovered Labs, about the shift from traditional SEO to AI search, what happens behind the scenes when an LLM…",
+      "show": "Practical AI",
+      "durationSec": 3314
+    },
+    {
+      "id": "e2a6a9a9d5b274f1b20953f9fcefdcbbca6d3431",
+      "title": "Computer-Use Agents and the Future of the Agentic Internet",
+      "url": "https://share.transistor.fm/s/72586f97",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Chris Benson",
+      "published": "2026-09-10",
+      "summary": "Longtime followers of Practical AI know that multi-repeat guest and friend Demetrios Brinkmann combines brilliant insight and playful banter into one fun-filled show, and this conversion with Chris was no different. They had a blast! As AI agents become more capable of using com…",
+      "show": "Practical AI",
+      "durationSec": 3361
+    },
+    {
+      "id": "acad558047069cb5f27d3ac9966c79f773137106",
+      "title": "Less about Models; More about Architecture",
+      "url": "https://share.transistor.fm/s/ec79b4ac",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-09-03",
+      "summary": "As AI moves from experimentation to enterprise deployment, are organizations thinking too much about models and not enough about architecture? In this episode, Daniel and Chris talk with Chetan Gupta, Chief AI Officer at Rackspace, about the evolution from industrial AI and phys…",
+      "show": "Practical AI",
+      "durationSec": 2756
+    },
+    {
+      "id": "4e68028f529dd74d3badc973e2e777429dc28f01",
+      "title": "Building the Foundation for the Agentic AI Era",
+      "url": "https://share.transistor.fm/s/123da941",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-08-28",
+      "summary": "How do we build an AI ecosystem where agents, tools, and systems can work together at scale? Angie Jones, VP of the Agentic AI Foundation, joins Chris to discuss the open standards and projects shaping the agentic future, including MCP, A2A, Goose, etc. They also explore what it…",
+      "show": "Practical AI",
+      "durationSec": 2712
+    },
+    {
+      "id": "764cd4482f98e3235040c8b52e45cccfeacdf913",
+      "title": "AI Proficiency: From Users to Builders",
+      "url": "https://share.transistor.fm/s/0f57c0bc",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-08-25",
+      "summary": "As AI continues to reshape how organizations work, companies are increasingly asking what AI proficiency should look like across their workforce, and how they can help employees adapt without simply mandating AI adoption. Our returning guest Mike Lewis, Chief AI Architect at TiE…",
+      "show": "Practical AI",
+      "durationSec": 3373
+    },
+    {
+      "id": "760a4e366ee7e2e8e8d6615cdd00363e0763b23f",
+      "title": "Models, Harnesses, and Multi-Agent Systems",
+      "url": "https://share.transistor.fm/s/063cfaad",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-08-06",
+      "summary": "AI has moved far beyond chatbots, but what exactly are AI models, agents, agent harnesses, and multi-agent systems, and why do they matter? In this episode, Daniel and Chris break down the terminology behind today's AI landscape, explain the differences between AI features and a…",
+      "show": "Practical AI",
+      "durationSec": 2998
+    },
+    {
+      "id": "851ae208d4842e47ab6b96bf9d6619d081f49840",
+      "title": "Reconstructing how OpenAI agents attacked Hugging Face",
+      "url": "https://share.transistor.fm/s/9d74230b",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-07-30",
+      "summary": "What happens when AI agents driven by a top frontier model escape their secure sandbox? Join Daniel and Chris as they unpack the AI wonk's equivalent of a murder mystery! OpenAI agents went rogue and successfully attacked Hugging Face private infrastructure. Our Dynamic Duo unco…",
+      "show": "Practical AI",
+      "durationSec": 2665
+    }
+  ]
 }
