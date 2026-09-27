@@ -71,7 +71,7 @@ export function IssueMasthead({
       {categories?.length ? (
         <nav className="hero__categories" aria-label="Rubriky vydání">
           {categories.map((category) => (
-            <Link key={category} href={localePath(locale, CATEGORY_PATHS[category])} className="category-chip">
+            <Link key={category} href={localePath(locale, CATEGORY_PATHS[category])} className="chip">
               {CATEGORY_LABELS[category]}
             </Link>
           ))}
@@ -79,7 +79,7 @@ export function IssueMasthead({
       ) : null}
       {tags?.length ? (
         <ul className="hero__topics" aria-label={locale === "cs" ? "Témata vydání" : "Issue topics"}>
-          {tags.slice(0, 3).map((tag) => <li key={tag}>{tag}</li>)}
+          {tags.slice(0, 3).map((tag) => <li key={tag} className="chip">{tag}</li>)}
         </ul>
       ) : null}
     </div>

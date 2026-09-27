@@ -14,11 +14,10 @@ export function TagChip({
     <Link
       href={localePath(locale, `/tags/${encodeURIComponent(tag)}`)}
       className="chip chip--dot"
-      style={{ textTransform: "lowercase" }}
     >
       {tag}
       {typeof count === "number" && (
-        <span style={{ color: "var(--color-slate)" }}>· {count}</span>
+        <span>· {count}</span>
       )}
     </Link>
   );

@@ -69,7 +69,7 @@ export function SourceLedger({
                   <td>{registered?.type ?? "—"}</td>
                   <td>
                     <span
-                      className={`evidence-class evidence-class--${classification ?? "unclassified"}`}
+                      className={classification ? `chip chip--evidence-${classification}` : "chip"}
                     >
                       {classificationLabel(classification)}
                     </span>

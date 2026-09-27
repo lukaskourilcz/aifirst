@@ -72,7 +72,7 @@ export function SourceCard({
 
       <ul className="source-card__tags">
         {tags.map((t) => (
-          <li key={t} className="label">
+          <li key={t} className="chip">
             {t}
           </li>
         ))}
