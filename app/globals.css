@@ -2120,8 +2120,6 @@ svg { max-width: 100%; }
 
 .archive-month { margin-bottom: var(--space-7); }
 .archive-month__label { margin-bottom: var(--space-4); }
-.search-index { margin-top: var(--gutter-gap); }
-.search-index__label { margin-bottom: var(--space-4); }
 .tag-detail__meta { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 .tag-detail__related { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }

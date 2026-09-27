@@ -4,19 +4,19 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ModalOverlay } from "./ModalOverlay";
-import { SearchPalette } from "./SearchPalette";
+import { SearchPalette, type SearchTopic } from "./SearchPalette";
 import { BrandLockup } from "./BrandMark";
 import type { SearchEntry } from "@/lib/content";
 import type { Locale } from "@/lib/i18n/config";
 import type { Rail, RailItem } from "@/lib/rail";
 import { isCurrentPath } from "@/lib/helpers/path";
 
-type Props = { locale: Locale; rail: Rail; index: SearchEntry[] };
+type Props = { locale: Locale; rail: Rail; index: SearchEntry[]; topics: SearchTopic[] };
 
 // The rail below 960px: a sticky top bar and a full-screen drawer. The drawer
 // borrows ModalOverlay's focus trap, Escape handling and focus restoration
 // rather than growing a second dialog implementation.
-export function MobileNav({ locale, rail, index }: Props) {
+export function MobileNav({ locale, rail, index, topics }: Props) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
@@ -57,7 +57,7 @@ export function MobileNav({ locale, rail, index }: Props) {
         </Link>
 
         <div className="topbar__search">
-          <SearchPalette index={index} locale={locale} />
+          <SearchPalette index={index} topics={topics} locale={locale} />
         </div>
       </div>
 
@@ -92,7 +92,7 @@ export function MobileNav({ locale, rail, index }: Props) {
             </nav>
 
             <div className="drawer__search">
-              <SearchPalette index={index} locale={locale} />
+              <SearchPalette index={index} topics={topics} locale={locale} />
             </div>
           </div>
         </ModalOverlay>

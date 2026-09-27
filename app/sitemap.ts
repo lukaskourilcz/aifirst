@@ -32,7 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/lekce", changeFrequency: "daily", priority: 0.4 },
     { path: "/about", changeFrequency: "monthly", priority: 0.5 },
     { path: "/corrections", changeFrequency: "weekly", priority: 0.4 },
-    { path: "/search", changeFrequency: "weekly", priority: 0.4 },
   ];
 
   const weekPaths = groupByWeek(articles).map((week) => ({

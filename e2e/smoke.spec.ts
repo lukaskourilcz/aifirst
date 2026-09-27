@@ -18,7 +18,6 @@ const ROUTES = [
   "/sources",
   "/glossary",
   "/health",
-  "/search",
   "/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
   "/cs/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
 ];
@@ -161,7 +160,7 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
   await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
 });
 
-for (const [legacy, current] of [["/radar", "/topics"], ["/stats", "/topics"], ["/trends", "/topics"], ["/pulse", "/topics"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
+for (const [legacy, current] of [["/search", "/archive"], ["/radar", "/topics"], ["/stats", "/topics"], ["/trends", "/topics"], ["/pulse", "/topics"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
   test(`${legacy} permanently resolves to ${current}`, async ({ page }) => {
     await page.goto(legacy);
     await expect(page).toHaveURL(new RegExp(`${current}/?$`));

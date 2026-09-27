@@ -10,7 +10,9 @@ import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { czechNumericDate } from "@/lib/weeks";
 
-type Props = { index: SearchEntry[]; locale: Locale };
+export type SearchTopic = { href: string; title: string };
+
+type Props = { index: SearchEntry[]; topics: SearchTopic[]; locale: Locale };
 
 // How well an entry matches the query: title hits weigh most, then the dek,
 // then tags, then the slug. Returns 0 for no match so it can be filtered out.
@@ -27,7 +29,7 @@ function scoreEntry(entry: SearchEntry, query: string): number {
   return points;
 }
 
-export function SearchPalette({ index, locale }: Props) {
+export function SearchPalette({ index, topics, locale }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -54,21 +56,6 @@ export function SearchPalette({ index, locale }: Props) {
       .slice(0, 12)
       .map((r) => r.entry);
   }, [query, index]);
-
-  // Top tags used across the archive — surfaced as launchers when the query
-  // returns nothing (or on a fresh open) so the palette doubles as browse.
-  const suggestedTags = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const entry of index) {
-      for (const tag of entry.tags) {
-        counts.set(tag, (counts.get(tag) ?? 0) + 1);
-      }
-    }
-    return [...counts.entries()]
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .slice(0, 8)
-      .map(([tag]) => tag);
-  }, [index]);
 
   return (
     <>
@@ -119,7 +106,7 @@ export function SearchPalette({ index, locale }: Props) {
               className="search-dialog__input"
             />
             <kbd className="keycap label">
-              esc
+              Esc
             </kbd>
           </div>
           <p className="sr-only" role="status" aria-live="polite">
@@ -131,20 +118,20 @@ export function SearchPalette({ index, locale }: Props) {
                 <p className="label label--muted">
                   {t.noMatch}
                 </p>
-                {suggestedTags.length > 0 && (
+                {topics.length > 0 && (
                   <>
                     <p className="label label--accent search-dialog__suggestion-title">
                       {t.suggestedTags}
                     </p>
                     <div className="search-dialog__suggestions">
-                      {suggestedTags.map((tag) => (
+                      {topics.map((topic) => (
                         <Link
-                          key={tag}
-                          href={localePath(locale, `/tags/${tag}`)}
+                          key={topic.href}
+                          href={topic.href}
                           onClick={() => setOpen(false)}
                           className="chip"
                         >
-                          {tag}
+                          {topic.title}
                         </Link>
                       ))}
                     </div>
