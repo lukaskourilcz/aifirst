@@ -20,6 +20,7 @@ import { isDrawnPlate } from "@/lib/content";
 export function CoverCard({
   href,
   title,
+  titleLang,
   kicker,
   dek,
   meta,
@@ -33,6 +34,8 @@ export function CoverCard({
 }: {
   href: string;
   title: string;
+  /** `en` for the legacy English issues. */
+  titleLang?: string;
   kicker?: ReactNode;
   dek?: string;
   meta?: ReactNode;
@@ -76,8 +79,8 @@ export function CoverCard({
       ) : null}
       <span className="cover-card__plate">
         {kicker ? <span className="cover-card__kicker">{kicker}</span> : null}
-        <Title className="cover-card__title">{title}</Title>
-        {dek ? <span className="cover-card__dek">{dek}</span> : null}
+        <Title className="cover-card__title" lang={titleLang}>{title}</Title>
+        {dek ? <span className="cover-card__dek" lang={titleLang}>{dek}</span> : null}
         {meta ? <span className="cover-card__meta">{meta}</span> : null}
         {children}
       </span>

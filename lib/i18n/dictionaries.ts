@@ -204,6 +204,8 @@ const en = {
     kicker: "archive",
     title: "Archive",
     intro: "Every edition since May 2026, newest first.",
+    weeklyMarker: "weekly digest",
+    englishMarker: "in English",
     empty: "No issues yet.",
     },
   tags: {
@@ -598,6 +600,8 @@ const cs: Dict = {
     kicker: "archiv",
     title: "Archiv",
     intro: "Všechna vydání od května 2026, nejnovější první.",
+    weeklyMarker: "týdenní souhrn",
+    englishMarker: "anglicky",
     empty: "Zatím žádná vydání.",
   },
   tags: {

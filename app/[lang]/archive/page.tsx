@@ -2,14 +2,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import { isPublishingDay, listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
-import { getArticle, listArticles } from "@/lib/content";
+import { listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { czechLongDate, czechMonthLabel } from "@/lib/weeks";
-import { topicLabels } from "@/lib/labels";
 import { CoverCard } from "@/components/editorial/CoverCard";
-import { readingMinutes } from "@/lib/text";
 import { localeAlternates } from "@/lib/i18n/metadata";
 
 export const dynamic = "force-static";
@@ -27,14 +25,10 @@ export default async function ArchivePage({
 }) {
   const { lang: locale } = await params;
   const t = dict(locale).archive;
-  const common = dict(locale).common;
   const lp = localePrefixer(locale);
 
   const [all, boardContexts] = await Promise.all([listArticles(locale), listBoardContexts()]);
-  const entries = await Promise.all(all.map(async (summary) => {
-    const article = await getArticle(summary.slug, locale);
-    return { kind: "article" as const, ...summary, reading: article ? readingMinutes(article.mdx) : null };
-  }));
+  const entries = all.map((summary) => ({ kind: "article" as const, ...summary }));
   const publishedDates = new Set(all.map((article) => article.date));
   const noEditions = boardContexts
     .filter((context): context is NoEditionBoardContext =>
@@ -59,30 +53,17 @@ export default async function ArchivePage({
                   kicker={
                     <>
                       <time dateTime={a.date}>{czechLongDate(a.date)}</time>
-                      <span aria-hidden> · </span>
-                      <span>{a.type === "weekly" ? common.weekly : (locale === "cs" ? "denní" : "daily")}</span>
-                      <span aria-hidden> · </span>
-                      <span>{a.lang?.toUpperCase()}</span>
-                      {a.reading ? (
-                        <>
-                          <span aria-hidden> · </span>
-                          <span>{a.reading} {common.minutesShort} {common.readMinutes}</span>
-                        </>
-                      ) : null}
+                      {a.type === "weekly" ? ` · ${t.weeklyMarker}` : null}
+                      {a.lang === "en" ? ` · ${t.englishMarker}` : null}
                     </>
                   }
                   title={a.title}
+                  titleLang={a.lang === "en" ? "en" : undefined}
                   dek={a.dek}
                   media={a.heroPhoto}
                   mediaWidth={140}
                   mediaHeight={105}
-                >
-                  {a.tags?.length ? (
-                    <span className="cover-card__topics">
-                      {topicLabels(a.tags).slice(0, 4).map((topic) => <span className="chip" key={topic}>{topic}</span>)}
-                    </span>
-                  ) : null}
-                </CoverCard>
+                />
               </li>
             ) : (
               // One quiet line. The reason, the code and the board room stay
