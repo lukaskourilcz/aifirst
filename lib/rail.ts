@@ -16,8 +16,12 @@ export type Rail = {
 };
 
 // The rail is the same on the desktop sidebar and inside the mobile drawer, so
-// both read it from here. Primary items are the six magazine sections and carry
-// an index; secondary items are the rest of the magazine and do not.
+// both read it from here. Primary items are the four reading sections and carry
+// an index; secondary items are the reference and trust pages and do not.
+//
+// /o-cem-se-mluvi, /ai-modely, /podcasty, /akce, /radar, /weekly and /lekce's
+// old „Lekce" entry left the rail before launch. Their routes still build and
+// resolve; nothing links to the empty or dormant ones.
 //
 // Secondary hrefs stay on their shipped English paths. The labels are Czech,
 // the routes are a compatibility contract, and nothing in this redesign creates
@@ -30,17 +34,13 @@ export function buildRail(locale: Locale): Rail {
     primary: [
       { key: "today", label: r.today, href: lp("/") },
       { key: "week", label: r.week, href: lp("/tyden") },
-      { key: "talked", label: r.talked, href: lp("/o-cem-se-mluvi") },
-      { key: "models", label: r.models, href: lp("/ai-modely") },
-      { key: "podcasts", label: r.podcasts, href: lp("/podcasty") },
-      { key: "events", label: r.events, href: lp("/akce") },
+      { key: "topics", label: r.topics, href: lp("/topics") },
+      { key: "archive", label: r.archive, href: lp("/archive") },
     ],
     secondary: [
-      { key: "radar", label: r.radar, href: lp("/radar") },
-      { key: "topics", label: r.topics, href: lp("/topics") },
-      { key: "weeklyDigest", label: r.weeklyDigest, href: lp("/weekly") },
-      { key: "archive", label: r.archive, href: lp("/archive") },
-      { key: "lessons", label: r.lessons, href: lp("/lekce") },
+      { key: "glossary", label: r.glossary, href: lp("/lekce") },
+      { key: "sources", label: r.sources, href: lp("/sources") },
+      { key: "corrections", label: r.corrections, href: lp("/corrections") },
       { key: "aboutMagazine", label: r.aboutMagazine, href: lp("/about") },
     ],
     labels: {

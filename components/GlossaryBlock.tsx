@@ -16,27 +16,13 @@ export function GlossaryBlock({
   return (
     <section className="issue-glossary" aria-labelledby="issue-glossary-heading">
       <SectionMasthead id="issue-glossary-heading" kicker={dict(locale).article.glossaryForIssue} />
-      <div style={{ margin: 0 }}>
+      <div>
         {terms.map((t) => (
-          <details
-            key={t.term}
-            className="def-row def-row--tight"
-            style={{
-              padding: "14px 0",
-              borderBottom: "1px solid var(--color-fog)",
-            }}
-          >
-            <summary
-              style={{
-                fontFamily: "var(--font-display)",
-                color: "var(--color-blueprint-blue)",
-                letterSpacing: "0.04em",
-                cursor: "pointer",
-              }}
-            >
-              <dfn style={{ fontStyle: "normal" }}>{t.term}</dfn>
+          <details key={t.term} className="def-row def-row--tight issue-glossary__term">
+            <summary>
+              <dfn>{t.term}</dfn>
             </summary>
-            <p style={{ margin: "10px 0 0", color: "var(--ink-muted)" }}>
+            <p>
               {glossaryDefinition(t, locale)}{" "}
               <Link href={localePath(locale, `/glossary#${slugForTerm(t.term)}`)}>
                 {dict(locale).article.fullGlossaryEntry} →

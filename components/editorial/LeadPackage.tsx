@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { isDrawnPlate, type Article, type Dispatch, type WireItem } from "@/lib/content";
+import { isDrawnPlate, watchlistWithoutBriefs, type Article, type Dispatch, type WireItem } from "@/lib/content";
 import { DigestRow } from "./DigestRow";
 import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { czechNumericDate } from "@/lib/weeks";
+import { czechNumericDate, czechWeekdayDate } from "@/lib/weeks";
+import { sourceName, topicLabel } from "@/lib/labels";
+import { loadSources } from "@/lib/sources";
+import { looksEnglish } from "@/lib/text";
 
 /**
  * A deterministic 45° hairline plate, seeded from the slug so one article
@@ -43,11 +46,14 @@ export function LeadPackage({
   locale,
   heroPhoto,
   readingMinutes,
+  earlier = false,
 }: {
   article: Article;
   locale: Locale;
   heroPhoto: string | null;
   readingMinutes: number;
+  /** The lead is an earlier day's edition, e.g. Friday's on a Saturday. */
+  earlier?: boolean;
 }) {
   const fm = article.frontmatter;
   const t = dict(locale).sections;
@@ -83,9 +89,9 @@ export function LeadPackage({
 
       <div className="lead__copy">
         <p className="lead__kicker">
-          {t.todaysEdition}
+          {earlier ? t.latestEdition : t.todaysEdition}
           <span aria-hidden> · </span>
-          <time dateTime={fm.date}>{czechNumericDate(fm.date)}</time>
+          <time dateTime={fm.date}>{earlier ? czechWeekdayDate(fm.date) : czechNumericDate(fm.date)}</time>
         </p>
         <h1 id="lead-title" className="lead__title" data-long={long ? "true" : undefined}>
           <Link href={href}>{fm.title}</Link>
@@ -94,10 +100,9 @@ export function LeadPackage({
       </div>
 
       {/* Outside the plate by contract: the plate carries the headline, the
-          meta row stays on the page under the image. */}
+          meta row stays on the page under the image. The date is already in
+          the kicker, so the row is the reading time alone. */}
       <p className="lead__meta">
-        <time dateTime={fm.date}>{czechNumericDate(fm.date)}</time>
-        <span aria-hidden> · </span>
         <span>{readingMinutes} {common.minutesShort} {common.readMinutes}</span>
       </p>
 
@@ -110,7 +115,7 @@ export function LeadPackage({
  * „Ve zkratce" and „Na radaru" beside the lead: four headline links each, the
  * rest of what mattered without leaving the front page.
  */
-export function CondensedBriefs({
+export async function CondensedBriefs({
   dispatches,
   wire,
   locale,
@@ -123,8 +128,9 @@ export function CondensedBriefs({
 }) {
   const t = dict(locale).sections;
   const briefs = dispatches.slice(0, 4);
-  const watch = wire.slice(0, 4);
+  const watch = watchlistWithoutBriefs(wire, dispatches).slice(0, 4);
   if (briefs.length === 0 && watch.length === 0) return null;
+  const registry = watch.length ? await loadSources() : [];
 
   return (
     <div className="condensed">
@@ -138,7 +144,7 @@ export function CondensedBriefs({
                 index={i + 1}
                 title={item.title}
                 summary={item.body}
-                meta={item.topic}
+                meta={item.topic ? topicLabel(item.topic) ?? undefined : undefined}
                 href={articleHref}
                 locale={locale}
               />
@@ -156,7 +162,8 @@ export function CondensedBriefs({
                 key={item.url}
                 index={i + 1}
                 title={item.title}
-                meta={item.source}
+                titleLang={looksEnglish(item.title) ? "en" : undefined}
+                meta={sourceName(item.source, registry, item.url) || undefined}
                 href={item.url}
                 external
                 locale={locale}

@@ -6,15 +6,14 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
 import { SectionMasthead } from "./SectionMasthead";
 import { czechDisplayDate } from "@/lib/weeks";
+import { classificationLabel, hostOf, sourceName } from "@/lib/labels";
+import { decodeEntities, looksEnglish } from "@/lib/text";
 
-function hostname(url: string): string {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
-
+/**
+ * Three columns: number, the source (title, then publisher and date) and the
+ * evidence class. Curator notes and feed types are production data and stay
+ * out of the reader's table.
+ */
 export function SourceLedger({
   sources,
   registry,
@@ -37,45 +36,48 @@ export function SourceLedger({
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">{locale === "cs" ? "Zdroj" : "Source"}</th>
-              <th scope="col">{locale === "cs" ? "Typ" : "Type"}</th>
-              <th scope="col">{locale === "cs" ? "Třída důkazu" : "Evidence class"}</th>
-              <th scope="col">{t.sourceSupports}</th>
+              <th scope="col">{t.sourceColumn}</th>
+              <th scope="col">{t.evidenceColumn}</th>
             </tr>
           </thead>
           <tbody>
             {sources.map((source, index) => {
               const registered = registryById.get(source.source_id ?? source.id);
-              const publisher = source.publisher ?? registered?.name ?? hostname(source.url);
               const classification = source.classification ??
-                (registered?.tags?.includes("primary-source")
-                  ? "primary"
-                  : locale === "cs" ? "neurčeno" : "unclassified");
+                (registered?.tags?.includes("primary-source") ? "primary" : undefined);
+              const title = decodeEntities(source.title);
+              // An aggregator relays other publications' stories. The reader
+              // sees who published the piece, and through whom it arrived.
+              const host = hostOf(source.url);
+              const viaAggregator =
+                registered?.tags?.includes("aggregator") && host !== "" && host !== hostOf(registered.url);
+              const date = source.published_at ? czechDisplayDate(source.published_at.slice(0, 10)) : null;
+              const profile = registered
+                ? <Link href={localePath(locale, `/sources/${registered.id}`)}>{sourceName(registered.id, registry ?? [])}</Link>
+                : null;
               return (
                 <tr key={`${source.id}-${source.url}`}>
                   <td>{String(index + 1).padStart(2, "0")}</td>
                   <td>
-                    <a href={source.url} target="_blank" rel="noreferrer noopener">
-                      {source.title}
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      {...(looksEnglish(title) ? { lang: "en" } : {})}
+                    >
+                      {title}
                     </a>
                     <span className="source-ledger__publisher">
-                      {publisher}{source.published_at ? ` · ${czechDisplayDate(source.published_at.slice(0, 10))}` : ""}
+                      {viaAggregator ? host : profile ?? source.publisher ?? host}
+                      {date ? ` · ${date}` : null}
+                      {viaAggregator && profile ? <> · {t.via} {profile}</> : null}
                     </span>
-                    {registered ? (
-                      <Link className="source-ledger__profile" href={localePath(locale, `/sources/${registered.id}`)}>
-                        {locale === "cs" ? "profil zdroje" : "source profile"}
-                      </Link>
-                    ) : null}
                   </td>
-                  <td>{source.source_type ?? registered?.type ?? "—"}</td>
                   <td>
-                    <span
-                      className={`evidence-class evidence-class--${classification}`}
-                    >
-                      {classification}
+                    <span className={classification ? `chip chip--evidence-${classification}` : "chip"}>
+                      {classificationLabel(classification)}
                     </span>
                   </td>
-                  <td>{source.supports?.join("; ") || "—"}</td>
                 </tr>
               );
             })}

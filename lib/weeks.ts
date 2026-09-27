@@ -142,6 +142,23 @@ export function czechNumericDate(dateKey: string): string {
   return `${d}. ${m}. ${y}`;
 }
 
+/** „čtvrtek 25. 9. 2026". */
+export function czechWeekdayDate(dateKey: string): string {
+  return `${czechWeekday(dateKey)} ${czechNumericDate(dateKey)}`;
+}
+
+const CS_MONTHS_NOMINATIVE = [
+  "Leden", "Únor", "Březen", "Duben", "Květen", "Červen",
+  "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec",
+] as const;
+
+/** `2026-09` → „Září 2026". Accepts a full date key too. */
+export function czechMonthLabel(monthKey: string): string {
+  const [y, m] = monthKey.split("-").map(Number);
+  if (!y || !m || m < 1 || m > 12) return monthKey;
+  return `${CS_MONTHS_NOMINATIVE[m - 1]} ${y}`;
+}
+
 /**
  * Czech numeric form for a bare `YYYY-MM-DD` key; any other string is
  * returned unchanged. For display sites fed by data whose shape is not
@@ -151,6 +168,17 @@ export function czechNumericDate(dateKey: string): string {
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 export function czechDisplayDate(value: string): string {
   return DATE_KEY.test(value) ? czechNumericDate(value) : value;
+}
+
+/**
+ * Every bare `YYYY-MM-DD` inside running text in Czech numeric form. For
+ * delivered prose such as image alt text („Obálka DNESKAi k 2026-08-15");
+ * never pass a URL through it.
+ */
+export function czechDatesInText(text: string): string {
+  return text.replace(/(?<![\w/-])(\d{4})-(\d{2})-(\d{2})(?![\w/-])/g, (_, y: string, m: string, d: string) =>
+    `${Number(d)}. ${Number(m)}. ${y}`,
+  );
 }
 
 /**

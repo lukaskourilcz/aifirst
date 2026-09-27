@@ -5,14 +5,12 @@ import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
-import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
 import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { Wire } from "@/components/Wire";
 import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
-import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
@@ -25,6 +23,7 @@ import {
   listArticles,
   relatedArticles,
   resolveHeroPhoto,
+  watchlistWithoutBriefs,
   type ArticleSummary,
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
@@ -39,6 +38,8 @@ import { localizedBrand } from "@/lib/brand";
 import { loadTopicsConfig, topicsForArticle } from "@/lib/topics/config";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/config";
+import { czechDatesInText, czechLongDate, czechNumericDate, czechWeekdayDate } from "@/lib/weeks";
+import { provenanceSentence } from "@/lib/labels";
 
 export const dynamic = "force-static";
 
@@ -78,7 +79,9 @@ export async function generateMetadata({
       description: article.frontmatter.dek,
       publishedTime: `${article.frontmatter.date}T06:00:00Z`,
       modifiedTime,
-      ...(heroPhoto ? { images: [{ url: heroPhoto }] } : {}),
+      images: heroPhoto
+        ? [{ url: heroPhoto }]
+        : [{ url: `/articles/${slug}/opengraph-image`, width: 1200, height: 630, alt: article.frontmatter.title }],
     },
   };
 }
@@ -97,7 +100,7 @@ export default async function ArticlePage({
     <section className="section">
       <h1>Vydání dočasně staženo</h1>
       <p>{hold.reason}</p>
-      <p><time dateTime={hold.date}>{hold.date}</time></p>
+      <p><time dateTime={hold.date}>{czechLongDate(hold.date)}</time></p>
       <p><Link href={localePath(locale, "/")}>Zpět na aktuální vydání</Link></p>
     </section>
   );
@@ -125,6 +128,7 @@ export default async function ArticlePage({
   );
   const fm = article.frontmatter;
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
+  const wire = watchlistWithoutBriefs(fm.wire ?? [], fm.dispatches ?? []);
   const reading = readingMinutes(article.mdx);
   const heroPhoto = resolveHeroPhoto(fm);
   const adjacent = adjacentIssues(article.slug, all);
@@ -139,7 +143,6 @@ export default async function ArticlePage({
   return (
     <>
       {fm.generation?.package_hash ? <meta name="boardless-content-hash" content={fm.generation.package_hash} /> : null}
-      <ReadingProgress />
       <StructuredData data={{
         "@context": "https://schema.org",
         "@graph": [
@@ -176,16 +179,18 @@ export default async function ArticlePage({
       <div className="page-with-rail">
         <div className="page-with-rail__main">
       <IssueMasthead
-        label={isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
+        label={isWeekly
+          ? `${d.article.weeklyDigest} · ${czechNumericDate(fm.date)}`
+          : `${d.article.edition} · ${czechWeekdayDate(fm.date)}`}
         title={fm.title}
         dek={fm.dek}
         date={fm.date}
         readingMinutes={reading}
         tags={fm.tags}
-        categories={fm.categories}
         heroPhoto={heroPhoto}
-        heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
+        heroAlt={heroPhoto === fm.illustration.path ? czechDatesInText(fm.illustration.alt) : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
+        provenance={provenanceSentence(fm.generation, (fm.sources ?? []).length, d.article)}
         heroAttribution={heroPhoto === fm.illustration.path && fm.illustration.attribution ? {
           author: fm.illustration.attribution.author,
           license: fm.illustration.attribution.license,
@@ -220,17 +225,17 @@ export default async function ArticlePage({
           )}
           <EditorsNote note={fm.editors_note} locale={locale} />
           <div className="article-body">
-            <Mdx source={article.mdx} />
+            <Mdx source={article.mdx} typeset={article.lang === "cs"} />
           </div>
         </article>
 
-        {(dispatches.length > 0 || (fm.wire ?? []).length > 0) && (
+        {(dispatches.length > 0 || wire.length > 0) && (
           <aside
             className="article-with-aside__side"
             aria-label={d.article.dispatchesLabel}
           >
-            <Dispatches items={dispatches} locale={locale} variant="aside" />
-            <Wire items={fm.wire ?? []} locale={locale} variant="aside" />
+            <Dispatches items={dispatches} locale={locale} />
+            <Wire items={wire} locale={locale} variant="aside" />
           </aside>
         )}
       </section>
@@ -244,22 +249,7 @@ export default async function ArticlePage({
           </nav>
         ) : null}
         <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />
-        <p className="issue-print-action">
-          <a
-            href={localePath(locale, `/articles/${article.slug}/print`)}
-            className="label"
-            target="_blank"
-            rel="noopener"
-          >
-            ↗ {d.article.printView}
-          </a>
-        </p>
         <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
-        <p className="caught-up-completion">
-          <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
-          <span className="caught-up-completion__message">{publication.completion}</span>
-        </p>
-        <FeedActions locale={locale} />
       </section>
         </div>
 

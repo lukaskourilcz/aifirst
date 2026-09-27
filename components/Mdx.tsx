@@ -2,6 +2,19 @@ import type { ReactNode } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { MdxLink } from "./MdxLink";
 import { slugify } from "@/lib/text";
+import { czechTypography } from "@/lib/typography";
+
+type MdastNode = { type: string; value?: string; children?: MdastNode[] };
+
+// Typesets every prose text node. Code, inline code and link targets are
+// other node types and are never touched.
+function remarkCzechTypography() {
+  const visit = (node: MdastNode) => {
+    if (node.type === "text" && typeof node.value === "string") node.value = czechTypography(node.value);
+    node.children?.forEach(visit);
+  };
+  return (tree: MdastNode) => visit(tree);
+}
 
 function nodeText(children: ReactNode): string {
   if (typeof children === "string" || typeof children === "number") {
@@ -53,10 +66,14 @@ const components = {
   ),
 };
 
-export function Mdx({ source }: { source: string }) {
+export function Mdx({ source, typeset = false }: { source: string; typeset?: boolean }) {
   return (
     <div className="article-body">
-      <MDXRemote source={source} components={components} />
+      <MDXRemote
+        source={source}
+        components={components}
+        options={typeset ? { mdxOptions: { remarkPlugins: [remarkCzechTypography] } } : undefined}
+      />
     </div>
   );
 }

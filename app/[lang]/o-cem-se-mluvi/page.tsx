@@ -8,6 +8,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { loadEvents, splitByAnchor } from "@/lib/events";
 import { czechRelativeDate, groupStreamByDay, loadStream, type StreamItem } from "@/lib/streams";
 import { czechNumericDate, czechWeekday } from "@/lib/weeks";
+import { looksEnglish } from "@/lib/text";
 
 export const dynamic = "force-static";
 
@@ -32,7 +33,7 @@ function Card({ item, locale, anchor }: { item: StreamItem; locale: Locale; anch
   const relative = czechRelativeDate(item.published, anchor, czechNumericDate);
   // Stream titles are quoted, not written, and are frequently English. The lang
   // attribute is what makes a screen reader switch voice for them.
-  const foreign = /[a-z]/i.test(item.title) && !/[áčďéěíňóřšťúůýž]/i.test(item.title);
+  const foreign = looksEnglish(item.title);
 
   return (
     <li className="link-card">
@@ -66,7 +67,6 @@ function Card({ item, locale, anchor }: { item: StreamItem; locale: Locale; anch
 export default async function TalkedAboutPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).sections;
-  const r = dict(locale).rail;
 
   const articles = await listArticles(locale);
   const anchor = articles[0]?.date ?? "1970-01-01";
@@ -76,7 +76,7 @@ export default async function TalkedAboutPage({ params }: { params: Promise<{ la
   return (
     <div className="page-with-rail">
       <div className="page-with-rail__main">
-        <PageShell kicker={r.talked} title={t.talkedTitle} intro={t.talkedIntro}>
+        <PageShell kicker={t.talkedKicker} title={t.talkedTitle} intro={t.talkedIntro}>
           {days.length === 0 ? (
             <p className="empty-line">{t.talkedEmpty}</p>
           ) : (

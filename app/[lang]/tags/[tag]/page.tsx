@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { IssueRow } from "@/components/IssueRow";
-import { TagChip } from "@/components/TagChip";
+import { FeedRow } from "@/components/editorial/FeedRow";
 import { listArticlesByTag, listTagsByFrequency } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -19,7 +18,9 @@ export async function generateMetadata({
   params: Promise<{ tag: string }>;
 }) {
   const { tag } = await params;
-  return { title: `#${decodeURIComponent(tag)}` };
+  // Raw tag pages stay reachable for old links but are not indexed and nothing
+  // on the site links to them; Topics is the reader-facing grouping.
+  return { title: `#${decodeURIComponent(tag)}`, robots: { index: false } };
 }
 
 export default async function TagPage({
@@ -46,26 +47,9 @@ export default async function TagPage({
           {common.atomFeed} ↗
         </a>
       </p>
-      <ul className="dense-list">
+      <ul className="feed-list">
         {issues.map((a) => (
-          <IssueRow
-            key={a.slug}
-            href={lp(`/articles/${a.slug}`)}
-            date={a.date}
-            title={a.title}
-            padding="16px 0"
-            variant="meta"
-            trailing={
-              <span className="tag-detail__related">
-                {(a.tags ?? [])
-                  .filter((x) => x !== tag)
-                  .slice(0, 2)
-                  .map((x) => (
-                    <TagChip key={x} tag={x} locale={locale} />
-                  ))}
-              </span>
-            }
-          />
+          <FeedRow key={a.slug} article={a} locale={locale} compact />
         ))}
       </ul>
     </PageShell>

@@ -23,7 +23,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [x] **Answer the brand gate on issue #47** — approved 2026-08-09: the official name is DNESKAi. Recorded on the issue; the kickoff schedules the rename right before the documentation pass.
 - [ ] **Confirm the curated source registries** — approve or edit the seed list in quorum's `config/caught-up-streams.json`: three Medium tags, nine Substacks and eight podcast shows, of which eight ship disabled because their channel id could not be resolved without guessing, plus two empty slots for the Czech AI shows you pick. [imp:3] [owner:me] [time:30m] [kind:decision]
 - [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
-- [ ] **Provide the social profile URLs** — the footer ships Facebook, Instagram, Threads and X as linkless icons; once the accounts exist, drop their URLs into the footer social config and the icons become links. [imp:2] [owner:me] [time:10m] [kind:content]
+- [ ] ~~Provide the social profile URLs~~ — retired by the 2026-09 audit: the linkless social icons were removed from the footer. If real accounts appear, adding them is a new product decision.
 
 ## Product decisions
 
@@ -34,6 +34,15 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [ ] **Add a read-only GitHub token in Vercel only if private workflow history should appear in health** — set `GITHUB_TOKEN` with the narrowest repository read permission; the public health JSON never exposes it. [imp:2] [owner:me] [time:20m] [kind:deploy]
 - [ ] **Enable semantic related-issue refresh only if tag overlap is insufficient** — create a Jina key and run `pnpm embed:refresh`; this enriches the static reader and is not an editorial fallback. [imp:1] [owner:me] [time:20m] [kind:setup]
 - [ ] ~~Connect the sentinel to OwnDashboard~~ — retired. The Actions-minutes diet removed the sentinel's callback, so `OWNDASHBOARD_CRON_URL` and `OWNDASHBOARD_CRON_TOKEN` are read by no workflow and no code in this repository; setting them would do nothing. OwnDashboard integration, where it still exists, is read-side only: it polls the public health JSON and needs nothing configured here.
+
+## Pre-launch audit 2026-09 (`docs/audit-2026-09/IMPLEMENTATION_NOTES.md`)
+
+- [ ] **Add a contact line to About › Kdo vydání píše** — fill `about.authorshipContact` in `lib/i18n/dictionaries.ts`; it renders after the responsibility sentence on `/about#redakce`. [imp:3] [owner:me] [time:5m] [kind:content]
+- [ ] **Put the site on its own domain before launch** — set the production domain on the Vercel project and `siteUrl()`, and redirect `caughtup-ai.vercel.app` to it permanently. [imp:4] [owner:me] [time:30m] [kind:deploy]
+- [ ] **Decide the four English May editions** — keep them (marked „anglicky"), have them rewritten in Czech upstream, or retire them. [imp:2] [owner:me] [time:10m] [kind:decision]
+- [ ] **Lift `noindex` on `/weekly` when a new digest ships** — steps in the implementation notes, open decision 4. [imp:2] [owner:me] [time:10m] [kind:decision]
+- [ ] **Give `docs/EDITORIAL_RULES_2026-09.md` to the BoardlessAI writer prompt** — headline and dek limits, banned phrases, weekday checks, Czech `supports`, no URL shared between Briefs and the Watchlist, Czech-first lesson terms. [imp:3] [owner:me] [time:20m] [kind:content]
+- [ ] **Retire `data/ai-facts.json` upstream** — the reader no longer shows it; stop the upstream appends first, then delete the file here. [imp:1] [owner:me] [time:10m] [kind:decision]
 
 ## Newly needed after the redesign
 

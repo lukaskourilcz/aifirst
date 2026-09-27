@@ -3,7 +3,9 @@ import { getArticle, listArticles } from "@/lib/content";
 import { OG } from "@/lib/og-theme";
 import { brand } from "@/lib/brand";
 import { ogLogo } from "@/lib/og-logo";
-import type { Locale } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { czechNumericDate } from "@/lib/weeks";
+import { topicLabels } from "@/lib/labels";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -18,14 +20,17 @@ export async function generateStaticParams() {
 export default async function Image({
   params,
 }: {
-  params: Promise<{ lang: Locale; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { lang, slug } = await params;
+  // Outside [lang] so the URL is /articles/<slug>/opengraph-image; the article
+  // page points at it explicitly when the edition has no photograph.
+  const lang = DEFAULT_LOCALE;
+  const { slug } = await params;
   const article = await getArticle(slug, lang);
   const title = article?.frontmatter.title ?? brand.name;
   const dek = article?.frontmatter.dek ?? "";
-  const date = article?.frontmatter.date ?? "";
-  const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
+  const date = article ? czechNumericDate(article.frontmatter.date) : "";
+  const tags = topicLabels(article?.frontmatter.tags).slice(0, 4);
   const issueLabel = lang === "cs" ? "vydání" : "issue";
   const featureLabel = lang === "cs" ? "hlavní téma" : "lead development";
   const logo = ogLogo(36);

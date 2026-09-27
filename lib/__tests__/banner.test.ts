@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { bannerPlaceholder, bannerSlot, isPlaceholderSlot, parseSlot } from "../banner.js";
+import { bannerSlot, parseSlot } from "../banner.js";
 
 const FILLED = {
   active: true,
@@ -12,7 +12,12 @@ const FILLED = {
 
 describe("bannerSlot", () => {
   it("ships the devShark house promotion, labelled as the owner's own project", () => {
-    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("devShark (vlastní projekt)");
+    expect(bannerSlot("rail-square")?.advertiser).toBe("devShark (vlastní projekt)");
+    expect(bannerSlot("rail-square")?.label).toBe("Vlastní projekt");
+  });
+
+  it("has no partner belt on Today", () => {
+    expect(bannerSlot("today-partner-belt")).toBeNull();
   });
 
   it("returns null for a slot that does not exist", () => {
@@ -75,51 +80,14 @@ const FILLED_RESULT = {
   mobile: FILLED.mobile,
 };
 
-describe("the placeholder rule", () => {
-  it("reserves the box only when the slot is empty and opts in", () => {
-    expect(isPlaceholderSlot({ active: false, placeholder: true })).toBe(true);
-  });
-
-  it("keeps render-null when placeholder is absent or false", () => {
-    expect(isPlaceholderSlot({ active: false })).toBe(false);
-    expect(isPlaceholderSlot({ active: false, placeholder: false })).toBe(false);
-  });
-
-  it("does not reserve a second box once a creative exists", () => {
-    // A filled slot is its own reservation, so placeholder stops applying.
-    expect(isPlaceholderSlot({ ...FILLED, placeholder: true })).toBe(false);
-  });
-
-  it("only accepts a real boolean", () => {
-    for (const value of ["true", 1, {}, []]) {
-      expect(isPlaceholderSlot({ active: false, placeholder: value })).toBe(false);
-    }
-  });
-
-  it("never throws on junk", () => {
-    for (const junk of [null, undefined, 42, "banner", [], {}]) {
-      expect(() => isPlaceholderSlot(junk)).not.toThrow();
-      expect(isPlaceholderSlot(junk)).toBe(false);
-    }
-  });
-});
-
-describe("the shipped slots", () => {
-  it("ships the filled rail square", () => {
-    expect(bannerSlot("rail-square")?.advertiser).toBe("devShark (vlastní projekt)");
-    expect(bannerPlaceholder("rail-square")).toBe(false);
-  });
-
-  it("does not add a placeholder behind the partner belt", () => {
-    expect(bannerSlot("today-partner-belt")?.advertiser).toBe("devShark (vlastní projekt)");
-    expect(bannerPlaceholder("today-partner-belt")).toBe(false);
-  });
-
-  it("treats an unknown slot id as empty and unreserved", () => {
-    expect(bannerSlot("no-such-slot")).toBeNull();
-    expect(bannerPlaceholder("no-such-slot")).toBe(false);
-  });
-});
 
 it.each(["javascript:alert(1)", "http://example.com", "https://user:pass@example.com", "/relative"])("rejects unsafe destination %s", href => { expect(parseSlot({ ...FILLED, href })).toBeNull(); });
 it.each(["/images/banners/../private.svg", "/images/banners/%2e%2e/x.svg", "/images/banners/x.svg?query"])("rejects unsafe asset %s", src => { expect(parseSlot({ ...FILLED, desktop: { ...FILLED.desktop, src } })).toBeNull(); });
+
+describe("the slot label", () => {
+  it("is absent unless configured, and trimmed when it is", () => {
+    expect(parseSlot(FILLED)?.label).toBeUndefined();
+    expect(parseSlot({ ...FILLED, label: "  Vlastní projekt " })?.label).toBe("Vlastní projekt");
+    expect(parseSlot({ ...FILLED, label: 3 })?.label).toBeUndefined();
+  });
+});

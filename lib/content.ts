@@ -7,6 +7,29 @@ import { byDateDesc } from "./helpers/date";
 import { groupBy } from "./helpers/group";
 import { CONTENT_LANGS, DEFAULT_LOCALE, isContentLang, isLocale, type ContentLang, type Locale } from "./i18n/config";
 import { ogImageFor } from "./og";
+import { hostOf, topicLabels } from "./labels";
+import { czechTypography, czechTypographyAll } from "./typography";
+
+// Czech typography for the delivered text a reader sees, applied on read. The
+// file on disk, and so every hash computed from it, stays byte-identical.
+// English legacy issues are left alone: Czech quote and spacing rules would
+// be wrong for them.
+function typesetFrontmatter<T extends Partial<ArticleFrontmatter>>(fm: T, lang: ContentLang): T {
+  if (lang !== "cs") return fm;
+  return {
+    ...fm,
+    title: fm.title === undefined ? undefined : czechTypography(fm.title),
+    dek: fm.dek === undefined ? undefined : czechTypography(fm.dek),
+    why_it_matters: czechTypographyAll(fm.why_it_matters),
+    what_changed: czechTypographyAll(fm.what_changed),
+    uncertainty: czechTypographyAll(fm.uncertainty),
+    dispatches: fm.dispatches?.map((item) => ({
+      ...item,
+      title: czechTypography(item.title),
+      body: czechTypography(item.body),
+    })),
+  };
+}
 
 export type Dispatch = {
   title: string;
@@ -252,7 +275,8 @@ async function readEntries(dir: string): Promise<RawEntry[]> {
     const raw = await fs.readFile(path.join(dir, file), "utf8");
     const { data } = matter(raw);
     const fm = data as Partial<ArticleFrontmatter>;
-    out.push({ file, fm, lang: entryLang(file, fm) });
+    const lang = entryLang(file, fm);
+    out.push({ file, fm: typesetFrontmatter(fm, lang), lang });
   }
   return out;
 }
@@ -347,7 +371,7 @@ export async function getArticle(
   const { data, content } = matter(raw);
   return {
     slug,
-    frontmatter: data as ArticleFrontmatter,
+    frontmatter: typesetFrontmatter(data as ArticleFrontmatter, picked.entry.lang),
     mdx: content,
     lang: picked.entry.lang,
     fallback: picked.fallback,
@@ -453,82 +477,78 @@ export function relatedArticles(
     .map((x) => x.a);
 }
 
+/** `https://www.x.com/a/?q=1` and `x.com/a` are the same story. */
+export function normalizeStoryUrl(url: string): string {
+  return url
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-z]+:\/\//, "")
+    .replace(/^www\./, "")
+    .replace(/[?#].*$/, "")
+    .replace(/\/+$/, "");
+}
+
+/**
+ * The Watchlist minus every item already told as a Brief. An edition must not
+ * show one story twice, once in each list.
+ */
+export function watchlistWithoutBriefs(wire: WireItem[], dispatches: Dispatch[]): WireItem[] {
+  const briefed = new Set(
+    dispatches.flatMap((item) => (item.source_url ? [normalizeStoryUrl(item.source_url)] : [])),
+  );
+  return wire.filter((item) => !briefed.has(normalizeStoryUrl(item.url)));
+}
+
 export type SourceCitationStats = {
   id: string;
   count: number;
   latestDate: string | null;
 };
 
+type RegisteredSource = { id: string; url?: string };
+
+// The registry lists feed URLs; editions cite article URLs. Feed hosts carry a
+// `feeds.` or `www.` prefix the article host does not.
+function registryHost(source: RegisteredSource): string {
+  return hostOf(source.url).replace(/^(?:feeds|rss)\./, "");
+}
+
+/**
+ * Whether an edition's source entry cites a registered source. New editions
+ * key sources by URL and name the registry entry in `source_id`; legacy ones
+ * used the registry id as `id`. Either counts, and so does an article URL on
+ * the registered publication's own host.
+ */
+export function citesSource(ref: SourceRef, source: RegisteredSource): boolean {
+  if (ref.source_id === source.id || ref.id === source.id) return true;
+  const host = registryHost(source);
+  return host !== "" && hostOf(ref.url) === host;
+}
+
 export async function sourceCitationStats(
+  registry: RegisteredSource[],
   locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<Map<string, SourceCitationStats>> {
   const resolved = resolveByLocale(await readEntries(dir), locale);
   const stats = new Map<string, SourceCitationStats>();
   for (const { fm } of resolved) {
-    if (!fm.date) continue;
-    const seenInIssue = new Set<string>();
-    for (const s of fm.sources ?? []) {
-      const sourceId = s.id;
-      if (!sourceId || seenInIssue.has(sourceId)) continue;
-      seenInIssue.add(sourceId);
-      const existing = stats.get(sourceId) ?? {
-        id: sourceId,
-        count: 0,
-        latestDate: null,
-      };
+    if (!fm.date || (fm.slug && editorialHold(fm.slug))) continue;
+    const refs = fm.sources ?? [];
+    // Once per edition, however many of its sources come from one publication.
+    for (const source of registry) {
+      if (!refs.some((ref) => citesSource(ref, source))) continue;
+      const existing = stats.get(source.id) ?? { id: source.id, count: 0, latestDate: null };
       existing.count += 1;
-      if (!existing.latestDate || existing.latestDate < fm.date) {
-        existing.latestDate = fm.date;
-      }
-      stats.set(sourceId, existing);
+      if (!existing.latestDate || existing.latestDate < fm.date) existing.latestDate = fm.date;
+      stats.set(source.id, existing);
     }
   }
   return stats;
 }
 
-// Citations per month over the last `months` months, for each source. The
-// caller passes this to the source card sparkline. Returns a bucket of
-// integers ordered oldest → newest so the sparkline reads left-to-right.
-export async function sourceCitationsByMonth(
-  months = 6,
-  locale: Locale = DEFAULT_LOCALE,
-  dir: string = defaultContentDir(),
-): Promise<Map<string, number[]>> {
-  const resolved = resolveByLocale(await readEntries(dir), locale);
-  const today = new Date();
-  const buckets: string[] = [];
-  for (let i = months - 1; i >= 0; i--) {
-    const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
-    buckets.push(
-      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
-    );
-  }
-  const bucketIndex = new Map(buckets.map((b, i) => [b, i]));
-  const out = new Map<string, number[]>();
-  for (const { fm } of resolved) {
-    if (!fm.date) continue;
-    const month = fm.date.slice(0, 7);
-    const idx = bucketIndex.get(month);
-    if (idx === undefined) continue;
-    const seenInIssue = new Set<string>();
-    for (const s of fm.sources ?? []) {
-      const sourceId = s.id;
-      if (!sourceId || seenInIssue.has(sourceId)) continue;
-      seenInIssue.add(sourceId);
-      let arr = out.get(sourceId);
-      if (!arr) {
-        arr = new Array(months).fill(0);
-        out.set(sourceId, arr);
-      }
-      arr[idx] = (arr[idx] ?? 0) + 1;
-    }
-  }
-  return out;
-}
-
 export async function listArticlesBySource(
-  sourceId: string,
+  source: RegisteredSource,
   locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<ArticleSummary[]> {
@@ -537,7 +557,7 @@ export async function listArticlesBySource(
   for (const { fm, lang, fallback } of resolved) {
     const summary = toSummary(fm, lang, fallback);
     if (!summary) continue;
-    if ((fm.sources ?? []).some((s) => s.id === sourceId)) {
+    if ((fm.sources ?? []).some((ref) => citesSource(ref, source))) {
       summaries.push(summary);
     }
   }
@@ -551,6 +571,8 @@ export type SearchEntry = {
   title: string;
   dek: string;
   tags: string[];
+  /** Czech display labels for `tags`, resolved on the server. */
+  topics: string[];
 };
 
 export async function buildSearchIndex(
@@ -564,5 +586,6 @@ export async function buildSearchIndex(
     title: a.title,
     dek: a.dek ?? "",
     tags: a.tags ?? [],
+    topics: topicLabels(a.tags),
   }));
 }

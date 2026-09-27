@@ -22,18 +22,29 @@ Public positioning:
 Czech serves at the root. The `/cs` prefix and the English routes behind it are legacy
 compatibility only; nothing new is published under them.
 
-- Sections: `/` Dnes, `/tyden` and `/tyden/[week]`, `/o-cem-se-mluvi`,
-  `/ai-modely`, `/podcasty`, `/akce`
-- Secondary: `/radar`, `/topics`, `/weekly`, `/archive`, `/lekce`, `/about`, `/pulse`.
-  The rail labels these in Czech; the paths stay English and are a compatibility
-  contract. This redesign creates no Czech aliases for them.
-- Reading: `/articles/[slug]`, `/articles/[slug]/print`
-- Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`, `/search`
-- Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Radar/Sources/health JSON; static Open Graph
-- Operator-adjacent: sanitized noindex health and the noindex `/admin` migration notice; `/promotion` is retired
-- Preserve redirects `/stats` and `/trends` → `/radar`, `/tags` → `/topics`, `/colophon` → `/about`, legacy articles/tags/feeds, locale behavior, and canonical metadata.
+The rail (`lib/rail.ts`) has four indexed sections and four reference pages:
 
-Internal `dispatches` render as **Briefs / Ve zkratce**. Internal `wire` renders as **Watchlist / Na radaru**. Do not migrate stable storage keys for cosmetic consistency.
+- Sections: `/` Dnes, `/tyden` Poslední týden (and `/tyden/[week]`), `/topics`
+  Témata, `/archive` Archiv
+- Reference: `/lekce` Slovník, `/sources` Zdroje, `/corrections` Opravy,
+  `/about` O magazínu. The paths stay English and are a compatibility contract;
+  no Czech aliases.
+- Built but unlinked: `/o-cem-se-mluvi`, `/podcasty`, `/weekly` (noindex while
+  dormant), `/akce` and `/ai-modely` (noindex), `/tags/[tag]` (noindex),
+  `/glossary` (linked only from issue glossary blocks)
+- Reading: `/articles/[slug]`, `/articles/[slug]/print`
+- Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`
+- Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Sources/health JSON; static Open Graph at unprefixed `/opengraph-image` and `/articles/[slug]/opengraph-image`
+- Operator-adjacent: sanitized noindex health and the noindex `/admin` migration notice; `/promotion` is retired
+- Preserve redirects `/radar`, `/stats`, `/trends`, `/pulse` and `/tags` → `/topics`, `/search` → `/archive`, `/colophon` → `/about`, legacy articles/tags/feeds, locale behavior, and canonical metadata.
+
+Internal `dispatches` render as **Briefs / Krátce**. Internal `wire` renders as **Watchlist / Ke sledování**. Do not migrate stable storage keys for cosmetic consistency.
+
+Machine ids never reach the reader raw: tag slugs, dispatch topics and source
+ids go through `lib/labels.ts` (unknown → nothing), delivered Czech text goes
+through `lib/typography.ts` on read, and dates through the formatters in
+`lib/weeks.ts`. A weekend is never a missing edition (`homeEditionState` in
+`lib/board.ts`).
 
 ## Architecture and boundaries
 
@@ -65,12 +76,12 @@ anywhere in this pipeline and none is coming back.
 
 ## Daily widgets and the banner slot
 
-Three Server Components on Today read `data/`, not the edition pipeline. They add
-no client JavaScript and make no network or model call.
+Two Server Components in the right rail read `data/` and `config/`, not the
+edition pipeline. They add no client JavaScript and make no network or model call.
 
-- **`DailyLesson`** and **`DidYouKnow`** live in the right rail through their
-  `variant="rail"` form and both take the lead edition's date as a prop. The
-  strip and block variants remain for any surface that wants them inline.
+- **`DailyLesson`** („Pojem dne") takes the lead edition's date as a prop. The
+  „Víte, že…" facts widget was retired before launch; `data/ai-facts.json` is
+  still delivered upstream and still gated by its test.
 - The pick is `daysBetween(anchor, dateKey) % length` from `lib/daily.ts`. The date
   is the newest edition's `frontmatter.date` — a Prague publishing day by contract —
   never a clock. Nothing in these paths may call `new Date()`, `Date.now()` or
@@ -80,14 +91,11 @@ no client JavaScript and make no network or model call.
   asserted as minimums so an append needs no test edit.
 - The lessons are a dated curriculum, `glossary.yml` is a reference list. They
   coexist; do not merge them or cross-wire their loaders.
-- **`BannerSlot`** renders `config/banner.json`; both slots, `today-partner-belt`
-  and `rail-square`, carry the owner's own devShark creatives, labelled
-  "devShark (vlastní projekt)" so a house project never reads as a paid partner.
-  MMA FILES is paused upstream and its reciprocal creatives are gone.
-  An empty slot either collapses or reserves its box, and which one is config:
-  `today-partner-belt` reserves no space when empty, while `rail-square` may carry
-  `placeholder: true` and hold a 300×250 reservation. The flag stops applying once
-  a real creative exists, because a filled slot is its own reservation. A creative
+- **`BannerSlot`** renders `config/banner.json`. There is one slot, `rail-square`,
+  carrying the owner's own devShark creative. Its visible label comes from the
+  slot's optional `label` („Vlastní projekt"), defaulting to „Partner", so a
+  house project never reads as a paid partner. An empty slot renders nothing and
+  reserves no space; there is no placeholder box on reader pages. A creative
   must be a local file under `public/images/banners/` with explicit dimensions;
   anything else reads as empty.
   No ad script, no third-party host, no tracking, so CSP is untouched.
@@ -100,12 +108,12 @@ no client JavaScript and make no network or model call.
 - `lib/i18n/`: locale dictionaries/path/metadata helpers
 - `lib/editorial/`: validation/config-facing editorial contracts
 - `lib/sources.ts`, `sources.yml`: read-only citation registry
-- `data/`, `lib/daily.ts`, `lib/facts.ts`, `lib/lessons.ts`: the daily-widget datasets and their build-time read surface, separate from the edition pipeline
+- `data/`, `lib/daily.ts`, `lib/lessons.ts`: the daily-widget datasets and their build-time read surface, separate from the edition pipeline
 - `config/`: topics, board changelog and banner-slot configuration
 - `docs/design/`: product audit, thesis, brand/design system and QA
 - `.claude/`: project skills, agents, and executable workflow commands
 
-Search before creating. Prefer extending `PageShell`, `IssueRow`, `IssueMasthead`, existing editorial components, `SourceLedger`, `EditorialHighlights`, `FeedActions`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, content/feed/topic/Radar/signal helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
+Search before creating. Prefer extending `PageShell`, `FeedRow` (with `compact`), `IssueMasthead`, existing editorial components, `SourceLedger`, `EditorialHighlights`, `IssueNavigation`, `CorrectionsNotice`, `SponsorBlock`, `StructuredData`, `Dispatches`, `Wire`, `ModalOverlay`, navigation/icons, localization helpers, `lib/labels.ts`, `lib/typography.ts`, content/feed/topic helpers, and existing tests. Do not create parallel cards, dialogs, content loaders, grids, tokens, or hooks without a concrete gap.
 
 TypeScript is strict and `noUncheckedIndexedAccess` is enabled. Keep server-reached relative value imports extensionless. Never commit `.env.local`, secrets, generated caches, rejected media, or private run reports.
 
@@ -120,13 +128,16 @@ The design thesis is **editorial intelligence presented as a precise publishing 
 
 Use the logotype from `public/brand/DNESKAi-logo*.svg` through `BrandLockup`, the square mark `DNESKAi-square.svg` for icons and avatars, a light paper canvas, white reading surfaces, blueprint blue `#2f5ae6`, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
 
-**The reader shows no production instrumentation and never describes itself as
-AI-operated.** No run costs, model names, candidate counts, signal scores, agent
-references or build vocabulary in reader copy. Telemetry lives only in `/health`,
+**The reader shows no production instrumentation.** No run costs, model names,
+candidate counts, signal scores, agent references or build vocabulary in reader
+copy. The one provenance fact it does state, plainly and once per edition, is
+that a language model wrote the text and whether a person reviewed it
+(`generation.human_reviewed`), linking to `/about#redakce`. Never hide it and
+never dress it up as a badge. Telemetry lives only in `/health`,
 `/api/health.json` and the BoardlessAI admin. Keep the journalism trust
 surfaces: source ledger, corrections, sponsor labelling, the completion mark.
 
-Today is the product, not a marketing landing page. Radar is editorial intelligence, not an operator dashboard. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
+Today is the product, not a marketing landing page. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
 
 The public reader uses one light theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
 

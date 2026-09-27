@@ -3,30 +3,11 @@ import { dict } from "@/lib/i18n/dictionaries";
 
 export function EditorsNote({ note, locale }: { note?: string; locale: Locale }) {
   if (!note) return null;
+  const label = dict(locale).article.editorsNote;
   return (
-    <aside
-      aria-label="editor's note"
-      style={{
-        margin: "0 0 24px",
-        padding: "12px 16px",
-        borderLeft: "3px solid var(--color-blueprint-blue)",
-        background: "var(--color-paper)",
-        borderRadius: "0 var(--radius-lg) var(--radius-lg) 0",
-      }}
-    >
-      <p className="label" style={{ color: "var(--color-blueprint-blue)", marginBottom: 4 }}>
-        {dict(locale).article.editorsNote}
-      </p>
-      <p
-        style={{
-          color: "var(--color-ink-black)",
-          margin: 0,
-          lineHeight: 1.55,
-          fontSize: "var(--text-body-sm)",
-        }}
-      >
-        {note}
-      </p>
+    <aside aria-label={label} className="editors-note">
+      <p className="kicker kicker--accent editors-note__label">{label}</p>
+      <p className="editors-note__body">{note}</p>
     </aside>
   );
 }

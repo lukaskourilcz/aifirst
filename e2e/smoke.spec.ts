@@ -12,14 +12,12 @@ const ROUTES = [
   "/cs/archive",
   "/topics",
   "/cs/topics",
-  "/radar",
   "/weekly",
   "/about",
   "/corrections",
   "/sources",
   "/glossary",
   "/health",
-  "/search",
   "/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
   "/cs/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
 ];
@@ -84,10 +82,12 @@ test("home: rail, lead package, condensed briefs and the week feed render", asyn
   await expect(rows.nth(0)).toBeVisible();
 });
 
-test("the lead meta row carries the date and reading time and nothing else", async ({ page }) => {
+test("the lead meta row carries the reading time and nothing else", async ({ page }) => {
   await page.goto("/");
+  // The date lives in the lead kicker; the meta row is the reading time alone.
+  await expect(page.locator(".lead__kicker time")).toHaveText(/\d{1,2}\. \d{1,2}\. \d{4}/);
   const meta = await page.locator(".lead__meta").innerText();
-  expect(meta).toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
+  expect(meta).not.toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
   expect(meta).toMatch(/min/);
   for (const forbidden of ["zdroj", "signál", "USD", "náklad"]) {
     expect(meta.toLowerCase()).not.toContain(forbidden.toLowerCase());
@@ -108,7 +108,7 @@ test("the lead headline goes to the article, and the body renders with no gate",
 
 test("the completion mark closes the edition, above the week feed", async ({ page }) => {
   await page.goto("/");
-  const mark = page.locator(".caught-up-completion");
+  const mark = page.locator(".edition-end");
   await expect(mark).toBeVisible();
   const feed = page.locator(".feed-section");
   if (await feed.count()) {
@@ -126,14 +126,15 @@ test("the devShark house promotion renders without overflow at launch widths", a
     await page.setViewportSize(viewport);
     await page.goto("/");
 
+    // One placement, the rail square; it reflows into the main column below 1280.
     const banners = page.locator('.banner-slot a[href="https://devshark.app"]');
-    await expect(banners).toHaveCount(2);
+    await expect(banners).toHaveCount(1);
     await expect(banners.nth(0)).toBeVisible();
-    await expect(banners.nth(1)).toBeVisible();
     await expect(banners.nth(0)).toHaveAttribute("rel", "sponsored noopener noreferrer");
+    await expect(page.locator(".banner-slot__label")).toHaveText(/vlastní projekt/i);
 
     const visibleCreatives = page.locator(".banner-slot__creative:visible");
-    await expect(visibleCreatives).toHaveCount(2);
+    await expect(visibleCreatives).toHaveCount(1);
     for (const creative of await visibleCreatives.all()) {
       await expect(creative).toHaveAttribute("alt", "devShark, vlastní projekt. Kvízová hra, se kterou budeš lepší vývojář.");
     }
@@ -147,20 +148,21 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   const sidebar = page.locator(".sidebar");
-  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+  for (const path of ["/tyden", "/topics", "/archive", "/lekce", "/sources", "/corrections", "/about"]) {
     await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
   }
-  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/lekce", "/about"]) {
-    await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
+  // Empty and dormant sections keep their routes but leave the rail.
+  for (const path of ["/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce", "/radar", "/weekly"]) {
+    await expect(sidebar.locator(`a[href$="${path}"]`)).toHaveCount(0);
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
+  for (const path of ["/tyden", "/topics", "/archive", "/about", "/corrections", "/lekce", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
   await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
 });
 
-for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
+for (const [legacy, current] of [["/search", "/archive"], ["/radar", "/topics"], ["/stats", "/topics"], ["/trends", "/topics"], ["/pulse", "/topics"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
   test(`${legacy} permanently resolves to ${current}`, async ({ page }) => {
     await page.goto(legacy);
     await expect(page).toHaveURL(new RegExp(`${current}/?$`));
@@ -169,7 +171,7 @@ for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["
 
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
-  await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /sources for this edition|zdroje tohoto vydání/i })).toBeVisible();
   // The run record is operator data and no longer reaches a reader page.
   await expect(page.locator("section.provenance")).toHaveCount(0);
 });
@@ -201,9 +203,9 @@ test("inline links carry the Blueprint Blue (#2f5ae6)", async ({ page }) => {
 
 test("the desktop rail exposes the active section and holds 44px targets", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/weekly");
+  await page.goto("/archive");
   const active = page.locator('.nav-rail a[aria-current="page"]');
-  await expect(active).toHaveAttribute("href", /\/weekly$/);
+  await expect(active).toHaveAttribute("href", /\/archive$/);
   // Primary sections are 44px; the secondary group is deliberately 36px and is
   // not a touch surface at this width.
   for (const item of await page.locator(".nav-rail > a.nav-item").all()) {
@@ -215,17 +217,17 @@ test("the desktop rail exposes the active section and holds 44px targets", async
 test("the rail contains exactly the sections and search, and no status record", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  // Six indexed sections as direct children, six secondary links, one search
+  // Four indexed sections as direct children, four secondary links, one search
   // control, and no status record of any kind.
-  await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(6);
-  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(6);
+  await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(4);
+  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(4);
   await expect(page.locator(".sidebar-status")).toHaveCount(0);
   await expect(page.locator(".sidebar .nav-item--button")).toHaveCount(1);
 });
 
 test("below 960 the drawer replaces the rail and behaves for the keyboard", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/weekly");
+  await page.goto("/archive");
 
   await expect(page.locator(".sidebar")).toBeHidden();
   const trigger = page.locator(".topbar__trigger");
@@ -237,7 +239,7 @@ test("below 960 the drawer replaces the rail and behaves for the keyboard", asyn
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(page.locator(".drawer__close")).toBeFocused();
   await expect(page.locator("html")).toHaveCSS("overflow", "hidden");
-  await expect(drawer.locator('[aria-current="page"]')).toHaveAttribute("href", /\/weekly$/);
+  await expect(drawer.locator('[aria-current="page"]')).toHaveAttribute("href", /\/archive$/);
 
   for (const item of await page.locator(".drawer__item").all()) {
     const box = await item.boundingBox();
@@ -250,20 +252,11 @@ test("below 960 the drawer replaces the rail and behaves for the keyboard", asyn
   await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
 });
 
-test("the footer social row is named, sized and not yet focusable", async ({ page }) => {
+test("the footer has two columns and no social placeholders", async ({ page }) => {
   await page.goto("/");
-  const items = page.locator(".social-row__item");
-  await expect(items).toHaveCount(4);
-  for (const name of ["Facebook", "Instagram", "Threads", "X"]) {
-    await expect(page.getByRole("img", { name, exact: true })).toBeVisible();
-  }
-  for (const item of await items.all()) {
-    const box = await item.boundingBox();
-    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
-    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
-  }
-  // Placeholders: no destination yet, so nothing focusable and no link.
-  await expect(page.locator(".social-row a")).toHaveCount(0);
+  await expect(page.locator("nav.footer-nav")).toHaveCount(2);
+  await expect(page.locator(".social-row")).toHaveCount(0);
+  await expect(page.locator('footer a[href$="/feed.xml"]')).toHaveText(/RSS/);
 });
 
 test("skip link and keyboard search work, trap focus, and restore the trigger", async ({ page }) => {
@@ -295,12 +288,11 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
   await expect(page.getByRole("dialog").getByRole("textbox")).toBeFocused();
 });
 
-test("topic detail separates latest coverage, timeline and recurring entities", async ({ page }) => {
+test("topic detail is one list of editions and links no raw tag page", async ({ page }) => {
   await page.goto("/topics/ai-models");
-  await expect(page.getByRole("heading", { name: /nejnovější články/i })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /časová osa/i })).toBeVisible();
-  const entities = page.getByRole("heading", { name: /opakující se entity/i });
-  if (await entities.count()) await expect(entities).toBeVisible();
+  await expect(page.getByRole("heading", { name: /vydání k tématu/i })).toBeVisible();
+  await expect(page.locator(".feed-list .feed-row").first()).toBeVisible();
+  await expect(page.locator('a[href*="/tags/"]')).toHaveCount(0);
 });
 
 test("feeds expose language, entry links, publication time and categories", async ({ request }) => {
@@ -326,7 +318,9 @@ test("source evidence class stays separate and reduced motion disables entrances
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   await expect(page.locator(".source-ledger")).toBeVisible();
   const headers = await page.locator(".source-ledger th").allTextContents();
-  expect(headers.join(" ")).toMatch(/evidence class|třída důkazu/i);
+  expect(headers.join(" ")).toMatch(/kind of source|druh zdroje/i);
+  // Three columns: the curator notes and feed type are not reader data.
+  expect(headers).toHaveLength(3);
   const entrances = page.locator(".enter");
   expect(await entrances.count()).toBeGreaterThan(0);
   const animationName = await entrances.nth(0).evaluate((element) => getComputedStyle(element).animationName);
@@ -340,7 +334,7 @@ test("brand, completion, and no-media states are deterministic", async ({ page }
   // the DOM at every width and hidden by CSS above 960.
   await expect(page.locator(".sidebar .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator("footer .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
-  await expect(page.locator(".caught-up-completion")).toContainText("přehled");
+  await expect(page.locator(".edition-end")).toContainText("přehled");
   // No-media state: an edition without a photo gets the seeded hairline plate.
   const figure = page.locator(".lead__figure");
   await expect(figure).toHaveCount(1);
@@ -359,7 +353,7 @@ test("health and operator-adjacent routes remain private", async ({ page, reques
 });
 
 test("public JSON contracts and security headers remain available", async ({ request }) => {
-  for (const route of ["/api/today.json", "/api/weekly.json", "/api/topics.json", "/api/radar.json", "/api/health.json"]) {
+  for (const route of ["/api/today.json", "/api/weekly.json", "/api/topics.json", "/api/health.json"]) {
     const response = await request.get(route);
     expect(response.ok(), route).toBe(true);
     expect(response.headers()["content-type"]).toContain("application/json");
@@ -395,16 +389,18 @@ test("the about page is a magazine, not a run record", async ({ page }) => {
 });
 
 test("the section routes render their honest empty states", async ({ page }) => {
-  // Every stream and event file ships as a valid empty envelope, so these are
-  // the states a reader sees on day one.
-  await page.goto("/o-cem-se-mluvi");
-  await expect(page.getByText("Dnes zatím nic nového.")).toBeVisible();
-
-  await page.goto("/podcasty");
-  await expect(page.getByText("Dnes nevyšla žádná nová epizoda.")).toBeVisible();
+  // Streams and the model category fill from upstream, so those pages show
+  // either items or their empty line; events are still empty.
+  for (const [route, empty] of [["/o-cem-se-mluvi", "Dnes zatím nic nového."], ["/podcasty", "Dnes nevyšla žádná nová epizoda."]] as const) {
+    await page.goto(route);
+    const filled = await page.locator("main li").count();
+    if (!filled) await expect(page.getByText(empty)).toBeVisible();
+  }
 
   await page.goto("/ai-modely");
-  await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
+  if (!(await page.locator(".feed-row").count())) {
+    await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
+  }
 
   await page.goto("/akce");
   await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();
@@ -442,8 +438,12 @@ test("events expose both scopes as linkable anchors with zero JavaScript", async
 
 test("the new section routes are in the sitemap", async ({ request }) => {
   const xml = await (await request.get("/sitemap.xml")).text();
-  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+  for (const path of ["/tyden", "/o-cem-se-mluvi", "/podcasty"]) {
     expect(xml, `${path} missing from the sitemap`).toContain(`${path}<`);
+  }
+  // Noindex while empty or dormant, so not advertised to crawlers either.
+  for (const path of ["/ai-modely", "/akce", "/weekly"]) {
+    expect(xml, `${path} should not be in the sitemap`).not.toContain(`${path}<`);
   }
 });
 

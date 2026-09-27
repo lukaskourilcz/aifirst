@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { loadAiFacts } from "../facts.js";
+// The facts widget left the reader before launch, but upstream still delivers
+// the append-only dataset (docs/GOVERNANCE.md), so its contract stays gated.
+import rawFacts from "../../data/ai-facts.json";
 import { loadAiLessons } from "../lessons.js";
 import type { DatasetFile } from "../daily.js";
 
@@ -9,7 +11,7 @@ const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 // Counts are minimums, not equalities: the datasets are append-only and an
 // append must not require a test edit. See `data/README.md`.
 const DATASETS: Array<{ name: string; file: DatasetFile; minimum: number }> = [
-  { name: "ai-facts", file: loadAiFacts(), minimum: 50 },
+  { name: "ai-facts", file: rawFacts as DatasetFile, minimum: 50 },
   { name: "ai-lessons", file: loadAiLessons(), minimum: 60 },
 ];
 
@@ -94,11 +96,20 @@ describe("ai-lessons", () => {
 });
 
 describe("ai-facts", () => {
-  const facts = loadAiFacts();
+  const facts = rawFacts as DatasetFile;
 
   it("carries no term field — that belongs to the lessons", () => {
     for (const entry of facts.entries) {
       expect(entry.term, `${entry.id}.term`).toBeUndefined();
     }
+  });
+});
+
+describe("lesson display", () => {
+  it("shows the Czech term first where one exists and typesets the gloss", async () => {
+    const { revealedLessons } = await import("../lessons.js");
+    const all = revealedLessons("2030-01-01").groups.flatMap((group) => group.lessons.map(({ entry }) => entry));
+    expect(all.find((entry) => entry.slug === "machine-learning")?.term).toBe("Strojové učení (machine learning)");
+    for (const entry of all) expect(entry.cs.full).not.toMatch(/ — /);
   });
 });

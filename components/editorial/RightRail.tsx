@@ -4,7 +4,6 @@ import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { BannerSlot } from "./BannerSlot";
 import { DailyLesson } from "./DailyLesson";
-import { DidYouKnow } from "./DidYouKnow";
 import { eventDateBlock, type MagazineEvent } from "@/lib/events";
 
 /**
@@ -69,19 +68,6 @@ export function EventsTeaser({ events, locale }: { events: MagazineEvent[]; loca
   );
 }
 
-export function SubscribeModule({ locale }: { locale: Locale }) {
-  const t = dict(locale).sections;
-  const d = dict(locale);
-  return (
-    <WidgetModule kicker={t.subscribe}>
-      <p className="rail-module__body">{t.subscribeBody}</p>
-      <p className="rail-module__action">
-        <a href={localePath(locale, "/feed.xml")}>{d.common.atomFeed} ↗</a>
-      </p>
-    </WidgetModule>
-  );
-}
-
 /**
  * The right rail. It drops below 1280 and its modules reflow into the main
  * column in this same order, which is why the order lives here and not in each
@@ -99,14 +85,8 @@ export function RightRail({
   return (
     <aside className="right-rail">
       <BannerSlot id="rail-square" locale={locale} />
-      {dateKey ? (
-        <>
-          <DailyLesson dateKey={dateKey} locale={locale} variant="rail" />
-          <DidYouKnow dateKey={dateKey} locale={locale} variant="rail" />
-        </>
-      ) : null}
+      {dateKey ? <DailyLesson dateKey={dateKey} locale={locale} /> : null}
       <EventsTeaser events={events} locale={locale} />
-      <SubscribeModule locale={locale} />
     </aside>
   );
 }

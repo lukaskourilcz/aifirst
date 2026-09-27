@@ -3,19 +3,18 @@ import { OG } from "@/lib/og-theme";
 import { brand } from "@/lib/brand";
 import { ogLogo } from "@/lib/og-logo";
 import { localizedBrand } from "@/lib/brand";
-import { LOCALES, type Locale } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "DNESKAi: To podstatné z AI. Každý den.";
 
-export function generateStaticParams() {
-  return LOCALES.map((lang) => ({ lang }));
-}
-
-export default async function Image({ params }: { params: Promise<{ lang: Locale }> }) {
-  const { lang } = await params;
+// At the app root rather than under [lang], so the emitted URL is the
+// unprefixed /opengraph-image instead of a /cs/ path that only resolves
+// through a redirect.
+export default async function Image() {
+  const lang = DEFAULT_LOCALE;
   const publication = localizedBrand(lang);
   const logo = ogLogo(40);
   return new ImageResponse(
@@ -87,8 +86,8 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
             paddingTop: 24,
           }}
         >
-          <span>{lang === "cs" ? "výběrová denní publikace" : "a selective daily publication"}</span>
-          <span>{lang === "cs" ? "vychází denně" : "published daily"}</span>
+          <span>výběrová publikace o AI</span>
+          <span>každý všední den</span>
         </div>
       </div>
     ),

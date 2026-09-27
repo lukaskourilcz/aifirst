@@ -40,12 +40,12 @@ export default async function LessonsPage({
   const { lang: locale } = await params;
   const t = dict(locale).daily;
   const { groups, todayIndex, count } = revealedLessons(await leadDate(locale));
-  // How much of the curriculum is out, as machine metadata rather than prose.
-  const total = loadAiLessons().entries.length;
+  // Once the whole curriculum is out, „today" only cycles and means nothing.
+  const complete = count >= loadAiLessons().entries.length;
 
   return (
     <PageShell
-      kicker={`${count} / ${total}`}
+      kicker={t.lessonsKicker}
       title={t.lessonsTitle}
       intro={t.lessonsIntro}
     >
@@ -73,7 +73,7 @@ export default async function LessonsPage({
                           <span className="lesson-table__meta">
                             {t.revealedOn}{" "}
                             <time dateTime={revealedOn}>{czechDisplayDate(revealedOn)}</time>
-                            {index === todayIndex ? (
+                            {index === todayIndex && !complete ? (
                               <span className="lesson-table__today"> · {t.today}</span>
                             ) : null}
                           </span>

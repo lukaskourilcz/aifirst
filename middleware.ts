@@ -26,6 +26,9 @@ export function middleware(req: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.endsWith("/print") ||
+    // Open Graph cards live outside the locale tree and are served as is.
+    pathname === "/opengraph-image" ||
+    (pathname.startsWith("/articles/") && pathname.endsWith("/opengraph-image")) ||
     HAS_EXTENSION.test(pathname)
   ) {
     return NextResponse.next();

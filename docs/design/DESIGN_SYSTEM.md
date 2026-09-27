@@ -25,8 +25,10 @@ Production components should use semantic roles:
   `--status-correction` (`#c0272c`)
 - `--focus-ring` and `--selection-background`
 
-Raw palette variables remain compatibility aliases while existing routes are
-migrated. New production patterns must not introduce repeated literal colors.
+The hexes live on the semantic roles themselves; the `--color-*` and `--ink-*`
+compatibility aliases were removed in the 2026-09 audit pass. `:root` declares
+`color-scheme: light`. New production patterns must not introduce repeated
+literal colors.
 DNESKAi has one light reader theme. Print stays black on white. `#5f6672` is
 the lightest text color; dimmer values may appear only in decoration.
 
@@ -37,6 +39,23 @@ the wordmark, navigation, controls, tables, and completion. Source Serif 4 is
 self-hosted for deks, article prose, card descriptions, and definitions. IBM
 Plex Mono is self-hosted for identifiers, dates, technical metadata, source IDs,
 navigation indices, and measured values.
+
+### Kickers and chips
+
+Every small uppercase label is one rule: `.kicker` (IBM Plex Mono,
+`--kicker-size` 0.6875rem, `--kicker-tracking` 0.16em, uppercase, weight 500,
+`--text-tertiary`). `.kicker--accent` switches it to `--accent-primary`, and
+`.kicker--accent.kicker--bar` adds the 3px bar. The older kicker classes
+(`.label`, `.eyebrow`, `.page-kicker`, `.masthead__kicker`, `.lead__kicker`,
+`.hero__eyebrow`, `.rail-module__kicker`, `.feed-row__kicker`,
+`.cover-card__kicker`, `.footer-nav__heading` and the rest) share that rule
+through one selector list and keep only their layout. Do not give a kicker its
+own font rules.
+
+There is one chip: `.chip` (4px 10px, `--border-subtle` hairline, mono caption,
+0.08em tracking, uppercase, `--text-secondary`). `.chip--evidence-primary` and
+`.chip--evidence-secondary` mark the source class in the ledger. Topic labels,
+evidence classes and suggestions all use it.
 
 The fluid type scale runs from `--text-caption` to `--text-display`. Reading
 copy stays near 32–39 em and uses a relaxed 1.68–1.72 line height. Monospace is
@@ -53,7 +72,9 @@ rem.
 Desktop uses a persistent publication rail and flexible content column. Below
 960px the rail becomes a compact top header with horizontally scrollable
 primary navigation. Reading pages use generous vertical rhythm; archive,
-search, Radar, Sources, and reference routes use denser rows.
+Sources, and reference routes use denser rows. Lists of editions use `FeedRow`;
+its `compact` form (title and date, no dek, no thumbnail) replaces the old
+`IssueRow`/`.entry-row`/`.dense-list` rows.
 
 ## Surfaces, borders, and shapes
 
@@ -78,16 +99,33 @@ from assistive technology when decorative.
 
 ## Editorial modules and state
 
-Existing domain components remain authoritative: Editorial Highlights, Briefs, Watchlist, Source Ledger, Corrections, Sponsorship, Topics, Issue Navigation, Feed Actions, and completion. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong boundary colors are reserved for evidence, corrections, sponsorship, warning, and completion states.
+Existing domain components remain authoritative: Editorial Highlights, Briefs
+(„Krátce“), Watchlist („Ke sledování“), Source Ledger, Corrections,
+Sponsorship, Topics, Issue Navigation (article pages only) and the completion
+row. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong
+boundary colors are reserved for evidence, corrections, sponsorship, warning,
+and completion states.
 
-Three daily modules sit alongside them. The lesson strip above the masthead is a
-single hairline-bounded row — mono kicker, term in the display face, one gloss
-truncated to the row, one link — held to 56px above 768px so it cannot displace
-the lead headline. The fact block closes the reference blocks in the same
-bordered idiom as its siblings, with the prose serif for the fact and a mono
-line for its verification receipt. The partner belt after the completion mark is
-empty by default and renders nothing at all until a local creative is
-configured. All three are text-first: no imagery, no chart, no decoration.
+The source ledger has three columns: number, source (title, then publisher and
+date) and kind of source as a chip. The issue masthead carries one serif
+provenance sentence under the meta row, saying a language model wrote the text
+and whether a person reviewed it, with a link to `/about#redakce`. It is not a
+badge and not coloured.
+
+The completion mark is one row on Today, between a 2px `--border-strong` rule
+and a hairline: a `--status-complete` dot with the kicker „Konec vydání“ on
+the left, „Máte přehled.“ in `--text-primary` on the right.
+
+The right rail holds the one configured creative (labelled from
+`config/banner.json`, „Vlastní projekt“ for devShark) and „Pojem dne“. An empty
+slot renders nothing; there is no reserved advertising box. Every empty state
+is one `.empty-line`, including a missed weekday, which sits above the newest
+edition instead of replacing it.
+
+Removed in the 2026-09 audit pass, not to be reintroduced without a product
+decision: AI Pulse and Sparkline, FeedActions, ReadingProgress, SocialRow,
+DidYouKnow, the lesson strip variant, the partner belt, AdPlaceholder,
+IssueRow, TagChip, the drop cap, the completion poster and the Radar page.
 
 ## Focus, motion, and interaction
 
@@ -95,9 +133,8 @@ All interactive controls use a two-pixel blueprint focus ring with visible
 offset. Minimum primary navigation targets are 44px. Selection uses a
 low-opacity blueprint wash.
 
-Motion is limited to short native CSS transitions, an eight-pixel page-entry
-translation, and a status pulse when the publication state is current. Reading
-progress uses a fixed two-pixel line. No motion framework, parallax, or animated
+Motion is limited to short native CSS transitions and an eight-pixel page-entry
+translation. There is no reading-progress bar. No motion framework, parallax, or animated
 gradient is used. `prefers-reduced-motion` removes non-essential animation.
 
 ## Media
@@ -142,7 +179,8 @@ Below 768px there is no overlap: the image renders first and the copy sits
 flush beneath it at full width. At 320–430px a Czech headline needs the whole
 column, and an inset plate would fight it.
 
-Meta rows, category chips and topics stay below the image on every variant.
+Meta rows, the provenance sentence and topic chips stay below the image on every
+variant.
 Only the eyebrow, headline and dek ever move onto the plate.
 
 ### Cover cards

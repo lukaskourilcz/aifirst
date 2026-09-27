@@ -20,7 +20,8 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = dict(lang).sections;
-  return { title: t.eventsTitle, alternates: localeAlternates(lang, "/akce") };
+  // Unlinked and noindex while there are no events; the route keeps building.
+  return { title: t.eventsTitle, alternates: localeAlternates(lang, "/akce"), robots: { index: false } };
 }
 
 function EventRow({ event, locale, past }: { event: MagazineEvent; locale: Locale; past?: boolean }) {
@@ -97,7 +98,6 @@ function Scope({
 export default async function EventsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).sections;
-  const r = dict(locale).rail;
 
   const articles = await listArticles(locale);
   const anchor = articles[0]?.date ?? "1970-01-01";
@@ -111,7 +111,7 @@ export default async function EventsPage({ params }: { params: Promise<{ lang: L
   return (
     <div className="page-with-rail">
       <div className="page-with-rail__main">
-        <PageShell kicker={r.events} title={t.eventsTitle}>
+        <PageShell kicker={t.eventsKicker} title={t.eventsTitle}>
           {/* Stacked sections with anchor navigation, not tabs: real static
               HTML that works with zero JavaScript, keeps both scopes in the
               page for find-in-page and print, and gives each a linkable URL. */}

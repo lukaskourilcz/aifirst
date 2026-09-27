@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { czechNumericDate } from "@/lib/weeks";
-import { FeedActions } from "@/components/editorial/FeedActions";
-import { IssueRow } from "@/components/IssueRow";
+import { czechLongDate, czechNumericDate } from "@/lib/weeks";
+import { topicLabel } from "@/lib/labels";
+import { looksEnglish } from "@/lib/text";
+import { FeedRow } from "@/components/editorial/FeedRow";
 import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
 import { getArticle } from "@/lib/content";
@@ -19,7 +20,14 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = dict(lang).weekly;
-  return { title: t.title, description: t.intro, alternates: localeAlternates(lang, "/weekly") };
+  // Noindex while the digest is dormant (last one 17. 5. 2026). Lift it when a
+  // new digest ships: see docs/audit-2026-09/IMPLEMENTATION_NOTES.md.
+  return {
+    title: t.title,
+    description: t.description,
+    alternates: localeAlternates(lang, "/weekly"),
+    robots: { index: false },
+  };
 }
 
 export default async function WeeklyPage({ params }: { params: Promise<{ lang: Locale }> }) {
@@ -31,19 +39,23 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
     digest: (await getArticle(summary.slug, locale))?.frontmatter.digest,
   })));
   const latest = issues[0];
+  const range = (from: string, to: string) => `${czechNumericDate(from)} – ${czechNumericDate(to)}`;
+  const topicsOf = (tags: string[] | undefined) =>
+    (tags ?? []).map(topicLabel).filter((label): label is string => label !== null);
+  const latestTopics = [...new Set(topicsOf(latest?.tags))];
+  const intro = latest ? t.intro.replace("{date}", czechLongDate(latest.date)) : t.description;
   return (
-    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
+    <PageShell kicker={t.kicker} title={t.title} intro={intro}>
       <StructuredData data={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         name: t.title,
-        description: t.intro,
+        description: t.description,
         url: `${siteUrl()}${localePath(locale, "/weekly")}`,
         inLanguage: locale,
         publisher: { "@type": "Organization", name: brand.name, url: siteUrl() },
         hasPart: issues.map((issue) => ({ "@type": "Article", headline: issue.title, datePublished: issue.date, url: `${siteUrl()}${localePath(locale, `/articles/${issue.slug}`)}` })),
       }} />
-      <FeedActions locale={locale} weekly />
       {latest ? (
         <section className={latest.heroPhoto ? "weekly-cover weekly-cover--with-media" : "weekly-cover"}>
           {latest.heroPhoto ? (
@@ -54,16 +66,15 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
               <img src={latest.heroPhoto} alt="" width={480} height={360} loading="eager" decoding="async" />
             </Link>
           ) : null}
-          <div className="weekly-cover__index" aria-hidden>W</div>
           <div className="weekly-cover__copy">
-            <p className="label label--accent weekly-cover__kicker">{t.latest}</p>
-            <h2><Link href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</Link></h2>
-            {latest.dek ? <p className="weekly-cover__dek">{latest.dek}</p> : null}
+            <p className="label label--accent weekly-cover__kicker">{t.latest} · {czechNumericDate(latest.date)}</p>
+            <h2 {...(looksEnglish(latest.title) ? { lang: "en" } : {})}>
+              <Link href={localePath(locale, `/articles/${latest.slug}`)}>{latest.title}</Link>
+            </h2>
+            {latest.dek ? <p className="weekly-cover__dek" {...(looksEnglish(latest.dek) ? { lang: "en" } : {})}>{latest.dek}</p> : null}
             <p className="label weekly-cover__meta">
-              {latest.digest ? `${t.dateRange}: ${czechNumericDate(latest.digest.from)} → ${czechNumericDate(latest.digest.to)}` : czechNumericDate(latest.date)}
-              {(latest.tags ?? []).filter((tag) => tag !== "weekly").length
-                ? ` · ${t.topics}: ${(latest.tags ?? []).filter((tag) => tag !== "weekly").join(", ")}`
-                : ""}
+              {latest.digest ? range(latest.digest.from, latest.digest.to) : czechNumericDate(latest.date)}
+              {latestTopics.length ? ` · ${t.topics}: ${latestTopics.join(", ")}` : ""}
             </p>
           </div>
         </section>
@@ -71,12 +82,12 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
       {issues.length > 1 ? (
         <section className="route-section">
           <h2>{t.archive}</h2>
-          <ul className="dense-list">
-            {issues.slice(1).map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.digest ? `${czechNumericDate(article.digest.from)} → ${czechNumericDate(article.digest.to)}` : article.date} title={article.title} variant="meta" trailing={<span className="label">{(article.tags ?? []).filter((tag) => tag !== "weekly").slice(0, 2).join(" · ")}</span>} />)}
+          <ul className="feed-list">
+            {issues.slice(1).map((article) => <FeedRow key={article.slug} article={article} locale={locale} compact />)}
           </ul>
         </section>
       ) : null}
-      {!latest ? <p className="route-empty-state">{t.empty}</p> : null}
+      {!latest ? <p className="empty-line">{t.empty}</p> : null}
     </PageShell>
   );
 }

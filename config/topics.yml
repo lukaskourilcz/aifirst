@@ -1,5 +1,5 @@
 schemaVersion: 1
-minimumIssues: 1
+minimumIssues: 3
 topics:
   - id: ai-models
     slug: ai-models
@@ -7,7 +7,7 @@ topics:
     description:
       en: Model releases, capabilities, evaluations and the practical changes behind the benchmarks.
       cs: Vydání modelů, jejich schopnosti, hodnocení a praktické změny za benchmarky.
-    tags: [ai, models, llm, gemini, openai, anthropic]
+    tags: [ai, models, llm, gemini, openai, anthropic, umela-inteligence, ai-modely, google-gemini, mistral]
     aliases: [language-models]
     featured: true
     order: 10
@@ -18,7 +18,7 @@ topics:
     description:
       en: Rules, policy decisions and governance changes that alter how AI can be built or deployed.
       cs: Pravidla, politická rozhodnutí a změny správy, které ovlivňují vývoj a nasazení AI.
-    tags: [policy, ai-policy, regulation]
+    tags: [policy, ai-policy, regulation, regulace, evropska-ai-politika, exportni-kontrola, autorska-prava]
     aliases: [policy]
     featured: true
     order: 20
@@ -28,8 +28,8 @@ topics:
     title: { en: AI on Platforms, cs: AI na platformách }
     description:
       en: How AI is reshaping consumer platforms — creator monetization, content moderation, feeds and recommendations, and the rules platforms set for AI-made media (e.g. YouTube's policy on AI videos).
-      cs: Jak AI mění spotřebitelské platformy — monetizaci tvůrců, moderování obsahu, feedy a doporučování a pravidla platforem pro AI média (např. pravidla YouTube pro AI videa).
-    tags: [platforms, youtube, creator-economy, content-moderation, monetization, social-media, advertising, streaming, recommendations]
+      cs: "Jak AI mění platformy: monetizaci tvůrců, moderování obsahu a doporučování."
+    tags: [platforms, youtube, creator-economy, content-moderation, monetization, social-media, advertising, streaming, recommendations, socialni-site, meta, microsoft]
     aliases: [creator-economy, platform-policy]
     featured: true
     order: 25
@@ -40,7 +40,7 @@ topics:
     description:
       en: Open models, tooling and communities changing who can build with AI.
       cs: Otevřené modely, nástroje a komunity, které mění, kdo může stavět s AI.
-    tags: [open-source, oss]
+    tags: [open-source, oss, open-source-ai]
     aliases: [oss]
     featured: true
     order: 30
@@ -51,7 +51,7 @@ topics:
     description:
       en: Coding agents, APIs and infrastructure that change day-to-day software work.
       cs: Programovací agenti, API a infrastruktura, které mění každodenní vývoj softwaru.
-    tags: [developer-tools, coding, agents, releases]
+    tags: [developer-tools, coding, agents, releases, ai-agenti, autonomni-agenti]
     aliases: [agents]
     featured: true
     order: 40
@@ -62,7 +62,7 @@ topics:
     description:
       en: Research results, safety work and evidence that may shape the next generation of systems.
       cs: Výsledky výzkumu, bezpečnost a důkazy, které mohou ovlivnit další generaci systémů.
-    tags: [research, agi, ai-safety, ml]
+    tags: [research, agi, ai-safety, ml, bezpecnost, bezpecnost-softwaru, kyberneticka-bezpecnost, ai-etika]
     aliases: [ai-safety]
     featured: true
     order: 50
@@ -73,7 +73,7 @@ topics:
     description:
       en: The labs and companies whose decisions materially shape the AI market.
       cs: Laboratoře a firmy, jejichž rozhodnutí podstatně formují trh s AI.
-    tags: [anthropic, openai, google-deepmind, startups]
+    tags: [anthropic, openai, google-deepmind, startups, meta, microsoft, amd-nvidia, datova-centra, burza]
     aliases: [companies]
     featured: true
     order: 60

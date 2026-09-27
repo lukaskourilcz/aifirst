@@ -15,15 +15,17 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
   return { title: t.title, description: t.intro, alternates: localeAlternates(lang, "/about") };
 }
 
-// What a reader needs from an About page: what the magazine covers, how it
-// picks, how it treats sources and mistakes, and what it does with their
-// attention. How an edition is produced is not a reader-facing subject, and
-// the run record that used to live here is operator data.
+// What a reader needs from an About page: what the magazine covers, who
+// writes it, how it picks, how it treats sources and mistakes, and what it
+// does with their attention. That a language model writes the text without
+// human review is stated here once, as #redakce, and every edition links to
+// it. Run records and model names stay operator data.
 export default async function AboutPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).about;
   const sections = [
     ["problem", t.problemTitle, t.problemBody],
+    ["redakce", t.authorshipTitle, t.authorshipContact ? `${t.authorshipBody} ${t.authorshipContact}` : t.authorshipBody],
     ["methodology", t.methodTitle, t.methodBody],
     ["sources", t.sourcesTitle, t.sourcesBody],
     ["editorial", t.editorialTitle, t.editorialBody],

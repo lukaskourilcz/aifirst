@@ -15,7 +15,6 @@
     "check:bundle": "tsx scripts/check-bundle.ts",
     "consume:edition": "tsx scripts/consume-edition-package.ts",
     "generate:artifacts": "tsx scripts/generate-static-artifacts.ts",
-    "pulse:refresh": "tsx scripts/refresh-pulse.ts",
     "embed:refresh": "tsx scripts/embed-articles.ts",
     "test": "vitest run",
     "e2e": "playwright test"

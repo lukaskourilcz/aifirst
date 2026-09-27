@@ -1,14 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
-import { listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
-import { getArticle, listArticles } from "@/lib/content";
+import { isPublishingDay, listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
+import { listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { czechLongDate } from "@/lib/weeks";
+import { czechLongDate, czechMonthLabel } from "@/lib/weeks";
 import { CoverCard } from "@/components/editorial/CoverCard";
-import { readingMinutes } from "@/lib/text";
 import { localeAlternates } from "@/lib/i18n/metadata";
 
 export const dynamic = "force-static";
@@ -26,17 +25,14 @@ export default async function ArchivePage({
 }) {
   const { lang: locale } = await params;
   const t = dict(locale).archive;
-  const common = dict(locale).common;
   const lp = localePrefixer(locale);
 
   const [all, boardContexts] = await Promise.all([listArticles(locale), listBoardContexts()]);
-  const entries = await Promise.all(all.map(async (summary) => {
-    const article = await getArticle(summary.slug, locale);
-    return { kind: "article" as const, ...summary, reading: article ? readingMinutes(article.mdx) : null };
-  }));
+  const entries = all.map((summary) => ({ kind: "article" as const, ...summary }));
   const publishedDates = new Set(all.map((article) => article.date));
   const noEditions = boardContexts
-    .filter((context): context is NoEditionBoardContext => context.status === "no_edition" && !publishedDates.has(context.date))
+    .filter((context): context is NoEditionBoardContext =>
+      context.status === "no_edition" && !publishedDates.has(context.date) && isPublishingDay(context.date))
     .map((context) => ({ kind: "no_edition" as const, ...context }));
   const byYearMonth = groupBy([...entries, ...noEditions].sort((a, b) => b.date.localeCompare(a.date)), (a) => a.date.slice(0, 7));
 
@@ -45,7 +41,7 @@ export default async function ArchivePage({
       {[...byYearMonth.entries()].map(([month, issues]) => (
         <section key={month} className="archive-month">
           <p className="label archive-month__label">
-            {month}
+            {czechMonthLabel(month)}
           </p>
           <ul className="archive-list">
             {issues.map((a) => a.kind === "article" ? (
@@ -57,38 +53,23 @@ export default async function ArchivePage({
                   kicker={
                     <>
                       <time dateTime={a.date}>{czechLongDate(a.date)}</time>
-                      <span aria-hidden> · </span>
-                      <span>{a.type === "weekly" ? common.weekly : (locale === "cs" ? "denní" : "daily")}</span>
-                      <span aria-hidden> · </span>
-                      <span>{a.lang?.toUpperCase()}</span>
-                      {a.reading ? (
-                        <>
-                          <span aria-hidden> · </span>
-                          <span>{a.reading} {common.minutesShort} {common.readMinutes}</span>
-                        </>
-                      ) : null}
+                      {a.type === "weekly" ? ` · ${t.weeklyMarker}` : null}
+                      {a.lang === "en" ? ` · ${t.englishMarker}` : null}
                     </>
                   }
                   title={a.title}
+                  titleLang={a.lang === "en" ? "en" : undefined}
                   dek={a.dek}
                   media={a.heroPhoto}
                   mediaWidth={140}
                   mediaHeight={105}
-                >
-                  {a.tags?.length ? (
-                    <span className="cover-card__topics">
-                      {a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}
-                    </span>
-                  ) : null}
-                </CoverCard>
+                />
               </li>
             ) : (
+              // One quiet line. The reason, the code and the board room stay
+              // with the operator; the reader only needs to know the day is empty.
               <li key={`no-edition-${a.date}`} className="archive-system-row">
-                <div>
-                  <p className="label"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "systém" : "system"}</p>
-                  <p>{locale === "cs" ? "Bez vydání" : "No edition"} — {a.noEditionReason || (locale === "cs" ? "pipeline vydání vynechala" : "the pipeline missed")}</p>
-                </div>
-                <a href={a.roomUrl} target="_blank" rel="noreferrer noopener">{locale === "cs" ? "Přečíst diskusi" : "Read the argument"} ↗</a>
+                <p className="kicker"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "bez vydání" : "no edition"}</p>
               </li>
             ))}
           </ul>
@@ -96,7 +77,7 @@ export default async function ArchivePage({
       ))}
 
       {all.length === 0 && noEditions.length === 0 && (
-        <p className="route-empty-state">{t.empty}</p>
+        <p className="empty-line">{t.empty}</p>
       )}
     </PageShell>
   );

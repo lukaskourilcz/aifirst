@@ -1,26 +1,11 @@
 {
   "schemaVersion": "banner-slot/1",
   "slots": {
-    "today-partner-belt": {
-      "active": true,
-      "advertiser": "devShark (vlastní projekt)",
-      "href": "https://devshark.app",
-      "alt": "devShark, vlastní projekt. Kvízová hra, se kterou budeš lepší vývojář.",
-      "desktop": {
-        "src": "/images/banners/devshark-728x90.svg",
-        "width": 728,
-        "height": 90
-      },
-      "mobile": {
-        "src": "/images/banners/devshark-320x100.svg",
-        "width": 320,
-        "height": 100
-      }
-    },
     "rail-square": {
       "active": true,
-      "placeholder": true,
+      "placeholder": false,
       "advertiser": "devShark (vlastní projekt)",
+      "label": "Vlastní projekt",
       "href": "https://devshark.app",
       "alt": "devShark, vlastní projekt. Kvízová hra, se kterou budeš lepší vývojář.",
       "desktop": {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SearchPalette } from "./SearchPalette";
-import { buildSearchIndex } from "@/lib/content";
+import { buildSearchIndex, listArticles } from "@/lib/content";
+import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { NavLink } from "./NavLink";
@@ -14,12 +15,21 @@ import { buildRail } from "@/lib/rail";
 export async function Sidebar({ locale }: { locale: Locale }) {
   const d = dict(locale);
   const lp = localePrefixer(locale);
-  const index = await buildSearchIndex(locale);
+  const [index, topicsConfig, articles] = await Promise.all([
+    buildSearchIndex(locale),
+    loadTopicsConfig(),
+    listArticles(locale),
+  ]);
+  // Suggestions in an empty search are the published topics, never raw tags.
+  const topics = publishedTopics(topicsConfig, articles).map(({ topic }) => ({
+    href: lp(`/topics/${topic.slug}`),
+    title: topic.title[locale],
+  }));
   const rail = buildRail(locale);
 
   return (
     <>
-      <MobileNav locale={locale} rail={rail} index={index} />
+      <MobileNav locale={locale} rail={rail} index={index} topics={topics} />
 
       <aside className="sidebar" aria-label={rail.labels.primary}>
         <div className="sidebar__head">
@@ -49,7 +59,7 @@ export async function Sidebar({ locale }: { locale: Locale }) {
 
           <div className="nav-divider" aria-hidden />
 
-          <SearchPalette index={index} locale={locale} />
+          <SearchPalette index={index} topics={topics} locale={locale} />
         </nav>
       </aside>
     </>

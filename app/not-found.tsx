@@ -5,30 +5,12 @@ import { dict } from "@/lib/i18n/dictionaries";
 export default function NotFound() {
   const t = dict(DEFAULT_LOCALE).notFound;
   return (
-    <section
-      className="container"
-      style={{ padding: "120px 24px", textAlign: "center" }}
-    >
-      <p
-        className="label label--accent"
-        style={{ letterSpacing: "0.4em" }}
-      >
-        {t.kicker}
-      </p>
-      <h1
-        style={{
-          fontSize: "clamp(3rem, 10vw, 8rem)",
-          color: "var(--color-blueprint-blue)",
-          marginTop: "0.5em",
-        }}
-      >
-        404
-      </h1>
-      <p style={{ color: "var(--ink-muted)", marginBottom: "2em" }}>
-        {t.body}
-      </p>
-      <Link href="/" className="label">
-        ⟵ {t.home}
+    <section className="status-page">
+      <p className="kicker kicker--accent">{t.kicker}</p>
+      <h1 className="status-page__code">404</h1>
+      <p className="status-page__body">{t.body}</p>
+      <Link href="/" className="kicker">
+        ← {t.home}
       </Link>
     </section>
   );
