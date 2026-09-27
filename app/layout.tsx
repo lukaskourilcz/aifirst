@@ -50,10 +50,10 @@ export const metadata: Metadata = {
     title: d.meta.siteTitle,
     description: d.meta.siteDescription,
   },
+  // Card type only: title, description and image come from each page's
+  // openGraph, so an article shares its own headline rather than the site's.
   twitter: {
     card: "summary_large_image",
-    title: d.meta.siteTitle,
-    description: d.meta.siteDescription,
   },
 };
 

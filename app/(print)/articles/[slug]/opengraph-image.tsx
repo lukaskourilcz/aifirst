@@ -3,7 +3,7 @@ import { getArticle, listArticles } from "@/lib/content";
 import { OG } from "@/lib/og-theme";
 import { brand } from "@/lib/brand";
 import { ogLogo } from "@/lib/og-logo";
-import type { Locale } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { czechNumericDate } from "@/lib/weeks";
 import { topicLabels } from "@/lib/labels";
 
@@ -20,9 +20,12 @@ export async function generateStaticParams() {
 export default async function Image({
   params,
 }: {
-  params: Promise<{ lang: Locale; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { lang, slug } = await params;
+  // Outside [lang] so the URL is /articles/<slug>/opengraph-image; the article
+  // page points at it explicitly when the edition has no photograph.
+  const lang = DEFAULT_LOCALE;
+  const { slug } = await params;
   const article = await getArticle(slug, lang);
   const title = article?.frontmatter.title ?? brand.name;
   const dek = article?.frontmatter.dek ?? "";

@@ -80,7 +80,9 @@ export async function generateMetadata({
       description: article.frontmatter.dek,
       publishedTime: `${article.frontmatter.date}T06:00:00Z`,
       modifiedTime,
-      ...(heroPhoto ? { images: [{ url: heroPhoto }] } : {}),
+      images: heroPhoto
+        ? [{ url: heroPhoto }]
+        : [{ url: `/articles/${slug}/opengraph-image`, width: 1200, height: 630, alt: article.frontmatter.title }],
     },
   };
 }

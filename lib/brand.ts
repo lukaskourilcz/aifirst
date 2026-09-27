@@ -30,9 +30,9 @@ export const brand = {
     og: "/brand/DNESKAi-og.svg",
   },
   title: "DNESKAi: To podstatné z AI. Každý den.",
-  shortDescription: "The AI stories that actually mattered today.",
+  shortDescription: "To podstatné z AI. Každý den.",
   description:
-    "One edition and you’re caught up on AI. DNESKAi selects and explains the developments that actually mattered, without the noise.",
+    "Jedno vydání a máte přehled. DNESKAi vybírá a vysvětluje podstatné změny v AI bez zbytečného šumu.",
   locale: {
     en: {
       tagline: "The AI stories that actually mattered today.",

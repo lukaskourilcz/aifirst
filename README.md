@@ -1,9 +1,8 @@
 # DNESKAi
 
-**The AI stories that actually mattered today.** One edition and you’re caught
-up on AI.
+**To podstatné z AI. Každý den.** Jedno vydání a máte přehled.
 
-Caught Up is a Czech, Git-native AI publication. Czech is the only published
+DNESKAi is a Czech, Git-native AI publication. Czech is the only published
 locale: every edition is written once, natively in Czech, upstream — there is no
 translation stage anywhere in this pipeline. BoardlessAI owns source
 collection, curation, writing and quality control in the separate `quorum`
@@ -16,10 +15,10 @@ technical identifier, not the public publication name.
 ## What the app can do
 
 - Publish a complete daily edition with a lead story, Why it matters, Briefs,
-  Watchlist, uncertainty, signal strength, corrections and a source ledger.
+  Watchlist, uncertainty, corrections, a source ledger and a one-line
+  statement of who wrote it and whether a person reviewed it.
 - Render the existing weekly archive without a dormant weekly writer.
-- Turn the archive’s existing tags, statistics, trends and pulse data into
-  curated Topics and a static Radar view.
+- Group editions into curated Topics built from their tags.
 - Serve Czech at unprefixed URLs, while exposing only real locale files in
   canonicals, sitemaps and feeds.
 - Preserve legacy MDX, article URLs, tag URLs and feed consumers while
@@ -41,25 +40,31 @@ Reader growth increases static delivery, not editorial model usage.
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Today’s full edition and completion state |
+| `/` | Today’s edition (Friday’s on a weekend) and the completion row |
+| `/tyden`, `/tyden/[week]` | The last seven days and earlier weeks |
 | `/articles/[slug]` | Static issue, provenance, corrections, topics and related reading |
-| `/weekly` | Current weekly digest, archive and localized feed entry point |
-| `/radar` | Static signals, trend movement, timelines and pulse data |
-| `/topics`, `/topics/[slug]` | Curated destinations backed by existing tag metadata |
-| `/archive` | Filterable context-rich issue history |
-| `/about`, `/sources`, `/glossary`, `/corrections`, `/health` | Methodology, accountability and sanitized publication health |
-| `/lekce` | Every AI term the daily lesson strip has revealed, grouped by category |
-| `/search` | Static client-side discovery over committed content |
+| `/topics`, `/topics/[slug]` | Seven curated topics, each one list of editions |
+| `/archive` | Every edition by month |
+| `/lekce` | Slovník AI: the lesson curriculum, grouped by area |
+| `/about`, `/sources`, `/glossary`, `/corrections` | Who writes the editions, sources, reference terms, corrections |
+| `/weekly` | The dormant weekly digest; unlinked and noindex until a new one ships |
+| `/o-cem-se-mluvi`, `/podcasty` | Built and reachable, not in the navigation |
+| `/akce`, `/ai-modely` | Built and reachable, not in the navigation, noindex while empty |
+| `/health` | Noindex publication freshness in publishing days |
 | `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
-| `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/radar.json`, `/api/sources.json` | Build-time JSON contracts |
+| `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/sources.json` | Build-time JSON contracts |
 | `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
+
+Search is the ⌘K / `/` palette on every page; `/search` redirects to `/archive`.
 
 Czech serves at the root, unprefixed. `/cs/*` permanently redirects there — the
 prefix and the English routes behind it are retired compatibility, and nothing
 new is published under them. A few early issues were written in English and
 remain in the archive as stored files; they are not a second locale.
-`/stats` and `/trends` permanently redirect to `/radar`, `/tags` to `/topics`,
-and `/colophon` to `/about`. Legacy article and tag-detail URLs remain valid.
+`/radar`, `/stats`, `/trends` and `/pulse` permanently redirect to `/topics`,
+`/tags` to `/topics`, `/search` to `/archive` and `/colophon` to `/about`.
+Legacy article URLs remain valid; tag-detail pages still build but are noindex
+and unlinked.
 `/admin` is a noindex migration notice; operations belong in GitHub Actions and
 the optional OwnDashboard control plane. The former `/promotion` utility is
 retired and returns 404.
