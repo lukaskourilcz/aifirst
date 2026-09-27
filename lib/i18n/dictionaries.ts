@@ -194,9 +194,8 @@ const en = {
   footer: {
     description:
       "A selective daily publication that explains the AI developments that actually mattered, with sources and uncertainty kept visible.",
-    read: "read",
-    trust: "trust",
-    follow: "follow us",
+    read: "Magazine",
+    trust: "About the magazine",
   },
     archive: {
     kicker: "archive",
@@ -581,9 +580,8 @@ const cs: Dict = {
   footer: {
     description:
       "Výběrová denní publikace, která vysvětluje podstatné změny v AI a otevřeně ukazuje zdroje i nejistotu.",
-    read: "číst",
-    trust: "důvěra",
-    follow: "sledujte nás",
+    read: "Magazín",
+    trust: "O magazínu",
   },
   archive: {
     kicker: "archiv",

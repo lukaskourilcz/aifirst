@@ -154,7 +154,7 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
     await expect(sidebar.locator(`a[href$="${path}"]`)).toHaveCount(0);
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/topics", "/archive", "/about", "/corrections", "/lekce", "/sources"]) {
+  for (const path of ["/tyden", "/topics", "/archive", "/about", "/corrections", "/lekce", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
   await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
@@ -250,20 +250,11 @@ test("below 960 the drawer replaces the rail and behaves for the keyboard", asyn
   await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
 });
 
-test("the footer social row is named, sized and not yet focusable", async ({ page }) => {
+test("the footer has two columns and no social placeholders", async ({ page }) => {
   await page.goto("/");
-  const items = page.locator(".social-row__item");
-  await expect(items).toHaveCount(4);
-  for (const name of ["Facebook", "Instagram", "Threads", "X"]) {
-    await expect(page.getByRole("img", { name, exact: true })).toBeVisible();
-  }
-  for (const item of await items.all()) {
-    const box = await item.boundingBox();
-    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
-    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
-  }
-  // Placeholders: no destination yet, so nothing focusable and no link.
-  await expect(page.locator(".social-row a")).toHaveCount(0);
+  await expect(page.locator("nav.footer-nav")).toHaveCount(2);
+  await expect(page.locator(".social-row")).toHaveCount(0);
+  await expect(page.locator('footer a[href$="/feed.xml"]')).toHaveText(/RSS/);
 });
 
 test("skip link and keyboard search work, trap focus, and restore the trigger", async ({ page }) => {

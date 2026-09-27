@@ -1860,13 +1860,13 @@ svg { max-width: 100%; }
   .entry-row--meta > :last-child { justify-self: start; }
 }
 
-/* Footer block (lives inside shell main column). */
-/* The last column is sized for the social row's four 44px targets on one line
-   (4x44 + 3x8 = 200px). The footer sits inside the main column, so the
-   collapse points are earlier than the raw viewport widths suggest. */
+/* Footer block (lives inside shell main column). It sits inside the main
+   column, so the collapse points are earlier than the raw viewport widths
+   suggest. */
+.site-footer { margin-top: var(--gutter-gap); }
 .footer-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(120px, 0.5fr)) minmax(200px, 0.6fr);
+  grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(140px, 0.6fr));
   gap: 32px;
   align-items: start;
   padding-top: 48px;
@@ -1877,6 +1877,7 @@ svg { max-width: 100%; }
 
 @media (max-width: 1200px) {
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 430px) {
   .footer-grid { grid-template-columns: minmax(0, 1fr); }
@@ -1889,18 +1890,6 @@ svg { max-width: 100%; }
   color: var(--text-secondary);
   font-family: var(--font-reading);
   font-size: 0.9375rem;
-}
-
-/* The hit area exists from day one, so swapping the span for an anchor when
-   the accounts are real reflows nothing. */
-.social-row { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
-.social-row__item {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  color: var(--text-tertiary);
-  border: 1px solid transparent;
 }
 
 .footer-nav {
