@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { IBM_Plex_Mono, Source_Serif_4, Space_Grotesk } from "next/font/google";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { siteUrl } from "@/lib/config";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -8,6 +9,14 @@ import { brand } from "@/lib/brand";
 import "./globals.css";
 
 const d = dict(DEFAULT_LOCALE);
+
+// Vercel Web Analytics, back for the November 2026 launch (issue #99): the
+// marketing plan measures campaign links by `utm_source`, which Web Analytics
+// reads from the page URL of the first pageview; SiteAnalytics keeps those
+// parameters across the `/cs` rewrite. Cookieless, first-party
+// (`/_vercel/insights/*`, already inside the CSP) and only on Vercel builds, so
+// local and CI builds send nothing. No custom events.
+const webAnalytics = process.env.VERCEL === "1";
 
 // Source Serif 4 carries long-form reading and descriptive editorial copy.
 // Latin Extended keeps the Czech edition native.
@@ -62,6 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang={DEFAULT_LOCALE} className={`${serif.variable} ${display.variable} ${mono.variable}`}>
       <body>
         {children}
+        {webAnalytics ? <SiteAnalytics /> : null}
       </body>
     </html>
   );
