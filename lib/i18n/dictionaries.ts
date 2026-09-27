@@ -130,15 +130,14 @@ const en = {
   daily: {
     lessonKicker: "Term of the day",
     lessonLink: "Full entry",
-    lessonsTitle: "AI lessons",
-    lessonsIntro:
-      "One term a day, from the daily briefing. Everything revealed so far, grouped by category.",
-    lessonsMetaDescription:
-      "The AI vocabulary DNESKAi has explained so far: one term a day, grouped by category.",
+    lessonsKicker: "Glossary",
+    lessonsTitle: "AI glossary",
+    lessonsIntro: "Sixty terms that recur in the editions, by area.",
+    lessonsMetaDescription: "A glossary of AI terms from the DNESKAi editions, by area.",
     term: "Term",
-    description: "Description",
+    description: "Explanation",
     today: "Today",
-    revealedOn: "revealed",
+    revealedOn: "first",
     partnerLabel: "Partner",
   },
   article: {
@@ -521,15 +520,14 @@ const cs: Dict = {
   daily: {
     lessonKicker: "Pojem dne",
     lessonLink: "Celé heslo",
-    lessonsTitle: "AI lekce",
-    lessonsIntro:
-      "Každý den jeden pojem z denního vydání. Vše, co už bylo odhaleno, seřazené podle kategorií.",
-    lessonsMetaDescription:
-      "Slovníček AI pojmů, které DNESKAi dosud vysvětlilo: každý den jeden, podle kategorií.",
-    term: "Termín",
-    description: "Popis",
+    lessonsKicker: "Slovník",
+    lessonsTitle: "Slovník AI",
+    lessonsIntro: "Šedesát pojmů, které se ve vydáních opakují, podle oblastí.",
+    lessonsMetaDescription: "Slovník AI pojmů z vydání DNESKAi, podle oblastí.",
+    term: "Pojem",
+    description: "Vysvětlení",
     today: "Dnes",
-    revealedOn: "odhaleno",
+    revealedOn: "poprvé",
     partnerLabel: "Partner",
   },
   article: {

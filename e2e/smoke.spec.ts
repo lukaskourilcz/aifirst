@@ -154,7 +154,7 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
     await expect(sidebar.locator(`a[href$="${path}"]`)).toHaveCount(0);
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/topics", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
+  for (const path of ["/topics", "/archive", "/about", "/corrections", "/lekce", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
   await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
