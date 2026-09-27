@@ -2318,7 +2318,6 @@ svg { max-width: 100%; }
 
 .archive-system-row { display: flex; justify-content: space-between; gap: var(--space-5); align-items: center; padding: var(--space-4); border: 1px dashed var(--border-subtle); color: var(--text-tertiary); }
 .archive-system-row p { margin: 0; }
-.archive-system-row p + p { margin-top: var(--space-2); font-family: var(--font-reading); }
 
 .source-directory { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-5); list-style: none; margin: var(--space-6) 0 0; padding: 0; }
 .source-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-3); height: 100%; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); }
@@ -2414,7 +2413,6 @@ svg { max-width: 100%; }
 
 @media (max-width: 760px) {
   .board-changelog li { grid-template-columns: 1fr; gap: var(--space-1); }
-  .archive-system-row { align-items: flex-start; flex-direction: column; }
   .provenance dl { grid-template-columns: 1fr; }
   .provenance dl div:nth-child(odd) { border-right: 0; }
   .provenance__header { align-items: start; }

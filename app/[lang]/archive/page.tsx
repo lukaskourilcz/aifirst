@@ -84,12 +84,10 @@ export default async function ArchivePage({
                 </CoverCard>
               </li>
             ) : (
+              // One quiet line. The reason, the code and the board room stay
+              // with the operator; the reader only needs to know the day is empty.
               <li key={`no-edition-${a.date}`} className="archive-system-row">
-                <div>
-                  <p className="label"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "systém" : "system"}</p>
-                  <p>{locale === "cs" ? "Bez vydání" : "No edition"}</p>
-                </div>
-                <a href={a.roomUrl} target="_blank" rel="noreferrer noopener">{locale === "cs" ? "Přečíst diskusi" : "Read the argument"} ↗</a>
+                <p className="kicker"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "bez vydání" : "no edition"}</p>
               </li>
             ))}
           </ul>
