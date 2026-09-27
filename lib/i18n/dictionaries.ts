@@ -130,10 +130,8 @@ const en = {
     nextRun: "next run",
   },
   daily: {
-    lessonKicker: "Today's AI lesson",
-    lessonLink: "Full description →",
-    factKicker: "Did you know…",
-    verified: "Verified",
+    lessonKicker: "Term of the day",
+    lessonLink: "Full entry",
     lessonsTitle: "AI lessons",
     lessonsIntro:
       "One term a day, from the daily briefing. Everything revealed so far, grouped by category.",
@@ -543,10 +541,8 @@ const cs: Dict = {
     nextRun: "příští běh",
   },
   daily: {
-    lessonKicker: "Dnešní AI lekce",
-    lessonLink: "Celý popis →",
-    factKicker: "Víte, že…",
-    verified: "Ověřeno",
+    lessonKicker: "Pojem dne",
+    lessonLink: "Celé heslo",
     lessonsTitle: "AI lekce",
     lessonsIntro:
       "Každý den jeden pojem z denního vydání. Vše, co už bylo odhaleno, seřazené podle kategorií.",

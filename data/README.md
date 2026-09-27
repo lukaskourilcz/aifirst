@@ -12,7 +12,7 @@ touched at runtime.
 
 | File | Contents | Rendered by |
 | --- | --- | --- |
-| `ai-facts.json` | 50 AI facts | `components/editorial/DidYouKnow.tsx` |
+| `ai-facts.json` | 50 AI facts | none: the „Víte, že…“ widget was retired before launch (2026-09); upstream still delivers the file |
 | `ai-lessons.json` | 60-term AI curriculum | `components/editorial/DailyLesson.tsx`, `/lekce` |
 
 Both follow `boardless-dataset/1`. The shared shape and the deterministic daily

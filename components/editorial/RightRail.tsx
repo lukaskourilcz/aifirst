@@ -4,7 +4,6 @@ import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { BannerSlot } from "./BannerSlot";
 import { DailyLesson } from "./DailyLesson";
-import { DidYouKnow } from "./DidYouKnow";
 import { eventDateBlock, type MagazineEvent } from "@/lib/events";
 
 /**
@@ -86,12 +85,7 @@ export function RightRail({
   return (
     <aside className="right-rail">
       <BannerSlot id="rail-square" locale={locale} />
-      {dateKey ? (
-        <>
-          <DailyLesson dateKey={dateKey} locale={locale} variant="rail" />
-          <DidYouKnow dateKey={dateKey} locale={locale} variant="rail" />
-        </>
-      ) : null}
+      {dateKey ? <DailyLesson dateKey={dateKey} locale={locale} /> : null}
       <EventsTeaser events={events} locale={locale} />
     </aside>
   );
