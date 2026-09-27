@@ -8,6 +8,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { loadEvents, splitByAnchor } from "@/lib/events";
 import { czechRelativeDate, groupStreamByDay, loadStream, type StreamItem } from "@/lib/streams";
 import { czechNumericDate, czechWeekday } from "@/lib/weeks";
+import { looksEnglish } from "@/lib/text";
 
 export const dynamic = "force-static";
 
@@ -32,7 +33,7 @@ function Card({ item, locale, anchor }: { item: StreamItem; locale: Locale; anch
   const relative = czechRelativeDate(item.published, anchor, czechNumericDate);
   // Stream titles are quoted, not written, and are frequently English. The lang
   // attribute is what makes a screen reader switch voice for them.
-  const foreign = /[a-z]/i.test(item.title) && !/[áčďéěíňóřšťúůýž]/i.test(item.title);
+  const foreign = looksEnglish(item.title);
 
   return (
     <li className="link-card">

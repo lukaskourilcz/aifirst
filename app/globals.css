@@ -202,9 +202,7 @@
    column once the rail was present. The table already lives in an accessible
    scroll region, so giving it the width its content needs costs nothing but
    the scroll it was already doing. */
-.source-ledger table { width: 100%; border-collapse: collapse; min-width: 780px; }
-.source-ledger td:nth-child(2) { min-width: 15em; }
-.source-ledger td:last-child { min-width: 18em; }
+.source-ledger table { width: 100%; border-collapse: collapse; }
 .source-ledger th,
 .source-ledger td { padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
 .source-ledger th { font-family: var(--font-mono); font-size: 0.59375rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-tertiary); }
@@ -213,8 +211,7 @@
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
-.source-ledger__publisher,
-.source-ledger__profile {
+.source-ledger__publisher {
   display: block;
   margin-top: 4px;
   color: var(--color-slate);
@@ -223,10 +220,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.source-ledger td:nth-child(n + 3) {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-}
+.source-ledger td:last-child { white-space: nowrap; }
 .source-ledger td:nth-child(2) > a {
   color: var(--text-primary);
   font-family: var(--font-editorial);

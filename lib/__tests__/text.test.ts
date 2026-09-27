@@ -46,3 +46,16 @@ describe("slugify", () => {
     expect(slugify("a   b---c")).toBe("a-b-c");
   });
 });
+
+describe("quoted titles", () => {
+  it("marks English titles", async () => {
+    const { looksEnglish } = await import("../text.js");
+    expect(looksEnglish("Microsoft is killing off the brand")).toBe(true);
+    expect(looksEnglish("Červ postavený s AI")).toBe(false);
+  });
+
+  it("decodes entities", async () => {
+    const { decodeEntities } = await import("../text.js");
+    expect(decodeEntities("Google&#8217;s AI &amp; you")).toBe("Google’s AI & you");
+  });
+});
