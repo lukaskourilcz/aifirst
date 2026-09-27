@@ -2764,3 +2764,72 @@ svg { max-width: 100%; }
   color: var(--text-primary);
 }
 .rail-related a:hover { color: var(--accent-primary); }
+
+/* Footer operator line: who answers for the content (issue #99). */
+.footer-operator {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+.footer-operator a { color: var(--accent-primary); }
+
+/* „1 praktická věc dnes" in the rail (issue #99). */
+.rail-practical { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+.rail-practical__item { display: grid; gap: var(--space-2); min-width: 0; }
+.rail-practical__item + .rail-practical__item { padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
+.rail-practical__item .rail-module__meta { margin-top: 0; }
+.rail-practical__type {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+.rail-practical__prompt {
+  margin: 0;
+  padding: var(--space-3);
+  background: var(--surface-subtle);
+  border-left: 3px solid var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+.rail-practical__link { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+
+/* Events: the Czech date line, badges and the source host (issue #99). */
+.event__when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+.event__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  border: 1px solid currentColor;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+.event__badge--online { color: var(--accent-primary); }
+.event__badge--free { color: var(--status-complete); }
+.event__description {
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.event__source { font-family: var(--font-mono); font-size: var(--text-caption); color: var(--text-tertiary); }
+.event--past .event__when,
+.event--past .event__badge,
+.event--past .event__description { color: var(--text-tertiary); }

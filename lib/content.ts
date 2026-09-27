@@ -150,6 +150,10 @@ export type ArticleFrontmatter = {
     to: string;
     covered_slugs: string[];
   };
+  /** Raw as delivered; read it through `readPractical` in lib/practical.ts. */
+  practical?: unknown;
+  /** BoardlessAI's social copy for the edition; read defensively by the share pack. */
+  social_copy?: unknown;
 };
 
 export type Article = {

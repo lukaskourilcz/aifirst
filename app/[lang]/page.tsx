@@ -17,6 +17,7 @@ import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
 import { loadEvents, splitByAnchor } from "@/lib/events";
+import { readPractical } from "@/lib/practical";
 import { homeEditionState, listBoardContexts } from "@/lib/board";
 import { czechLongDate, czechWeekday, czechWeekdayDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
 
@@ -167,7 +168,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
 
         </div>
 
-        <RightRail locale={locale} dateKey={fm.date} events={upcoming} />
+        <RightRail locale={locale} dateKey={fm.date} events={upcoming} practical={readPractical(fm.practical, fm.date)} />
       </div>
     </>
   );

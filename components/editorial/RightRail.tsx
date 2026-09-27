@@ -4,6 +4,8 @@ import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { BannerSlot } from "./BannerSlot";
 import { DailyLesson } from "./DailyLesson";
+import { PracticalTip } from "./PracticalTip";
+import type { PracticalBlock } from "@/lib/practical";
 import { eventDateBlock, type MagazineEvent } from "@/lib/events";
 
 /**
@@ -77,15 +79,19 @@ export function RightRail({
   locale,
   dateKey,
   events,
+  practical = null,
 }: {
   locale: Locale;
   dateKey?: string;
   events: MagazineEvent[];
+  /** The lead edition's practical item; only Today passes it. */
+  practical?: PracticalBlock | null;
 }) {
   return (
     <aside className="right-rail">
       <BannerSlot id="rail-square" locale={locale} />
       {dateKey ? <DailyLesson dateKey={dateKey} locale={locale} /> : null}
+      <PracticalTip practical={practical} locale={locale} />
       <EventsTeaser events={events} locale={locale} />
     </aside>
   );
