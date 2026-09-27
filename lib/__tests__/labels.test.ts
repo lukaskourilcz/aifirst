@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hostOf, sourceName, topicLabel } from "../labels";
+import { classificationLabel, hostOf, photoCreditParts, sourceName, topicLabel } from "../labels";
 import type { Source } from "../sources";
 
 const registry: Source[] = [
@@ -43,5 +43,21 @@ describe("sourceName", () => {
   it("falls back to the host without www", () => {
     expect(sourceName("unknown-feed", registry, "https://www.wsj.com/economy/x")).toBe("wsj.com");
     expect(hostOf("not a url")).toBe("");
+  });
+});
+
+describe("delivered machine values", () => {
+  it("maps the evidence class to Czech", () => {
+    expect(classificationLabel("primary")).toBe("primární");
+    expect(classificationLabel("secondary")).toBe("sekundární");
+    expect(classificationLabel(undefined)).toBe("neurčeno");
+  });
+
+  it("rebuilds the photo credit from structured fields", () => {
+    expect(photoCreditParts({ author: "Mikhail Nilov", license: "Pexels License" })).toEqual({
+      prefix: "Foto:",
+      author: "Mikhail Nilov",
+      host: "Pexels",
+    });
   });
 });

@@ -6,6 +6,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
 import { SectionMasthead } from "./SectionMasthead";
 import { czechDisplayDate } from "@/lib/weeks";
+import { classificationLabel } from "@/lib/labels";
 
 function hostname(url: string): string {
   try {
@@ -48,9 +49,7 @@ export function SourceLedger({
               const registered = registryById.get(source.source_id ?? source.id);
               const publisher = source.publisher ?? registered?.name ?? hostname(source.url);
               const classification = source.classification ??
-                (registered?.tags?.includes("primary-source")
-                  ? "primary"
-                  : locale === "cs" ? "neurčeno" : "unclassified");
+                (registered?.tags?.includes("primary-source") ? "primary" : undefined);
               return (
                 <tr key={`${source.id}-${source.url}`}>
                   <td>{String(index + 1).padStart(2, "0")}</td>
@@ -67,15 +66,15 @@ export function SourceLedger({
                       </Link>
                     ) : null}
                   </td>
-                  <td>{source.source_type ?? registered?.type ?? "—"}</td>
+                  <td>{registered?.type ?? "—"}</td>
                   <td>
                     <span
-                      className={`evidence-class evidence-class--${classification}`}
+                      className={`evidence-class evidence-class--${classification ?? "unclassified"}`}
                     >
-                      {classification}
+                      {classificationLabel(classification)}
                     </span>
                   </td>
-                  <td>{source.supports?.join("; ") || "—"}</td>
+                  <td>—</td>
                 </tr>
               );
             })}

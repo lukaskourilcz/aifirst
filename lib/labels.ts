@@ -210,3 +210,32 @@ export function sourceName(id: string, registry: Source[], url?: string): string
   if (value && !SLUG.test(value)) return value;
   return hostOf(url);
 }
+
+/** Evidence class → Czech. Anything upstream has not classified is „neurčeno". */
+export function classificationLabel(value: string | undefined): string {
+  if (value === "primary") return "primární";
+  if (value === "secondary") return "sekundární";
+  return "neurčeno";
+}
+
+// Licence names as the reader sees them: the host, not the licence's title.
+const LICENCE_HOSTS: Record<string, string> = {
+  "pexels license": "Pexels",
+  "unsplash license": "Unsplash",
+  "pixabay license": "Pixabay",
+};
+
+/**
+ * „Foto: Mikhail Nilov / Pexels". Upstream's `attribution.text` is English
+ * („Photo by … on Pexels") and never reaches the page; the credit is rebuilt
+ * from the structured fields.
+ */
+export function photoCreditParts(attribution: { author: string; license: string }): {
+  prefix: string;
+  author: string;
+  host: string;
+} {
+  const licence = attribution.license.trim();
+  const host = LICENCE_HOSTS[licence.toLowerCase()] ?? licence.replace(/\s+licen[cs]e$/i, "");
+  return { prefix: "Foto:", author: attribution.author.trim(), host };
+}

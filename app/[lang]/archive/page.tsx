@@ -86,7 +86,7 @@ export default async function ArchivePage({
               <li key={`no-edition-${a.date}`} className="archive-system-row">
                 <div>
                   <p className="label"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "systém" : "system"}</p>
-                  <p>{locale === "cs" ? "Bez vydání" : "No edition"} — {a.noEditionReason || (locale === "cs" ? "pipeline vydání vynechala" : "the pipeline missed")}</p>
+                  <p>{locale === "cs" ? "Bez vydání" : "No edition"}</p>
                 </div>
                 <a href={a.roomUrl} target="_blank" rel="noreferrer noopener">{locale === "cs" ? "Přečíst diskusi" : "Read the argument"} ↗</a>
               </li>

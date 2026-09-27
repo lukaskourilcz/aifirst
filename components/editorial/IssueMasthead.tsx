@@ -4,6 +4,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
 import { isDrawnPlate, type ArticleCategory } from "@/lib/content";
 import { czechLongDate } from "@/lib/weeks";
+import { photoCreditParts } from "@/lib/labels";
 
 // Machine keys upstream, Czech labels here. Categories are separate from tags
 // and the two never merge into one row.
@@ -41,10 +42,15 @@ export function IssueMasthead({
   // Same rule as the front-page lead: the plate composites over a photograph
   // only, never over a drawn .svg cover that arrives already composed.
   const overlay = heroPhoto !== null && !isDrawnPlate(heroPhoto);
-  const credit = heroAttribution
-    ? <a href={heroAttribution.sourceUrl} target="_blank" rel="noopener noreferrer">
-        {heroAttribution.text || `${heroAttribution.author} · ${heroAttribution.license}`}
-      </a>
+  // Rebuilt from the structured fields: upstream's `text` is English. The link
+  // sits on the author's name only.
+  const creditParts = heroAttribution ? photoCreditParts(heroAttribution) : null;
+  const credit = heroAttribution && creditParts
+    ? <>
+        {creditParts.prefix}{" "}
+        <a href={heroAttribution.sourceUrl} target="_blank" rel="noopener noreferrer">{creditParts.author}</a>
+        {creditParts.host ? ` / ${creditParts.host}` : null}
+      </>
     : heroCaption ?? null;
 
   // Meta, categories and topics sit under the image on both variants; only the
