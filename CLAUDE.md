@@ -64,7 +64,7 @@ anywhere in this pipeline and none is coming back.
   delivery paths: dated MDX, the edition's hero and thumbnail, board JSON, the
   two append-only datasets, and the three synced stream and event files.
   `docs/GOVERNANCE.md` is the enumeration.
-- Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking. Vercel Web Analytics (pageviews only, no custom events, Vercel builds only) is the one measurement, restored for the November 2026 launch (#99) so campaign `utm_*` links are counted.
+- Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking. Vercel Web Analytics (Vercel builds only) is the one measurement, restored for the November 2026 launch (#99): pageviews, plus exactly one custom event, `campaign` (`source` = utm_source/utm_medium, `campaign` = utm_campaign), sent once on a campaign landing because the UTM breakdown is a paid add-on on Pro. No other events, no cookies, no identifiers.
 
 ## Content and delivery
 

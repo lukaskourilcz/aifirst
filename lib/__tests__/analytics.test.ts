@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { publicPath, withLandingUtm } from "../analytics";
+import { campaignFromUrl, publicPath, withLandingUtm } from "../analytics";
 
 const site = "https://caughtup-ai.vercel.app";
 
@@ -35,5 +35,20 @@ describe("analytics: campaign parameters survive the /cs rewrite", () => {
 
   it("passes through what it cannot parse", () => {
     expect(withLandingUtm("not a url", `${site}/`)).toBe("not a url");
+  });
+});
+
+describe("analytics: the campaign event", () => {
+  it("reads source/medium and campaign from a landing URL", () => {
+    expect(campaignFromUrl(`${site}/?utm_source=threads&utm_medium=post&utm_campaign=edition`)).toEqual({ source: "threads/post", campaign: "edition" });
+    expect(campaignFromUrl(`${site}/articles/x?utm_source=Instagram`)).toEqual({ source: "instagram", campaign: "none" });
+  });
+
+  it("sends nothing without a clean utm_source", () => {
+    expect(campaignFromUrl(`${site}/`)).toBeNull();
+    expect(campaignFromUrl(`${site}/?utm_medium=post`)).toBeNull();
+    expect(campaignFromUrl(`${site}/?utm_source=${"x".repeat(41)}`)).toBeNull();
+    expect(campaignFromUrl(`${site}/?utm_source=a%20b`)).toBeNull();
+    expect(campaignFromUrl("nope")).toBeNull();
   });
 });
