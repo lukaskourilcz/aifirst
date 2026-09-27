@@ -38,7 +38,6 @@ export function buildRail(locale: Locale): Rail {
     secondary: [
       { key: "radar", label: r.radar, href: lp("/radar") },
       { key: "topics", label: r.topics, href: lp("/topics") },
-      { key: "weeklyDigest", label: r.weeklyDigest, href: lp("/weekly") },
       { key: "archive", label: r.archive, href: lp("/archive") },
       { key: "lessons", label: r.lessons, href: lp("/lekce") },
       { key: "aboutMagazine", label: r.aboutMagazine, href: lp("/about") },

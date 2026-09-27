@@ -150,11 +150,11 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
   for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
     await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
   }
-  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/lekce", "/about"]) {
+  for (const path of ["/radar", "/topics", "/archive", "/lekce", "/about"]) {
     await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/radar", "/topics", "/weekly", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
+  for (const path of ["/radar", "/topics", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
   await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
@@ -201,9 +201,9 @@ test("inline links carry the Blueprint Blue (#2f5ae6)", async ({ page }) => {
 
 test("the desktop rail exposes the active section and holds 44px targets", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/weekly");
+  await page.goto("/archive");
   const active = page.locator('.nav-rail a[aria-current="page"]');
-  await expect(active).toHaveAttribute("href", /\/weekly$/);
+  await expect(active).toHaveAttribute("href", /\/archive$/);
   // Primary sections are 44px; the secondary group is deliberately 36px and is
   // not a touch surface at this width.
   for (const item of await page.locator(".nav-rail > a.nav-item").all()) {
@@ -218,14 +218,14 @@ test("the rail contains exactly the sections and search, and no status record", 
   // Six indexed sections as direct children, six secondary links, one search
   // control, and no status record of any kind.
   await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(6);
-  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(6);
+  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(5);
   await expect(page.locator(".sidebar-status")).toHaveCount(0);
   await expect(page.locator(".sidebar .nav-item--button")).toHaveCount(1);
 });
 
 test("below 960 the drawer replaces the rail and behaves for the keyboard", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/weekly");
+  await page.goto("/archive");
 
   await expect(page.locator(".sidebar")).toBeHidden();
   const trigger = page.locator(".topbar__trigger");
@@ -237,7 +237,7 @@ test("below 960 the drawer replaces the rail and behaves for the keyboard", asyn
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(page.locator(".drawer__close")).toBeFocused();
   await expect(page.locator("html")).toHaveCSS("overflow", "hidden");
-  await expect(drawer.locator('[aria-current="page"]')).toHaveAttribute("href", /\/weekly$/);
+  await expect(drawer.locator('[aria-current="page"]')).toHaveAttribute("href", /\/archive$/);
 
   for (const item of await page.locator(".drawer__item").all()) {
     const box = await item.boundingBox();
