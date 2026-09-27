@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { PageShell } from "@/components/PageShell";
 import type { Locale } from "@/lib/i18n/config";
-import { dict } from "@/lib/i18n/dictionaries";
 
 const boardlessAdmin = "https://quorum-site-chi.vercel.app/admin";
 
@@ -13,7 +12,7 @@ export default async function AdminMigrationPage({ params }: { params: Promise<{
   const czech = locale === "cs";
   return (
     <PageShell
-      kicker={dict(locale).admin.kicker}
+      kicker={czech ? "správa" : "admin"}
       title={czech ? "Provoz je v BoardlessAI." : "Operations live in BoardlessAI."}
       kickerTone="warning"
       intro={czech
