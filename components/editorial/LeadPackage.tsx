@@ -4,7 +4,7 @@ import { DigestRow } from "./DigestRow";
 import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { czechNumericDate } from "@/lib/weeks";
+import { czechNumericDate, czechWeekdayDate } from "@/lib/weeks";
 
 /**
  * A deterministic 45° hairline plate, seeded from the slug so one article
@@ -43,11 +43,14 @@ export function LeadPackage({
   locale,
   heroPhoto,
   readingMinutes,
+  earlier = false,
 }: {
   article: Article;
   locale: Locale;
   heroPhoto: string | null;
   readingMinutes: number;
+  /** The lead is an earlier day's edition, e.g. Friday's on a Saturday. */
+  earlier?: boolean;
 }) {
   const fm = article.frontmatter;
   const t = dict(locale).sections;
@@ -83,9 +86,9 @@ export function LeadPackage({
 
       <div className="lead__copy">
         <p className="lead__kicker">
-          {t.todaysEdition}
+          {earlier ? t.latestEdition : t.todaysEdition}
           <span aria-hidden> · </span>
-          <time dateTime={fm.date}>{czechNumericDate(fm.date)}</time>
+          <time dateTime={fm.date}>{earlier ? czechWeekdayDate(fm.date) : czechNumericDate(fm.date)}</time>
         </p>
         <h1 id="lead-title" className="lead__title" data-long={long ? "true" : undefined}>
           <Link href={href}>{fm.title}</Link>

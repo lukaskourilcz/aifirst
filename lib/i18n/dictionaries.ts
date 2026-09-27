@@ -72,6 +72,7 @@ const en = {
   },
   sections: {
     todaysEdition: "Today's edition",
+    latestEdition: "Latest edition",
     briefs: "In brief",
     watchlist: "On the radar",
     lastWeek: "Last week",
@@ -507,6 +508,7 @@ const cs: Dict = {
   },
   sections: {
     todaysEdition: "Dnešní vydání",
+    latestEdition: "Poslední vydání",
     briefs: "Ve zkratce",
     watchlist: "Na radaru",
     lastWeek: "Poslední týden",

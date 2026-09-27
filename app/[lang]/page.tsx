@@ -19,8 +19,8 @@ import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
 import { loadEvents, splitByAnchor } from "@/lib/events";
-import { listBoardContexts } from "@/lib/board";
-import { czechLongDate, czechNumericDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
+import { homeEditionState, listBoardContexts } from "@/lib/board";
+import { czechLongDate, czechNumericDate, czechWeekday, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -64,17 +64,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
   const base = siteUrl();
   const articleHref = lp(`/articles/${latest.slug}`);
 
-  // Some days have no edition. The board records that honestly, and a record
-  // dated after the newest article is what makes today one of those days. The
-  // page says so rather than promoting a back issue into the lead slot.
-  const boards = await listBoardContexts();
-  const newestBoard = [...boards].sort((a, b) => b.date.localeCompare(a.date))[0];
-  const noEditionToday =
-    newestBoard !== undefined && newestBoard.status === "no_edition" && newestBoard.date > fm.date;
-
-  // Every date on this page is measured against the newest record, never a
-  // clock, so the same content always builds the same HTML.
-  const anchor = noEditionToday && newestBoard ? newestBoard.date : fm.date;
+  // A weekday with a no_edition record newer than the latest edition is a
+  // missed day and the page says so. A weekend is not: Saturday and Sunday
+  // lead with Friday's edition as „Poslední vydání". Every date is measured
+  // against the newest record, never a clock, so the same content always
+  // builds the same HTML.
+  const { anchor, missedDay, leadIsEarlier } = homeEditionState(await listBoardContexts(), fm.date);
+  const noEditionToday = missedDay !== null;
   const week = withinLastDays(allArticles, anchor, 7).filter(
     (a) => noEditionToday || a.slug !== latest.slug,
   );
@@ -130,7 +126,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             <p className="dateline__edition">
               <span className="dateline__name">{publication.name}</span>
               <span aria-hidden> · </span>
-              <time dateTime={anchor}>{czechLongDate(anchor)}</time>
+              <time dateTime={anchor}>{czechWeekday(anchor)} {czechLongDate(anchor)}</time>
             </p>
             <p className="dateline__promise">{publication.promise}</p>
           </header>
@@ -142,10 +138,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             <section className="no-edition" aria-labelledby="no-edition-title">
               <p className="no-edition__kicker">
                 {t.noEditionKicker}
-                {newestBoard ? (
+                {missedDay ? (
                   <>
                     <span aria-hidden> · </span>
-                    <time dateTime={newestBoard.date}>{czechNumericDate(newestBoard.date)}</time>
+                    <time dateTime={missedDay}>{czechNumericDate(missedDay)}</time>
                   </>
                 ) : null}
               </p>
@@ -154,7 +150,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             </section>
           ) : (
             <>
-              <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} />
+              <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} earlier={leadIsEarlier} />
 
               <SponsorBlock sponsor={fm.sponsor} />
               <CondensedBriefs

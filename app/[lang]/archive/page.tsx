@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
-import { listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
+import { isPublishingDay, listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
 import { getArticle, listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
@@ -36,7 +36,8 @@ export default async function ArchivePage({
   }));
   const publishedDates = new Set(all.map((article) => article.date));
   const noEditions = boardContexts
-    .filter((context): context is NoEditionBoardContext => context.status === "no_edition" && !publishedDates.has(context.date))
+    .filter((context): context is NoEditionBoardContext =>
+      context.status === "no_edition" && !publishedDates.has(context.date) && isPublishingDay(context.date))
     .map((context) => ({ kind: "no_edition" as const, ...context }));
   const byYearMonth = groupBy([...entries, ...noEditions].sort((a, b) => b.date.localeCompare(a.date)), (a) => a.date.slice(0, 7));
 

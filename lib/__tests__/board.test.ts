@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { boardChangelogErrors, boardContextErrors, listBoardContexts, loadBoardChangelog, parseBoardContext, readBoardContext } from "../board";
+import { boardChangelogErrors, boardContextErrors, homeEditionState, isPublishingDay, listBoardContexts, loadBoardChangelog, parseBoardContext, readBoardContext } from "../board";
 
 const roots: string[] = [];
 afterEach(async () => Promise.all(roots.splice(0).map((root) => fs.rm(root, { recursive: true, force: true }))));
@@ -56,5 +56,49 @@ describe("board changelog", () => {
     await fs.writeFile(file, JSON.stringify(value));
     expect(await loadBoardChangelog(file)).toEqual(value.entries);
     expect(boardChangelogErrors({ ...value, entries: [{ ...value.entries[0], meetingUrl: "javascript:bad" }] })).toContain("entries[0].meetingUrl must be http(s)");
+  });
+});
+
+describe("weekend is not a missing edition", () => {
+  const noEdition = (date: string) => ({
+    schemaVersion: "board-context/1" as const,
+    date,
+    packageHash: "b".repeat(64),
+    status: "no_edition" as const,
+    noEditionReason: "budget_exhausted",
+    roomUrl: "https://boardless.example/meetings/x",
+  });
+  const withEdition = (date: string) => ({ ...edition, schemaVersion: "board-context/1" as const, date, status: "edition" as const });
+
+  it("knows the publishing days", () => {
+    expect(isPublishingDay("2026-09-25")).toBe(true); // Friday
+    expect(isPublishingDay("2026-09-26")).toBe(false); // Saturday
+    expect(isPublishingDay("2026-09-27")).toBe(false); // Sunday
+  });
+
+  it("leads with Friday's edition on a Saturday", () => {
+    expect(homeEditionState([noEdition("2026-09-26"), withEdition("2026-09-25")], "2026-09-25")).toEqual({
+      anchor: "2026-09-26",
+      missedDay: null,
+      leadIsEarlier: true,
+    });
+  });
+
+  it("leads with Friday's edition on a Sunday", () => {
+    const state = homeEditionState([noEdition("2026-09-27"), noEdition("2026-09-26")], "2026-09-25");
+    expect(state.missedDay).toBeNull();
+    expect(state.anchor).toBe("2026-09-27");
+  });
+
+  it("reports a missed Wednesday", () => {
+    expect(homeEditionState([noEdition("2026-09-23"), withEdition("2026-09-22")], "2026-09-22").missedDay).toBe("2026-09-23");
+  });
+
+  it("is plain on a normal weekday", () => {
+    expect(homeEditionState([withEdition("2026-09-25")], "2026-09-25")).toEqual({
+      anchor: "2026-09-25",
+      missedDay: null,
+      leadIsEarlier: false,
+    });
   });
 });

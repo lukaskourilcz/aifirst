@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { isoWeekday } from "./weeks";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const HASH_RE = /^[a-f0-9]{64}$/;
@@ -137,4 +138,33 @@ export async function loadBoardChangelog(file = path.join(process.cwd(), "config
   return (value as { entries: BoardChangelogEntry[] }).entries
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/** Editions come out Monday to Friday. A weekend is never a missing edition. */
+export function isPublishingDay(dateKey: string): boolean {
+  return isoWeekday(dateKey) <= 5;
+}
+
+export type HomeEditionState = {
+  /** The day the front page is dated: the newest board record or edition. */
+  anchor: string;
+  /** Set when that day is a publishing day that has no edition. */
+  missedDay: string | null;
+  /** True when the lead is an earlier edition than the anchor day. */
+  leadIsEarlier: boolean;
+};
+
+/**
+ * What the front page says about today. Only a `no_edition` record that is
+ * newer than the latest edition **and** falls on a weekday is a missed day;
+ * on a Saturday or Sunday the latest edition leads as „Poslední vydání".
+ * Nothing here reads a clock: the anchor is the newest record's date.
+ */
+export function homeEditionState(boards: BoardContext[], latestEditionDate: string): HomeEditionState {
+  const newest = [...boards].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const newer = newest !== undefined && newest.date > latestEditionDate ? newest : undefined;
+  const anchor = newer?.date ?? latestEditionDate;
+  const missedDay =
+    newer && newer.status === "no_edition" && isPublishingDay(newer.date) ? newer.date : null;
+  return { anchor, missedDay, leadIsEarlier: anchor !== latestEditionDate };
 }
