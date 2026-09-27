@@ -2,6 +2,10 @@
    reading arc, and one blueprint-blue completion mark. */
 
 :root {
+  /* One light theme. Declared so form controls and scrollbars never switch
+     to a dark rendering on a dark-mode system. */
+  color-scheme: light;
+
   /* Light newsroom palette, as semantic roles. The hexes are mirrored in
      lib/og-theme.ts because next/og cannot read CSS variables. */
   --surface-page: #f7f7f5;
