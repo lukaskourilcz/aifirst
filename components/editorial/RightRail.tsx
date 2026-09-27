@@ -69,19 +69,6 @@ export function EventsTeaser({ events, locale }: { events: MagazineEvent[]; loca
   );
 }
 
-export function SubscribeModule({ locale }: { locale: Locale }) {
-  const t = dict(locale).sections;
-  const d = dict(locale);
-  return (
-    <WidgetModule kicker={t.subscribe}>
-      <p className="rail-module__body">{t.subscribeBody}</p>
-      <p className="rail-module__action">
-        <a href={localePath(locale, "/feed.xml")}>{d.common.atomFeed} ↗</a>
-      </p>
-    </WidgetModule>
-  );
-}
-
 /**
  * The right rail. It drops below 1280 and its modules reflow into the main
  * column in this same order, which is why the order lives here and not in each
@@ -106,7 +93,6 @@ export function RightRail({
         </>
       ) : null}
       <EventsTeaser events={events} locale={locale} />
-      <SubscribeModule locale={locale} />
     </aside>
   );
 }
