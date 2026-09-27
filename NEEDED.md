@@ -12,6 +12,20 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [x] **Decide the banner slots (#97)** — decided 2026-09-25: devShark creatives in both slots, labelled as the owner's own project. [imp:2] [owner:me] [time:10m] [kind:decision]
 - [ ] **Rename `lukaskourilcz/aifirst` to `lukaskourilcz/DNESKAi`** — after quorum #555–#564 and own-dashboard #75 are merged; then set `NEXT_PUBLIC_GITHUB_REPO=lukaskourilcz/DNESKAi` on the Vercel project and update local remotes. #95 does the repository side. The package name stays `aifirst`. [imp:3] [owner:me] [time:15m] [kind:setup]
 
+## Marketing launch 2026-11-05 (issue #99)
+
+The reader side shipped on 2026-09-28: UTM landing with Web Analytics, share
+pack v2, 4:5/9:16/16:9 cards, the `practical` field, `/akce` for synced events,
+news sitemap, RSS, `/llms.txt`, Markdown editions and the footer links. These
+need the owner:
+
+- [ ] **Confirm Web Analytics counts a campaign link after the deploy** — open `{site}/?utm_source=threads&utm_medium=post&utm_campaign=edition` once, then check Vercel › aifirst-zpx8 › Analytics › UTM Parameters (or the pageviews API grouped by `utmSource`). Web Analytics was off from 2026-08-01 until this release, so August–September show almost nothing. [imp:4] [owner:me] [time:10m] [kind:deploy]
+- [ ] **Create the Threads profile @dneskai, then flip it on** — set `live: true` for `threads` in `brand.social` (`lib/brand.ts`); the footer links only live profiles. Before 4 Nov. [imp:3] [owner:me] [time:10m] [kind:setup]
+- [ ] **Supply the operator identification and an editorial contact** — the footer and About name only the person responsible for the content. Seznam Newsfeed and good practice need the operator (name or company, IČO) and a contact e-mail; fill `about.authorshipContact` and extend the footer line with what you choose to publish. Nothing was guessed. [imp:4] [owner:me] [time:15m] [kind:legal]
+- [ ] **Decide on Seznam Newsfeed after a legal read** — the code prerequisites are in place (RSS 2.0 at `/rss.xml` with 20 items and a 16:9 enclosure, favicon, the responsible person in the footer). Seznam's terms since 1 May 2026 exclude automatically generated and machine-translated text, and every DNESKAi edition is written by a language model, so applying may breach them. The feed also carries only the dek, not the full text Seznam asks for (≥ 800 characters). Do not apply until that is settled. [imp:3] [owner:me] [time:30m] [kind:legal]
+- [ ] **Pick the newsletter sender before the referral perk** — Buttondown or Listmonk, price first; then a subscribe form in the rail and the referral perk. Not built: it needs a paid service decision. [imp:3] [owner:me] [time:30m] [kind:decision]
+- [ ] **Submit `/news-sitemap.xml` in Google Search Console** once the production domain is final. [imp:2] [owner:me] [time:10m] [kind:setup]
+
 ## Required for unattended BoardlessAI delivery
 
 - [ ] **Finish the Vercel half of the credential audit** — the retired `ANTHROPIC_API_KEY` Actions secret was deleted from `lukaskourilcz/aifirst` on 2026-08-07. Still open: remove any old source, image, promotion, heartbeat or generation-report credentials from the aifirst Vercel project, and rotate keys previously pasted into chat. Do not remove Quorum’s active producer credentials. The old OwnDashboard sentinel pair can go too — nothing reads it any more. [imp:4] [owner:me] [time:15m] [kind:setup]
@@ -23,7 +37,7 @@ credentials or judgment; there is no second generation setup to maintain here.
 - [x] **Answer the brand gate on issue #47** — approved 2026-08-09: the official name is DNESKAi. Recorded on the issue; the kickoff schedules the rename right before the documentation pass.
 - [ ] **Confirm the curated source registries** — approve or edit the seed list in quorum's `config/caught-up-streams.json`: three Medium tags, nine Substacks and eight podcast shows, of which eight ship disabled because their channel id could not be resolved without guessing, plus two empty slots for the Czech AI shows you pick. [imp:3] [owner:me] [time:30m] [kind:decision]
 - [ ] **Create the free Podcast Index API key** — register at api.podcastindex.org and add `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET` to the quorum Actions secrets; the podcast stream falls back to YouTube-only until then. [imp:3] [owner:me] [time:15m] [kind:setup]
-- [ ] ~~Provide the social profile URLs~~ — retired by the 2026-09 audit: the linkless social icons were removed from the footer. If real accounts appear, adding them is a new product decision.
+- [x] **Provide the social profile URLs** — decided in #99 (2026-09-27): Instagram @dneskai is linked from the footer; Threads waits for its profile (above).
 
 ## Product decisions
 
@@ -73,7 +87,8 @@ credentials or judgment; there is no second generation setup to maintain here.
   found no committed credential.
 - Vercel Pro is confirmed; production is `main` and the reader is at
   `https://caughtup-ai.vercel.app`.
-- Visitor and engagement analytics are deliberately absent for this phase.
+- Visitor analytics: Vercel Web Analytics pageviews only, restored for the
+  November launch (#99); no custom events, no Speed Insights.
 - The repository contains no scraper, editorial model client, article writer,
   media generator, social console or weekly/regeneration workflow.
 - `/admin` is a noindex handoff link to the protected BoardlessAI social

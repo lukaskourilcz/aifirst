@@ -27,8 +27,14 @@ reader.
   the hero and thumbnail for each new article, and sanitized board context.
 - **Automation:** GitHub Actions CI plus a Prague-aware missed-publication
   sentinel; no generation workflow runs here.
-- **Deployment:** Vercel Pro static/SSG output with Web Analytics and Speed
-  Insights.
+- **Deployment:** Vercel Pro static/SSG output with Vercel Web Analytics
+  (pageviews only, cookieless, on Vercel builds; it reads campaign `utm_*`
+  parameters from the landing URL). Speed Insights is not loaded.
+- **Distribution:** per-edition share pack `/data/share/<date>.cs.json`
+  (version 2: social copy, lesson, practical item, card URLs, UTM links;
+  schema `contracts/distribution-pack.schema.json`), build-time cards in
+  1200x630, 4:5, 9:16 and 16:9, Atom and RSS 2.0 feeds, a Google News sitemap,
+  `/llms.txt` and a Markdown copy of each edition at `/articles/<slug>.md`.
 - **Quality:** ESLint, TypeScript, Vitest, content/contract validation, a 110 kB
   gzip page-entry guard and Playwright.
 

@@ -187,11 +187,18 @@ generation callback or mutation control. Producer operations belong to Quorum.
   structured data where semantically applicable
 - localized canonical/hreflang/x-default links and article metadata
 - one static sitemap covering general pages, articles, weekly editions, topics
-  and source profiles; small archive size does not justify multiple files yet
+  and source profiles (plus `/akce` while it has upcoming events); small
+  archive size does not justify multiple files yet
+- a Google News sitemap (`/news-sitemap.xml`) with the editions of the newest
+  edition's day and the day before, anchored on content rather than a clock
+- RSS 2.0 at `/rss.xml` beside the Atom feeds, `/llms.txt`, and a noindex
+  Markdown copy of every edition at `/articles/<slug>.md
 - operator, health, deprecated duplicates, previews and empty topics excluded
 - deterministic internal related/topic/source/glossary/adjacent links
 - localized site, weekly, topic and preserved tag feeds
-- static JSON syndication and locale-specific distribution packs
+- static JSON syndication and the per-edition share pack v2
+  (`/data/share/<date>.cs.json`, `contracts/distribution-pack.schema.json`)
+  with build-time cards at `/articles/<slug>/share/{og,feed,story,wide}.png`
 
 The single sitemap is intentional for the current small archive. Next.js
 supports nested/generated sitemap partitions when URL count or build time makes

@@ -23,8 +23,12 @@ technical identifier, not the public publication name.
   canonicals, sitemaps and feeds.
 - Preserve legacy MDX, article URLs, tag URLs and feed consumers while
   redirecting renamed reader surfaces to the new product structure.
-- Generate Atom feeds, static JSON contracts, share packs, newsletter files,
-  Open Graph images, print pages, sitemap entries and structured metadata.
+- Generate Atom and RSS feeds, static JSON contracts, per-edition share packs,
+  newsletter files, edition cards (Open Graph, 4:5, 9:16, 16:9), print pages,
+  a sitemap and a Google News sitemap, `/llms.txt`, a Markdown copy of each
+  edition and structured metadata.
+- Render an edition's optional practical item („1 praktická věc dnes") in the
+  right rail beside the term of the day.
 - Provide static search, related issues, glossary disclosures, keyboard
   shortcuts, a command palette, accessible navigation and reduced-motion
   behavior without a client-side state framework.
@@ -52,6 +56,11 @@ Reader growth increases static delivery, not editorial model usage.
 | `/akce`, `/ai-modely` | Built and reachable, not in the navigation, noindex while empty |
 | `/health` | Noindex publication freshness in publishing days |
 | `/feed.xml`, `/weekly/feed.xml`, topic feeds | Locale-correct Atom distribution |
+| `/rss.xml` | RSS 2.0, the 20 newest editions with a 16:9 enclosure |
+| `/news-sitemap.xml` | Google News sitemap: the newest edition's day and the day before |
+| `/llms.txt`, `/articles/[slug].md` | The site and each edition as plain Markdown (noindex copies) |
+| `/data/share/<date>.cs.json` | Per-edition share pack, version 2 (below) |
+| `/articles/[slug]/share/{og,feed,story,wide}.png` | Edition cards: 1200x630, 1080x1350, 1080x1920, 1280x720 |
 | `/api/today.json`, `/api/weekly.json`, `/api/topics.json`, `/api/sources.json` | Build-time JSON contracts |
 | `/api/health.json` | Sanitized publication freshness; no workflow secrets or stack traces |
 
@@ -151,6 +160,12 @@ sources:
 illustration:
   prompt: "..."
   alt: "..."
+practical:            # optional; absent renders nothing
+  type: tool          # prompt | tool | term
+  title: "≤ 80 characters"
+  text: "≤ 400 characters; a prompt is the full copyable prompt"
+  url: "https://..."  # required for a tool
+  verified_at: "YYYY-MM-DD"  # required with a url or a price, never after date
 generation:
   generated_at: "2026-07-21T06:00:00Z"
   human_reviewed: false
@@ -172,7 +187,37 @@ dates, sponsorship safety and weekly linkage.
 
 ## Distribution and operations
 
-Existing provider-independent share/newsletter artifacts remain readable. New
+### Share pack and marketing surfaces (issue #99)
+
+`/data/share/<date>.cs.json` (`<date>.weekly.cs.json` for a weekly issue) is
+built statically for every edition by `app/data/share/[file]/route.ts`, so a
+delivery ships its pack without a second commit. The contract is
+`contracts/distribution-pack.schema.json`; version 2 keeps every version-1
+field with its meaning and adds:
+
+- `social_copy` — `igCaption`, `threadsText`, `storyLine`, `hashtags` and
+  `origin`: BoardlessAI's `social_copy` frontmatter when it is complete and
+  within bounds (`origin: "edition"`), otherwise copy derived from the title
+  and dek (`origin: "derived"`)
+- `lesson` — the term of the day on the edition's date (`id`, `term`, `short`,
+  `url`), or `null` before the curriculum starts
+- `practical` — the edition's practical block (`variant`, `items`), or `null`
+- `images` — absolute `og` (1200x630), `feed` (1080x1350), `story`
+  (1080x1920) and `wide` (1280x720) card URLs, all drawn at build time by
+  `lib/share-card.tsx` from the edition's own text
+- `links` — the canonical URL with the UTM convention (`utm_source`
+  instagram|threads, `utm_medium` bio|story|post|reply, `utm_campaign`
+  edition|practical), and `markdownUrl`
+
+The practical field accepts the flat item above and BoardlessAI's writer block
+(`{ variant: daily|friday-tools, items: [{ kind, title, body, source_url }] }`);
+`lib/practical.ts` validates both at delivery and reads them into one list.
+Campaign links land without a redirect (`/cs?…` still redirects with the query
+kept), and `components/SiteAnalytics.tsx` keeps `utm_*` on the first pageview
+across the internal `/cs` rewrite.
+
+Older share/newsletter artifacts remain readable; the English legacy packs are
+frozen static files. New
 editorial generation, measured costs, source outcomes and social packs stay in
 BoardlessAI; the delivery boundary exposes only article bytes, one required
 dated hero for each new article and sanitized board context. The weekly page and feeds continue to

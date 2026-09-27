@@ -34,7 +34,7 @@ The rail (`lib/rail.ts`) has four indexed sections and four reference pages:
   `/glossary` (linked only from issue glossary blocks)
 - Reading: `/articles/[slug]`, `/articles/[slug]/print`
 - Trust/reference: `/corrections`, `/sources`, `/sources/[id]`, `/glossary`
-- Distribution: site, Weekly, Topic, and preserved tag Atom feeds; public Today/Weekly/Topics/Sources/health JSON; static Open Graph at unprefixed `/opengraph-image` and `/articles/[slug]/opengraph-image`
+- Distribution: site, Weekly, Topic, and preserved tag Atom feeds plus RSS 2.0 at `/rss.xml`; public Today/Weekly/Topics/Sources/health JSON; the per-edition share pack `/data/share/<date>.cs.json` (v2, `contracts/distribution-pack.schema.json`); static Open Graph at unprefixed `/opengraph-image` and edition cards at `/articles/[slug]/share/{og,feed,story,wide}.png`; `/news-sitemap.xml`, `/llms.txt` and `/articles/[slug].md`
 - Operator-adjacent: sanitized noindex health and the noindex `/admin` migration notice; `/promotion` is retired
 - Preserve redirects `/radar`, `/stats`, `/trends`, `/pulse` and `/tags` → `/topics`, `/search` → `/archive`, `/colophon` → `/about`, legacy articles/tags/feeds, locale behavior, and canonical metadata.
 
@@ -64,7 +64,7 @@ anywhere in this pipeline and none is coming back.
   delivery paths: dated MDX, the edition's hero and thumbnail, board JSON, the
   two append-only datasets, and the three synced stream and event files.
   `docs/GOVERNANCE.md` is the enumeration.
-- Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking.
+- Do not add Tailwind, CSS-in-JS, a component/state/chart/motion library, WebGL, programmatic ads, or new tracking. Vercel Web Analytics (pageviews only, no custom events, Vercel builds only) is the one measurement, restored for the November 2026 launch (#99) so campaign `utm_*` links are counted.
 
 ## Content and delivery
 
@@ -82,6 +82,10 @@ edition pipeline. They add no client JavaScript and make no network or model cal
 - **`DailyLesson`** („Pojem dne") takes the lead edition's date as a prop. The
   „Víte, že…" facts widget was retired before launch; `data/ai-facts.json` is
   still delivered upstream and still gated by its test.
+- **`PracticalTip`** („1 praktická věc dnes", „Páteční nástroje" on a Friday
+  tools issue) renders the edition's optional `practical` frontmatter beside
+  the lesson on Today and in the article rail. `lib/practical.ts` is its
+  contract; absent renders nothing and never a placeholder.
 - The pick is `daysBetween(anchor, dateKey) % length` from `lib/daily.ts`. The date
   is the newest edition's `frontmatter.date` — a Prague publishing day by contract —
   never a clock. Nothing in these paths may call `new Date()`, `Date.now()` or
@@ -99,6 +103,13 @@ edition pipeline. They add no client JavaScript and make no network or model cal
   must be a local file under `public/images/banners/` with explicit dimensions;
   anything else reads as empty.
   No ad script, no third-party host, no tracking, so CSP is untouched.
+
+## Footer and operator identification
+
+The footer links only live social profiles from `brand.social` (Instagram
+today; Threads flips `live` when the owner creates it) and names the person
+responsible for the content exactly as About states it. No company name, IČO,
+address or contact is shown until the owner supplies one (`NEEDED.md`).
 
 ## Important paths and reuse
 
@@ -153,7 +164,9 @@ legitimate delivered state, not a failure — a day whose licensed search found
 no usable photo still ships. Historical and legacy issues may have no image at
 all, so the reader keeps its complete text-first fallback. Do not add provider
 credentials, generation adapters, Topic-cover production or social-media assets
-to this repository.
+to this repository. The edition cards in `lib/share-card.tsx` are not media
+production: they are typeset at build time from the edition's own title, dek,
+date and topics, like the Open Graph image, and carry no photograph.
 
 ## Responsive, accessibility, localization, and states
 
