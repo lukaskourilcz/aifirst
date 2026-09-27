@@ -110,12 +110,7 @@ const en = {
   home: {
     emptyKicker: "no issue yet",
     emptyTitle: "The first issue is being written.",
-    emptyBody:
-      "The daily pipeline publishes here once it has run. Check the repository for setup or trigger the workflow manually.",
-    emptyRepoCta: "Open the repository",
-    emptyBodyBefore: "The daily pipeline publishes here once it has run. See ",
-    emptyBodyRepo: "the repo",
-    emptyBodyAfter: " for setup, or run ",
+    emptyBody: "Once the first edition is out, you will find it here.",
     recentIssues: "Recent issues",
     dailyIssue: "daily issue",
     contents: "In this issue",
@@ -216,9 +211,8 @@ const en = {
   },
     archive: {
     kicker: "archive",
-    title: "Every issue.",
-    intro:
-      "Each issue is a single feature written from the day’s most interesting tech and AI items.",
+    title: "Archive",
+    intro: "Every edition since May 2026, newest first.",
     empty: "No issues yet.",
     },
   tags: {
@@ -230,8 +224,8 @@ const en = {
   },
   topics: {
     kicker: "topics",
-    title: "Follow the threads that matter.",
-    intro: "Curated destinations built from the archive. Raw tags remain available as compatibility metadata.",
+    title: "Topics",
+    intro: "Seven areas the editions keep returning to. Each lists every edition that touched it.",
     latest: "Latest coverage",
     timeline: "Timeline",
     entities: "Recurring entities",
@@ -240,7 +234,7 @@ const en = {
     related: "Related topics",
     feed: "Follow this topic",
     issues: "issues",
-    empty: "No topics meet the publication threshold yet.",
+    empty: "Topics appear once a few editions have gathered around them.",
   },
   radar: {
     kicker: "radar",
@@ -287,10 +281,10 @@ const en = {
     empty: "No corrections have been published.",
   },
   sources: {
-    kicker: "registry",
-    title: "The sources.",
+    kicker: "sources",
+    title: "Sources",
     intro:
-      "Every feed the daily pipeline reads. Weight is the editorial prior the curator uses, not a quality verdict. Citation counts are the number of published issues that drew from each source.",
+      "Publications and feeds the editions draw on. Primary sources take precedence for claims about model releases and regulation.",
     weight: "weight",
     citations: "citations",
     lastCited: "last cited",
@@ -300,7 +294,7 @@ const en = {
     last: "last",
     back: "sources",
     citedBy: "Issues that cited this source",
-    citedByEmpty: "no issues yet have cited this source.",
+    citedByEmpty: "No edition has drawn on this source yet.",
   },
   stats: {
     kicker: "stats",
@@ -327,9 +321,8 @@ const en = {
   },
   glossary: {
     kicker: "glossary",
-    title: "Recurring terms in the magazine.",
-    intro:
-      "Terms that surface across multiple issues. Edited by hand. Each issue can attach a per-issue glossary block via its glossary_terms frontmatter field.",
+    title: "Glossary",
+    intro: "Terms that recur across the editions.",
     aka: "aka",
     firstSeen: "first seen",
     empty: "glossary is empty.",
@@ -348,7 +341,7 @@ const en = {
   health: {
     kicker: "publication status",
     title: "DNESKAi status",
-    intro: "A reader-safe view of publication freshness. Internal workflow and provider details remain private.",
+    intro: "When the latest edition came out.",
     overallStatus: "Overall status",
     healthyTitle: "Publishing is current",
     healthyBody: "The latest expected edition is available and the weekly cadence is current.",
@@ -363,7 +356,6 @@ const en = {
     issueAge: "Daily edition age",
     currentIssue: "Open the current issue",
     unavailable: "unavailable",
-    internalUnavailable: "Internal operational detail is intentionally unavailable on the public site.",
   },
   colophon: {
     kicker: "colophon",
@@ -538,12 +530,7 @@ const cs: Dict = {
   home: {
     emptyKicker: "zatím žádné vydání",
     emptyTitle: "První vydání se právě připravuje.",
-    emptyBody:
-      "Jakmile denní pipeline proběhne, vyjde tady. Pro nastavení nebo ruční spuštění mrkni do repozitáře.",
-    emptyRepoCta: "Otevřít repozitář",
-    emptyBodyBefore: "Jakmile denní pipeline proběhne, vyjde tady. Pro nastavení viz ",
-    emptyBodyRepo: "repozitář",
-    emptyBodyAfter: ", nebo lokálně spusťte ",
+    emptyBody: "Jakmile vyjde první vydání, najdete ho tady.",
     recentIssues: "Poslední vydání",
     dailyIssue: "denní vydání",
     contents: "V tomto vydání",
@@ -644,9 +631,8 @@ const cs: Dict = {
   },
   archive: {
     kicker: "archiv",
-    title: "Každé vydání.",
-    intro:
-      "Každé vydání je jeden hlavní článek napsaný z nejzajímavějších technologických a AI témat daného dne.",
+    title: "Archiv",
+    intro: "Všechna vydání od května 2026, nejnovější první.",
     empty: "Zatím žádná vydání.",
   },
   tags: {
@@ -658,8 +644,8 @@ const cs: Dict = {
   },
   topics: {
     kicker: "témata",
-    title: "Sledujte důležité souvislosti.",
-    intro: "Kurátorované přehledy postavené na archivu. Surové tagy zůstávají jako kompatibilní metadata.",
+    title: "Témata",
+    intro: "Sedm oblastí, ke kterým se vydání vracejí. U každé najdete všechna vydání, která se jí týkala.",
     latest: "Nejnovější články",
     timeline: "Časová osa",
     entities: "Opakující se entity",
@@ -668,7 +654,7 @@ const cs: Dict = {
     related: "Související témata",
     feed: "Odebírat toto téma",
     issues: "vydání",
-    empty: "Žádné téma zatím nesplňuje publikační práh.",
+    empty: "Témata se objeví, jakmile se k nim nasbírá několik vydání.",
   },
   radar: {
     kicker: "radar",
@@ -714,10 +700,10 @@ const cs: Dict = {
     empty: "Zatím nebyly zveřejněny žádné opravy.",
   },
   sources: {
-    kicker: "registr",
-    title: "Zdroje.",
+    kicker: "zdroje",
+    title: "Zdroje",
     intro:
-      "Každý kanál, který denní pipeline čte. Váha je redakční priorita kurátora, nikoli verdikt o kvalitě. Počet citací udává, kolik vydaných čísel z daného zdroje čerpalo.",
+      "Publikace a kanály, ze kterých vydání čerpají. U tvrzení o vydáních modelů a regulaci má přednost primární zdroj.",
     weight: "váha",
     citations: "citace",
     lastCited: "naposledy citováno",
@@ -727,7 +713,7 @@ const cs: Dict = {
     last: "naposledy",
     back: "zdroje",
     citedBy: "Vydání, která citovala tento zdroj",
-    citedByEmpty: "tento zdroj zatím necitovalo žádné vydání.",
+    citedByEmpty: "Z tohoto zdroje zatím žádné vydání nečerpalo.",
   },
   stats: {
     kicker: "statistiky",
@@ -754,9 +740,8 @@ const cs: Dict = {
   },
   glossary: {
     kicker: "slovník",
-    title: "Opakující se pojmy v magazínu.",
-    intro:
-      "Pojmy, které se objevují napříč vydáními. Spravováno ručně. Každé vydání může připojit vlastní slovníkový blok přes pole glossary_terms ve frontmatteru.",
+    title: "Slovník",
+    intro: "Pojmy, které se ve vydáních opakují.",
     aka: "také",
     firstSeen: "poprvé",
     empty: "slovník je prázdný.",
@@ -775,7 +760,7 @@ const cs: Dict = {
   health: {
     kicker: "stav publikace",
     title: "Stav DNESKAi",
-    intro: "Veřejný a bezpečný přehled aktuálnosti publikace. Detaily workflow a poskytovatelů zůstávají neveřejné.",
+    intro: "Kdy naposledy vyšlo vydání.",
     overallStatus: "Celkový stav",
     healthyTitle: "Vydávání je aktuální",
     healthyBody: "Nejnovější očekávané vydání je dostupné a týdenní rytmus je v pořádku.",
@@ -790,7 +775,6 @@ const cs: Dict = {
     issueAge: "Stáří denního vydání",
     currentIssue: "Otevřít aktuální vydání",
     unavailable: "nedostupné",
-    internalUnavailable: "Interní provozní detaily nejsou na veřejném webu záměrně dostupné.",
   },
   colophon: {
     kicker: "tiráž",

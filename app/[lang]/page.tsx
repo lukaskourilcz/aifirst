@@ -12,7 +12,7 @@ import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
-import { githubRepo, siteUrl } from "@/lib/config";
+import { siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -50,9 +50,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
         <p className="eyebrow">{d.home.emptyKicker}</p>
         <h1>{d.home.emptyTitle}</h1>
         <p>{d.home.emptyBody}</p>
-        <a href={`https://github.com/${githubRepo()}`} className="ghost" target="_blank" rel="noreferrer noopener">
-          {d.home.emptyRepoCta} ↗
-        </a>
       </section>
     );
   }

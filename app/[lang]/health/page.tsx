@@ -43,7 +43,6 @@ export default async function HealthPage({ params }: { params: Promise<{ lang: L
         </dl>
         {latest ? <Link href={localePath(locale, `/articles/${latest.slug}`)}>{t.currentIssue} →</Link> : null}
       </section>
-      <p className="label label--muted public-status__privacy">{t.internalUnavailable}</p>
     </PageShell>
   );
 }

@@ -2363,7 +2363,6 @@ svg { max-width: 100%; }
 .public-status { border-left-color: var(--status-complete); }
 .public-status[data-status="degraded"], .public-status[data-status="stale"] { border-left-color: var(--status-warning); }
 .public-status[data-status="failed"] { border-left-color: var(--status-correction); }
-.public-status__privacy { margin-top: var(--space-6); }
 
 
 @media (max-width: 760px) {

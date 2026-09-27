@@ -169,7 +169,7 @@ for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["
 
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
-  await expect(page.getByRole("heading", { name: /source ledger|přehled zdrojů/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /sources for this edition|zdroje tohoto vydání/i })).toBeVisible();
   // The run record is operator data and no longer reaches a reader page.
   await expect(page.locator("section.provenance")).toHaveCount(0);
 });
