@@ -8,11 +8,19 @@ import {
   revealDate,
   revealedCount,
 } from "./daily";
+import { czechTypography } from "./typography";
 
 // Parsed once at module scope. The lesson set is an ordered daily curriculum
 // with a reveal date per entry, which is a different contract from
 // `glossary.yml`'s reference list. The two coexist and are not cross-wired.
-const lessons = raw as DatasetFile;
+// Czech glosses are typeset once here (quotes, dashes, non-breaking spaces);
+// the committed JSON stays as delivered.
+const typesetEntry = (entry: DatasetEntry): DatasetEntry => ({
+  ...entry,
+  term: entry.term === undefined ? undefined : czechTypography(entry.term),
+  cs: { ...entry.cs, short: czechTypography(entry.cs.short), full: czechTypography(entry.cs.full) },
+});
+const lessons: DatasetFile = { ...(raw as DatasetFile), entries: (raw as DatasetFile).entries.map(typesetEntry) };
 
 export type RevealedLesson = { entry: DatasetEntry; index: number; revealedOn: string };
 

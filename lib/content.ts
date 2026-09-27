@@ -8,6 +8,28 @@ import { groupBy } from "./helpers/group";
 import { CONTENT_LANGS, DEFAULT_LOCALE, isContentLang, isLocale, type ContentLang, type Locale } from "./i18n/config";
 import { ogImageFor } from "./og";
 import { hostOf } from "./labels";
+import { czechTypography, czechTypographyAll } from "./typography";
+
+// Czech typography for the delivered text a reader sees, applied on read. The
+// file on disk, and so every hash computed from it, stays byte-identical.
+// English legacy issues are left alone: Czech quote and spacing rules would
+// be wrong for them.
+function typesetFrontmatter<T extends Partial<ArticleFrontmatter>>(fm: T, lang: ContentLang): T {
+  if (lang !== "cs") return fm;
+  return {
+    ...fm,
+    title: fm.title === undefined ? undefined : czechTypography(fm.title),
+    dek: fm.dek === undefined ? undefined : czechTypography(fm.dek),
+    why_it_matters: czechTypographyAll(fm.why_it_matters),
+    what_changed: czechTypographyAll(fm.what_changed),
+    uncertainty: czechTypographyAll(fm.uncertainty),
+    dispatches: fm.dispatches?.map((item) => ({
+      ...item,
+      title: czechTypography(item.title),
+      body: czechTypography(item.body),
+    })),
+  };
+}
 
 export type Dispatch = {
   title: string;
@@ -253,7 +275,8 @@ async function readEntries(dir: string): Promise<RawEntry[]> {
     const raw = await fs.readFile(path.join(dir, file), "utf8");
     const { data } = matter(raw);
     const fm = data as Partial<ArticleFrontmatter>;
-    out.push({ file, fm, lang: entryLang(file, fm) });
+    const lang = entryLang(file, fm);
+    out.push({ file, fm: typesetFrontmatter(fm, lang), lang });
   }
   return out;
 }
@@ -348,7 +371,7 @@ export async function getArticle(
   const { data, content } = matter(raw);
   return {
     slug,
-    frontmatter: data as ArticleFrontmatter,
+    frontmatter: typesetFrontmatter(data as ArticleFrontmatter, picked.entry.lang),
     mdx: content,
     lang: picked.entry.lang,
     fallback: picked.fallback,

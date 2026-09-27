@@ -16,10 +16,12 @@ type Props = { index: SearchEntry[]; locale: Locale };
 // then tags, then the slug. Returns 0 for no match so it can be filtered out.
 function scoreEntry(entry: SearchEntry, query: string): number {
   if (!query) return 0;
-  const needle = query.toLowerCase();
+  // Typeset titles carry non-breaking spaces; a typed query never does.
+  const plain = (text: string) => text.replace(/\u00a0/g, " ").toLowerCase();
+  const needle = plain(query);
   let points = 0;
-  if (entry.title.toLowerCase().includes(needle)) points += 3;
-  if (entry.dek.toLowerCase().includes(needle)) points += 2;
+  if (plain(entry.title).includes(needle)) points += 3;
+  if (plain(entry.dek).includes(needle)) points += 2;
   if (entry.tags.some((t) => t.toLowerCase().includes(needle))) points += 1;
   if (entry.slug.toLowerCase().includes(needle)) points += 0.5;
   return points;

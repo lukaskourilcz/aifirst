@@ -50,7 +50,7 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
           </>
         ) : null}
         {article.frontmatter.editors_note ? <aside className="print-note"><strong>{t.editorsNote}.</strong>{" "}{article.frontmatter.editors_note}</aside> : null}
-        <div className="print-body"><Mdx source={article.mdx} /></div>
+        <div className="print-body"><Mdx source={article.mdx} typeset={article.lang === "cs"} /></div>
 
         <CorrectionsNotice corrections={article.frontmatter.corrections} locale={locale} />
         {issueGlossary.length > 0 ? <section className="print-glossary"><h2>{t.glossaryHeading}</h2><dl>{issueGlossary.map((term) => <div key={term.term} className="print-glossary-row"><dt>{term.term}</dt><dd>{glossaryDefinition(term, locale)}</dd></div>)}</dl></section> : null}

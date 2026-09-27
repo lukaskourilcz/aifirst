@@ -223,7 +223,7 @@ export default async function ArticlePage({
           )}
           <EditorsNote note={fm.editors_note} locale={locale} />
           <div className="article-body">
-            <Mdx source={article.mdx} />
+            <Mdx source={article.mdx} typeset={article.lang === "cs"} />
           </div>
         </article>
 

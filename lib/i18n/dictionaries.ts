@@ -1,4 +1,5 @@
 import type { ContentLang, Locale } from "./config";
+import { czechTypography } from "../typography";
 
 // English is the canonical shape; the Czech dictionary must match it
 // key-for-key (enforced by the `Dict` type below), so a missing
@@ -844,7 +845,17 @@ const cs: Dict = {
 
 // The English strings stay for the four legacy English-only issues still in the archive.
 // getDictionary only ever receives a served locale, so nothing reaches them by accident.
-export const DICTIONARIES: Record<ContentLang, Dict> = { cs, en };
+// Every Czech string gets the same typography as delivered text: non-breaking
+// spaces after one-letter words and before units, Czech quotes, en dashes.
+function typeset<T>(value: T): T {
+  if (typeof value === "string") return czechTypography(value) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, typeset(entry)])) as T;
+  }
+  return value;
+}
+
+export const DICTIONARIES: Record<ContentLang, Dict> = { cs: typeset(cs), en };
 
 export function dict(locale: Locale): Dict {
   return DICTIONARIES[locale];
