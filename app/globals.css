@@ -929,33 +929,9 @@ hr {
   text-transform: uppercase;
 }
 
-.brand-lockup { display: inline-flex; align-items: center; gap: 0.55rem; }
-.brand-lockup__word {
-  font-family: var(--font-editorial);
-  font-size: 1.4375rem;
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-}
-.brand-lockup--compact .brand-lockup__word { font-size: 1.25rem; }
-.brand-mark {
-  display: inline-grid;
-  width: 9px;
-  height: 9px;
-  padding: 0;
-  border: 0;
-  flex: 0 0 auto;
-}
-.brand-mark--compact { width: 8px; height: 8px; }
-.brand-mark__dot {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  background: var(--accent-primary);
-}
-.brand-mark--compact .brand-mark__dot { width: 100%; height: 100%; }
+.brand-lockup { display: inline-flex; align-items: center; }
+.brand-lockup img { display: block; height: 20px; width: auto; }
+.brand-lockup--compact img { height: 18px; }
 
 .nav-rail {
   display: flex;
