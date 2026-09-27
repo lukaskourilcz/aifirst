@@ -34,7 +34,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <Link href={lp("/corrections")}>{t.corrections}</Link>
           <Link href={lp("/glossary")}>{t.glossary}</Link>
           <Link href={lp("/sources")}>{t.sources}</Link>
-          <a href={lp("/feed.xml")}>{d.common.atomFeed} ↗</a>
+          <a href={lp("/feed.xml")} type="application/atom+xml">{d.common.atomFeed} ↗</a>
         </nav>
         <SocialRow heading={d.footer.follow} />
       </div>

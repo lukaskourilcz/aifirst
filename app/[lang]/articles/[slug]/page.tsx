@@ -12,7 +12,6 @@ import { Wire } from "@/components/Wire";
 import { WeeklyBadge } from "@/components/WeeklyBadge";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
-import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
@@ -261,7 +260,6 @@ export default async function ArticlePage({
           <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
           <span className="caught-up-completion__message">{publication.completion}</span>
         </p>
-        <FeedActions locale={locale} />
       </section>
         </div>
 

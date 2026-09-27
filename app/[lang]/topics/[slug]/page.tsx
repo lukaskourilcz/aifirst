@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueRow } from "@/components/IssueRow";
 import { PageShell } from "@/components/PageShell";
 import { getArticle, listArticles } from "@/lib/content";
@@ -89,7 +88,6 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
           },
         ],
       }} />
-      <FeedActions locale={locale} topicSlug={topic.slug} />
       <section className="route-section">
         <h2>{t.latest}</h2>
         <ul className="dense-list">
@@ -128,6 +126,9 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
           <ul className="reference-list">{related.map(({ topic: item }) => <li key={item.slug}><Link href={localePath(locale, `/topics/${item.slug}`)}>{item.title[locale]}</Link></li>)}</ul>
         </section>
       ) : null}
+      <p className="kicker topic-feed">
+        <a href={localePath(locale, `/topics/${topic.slug}/feed.xml`)} type="application/atom+xml">{t.rss} ↗</a>
+      </p>
     </PageShell>
   );
 }

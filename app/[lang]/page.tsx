@@ -5,7 +5,6 @@ import { SectionMasthead } from "@/components/editorial/SectionMasthead";
 import { FeedRow } from "@/components/editorial/FeedRow";
 import { RightRail } from "@/components/editorial/RightRail";
 import { WeekAction } from "@/components/editorial/WeekAction";
-import { FeedActions } from "@/components/editorial/FeedActions";
 import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
@@ -193,7 +192,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
           ) : null}
 
           <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
-          <FeedActions locale={locale} />
         </div>
 
         <RightRail locale={locale} dateKey={fm.date} events={upcoming} />
