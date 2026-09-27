@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { getArticle, listArticles } from "@/lib/content";
 import { OG } from "@/lib/og-theme";
 import { brand } from "@/lib/brand";
+import { ogLogo } from "@/lib/og-logo";
 import type { Locale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
@@ -27,6 +28,7 @@ export default async function Image({
   const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
   const issueLabel = lang === "cs" ? "vydání" : "issue";
   const featureLabel = lang === "cs" ? "hlavní téma" : "lead development";
+  const logo = ogLogo(36);
 
   return new ImageResponse(
     (
@@ -51,41 +53,8 @@ export default async function Image({
             justifyContent: "space-between",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div
-              style={{
-                display: "flex",
-                width: 30,
-                height: 30,
-                alignItems: "flex-end",
-                justifyContent: "flex-end",
-                borderTop: `2px solid ${OG.ink}`,
-                borderLeft: `2px solid ${OG.ink}`,
-                padding: 4,
-              }}
-            >
-              <span
-                style={{
-                  display: "flex",
-                  width: 13,
-                  height: 13,
-                  borderRadius: "50%",
-                  backgroundColor: OG.accent,
-                }}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                fontSize: 30,
-                letterSpacing: -1,
-                fontFamily: OG.fontEditorial,
-                fontWeight: 700,
-              }}
-            >
-              {brand.name}
-            </div>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- next/og renders plain img */}
+          <img src={logo.src} alt={brand.name} width={logo.width} height={logo.height} />
           <div
             style={{
               display: "flex",

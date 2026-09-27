@@ -4,6 +4,7 @@ import type { Locale } from "../i18n/config";
 import { localePath } from "../i18n/config";
 import { siteUrl } from "../config";
 import type { Article } from "../content";
+import { brand } from "../brand";
 
 export type DistributionPack = {
   schemaVersion: 1;
@@ -22,6 +23,8 @@ export type DistributionPack = {
   illustrationAlt: string;
   topics: string[];
   sourceCount: number;
+  /** Absolute URLs of the DNESKAi logotype for posts and presentation material. */
+  brandLogo: { svg: string; png: string };
 };
 
 export function createArticleDistributionPack(article: Article, locale: Locale): DistributionPack {
@@ -44,6 +47,10 @@ export function createArticleDistributionPack(article: Article, locale: Locale):
     illustrationAlt: fm.illustration.alt,
     topics: fm.tags,
     sourceCount: fm.sources.length,
+    brandLogo: {
+      svg: `${siteUrl()}${brand.assets.logo}`,
+      png: `${siteUrl()}${brand.assets.logoPng}`,
+    },
   };
 }
 
