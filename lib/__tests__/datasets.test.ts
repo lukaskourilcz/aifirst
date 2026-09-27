@@ -104,3 +104,12 @@ describe("ai-facts", () => {
     }
   });
 });
+
+describe("lesson display", () => {
+  it("shows the Czech term first where one exists and typesets the gloss", async () => {
+    const { revealedLessons } = await import("../lessons.js");
+    const all = revealedLessons("2030-01-01").groups.flatMap((group) => group.lessons.map(({ entry }) => entry));
+    expect(all.find((entry) => entry.slug === "machine-learning")?.term).toBe("Strojové učení (machine learning)".replace(" ", " "));
+    for (const entry of all) expect(entry.cs.full).not.toMatch(/ — /);
+  });
+});
