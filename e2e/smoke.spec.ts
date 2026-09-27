@@ -147,11 +147,12 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   const sidebar = page.locator(".sidebar");
-  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+  for (const path of ["/tyden", "/topics", "/archive", "/lekce", "/sources", "/corrections", "/about"]) {
     await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
   }
-  for (const path of ["/radar", "/topics", "/archive", "/lekce", "/about"]) {
-    await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
+  // Empty and dormant sections keep their routes but leave the rail.
+  for (const path of ["/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce", "/radar", "/weekly"]) {
+    await expect(sidebar.locator(`a[href$="${path}"]`)).toHaveCount(0);
   }
   const footer = page.locator("nav.footer-nav");
   for (const path of ["/radar", "/topics", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
@@ -215,10 +216,10 @@ test("the desktop rail exposes the active section and holds 44px targets", async
 test("the rail contains exactly the sections and search, and no status record", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  // Six indexed sections as direct children, six secondary links, one search
+  // Four indexed sections as direct children, four secondary links, one search
   // control, and no status record of any kind.
-  await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(6);
-  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(5);
+  await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(4);
+  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(4);
   await expect(page.locator(".sidebar-status")).toHaveCount(0);
   await expect(page.locator(".sidebar .nav-item--button")).toHaveCount(1);
 });

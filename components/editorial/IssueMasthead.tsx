@@ -2,14 +2,10 @@ import type { Locale } from "@/lib/i18n/config";
 import Link from "next/link";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
-import { isDrawnPlate, type ArticleCategory } from "@/lib/content";
+import { isDrawnPlate } from "@/lib/content";
 import { czechLongDate } from "@/lib/weeks";
 import { photoCreditParts } from "@/lib/labels";
 
-// Machine keys upstream, Czech labels here. Categories are separate from tags
-// and the two never merge into one row.
-const CATEGORY_LABELS: Record<ArticleCategory, string> = { "ai-models": "AI modely" };
-const CATEGORY_PATHS: Record<ArticleCategory, string> = { "ai-models": "/ai-modely" };
 
 export function IssueMasthead({
   label,
@@ -18,7 +14,6 @@ export function IssueMasthead({
   date,
   readingMinutes,
   tags,
-  categories,
   heroPhoto,
   heroAlt,
   heroCaption,
@@ -32,7 +27,6 @@ export function IssueMasthead({
   date: string;
   readingMinutes: number;
   tags?: string[];
-  categories?: ArticleCategory[];
   heroPhoto: string | null;
   heroAlt: string;
   heroCaption?: string;
@@ -56,7 +50,7 @@ export function IssueMasthead({
       </>
     : heroCaption ?? null;
 
-  // Meta, categories and topics sit under the image on both variants; only the
+  // Meta, provenance and topics sit under the image on both variants; only the
   // eyebrow, headline and dek ever move onto the plate.
   const details = (
     <div className="hero__details">
@@ -79,15 +73,6 @@ export function IssueMasthead({
       ) : null}
       {/* Absent, not empty: many editions have no category and the row simply
           does not exist for them. */}
-      {categories?.length ? (
-        <nav className="hero__categories" aria-label="Rubriky vydání">
-          {categories.map((category) => (
-            <Link key={category} href={localePath(locale, CATEGORY_PATHS[category])} className="chip">
-              {CATEGORY_LABELS[category]}
-            </Link>
-          ))}
-        </nav>
-      ) : null}
       {tags?.length ? (
         <ul className="hero__topics" aria-label={locale === "cs" ? "Témata vydání" : "Issue topics"}>
           {tags.slice(0, 3).map((tag) => <li key={tag} className="chip">{tag}</li>)}

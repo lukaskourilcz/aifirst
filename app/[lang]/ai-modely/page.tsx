@@ -14,7 +14,8 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = dict(lang).sections;
-  return { title: t.modelsTitle, description: t.modelsEmptyBody, alternates: localeAlternates(lang, "/ai-modely") };
+  // Unlinked and noindex while the section is empty; the route keeps building.
+  return { title: t.modelsTitle, description: t.modelsEmptyBody, alternates: localeAlternates(lang, "/ai-modely"), robots: { index: false } };
 }
 
 export default async function ModelsPage({ params }: { params: Promise<{ lang: Locale }> }) {
@@ -32,7 +33,7 @@ export default async function ModelsPage({ params }: { params: Promise<{ lang: L
   return (
     <div className="page-with-rail">
       <div className="page-with-rail__main">
-        <PageShell kicker={r.models} title={t.modelsTitle}>
+        <PageShell kicker={t.modelsKicker} title={t.modelsTitle}>
           {filed.length === 0 ? (
             /* The launch state. No illustration, no skeleton rows, no badge. */
             <div className="empty-state">

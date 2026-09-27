@@ -184,7 +184,6 @@ export default async function ArticlePage({
         date={fm.date}
         readingMinutes={reading}
         tags={fm.tags}
-        categories={fm.categories}
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}

@@ -68,7 +68,6 @@ function Episode({ item, locale }: { item: StreamItem; locale: Locale }) {
 export default async function PodcastsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).sections;
-  const r = dict(locale).rail;
 
   const articles = await listArticles(locale);
   const anchor = articles[0]?.date;
@@ -78,7 +77,7 @@ export default async function PodcastsPage({ params }: { params: Promise<{ lang:
   return (
     <div className="page-with-rail">
       <div className="page-with-rail__main">
-        <PageShell kicker={r.podcasts} title={t.podcastsTitle}>
+        <PageShell kicker={t.podcastsKicker} title={t.podcastsTitle}>
           {days.length === 0 ? (
             <p className="empty-line">{t.podcastsEmpty}</p>
           ) : (

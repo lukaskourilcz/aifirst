@@ -24,8 +24,7 @@ const NAV_CHORDS: Array<{
   { key: "a", path: "/archive", labelKey: "goArchive" },
   { key: "t", path: "/topics", labelKey: "goTags" },
   { key: "s", path: "/sources", labelKey: "goSources" },
-  { key: "r", path: "/radar", labelKey: "goTrends" },
-  { key: "g", path: "/glossary", labelKey: "goGlossary" },
+  { key: "g", path: "/lekce", labelKey: "goGlossary" },
 ];
 
 // How long a pending `g` chord waits for its second key before resetting.
