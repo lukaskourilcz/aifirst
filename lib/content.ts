@@ -477,6 +477,28 @@ export function relatedArticles(
     .map((x) => x.a);
 }
 
+/** `https://www.x.com/a/?q=1` and `x.com/a` are the same story. */
+export function normalizeStoryUrl(url: string): string {
+  return url
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-z]+:\/\//, "")
+    .replace(/^www\./, "")
+    .replace(/[?#].*$/, "")
+    .replace(/\/+$/, "");
+}
+
+/**
+ * The Watchlist minus every item already told as a Brief. An edition must not
+ * show one story twice, once in each list.
+ */
+export function watchlistWithoutBriefs(wire: WireItem[], dispatches: Dispatch[]): WireItem[] {
+  const briefed = new Set(
+    dispatches.flatMap((item) => (item.source_url ? [normalizeStoryUrl(item.source_url)] : [])),
+  );
+  return wire.filter((item) => !briefed.has(normalizeStoryUrl(item.url)));
+}
+
 export type SourceCitationStats = {
   id: string;
   count: number;

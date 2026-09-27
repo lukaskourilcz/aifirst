@@ -8,6 +8,8 @@ import {
   relatedArticles,
   sourceCitationStats,
   buildSearchIndex,
+  normalizeStoryUrl,
+  watchlistWithoutBriefs,
   type ArticleSummary,
 } from "../content.js";
 
@@ -161,5 +163,20 @@ Body.
     // Matched by host alone: the feed lives on feeds.arstechnica.com.
     expect(stats.get("ars-technica")?.latestDate).toBe("2026-09-24");
     expect(stats.get("wired-ai")).toBeUndefined();
+  });
+});
+
+describe("one story, one list", () => {
+  it("normalises protocol, www, trailing slash and query", () => {
+    expect(normalizeStoryUrl("https://www.Example.com/a/b/?utm=1#x")).toBe("example.com/a/b");
+  });
+
+  it("drops Watchlist items already told as Briefs", () => {
+    const wire = [
+      { title: "llama.cpp b11174", url: "https://github.com/ggml-org/llama.cpp/releases/tag/b11174", source: "github-ai-releases" },
+      { title: "Other", url: "https://example.com/other", source: "tensorfeed" },
+    ];
+    const dispatches = [{ title: "llama.cpp", body: "…", source_url: "http://www.github.com/ggml-org/llama.cpp/releases/tag/b11174/" }];
+    expect(watchlistWithoutBriefs(wire, dispatches).map((item) => item.title)).toEqual(["Other"]);
   });
 });

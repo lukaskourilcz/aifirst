@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { isDrawnPlate, type Article, type Dispatch, type WireItem } from "@/lib/content";
+import { isDrawnPlate, watchlistWithoutBriefs, type Article, type Dispatch, type WireItem } from "@/lib/content";
 import { DigestRow } from "./DigestRow";
 import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
@@ -129,7 +129,7 @@ export async function CondensedBriefs({
 }) {
   const t = dict(locale).sections;
   const briefs = dispatches.slice(0, 4);
-  const watch = wire.slice(0, 4);
+  const watch = watchlistWithoutBriefs(wire, dispatches).slice(0, 4);
   if (briefs.length === 0 && watch.length === 0) return null;
   const registry = watch.length ? await loadSources() : [];
 

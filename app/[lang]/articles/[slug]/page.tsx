@@ -24,6 +24,7 @@ import {
   listArticles,
   relatedArticles,
   resolveHeroPhoto,
+  watchlistWithoutBriefs,
   type ArticleSummary,
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
@@ -126,6 +127,7 @@ export default async function ArticlePage({
   );
   const fm = article.frontmatter;
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
+  const wire = watchlistWithoutBriefs(fm.wire ?? [], fm.dispatches ?? []);
   const reading = readingMinutes(article.mdx);
   const heroPhoto = resolveHeroPhoto(fm);
   const adjacent = adjacentIssues(article.slug, all);
@@ -227,13 +229,13 @@ export default async function ArticlePage({
           </div>
         </article>
 
-        {(dispatches.length > 0 || (fm.wire ?? []).length > 0) && (
+        {(dispatches.length > 0 || wire.length > 0) && (
           <aside
             className="article-with-aside__side"
             aria-label={d.article.dispatchesLabel}
           >
             <Dispatches items={dispatches} locale={locale} variant="aside" />
-            <Wire items={fm.wire ?? []} locale={locale} variant="aside" />
+            <Wire items={wire} locale={locale} variant="aside" />
           </aside>
         )}
       </section>
