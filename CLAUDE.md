@@ -118,7 +118,7 @@ The design thesis is **editorial intelligence presented as a precise publishing 
 - `docs/design/DESIGN_SYSTEM.md`
 - `docs/design/VISUAL_QA.md`
 
-Use the completion mark through `BrandMark`/`BrandLockup`, a light paper canvas, white reading surfaces, blueprint blue `#2f5ae6`, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
+Use the logotype from `public/brand/DNESKAi-logo*.svg` through `BrandLockup`, the square mark `DNESKAi-square.svg` for icons and avatars, a light paper canvas, white reading surfaces, blueprint blue `#2f5ae6`, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
 
 **The reader shows no production instrumentation and never describes itself as
 AI-operated.** No run costs, model names, candidate counts, signal scores, agent

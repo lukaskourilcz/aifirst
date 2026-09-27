@@ -13,6 +13,8 @@ export const OG = {
   fog: "#e2e2de",
   rule: "#c9c9c3",
   accent: "#2f5ae6",
+  brandAi: "#1a3ab0",
+  brandOverlap: "#10266f",
   cyan: "#1d43bb",
   complete: "#067a52",
   correction: "#c0272c",

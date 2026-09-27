@@ -338,8 +338,8 @@ test("brand, completion, and no-media states are deterministic", async ({ page }
   await page.goto("/");
   // Rail, mobile top bar and footer each carry one lockup. The top bar is in
   // the DOM at every width and hidden by CSS above 960.
-  await expect(page.locator(".sidebar .brand-mark")).toHaveCount(1);
-  await expect(page.locator("footer .brand-mark")).toHaveCount(1);
+  await expect(page.locator(".sidebar .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
+  await expect(page.locator("footer .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator(".caught-up-completion")).toContainText("přehled");
   // No-media state: an edition without a photo gets the seeded hairline plate.
   const figure = page.locator(".lead__figure");

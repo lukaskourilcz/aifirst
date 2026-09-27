@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { OG } from "@/lib/og-theme";
 import { brand } from "@/lib/brand";
+import { ogLogo } from "@/lib/og-logo";
 import { localizedBrand } from "@/lib/brand";
 import { LOCALES, type Locale } from "@/lib/i18n/config";
 
@@ -16,6 +17,7 @@ export function generateStaticParams() {
 export default async function Image({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
   const publication = localizedBrand(lang);
+  const logo = ogLogo(40);
   return new ImageResponse(
     (
       <div
@@ -32,40 +34,9 @@ export default async function Image({ params }: { params: Promise<{ lang: Locale
           border: `1px solid ${OG.fog}`,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              display: "flex",
-              width: 34,
-              height: 34,
-              alignItems: "flex-end",
-              justifyContent: "flex-end",
-              borderTop: `2px solid ${OG.ink}`,
-              borderLeft: `2px solid ${OG.ink}`,
-              padding: 4,
-            }}
-          >
-            <span
-              style={{
-                display: "flex",
-                width: 16,
-                height: 16,
-                borderRadius: "50%",
-                backgroundColor: OG.accent,
-              }}
-            />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              fontFamily: OG.fontEditorial,
-              fontSize: 36,
-              fontWeight: 700,
-              letterSpacing: -1.5,
-            }}
-          >
-            {brand.name}
-          </div>
+        <div style={{ display: "flex" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- next/og renders plain img */}
+          <img src={logo.src} alt={brand.name} width={logo.width} height={logo.height} />
         </div>
 
         <div

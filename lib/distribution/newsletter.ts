@@ -23,7 +23,7 @@ export function createNewsletterArtifact(article: Article, locale: Locale): News
   const canonicalUrl = `${siteUrl()}${localePath(locale, `/articles/${article.slug}`)}`;
   const subject = `${brand.name}: ${fm.title}`;
   const text = `${fm.title}\n\n${fm.dek}\n\n${canonicalUrl}\n`;
-  const html = `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><title>${escapeHtml(subject)}</title></head><body><main><p>${escapeHtml(brand.name)}</p><h1>${escapeHtml(fm.title)}</h1><p>${escapeHtml(fm.dek)}</p><p><a href="${escapeHtml(canonicalUrl)}">${locale === "cs" ? "Číst vydání" : "Read the edition"}</a></p></main></body></html>`;
+  const html = `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><title>${escapeHtml(subject)}</title></head><body><main><p><img src="${escapeHtml(`${siteUrl()}${brand.assets.logoPng}`)}" alt="${escapeHtml(brand.name)}" width="143" height="24"></p><h1>${escapeHtml(fm.title)}</h1><p>${escapeHtml(fm.dek)}</p><p><a href="${escapeHtml(canonicalUrl)}">${locale === "cs" ? "Číst vydání" : "Read the edition"}</a></p></main></body></html>`;
   return { schemaVersion: 1, subject, previewText: fm.dek, canonicalUrl, html, text };
 }
 
