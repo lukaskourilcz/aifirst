@@ -349,9 +349,6 @@
 .public-status dt { color: var(--color-slate); }
 .public-status dd { margin: 0; }
 
-.reading-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 11; pointer-events: none; background: var(--border-subtle); }
-.reading-progress > div { height: 100%; transform-origin: left; transform: scaleX(0); background: var(--color-blueprint-blue); }
-
 /* The front-page dateline. A 2px rule over it opens the page the way the
    section mastheads below open each block, so the whole column reads on one
    system of rules. */

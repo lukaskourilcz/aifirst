@@ -5,7 +5,6 @@ import { Dispatches } from "@/components/Dispatches";
 import { EditorsNote } from "@/components/EditorsNote";
 import { GlossaryBlock } from "@/components/GlossaryBlock";
 import { Mdx } from "@/components/Mdx";
-import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedIssues } from "@/components/RelatedIssues";
 import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { Wire } from "@/components/Wire";
@@ -144,7 +143,6 @@ export default async function ArticlePage({
   return (
     <>
       {fm.generation?.package_hash ? <meta name="boardless-content-hash" content={fm.generation.package_hash} /> : null}
-      <ReadingProgress />
       <StructuredData data={{
         "@context": "https://schema.org",
         "@graph": [
