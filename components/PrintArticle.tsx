@@ -8,6 +8,7 @@ import { localePath, type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
 import { czechNumericDate } from "@/lib/weeks";
+import { provenanceSentence } from "@/lib/labels";
 import { HtmlLang } from "@/components/HtmlLang";
 import { BrandLockup } from "@/components/BrandMark";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
@@ -20,6 +21,7 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
   const common = dict(locale).common;
   const issueGlossary = resolveGlossaryTerms(article.frontmatter.glossary_terms, await loadGlossary());
   const heroPhoto = resolveHeroPhoto(article.frontmatter);
+  const provenance = provenanceSentence(article.frontmatter.generation, article.frontmatter.sources.length, t);
 
   return (
     <>
@@ -32,6 +34,7 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
 
         <h1 className="print-title">{article.frontmatter.title}</h1>
         <p className="print-dek">{article.frontmatter.dek}</p>
+        {provenance ? <p className="print-provenance">{provenance}</p> : null}
         <EditorialHighlights
           whyItMatters={article.frontmatter.why_it_matters}
           whatChanged={article.frontmatter.what_changed}

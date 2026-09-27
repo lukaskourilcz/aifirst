@@ -40,6 +40,7 @@ import { loadTopicsConfig, topicsForArticle } from "@/lib/topics/config";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/config";
 import { czechLongDate } from "@/lib/weeks";
+import { provenanceSentence } from "@/lib/labels";
 
 export const dynamic = "force-static";
 
@@ -187,6 +188,7 @@ export default async function ArticlePage({
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? fm.illustration.alt : ""}
         heroCaption={heroPhoto === fm.illustration.path ? fm.illustration.prompt : undefined}
+        provenance={provenanceSentence(fm.generation, (fm.sources ?? []).length, d.article)}
         heroAttribution={heroPhoto === fm.illustration.path && fm.illustration.attribution ? {
           author: fm.illustration.attribution.author,
           license: fm.illustration.attribution.license,

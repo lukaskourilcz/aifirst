@@ -23,6 +23,7 @@ export function IssueMasthead({
   heroAlt,
   heroCaption,
   heroAttribution,
+  provenance,
   locale,
 }: {
   label: string;
@@ -36,6 +37,8 @@ export function IssueMasthead({
   heroAlt: string;
   heroCaption?: string;
   heroAttribution?: { author: string; license: string; sourceUrl: string; text: string };
+  /** The provenance sentence, already composed; absent on legacy editions. */
+  provenance?: string | null;
   locale: Locale;
 }) {
   const t = dict(locale).common;
@@ -66,6 +69,14 @@ export function IssueMasthead({
         <span aria-hidden>·</span>
         <span>{readingMinutes} {t.minutesShort} {t.readMinutes}</span>
       </div>
+      {/* Stated once, plainly, where the reader meets the edition: who wrote
+          it and whether a person read it. Not a badge and not coloured. */}
+      {provenance ? (
+        <p className="hero__provenance">
+          {provenance}{" "}
+          <Link href={`${localePath(locale, "/about")}#redakce`}>{dict(locale).article.provenanceLink}&nbsp;→</Link>
+        </p>
+      ) : null}
       {/* Absent, not empty: many editions have no category and the row simply
           does not exist for them. */}
       {categories?.length ? (

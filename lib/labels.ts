@@ -239,3 +239,26 @@ export function photoCreditParts(attribution: { author: string; license: string 
   const host = LICENCE_HOSTS[licence.toLowerCase()] ?? licence.replace(/\s+licen[cs]e$/i, "");
   return { prefix: "Foto:", author: attribution.author.trim(), host };
 }
+
+/**
+ * The one-sentence provenance line under an edition's meta row. Null for a
+ * legacy edition that carries no generation record: the page then says
+ * nothing rather than guessing.
+ */
+export function provenanceSentence(
+  article: { human_reviewed: boolean } | undefined,
+  sourceCount: number,
+  t: {
+    provenanceUnreviewed: string;
+    provenanceReviewed: string;
+    provenanceSourcesOne: string;
+    provenanceSourcesMany: string;
+  },
+): string | null {
+  if (!article) return null;
+  if (article.human_reviewed) return t.provenanceReviewed;
+  const sources = sourceCount === 1
+    ? t.provenanceSourcesOne
+    : t.provenanceSourcesMany.replace("{n}", String(sourceCount));
+  return t.provenanceUnreviewed.replace("{sources}", sources);
+}

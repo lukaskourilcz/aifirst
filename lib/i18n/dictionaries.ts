@@ -190,6 +190,11 @@ const en = {
     previousIssue: "Previous issue",
     nextIssue: "Next issue",
     sponsored: "Sponsored",
+    provenanceUnreviewed: "Text prepared by a language model from {sources}; it was not reviewed by a person before publication.",
+    provenanceReviewed: "Text prepared by a language model and reviewed by an editor before publication.",
+    provenanceSourcesOne: "1 listed source",
+    provenanceSourcesMany: "{n} listed sources",
+    provenanceLink: "How an edition is made",
   },
   weekly: {
     digest: "weekly digest",
@@ -257,6 +262,11 @@ const en = {
     intro: "A selective daily magazine about AI. One edition each weekday: what happened, why it matters, and what is still uncertain.",
     problemTitle: "Why the magazine exists",
     problemBody: "AI coverage repeats itself and makes every announcement sound urgent, which makes an overview hard to build. This magazine covers fewer subjects, describes the concrete change, and says plainly what is not yet known.",
+    authorshipTitle: "Who writes the editions",
+    authorshipBody: "Each edition's text is prepared by a language model, following the editorial rules below and only from the sources it lists. Nobody reads it before publication. Lukáš Kouřil is responsible for the choice of sources, the rules and corrections.",
+    // Left empty until the owner supplies a contact line; the page renders
+    // nothing for an empty string.
+    authorshipContact: "",
     methodTitle: "How subjects are chosen",
     methodBody: "An edition covers what changes practice: a model release, a regulation, a safety finding, or a move that shifts the market. Announcements without consequence stay out.",
     sourcesTitle: "Working with sources",
@@ -628,6 +638,11 @@ const cs: Dict = {
     previousIssue: "Předchozí vydání",
     nextIssue: "Další vydání",
     sponsored: "Sponzorováno",
+    provenanceUnreviewed: "Text připravil jazykový model z {sources}; před vydáním neprošel lidskou kontrolou.",
+    provenanceReviewed: "Text připravil jazykový model, před vydáním prošel redakční kontrolou.",
+    provenanceSourcesOne: "1 uvedeného zdroje",
+    provenanceSourcesMany: "{n} uvedených zdrojů",
+    provenanceLink: "Jak vydání vzniká",
   },
   weekly: {
     digest: "týdenní souhrn",
@@ -695,6 +710,10 @@ const cs: Dict = {
     intro: "Výběrový denní magazín o AI. Každý všední den vychází jedno vydání: co se stalo, proč na tom záleží a co zůstává nejisté.",
     problemTitle: "Proč magazín vznikl",
     problemBody: "Zprávy o AI se opakují a každé oznámení zní naléhavě, takže se z nich přehled staví těžko. Tenhle magazín pokrývá méně témat, popisuje konkrétní změnu a otevřeně píše, co se zatím neví.",
+    authorshipTitle: "Kdo vydání píše",
+    authorshipBody: "Text každého vydání připravuje jazykový model podle redakčních pravidel níže a výhradně z uvedených zdrojů. Před zveřejněním ho nikdo nečte. Za výběr zdrojů, pravidla a opravy odpovídá Lukáš Kouřil.",
+    // Prázdné, dokud majitel nedodá kontakt; prázdný řetězec se nevykreslí.
+    authorshipContact: "",
     methodTitle: "Jak vybíráme témata",
     methodBody: "Do vydání se dostane to, co mění praxi: vydání modelu, regulace, bezpečnostní zjištění nebo krok, který posune trh. Oznámení bez důsledku zůstávají stranou.",
     sourcesTitle: "Práce se zdroji",

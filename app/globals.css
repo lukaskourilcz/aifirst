@@ -1263,6 +1263,15 @@ hr {
   padding-top: var(--space-3);
   border-top: 1px solid var(--border-subtle);
 }
+.hero__provenance,
+.print-provenance {
+  max-width: 62ch;
+  margin: var(--space-3) 0 0;
+  color: var(--text-tertiary);
+  font-family: var(--font-reading);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+}
 
 .hero--no-photo {
   grid-template-columns: 1fr;
