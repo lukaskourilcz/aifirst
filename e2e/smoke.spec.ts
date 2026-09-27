@@ -296,12 +296,11 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
   await expect(page.getByRole("dialog").getByRole("textbox")).toBeFocused();
 });
 
-test("topic detail separates latest coverage, timeline and recurring entities", async ({ page }) => {
+test("topic detail is one list of editions and links no raw tag page", async ({ page }) => {
   await page.goto("/topics/ai-models");
-  await expect(page.getByRole("heading", { name: /nejnovější články/i })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /časová osa/i })).toBeVisible();
-  const entities = page.getByRole("heading", { name: /opakující se entity/i });
-  if (await entities.count()) await expect(entities).toBeVisible();
+  await expect(page.getByRole("heading", { name: /vydání k tématu/i })).toBeVisible();
+  await expect(page.locator(".feed-list .feed-row").first()).toBeVisible();
+  await expect(page.locator('a[href*="/tags/"]')).toHaveCount(0);
 });
 
 test("feeds expose language, entry links, publication time and categories", async ({ request }) => {

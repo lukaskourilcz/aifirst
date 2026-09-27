@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { IssueRow } from "@/components/IssueRow";
+import { FeedRow } from "@/components/editorial/FeedRow";
 import { PageShell } from "@/components/PageShell";
-import { getArticle, listArticles } from "@/lib/content";
+import { listArticles } from "@/lib/content";
 import { loadGlossary, slugForTerm } from "@/lib/glossary";
 import { localePath, type Locale } from "@/lib/i18n/config";
-import { czechNumericDate } from "@/lib/weeks";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
@@ -41,28 +40,7 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
   if (!current) notFound();
   const { topic, articles } = current;
   const t = dict(locale).topics;
-  const sourceCounts = new Map<string, { id?: string; title: string; url: string; count: number }>();
-  for (const summary of articles) {
-    const article = await getArticle(summary.slug, locale);
-    for (const source of article?.frontmatter.sources ?? []) {
-      const key = source.source_id ?? source.id;
-      const known = sourceCounts.get(key);
-      sourceCounts.set(key, { id: source.source_id, title: source.publisher ?? source.title, url: source.url, count: (known?.count ?? 0) + 1 });
-    }
-  }
-  const majorSources = [...sourceCounts.values()].sort((a, b) => b.count - a.count).slice(0, 6);
   const glossaryTerms = glossary.filter((term) => (term.tags ?? []).some((tag) => topic.tags.includes(tag)));
-  const related = published.filter(({ topic: candidate }) => candidate.slug !== topic.slug && candidate.tags.some((tag) => topic.tags.includes(tag))).slice(0, 4);
-  const entityCounts = new Map<string, number>();
-  for (const article of articles) {
-    for (const tag of new Set(article.tags ?? [])) {
-      if (tag === "weekly" || topic.tags.includes(tag)) continue;
-      entityCounts.set(tag, (entityCounts.get(tag) ?? 0) + 1);
-    }
-  }
-  const recurringEntities = [...entityCounts.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .slice(0, 8);
 
   return (
     <PageShell kicker={t.kicker} title={topic.title[locale]} intro={topic.description[locale]}>
@@ -88,42 +66,19 @@ export default async function TopicPage({ params }: { params: Promise<{ lang: Lo
           },
         ],
       }} />
-      <section className="route-section">
-        <h2>{t.latest}</h2>
-        <ul className="dense-list">
-          {articles.slice(0, 3).map((article) => (
-            <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.date} title={article.title} variant="meta" />
+      {/* One list: every edition on the topic, newest first. */}
+      <section className="route-section" aria-labelledby="topic-editions">
+        <h2 id="topic-editions">{t.editions}</h2>
+        <ul className="feed-list">
+          {articles.map((article) => (
+            <FeedRow key={article.slug} article={article} locale={locale} thumbnail={false} />
           ))}
         </ul>
       </section>
-      <section className="route-section">
-        <h2>{t.timeline}</h2>
-        <ol className="topic-timeline">
-          {articles.map((article) => <li key={article.slug}><time dateTime={article.date}>{czechNumericDate(article.date)}</time><Link href={localePath(locale, `/articles/${article.slug}`)}>{article.title}</Link></li>)}
-        </ol>
-      </section>
-      {recurringEntities.length ? (
-        <section className="route-section">
-          <h2>{t.entities}</h2>
-          <ul className="entity-list">{recurringEntities.map(([entity, count]) => <li key={entity}><Link href={localePath(locale, `/tags/${encodeURIComponent(entity)}`)}>{entity}</Link> <span className="label">{count}</span></li>)}</ul>
-        </section>
-      ) : null}
-      {majorSources.length ? (
-        <section className="route-section reference-section">
-          <h2>{t.sources}</h2>
-          <ul className="reference-list">{majorSources.map((source) => <li key={source.url}>{source.id ? <Link href={localePath(locale, `/sources/${source.id}`)}>{source.title}</Link> : <a href={source.url} target="_blank" rel="noreferrer noopener">{source.title}</a>} <span className="label">{source.count}</span></li>)}</ul>
-        </section>
-      ) : null}
       {glossaryTerms.length ? (
         <section className="route-section reference-section">
           <h2>{t.glossary}</h2>
           <ul className="reference-list">{glossaryTerms.map((term) => <li key={term.term}><Link href={`${localePath(locale, "/glossary")}#${slugForTerm(term.term)}`}>{term.term}</Link></li>)}</ul>
-        </section>
-      ) : null}
-      {related.length ? (
-        <section className="route-section reference-section">
-          <h2>{t.related}</h2>
-          <ul className="reference-list">{related.map(({ topic: item }) => <li key={item.slug}><Link href={localePath(locale, `/topics/${item.slug}`)}>{item.title[locale]}</Link></li>)}</ul>
         </section>
       ) : null}
       <p className="kicker topic-feed">

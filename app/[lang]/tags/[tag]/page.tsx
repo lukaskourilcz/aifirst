@@ -19,7 +19,9 @@ export async function generateMetadata({
   params: Promise<{ tag: string }>;
 }) {
   const { tag } = await params;
-  return { title: `#${decodeURIComponent(tag)}` };
+  // Raw tag pages stay reachable for old links but are not indexed and nothing
+  // on the site links to them; Topics is the reader-facing grouping.
+  return { title: `#${decodeURIComponent(tag)}`, robots: { index: false } };
 }
 
 export default async function TagPage({

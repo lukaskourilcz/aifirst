@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { IssueRow } from "@/components/IssueRow";
-import { TagChip } from "@/components/TagChip";
 import { PageShell } from "@/components/PageShell";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/sources";
@@ -58,16 +57,6 @@ export default async function SourceDetailPage({
         <div><dt>{t.citations}</dt><dd>×{stat?.count ?? 0}</dd></div>
         <div><dt>{t.lastCited}</dt><dd>{stat?.latestDate ? czechDisplayDate(stat.latestDate) : "—"}</dd></div>
       </dl>
-
-      {source.tags?.length ? (
-        <ul className="source-detail__tags">
-          {source.tags.map((tg) => (
-            <li key={tg}>
-              <TagChip tag={tg} locale={locale} />
-            </li>
-          ))}
-        </ul>
-      ) : null}
 
       <section className="route-section">
         <h2>{t.citedBy}</h2>

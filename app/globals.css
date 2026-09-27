@@ -318,11 +318,6 @@
 .topic-card h2 { margin: 0; font-size: 1.35rem; }
 .topic-card p { margin: 0; color: var(--text-secondary); font-family: var(--font-reading); }
 .topic-card .label { margin-top: auto; padding-top: 12px; color: var(--color-blueprint-blue); }
-.topic-timeline { margin: 0; padding-left: 20px; }
-.topic-timeline li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--color-fog); }
-.topic-timeline time { color: var(--color-slate); font-variant-numeric: tabular-nums; }
-.entity-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 0; padding: 0; }
-.entity-list li { display: inline-flex; gap: 8px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); }
 
 
 /* The completion mark: one row in the masthead idiom, closing the edition on
@@ -473,7 +468,6 @@
   .issue-navigation { grid-template-columns: 1fr; }
   .issue-navigation a:last-child { text-align: left; }
   .provenance dl div { grid-template-columns: 1fr; gap: 2px; }
-  .topic-timeline li { grid-template-columns: 1fr; gap: 2px; }
   .public-status dl div { grid-template-columns: 1fr; gap: 2px; }
   .edition-intro { display: block; }
   .edition-intro > :last-child { margin-top: var(--space-2); text-align: left; }
@@ -2205,7 +2199,6 @@ svg { max-width: 100%; }
 .source-summary div + div { padding-left: var(--space-4); border-left: 1px solid var(--border-subtle); }
 .source-summary dt { color: var(--text-tertiary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 .source-summary dd { margin: var(--space-2) 0 0; color: var(--text-primary); font-family: var(--font-mono); font-size: 1.35rem; }
-.source-detail__tags { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
 
 .glossary-index { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); padding: var(--space-3) 0; border-bottom: 1px solid var(--border-strong); background: var(--surface-page); }
 .glossary-index a { display: inline-grid; width: 2rem; height: 2rem; place-items: center; color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-caption); }

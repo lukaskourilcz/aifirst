@@ -18,10 +18,13 @@ export function FeedRow({
   article,
   locale,
   readingMinutes,
+  thumbnail = true,
 }: {
   article: ArticleSummary;
   locale: Locale;
   readingMinutes?: number;
+  /** False for a plain list of editions, e.g. a topic's archive. */
+  thumbnail?: boolean;
 }) {
   const t = dict(locale).common;
   const category = article.categories?.[0];
@@ -44,7 +47,7 @@ export function FeedRow({
             ) : null}
           </p>
         </div>
-        {article.heroPhoto ? (
+        {thumbnail && article.heroPhoto ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={article.heroPhoto}
