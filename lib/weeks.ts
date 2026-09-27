@@ -171,6 +171,17 @@ export function czechDisplayDate(value: string): string {
 }
 
 /**
+ * Every bare `YYYY-MM-DD` inside running text in Czech numeric form. For
+ * delivered prose such as image alt text („Obálka DNESKAi k 2026-08-15");
+ * never pass a URL through it.
+ */
+export function czechDatesInText(text: string): string {
+  return text.replace(/(?<![\w/-])(\d{4})-(\d{2})-(\d{2})(?![\w/-])/g, (_, y: string, m: string, d: string) =>
+    `${Number(d)}. ${Number(m)}. ${y}`,
+  );
+}
+
+/**
  * The last `days` publishing days up to and including `anchor`. Calendar days,
  * not editions: a week with a no-edition day still ends at the same boundary.
  */

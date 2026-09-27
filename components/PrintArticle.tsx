@@ -7,8 +7,8 @@ import { readingMinutes } from "@/lib/text";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
-import { czechNumericDate } from "@/lib/weeks";
-import { provenanceSentence, topicLabels } from "@/lib/labels";
+import { czechDatesInText, czechNumericDate } from "@/lib/weeks";
+import { photoCreditParts, provenanceSentence, topicLabels } from "@/lib/labels";
 import { HtmlLang } from "@/components/HtmlLang";
 import { BrandLockup } from "@/components/BrandMark";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
@@ -21,6 +21,9 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
   const common = dict(locale).common;
   const issueGlossary = resolveGlossaryTerms(article.frontmatter.glossary_terms, await loadGlossary());
   const heroPhoto = resolveHeroPhoto(article.frontmatter);
+  // The caption is the photo credit, never the alt text repeated.
+  const attribution = heroPhoto === article.frontmatter.illustration.path ? article.frontmatter.illustration.attribution : undefined;
+  const credit = attribution ? photoCreditParts(attribution) : null;
   const provenance = provenanceSentence(article.frontmatter.generation, article.frontmatter.sources.length, t);
 
   return (
@@ -45,8 +48,8 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
         {heroPhoto ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={heroPhoto} alt={article.frontmatter.illustration.alt} className="print-illustration" />
-            <p className="print-caption">{article.frontmatter.illustration.alt}</p>
+            <img src={heroPhoto} alt={czechDatesInText(article.frontmatter.illustration.alt)} className="print-illustration" />
+            {credit ? <p className="print-caption">{credit.prefix} {credit.author}{credit.host ? ` / ${credit.host}` : ""}</p> : null}
           </>
         ) : null}
         {article.frontmatter.editors_note ? <aside className="print-note"><strong>{t.editorsNote}.</strong>{" "}{article.frontmatter.editors_note}</aside> : null}

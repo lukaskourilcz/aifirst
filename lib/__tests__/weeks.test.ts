@@ -3,6 +3,7 @@ import {
   addDays,
   czechDisplayDate,
   czechMonthLabel,
+  czechDatesInText,
   czechWeekdayDate,
   czechNumericDate,
   czechWeekday,
@@ -117,6 +118,11 @@ describe("czech labels", () => {
   it("names weekdays in Czech", () => {
     expect(czechWeekday("2026-08-07")).toBe("pátek");
     expect(czechWeekday("2026-08-03")).toBe("pondělí");
+  });
+
+  it("rewrites dates inside delivered prose but not inside paths", () => {
+    expect(czechDatesInText("Obálka DNESKAi k 2026-08-15, témata")).toBe("Obálka DNESKAi k 15. 8. 2026, témata");
+    expect(czechDatesInText("/articles/2026-08-15-x")).toBe("/articles/2026-08-15-x");
   });
 
   it("writes a weekday date and a month label", () => {
