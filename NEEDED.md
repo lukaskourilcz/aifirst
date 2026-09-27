@@ -19,7 +19,7 @@ pack v2, 4:5/9:16/16:9 cards, the `practical` field, `/akce` for synced events,
 news sitemap, RSS, `/llms.txt`, Markdown editions and the footer links. These
 need the owner:
 
-- [ ] **Confirm Web Analytics counts a campaign link after the deploy** — open `{site}/?utm_source=threads&utm_medium=post&utm_campaign=edition` once, then check Vercel › aifirst-zpx8 › Analytics › UTM Parameters (or the pageviews API grouped by `utmSource`). Web Analytics was off from 2026-08-01 until this release, so August–September show almost nothing. [imp:4] [owner:me] [time:10m] [kind:deploy]
+- [ ] **Confirm Web Analytics counts a campaign link after the deploy** — open `{site}/?utm_source=threads&utm_medium=post&utm_campaign=edition` once, then check Vercel › aifirst-zpx8 › Analytics › Events › `campaign` grouped by `source` (`threads/post`) and `campaign`. The built-in UTM Parameters panel and the `utmSource` API dimension answer 402 on Pro: they need the Web Analytics Plus add-on (paid, ask-first) or Enterprise, which is why the reader also sends the `campaign` event. Pageviews were counted again right after the 2026-09-28 deploy; Web Analytics was off from 2026-08-01 until then. [imp:4] [owner:me] [time:10m] [kind:deploy]
 - [ ] **Create the Threads profile @dneskai, then flip it on** — set `live: true` for `threads` in `brand.social` (`lib/brand.ts`); the footer links only live profiles. Before 4 Nov. [imp:3] [owner:me] [time:10m] [kind:setup]
 - [ ] **Supply the operator identification and an editorial contact** — the footer and About name only the person responsible for the content. Seznam Newsfeed and good practice need the operator (name or company, IČO) and a contact e-mail; fill `about.authorshipContact` and extend the footer line with what you choose to publish. Nothing was guessed. [imp:4] [owner:me] [time:15m] [kind:legal]
 - [ ] **Decide on Seznam Newsfeed after a legal read** — the code prerequisites are in place (RSS 2.0 at `/rss.xml` with 20 items and a 16:9 enclosure, favicon, the responsible person in the footer). Seznam's terms since 1 May 2026 exclude automatically generated and machine-translated text, and every DNESKAi edition is written by a language model, so applying may breach them. The feed also carries only the dek, not the full text Seznam asks for (≥ 800 characters). Do not apply until that is settled. [imp:3] [owner:me] [time:30m] [kind:legal]
@@ -88,7 +88,8 @@ need the owner:
 - Vercel Pro is confirmed; production is `main` and the reader is at
   `https://caughtup-ai.vercel.app`.
 - Visitor analytics: Vercel Web Analytics pageviews only, restored for the
-  November launch (#99); no custom events, no Speed Insights.
+  November launch (#99), plus one `campaign` custom event on a `utm_*`
+  landing; no other events, no Speed Insights.
 - The repository contains no scraper, editorial model client, article writer,
   media generator, social console or weekly/regeneration workflow.
 - `/admin` is a noindex handoff link to the protected BoardlessAI social

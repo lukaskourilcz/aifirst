@@ -31,3 +31,35 @@ export function withLandingUtm(eventUrl: string, landingUrl: string): string {
   }
   return url.toString();
 }
+
+// Vercel's UTM dimensions (utmSource and friends) need Web Analytics Plus or
+// Enterprise; on Pro the API answers 402. A custom event is included in Pro,
+// so a campaign landing is also recorded as one `campaign` event whose two
+// properties can be grouped (`eventData/source`, `eventData/campaign`).
+// Two properties because that is the Pro limit per event.
+
+const TOKEN = /^[a-z0-9][a-z0-9._-]{0,39}$/;
+
+function token(value: string | null): string | null {
+  const v = value?.trim().toLowerCase() ?? "";
+  return TOKEN.test(v) ? v : null;
+}
+
+export type CampaignEvent = { source: string; campaign: string };
+
+/** `{ source: "threads/post", campaign: "edition" }` for a campaign landing URL, else null. */
+export function campaignFromUrl(href: string): CampaignEvent | null {
+  let url: URL;
+  try {
+    url = new URL(href);
+  } catch {
+    return null;
+  }
+  const source = token(url.searchParams.get("utm_source"));
+  if (!source) return null;
+  const medium = token(url.searchParams.get("utm_medium"));
+  return {
+    source: medium ? `${source}/${medium}` : source,
+    campaign: token(url.searchParams.get("utm_campaign")) ?? "none",
+  };
+}

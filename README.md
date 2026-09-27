@@ -214,7 +214,9 @@ The practical field accepts the flat item above and BoardlessAI's writer block
 `lib/practical.ts` validates both at delivery and reads them into one list.
 Campaign links land without a redirect (`/cs?…` still redirects with the query
 kept), and `components/SiteAnalytics.tsx` keeps `utm_*` on the first pageview
-across the internal `/cs` rewrite.
+across the internal `/cs` rewrite. Because Vercel's UTM breakdown is a paid
+add-on on the Pro plan, a campaign landing also sends one `campaign` custom
+event (`source`: `threads/post`, `campaign`: `edition`), which Pro can group.
 
 Older share/newsletter artifacts remain readable; the English legacy packs are
 frozen static files. New

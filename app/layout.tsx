@@ -15,7 +15,7 @@ const d = dict(DEFAULT_LOCALE);
 // reads from the page URL of the first pageview; SiteAnalytics keeps those
 // parameters across the `/cs` rewrite. Cookieless, first-party
 // (`/_vercel/insights/*`, already inside the CSP) and only on Vercel builds, so
-// local and CI builds send nothing. No custom events.
+// local and CI builds send nothing. The only custom event is `campaign`.
 const webAnalytics = process.env.VERCEL === "1";
 
 // Source Serif 4 carries long-form reading and descriptive editorial copy.

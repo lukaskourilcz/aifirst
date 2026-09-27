@@ -28,8 +28,9 @@ reader.
 - **Automation:** GitHub Actions CI plus a Prague-aware missed-publication
   sentinel; no generation workflow runs here.
 - **Deployment:** Vercel Pro static/SSG output with Vercel Web Analytics
-  (pageviews only, cookieless, on Vercel builds; it reads campaign `utm_*`
-  parameters from the landing URL). Speed Insights is not loaded.
+  (cookieless, on Vercel builds): pageviews, plus one `campaign` custom event
+  on a `utm_*` landing, since the UTM breakdown needs the paid Web Analytics
+  Plus add-on on Pro. Speed Insights is not loaded.
 - **Distribution:** per-edition share pack `/data/share/<date>.cs.json`
   (version 2: social copy, lesson, practical item, card URLs, UTM links;
   schema `contracts/distribution-pack.schema.json`), build-time cards in
