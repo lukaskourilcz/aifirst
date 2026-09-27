@@ -12,7 +12,6 @@ const ROUTES = [
   "/cs/archive",
   "/topics",
   "/cs/topics",
-  "/radar",
   "/weekly",
   "/about",
   "/corrections",
@@ -156,13 +155,13 @@ test("primary nav lives in the sidebar; ops links in the footer", async ({ page 
     await expect(sidebar.locator(`a[href$="${path}"]`)).toHaveCount(0);
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/radar", "/topics", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
+  for (const path of ["/topics", "/archive", "/about", "/corrections", "/glossary", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
   await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
 });
 
-for (const [legacy, current] of [["/stats", "/radar"], ["/trends", "/radar"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
+for (const [legacy, current] of [["/radar", "/topics"], ["/stats", "/topics"], ["/trends", "/topics"], ["/pulse", "/topics"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
   test(`${legacy} permanently resolves to ${current}`, async ({ page }) => {
     await page.goto(legacy);
     await expect(page).toHaveURL(new RegExp(`${current}/?$`));
@@ -361,7 +360,7 @@ test("health and operator-adjacent routes remain private", async ({ page, reques
 });
 
 test("public JSON contracts and security headers remain available", async ({ request }) => {
-  for (const route of ["/api/today.json", "/api/weekly.json", "/api/topics.json", "/api/radar.json", "/api/health.json"]) {
+  for (const route of ["/api/today.json", "/api/weekly.json", "/api/topics.json", "/api/health.json"]) {
     const response = await request.get(route);
     expect(response.ok(), route).toBe(true);
     expect(response.headers()["content-type"]).toContain("application/json");

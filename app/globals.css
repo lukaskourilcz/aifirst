@@ -324,11 +324,6 @@
 .entity-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 0; padding: 0; }
 .entity-list li { display: inline-flex; gap: 8px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); }
 
-.radar-bars { list-style: none; padding: 0; margin: 0; }
-.radar-bars li { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(140px, 3fr) auto; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--color-fog); }
-.radar-bar { height: 6px; background: var(--border-subtle); }
-.radar-bar span { display: block; height: 100%; background: var(--color-blueprint-blue); }
-
 
 /* The completion mark: one row in the masthead idiom, closing the edition on
    Today. A dot in the completion colour, then the reader's cue on the right. */
@@ -477,8 +472,6 @@
 @media (max-width: 640px) {
   .issue-navigation { grid-template-columns: 1fr; }
   .issue-navigation a:last-child { text-align: left; }
-  .radar-bars li { grid-template-columns: 1fr auto; }
-  .radar-bar { grid-column: 1 / -1; }
   .provenance dl div { grid-template-columns: 1fr; gap: 2px; }
   .topic-timeline li { grid-template-columns: 1fr; gap: 2px; }
   .public-status dl div { grid-template-columns: 1fr; gap: 2px; }
@@ -2102,8 +2095,6 @@ svg { max-width: 100%; }
 .dense-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-strong); }
 .entry-row { padding: var(--row-padding, 14px 0); }
 .entry-row__title { color: var(--row-title-color, var(--text-primary)); font-family: var(--font-editorial); font-size: var(--row-title-size, 1.05rem); font-weight: 700; line-height: 1.25; }
-.radar-overview { margin-top: var(--space-6); }
-.radar-bar span { width: var(--radar-width, 0%); }
 
 .reference-section { max-width: 78ch; }
 .reference-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-subtle); }

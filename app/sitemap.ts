@@ -25,7 +25,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/tyden", changeFrequency: "daily", priority: 0.9 },
     { path: "/o-cem-se-mluvi", changeFrequency: "daily", priority: 0.7 },
     { path: "/podcasty", changeFrequency: "daily", priority: 0.7 },
-    { path: "/radar", changeFrequency: "daily", priority: 0.8 },
     { path: "/topics", changeFrequency: "weekly", priority: 0.8 },
     { path: "/archive", changeFrequency: "daily", priority: 0.8 },
     { path: "/sources", changeFrequency: "weekly", priority: 0.5 },

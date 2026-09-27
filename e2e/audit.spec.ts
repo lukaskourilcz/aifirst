@@ -16,7 +16,6 @@ const ROUTES = [
   "/archive",
   "/topics",
   "/topics/ai-models",
-  "/radar",
   "/weekly",
   "/search",
   "/sources",

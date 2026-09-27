@@ -24,7 +24,6 @@ export function Footer({ locale }: { locale: Locale }) {
         </div>
         <nav aria-label={d.footer.read} className="footer-nav">
           <p className="footer-nav__heading">{d.footer.read}</p>
-          <Link href={lp("/radar")}>{t.radar}</Link>
           <Link href={lp("/topics")}>{t.topics}</Link>
           <Link href={lp("/archive")}>{t.archive}</Link>
         </nav>

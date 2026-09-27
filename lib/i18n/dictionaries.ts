@@ -16,7 +16,6 @@ const en = {
   },
   nav: {
     today: "today",
-    radar: "radar",
     topics: "topics",
     weekly: "weekly",
     about: "about",
@@ -228,17 +227,6 @@ const en = {
     issues: "issues",
     empty: "Topics appear once a few editions have gathered around them.",
   },
-  radar: {
-    kicker: "radar",
-    title: "What is gaining signal.",
-    intro: "Recurring themes, rising attention and developments worth watching, derived from published editions rather than a live dashboard.",
-    rising: "Rising topics",
-    recurring: "Recurring topics",
-    watchlist: "Current Watchlist",
-    cooled: "Cooling topics",
-    timeline: "Recent issue timeline",
-    noData: "Not enough published history yet.",
-  },
   about: {
     kicker: "about",
     title: "A calmer way to follow AI.",
@@ -428,7 +416,6 @@ const cs: Dict = {
   },
   nav: {
     today: "dnes",
-    radar: "radar",
     topics: "témata",
     weekly: "týden",
     about: "o projektu",
@@ -637,17 +624,6 @@ const cs: Dict = {
     rss: "RSS tohoto tématu",
     issues: "vydání",
     empty: "Témata se objeví, jakmile se k nim nasbírá několik vydání.",
-  },
-  radar: {
-    kicker: "radar",
-    title: "Co nabírá na síle.",
-    intro: "Opakující se témata, rostoucí pozornost a vývoj, který stojí za sledování. Vše z publikovaných vydání, ne z interního dashboardu.",
-    rising: "Rostoucí témata",
-    recurring: "Opakující se témata",
-    watchlist: "Aktuálně na radaru",
-    cooled: "Ochladlá témata",
-    timeline: "Časová osa vydání",
-    noData: "Zatím není dost publikované historie.",
   },
   about: {
     kicker: "o magazínu",

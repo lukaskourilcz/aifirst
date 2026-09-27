@@ -3,9 +3,10 @@ import { localePath, type Locale } from "@/lib/i18n/config";
 
 export const dynamic = "force-static";
 
-// AI Pulse was deleted before launch: live prices and npm counts are not
-// editorial content. The URL keeps resolving.
+// Radar was folded into Topics before launch; its topic lists were the only
+// part left once the Watchlist, cooling topics, timeline and AI Pulse went.
+// Every older URL that pointed at it lands on /topics.
 export default async function PulseCompatibility({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
-  permanentRedirect(localePath(lang, "/radar"));
+  permanentRedirect(localePath(lang, "/topics"));
 }
