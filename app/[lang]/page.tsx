@@ -9,7 +9,6 @@ import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
-import { BannerSlot } from "@/components/editorial/BannerSlot";
 import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
@@ -164,7 +163,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
                 <span className="kicker edition-end__done">{d.home.editionComplete}</span>
                 <span className="kicker edition-end__message">{publication.completion}</span>
               </p>
-              <BannerSlot id="today-partner-belt" locale={locale} />
             </>
           )}
 

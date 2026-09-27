@@ -4,12 +4,15 @@ import raw from "@/config/banner.json";
 // script, no third-party host and no tracking: a filled slot is a local image
 // under `public/images/banners/` linked to one advertiser URL. Because the page
 // is statically rendered from this config, a filled slot causes zero layout
-// shift and an empty one renders nothing at all.
+// shift and an empty one renders nothing at all: no reader page shows an
+// empty advertising box.
 
 export type BannerCreative = { src: string; width: number; height: number };
 
 export type BannerSlot = {
   advertiser: string;
+  /** Overrides the default „Partner" label, e.g. „Vlastní projekt" for a house project. */
+  label?: string;
   href: string;
   alt: string;
   desktop: BannerCreative;
@@ -40,7 +43,7 @@ export function parseSlot(value: unknown): BannerSlot | null {
   const slot = value;
   if (typeof slot !== "object" || slot === null) return null;
 
-  const { active, advertiser, href, alt } = slot as Record<string, unknown>;
+  const { active, advertiser, href, alt, label } = slot as Record<string, unknown>;
   if (active !== true) return null;
   if (typeof advertiser !== "string" || advertiser === "") return null;
   if (typeof href !== "string" || href === "") return null;
@@ -55,7 +58,14 @@ export function parseSlot(value: unknown): BannerSlot | null {
   const mobile = creative((slot as Record<string, unknown>).mobile);
   if (desktop === null || mobile === null) return null;
 
-  return { advertiser, href, alt, desktop, mobile };
+  return {
+    advertiser,
+    ...(typeof label === "string" && label.trim() ? { label: label.trim() } : {}),
+    href,
+    alt,
+    desktop,
+    mobile,
+  };
 }
 
 /** The creative configured for `id`, or `null` while the slot is empty. */
@@ -63,22 +73,3 @@ export function bannerSlot(id: string): BannerSlot | null {
   return parseSlot(config.slots[id]);
 }
 
-/**
- * Whether an empty slot still reserves its box.
- *
- * `placeholder: true` is what keeps the right rail the same height with and
- * without a creative, so filling the slot later shifts nothing. It only applies
- * while the slot is empty: once a real creative is configured the creative is
- * the reservation. Absent or false keeps the original render-null behaviour,
- * which is why `today-partner-belt` is unaffected.
- */
-export function isPlaceholderSlot(value: unknown): boolean {
-  if (typeof value !== "object" || value === null) return false;
-  const slot = value as Record<string, unknown>;
-  if (parseSlot(slot) !== null) return false;
-  return slot.placeholder === true;
-}
-
-export function bannerPlaceholder(id: string): boolean {
-  return isPlaceholderSlot(config.slots[id]);
-}

@@ -62,10 +62,6 @@ const en = {
     cited: "cited",
     unavailable: "unavailable",
   },
-  ads: {
-    slot: "Advertising space",
-    region: "Advertising space",
-  },
   sections: {
     todaysEdition: "Today's edition",
     latestEdition: "Latest edition",
@@ -478,10 +474,6 @@ const cs: Dict = {
     skipToContent: "Přeskočit na obsah",
     cited: "citováno",
     unavailable: "nedostupné",
-  },
-  ads: {
-    slot: "Místo pro reklamu",
-    region: "Reklamní prostor",
   },
   sections: {
     todaysEdition: "Dnešní vydání",

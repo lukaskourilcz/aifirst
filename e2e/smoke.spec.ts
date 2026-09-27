@@ -126,14 +126,15 @@ test("the devShark house promotion renders without overflow at launch widths", a
     await page.setViewportSize(viewport);
     await page.goto("/");
 
+    // One placement, the rail square; it reflows into the main column below 1280.
     const banners = page.locator('.banner-slot a[href="https://devshark.app"]');
-    await expect(banners).toHaveCount(2);
+    await expect(banners).toHaveCount(1);
     await expect(banners.nth(0)).toBeVisible();
-    await expect(banners.nth(1)).toBeVisible();
     await expect(banners.nth(0)).toHaveAttribute("rel", "sponsored noopener noreferrer");
+    await expect(page.locator(".banner-slot__label")).toHaveText(/vlastní projekt/i);
 
     const visibleCreatives = page.locator(".banner-slot__creative:visible");
-    await expect(visibleCreatives).toHaveCount(2);
+    await expect(visibleCreatives).toHaveCount(1);
     for (const creative of await visibleCreatives.all()) {
       await expect(creative).toHaveAttribute("alt", "devShark, vlastní projekt. Kvízová hra, se kterou budeš lepší vývojář.");
     }
@@ -443,8 +444,12 @@ test("events expose both scopes as linkable anchors with zero JavaScript", async
 
 test("the new section routes are in the sitemap", async ({ request }) => {
   const xml = await (await request.get("/sitemap.xml")).text();
-  for (const path of ["/tyden", "/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce"]) {
+  for (const path of ["/tyden", "/o-cem-se-mluvi", "/podcasty"]) {
     expect(xml, `${path} missing from the sitemap`).toContain(`${path}<`);
+  }
+  // Noindex while empty or dormant, so not advertised to crawlers either.
+  for (const path of ["/ai-modely", "/akce", "/weekly"]) {
+    expect(xml, `${path} should not be in the sitemap`).not.toContain(`${path}<`);
   }
 });
 
