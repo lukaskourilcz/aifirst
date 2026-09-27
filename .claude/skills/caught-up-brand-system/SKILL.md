@@ -12,7 +12,7 @@ Read `docs/design/BRAND_SYSTEM.md`, `docs/design/DESIGN_THESIS.md`, and `docs/de
 - Render the public publication name as **Caught Up** in English and Czech.
 - Keep stable repository, package, bot, environment, and compatibility identifiers named `aifirst`.
 - Never apply a blind rename.
-- Use the vector completion period from `public/brand/completion-mark.svg` through `BrandMark` or `BrandLockup`; do not replace the logo with generated raster media.
+- Use the logotype from `public/brand/DNESKAi-logo*.svg` through `BrandLockup`, and the square mark `DNESKAi-square.svg` for icons and avatars; do not redraw them, set the name in a font, or replace them with generated raster media.
 
 ## Apply the visual language
 

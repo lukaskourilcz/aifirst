@@ -65,10 +65,12 @@ and nested rounded cards are not part of the system.
 
 ## Brand and icons
 
-`BrandMark` and `BrandLockup` are the shared public brand components.
-`public/brand/completion-mark.svg` and `app/icon.svg` use deterministic
-completion geometry. The readable name is `DNESKAi` without a
-punctuation rename.
+`BrandLockup` is the shared public brand component. It renders the outlined
+logotype from `public/brand/DNESKAi-logo*.svg` at 20 px, or 18 px with
+`compact`, and its `tone` prop picks the light, dark or print (`mono-black`)
+file. `app/icon.svg` is the square mark `DNESKAi-square.svg`; the Apple touch
+icon and the 32 px favicon are its PNGs. `docs/design/BRAND_SYSTEM.md` has the
+usage rules.
 
 Primary navigation uses indexed label rows. Search retains its 16px,
 1.5px-stroke `currentColor` magnifier; utility glyphs remain textual and hidden

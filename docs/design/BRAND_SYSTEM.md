@@ -29,17 +29,50 @@ is the owner's call and it has not been made. Do not "re-align" the two.
 Stable repository, package, environment, bot, and compatibility identifiers
 remain `aifirst`.
 
-## Mark and wordmark
+## Logotype
 
-The mark is a compact blueprint-blue completion square. It means the final item
-in a briefing, resolved status, and permission to stop. It is deterministic
-SVG/CSS, scales from favicon to social composition, and is not a generated
-raster.
+The logotype is the word DNESKAi in Poppins Black, converted to outlines. DNESK
+is blueprint blue, Ai a deeper blue, and the A tucks under the leg of the K;
+their overlap takes a third, darkest shade. The i is scaled to 85 % so its dot
+ends at cap height. The production files in `public/brand/` carry the text as
+paths: use them as they are, never redraw the logotype or set the name in a font.
+Poppins is not a web font here and does not need to be added.
 
-The wordmark uses the exact text `DNESKAi` in the editorial serif — `BrandMark`
-renders `brand.wordmark`, so the lockup follows that field and nothing else. The
-dot is a separate mark. The lockup must remain legible at small sizes, in Czech
-contexts, and in print.
+| File | Use |
+| --- | --- |
+| `DNESKAi-logo.svg` | white or paper surfaces (`#ffffff`, `#f7f7f5`) |
+| `DNESKAi-logo-dark.svg` | `#14161A` surfaces |
+| `DNESKAi-logo-mono-white.svg` | solid blue or a photograph |
+| `DNESKAi-logo-mono-black.svg` | one-colour print |
+
+Colours on light surfaces: DNESK `#2f5ae6`, Ai `#1a3ab0`, overlap `#10266f`. On
+`#14161A`: DNESK `#4d6ff0`, Ai `#9db2ff`, overlap `#d2dcff`. The mono versions
+are `#14161A` or `#ffffff` with no overlap shade; the K and A join in one colour.
+
+- Keep the proportions. The viewBox is `50 -708 4217.8 708`, about 5.96 : 1.
+- Clear space on every side equals the height of the dot over the i, about 27 %
+  of the logotype's height.
+- Minimum height is 16 px; below that, use the square mark.
+- Navigation: 20 px on desktop, 18 px on mobile. Footer and other compact
+  places: 16 to 18 px. Print uses the black mono version at 16 px.
+- Never recolour it, add shadows or gradients, resize the Ai, or set the name in
+  a font.
+
+`BrandLockup` renders the logotype from `brand.assets` in `lib/brand.ts`, with
+`alt="DNESKAi"`. Its `tone` prop picks the light, dark or print file. Open Graph
+images embed the same SVG through `lib/og-logo.ts`.
+
+## Square mark
+
+`DNESKAi-square.svg` sets DNES / KAi on two lines, white on `#14161A`, with a
+blueprint-blue block cursor under ES. It is the favicon (`app/icon.svg`), the
+Apple touch icon (`app/apple-icon.png`, 180 px), `public/favicon-32.png`, app
+icons, social avatars and any other square format. PNGs at 512, 180 and 32 px
+live in `public/brand/png/`.
+
+Production files never crop it to a circle; the platform does that for avatars.
+The blinking `DNESKAi-square-blink.svg` is only for SVG inlined on the web.
+Favicons and avatars use the static version.
 
 ## Color behavior
 
@@ -54,7 +87,7 @@ All production use maps through semantic tokens documented in
 
 ## Typography
 
-- Space Grotesk: wordmark, display headlines, editorial section headings,
+- Space Grotesk: display headlines, editorial section headings,
   navigation, controls, and completion.
 - Source Serif 4: article prose, deks, definitions, and descriptive card copy.
 - IBM Plex Mono: dates, issue identifiers, source IDs, run records, tags,
@@ -66,7 +99,7 @@ Both faces include Latin Extended for Czech.
 ## Visual language
 
 - Finite edition, magazine on paper, evidence kept visible, source
-  annotation, issue filing, and the completion mark.
+  annotation, issue filing, and the completion state.
 - Flat surfaces, collapsing hairline grids, controlled crops, zero radii, no
   decorative elevation.
 - Serious and concise voice; uncertainty and evidence remain explicit.
