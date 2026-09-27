@@ -64,7 +64,7 @@ describe("distribution pack v2 (share JSON)", () => {
     expect(pack.canonicalUrl).toBe(`${SITE}/articles/2026-11-05-ukazka`);
     expect(pack.primaryHeadline).toBe("Ukázkové vydání pro kontrakt share packu");
     expect(pack.markdownUrl).toBe(`${SITE}/articles/2026-11-05-ukazka.md`);
-    expect(pack.images.og).toEqual({ url: `${SITE}/articles/2026-11-05-ukazka/opengraph-image`, width: 1200, height: 630 });
+    expect(pack.images.og).toEqual({ url: `${SITE}/articles/2026-11-05-ukazka/share/og.png`, width: 1200, height: 630 });
     expect(pack.images.feed).toEqual({ url: `${SITE}/articles/2026-11-05-ukazka/share/feed.png`, width: 1080, height: 1350 });
     expect(pack.images.story).toEqual({ url: `${SITE}/articles/2026-11-05-ukazka/share/story.png`, width: 1080, height: 1920 });
     expect(pack.social_copy).toEqual({ ...socialCopy, origin: "edition" });

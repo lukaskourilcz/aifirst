@@ -1,8 +1,9 @@
 import { listArticles } from "@/lib/content";
 import { editionCardResponse, isShareImageFile, SHARE_IMAGE_FILES } from "@/lib/share-card";
 
-// Per-edition social cards, drawn at build time next to the Open Graph image:
-// /articles/<slug>/share/feed.png (4:5), story.png (9:16) and wide.png (16:9).
+// Per-edition cards, drawn at build time by one renderer:
+// /articles/<slug>/share/og.png (1200x630 Open Graph), feed.png (4:5),
+// story.png (9:16) and wide.png (16:9).
 // The extension keeps them outside the locale rewrite in middleware.ts.
 export const runtime = "nodejs";
 export const dynamic = "force-static";

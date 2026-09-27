@@ -27,10 +27,11 @@ export type ShareFormat = keyof typeof SHARE_FORMATS;
 
 /** The file segment of a static share image route: `feed.png` → `feed`. */
 export const SHARE_IMAGE_FILES = {
+  "og.png": "og",
   "feed.png": "feed",
   "story.png": "story",
   "wide.png": "wide",
-} as const satisfies Record<string, Exclude<ShareFormat, "og">>;
+} as const satisfies Record<string, ShareFormat>;
 
 export type ShareImageFile = keyof typeof SHARE_IMAGE_FILES;
 
@@ -38,9 +39,14 @@ export function isShareImageFile(value: string): value is ShareImageFile {
   return Object.prototype.hasOwnProperty.call(SHARE_IMAGE_FILES, value);
 }
 
-/** Root-relative URL of an edition's card in a format. */
+/**
+ * Root-relative URL of an edition's card in a format. The Open Graph card is
+ * `share/og.png` too: an `opengraph-image` metadata file inside a dynamic
+ * segment is served under a hashed name, so the old
+ * `/articles/<slug>/opengraph-image` URL the article page pointed at was a 404.
+ */
 export function shareImagePath(slug: string, format: ShareFormat): string {
-  return format === "og" ? `/articles/${slug}/opengraph-image` : `/articles/${slug}/share/${format}.png`;
+  return `/articles/${slug}/share/${format}.png`;
 }
 
 type Scale = {
@@ -79,7 +85,12 @@ export type ShareCardInput = {
   tags: string[];
 };
 
-export function shareCard(input: ShareCardInput, format: ShareFormat) {
+// Czech typography glues one-letter words with U+00A0, which the card font
+// draws as a double-width gap. The cards are images, so a plain space is right.
+const plain = (text: string) => text.replace(/[\u00a0\u202f]/g, " ");
+
+export function shareCard(raw: ShareCardInput, format: ShareFormat) {
+  const input = { ...raw, title: plain(raw.title), dek: plain(raw.dek) };
   const size = SHARE_FORMATS[format];
   const s = SCALES[format];
   const logo = ogLogo(s.logo);
@@ -183,12 +194,11 @@ export function shareCard(input: ShareCardInput, format: ShareFormat) {
           paddingTop: vertical ? 32 : 24,
         }}
       >
-        <div style={{ display: "flex", gap: 18, color: OG.accent, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", columnGap: 18, rowGap: 8, color: OG.accent, flexWrap: "wrap" }}>
           {tags.map((t) => (
             <span key={t}>{t}</span>
           ))}
         </div>
-        {vertical ? <div style={{ display: "flex", color: OG.ink, fontWeight: 700 }}>{brand.shortDescription}</div> : null}
       </div>
     </div>
   );

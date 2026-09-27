@@ -17,6 +17,7 @@ import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { PracticalTip } from "@/components/editorial/PracticalTip";
 import { readPractical } from "@/lib/practical";
+import { shareImagePath } from "@/lib/share-card";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import {
   adjacentIssues,
@@ -88,7 +89,7 @@ export async function generateMetadata({
       modifiedTime,
       images: heroPhoto
         ? [{ url: heroPhoto }]
-        : [{ url: `/articles/${slug}/opengraph-image`, width: 1200, height: 630, alt: article.frontmatter.title }],
+        : [{ url: shareImagePath(slug, "og"), width: 1200, height: 630, alt: article.frontmatter.title }],
     },
   };
 }
