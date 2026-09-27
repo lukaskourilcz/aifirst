@@ -1,27 +1,11 @@
-import { PageShell } from "@/components/PageShell";
-import { AIPulse } from "@/components/AIPulse";
-import { loadPulse } from "@/lib/pulse";
-import { type Locale } from "@/lib/i18n/config";
-import { dict } from "@/lib/i18n/dictionaries";
+import { permanentRedirect } from "next/navigation";
+import { localePath, type Locale } from "@/lib/i18n/config";
 
 export const dynamic = "force-static";
 
-export default async function PulsePage({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}) {
-  const { lang: locale } = await params;
-  const t = dict(locale).pulse;
-  const pulse = loadPulse();
-
-  return (
-    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
-      {pulse ? (
-        <AIPulse pulse={pulse} locale={locale} />
-      ) : (
-        <p className="route-empty-state">{t.empty}</p>
-      )}
-    </PageShell>
-  );
+// AI Pulse was deleted before launch: live prices and npm counts are not
+// editorial content. The URL keeps resolving.
+export default async function PulseCompatibility({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  permanentRedirect(localePath(lang, "/radar"));
 }

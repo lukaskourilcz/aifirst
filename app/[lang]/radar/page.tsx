@@ -1,12 +1,10 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
-import { AIPulse } from "@/components/AIPulse";
 import { IssueRow } from "@/components/IssueRow";
 import { PageShell } from "@/components/PageShell";
 import { Wire } from "@/components/Wire";
 import { buildRadar } from "@/lib/radar";
-import { loadPulse } from "@/lib/pulse";
 import type { Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -38,7 +36,7 @@ function TopicBars({ rows, locale }: { rows: Awaited<ReturnType<typeof buildRada
 export default async function RadarPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).radar;
-  const [radar, pulse] = await Promise.all([buildRadar(locale), Promise.resolve(loadPulse())]);
+  const radar = await buildRadar(locale);
   return (
     <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
       <div className="split-2 radar-overview">
@@ -47,7 +45,6 @@ export default async function RadarPage({ params }: { params: Promise<{ lang: Lo
       </div>
       {radar.watchlist.length ? <section className="route-section"><Wire items={radar.watchlist} locale={locale} /></section> : null}
       {radar.cooled.length ? <section className="route-section"><h2>{t.cooled}</h2><TopicBars rows={radar.cooled} locale={locale} /></section> : null}
-      {pulse ? <section className="route-section"><h2>{t.pulse}</h2><AIPulse pulse={pulse} locale={locale} /></section> : null}
       <section className="route-section">
         <h2>{t.timeline}</h2>
         <ul className="dense-list">{radar.timeline.map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.date} title={article.title} variant="meta" />)}</ul>

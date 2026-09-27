@@ -1,6 +1,5 @@
 import { czechDisplayDate } from "@/lib/weeks";
 import Link from "next/link";
-import { Sparkline } from "./Sparkline";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import type { CSSProperties } from "react";
@@ -13,7 +12,6 @@ type Props = {
   tags?: string[];
   citations?: number;
   latestDate?: string | null;
-  cadence?: number[];
   locale: Locale;
 };
 
@@ -33,7 +31,6 @@ export function SourceCard({
   tags = [],
   citations = 0,
   latestDate,
-  cadence,
   locale,
 }: Props) {
   const pct = Math.round(weight * 100);
@@ -83,11 +80,6 @@ export function SourceCard({
         {latestDate ? ` · ${t.last} ${czechDisplayDate(latestDate)}` : ` · ${t.never}`}
       </p>
 
-      {cadence && cadence.some((n) => n > 0) && (
-        <div className="source-card__cadence">
-          <Sparkline data={cadence} width={240} height={28} compact />
-        </div>
-      )}
     </article>
   );
 }

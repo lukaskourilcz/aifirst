@@ -487,46 +487,6 @@ export async function sourceCitationStats(
   return stats;
 }
 
-// Citations per month over the last `months` months, for each source. The
-// caller passes this to the source card sparkline. Returns a bucket of
-// integers ordered oldest → newest so the sparkline reads left-to-right.
-export async function sourceCitationsByMonth(
-  months = 6,
-  locale: Locale = DEFAULT_LOCALE,
-  dir: string = defaultContentDir(),
-): Promise<Map<string, number[]>> {
-  const resolved = resolveByLocale(await readEntries(dir), locale);
-  const today = new Date();
-  const buckets: string[] = [];
-  for (let i = months - 1; i >= 0; i--) {
-    const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
-    buckets.push(
-      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
-    );
-  }
-  const bucketIndex = new Map(buckets.map((b, i) => [b, i]));
-  const out = new Map<string, number[]>();
-  for (const { fm } of resolved) {
-    if (!fm.date) continue;
-    const month = fm.date.slice(0, 7);
-    const idx = bucketIndex.get(month);
-    if (idx === undefined) continue;
-    const seenInIssue = new Set<string>();
-    for (const s of fm.sources ?? []) {
-      const sourceId = s.id;
-      if (!sourceId || seenInIssue.has(sourceId)) continue;
-      seenInIssue.add(sourceId);
-      let arr = out.get(sourceId);
-      if (!arr) {
-        arr = new Array(months).fill(0);
-        out.set(sourceId, arr);
-      }
-      arr[idx] = (arr[idx] ?? 0) + 1;
-    }
-  }
-  return out;
-}
-
 export async function listArticlesBySource(
   sourceId: string,
   locale: Locale = DEFAULT_LOCALE,
