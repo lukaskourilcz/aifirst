@@ -5,6 +5,7 @@ import { LOCALES, localePath } from "@/lib/i18n/config";
 import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
 import { loadSources } from "@/lib/sources";
 import { groupByWeek } from "@/lib/weeks";
+import { loadEvents, splitByAnchor } from "@/lib/events";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
@@ -33,6 +34,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/about", changeFrequency: "monthly", priority: 0.5 },
     { path: "/corrections", changeFrequency: "weekly", priority: 0.4 },
   ];
+
+  // /akce is noindex while nothing is upcoming; once BoardlessAI syncs real
+  // events it is indexable and belongs here too.
+  if (splitByAnchor(loadEvents(), articles[0]?.date ?? "1970-01-01").upcoming.length > 0) {
+    staticPaths.push({ path: "/akce", changeFrequency: "daily", priority: 0.6 });
+  }
 
   const weekPaths = groupByWeek(articles).map((week) => ({
     path: `/tyden/${week.id}`,

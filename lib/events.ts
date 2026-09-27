@@ -127,10 +127,61 @@ export function eventDateBlock(dateKey: string): { day: string; month: string } 
   };
 }
 
-/** „Praha · Fórum Karlín", „online", or nothing when neither is known. */
+/**
+ * „Praha · Fórum Karlín", or nothing when neither is known. Online is a
+ * badge of its own (`eventBadges`), so the place never repeats it.
+ */
 export function eventPlace(event: MagazineEvent): string | null {
-  if (event.online && !event.city) return "online";
   const parts = [event.city, event.venue].filter((p): p is string => Boolean(p));
-  if (event.online) parts.push("online");
   return parts.length ? parts.join(" · ") : null;
+}
+
+const CS_MONTHS_GENITIVE = [
+  "ledna", "února", "března", "dubna", "května", "června",
+  "července", "srpna", "září", "října", "listopadu", "prosince",
+] as const;
+
+function dateParts(dateKey: string): { y: number; m: number; d: number } {
+  const [y, m, d] = dateKey.split("-").map(Number);
+  return { y: y ?? 1970, m: m ?? 1, d: d ?? 1 };
+}
+
+/**
+ * The Czech date line: „14. října 2026", „14.–16. října 2026",
+ * „30. září – 2. října 2026", „30. prosince 2026 – 2. ledna 2027".
+ */
+export function eventDateLabel(event: Pick<MagazineEvent, "starts" | "ends">): string {
+  const a = dateParts(event.starts);
+  const month = (m: number) => CS_MONTHS_GENITIVE[m - 1] ?? String(m);
+  if (!event.ends || event.ends === event.starts) return `${a.d}. ${month(a.m)} ${a.y}`;
+  const b = dateParts(event.ends);
+  if (a.y !== b.y) return `${a.d}. ${month(a.m)} ${a.y} – ${b.d}. ${month(b.m)} ${b.y}`;
+  if (a.m !== b.m) return `${a.d}. ${month(a.m)} – ${b.d}. ${month(b.m)} ${b.y}`;
+  return `${a.d}.–${b.d}. ${month(b.m)} ${b.y}`;
+}
+
+// „zdarma", „vstup zdarma", „Free", „0 Kč". A price that merely mentions a
+// free tier („zdarma pro členy, jinak 490 Kč") is not free and keeps its text.
+const FREE = /^(vstup\s+)?(zdarma|free|0\s*(Kč|CZK|€|EUR|USD|\$))\.?$/iu;
+
+export function isFreeEvent(event: Pick<MagazineEvent, "price">): boolean {
+  return typeof event.price === "string" && FREE.test(event.price.trim());
+}
+
+export type EventBadge = "online" | "free";
+
+export function eventBadges(event: MagazineEvent): EventBadge[] {
+  const badges: EventBadge[] = [];
+  if (event.online) badges.push("online");
+  if (isFreeEvent(event)) badges.push("free");
+  return badges;
+}
+
+/** The host a reader is sent to, shown as the event's source: „lu.ma". */
+export function eventSource(event: Pick<MagazineEvent, "url">): string {
+  try {
+    return new URL(event.url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
 }
