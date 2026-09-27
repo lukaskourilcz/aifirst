@@ -38,7 +38,7 @@ import { localizedBrand } from "@/lib/brand";
 import { loadTopicsConfig, topicsForArticle } from "@/lib/topics/config";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/config";
-import { czechLongDate } from "@/lib/weeks";
+import { czechLongDate, czechNumericDate, czechWeekdayDate } from "@/lib/weeks";
 import { provenanceSentence } from "@/lib/labels";
 
 export const dynamic = "force-static";
@@ -177,7 +177,9 @@ export default async function ArticlePage({
       <div className="page-with-rail">
         <div className="page-with-rail__main">
       <IssueMasthead
-        label={isWeekly ? d.article.weeklyDigest : d.home.todaysBriefing}
+        label={isWeekly
+          ? `${d.article.weeklyDigest} · ${czechNumericDate(fm.date)}`
+          : `${d.article.edition} · ${czechWeekdayDate(fm.date)}`}
         title={fm.title}
         dek={fm.dek}
         date={fm.date}
@@ -245,16 +247,6 @@ export default async function ArticlePage({
           </nav>
         ) : null}
         <SourceLedger sources={fm.sources ?? []} registry={sourceRegistry} locale={locale} />
-        <p className="issue-print-action">
-          <a
-            href={localePath(locale, `/articles/${article.slug}/print`)}
-            className="label"
-            target="_blank"
-            rel="noopener"
-          >
-            ↗ {d.article.printView}
-          </a>
-        </p>
         <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
       </section>
         </div>

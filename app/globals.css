@@ -467,7 +467,6 @@
   color: var(--text-secondary);
 }
 .issue-topics { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
-.issue-print-action { margin-top: var(--space-5); text-align: right; }
 .fallback-notice { margin: 0 0 var(--space-5); padding: var(--space-3); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); color: var(--text-primary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 .publication-empty-state { padding: var(--space-9) 0; }
 .publication-empty-state > p:not(.eyebrow) { max-width: 60ch; color: var(--text-tertiary); }
