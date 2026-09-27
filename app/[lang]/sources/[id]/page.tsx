@@ -41,8 +41,8 @@ export default async function SourceDetailPage({
   if (!source) notFound();
 
   const [issues, stats] = await Promise.all([
-    listArticlesBySource(id, locale),
-    sourceCitationStats(locale),
+    listArticlesBySource(source, locale),
+    sourceCitationStats(sources, locale),
   ]);
   const stat = stats.get(id);
   const weightPct = Math.round((source.weight ?? 0.5) * 100);

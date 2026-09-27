@@ -4,10 +4,8 @@ import { loadSources } from "@/lib/sources";
 export const dynamic = "force-static";
 
 export async function GET() {
-  const [sources, stats] = await Promise.all([
-    loadSources(),
-    sourceCitationStats(),
-  ]);
+  const sources = await loadSources();
+  const stats = await sourceCitationStats(sources);
 
   const payload = {
     status: "ok",

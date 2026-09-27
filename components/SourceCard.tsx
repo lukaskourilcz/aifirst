@@ -76,8 +76,9 @@ export function SourceCard({
       </ul>
 
       <p className="label label--muted source-card__citation">
-        {t.cited} {String(citations).padStart(2, "0")} ×
-        {latestDate ? ` · ${t.last} ${czechDisplayDate(latestDate)}` : ` · ${t.never}`}
+        {citations > 0 && latestDate
+          ? `${t.editions.replace("{n}", String(citations))} · ${t.last} ${czechDisplayDate(latestDate)}`
+          : t.never}
       </p>
 
     </article>

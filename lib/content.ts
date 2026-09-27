@@ -7,6 +7,7 @@ import { byDateDesc } from "./helpers/date";
 import { groupBy } from "./helpers/group";
 import { CONTENT_LANGS, DEFAULT_LOCALE, isContentLang, isLocale, type ContentLang, type Locale } from "./i18n/config";
 import { ogImageFor } from "./og";
+import { hostOf } from "./labels";
 
 export type Dispatch = {
   title: string;
@@ -459,36 +460,50 @@ export type SourceCitationStats = {
   latestDate: string | null;
 };
 
+type RegisteredSource = { id: string; url?: string };
+
+// The registry lists feed URLs; editions cite article URLs. Feed hosts carry a
+// `feeds.` or `www.` prefix the article host does not.
+function registryHost(source: RegisteredSource): string {
+  return hostOf(source.url).replace(/^(?:feeds|rss)\./, "");
+}
+
+/**
+ * Whether an edition's source entry cites a registered source. New editions
+ * key sources by URL and name the registry entry in `source_id`; legacy ones
+ * used the registry id as `id`. Either counts, and so does an article URL on
+ * the registered publication's own host.
+ */
+export function citesSource(ref: SourceRef, source: RegisteredSource): boolean {
+  if (ref.source_id === source.id || ref.id === source.id) return true;
+  const host = registryHost(source);
+  return host !== "" && hostOf(ref.url) === host;
+}
+
 export async function sourceCitationStats(
+  registry: RegisteredSource[],
   locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<Map<string, SourceCitationStats>> {
   const resolved = resolveByLocale(await readEntries(dir), locale);
   const stats = new Map<string, SourceCitationStats>();
   for (const { fm } of resolved) {
-    if (!fm.date) continue;
-    const seenInIssue = new Set<string>();
-    for (const s of fm.sources ?? []) {
-      const sourceId = s.id;
-      if (!sourceId || seenInIssue.has(sourceId)) continue;
-      seenInIssue.add(sourceId);
-      const existing = stats.get(sourceId) ?? {
-        id: sourceId,
-        count: 0,
-        latestDate: null,
-      };
+    if (!fm.date || (fm.slug && editorialHold(fm.slug))) continue;
+    const refs = fm.sources ?? [];
+    // Once per edition, however many of its sources come from one publication.
+    for (const source of registry) {
+      if (!refs.some((ref) => citesSource(ref, source))) continue;
+      const existing = stats.get(source.id) ?? { id: source.id, count: 0, latestDate: null };
       existing.count += 1;
-      if (!existing.latestDate || existing.latestDate < fm.date) {
-        existing.latestDate = fm.date;
-      }
-      stats.set(sourceId, existing);
+      if (!existing.latestDate || existing.latestDate < fm.date) existing.latestDate = fm.date;
+      stats.set(source.id, existing);
     }
   }
   return stats;
 }
 
 export async function listArticlesBySource(
-  sourceId: string,
+  source: RegisteredSource,
   locale: Locale = DEFAULT_LOCALE,
   dir: string = defaultContentDir(),
 ): Promise<ArticleSummary[]> {
@@ -497,7 +512,7 @@ export async function listArticlesBySource(
   for (const { fm, lang, fallback } of resolved) {
     const summary = toSummary(fm, lang, fallback);
     if (!summary) continue;
-    if ((fm.sources ?? []).some((s) => s.id === sourceId)) {
+    if ((fm.sources ?? []).some((ref) => citesSource(ref, source))) {
       summaries.push(summary);
     }
   }

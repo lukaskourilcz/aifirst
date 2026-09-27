@@ -22,7 +22,8 @@ export default async function SourcesPage({
 }) {
   const { lang: locale } = await params;
   const t = dict(locale).sources;
-  const [sources, stats] = await Promise.all([loadSources(), sourceCitationStats(locale)]);
+  const sources = await loadSources();
+  const stats = await sourceCitationStats(sources, locale);
 
   const sorted = [...sources].sort(
     (a, b) => (b.weight ?? 0.5) - (a.weight ?? 0.5) || a.id.localeCompare(b.id),
