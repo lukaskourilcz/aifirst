@@ -179,7 +179,7 @@ const en = {
     trust: "About the magazine",
     follow: "Follow",
     responsible: "Responsible for the content:",
-    editorialContact: "Editorial team",
+    editorialContact: "Who writes the editions",
   },
     archive: {
     kicker: "archive",
@@ -491,7 +491,7 @@ const cs: Dict = {
     trust: "O magazínu",
     follow: "Sledujte",
     responsible: "Za obsah odpovídá",
-    editorialContact: "Redakce a kontakt",
+    editorialContact: "Kdo vydání píše",
   },
   archive: {
     kicker: "archiv",
