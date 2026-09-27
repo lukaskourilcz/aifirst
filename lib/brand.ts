@@ -16,6 +16,19 @@ export const brand = {
   wordmark: "DNESKAi",
   legalName: "Caught Up",
   repositoryName: "aifirst",
+  /**
+   * Production brand files under `public/`. Presentation material and the
+   * BoardlessAI social packs take their paths from here.
+   */
+  assets: {
+    logo: "/brand/DNESKAi-logo.svg",
+    logoDark: "/brand/DNESKAi-logo-dark.svg",
+    logoMonoBlack: "/brand/DNESKAi-logo-mono-black.svg",
+    logoMonoWhite: "/brand/DNESKAi-logo-mono-white.svg",
+    logoPng: "/brand/png/DNESKAi-logo-2000.png",
+    square: "/brand/DNESKAi-square.svg",
+    og: "/brand/DNESKAi-og.svg",
+  },
   title: "DNESKAi: To podstatné z AI. Každý den.",
   shortDescription: "The AI stories that actually mattered today.",
   description:

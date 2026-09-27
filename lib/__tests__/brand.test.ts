@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { brand, localizedBrand } from "../brand";
 
@@ -19,6 +21,12 @@ describe("brand", () => {
   it("exposes the agreed English and Czech promises", () => {
     expect(localizedBrand("en").tagline).toBe("The AI stories that actually mattered today.");
     expect(localizedBrand("cs").tagline).toBe("To podstatné z AI. Každý den.");
+  });
+
+  it("points every brand asset at a file in public/", () => {
+    for (const assetPath of Object.values(brand.assets)) {
+      expect(existsSync(path.join(process.cwd(), "public", assetPath)), assetPath).toBe(true);
+    }
   });
 
   it("documents the preserved repository identifier", () => {
