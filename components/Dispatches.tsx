@@ -3,6 +3,7 @@ import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
 import { SectionMasthead } from "./editorial/SectionMasthead";
+import { topicLabel } from "@/lib/labels";
 
 type Props = {
   items: Dispatch[];
@@ -36,7 +37,7 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
             index={i + 1}
             title={d.title}
             summary={d.body}
-            meta={d.topic}
+            meta={d.topic ? topicLabel(d.topic) ?? undefined : undefined}
             href={d.source_url}
             external
             locale={locale}
@@ -47,7 +48,7 @@ export function Dispatches({ items, locale, variant = "default" }: Props) {
             <span className="digest-row__copy">
               <span className="digest-row__title">{d.title}</span>
               <span className="digest-row__summary">{d.body}</span>
-              {d.topic ? <span className="digest-row__meta">{d.topic}</span> : null}
+              {d.topic && topicLabel(d.topic) ? <span className="digest-row__meta">{topicLabel(d.topic)}</span> : null}
             </span>
           </li>
         ),

@@ -5,6 +5,7 @@ import { brand } from "@/lib/brand";
 import { ogLogo } from "@/lib/og-logo";
 import type { Locale } from "@/lib/i18n/config";
 import { czechNumericDate } from "@/lib/weeks";
+import { topicLabels } from "@/lib/labels";
 
 export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
@@ -26,7 +27,7 @@ export default async function Image({
   const title = article?.frontmatter.title ?? brand.name;
   const dek = article?.frontmatter.dek ?? "";
   const date = article ? czechNumericDate(article.frontmatter.date) : "";
-  const tags = (article?.frontmatter.tags ?? []).slice(0, 4);
+  const tags = topicLabels(article?.frontmatter.tags).slice(0, 4);
   const issueLabel = lang === "cs" ? "vydání" : "issue";
   const featureLabel = lang === "cs" ? "hlavní téma" : "lead development";
   const logo = ogLogo(36);

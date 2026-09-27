@@ -4,7 +4,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
 import { isDrawnPlate } from "@/lib/content";
 import { czechLongDate } from "@/lib/weeks";
-import { photoCreditParts } from "@/lib/labels";
+import { photoCreditParts, topicLabels } from "@/lib/labels";
 
 
 export function IssueMasthead({
@@ -39,6 +39,8 @@ export function IssueMasthead({
   // Same rule as the front-page lead: the plate composites over a photograph
   // only, never over a drawn .svg cover that arrives already composed.
   const overlay = heroPhoto !== null && !isDrawnPlate(heroPhoto);
+  // Czech labels only; a slug without one is left out rather than shown raw.
+  const topics = topicLabels(tags).slice(0, 3);
   // Rebuilt from the structured fields: upstream's `text` is English. The link
   // sits on the author's name only.
   const creditParts = heroAttribution ? photoCreditParts(heroAttribution) : null;
@@ -73,9 +75,9 @@ export function IssueMasthead({
       ) : null}
       {/* Absent, not empty: many editions have no category and the row simply
           does not exist for them. */}
-      {tags?.length ? (
+      {topics.length ? (
         <ul className="hero__topics" aria-label={locale === "cs" ? "Témata vydání" : "Issue topics"}>
-          {tags.slice(0, 3).map((tag) => <li key={tag} className="chip">{tag}</li>)}
+          {topics.map((topic) => <li key={topic} className="chip">{topic}</li>)}
         </ul>
       ) : null}
     </div>

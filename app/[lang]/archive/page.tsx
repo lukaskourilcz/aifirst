@@ -7,6 +7,7 @@ import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { czechLongDate, czechMonthLabel } from "@/lib/weeks";
+import { topicLabels } from "@/lib/labels";
 import { CoverCard } from "@/components/editorial/CoverCard";
 import { readingMinutes } from "@/lib/text";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -78,7 +79,7 @@ export default async function ArchivePage({
                 >
                   {a.tags?.length ? (
                     <span className="cover-card__topics">
-                      {a.tags.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}
+                      {topicLabels(a.tags).slice(0, 4).map((topic) => <span className="chip" key={topic}>{topic}</span>)}
                     </span>
                   ) : null}
                 </CoverCard>

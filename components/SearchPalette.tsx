@@ -22,7 +22,7 @@ function scoreEntry(entry: SearchEntry, query: string): number {
   let points = 0;
   if (plain(entry.title).includes(needle)) points += 3;
   if (plain(entry.dek).includes(needle)) points += 2;
-  if (entry.tags.some((t) => t.toLowerCase().includes(needle))) points += 1;
+  if (entry.topics.some((t) => plain(t).includes(needle))) points += 1;
   if (entry.slug.toLowerCase().includes(needle)) points += 0.5;
   return points;
 }
@@ -160,7 +160,7 @@ export function SearchPalette({ index, locale }: Props) {
                   className="search-dialog__result-link"
                 >
                   <p className="label search-dialog__result-meta">
-                    {czechNumericDate(r.date)} · {r.tags.slice(0, 2).join(" · ")}
+                    {[czechNumericDate(r.date), ...r.topics.slice(0, 2)].join(" · ")}
                   </p>
                   <p className="search-dialog__result-title">
                     {r.title}

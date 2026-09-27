@@ -3,6 +3,9 @@ import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
 import { SectionMasthead } from "./editorial/SectionMasthead";
+import { sourceName } from "@/lib/labels";
+import { loadSources } from "@/lib/sources";
+import { looksEnglish } from "@/lib/text";
 
 type Props = {
   items: WireItem[];
@@ -17,8 +20,9 @@ type Props = {
  * label, so the row is index, title and source — there is no per-item summary
  * to show and none is invented.
  */
-export function Wire({ items, locale, variant = "default" }: Props) {
+export async function Wire({ items, locale, variant = "default" }: Props) {
   if (!items?.length) return null;
+  const registry = await loadSources();
   const isAside = variant === "aside";
   const heading = dict(locale).article.wireHeading;
   return (
@@ -33,7 +37,8 @@ export function Wire({ items, locale, variant = "default" }: Props) {
             key={item.url}
             index={i + 1}
             title={item.title}
-            meta={item.source}
+            titleLang={looksEnglish(item.title) ? "en" : undefined}
+            meta={sourceName(item.source, registry, item.url) || undefined}
             href={item.url}
             external
             locale={locale}

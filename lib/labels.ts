@@ -178,6 +178,12 @@ export function topicLabel(slug: string): string | null {
   return value.charAt(0).toLocaleUpperCase("cs") + value.slice(1);
 }
 
+/** Czech labels for a tag list: unknown slugs dropped, duplicates merged. */
+export function topicLabels(tags: readonly string[] | undefined): string[] {
+  const labels = (tags ?? []).map(topicLabel).filter((label): label is string => label !== null);
+  return [...new Set(labels)];
+}
+
 // Wire items name their feed by the collector's id. These three are feeds, not
 // publications, so the reader sees the service's own name.
 const FEED_NAMES: Record<string, string> = {

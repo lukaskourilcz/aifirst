@@ -19,6 +19,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 export function DigestRow({
   index,
   title,
+  titleLang,
   summary,
   meta,
   href,
@@ -27,6 +28,8 @@ export function DigestRow({
 }: {
   index: number;
   title: string;
+  /** `en` for a quoted English Watchlist title, so screen readers switch voice. */
+  titleLang?: string;
   summary?: string;
   meta?: string;
   href: string;
@@ -39,7 +42,7 @@ export function DigestRow({
     <>
       <span aria-hidden className="digest-row__index">{String(index).padStart(2, "0")}</span>
       <span className="digest-row__copy">
-        <span className="digest-row__title">
+        <span className="digest-row__title" lang={titleLang}>
           {title}
           {external ? (
             <>
