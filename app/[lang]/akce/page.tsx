@@ -20,7 +20,7 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = dict(lang).sections;
-  // Unlinked and noindex while the section is empty; the route keeps building.
+  // Unlinked and noindex while there are no events; the route keeps building.
   return { title: t.eventsTitle, alternates: localeAlternates(lang, "/akce"), robots: { index: false } };
 }
 

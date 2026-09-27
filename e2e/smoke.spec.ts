@@ -82,10 +82,12 @@ test("home: rail, lead package, condensed briefs and the week feed render", asyn
   await expect(rows.nth(0)).toBeVisible();
 });
 
-test("the lead meta row carries the date and reading time and nothing else", async ({ page }) => {
+test("the lead meta row carries the reading time and nothing else", async ({ page }) => {
   await page.goto("/");
+  // The date lives in the lead kicker; the meta row is the reading time alone.
+  await expect(page.locator(".lead__kicker time")).toHaveText(/\d{1,2}\. \d{1,2}\. \d{4}/);
   const meta = await page.locator(".lead__meta").innerText();
-  expect(meta).toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
+  expect(meta).not.toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
   expect(meta).toMatch(/min/);
   for (const forbidden of ["zdroj", "signál", "USD", "náklad"]) {
     expect(meta.toLowerCase()).not.toContain(forbidden.toLowerCase());
@@ -316,7 +318,9 @@ test("source evidence class stays separate and reduced motion disables entrances
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
   await expect(page.locator(".source-ledger")).toBeVisible();
   const headers = await page.locator(".source-ledger th").allTextContents();
-  expect(headers.join(" ")).toMatch(/evidence class|třída důkazu/i);
+  expect(headers.join(" ")).toMatch(/kind of source|druh zdroje/i);
+  // Three columns: the curator notes and feed type are not reader data.
+  expect(headers).toHaveLength(3);
   const entrances = page.locator(".enter");
   expect(await entrances.count()).toBeGreaterThan(0);
   const animationName = await entrances.nth(0).evaluate((element) => getComputedStyle(element).animationName);
@@ -385,16 +389,18 @@ test("the about page is a magazine, not a run record", async ({ page }) => {
 });
 
 test("the section routes render their honest empty states", async ({ page }) => {
-  // Every stream and event file ships as a valid empty envelope, so these are
-  // the states a reader sees on day one.
-  await page.goto("/o-cem-se-mluvi");
-  await expect(page.getByText("Dnes zatím nic nového.")).toBeVisible();
-
-  await page.goto("/podcasty");
-  await expect(page.getByText("Dnes nevyšla žádná nová epizoda.")).toBeVisible();
+  // Streams and the model category fill from upstream, so those pages show
+  // either items or their empty line; events are still empty.
+  for (const [route, empty] of [["/o-cem-se-mluvi", "Dnes zatím nic nového."], ["/podcasty", "Dnes nevyšla žádná nová epizoda."]] as const) {
+    await page.goto(route);
+    const filled = await page.locator("main li").count();
+    if (!filled) await expect(page.getByText(empty)).toBeVisible();
+  }
 
   await page.goto("/ai-modely");
-  await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
+  if (!(await page.locator(".feed-row").count())) {
+    await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
+  }
 
   await page.goto("/akce");
   await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();

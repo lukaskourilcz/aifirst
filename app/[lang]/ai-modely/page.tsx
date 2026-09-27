@@ -14,7 +14,8 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = dict(lang).sections;
-  // Unlinked and noindex while the section is empty; the route keeps building.
+  // Unlinked and noindex: one categorised edition is too thin to stand as a
+  // section. The route keeps building; lift this when the category fills.
   return { title: t.modelsTitle, description: t.modelsEmptyBody, alternates: localeAlternates(lang, "/ai-modely"), robots: { index: false } };
 }
 
