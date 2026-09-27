@@ -580,7 +580,6 @@ hr {
   margin: 2.4em 0;
 }
 
-/* Small tracked uppercase label — chips, metadata eyebrows. */
 /* One kicker. Mono, caption size, tracked uppercase, tertiary. Every small
    label on the site is this rule; the classes below keep only their layout. */
 .kicker,
@@ -594,6 +593,21 @@ hr {
 .hero__eyebrow,
 .feed-row__kicker,
 .cover-card__kicker,
+.banner-slot__label,
+.sidebar__strapline,
+.footer-nav__heading,
+.footer-nav a,
+.source-ledger th,
+.lesson-table thead th,
+.week-action__kicker,
+.day-group__label {
+  font-family: var(--font-mono);
+  font-size: var(--kicker-size);
+  font-weight: 500;
+  letter-spacing: var(--kicker-tracking);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
 .kicker--accent,
 .label--accent,
 .eyebrow,
@@ -1796,6 +1810,14 @@ svg { max-width: 100%; }
   .split-2 { grid-template-columns: 1fr; gap: 24px; }
 }
 
+@media (max-width: 640px) {
+  .def-row,
+  .def-row--tight {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: start;
+  }
+}
 
 /* Footer block (lives inside shell main column). It sits inside the main
    column, so the collapse points are earlier than the raw viewport widths
