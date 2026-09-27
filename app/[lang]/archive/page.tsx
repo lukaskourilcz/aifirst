@@ -6,7 +6,7 @@ import { getArticle, listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { czechLongDate } from "@/lib/weeks";
+import { czechLongDate, czechMonthLabel } from "@/lib/weeks";
 import { CoverCard } from "@/components/editorial/CoverCard";
 import { readingMinutes } from "@/lib/text";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -45,7 +45,7 @@ export default async function ArchivePage({
       {[...byYearMonth.entries()].map(([month, issues]) => (
         <section key={month} className="archive-month">
           <p className="label archive-month__label">
-            {month}
+            {czechMonthLabel(month)}
           </p>
           <ul className="archive-list">
             {issues.map((a) => a.kind === "article" ? (

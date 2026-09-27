@@ -39,6 +39,7 @@ import { localizedBrand } from "@/lib/brand";
 import { loadTopicsConfig, topicsForArticle } from "@/lib/topics/config";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/config";
+import { czechLongDate } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -97,7 +98,7 @@ export default async function ArticlePage({
     <section className="section">
       <h1>Vydání dočasně staženo</h1>
       <p>{hold.reason}</p>
-      <p><time dateTime={hold.date}>{hold.date}</time></p>
+      <p><time dateTime={hold.date}>{czechLongDate(hold.date)}</time></p>
       <p><Link href={localePath(locale, "/")}>Zpět na aktuální vydání</Link></p>
     </section>
   );

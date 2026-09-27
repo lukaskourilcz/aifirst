@@ -7,6 +7,7 @@ import { readingMinutes } from "@/lib/text";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
+import { czechNumericDate } from "@/lib/weeks";
 import { HtmlLang } from "@/components/HtmlLang";
 import { BrandLockup } from "@/components/BrandMark";
 import { EditorialHighlights } from "@/components/editorial/EditorialHighlights";
@@ -25,7 +26,7 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
       <HtmlLang locale={locale} />
       <article className="print-layout">
         <header className="print-masthead">
-          <div className="print-masthead-row"><BrandLockup compact tone="mono-black" /><span>{common.issue} {article.frontmatter.date}</span></div>
+          <div className="print-masthead-row"><BrandLockup compact tone="mono-black" /><span>{common.issue} {czechNumericDate(article.frontmatter.date)}</span></div>
           <div className="print-masthead-row"><span>{article.frontmatter.tags?.slice(0, 4).join(" · ")}</span><span>{readingMinutes(article.mdx)} {common.minutesShort}</span></div>
         </header>
 

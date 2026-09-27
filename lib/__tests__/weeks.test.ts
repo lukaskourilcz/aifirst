@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   addDays,
   czechDisplayDate,
+  czechMonthLabel,
+  czechWeekdayDate,
   czechNumericDate,
   czechWeekday,
   groupByDay,
@@ -115,6 +117,12 @@ describe("czech labels", () => {
   it("names weekdays in Czech", () => {
     expect(czechWeekday("2026-08-07")).toBe("pátek");
     expect(czechWeekday("2026-08-03")).toBe("pondělí");
+  });
+
+  it("writes a weekday date and a month label", () => {
+    expect(czechWeekdayDate("2026-09-25")).toBe("pátek 25. 9. 2026");
+    expect(czechMonthLabel("2026-09")).toBe("Září 2026");
+    expect(czechMonthLabel("2026-01-14")).toBe("Leden 2026");
   });
 
   it("reformats only bare date keys for display", () => {

@@ -4,6 +4,7 @@ import { listArticles } from "@/lib/content";
 import { classifyPublicHealth } from "@/lib/public-health";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { czechNumericDate } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 export const metadata = { robots: { index: false } };
@@ -36,8 +37,8 @@ export default async function HealthPage({ params }: { params: Promise<{ lang: L
         <h2 id="public-status-heading">{statusCopy[0]}</h2>
         <p>{statusCopy[1]}</p>
         <dl>
-          <div><dt>{t.latestDaily}</dt><dd>{latestDaily?.date ?? t.unavailable}</dd></div>
-          <div><dt>{t.latestWeekly}</dt><dd>{latestWeekly?.date ?? t.unavailable}</dd></div>
+          <div><dt>{t.latestDaily}</dt><dd>{latestDaily ? czechNumericDate(latestDaily.date) : t.unavailable}</dd></div>
+          <div><dt>{t.latestWeekly}</dt><dd>{latestWeekly ? czechNumericDate(latestWeekly.date) : t.unavailable}</dd></div>
           <div><dt>{t.issueAge}</dt><dd>{dailyAgeHours === null ? t.unavailable : `${dailyAgeHours} h`}</dd></div>
         </dl>
         {latest ? <Link href={localePath(locale, `/articles/${latest.slug}`)}>{t.currentIssue} →</Link> : null}

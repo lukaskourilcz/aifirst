@@ -8,6 +8,7 @@ import { useWindowEvent } from "@/lib/hooks/useWindowEvent";
 import { ModalOverlay } from "./ModalOverlay";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
+import { czechNumericDate } from "@/lib/weeks";
 
 type Props = { index: SearchEntry[]; locale: Locale };
 
@@ -157,7 +158,7 @@ export function SearchPalette({ index, locale }: Props) {
                   className="search-dialog__result-link"
                 >
                   <p className="label search-dialog__result-meta">
-                    {r.date} · {r.tags.slice(0, 2).join(" · ")}
+                    {czechNumericDate(r.date)} · {r.tags.slice(0, 2).join(" · ")}
                   </p>
                   <p className="search-dialog__result-title">
                     {r.title}
