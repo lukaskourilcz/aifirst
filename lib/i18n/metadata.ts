@@ -25,6 +25,10 @@ export function localeAlternates(
         path,
       ),
     },
-    types: { "application/atom+xml": localePath(canonicalLocale, "/feed.xml") },
+    types: {
+      "application/atom+xml": localePath(canonicalLocale, "/feed.xml"),
+      // RSS 2.0 for aggregators that do not read Atom (issue #99).
+      "application/rss+xml": "/rss.xml",
+    },
   };
 }

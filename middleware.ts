@@ -9,6 +9,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // story, different language. The 54 indexed /cs URLs redirect onto them rather than becoming
 // a second copy of the same page. No /en URL was ever in the sitemap.
 const HAS_EXTENSION = /\.[^/]+$/;
+const MARKDOWN_EDITION = /^\/articles\/([^/]+)\.md$/;
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -19,6 +20,15 @@ export function middleware(req: NextRequest) {
     url.searchParams.delete("lang");
     url.pathname = `/cs${pathname}`;
     return NextResponse.redirect(url, 308);
+  }
+
+  // The Markdown copy of an edition, /articles/<slug>.md, is a static route
+  // handler under /md (app/md/articles/[slug]/route.ts).
+  const markdown = MARKDOWN_EDITION.exec(pathname);
+  if (markdown) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/md/articles/${markdown[1]}`;
+    return NextResponse.rewrite(url);
   }
 
   // Print documents are prerendered under the locale segment and are reached directly.
