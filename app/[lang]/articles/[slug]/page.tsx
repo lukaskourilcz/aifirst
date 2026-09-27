@@ -15,6 +15,9 @@ import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { IssueMasthead } from "@/components/editorial/IssueMasthead";
 import { SourceLedger } from "@/components/editorial/SourceLedger";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
+import { PracticalTip } from "@/components/editorial/PracticalTip";
+import { readPractical } from "@/lib/practical";
+import { shareImagePath } from "@/lib/share-card";
 import { StructuredData } from "@/components/editorial/StructuredData";
 import {
   adjacentIssues,
@@ -63,6 +66,7 @@ export async function generateMetadata({
     openGraph: { title: "Vydání dočasně staženo", description: editorialHold(slug)!.reason, images: [] },
   };
   const articlePath = `/articles/${slug}`;
+  const alternates = localeAlternates(lang, articlePath);
   const availableLocales = await getArticleLocales(slug);
   const heroPhoto = resolveHeroPhoto(article.frontmatter);
   const lastCorrection = [...(article.frontmatter.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
@@ -72,7 +76,11 @@ export async function generateMetadata({
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.dek,
-    alternates: localeAlternates(lang, articlePath),
+    alternates: {
+      ...alternates,
+      // The same edition as plain Markdown, for readers and language models (issue #99).
+      types: { ...alternates.types, "text/markdown": `${articlePath}.md` },
+    },
     openGraph: {
       type: "article",
       title: article.frontmatter.title,
@@ -81,7 +89,7 @@ export async function generateMetadata({
       modifiedTime,
       images: heroPhoto
         ? [{ url: heroPhoto }]
-        : [{ url: `/articles/${slug}/opengraph-image`, width: 1200, height: 630, alt: article.frontmatter.title }],
+        : [{ url: shareImagePath(slug, "og"), width: 1200, height: 630, alt: article.frontmatter.title }],
     },
   };
 }
@@ -253,10 +261,12 @@ export default async function ArticlePage({
       </section>
         </div>
 
-        {/* Rail per spec §4.4: the partner creative and related editions, nothing
-            else. It drops below 1280 and reflows into the main column. */}
+        {/* Rail per spec §4.4: the partner creative, the edition's own practical
+            item when it carries one (issue #99), and related editions. It drops
+            below 1280 and reflows into the main column. */}
         <aside className="right-rail">
           <BannerSlot id="rail-square" locale={locale} />
+          <PracticalTip practical={readPractical(fm.practical, fm.date)} locale={locale} />
           {related.length > 0 ? (
             <div className="rail-module">
               <p className="rail-module__kicker">{d.article.related}</p>

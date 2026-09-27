@@ -1,5 +1,6 @@
 import type { ArticleFrontmatter } from "../content";
 import { ARTICLE_CATEGORIES } from "../content";
+import { practicalErrors } from "../practical";
 
 function validDate(value: unknown): value is string {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -105,6 +106,12 @@ export function validateArticleFrontmatter(raw: Record<string, unknown>, file: s
       if (!validDate(value.from) || !validDate(value.to) || String(value.from) > String(value.to)) errors.push(`${file}: digest range is invalid`);
       if (!nonEmptyStrings(value.covered_slugs)) errors.push(`${file}: digest.covered_slugs must not be empty`);
     }
+  }
+
+  // Optional; absent renders nothing. Present is held to the contract so a
+  // half-formed tip never reaches the rail (lib/practical.ts).
+  if (raw.practical !== undefined) {
+    for (const error of practicalErrors(raw.practical, typeof raw.date === "string" ? raw.date : undefined)) errors.push(`${file}: ${error}`);
   }
 
   if (raw.schema_version === 2) {

@@ -7,8 +7,12 @@ import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import {
   byScope,
+  eventBadges,
   eventDateBlock,
+  eventDateLabel,
   eventPlace,
+  eventSource,
+  isFreeEvent,
   loadEvents,
   splitByAnchor,
   type EventScope,
@@ -20,15 +24,26 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = dict(lang).sections;
-  // Unlinked and noindex while there are no events; the route keeps building.
-  return { title: t.eventsTitle, alternates: localeAlternates(lang, "/akce"), robots: { index: false } };
+  // Unlinked and noindex while there is nothing upcoming; the route keeps
+  // building. Once BoardlessAI syncs real events the page becomes indexable.
+  const articles = await listArticles(lang);
+  const { upcoming } = splitByAnchor(loadEvents(), articles[0]?.date ?? "1970-01-01");
+  return {
+    title: t.eventsTitle,
+    alternates: localeAlternates(lang, "/akce"),
+    ...(upcoming.length === 0 ? { robots: { index: false } } : {}),
+  };
 }
 
 function EventRow({ event, locale, past }: { event: MagazineEvent; locale: Locale; past?: boolean }) {
   const t = dict(locale).sections;
   const block = eventDateBlock(event.starts);
   const place = eventPlace(event);
-  const detail = [event.price, event.organizer].filter(Boolean).join(" · ");
+  const badges = eventBadges(event);
+  // A free event says so in its badge; any other price is shown as delivered.
+  // An unknown price is omitted, never guessed and never dashed.
+  const detail = [isFreeEvent(event) ? null : event.price, event.organizer].filter(Boolean).join(" · ");
+  const source = eventSource(event);
 
   return (
     <li className={past ? "event event--past" : "event"}>
@@ -39,15 +54,25 @@ function EventRow({ event, locale, past }: { event: MagazineEvent; locale: Local
         </span>
         <span className="event__body">
           <span className="event__title">{event.title}</span>
+          <span className="event__when">
+            <time dateTime={event.starts}>{eventDateLabel(event)}</time>
+            {badges.map((badge) => (
+              <span key={badge} className={`event__badge event__badge--${badge}`}>
+                {badge === "online" ? t.eventsOnline : t.eventsFree}
+              </span>
+            ))}
+          </span>
           {place ? <span className="event__place">{place}</span> : null}
-          {/* An unknown price is omitted, never guessed and never dashed. */}
+          {event.description ? <span className="event__description">{event.description}</span> : null}
           {detail ? <span className="event__detail">{detail}</span> : null}
+          {source ? (
+            <span className="event__source">
+              {t.eventsSourceLabel}: {source}
+            </span>
+          ) : null}
         </span>
         <span aria-hidden className="event__arrow">↗</span>
-        <span className="sr-only">
-          {" "}
-          <time dateTime={event.starts}>{event.starts}</time> {t.opensInNewWindow}
-        </span>
+        <span className="sr-only"> {t.opensInNewWindow}</span>
       </a>
     </li>
   );

@@ -250,7 +250,9 @@ describe("event presentation", () => {
 
   it("describes the place, or says online, or says nothing", () => {
     expect(eventPlace(parseEvent(event({ city: "Praha", venue: "Fórum Karlín" }))!)).toBe("Praha · Fórum Karlín");
-    expect(eventPlace(parseEvent(event({ online: true }))!)).toBe("online");
+    // Online is a badge now, so the place line never repeats it.
+    expect(eventPlace(parseEvent(event({ online: true }))!)).toBeNull();
+    expect(eventPlace(parseEvent(event({ online: true, city: "Praha" }))!)).toBe("Praha");
     expect(eventPlace(parseEvent(event())!)).toBeNull();
   });
 });

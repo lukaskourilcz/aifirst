@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 const contractNames = [
   "calendar",
+  "distribution-pack",
   "edition-package",
   "idea-ledger",
   "meeting-email",

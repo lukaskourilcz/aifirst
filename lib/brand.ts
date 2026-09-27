@@ -29,6 +29,23 @@ export const brand = {
     square: "/brand/DNESKAi-square.svg",
     og: "/brand/DNESKAi-og.svg",
   },
+  /**
+   * Operator identification, limited to what the About page already states
+   * (`about.authorshipBody`): the person responsible for sources, rules and
+   * corrections. No company, IČO or address is published until the owner
+   * supplies one (NEEDED.md); nothing here may be guessed.
+   */
+  responsiblePerson: "Lukáš Kouřil",
+  /**
+   * The publication's own social profiles, linked from the footer. A profile
+   * is linked only when `live` is true: the footer never points at an account
+   * that does not exist yet. Threads is created by the owner before the
+   * 5 Nov 2026 launch; flip `live` then (NEEDED.md).
+   */
+  social: [
+    { id: "instagram", label: "Instagram", handle: "@dneskai", url: "https://www.instagram.com/dneskai/", live: true },
+    { id: "threads", label: "Threads", handle: "@dneskai", url: "https://www.threads.com/@dneskai", live: false },
+  ],
   title: "DNESKAi: To podstatné z AI. Každý den.",
   shortDescription: "To podstatné z AI. Každý den.",
   description:

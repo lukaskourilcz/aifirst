@@ -252,11 +252,59 @@ test("below 960 the drawer replaces the rail and behaves for the keyboard", asyn
   await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
 });
 
-test("the footer has two columns and no social placeholders", async ({ page }) => {
+test("the footer has two columns, real social links and no placeholders", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("nav.footer-nav")).toHaveCount(2);
   await expect(page.locator(".social-row")).toHaveCount(0);
   await expect(page.locator('footer a[href$="/feed.xml"]')).toHaveText(/RSS/);
+  await expect(page.locator('footer a[href="https://www.instagram.com/dneskai/"]')).toHaveCount(1);
+  // The person responsible for the content, as About states it.
+  await expect(page.locator(".footer-operator")).toContainText("Lukáš Kouřil");
+  await expect(page.locator('.footer-operator a[href$="/about#redakce"]')).toHaveCount(1);
+});
+
+test("campaign links land without a redirect that strips the query", async ({ request }) => {
+  const article = "/articles/2026-07-05-deepmind-blitz-anthropic-reckoning";
+  for (const path of ["/", article]) {
+    const response = await request.get(`${path}?utm_source=threads&utm_medium=post&utm_campaign=edition`, { maxRedirects: 0 });
+    expect(response.status(), `${path} must not redirect a campaign link`).toBe(200);
+  }
+  // The retired /cs prefix still redirects, and keeps the campaign.
+  const legacy = await request.get("/cs?utm_source=instagram", { maxRedirects: 0 });
+  expect(legacy.status()).toBe(308);
+  expect(legacy.headers().location).toContain("utm_source=instagram");
+});
+
+test("machine-facing edition views build: share pack, cards, Markdown, llms.txt, news sitemap, RSS", async ({ request }) => {
+  const today = await (await request.get("/api/today.json")).json() as { issue: { slug: string; date: string; type: string } };
+  const { slug, date } = today.issue;
+  expect(slug).toBeTruthy();
+
+  const pack = await request.get(`/data/share/${date}${today.issue.type === "weekly" ? ".weekly" : ""}.cs.json`);
+  expect(pack.status()).toBe(200);
+  const json = await pack.json() as { schemaVersion: number; social_copy: { threadsText: string }; images: Record<string, { url: string }> };
+  expect(json.schemaVersion).toBe(2);
+  expect(json.social_copy.threadsText.length).toBeGreaterThan(0);
+  for (const format of ["og", "feed", "story", "wide"]) {
+    const image = await request.get(new URL(json.images[format]!.url).pathname);
+    expect(image.status(), `${format} card`).toBe(200);
+    expect(image.headers()["content-type"]).toContain("image/png");
+  }
+
+  const md = await request.get(`/articles/${slug}.md`);
+  expect(md.status()).toBe(200);
+  expect(md.headers()["content-type"]).toContain("text/markdown");
+  expect(await md.text()).toMatch(/^# /);
+
+  const llms = await request.get("/llms.txt");
+  expect(await llms.text()).toContain(`/articles/${slug}.md`);
+
+  const news = await (await request.get("/news-sitemap.xml")).text();
+  expect(news).toContain("<news:language>cs</news:language>");
+  const rss = await (await request.get("/rss.xml")).text();
+  expect(rss).toContain('<rss version="2.0"');
+  expect((await request.get("/favicon.ico")).status()).toBe(200);
+  expect(await (await request.get("/robots.txt")).text()).toContain("/news-sitemap.xml");
 });
 
 test("skip link and keyboard search work, trap focus, and restore the trigger", async ({ page }) => {
@@ -389,8 +437,9 @@ test("the about page is a magazine, not a run record", async ({ page }) => {
 });
 
 test("the section routes render their honest empty states", async ({ page }) => {
-  // Streams and the model category fill from upstream, so those pages show
-  // either items or their empty line; events are still empty.
+  // Streams, the model category and events fill from upstream (BoardlessAI
+  // syncs data/events.json wholesale), so each page shows either items or its
+  // empty line.
   for (const [route, empty] of [["/o-cem-se-mluvi", "Dnes zatím nic nového."], ["/podcasty", "Dnes nevyšla žádná nová epizoda."]] as const) {
     await page.goto(route);
     const filled = await page.locator("main li").count();
@@ -403,7 +452,9 @@ test("the section routes render their honest empty states", async ({ page }) => 
   }
 
   await page.goto("/akce");
-  await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();
+  if (!(await page.locator(".events .event:not(.event--past)").count())) {
+    await expect(page.getByText("Zatím tu nejsou žádné nadcházející akce.").first()).toBeVisible();
+  }
 });
 
 test("the week chain reaches back through every published week", async ({ page }) => {
@@ -442,9 +493,13 @@ test("the new section routes are in the sitemap", async ({ request }) => {
     expect(xml, `${path} missing from the sitemap`).toContain(`${path}<`);
   }
   // Noindex while empty or dormant, so not advertised to crawlers either.
-  for (const path of ["/ai-modely", "/akce", "/weekly"]) {
+  for (const path of ["/ai-modely", "/weekly"]) {
     expect(xml, `${path} should not be in the sitemap`).not.toContain(`${path}<`);
   }
+  // /akce is advertised exactly when it is indexable, i.e. when something is upcoming.
+  const akce = await (await request.get("/akce")).text();
+  const noindex = /<meta name="robots" content="[^"]*noindex/.test(akce);
+  expect(xml.includes("/akce<"), "/akce sitemap entry must follow its robots state").toBe(!noindex);
 });
 
 test("the rail partner creative holds 300x250 and carries no script", async ({ page }) => {
