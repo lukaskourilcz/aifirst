@@ -61,3 +61,21 @@ describe("delivered machine values", () => {
     });
   });
 });
+
+describe("source directory", () => {
+  it("groups sources into three classes", async () => {
+    const { sourceClass } = await import("../labels");
+    expect(sourceClass(["ai", "primary-source"])).toBe("primary");
+    expect(sourceClass(["ai", "news", "aggregator"])).toBe("community");
+    expect(sourceClass(["general", "tech"])).toBe("community");
+    expect(sourceClass(["tech", "news"])).toBe("reporting");
+  });
+
+  it("builds a monogram from letters only", async () => {
+    const { monogram } = await import("../labels");
+    expect(monogram("Import AI (Jack Clark)")).toBe("IA");
+    expect(monogram("Bluesky · language models")).toBe("BL");
+    expect(monogram("Wired (AI)")).toBe("WA");
+    expect(monogram("Digiday")).toBe("DI");
+  });
+});

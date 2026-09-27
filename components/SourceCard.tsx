@@ -1,86 +1,39 @@
-import { czechDisplayDate } from "@/lib/weeks";
 import Link from "next/link";
+import { czechDisplayDate } from "@/lib/weeks";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import type { CSSProperties } from "react";
+import { monogram } from "@/lib/labels";
 
 type Props = {
   id: string;
   name: string;
-  type: string;
-  weight: number;
-  tags?: string[];
+  classLabel: string;
   citations?: number;
   latestDate?: string | null;
   locale: Locale;
 };
 
-function monogram(name: string): string {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  const letters = parts.length > 1
-    ? `${parts[0]?.[0] ?? ""}${parts[1]?.[0] ?? ""}`
-    : (parts[0] ?? "").slice(0, 2);
-  return letters.toLocaleUpperCase();
-}
-
-export function SourceCard({
-  id,
-  name,
-  type,
-  weight,
-  tags = [],
-  citations = 0,
-  latestDate,
-  locale,
-}: Props) {
-  const pct = Math.round(weight * 100);
+/**
+ * One registered source: monogram, what kind of source it is, its name and how
+ * often the editions drew on it. Feed type, id, weight and tags are collection
+ * data and stay out of the reader's view.
+ */
+export function SourceCard({ id, name, classLabel, citations = 0, latestDate, locale }: Props) {
   const t = dict(locale).sources;
   return (
     <article className="source-card">
       <span className="source-card__monogram" aria-hidden>{monogram(name)}</span>
-      <header className="source-card__header">
-        <div>
-          <p className="label source-card__type">
-            {type}
-          </p>
-          <h3>
-            <Link
-              href={localePath(locale, `/sources/${encodeURIComponent(id)}`)}
-            >
-              {name}
-            </Link>
-          </h3>
-          <p className="source-card__id">
-            {id}
-          </p>
-        </div>
-        <span className="source-card__weight">
-          <small>{t.weight}</small>
-          {String(pct).padStart(2, "0")}
-        </span>
-      </header>
-
-      <div
-        aria-label={locale === "cs" ? `váha ${pct} ze 100` : `weight ${pct} of 100`}
-        className="source-card__bar"
-      >
-        <div style={{ "--source-weight": `${pct}%` } as CSSProperties} />
+      <div>
+        <p className="kicker source-card__type">{classLabel}</p>
+        <h3>
+          <Link href={localePath(locale, `/sources/${encodeURIComponent(id)}`)}>{name}</Link>
+        </h3>
+        <p className="kicker source-card__citation">
+          {citations > 0 && latestDate
+            ? `${t.editions.replace("{n}", String(citations))} · ${t.last} ${czechDisplayDate(latestDate)}`
+            : t.never}
+        </p>
       </div>
-
-      <ul className="source-card__tags">
-        {tags.map((t) => (
-          <li key={t} className="chip">
-            {t}
-          </li>
-        ))}
-      </ul>
-
-      <p className="label label--muted source-card__citation">
-        {citations > 0 && latestDate
-          ? `${t.editions.replace("{n}", String(citations))} · ${t.last} ${czechDisplayDate(latestDate)}`
-          : t.never}
-      </p>
-
     </article>
   );
 }

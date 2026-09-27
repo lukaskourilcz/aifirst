@@ -6,6 +6,7 @@ import { IssueRow } from "@/components/IssueRow";
 import { PageShell } from "@/components/PageShell";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/sources";
+import { sourceClass, sourceName } from "@/lib/labels";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 
@@ -44,17 +45,15 @@ export default async function SourceDetailPage({
     sourceCitationStats(sources, locale),
   ]);
   const stat = stats.get(id);
-  const weightPct = Math.round((source.weight ?? 0.5) * 100);
 
   return (
     <PageShell
       kicker={<Link href={lp("/sources")}>← {t.back}</Link>}
-      title={source.name}
-      intro={`${source.type} · ${source.id}`}
+      title={sourceName(source.id, sources)}
+      intro={t.classes[sourceClass(source.tags)]}
     >
       <dl className="source-summary">
-        <div><dt>{t.weight}</dt><dd>{String(weightPct).padStart(2, "0")}</dd></div>
-        <div><dt>{t.citations}</dt><dd>×{stat?.count ?? 0}</dd></div>
+        <div><dt>{t.citations}</dt><dd>{stat?.count ?? 0}</dd></div>
         <div><dt>{t.lastCited}</dt><dd>{stat?.latestDate ? czechDisplayDate(stat.latestDate) : "—"}</dd></div>
       </dl>
 

@@ -268,3 +268,25 @@ export function provenanceSentence(
     : t.provenanceSourcesMany.replace("{n}", String(sourceCount));
   return t.provenanceUnreviewed.replace("{sources}", sources);
 }
+
+export type SourceClass = "primary" | "reporting" | "community";
+
+/** Which of the three groups on /sources a registered source belongs to. */
+export function sourceClass(tags: readonly string[] | undefined): SourceClass {
+  const set = new Set(tags ?? []);
+  if (set.has("primary-source")) return "primary";
+  if (["aggregator", "community", "social", "general"].some((tag) => set.has(tag))) return "community";
+  return "reporting";
+}
+
+/** Two initials from the letters of a name: „Import AI (Jack Clark)" → „IA". */
+export function monogram(name: string): string {
+  const words = name
+    .split(/\s+/)
+    .map((word) => word.replace(/[^\p{L}\p{N}]/gu, ""))
+    .filter(Boolean);
+  const letters = words.length > 1
+    ? `${words[0]?.[0] ?? ""}${words[1]?.[0] ?? ""}`
+    : (words[0] ?? "").slice(0, 2);
+  return letters.toLocaleUpperCase("cs");
+}
