@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dneskai/contracts/distribution-pack.schema.json",
+  "title": "DNESKAi per-edition share pack (/data/share/<date>.cs.json)",
+  "description": "Version 2 (issue #99, CONTRACTS.md §3). Every version-1 field keeps its meaning; social_copy, lesson, practical, images, links and markdownUrl are new. Built by lib/distribution/share.ts.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "issueDate",
+    "language",
+    "canonicalUrl",
+    "primaryHeadline",
+    "alternativeHeadlines",
+    "summary",
+    "socialPost",
+    "linkedInPost",
+    "blueskyPost",
+    "newsletterExcerpt",
+    "quoteCardText",
+    "illustrationPath",
+    "illustrationAlt",
+    "topics",
+    "sourceCount",
+    "brandLogo",
+    "markdownUrl",
+    "images",
+    "social_copy",
+    "lesson",
+    "practical",
+    "links"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "issueDate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "language": {
+      "enum": [
+        "cs"
+      ]
+    },
+    "canonicalUrl": {
+      "type": "string",
+      "pattern": "^https?://"
+    },
+    "primaryHeadline": {
+      "type": "string",
+      "minLength": 1
+    },
+    "alternativeHeadlines": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "socialPost": {
+      "type": "string"
+    },
+    "linkedInPost": {
+      "type": "string"
+    },
+    "blueskyPost": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "newsletterExcerpt": {
+      "type": "string"
+    },
+    "quoteCardText": {
+      "type": "string"
+    },
+    "illustrationPath": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "illustrationAlt": {
+      "type": "string"
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sourceCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "brandLogo": {
+      "type": "object",
+      "required": [
+        "svg",
+        "png"
+      ],
+      "properties": {
+        "svg": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "png": {
+          "type": "string",
+          "pattern": "^https?://"
+        }
+      }
+    },
+    "markdownUrl": {
+      "type": "string",
+      "pattern": "^https?://.+\\.md$"
+    },
+    "images": {
+      "type": "object",
+      "required": [
+        "og",
+        "feed",
+        "story",
+        "wide"
+      ],
+      "properties": {
+        "og": {
+          "type": "object",
+          "required": [
+            "url",
+            "width",
+            "height"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "width": {
+              "const": 1200
+            },
+            "height": {
+              "const": 630
+            }
+          },
+          "additionalProperties": false
+        },
+        "feed": {
+          "type": "object",
+          "required": [
+            "url",
+            "width",
+            "height"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "width": {
+              "const": 1080
+            },
+            "height": {
+              "const": 1350
+            }
+          },
+          "additionalProperties": false
+        },
+        "story": {
+          "type": "object",
+          "required": [
+            "url",
+            "width",
+            "height"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "width": {
+              "const": 1080
+            },
+            "height": {
+              "const": 1920
+            }
+          },
+          "additionalProperties": false
+        },
+        "wide": {
+          "type": "object",
+          "required": [
+            "url",
+            "width",
+            "height"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "width": {
+              "const": 1280
+            },
+            "height": {
+              "const": 720
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "social_copy": {
+      "type": "object",
+      "required": [
+        "igCaption",
+        "threadsText",
+        "storyLine",
+        "hashtags",
+        "origin"
+      ],
+      "properties": {
+        "igCaption": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2200
+        },
+        "threadsText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "storyLine": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "hashtags": {
+          "type": "array",
+          "maxItems": 30,
+          "items": {
+            "type": "string",
+            "pattern": "^[\\p{L}\\p{N}_]+$"
+          }
+        },
+        "origin": {
+          "enum": [
+            "edition",
+            "derived"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "lesson": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "term",
+            "short",
+            "url"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "term": {
+              "type": "string",
+              "minLength": 1
+            },
+            "short": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "practical": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "variant",
+            "items"
+          ],
+          "properties": {
+            "variant": {
+              "enum": [
+                "daily",
+                "friday-tools"
+              ]
+            },
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "title",
+                  "text"
+                ],
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "prompt",
+                      "tool",
+                      "term",
+                      "howto"
+                    ]
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 600
+                  },
+                  "url": {
+                    "type": "string",
+                    "pattern": "^https://"
+                  },
+                  "verified_at": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "links": {
+      "type": "object",
+      "required": [
+        "threadsPost",
+        "threadsReply",
+        "instagramBio",
+        "instagramStory",
+        "practicalStory"
+      ],
+      "properties": {
+        "threadsPost": {
+          "type": "string",
+          "pattern": "utm_source=threads&utm_medium=post&utm_campaign=edition"
+        },
+        "threadsReply": {
+          "type": "string",
+          "pattern": "utm_source=threads&utm_medium=reply&utm_campaign=edition"
+        },
+        "instagramBio": {
+          "type": "string",
+          "pattern": "utm_source=instagram&utm_medium=bio&utm_campaign=edition"
+        },
+        "instagramStory": {
+          "type": "string",
+          "pattern": "utm_source=instagram&utm_medium=story&utm_campaign=edition"
+        },
+        "practicalStory": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "utm_source=instagram&utm_medium=story&utm_campaign=practical"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

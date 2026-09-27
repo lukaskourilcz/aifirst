@@ -1,11 +1,12 @@
 #!/usr/bin/env tsx
 import { getArticle, listArticles } from "../lib/content.js";
 import { writeNewsletterArtifact } from "../lib/distribution/newsletter.js";
-import { writeArticleDistributionPack } from "../lib/distribution/share.js";
 import { LOCALES } from "../lib/i18n/config.js";
 
+// Newsletter files only. The per-edition share packs are no longer written to
+// disk: app/data/share/[file]/route.ts builds them statically on every build,
+// so they always match the edition and the configured site URL (issue #99).
 async function main() {
-  const shareFiles: string[] = [];
   const newsletterFiles: string[] = [];
 
   for (const locale of LOCALES) {
@@ -13,7 +14,6 @@ async function main() {
     for (const summary of summaries) {
       const article = await getArticle(summary.slug, locale);
       if (!article) continue;
-      shareFiles.push(await writeArticleDistributionPack(article, locale));
       if (article.frontmatter.type === "weekly") {
         newsletterFiles.push(...await writeNewsletterArtifact(article, locale));
       }
@@ -22,7 +22,6 @@ async function main() {
 
   console.log(JSON.stringify({
     status: "ok",
-    shareFiles: shareFiles.length,
     newsletterFiles: newsletterFiles.length,
   }));
 }

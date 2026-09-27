@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "2026-11-05",
+  "language": "cs",
+  "canonicalUrl": "https://dneskai.example/articles/2026-11-05-ukazka",
+  "primaryHeadline": "Ukázkové vydání pro kontrakt share packu",
+  "alternativeHeadlines": [],
+  "summary": "Perex ukázkového vydání, který shrnuje hlavní vývoj dne ve dvou větách.",
+  "socialPost": "Ukázkové vydání pro kontrakt share packu\n\nPerex ukázkového vydání, který shrnuje hlavní vývoj dne ve dvou větách.\n\nhttps://dneskai.example/articles/2026-11-05-ukazka",
+  "linkedInPost": "Ukázkové vydání pro kontrakt share packu\n\nPerex ukázkového vydání, který shrnuje hlavní vývoj dne ve dvou větách.\n\nČtěte na DNESKAi: https://dneskai.example/articles/2026-11-05-ukazka",
+  "blueskyPost": "Ukázkové vydání pro kontrakt share packu. Perex ukázkového vydání, který shrnuje hlavní vývoj dne ve dvou větách. https://dneskai.example/articles/2026-11-05-ukazka",
+  "newsletterExcerpt": "Perex ukázkového vydání, který shrnuje hlavní vývoj dne ve dvou větách.",
+  "quoteCardText": "Proč na tom záleží.",
+  "illustrationPath": null,
+  "illustrationAlt": "Popis obrázku",
+  "topics": [
+    "umela-inteligence"
+  ],
+  "sourceCount": 1,
+  "brandLogo": {
+    "svg": "https://dneskai.example/brand/DNESKAi-logo.svg",
+    "png": "https://dneskai.example/brand/png/DNESKAi-logo-2000.png"
+  },
+  "markdownUrl": "https://dneskai.example/articles/2026-11-05-ukazka.md",
+  "images": {
+    "og": {
+      "url": "https://dneskai.example/articles/2026-11-05-ukazka/opengraph-image",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  "social_copy": {
+    "igCaption": ""
+  },
+  "lesson": {
+    "id": "lex-008",
+    "term": "Inference",
+    "short": "Provoz natrénovaného modelu – tady vzniká veškerý každodenní náklad",
+    "url": "https://dneskai.example/lekce#inference"
+  },
+  "practical": {
+    "variant": "daily",
+    "items": [
+      {
+        "type": "prompt",
+        "title": "Kritik vlastního textu",
+        "text": "Přečti si můj text jako skeptický editor a vypiš tři nejslabší tvrzení."
+      }
+    ]
+  },
+  "links": {
+    "threadsPost": "https://dneskai.example/articles/2026-11-05-ukazka?utm_source=threads&utm_medium=post&utm_campaign=edition",
+    "threadsReply": "https://dneskai.example/articles/2026-11-05-ukazka?utm_source=threads&utm_medium=reply&utm_campaign=edition",
+    "instagramBio": "https://dneskai.example/articles/2026-11-05-ukazka?utm_source=instagram&utm_medium=bio&utm_campaign=edition",
+    "instagramStory": "https://dneskai.example/articles/2026-11-05-ukazka?utm_source=instagram&utm_medium=story&utm_campaign=edition",
+    "practicalStory": "https://dneskai.example/articles/2026-11-05-ukazka?utm_source=instagram&utm_medium=story&utm_campaign=practical"
+  }
+}

@@ -67,7 +67,7 @@ export default async function LessonsPage({
                   {group.lessons.map(({ entry, index, revealedOn }) => {
                     const text = locale === "cs" ? entry.cs : entry.en;
                     return (
-                      <tr key={entry.id}>
+                      <tr key={entry.id} id={entry.slug}>
                         <th scope="row">
                           <span className="lesson-table__term">{entry.term}</span>
                           <span className="lesson-table__meta">
