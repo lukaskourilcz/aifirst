@@ -77,7 +77,7 @@ export default async function ArchivePage({
       ))}
 
       {all.length === 0 && noEditions.length === 0 && (
-        <p className="route-empty-state">{t.empty}</p>
+        <p className="empty-line">{t.empty}</p>
       )}
     </PageShell>
   );

@@ -19,12 +19,15 @@ export function FeedRow({
   locale,
   readingMinutes,
   thumbnail = true,
+  compact = false,
 }: {
   article: ArticleSummary;
   locale: Locale;
   readingMinutes?: number;
   /** False for a plain list of editions, e.g. a topic's archive. */
   thumbnail?: boolean;
+  /** Title and date only: no dek, no thumbnail. For dense edition lists. */
+  compact?: boolean;
 }) {
   const t = dict(locale).common;
   const category = article.categories?.[0];
@@ -36,7 +39,7 @@ export function FeedRow({
         <div className="feed-row__copy">
           {kicker ? <p className="feed-row__kicker">{kicker}</p> : null}
           <h3 className="feed-row__title">{article.title}</h3>
-          {article.dek ? <p className="feed-row__dek">{article.dek}</p> : null}
+          {article.dek && !compact ? <p className="feed-row__dek">{article.dek}</p> : null}
           <p className="feed-row__meta">
             <time dateTime={article.date}>{czechNumericDate(article.date)}</time>
             {readingMinutes ? (
@@ -47,7 +50,7 @@ export function FeedRow({
             ) : null}
           </p>
         </div>
-        {thumbnail && article.heroPhoto ? (
+        {thumbnail && !compact && article.heroPhoto ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={article.heroPhoto}

@@ -2,7 +2,7 @@ import { czechDisplayDate } from "@/lib/weeks";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { IssueRow } from "@/components/IssueRow";
+import { FeedRow } from "@/components/editorial/FeedRow";
 import { PageShell } from "@/components/PageShell";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/sources";
@@ -59,21 +59,15 @@ export default async function SourceDetailPage({
 
       <section className="route-section">
         <h2>{t.citedBy}</h2>
-        <ul className="dense-list">
-          {issues.map((a) => (
-            <IssueRow
-              key={a.slug}
-              href={lp(`/articles/${a.slug}`)}
-              date={a.date}
-              title={a.title}
-            />
-          ))}
-          {issues.length === 0 && (
-            <li className="label route-empty-state">
-              {t.citedByEmpty}
-            </li>
-          )}
-        </ul>
+        {issues.length ? (
+          <ul className="feed-list">
+            {issues.map((a) => (
+              <FeedRow key={a.slug} article={a} locale={locale} compact />
+            ))}
+          </ul>
+        ) : (
+          <p className="empty-line">{t.citedByEmpty}</p>
+        )}
       </section>
     </PageShell>
   );

@@ -36,13 +36,12 @@ export default async function ModelsPage({ params }: { params: Promise<{ lang: L
         <PageShell kicker={t.modelsKicker} title={t.modelsTitle}>
           {filed.length === 0 ? (
             /* The launch state. No illustration, no skeleton rows, no badge. */
-            <div className="empty-state">
-              <p className="empty-line">{t.modelsEmpty}</p>
-              <p className="empty-line">{t.modelsEmptyBody}</p>
-              <p className="empty-state__link">
+            <>
+              <p className="empty-line">{t.modelsEmpty} {t.modelsEmptyBody}</p>
+              <p className="empty-line">
                 <Link href={lp("/tyden")}>{r.week} →</Link>
               </p>
-            </div>
+            </>
           ) : (
             <ul className="feed-list">
               {filed.map((article) => (

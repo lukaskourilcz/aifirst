@@ -2,50 +2,32 @@
    reading arc, and one blueprint-blue completion mark. */
 
 :root {
-  /* Light newsroom palette. Production components consume the semantic
-     roles below; compatibility aliases keep legacy routes on the same system.
-     The hue is unchanged; the lightness is not. */
-  --color-blueprint-blue: #2f5ae6;
-  --color-blueprint-blue-hover: #1d43bb;
-  --color-ink-black: #14161a;
-  --color-carbon: #3c4149;
-  --color-slate: #5f6672;
-  --color-fog: #e2e2de;
-  --color-paper: #ffffff;
-  --color-stone: #efefec;
-  --color-canvas: #f7f7f5;
-  --color-mint: #067a52;
-  --color-rust: #c0272c;
-  /* Semantic color roles. */
-  --surface-page: var(--color-canvas);
-  --surface-reading: var(--color-paper);
-  --surface-subtle: var(--color-stone);
+  /* Light newsroom palette, as semantic roles. The hexes are mirrored in
+     lib/og-theme.ts because next/og cannot read CSS variables. */
+  --surface-page: #f7f7f5;
+  --surface-reading: #ffffff;
+  --surface-subtle: #efefec;
   --surface-emphasis: #eaf0ff;
-  --text-primary: var(--color-ink-black);
-  --text-secondary: var(--color-carbon);
-  --text-tertiary: var(--color-slate);
-  --border-subtle: var(--color-fog);
+  --text-primary: #14161a;
+  --text-secondary: #3c4149;
+  --text-tertiary: #5f6672;
+  --border-subtle: #e2e2de;
   --border-strong: #c9c9c3;
   /* Grouping hairlines cannot reach the 3:1 non-text minimum on paper without
      becoming noise. Controls whose border is the affordance use this instead:
      the search input and the week-boundary action. */
   --border-control: #8e8e88;
-  --accent-primary: var(--color-blueprint-blue);
-  --accent-primary-hover: var(--color-blueprint-blue-hover);
-  --status-complete: var(--color-mint);
+  --accent-primary: #2f5ae6;
+  --accent-primary-hover: #1d43bb;
+  --status-complete: #067a52;
   --status-warning: #8a5a0d;
-  --status-correction: var(--color-rust);
-  --focus-ring: var(--color-blueprint-blue);
+  --status-correction: #c0272c;
+  --focus-ring: var(--accent-primary);
   --selection-background: rgba(47, 90, 230, 0.18);
   --danger-line: #f0c9ca;
   --danger-surface: #fdf4f4;
   --sponsor-surface: #fdf7e8;
   --hover-line: #b3b3ab;
-
-  /* Compatibility aliases for existing components. */
-  --ink-primary: var(--text-primary);
-  --ink-muted: var(--text-tertiary);
-  --ink-dim: var(--text-tertiary);
   --numeric-ghost: rgba(20, 22, 26, 0.045);
 
   /* Space Grotesk, Source Serif 4 and IBM Plex Mono are self-hosted. */
@@ -213,7 +195,7 @@
 .source-ledger__publisher {
   display: block;
   margin-top: 4px;
-  color: var(--color-slate);
+  color: var(--text-tertiary);
   font-family: var(--font-mono);
   font-size: 0.59375rem;
   letter-spacing: 0.08em;
@@ -297,26 +279,26 @@
 .corrections-notice ul { list-style: none; margin: 0; padding: 0; }
 .corrections-notice li { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; }
 .corrections-notice li + li { margin-top: 14px; }
-.corrections-notice time { color: var(--color-slate); font-variant-numeric: tabular-nums; }
+.corrections-notice time { color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
 .corrections-notice strong,
 .corrections-notice span { grid-column: 2; }
 
 .sponsor-block { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 24px 0; padding: 16px; border: 1px solid var(--border-strong); background: var(--surface-reading); }
 .sponsor-block > .label { grid-column: 1 / -1; margin: 0; }
 .sponsor-block img { width: 72px; height: 72px; object-fit: contain; }
-.sponsor-block p { margin: 4px 0; color: var(--color-slate); }
+.sponsor-block p { margin: 4px 0; color: var(--text-tertiary); }
 
 .issue-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: var(--section-gap); }
 .issue-navigation a { display: flex; flex-direction: column; gap: 6px; padding: 16px 0; border-top: 1px solid var(--border-strong); background: transparent; }
 .issue-navigation a:last-child { text-align: right; }
-.issue-navigation span { font-size: var(--text-caption); color: var(--color-slate); text-transform: uppercase; letter-spacing: 0.08em; }
+.issue-navigation span { font-size: var(--text-caption); color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; }
 
 .topic-grid { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(276px, 1fr)); gap: var(--space-5); }
 .topic-card { display: flex; height: 100%; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); color: var(--text-primary); }
 .topic-card:hover { border-color: var(--hover-line); color: var(--text-primary); }
 .topic-card h2 { margin: 0; font-size: 1.35rem; }
 .topic-card p { margin: 0; color: var(--text-secondary); font-family: var(--font-reading); }
-.topic-card .label { margin-top: auto; padding-top: 12px; color: var(--color-blueprint-blue); }
+.topic-card .label { margin-top: auto; padding-top: 12px; color: var(--accent-primary); }
 
 
 /* The completion mark: one row in the masthead idiom, closing the edition on
@@ -342,11 +324,30 @@
 }
 .edition-end__message { color: var(--text-primary); }
 
+/* 404 and 500: centred, the code in display type, one line of explanation. */
+.status-page { padding: var(--space-9) var(--space-5); text-align: center; }
+.status-page__code { margin: var(--space-3) 0 0; color: var(--accent-primary); font-size: clamp(3rem, 10vw, 8rem); line-height: 1; }
+.status-page__body { margin: var(--space-4) auto var(--space-6); max-width: 52ch; color: var(--text-tertiary); }
+.status-page__digest { margin: 0 0 var(--space-5); }
+.status-page__actions { display: inline-flex; flex-wrap: wrap; gap: var(--space-4); align-items: baseline; }
+.status-page__retry { min-height: 44px; padding: var(--space-2) var(--space-4); border: 1px solid var(--border-control); background: transparent; color: var(--accent-primary); cursor: pointer; }
+
+/* Editor's note above the article body. */
+.editors-note { margin: 0 0 var(--space-5); padding: var(--space-3) var(--space-4); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); }
+.editors-note__label { margin: 0 0 var(--space-1); }
+.editors-note__body { margin: 0; color: var(--text-primary); font-size: var(--text-body-sm); line-height: 1.55; }
+
+/* Per-issue glossary disclosures. */
+.issue-glossary__term { padding: 14px 0; border-bottom: 1px solid var(--border-subtle); }
+.issue-glossary__term summary { color: var(--accent-primary); font-family: var(--font-display); letter-spacing: 0.04em; cursor: pointer; }
+.issue-glossary__term dfn { font-style: normal; }
+.issue-glossary__term p { margin: 10px 0 0; color: var(--text-tertiary); }
+
 .public-status { max-width: 680px; padding: 24px; border: 1px solid var(--border-subtle); background: var(--surface-reading); }
 .public-status h2 { margin-top: 4px; }
 .public-status dl { margin: 24px 0; }
-.public-status dl div { display: grid; grid-template-columns: minmax(140px, 0.6fr) 1fr; gap: 16px; padding: 8px 0; border-top: 1px solid var(--color-fog); }
-.public-status dt { color: var(--color-slate); }
+.public-status dl div { display: grid; grid-template-columns: minmax(140px, 0.6fr) 1fr; gap: 16px; padding: 8px 0; border-top: 1px solid var(--border-subtle); }
+.public-status dt { color: var(--text-tertiary); }
 .public-status dd { margin: 0; }
 
 /* The front-page dateline. A 2px rule over it opens the page the way the
@@ -442,9 +443,6 @@
 }
 .issue-topics { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .fallback-notice { margin: 0 0 var(--space-5); padding: var(--space-3); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); color: var(--text-primary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
-.publication-empty-state { padding: var(--space-9) 0; }
-.publication-empty-state > p:not(.eyebrow) { max-width: 60ch; color: var(--text-tertiary); }
-.publication-empty-state .ghost { margin-top: var(--space-4); }
 .recent-issues { margin-top: var(--section-gap); }
 .recent-issues__list { list-style: none; padding: 0; margin: 0; }
 
@@ -557,8 +555,8 @@ code {
   font-family: var(--font-mono);
   font-size: 0.92em;
   padding: 0.05em 0.35em;
-  background: var(--color-paper);
-  border: 1px solid var(--color-fog);
+  background: var(--surface-reading);
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   color: var(--text-primary);
 }
@@ -574,7 +572,7 @@ blockquote {
 
 hr {
   border: 0;
-  border-top: 1px solid var(--color-fog);
+  border-top: 1px solid var(--border-subtle);
   margin: 2.4em 0;
 }
 
@@ -592,22 +590,6 @@ hr {
 .hero__eyebrow,
 .feed-row__kicker,
 .cover-card__kicker,
-.no-edition__kicker,
-.banner-slot__label,
-.sidebar__strapline,
-.footer-nav__heading,
-.footer-nav a,
-.source-ledger th,
-.lesson-table thead th,
-.week-action__kicker,
-.day-group__label {
-  font-family: var(--font-mono);
-  font-size: var(--kicker-size);
-  font-weight: 500;
-  letter-spacing: var(--kicker-tracking);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
 .kicker--accent,
 .label--accent,
 .eyebrow,
@@ -1053,13 +1035,13 @@ hr {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-slate);
+  color: var(--text-tertiary);
   margin: 0 0 8px;
 }
 
 .sidebar__card {
-  background: var(--color-canvas);
-  border: 1px solid var(--color-fog);
+  background: var(--surface-page);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: 16px;
 }
@@ -1069,13 +1051,13 @@ hr {
   font-size: var(--text-body-sm);
   font-weight: 600;
   margin: 0 0 4px;
-  color: var(--color-ink-black);
+  color: var(--text-primary);
 }
 
 .sidebar__card-body {
   font-size: var(--text-caption);
   line-height: 1.5;
-  color: var(--color-slate);
+  color: var(--text-tertiary);
   margin: 0;
 }
 
@@ -1139,7 +1121,7 @@ hr {
   width: 3px;
   height: 0.95em;
   border-radius: 0;
-  background: var(--color-blueprint-blue);
+  background: var(--accent-primary);
 }
 
 .hero__title {
@@ -1174,7 +1156,7 @@ hr {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-slate);
+  color: var(--text-tertiary);
 }
 .hero__topics {
   display: flex;
@@ -1353,7 +1335,7 @@ hr {
   line-height: 1.24;
   font-weight: 600;
   margin: 0;
-  color: var(--color-ink-black);
+  color: var(--text-primary);
   letter-spacing: -0.022em;
 }
 .post-card__dek {
@@ -1369,7 +1351,7 @@ hr {
   gap: 12px;
   margin-top: 4px;
   font-size: var(--text-caption);
-  color: var(--color-slate);
+  color: var(--text-tertiary);
 }
 
 .chip {
@@ -1392,7 +1374,7 @@ a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary)
 .chip--evidence-secondary { color: var(--text-secondary); }
 
 .chip--accent {
-  color: var(--color-blueprint-blue);
+  color: var(--accent-primary);
 }
 
 .chip--dot::before {
@@ -1400,7 +1382,7 @@ a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary)
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--color-blueprint-blue);
+  background: var(--accent-primary);
 }
 
 /* Primary CTA button — the one filled action in the system. */
@@ -1409,7 +1391,7 @@ a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary)
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  background: var(--color-blueprint-blue);
+  background: var(--accent-primary);
   color: var(--surface-page);
   font-family: var(--font-mono);
   font-size: 0.65625rem;
@@ -1448,18 +1430,18 @@ input[type="search"] {
   font-family: var(--font-suisse-intl);
   font-size: var(--text-body-sm);
   padding: 8px 12px;
-  background: var(--color-paper);
-  border: 1px solid var(--color-fog);
+  background: var(--surface-reading);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-inputs);
-  color: var(--color-ink-black);
+  color: var(--text-primary);
   box-shadow: var(--shadow-subtle);
 }
 
 input[type="text"]:focus,
 input[type="search"]:focus {
   outline: none;
-  background: var(--color-canvas);
-  border-color: var(--color-slate);
+  background: var(--surface-page);
+  border-color: var(--text-tertiary);
 }
 
 /* ------------------------------------------------------------------ */
@@ -1708,7 +1690,7 @@ input[type="search"]:focus {
   left: -1.4em;
   top: 0.15em;
   opacity: 0;
-  color: var(--color-slate);
+  color: var(--text-tertiary);
   font-size: 0.7em;
   transition: opacity 150ms var(--ease-out);
 }
@@ -1717,7 +1699,7 @@ input[type="search"]:focus {
   opacity: 1;
 }
 .anchor-link:hover {
-  color: var(--color-blueprint-blue);
+  color: var(--accent-primary);
 }
 
 @media (max-width: 860px) {
@@ -1731,7 +1713,7 @@ input[type="search"]:focus {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-cards);
-  border: 1px solid var(--color-fog);
+  border: 1px solid var(--border-subtle);
 }
 .article-body a:not(.anchor-link) {
   border-bottom: 1px solid rgba(111, 149, 255, 0.35);
@@ -1770,8 +1752,8 @@ input[type="search"]:focus {
 .article-body pre {
   overflow-x: auto;
   max-width: 100%;
-  background: var(--color-paper);
-  border: 1px solid var(--color-fog);
+  background: var(--surface-reading);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 16px;
   font-family: var(--font-mono);
@@ -1787,17 +1769,6 @@ svg { max-width: 100%; }
 /* ------------------------------------------------------------------ */
 /* Legacy layout primitives kept for archive/glossary/sources etc.    */
 /* ------------------------------------------------------------------ */
-
-.entry-row {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 16px;
-  padding: 14px 0;
-  align-items: baseline;
-  border-bottom: 1px solid var(--color-fog);
-}
-.entry-row--meta { grid-template-columns: 140px 1fr auto; }
-.entry-row--cmd  { grid-template-columns: 160px 1fr 2fr; align-items: center; }
 
 .split-2 {
   display: grid;
@@ -1821,18 +1792,6 @@ svg { max-width: 100%; }
   .split-2 { grid-template-columns: 1fr; gap: 24px; }
 }
 
-@media (max-width: 640px) {
-  .entry-row,
-  .entry-row--meta,
-  .entry-row--cmd,
-  .def-row,
-  .def-row--tight {
-    grid-template-columns: 1fr;
-    gap: 6px;
-    align-items: start;
-  }
-  .entry-row--meta > :last-child { justify-self: start; }
-}
 
 /* Footer block (lives inside shell main column). It sits inside the main
    column, so the collapse points are earlier than the raw viewport widths
@@ -2047,10 +2006,6 @@ svg { max-width: 100%; }
 
 /* Discovery, trust, and operator-adjacent routes. */
 .route-section { margin-top: var(--section-gap); }
-.route-empty-state { margin-top: var(--space-6); color: var(--text-tertiary); }
-.dense-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-strong); }
-.entry-row { padding: var(--row-padding, 14px 0); }
-.entry-row__title { color: var(--row-title-color, var(--text-primary)); font-family: var(--font-editorial); font-size: var(--row-title-size, 1.05rem); font-weight: 700; line-height: 1.25; }
 
 .reference-section { max-width: 78ch; }
 .reference-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-subtle); }
@@ -2084,7 +2039,6 @@ svg { max-width: 100%; }
 .archive-month { margin-bottom: var(--space-7); }
 .archive-month__label { margin-bottom: var(--space-4); }
 .tag-detail__meta { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
-.tag-detail__related { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
 
 .related-issues { margin-top: var(--gutter-gap); }
@@ -2390,27 +2344,6 @@ svg { max-width: 100%; }
 .condensed .digest-row__title { font-size: 1rem; }
 
 /* No-edition day */
-.no-edition { padding: 40px 0 var(--space-6); border-bottom: 1px solid var(--border-strong); }
-.no-edition__kicker {
-  margin: 0 0 18px;
-}
-.no-edition__title {
-  margin: 0 0 16px;
-  font-family: var(--font-editorial);
-  font-size: var(--text-heading);
-  font-weight: 700;
-  line-height: var(--leading-heading);
-  letter-spacing: var(--tracking-heading);
-  color: var(--text-primary);
-}
-.no-edition__body {
-  margin: 0;
-  max-width: 62ch;
-  font-family: var(--font-reading);
-  font-size: var(--text-lead);
-  line-height: var(--leading-lead);
-  color: var(--text-secondary);
-}
 
 /* Feed */
 .feed-section { margin-top: var(--section-gap); }
@@ -2572,10 +2505,6 @@ svg { max-width: 100%; }
   line-height: var(--leading-lead);
   color: var(--text-secondary);
 }
-.empty-state .empty-line { padding: 0; }
-.empty-state { padding: 32px 0; display: grid; gap: var(--space-3); }
-.empty-state__link { margin: var(--space-2) 0 0; }
-.empty-state__link a { color: var(--accent-primary); }
 
 /* External link cards. Every card is complete without an image. */
 .link-cards {

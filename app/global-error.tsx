@@ -22,8 +22,8 @@ export default function GlobalError({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "var(--color-canvas)",
-          color: "var(--ink-primary)",
+          background: "var(--surface-page)",
+          color: "var(--text-primary)",
           fontFamily: "var(--font-body)",
           padding: 24,
           textAlign: "center",
@@ -32,12 +32,12 @@ export default function GlobalError({
         <div style={{ maxWidth: 480 }}>
           <p
             className="label"
-            style={{ color: "var(--color-blueprint-blue)", marginBottom: 16 }}
+            style={{ color: "var(--accent-primary)", marginBottom: 16 }}
           >
             critical error
           </p>
           <h1 style={{ margin: "0 0 16px" }}>500</h1>
-          <p style={{ color: "var(--ink-muted)", marginBottom: 24 }}>
+          <p style={{ color: "var(--text-tertiary)", marginBottom: 24 }}>
             Couldn’t load the magazine. Reload, or come back in a moment.
           </p>
           <button
@@ -46,8 +46,8 @@ export default function GlobalError({
             className="label"
             style={{
               background: "transparent",
-              color: "var(--color-blueprint-blue)",
-              border: "1px solid var(--color-fog)",
+              color: "var(--accent-primary)",
+              border: "1px solid var(--border-subtle)",
               padding: "8px 16px",
               cursor: "pointer",
             }}

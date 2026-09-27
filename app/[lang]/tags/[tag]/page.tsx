@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { IssueRow } from "@/components/IssueRow";
-import { TagChip } from "@/components/TagChip";
+import { FeedRow } from "@/components/editorial/FeedRow";
 import { listArticlesByTag, listTagsByFrequency } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -48,26 +47,9 @@ export default async function TagPage({
           {common.atomFeed} ↗
         </a>
       </p>
-      <ul className="dense-list">
+      <ul className="feed-list">
         {issues.map((a) => (
-          <IssueRow
-            key={a.slug}
-            href={lp(`/articles/${a.slug}`)}
-            date={a.date}
-            title={a.title}
-            padding="16px 0"
-            variant="meta"
-            trailing={
-              <span className="tag-detail__related">
-                {(a.tags ?? [])
-                  .filter((x) => x !== tag)
-                  .slice(0, 2)
-                  .map((x) => (
-                    <TagChip key={x} tag={x} locale={locale} />
-                  ))}
-              </span>
-            }
-          />
+          <FeedRow key={a.slug} article={a} locale={locale} compact />
         ))}
       </ul>
     </PageShell>

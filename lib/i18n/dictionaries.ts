@@ -67,9 +67,7 @@ const en = {
     watchlist: "To watch",
     lastWeek: "Last week",
     all: "Whole week",
-    noEditionKicker: "No edition today",
-    noEditionTitle: "No edition today.",
-    noEditionBody: "An edition comes out every weekday morning. The most recent one is below.",
+    noEditionLine: "No edition came out today ({date}). The latest one is below.",
     weekTitle: "The last seven days.",
     weekIntro: "Every edition stays in this list for seven days.",
     previousWeek: "Previous week",
@@ -383,6 +381,7 @@ const en = {
     body: "An unexpected error stopped this page from loading. Try again, or head back to the latest issue.",
     retry: "try again",
     home: "back home",
+    digest: "error code",
   },
 };
 
@@ -449,9 +448,7 @@ const cs: Dict = {
     watchlist: "Ke sledování",
     lastWeek: "Poslední týden",
     all: "Celý týden",
-    noEditionKicker: "Dnes bez vydání",
-    noEditionTitle: "Dnes nevyšlo vydání.",
-    noEditionBody: "Vydání vychází každý všední den ráno. Poslední najdete níže.",
+    noEditionLine: "Dnes vydání nevyšlo ({date}). Poslední vydání najdete níže.",
     weekTitle: "Posledních sedm dnů.",
     weekIntro: "Každé vydání zůstává v tomto přehledu sedm dní.",
     previousWeek: "Předchozí týden",
@@ -764,6 +761,7 @@ const cs: Dict = {
     body: "Při načítání stránky došlo k neočekávané chybě. Zkuste to znovu, nebo se vraťte na nejnovější vydání.",
     retry: "zkusit znovu",
     home: "zpět domů",
+    digest: "kód chyby",
   },
 };
 

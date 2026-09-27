@@ -73,7 +73,7 @@ export default async function GlossaryPage({
       ))}
 
       {terms.length === 0 && (
-        <p className="label label--muted route-empty-state">
+        <p className="empty-line">
           {tr.empty}
         </p>
       )}

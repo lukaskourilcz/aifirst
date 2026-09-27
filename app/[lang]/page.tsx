@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { CondensedBriefs, LeadPackage } from "@/components/editorial/LeadPackage";
 import { SectionMasthead } from "@/components/editorial/SectionMasthead";
+import { PageShell } from "@/components/PageShell";
 import { FeedRow } from "@/components/editorial/FeedRow";
 import { RightRail } from "@/components/editorial/RightRail";
 import { WeekAction } from "@/components/editorial/WeekAction";
@@ -17,7 +18,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
 import { loadEvents, splitByAnchor } from "@/lib/events";
 import { homeEditionState, listBoardContexts } from "@/lib/board";
-import { czechLongDate, czechNumericDate, czechWeekday, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
+import { czechLongDate, czechWeekday, czechWeekdayDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -43,11 +44,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
 
   if (!latest) {
     return (
-      <section className="publication-empty-state">
-        <p className="eyebrow">{d.home.emptyKicker}</p>
-        <h1>{d.home.emptyTitle}</h1>
-        <p>{d.home.emptyBody}</p>
-      </section>
+      <PageShell kicker={d.home.emptyKicker} title={d.home.emptyTitle} intro={d.home.emptyBody} />
     );
   }
 
@@ -63,10 +60,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
   // against the newest record, never a clock, so the same content always
   // builds the same HTML.
   const { anchor, missedDay, leadIsEarlier } = homeEditionState(await listBoardContexts(), fm.date);
-  const noEditionToday = missedDay !== null;
-  const week = withinLastDays(allArticles, anchor, 7).filter(
-    (a) => noEditionToday || a.slug !== latest.slug,
-  );
+  const week = withinLastDays(allArticles, anchor, 7).filter((a) => a.slug !== latest.slug);
   const { upcoming } = splitByAnchor(loadEvents(), anchor);
   const older = weekBeforeWindow(allArticles, anchor);
 
@@ -121,45 +115,32 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             </p>
           </header>
 
-          {noEditionToday ? (
-            /* Tertiary, not warning amber: a day without an edition is a normal
-               editorial state, and colouring it would reintroduce the status
-               telemetry this redesign removed. */
-            <section className="no-edition" aria-labelledby="no-edition-title">
-              <p className="no-edition__kicker">
-                {t.noEditionKicker}
-                {missedDay ? (
-                  <>
-                    <span aria-hidden> · </span>
-                    <time dateTime={missedDay}>{czechNumericDate(missedDay)}</time>
-                  </>
-                ) : null}
-              </p>
-              <h1 id="no-edition-title" className="no-edition__title">{t.noEditionTitle}</h1>
-              <p className="no-edition__body">{t.noEditionBody}</p>
-            </section>
-          ) : (
-            <>
-              <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} earlier={leadIsEarlier} />
+          {/* A missed weekday is one quiet line, not a headline: the newest
+              edition still leads. Tertiary, not warning amber, because a day
+              without an edition is a normal editorial state. */}
+          {missedDay ? (
+            <p className="empty-line">
+              {t.noEditionLine.replace("{date}", czechWeekdayDate(missedDay))}
+            </p>
+          ) : null}
 
-              <SponsorBlock sponsor={fm.sponsor} />
-              <CondensedBriefs
-                dispatches={fm.dispatches ?? []}
-                wire={fm.wire ?? []}
-                locale={locale}
-                articleHref={articleHref}
-              />
-              <CorrectionsNotice corrections={fm.corrections} locale={locale} />
+          <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} earlier={leadIsEarlier} />
 
-              {/* The mark closes the edition, not the page: everything above is
-                  today's edition, everything below is recirculation. There is
-                  no mark on a day with no edition to complete. */}
-              <p className="edition-end">
-                <span className="kicker edition-end__done">{d.home.editionComplete}</span>
-                <span className="kicker edition-end__message">{publication.completion}</span>
-              </p>
-            </>
-          )}
+          <SponsorBlock sponsor={fm.sponsor} />
+          <CondensedBriefs
+            dispatches={fm.dispatches ?? []}
+            wire={fm.wire ?? []}
+            locale={locale}
+            articleHref={articleHref}
+          />
+          <CorrectionsNotice corrections={fm.corrections} locale={locale} />
+
+          {/* The mark closes the edition, not the page: everything above is
+              the edition, everything below is recirculation. */}
+          <p className="edition-end">
+            <span className="kicker edition-end__done">{d.home.editionComplete}</span>
+            <span className="kicker edition-end__message">{publication.completion}</span>
+          </p>
 
           {week.length > 0 ? (
             <section className="feed-section" aria-labelledby="last-week">

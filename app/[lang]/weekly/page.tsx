@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { czechLongDate, czechNumericDate } from "@/lib/weeks";
 import { topicLabel } from "@/lib/labels";
 import { looksEnglish } from "@/lib/text";
-import { IssueRow } from "@/components/IssueRow";
+import { FeedRow } from "@/components/editorial/FeedRow";
 import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
 import { getArticle } from "@/lib/content";
@@ -82,12 +82,12 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
       {issues.length > 1 ? (
         <section className="route-section">
           <h2>{t.archive}</h2>
-          <ul className="dense-list">
-            {issues.slice(1).map((article) => <IssueRow key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} date={article.digest ? range(article.digest.from, article.digest.to) : czechNumericDate(article.date)} title={article.title} variant="meta" trailing={<span className="label">{topicsOf(article.tags).slice(0, 2).join(" · ")}</span>} />)}
+          <ul className="feed-list">
+            {issues.slice(1).map((article) => <FeedRow key={article.slug} article={article} locale={locale} compact />)}
           </ul>
         </section>
       ) : null}
-      {!latest ? <p className="route-empty-state">{t.empty}</p> : null}
+      {!latest ? <p className="empty-line">{t.empty}</p> : null}
     </PageShell>
   );
 }
