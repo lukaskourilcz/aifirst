@@ -108,7 +108,7 @@ test("the lead headline goes to the article, and the body renders with no gate",
 
 test("the completion mark closes the edition, above the week feed", async ({ page }) => {
   await page.goto("/");
-  const mark = page.locator(".caught-up-completion");
+  const mark = page.locator(".edition-end");
   await expect(mark).toBeVisible();
   const feed = page.locator(".feed-section");
   if (await feed.count()) {
@@ -341,7 +341,7 @@ test("brand, completion, and no-media states are deterministic", async ({ page }
   // the DOM at every width and hidden by CSS above 960.
   await expect(page.locator(".sidebar .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator("footer .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
-  await expect(page.locator(".caught-up-completion")).toContainText("přehled");
+  await expect(page.locator(".edition-end")).toContainText("přehled");
   // No-media state: an edition without a photo gets the seeded hairline plate.
   const figure = page.locator(".lead__figure");
   await expect(figure).toHaveCount(1);

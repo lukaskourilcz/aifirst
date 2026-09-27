@@ -256,10 +256,6 @@ export default async function ArticlePage({
           </a>
         </p>
         <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
-        <p className="caught-up-completion">
-          <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
-          <span className="caught-up-completion__message">{publication.completion}</span>
-        </p>
       </section>
         </div>
 

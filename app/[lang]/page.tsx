@@ -160,9 +160,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
               {/* The mark closes the edition, not the page: everything above is
                   today's edition, everything below is recirculation. There is
                   no mark on a day with no edition to complete. */}
-              <p className="caught-up-completion">
-                <span className="caught-up-completion__meta">{d.home.editionComplete}</span>
-                <span className="caught-up-completion__message">{publication.completion}</span>
+              <p className="edition-end">
+                <span className="kicker edition-end__done">{d.home.editionComplete}</span>
+                <span className="kicker edition-end__message">{publication.completion}</span>
               </p>
               <BannerSlot id="today-partner-belt" locale={locale} />
             </>
