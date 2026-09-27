@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<aside style="width:244px;border-right:1px solid #e2e2de;padding:30px 26px 30px 0;display:flex;flex-direction:column;gap:30px;font-size:13px;align-self:start;background:#f7f7f5">
+  <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+    <img src="public/brand/DNESKAi-logo.svg" alt="DNESKAi" style="display:block;height:20px;width:auto">
+    <p style="margin:0;color:#5f6672;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;letter-spacing:.14em;text-transform:uppercase">To podstatné z AI. Každý den.</p>
+  </div>
+  <nav style="display:flex;flex-direction:column;gap:2px">
+    <sc-for list="{{ primary }}" as="it" hint-placeholder-count="6">
+      <a href="#" style="display:inline-flex;align-items:center;min-height:44px;padding:0 12px 0 0;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:500;text-decoration:none;color:{{ it.color }};background:{{ it.bg }};border-left:2px solid {{ it.border }}"><span style="width:28px;flex:0 0 auto;padding-left:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:{{ it.idx }}">{{ it.i }}</span><span>{{ it.l }}</span></a>
+    </sc-for>
+    <div style="border-top:1px solid #e2e2de;margin:12px 0"></div>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ secondary }}" as="it" hint-placeholder-count="6">
+        <a href="#" style="display:inline-flex;align-items:center;min-height:36px;padding:0 12px 0 28px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;text-decoration:none;color:{{ it.color }};background:{{ it.bg }};border-left:2px solid {{ it.border }}">{{ it.l }}</a>
+      </sc-for>
+    </div>
+    <div style="border-top:1px solid #e2e2de;margin:12px 0"></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;min-height:44px;padding-left:6px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:500;color:#3c4149;border-left:2px solid transparent">
+      <span style="display:inline-flex;width:18px;height:18px;align-items:center;justify-content:center;opacity:.85"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4"></circle><path d="m10 10 3.5 3.5"></path></svg></span><span>hledat</span>
+    </div>
+  </nav>
+</aside>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:260,&quot;height&quot;:620},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;today&quot;,&quot;week&quot;,&quot;talked&quot;,&quot;models&quot;,&quot;podcasts&quot;,&quot;events&quot;,&quot;radar&quot;,&quot;topics&quot;,&quot;weekly&quot;,&quot;archive&quot;,&quot;lessons&quot;,&quot;about&quot;,&quot;none&quot;],&quot;default&quot;:&quot;today&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const active = this.props.active ?? "today";
+    const mk = (key, l, i) => {
+      const on = key === active;
+      return { key, l, i, color: on ? "#2f5ae6" : (i ? "#3c4149" : "#5f6672"), bg: on ? "#ffffff" : "transparent", border: on ? "#2f5ae6" : "transparent", idx: on ? "#2f5ae6" : "#5f6672" };
+    };
+    return {
+      primary: [mk("today", "Dnes", "01"), mk("week", "Poslední týden", "02"), mk("talked", "O čem se mluví", "03"), mk("models", "AI modely", "04"), mk("podcasts", "Podcasty", "05"), mk("events", "Akce", "06")],
+      secondary: [mk("radar", "Radar"), mk("topics", "Témata"), mk("weekly", "Týdeník"), mk("archive", "Archiv"), mk("lessons", "Lekce"), mk("about", "O magazínu")],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 24px 80px">
+  <dc-import name="Audit Nav" current="→" hint-size="100%,44px"></dc-import>
+  <header style="padding:32px 0 24px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Consolidated action list · P0 must change before launch (false, misleading or breaks trust) · P1 should change before launch · P2 after</p>
+    <h1 style="margin:0 0 14px;font-size:30px;font-weight:600;letter-spacing:-.01em">Prioritized actions</h1>
+    <p style="margin:0;font-size:15px;line-height:1.5;max-width:74ch">Each item names the page and finding it comes from. Nothing here adds a feature; every line removes, hides, translates or corrects something that already exists.</p>
+  </header>
+
+  <section style="padding:28px 0 0">
+    <h2 style="margin:0 0 4px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#c0272c">P0 · before launch</h2>
+    <dc-import name="Finding" kind="fix" p="P0" where="1 · Weekend „no edition“ (01·1)" text="Saturday/Sunday show „Dnes nevyšlo vydání.“ under copy that says editions are weekday-only." fix="Weekend = show the last edition as lead with „Poslední vydání · pátek 25. 9.“; no-edition state only on a missed weekday; no archive row for weekends." hint-size="100%,84px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="2 · Archive system rows (06·3, 09)" text="English pipeline reasons and raw codes with a link to boardless-ai.vercel.app." fix="„24. září 2026 · bez vydání“, no reason, no link." hint-size="100%,72px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="3 · Source ledger English (02·6, 02·7, S2)" text="„Dokládá“ column prints English curator hype; classes „primary/secondary“; „Typ rss“." fix="Hide Dokládá, translate class, delete Typ." hint-size="100%,72px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="4 · Machine authorship disclosure (02, 08·1)" text="human_reviewed: false is nowhere stated to readers." fix="New About section „Kdo vydání píše“ + one sentence in the article details row linking to it." hint-size="100%,72px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="5 · Dormant English weekly (03·3)" text="/weekly presents a May English digest as „Nejnovější týdenní vydání“." fix="Remove Týdeník from rail and footer; rewrite intro with the last-published date; keep route + feed." hint-size="100%,72px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P0" where="6 · Subscribe module (01·7)" text="Promises e-mail delivery that does not exist." fix="Delete." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P0" where="7 · AI Pulse (04·5–7)" text="Prices „k 24. 7. 2026“, all-green English status, npm charts." fix="Delete AIPulse and lib/pulse." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="8 · /sources citation counts (08·6)" text="„citováno 00 × · nikdy“ on sources cited this week." fix="Fix the count or remove the line." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="9 · Developer copy shipped to readers (05·2, 08·10)" text="„Surové tagy zůstávají jako kompatibilní metadata.“ · „…přes pole glossary_terms ve frontmatteru.“ · „publikační práh“ · „denní pipeline“." fix="Replacements in 05 and 08 copy tables." hint-size="100%,72px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="10 · Typography of delivered text (02, S6)" text="ASCII closing quotes, missing spaces, no NBSP, hyphen ranges." fix="Post-processing pass in the edition consumer." hint-size="100%,60px"></dc-import>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 4px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#8a5a0d">P1 · should change before launch</h2>
+    <dc-import name="Finding" kind="fix" p="P1" where="11 · Rail inventory (09·1–2, mockup 3)" text="12 → 8 items; hide Akce, AI modely, Radar, Týdeník; move link streams to secondary or hide until maintained." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="12 · Czech label map for slugs and ids (S1)" text="Hero topics, archive chips, Radar bars, palette, Watchlist sources, OG." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P1" where="13 · FeedActions block everywhere (01·4, 02·9, 03, 05·4)" text="Triple „atom kanál“ → one footer „RSS ↗“." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="14 · Completion poster (01·11, 02·9)" text="Gradient + 64 px „Máte přehled.“ → one-line „Konec vydání · Máte přehled.“ on Home only." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="15 · Partner box + belt (01·5, 01·12)" text="Own project labelled „Partner“; second creative after completion." fix="„Vlastní projekt“ or remove; delete the belt." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="move" p="P1" where="16 · Rail modules (01·6)" text="Delete „Víte, že…“; keep the one-line lesson as „Pojem dne“; fix „→ →“." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="17 · Article masthead (02·1–3)" text="„dnešní úvodník“ → „Vydání · čtvrtek 25. 9. 2026“; „Photo by … on Pexels“ → „Foto: … / Pexels“; slug chips → labels or nothing." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P1" where="18 · Aside duplicates (02·4–5)" text="Dedupe Watchlist vs Briefs by URL; registry names for sources." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="19 · Editorial patterns upstream (02 content)" text="One-clause headlines, ≤25-word deks, ≤15-word why-bullets, ban list (rhetorical Q, „hovoří samo“, „šeptalo se“), weekday check." hint-size="100%,60px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="20 · Radar reduced or redirected (04)" text="Delete Ochladlá, Wire, Časová osa; if only one list remains, redirect /radar → /topics." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="21 · Topics config + detail (05·3, 05·5–6)" text="Add Czech slugs to topics.yml; one edition list; delete entities and feed block." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="22 · Archive row + months (06·2, 06·4–5)" text="„Září 2026“; date-only kicker; no chips." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="23 · Search (06·6–8)" text="Fix „tlačítko níže“; palette placeholder, date format, suggestions." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="24 · /lekce framing (07·1, 07·3–4)" text="Kicker „60 / 60“ → „Slovník“; „odhaleno“ → „poprvé“; drop cycling „Dnes“." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="25 · /sources cards (08·4–5)" text="Delete weight, bar, sparkline, id, tags; group by class." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="26 · /health (08·8–9)" text="Format dates; drop build-time age; rewrite intro." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="27 · Naming and metadata (09·3–5)" text="„O magazínu“ everywhere; unprefixed og:image; per-article twitter:title; custom domain; README tagline." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P1" where="28 · Footer (09·7)" text="Delete social placeholders; two columns; „týden“ → Poslední týden." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="29 · Kicker + chip tokens (S4)" text="Two kicker tokens, one chip class." hint-size="100%,48px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P1" where="30 · Home extras (01·2–3, 01·8)" text="Dateline promise, IssueNavigation on home, date repeated in lead meta." hint-size="100%,48px"></dc-import>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 4px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5f6672">P2 · after launch</h2>
+    <dc-import name="Finding" kind="delete" p="P2" where="31 · ReadingProgress, print link, „profil zdroje“ (02)" text="" hint-size="100%,44px"></dc-import>
+    <dc-import name="Finding" kind="delete" p="P2" where="32 · Ghost „W“, drop cap, dashed borders, public-status left border (03·2, DS)" text="" hint-size="100%,44px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="33 · Row components → FeedRow + DigestRow; empty states → one class; inline styles → tokens (DS)" text="" hint-size="100%,44px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="34 · /lekce data: Czech-first terms, quote/dash normalisation; merge with /glossary (07)" text="" hint-size="100%,44px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="35 · Monogram parsing, 404/500 arrow glyph, dead dictionary keys (08·7, 09)" text="" hint-size="100%,44px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="36 · color-scheme: light on :root (09)" text="" hint-size="100%,44px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="37 · Signal strength: decide (render or delete the field + colophon copy) (02)" text="" hint-size="100%,44px"></dc-import>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 4px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Not verified in this audit</h2>
+    <p style="margin:8px 0 0;font-size:14px;line-height:1.6;color:#3c4149;max-width:80ch">Rendering at 390 px (read from CSS, not screenshotted) · /o-cem-se-mluvi and /podcasty content and freshness · a topic detail page live · an edition with a published correction · the /tyden/[id] week pages · the print view · the hold („Vydání dočasně staženo“) state · the four English May editions' article pages.</p>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>

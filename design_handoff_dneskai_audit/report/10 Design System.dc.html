@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 24px 80px">
+  <dc-import name="Audit Nav" current="DS" hint-size="100%,44px"></dc-import>
+  <header style="padding:32px 0 24px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Design system audit · app/globals.css (104 kB, :root tokens), components/, docs/design/DESIGN_SYSTEM.md</p>
+    <h1 style="margin:0 0 14px;font-size:30px;font-weight:600;letter-spacing:-.01em">Design system</h1>
+    <p style="margin:0;font-size:15px;line-height:1.5;max-width:74ch">The token layer is small, semantic and disciplined (radius 0, one accent, three status colours, three typefaces). The drift is one level up: ~10 kicker treatments, 6 chip variants, 5 row components and 6 empty-state classes doing the same jobs, and a handful of literal font sizes outside the scale. Five system-level changes below would resolve roughly forty of the page findings.</p>
+  </header>
+
+  <section style="padding:28px 0 0">
+    <h2 style="margin:0 0 14px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Tokens in use (from :root) · what to keep as the reference</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      <div style="border:1px solid #cfcbc2;background:#f7f7f5;padding:20px">
+        <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Colour roles</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#3c4149">
+          <div><div style="height:36px;background:#f7f7f5;border:1px solid #e2e2de"></div>page #f7f7f5</div><div><div style="height:36px;background:#fff;border:1px solid #e2e2de"></div>reading #fff</div><div><div style="height:36px;background:#efefec;border:1px solid #e2e2de"></div>subtle #efefec</div><div><div style="height:36px;background:#eaf0ff;border:1px solid #e2e2de"></div>emphasis #eaf0ff</div>
+          <div><div style="height:36px;background:#14161a"></div>text #14161a</div><div><div style="height:36px;background:#3c4149"></div>secondary #3c4149</div><div><div style="height:36px;background:#5f6672"></div>tertiary #5f6672</div><div><div style="height:36px;background:#2f5ae6"></div>accent #2f5ae6</div>
+          <div><div style="height:36px;background:#067a52"></div>complete #067a52</div><div><div style="height:36px;background:#8a5a0d"></div>warning #8a5a0d</div><div><div style="height:36px;background:#c0272c"></div>correction #c0272c</div><div><div style="height:36px;background:#e2e2de"></div>border #e2e2de / #c9c9c3</div>
+        </div>
+        <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#3c4149">Keep. One accent, three statuses, two borders. The only off-system colours are the completion gradient rgba(77,124,255,.14), the sponsor/danger surfaces, and legacy --color-* aliases still consumed raw by GlossaryBlock, EditorsNote, not-found, error.</p>
+      </div>
+      <div style="border:1px solid #cfcbc2;background:#f7f7f5;padding:20px">
+        <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Type roles</p>
+        <p style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.035em;line-height:1.06">Space Grotesk · display, UI, nav, tables</p>
+        <p style="margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.55;color:#3c4149">Source Serif 4 · deks, prose, descriptions</p>
+        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5f6672">IBM Plex Mono · dates, indices, meta</p>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#3c4149">Keep. Scale: caption .6875 · body-sm .9 · body 1 · lead · row · subheading · heading · display (fluid clamps). Reading measure 35em at 1.1875rem/1.7 — right for long Czech. Literals outside the scale: 0.59375rem (ledger, strapline, credit, post-card meta), 0.625rem (.label, dateline, rail), 0.65625rem (eyebrow), 0.9375rem, 1.0625rem, 1.05rem, 1.1875rem, 1.6875rem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 16px;font-size:20px;font-weight:600">Inconsistencies</h2>
+    <dc-import name="Finding" kind="fix" p="P1" where="Kicker / label sprawl" text="Ten classes render a small tracked mono uppercase line: .label (.625rem/.14em slate), .eyebrow (.65625rem/.16em blue + 3px bar), .page-kicker (blue + bar), .masthead__kicker (.6875rem/.16em slate), .editorial-highlight__kicker, .rail-module__kicker, .lead__kicker (.6875rem/.14em blue + 3px left border), .hero__eyebrow, .feed-row__kicker (blue), .cover-card__kicker, .daily-lesson__kicker (.625rem blue), .no-edition__kicker, .banner-slot__label, .sidebar__strapline (.59375rem). Four sizes, three trackings, two colours, two bar treatments for one job." fix="Two tokens: --kicker (0.6875rem / .16em / tertiary) and --kicker-accent (same, accent, optional 3px bar). Every class above maps to one of the two." hint-size="100%,144px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="Chip variants" text=".chip (4px 10px, border-subtle, .625rem/.08em), .category-chip, TagChip, .hero__topics li (5px 9px, border-strong, .625rem/.1em), .source-card__tags li (1px 8px), .evidence-class (2px 7px, .6875rem/.06em), .keycap. Six paddings for a bordered mono token." fix="One .chip with a --chip-tone modifier (neutral / primary-evidence / secondary-evidence). Keycap stays (it is a key, not a tag)." hint-size="100%,108px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="Row components" text="IssueRow (.entry-row, 140px date column, per-call titleSize 1rem vs 1.05rem and padding props), FeedRow (thumb 160/140/120/104/88px across six breakpoints), DigestRow, CoverCard row (140px thumb, 26px title), topic-timeline li (110px date), rail-related li, dense-list. Search, Radar timeline, Topic detail and Archive each list editions with a different row." fix="Collapse to two: FeedRow (edition with dek/thumb) and DigestRow (item with index). IssueRow, topic-timeline and dense-list go; CoverCard keeps only the card layout." hint-size="100%,120px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="Empty-state classes" text=".empty-state, .empty-line, .route-empty-state, .publication-empty-state, .no-edition, .archive-exhausted — six treatments for „there is nothing here“, from a 32px display block to a muted label." fix="One .empty-line (serif lead, 46ch, tertiary). The no-edition block goes with finding 01·1." hint-size="100%,96px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="Inline-styled components" text="GlossaryBlock, EditorsNote, not-found.tsx, error.tsx and Footer carry style objects with raw --color-* aliases and literal paddings; GlossaryBlock uses --color-fog and --color-blueprint-blue directly." fix="Move to classes on semantic tokens; delete the alias block in :root afterwards." hint-size="100%,84px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P2" where="Spacing literals" text="Alongside --space-1…9: 14px, 18px, 20px, 26px, 30px, 38px, 44px/52px gaps, 9px row padding, 96px completion margin. About a third of the CSS ignores the scale." fix="Snap to the scale in the next pass; not a launch blocker." hint-size="100%,84px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="Component duplicates" text="Dispatches/Wire both wrap DigestRow with variant props; DailyLesson and DidYouKnow each have a strip and a rail variant; RelatedIssues has block and rail; SectionMasthead vs .masthead-like headings in .digest__heading, .lesson-group__title, .event-scope__heading; WidgetModule vs .rail-module markup in the article rail (hand-built)." fix="Keep the variant props, delete the unused variants (strip lesson, block fact, block related) once 01·6 lands; article rail uses WidgetModule." hint-size="100%,120px"></dc-import>
+    <dc-import name="Finding" kind="visual" p="P2" where="Off-thesis ornaments" text="Radial gradient on .caught-up-completion; 4.2em blue drop cap on the first paragraph; ghost „W“ at 4.5 % on weekly-cover; dashed border on ad-slot and archive-system-row; 4px blue left border on .public-status; sparklines. The thesis bans gradients and decoration; these are the exceptions that make pages look like different products." fix="Delete all six." hint-size="100%,108px"></dc-import>
+    <dc-import name="Finding" kind="not verified" where="Dark theme" text="No dark tokens exist, so nothing is „tuned only for light“ — the whole system is light-only by decision. Label colours (evidence green #067a52, warning #8a5a0d) have no dark counterparts. If a dark theme is ever added, the status colours need re-derivation; until then declare color-scheme: light." hint-size="100%,96px"></dc-import>
+    <dc-import name="Finding" kind="keep" where="Editorial typography as a system" text="Heading ramp (display → heading → subheading → row) is one family, one weight, tightening tracking; deks and prose are one serif at two sizes; dates/bylines/ids are one mono. Citations (ledger) and the highlights block are the clearest expression. This is the reference; the fixes above make the rest match it." hint-size="100%,96px"></dc-import>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 16px;font-size:20px;font-weight:600">System-level changes (each fixes many page findings)</h2>
+    <dc-import name="Finding" kind="fix" p="P0" where="S1 · Czech label map for machine ids" text="One function topicLabel(slug) and one sourceName(id) (from sources.yml) used everywhere a slug or id reaches the DOM: hero topics, archive chips, Radar bars, topic entities, search palette meta and suggestions, Watchlist meta, OG footer, weekly meta." fix="Resolves 02·3, 02·4, 04·2, 05·6, 06·5, 06·8, 09·6 at once. Missing labels fall back to nothing, never to the slug." hint-size="100%,108px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P0" where="S2 · Czech-only render guard for delivered fields" text="Fields the writer delivers in English (sources[].supports, classification, illustration.attribution.text, board noEditionReason) never render raw. Either a dictionary value exists (primary → primární) or the field is hidden." fix="Resolves 02·6, 02·7, 02·2, 06·3. Two components (SourceLedger, archive system row) and IssueMasthead credit." hint-size="100%,108px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="S3 · One date formatter" text="czechLongDate / czechNumericDate exist; raw ISO still reaches readers in the archive month label, search palette, /health dl, OG card, hold state, print masthead. Weekday prefix („čtvrtek 25. 9.“) where a date is the main label." fix="Resolves 06·2, 06·8, 08·9, 09·6 and the weekend logic of 01·1 (weekday is what decides „no edition“)." hint-size="100%,108px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="S4 · Kicker + chip tokens" text="The two kicker tokens and one chip class above." fix="Resolves the visual inconsistency across every page; no page finding depends on it, but every page looks calmer." hint-size="100%,84px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="S5 · Delete list in components/" text="ReadingProgress, AIPulse, Sparkline, FeedActions, SocialRow, BannerSlot belt, DidYouKnow, SubscribeModule, the completion poster, IssueRow, WeeklyBadge „W“, GlossaryBlock inline styles." fix="Removes ~1,200 lines and most of the findings tagged delete in 01, 02, 04, 08, 09." hint-size="100%,96px"></dc-import>
+    <dc-import name="Finding" kind="fix" p="P1" where="S6 · Typography post-processor for delivered Czech" text="One pass in the edition consumer (lib/delivery) on title, dek, highlights, dispatches, body and on data/ai-lessons.json: „ “ quote pairing, NBSP after one-letter prepositions and before units, hyphen → en dash in ranges, double-space and missing-space repair." fix="Resolves 02 typography P0 and 07 data punctuation without touching the writer." hint-size="100%,108px"></dc-import>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>

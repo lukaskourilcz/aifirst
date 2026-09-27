@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 24px 80px">
+  <dc-import name="Audit Nav" current="" hint-size="100%,44px"></dc-import>
+  <header style="padding:40px 0 28px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Pre-launch design audit · DNESKAi (caughtup-ai.vercel.app · lukaskourilcz/aifirst@main) · 27. 9. 2026</p>
+    <h1 style="margin:0 0 16px;font-size:34px;font-weight:600;letter-spacing:-.01em;max-width:24ch">What to cut, what to fix, what to leave alone</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;max-width:72ch;color:#3c4149">Nine sections audited in order, one page each: the current view recreated from the live site and source, then the findings (delete list, copy table with Czech replacements, UX, visual). Three before/after mockups: Home on a weekend, the article masthead + source ledger, and the navigation rail. Followed by the design-system audit and a prioritized action list. Light theme only — the product has no dark theme.</p>
+  </header>
+
+  <section style="padding:28px 0 0">
+    <h2 style="margin:0 0 14px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Verdicts</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
+      <a href="01 Homepage.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>01 · Homepage · /</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">Weekday arc is right; on the weekend it announces a failed publication, and the rail carries four modules that are not today's edition. Mockup 1.</p></a>
+      <a href="02 Issue.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>02 · Issue · /articles/…</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">The editorial apparatus is the right shape; English leaks into the ledger, ids are shown as labels, items repeat, and nothing says the text is machine-written. Mockup 2.</p></a>
+      <a href="03 Weekly.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>03 · Weekly · /weekly, /tyden</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">/weekly shows an English May digest as „nejnovější“ four months later; /tyden is the working one. Two surfaces, three names.</p></a>
+      <a href="04 Radar.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>04 · Radar · /radar</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">A dashboard built from n=1 tag counts, a two-month-old price table and green status dots. Cut to one list or redirect to Topics.</p></a>
+      <a href="05 Topics.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>05 · Topics · /topics</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">Seven calm cards behind an engineering intro; detail pages stack five tag-arithmetic lists; the English tag mapping makes the counts wrong.</p></a>
+      <a href="06 Archive Search.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>06 · Archive + Search</span><span style="color:#c0272c">Needs work · P0</span></p><p style="margin:0;font-size:14px;line-height:1.5">The list is fine. Twelve „systém“ rows print the pipeline's English failure reasons and link to the operator site — the most damaging thing a reader can find.</p></a>
+      <a href="07 Lessons.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>07 · Lessons · /lekce</span><span style="color:#8a5a0d">Needs work · copy only</span></p><p style="margin:0;font-size:14px;line-height:1.5">A good glossary in a gamified frame: „60 / 60“, terms „odhaleno“, a cycling „Dnes“. Structure and glosses stay.</p></a>
+      <a href="08 Trust Pages.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>08 · Trust pages · /about, /sources, /corrections, /health, /glossary</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">About is well written but silent on who writes; Sources shows wrong citation counts and weight scores; Corrections is right; Health reads as an operator page.</p></a>
+      <a href="09 Chrome.dc.html" style="display:block;padding:18px;border:1px solid #cfcbc2;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751"><span>09 · Global chrome</span><span style="color:#8a5a0d">Needs work</span></p><p style="margin:0;font-size:14px;line-height:1.5">A good rail component with a bad inventory (12 items, 4 thin or empty), four dead social icons, three names for About, /cs/ leftovers in OG. Mockup 3.</p></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:12px">
+      <a href="10 Design System.dc.html" style="display:block;padding:18px;border:1px solid #1c1b19;background:#f7f7f5;text-decoration:none;color:#1c1b19"><p style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Design system audit</p><p style="margin:0;font-size:14px;line-height:1.5">Tokens are disciplined; the drift is ten kicker classes, six chips, five row components. Six system-level changes.</p></a>
+      <a href="11 Action List.dc.html" style="display:block;padding:18px;border:1px solid #1c1b19;background:#1c1b19;text-decoration:none;color:#fff"><p style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#cfcbc2">Prioritized action list</p><p style="margin:0;font-size:14px;line-height:1.5">10 × P0 · 20 × P1 · 7 × P2, each pointing back to its finding. Plus what was not verified.</p></a>
+    </div>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 14px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">What should stay exactly as it is</h2>
+    <p style="margin:0;font-size:15px;line-height:1.6;color:#3c4149;max-width:80ch">The paper canvas, hairline rules and zero radius · the three typefaces and their roles · the editorial highlights block (Proč na tom záleží / Co se změnilo / Co zůstává nejisté) · the numbered DigestRow and SectionMasthead · the lead package and overlay plate · /tyden's day groups and week chain · the /corrections ledger and its empty state · the /about ladder · the rail component, drawer, palette and keyboard overlay · the honesty of the no-edition state, once it stops firing on weekends.</p>
+  </section>
+
+  <section style="padding:36px 0 0">
+    <h2 style="margin:0 0 14px;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Method</h2>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#3c4149;max-width:80ch">Live routes fetched on 27. 9. 2026 (a Saturday): /, the 25. 9. article, /radar, /sources, /lekce, /akce, /weekly, /topics, /archive. Every other route and state read from the repository (app/, components/, lib/i18n/dictionaries.ts, globals.css, config/, public/data/board/). Recreations use the product's own tokens and fonts; photos are placeholders. Where something could not be seen, the finding says „not verified“. English is the report language; every replacement string is Czech.</p>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>
