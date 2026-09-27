@@ -5,11 +5,10 @@ import { SectionMasthead } from "@/components/editorial/SectionMasthead";
 import { FeedRow } from "@/components/editorial/FeedRow";
 import { RightRail } from "@/components/editorial/RightRail";
 import { WeekAction } from "@/components/editorial/WeekAction";
-import { IssueNavigation } from "@/components/editorial/IssueNavigation";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
-import { adjacentIssues, getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
+import { getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { readingMinutes } from "@/lib/text";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
@@ -55,7 +54,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
   const fm = latest.frontmatter;
   const heroPhoto = resolveHeroPhoto(fm);
   const reading = readingMinutes(latest.mdx);
-  const adjacent = adjacentIssues(latest.slug, allArticles);
   const base = siteUrl();
   const articleHref = lp(`/articles/${latest.slug}`);
 
@@ -114,16 +112,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
 
       <div className="page-with-rail">
         <div className="page-with-rail__main">
-          {/* The front page dateline: who is publishing and for which day on
-              the left, the promise on the right. Below 430px the promise drops
-              under the dateline rather than squeezing beside it. */}
+          {/* The front page dateline: who is publishing and for which day. */}
           <header className="dateline">
             <p className="dateline__edition">
               <span className="dateline__name">{publication.name}</span>
               <span aria-hidden> · </span>
               <time dateTime={anchor}>{czechWeekday(anchor)} {czechLongDate(anchor)}</time>
             </p>
-            <p className="dateline__promise">{publication.promise}</p>
           </header>
 
           {noEditionToday ? (
@@ -189,7 +184,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             </section>
           ) : null}
 
-          <IssueNavigation previous={adjacent.previous} next={adjacent.next} locale={locale} />
         </div>
 
         <RightRail locale={locale} dateKey={fm.date} events={upcoming} />

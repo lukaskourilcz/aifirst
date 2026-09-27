@@ -236,7 +236,7 @@ export default async function ArticlePage({
             className="article-with-aside__side"
             aria-label={d.article.dispatchesLabel}
           >
-            <Dispatches items={dispatches} locale={locale} variant="aside" />
+            <Dispatches items={dispatches} locale={locale} />
             <Wire items={wire} locale={locale} variant="aside" />
           </aside>
         )}

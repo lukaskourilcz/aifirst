@@ -100,10 +100,9 @@ export function LeadPackage({
       </div>
 
       {/* Outside the plate by contract: the plate carries the headline, the
-          meta row stays on the page under the image. */}
+          meta row stays on the page under the image. The date is already in
+          the kicker, so the row is the reading time alone. */}
       <p className="lead__meta">
-        <time dateTime={fm.date}>{czechNumericDate(fm.date)}</time>
-        <span aria-hidden> · </span>
         <span>{readingMinutes} {common.minutesShort} {common.readMinutes}</span>
       </p>
 
