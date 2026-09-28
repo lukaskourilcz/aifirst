@@ -190,7 +190,7 @@ export function shareCard(raw: ShareCardInput, format: ShareFormat) {
           letterSpacing: 2,
           textTransform: "uppercase",
           color: OG.slate,
-          borderTop: `2px solid ${OG.ink}`,
+          borderTop: `2px solid ${OG.borderInk}`,
           paddingTop: vertical ? 32 : 24,
         }}
       >

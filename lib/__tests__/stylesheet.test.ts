@@ -23,3 +23,15 @@ describe("app/globals.css", () => {
     expect(withoutComments).not.toMatch(/,[ \t]*\n[ \t]*\n/);
   });
 });
+
+describe("the Open Graph palette mirrors the CSS tokens", () => {
+  const token = (name: string) => css.match(new RegExp(`--${name}:\\s*(#[0-9a-f]{6})`, "i"))?.[1]?.toLowerCase();
+
+  it("uses the same ink rule, ink text, accent and page colours", async () => {
+    const { OG } = await import("../og-theme");
+    expect(OG.borderInk).toBe(token("border-ink"));
+    expect(OG.ink).toBe(token("text-primary"));
+    expect(OG.accent).toBe(token("accent-primary"));
+    expect(OG.page).toBe(token("surface-page"));
+  });
+});

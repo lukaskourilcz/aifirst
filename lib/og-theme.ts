@@ -12,6 +12,8 @@ export const OG = {
   dim: "#5f6672",
   fog: "#e2e2de",
   rule: "#c9c9c3",
+  /** --border-ink: the 2 px rule under mastheads and module heads (round 2). */
+  borderInk: "#14161a",
   accent: "#2f5ae6",
   brandAi: "#1a3ab0",
   brandOverlap: "#10266f",
