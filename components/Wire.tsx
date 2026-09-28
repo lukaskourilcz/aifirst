@@ -3,7 +3,7 @@ import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
 import { SectionMasthead } from "./editorial/SectionMasthead";
-import { sourceName } from "@/lib/labels";
+import { hostOf, sourceName } from "@/lib/labels";
 import { loadSources } from "@/lib/sources";
 import { looksEnglish } from "@/lib/text";
 
@@ -32,18 +32,23 @@ export async function Wire({ items, locale, variant = "default" }: Props) {
     >
       <SectionMasthead kicker={heading} heading={false} />
       <ol className="digest-list">
-        {items.slice(0, isAside ? 6 : items.length).map((item, i) => (
-          <DigestRow
-            key={item.url}
-            index={i + 1}
-            title={item.title}
-            titleLang={looksEnglish(item.title) ? "en" : undefined}
-            meta={sourceName(item.source, registry, item.url) || undefined}
-            href={item.url}
-            external
-            locale={locale}
-          />
-        ))}
+        {items.slice(0, isAside ? 6 : items.length).map((item) => {
+          const host = hostOf(item.url);
+          const via = sourceName(item.source, registry, item.url);
+          return (
+            <DigestRow
+              key={item.url}
+              variant="watch"
+              title={item.title}
+              titleLang={looksEnglish(item.title) ? "en" : undefined}
+              host={host || undefined}
+              via={via && via !== host ? via : undefined}
+              href={item.url}
+              external
+              locale={locale}
+            />
+          );
+        })}
       </ol>
     </section>
   );

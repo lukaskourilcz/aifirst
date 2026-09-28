@@ -53,6 +53,7 @@ const en = {
     briefs: "Briefly",
     watchlist: "To watch",
     lastWeek: "Last week",
+    lastWeekPast: "The past week",
     all: "Whole week",
     noEditionLine: "No edition came out today ({date}). The latest one is below.",
     weekTitle: "The last seven days.",
@@ -90,6 +91,8 @@ const en = {
     emptyTitle: "The first issue is being written.",
     emptyBody: "Once the first edition is out, you will find it here.",
     editionComplete: "End of edition",
+    editionCompleteToday: "End of today's edition",
+    editionCompleteFrom: "End of the edition from",
   },
   daily: {
     lessonKicker: "Term of the day",
@@ -353,6 +356,7 @@ const cs: Dict = {
     briefs: "Krátce",
     watchlist: "Ke sledování",
     lastWeek: "Poslední týden",
+    lastWeekPast: "Uplynulý týden",
     all: "Celý týden",
     noEditionLine: "Dnes vydání nevyšlo ({date}). Poslední vydání najdete níže.",
     weekTitle: "Posledních sedm dnů.",
@@ -390,6 +394,8 @@ const cs: Dict = {
     emptyTitle: "První vydání se právě připravuje.",
     emptyBody: "Jakmile vyjde první vydání, najdete ho tady.",
     editionComplete: "Konec vydání",
+    editionCompleteToday: "Konec dnešního vydání",
+    editionCompleteFrom: "Konec vydání z",
   },
   daily: {
     lessonKicker: "Pojem dne",

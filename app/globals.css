@@ -330,9 +330,9 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2) var(--space-4);
-  margin: var(--section-gap) 0 0;
+  margin: var(--space-7) 0 0;
   padding: var(--space-3) 0;
-  border-top: 2px solid var(--border-strong);
+  border-top: 2px solid var(--border-ink);
   border-bottom: 1px solid var(--border-subtle);
 }
 .edition-end__done { display: inline-flex; align-items: center; gap: var(--space-2); }
@@ -343,7 +343,12 @@
   border-radius: 50%;
   background: var(--status-complete);
 }
-.edition-end__message { color: var(--text-primary); }
+.edition-end__message {
+  font-family: var(--font-reading);
+  font-size: 1.0625rem;
+  font-style: italic;
+  color: var(--text-primary);
+}
 
 /* 404 and 500: centred, the code in display type, one line of explanation. */
 .status-page { padding: var(--space-9) var(--space-5); text-align: center; }
@@ -402,7 +407,7 @@
 
 /* The rail's one creative. An empty config returns null, so these rules apply
    only when a creative is present. */
-.banner-slot { margin-top: var(--section-gap); text-align: center; }
+.banner-slot { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
 .banner-slot__label {
   margin: 0 0 var(--space-2);
 }
@@ -1499,89 +1504,52 @@ input[type="search"]:focus {
    two lines, an optional mono meta line, hairline dividers between rows. The
    whole row is the link, which is what carries the 44px target. */
 
-.digest { margin-top: var(--section-gap); }
-.digest--aside { margin-top: 30px; }
-.digest--wire { padding: var(--space-5) 0 0; border-top: 2px solid var(--border-strong); }
-
+.digest { margin-top: var(--space-6); }
+.digest--aside { margin-top: var(--space-6); }
 
 .digest-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--border-subtle);
 }
-
-.digest-row { border-bottom: 1px solid var(--border-subtle); }
-
-.digest-row__link,
-.digest-row--plain {
+.digest-list--grid {
   display: grid;
-  grid-template-columns: 1.75rem minmax(0, 1fr);
-  gap: var(--space-2);
-  /* 12px each side plus the row's own content clears 44px comfortably; the
-     title's line box alone would not. */
-  padding: 12px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+}
+@media (max-width: 640px) { .digest-list--grid { grid-template-columns: minmax(0, 1fr); } }
+
+.digest-row { border-top: 1px solid var(--border-subtle); }
+.digest-row__link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   min-height: 44px;
+  padding: 14px 0;
   color: var(--text-primary);
-  transition: background var(--dur-fast) var(--ease-out);
 }
-.digest-row__link { align-items: start; }
-.digest-row--plain { align-items: start; }
-
-.digest-row__link:hover { background: var(--surface-hover); }
-.digest-row__link:hover .digest-row__title { color: var(--accent-primary); }
-
-.digest-row__index {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-tertiary);
-  padding-left: var(--space-2);
-  /* The index sits on the title's first line rather than the row's top edge. */
-  line-height: 1.55;
-}
-
-.digest-row__copy { display: block; min-width: 0; }
-
-.digest-row__title {
-  display: block;
+.digest-row__link:hover .digest-row__title { color: var(--accent-primary-hover); }
+.digest-row__title { overflow-wrap: anywhere; }
+.digest-row__title--watch {
   font-family: var(--font-editorial);
-  font-size: var(--text-row);
-  font-weight: 600;
-  line-height: var(--leading-row);
-  letter-spacing: var(--tracking-row);
-  color: inherit;
-  /* Long Czech compounds must break rather than push the row wide. */
-  overflow-wrap: anywhere;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
 }
-
 .digest-row__summary {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
-  margin-top: var(--space-2);
   font-family: var(--font-reading);
-  font-size: var(--text-body-sm);
-  line-height: var(--leading-body-sm);
+  font-size: 0.9375rem;
+  line-height: 1.45;
   color: var(--text-secondary);
 }
-
-.digest-row__meta {
-  display: block;
-  margin-top: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-
-/* The aside is a bounded column, so its titles step down one size. The summary
-   stays: a two-line clamp is what makes the row worth reading. */
-.digest--aside .digest-row__title { font-size: 1rem; }
-
+.digest-row__foot { display: block; margin-top: 2px; }
+.digest-row__label { font-size: 0.6875rem; }
+.digest--aside .digest-row__title.h-serif--3 { font-size: 1rem; }
 
 .modal-overlay {
   position: fixed;
@@ -2145,10 +2113,12 @@ svg { max-width: 100%; }
 
 /* A column of rules, not a stack of boxes. Only the ad has a box. */
 .rail-module {
-  padding: 16px 0;
-  border-top: 1px solid var(--border-strong);
+  padding: 12px 0 0;
+  border-top: 2px solid var(--border-ink);
 }
-.rail-module + .rail-module { border-top-color: var(--border-subtle); }
+.rail-module + .rail-module,
+.day-watch + .rail-module,
+.rail-module + .day-watch { margin-top: var(--space-6); }
 .rail-module__kicker {
   margin: 0 0 var(--space-3);
 }
@@ -2159,12 +2129,12 @@ svg { max-width: 100%; }
   line-height: 1.5;
   color: var(--text-secondary);
 }
-.rail-module__term { display: block; color: var(--text-primary); font-family: var(--font-editorial); }
+.rail-module__term { color: var(--text-primary); font-weight: 600; }
 .rail-module__meta,
 .rail-module__action {
-  margin: var(--space-3) 0 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
   color: var(--text-tertiary);
 }
 .rail-module__action a { color: var(--accent-primary); }
@@ -2279,22 +2249,85 @@ svg { max-width: 100%; }
   .lead__why { padding-left: 0; padding-top: var(--space-4); border-left: 0; border-top: 1px solid var(--border-strong); }
 }
 
-/* Condensed briefs */
-.condensed {
+/* The day's band under the lead: Krátce in two columns (8 of 12), and
+   beside it, behind a column rule, Ke sledování, Pojem dne and the house
+   creative (4 of 12). */
+.day-band {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6);
-  /* One ladder between front-page sections: every gap is --section-gap, so the
-     rhythm is a system rather than a per-section number. */
-  margin-top: var(--section-gap);
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: var(--grid-gutter);
+  align-items: start;
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-strong);
 }
-@media (max-width: 1023px) { .condensed { grid-template-columns: minmax(0, 1fr); } }
-/* Today's two columns are narrower than the main measure, so their titles
-   step down as well. Briefs carry a body and show a summary; Watchlist items
-   have only a source, and their rows are shorter for it. */
-.condensed .digest-row__title { font-size: 1rem; }
+.day-band__aside {
+  min-width: 0;
+  padding-left: var(--grid-gutter);
+  border-left: 1px solid var(--border-strong);
+}
+.day-band .module-head { border-top-color: transparent; padding-top: 0; }
+.day-band__aside > * + * { margin-top: var(--space-6); }
+.day-band__aside > .rail-module { border-top: 2px solid var(--border-ink); }
+@media (max-width: 960px) {
+  .day-band { grid-template-columns: minmax(0, 1fr); }
+  .day-band__aside { padding-left: 0; border-left: 0; }
+  .day-band .day-watch .module-head { border-top: 2px solid var(--border-ink); padding-top: 12px; }
+}
 
 /* No-edition day */
+
+/* Round-2 cards and image slots. A slot always has its ratio, so a missing
+   photo becomes a labelled box of the same size, never a gap. */
+.img-slot { display: block; width: 100%; height: auto; object-fit: cover; background: var(--surface-subtle); }
+.img-slot--3-2 { aspect-ratio: 3 / 2; }
+.img-slot--2-1 { aspect-ratio: 2 / 1; }
+.img-slot--1-1 { aspect-ratio: 1 / 1; }
+.img-fallback {
+  position: relative;
+  border: 1px solid var(--border-subtle);
+}
+.img-fallback__text { position: absolute; left: 12px; bottom: 10px; }
+
+.card { display: grid; gap: var(--space-2) var(--space-4); align-items: start; color: var(--text-primary); }
+.card:hover .card__title { color: var(--accent-primary-hover); }
+.card__copy { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card__label { font-size: 0.6875rem; }
+.card__dek {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.card--row { grid-template-columns: 240px minmax(0, 1fr); }
+.card--row.card--wide { grid-template-columns: 280px minmax(0, 1fr); }
+.card--cover { grid-template-columns: minmax(0, 1fr); }
+.card--compact { grid-template-columns: minmax(0, 1fr) 88px; }
+.card--compact .card__image { grid-column: 2; grid-row: 1; }
+.card--compact .card__copy { grid-column: 1; grid-row: 1; }
+@media (max-width: 640px) {
+  .card--row,
+  .card--row.card--wide { grid-template-columns: minmax(0, 1fr) 96px; }
+  .card--row .card__image { grid-column: 2; grid-row: 1; aspect-ratio: 1 / 1; }
+  .card--row .card__copy { grid-column: 1; grid-row: 1; }
+  .card--row .card__dek { display: none; }
+}
+
+.week-block { margin-top: var(--space-7); }
+.week-block__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 960px) { .week-block__grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* Feed */
 .feed-section { margin-top: var(--section-gap); }
@@ -2396,28 +2429,23 @@ svg { max-width: 100%; }
   gap: var(--space-4);
   min-height: 64px;
   margin-top: var(--space-5);
-  padding: 0 20px;
-  border: 1px solid var(--border-control);
-  background: var(--surface-reading);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
   color: inherit;
 }
-.week-action:hover {
-  background: var(--surface-hover);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-}
+.week-action:hover { color: var(--accent-primary-hover); }
 .week-action__copy { display: grid; gap: 2px; min-width: 0; }
 .week-action__kicker {
   color: var(--text-tertiary);
 }
 .week-action__label {
-  font-family: var(--font-editorial);
-  font-size: 1.25rem;
+  font-family: var(--font-reading);
+  font-size: 1.125rem;
   font-weight: 600;
   color: inherit;
 }
-.week-action:hover .week-action__kicker,
-.week-action:hover .week-action__label { color: var(--accent-primary); }
+.week-action:hover .week-action__label { color: var(--accent-primary-hover); }
 .week-action__arrow { font-size: 1.25rem; color: var(--text-tertiary); transition: transform var(--dur-fast) var(--ease-out); }
 .week-action:hover .week-action__arrow { color: var(--accent-primary); transform: translateX(4px); }
 @media (max-width: 430px) { .week-action { min-height: 56px; } }

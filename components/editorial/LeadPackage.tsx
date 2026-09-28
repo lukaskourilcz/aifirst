@@ -4,7 +4,7 @@ import { DigestRow } from "./DigestRow";
 import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { photoCreditParts, sourceName, topicLabel } from "@/lib/labels";
+import { hostOf, photoCreditParts, sourceName, topicLabel } from "@/lib/labels";
 import { loadSources } from "@/lib/sources";
 import { czechPlural, looksEnglish } from "@/lib/text";
 
@@ -79,67 +79,82 @@ export function LeadPackage({
   );
 }
 
+const COUNT_WORDS = ["", "Jedna zpráva", "Dvě zprávy", "Tři zprávy", "Čtyři zprávy", "Pět zpráv", "Šest zpráv"];
+
 /**
- * „Ve zkratce" and „Na radaru" beside the lead: four headline links each, the
- * rest of what mattered without leaving the front page.
+ * „Krátce": the day's Briefs in two columns, each linking to its own source.
  */
-export async function CondensedBriefs({
-  dispatches,
+export function DayBriefs({ dispatches, locale }: { dispatches: Dispatch[]; locale: Locale }) {
+  const t = dict(locale).sections;
+  const briefs = dispatches.slice(0, 6);
+  if (briefs.length === 0) return null;
+  const count = COUNT_WORDS[briefs.length];
+  return (
+    <section className="day-briefs" aria-labelledby="day-briefs">
+      <SectionMasthead
+        id="day-briefs"
+        kicker={t.briefs}
+        note={count ? `${count} dne, každá s\u00a0odkazem na zdroj.` : undefined}
+      />
+      <ol className="digest-list digest-list--grid">
+        {briefs.map((item) => (
+          <DigestRow
+            key={item.title}
+            title={item.title}
+            summary={item.body}
+            label={item.topic ? topicLabel(item.topic) ?? undefined : undefined}
+            host={hostOf(item.source_url) || undefined}
+            href={item.source_url}
+            external={Boolean(item.source_url)}
+            locale={locale}
+          />
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+/**
+ * „Ke sledování": links without commentary, in their original wording. A story
+ * already told as a Brief is left out.
+ */
+export async function DayWatchlist({
   wire,
+  dispatches,
   locale,
-  articleHref,
+  limit = 4,
 }: {
-  dispatches: Dispatch[];
   wire: WireItem[];
+  dispatches: Dispatch[];
   locale: Locale;
-  articleHref: string;
+  limit?: number;
 }) {
   const t = dict(locale).sections;
-  const briefs = dispatches.slice(0, 4);
-  const watch = watchlistWithoutBriefs(wire, dispatches).slice(0, 4);
-  if (briefs.length === 0 && watch.length === 0) return null;
-  const registry = watch.length ? await loadSources() : [];
-
+  const watch = watchlistWithoutBriefs(wire, dispatches).slice(0, limit);
+  if (watch.length === 0) return null;
+  const registry = await loadSources();
   return (
-    <div className="condensed">
-      {briefs.length > 0 ? (
-        <section className="condensed__column" aria-labelledby="condensed-briefs">
-          <SectionMasthead id="condensed-briefs" kicker={t.briefs} />
-          <ol className="digest-list">
-            {briefs.map((item, i) => (
-              <DigestRow
-                key={item.title}
-                index={i + 1}
-                title={item.title}
-                summary={item.body}
-                meta={item.topic ? topicLabel(item.topic) ?? undefined : undefined}
-                href={articleHref}
-                locale={locale}
-              />
-            ))}
-          </ol>
-        </section>
-      ) : null}
-
-      {watch.length > 0 ? (
-        <section className="condensed__column" aria-labelledby="condensed-watchlist">
-          <SectionMasthead id="condensed-watchlist" kicker={t.watchlist} />
-          <ol className="digest-list">
-            {watch.map((item, i) => (
-              <DigestRow
-                key={item.url}
-                index={i + 1}
-                title={item.title}
-                titleLang={looksEnglish(item.title) ? "en" : undefined}
-                meta={sourceName(item.source, registry, item.url) || undefined}
-                href={item.url}
-                external
-                locale={locale}
-              />
-            ))}
-          </ol>
-        </section>
-      ) : null}
-    </div>
+    <section className="day-watch" aria-labelledby="day-watch">
+      <SectionMasthead id="day-watch" kicker={t.watchlist} note={"Odkazy bez komentáře, v\u00a0původním znění."} />
+      <ol className="digest-list">
+        {watch.map((item) => {
+          const host = hostOf(item.url);
+          const via = sourceName(item.source, registry, item.url);
+          return (
+            <DigestRow
+              key={item.url}
+              variant="watch"
+              title={item.title}
+              titleLang={looksEnglish(item.title) ? "en" : undefined}
+              host={host || undefined}
+              via={via && via !== host ? via : undefined}
+              href={item.url}
+              external
+              locale={locale}
+            />
+          );
+        })}
+      </ol>
+    </section>
   );
 }
