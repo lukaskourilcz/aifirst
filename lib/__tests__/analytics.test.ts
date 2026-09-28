@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { campaignFromUrl, publicPath, withLandingUtm } from "../analytics";
 
-const site = "https://caughtup-ai.vercel.app";
+const site = "https://dneskai.vercel.app";
 
 describe("analytics: campaign parameters survive the /cs rewrite", () => {
   it("maps the internal /cs tree onto the public path", () => {

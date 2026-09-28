@@ -1,6 +1,6 @@
 # DNESKAi: facts for design review, round 2 (as of 28. 9. 2026)
 
-Repo `lukaskourilcz/aifirst` (branch `main`), live at https://caughtup-ai.vercel.app. The screenshots in `screens/` are the production build of `main` at 1440 px and 390 px. The round 1 audit and what was done with it are in `docs/audit-2026-09/` (see `IMPLEMENTATION_NOTES.md` there).
+Repo `lukaskourilcz/aifirst` (branch `main`), live at https://dneskai.vercel.app. The screenshots in `screens/` are the production build of `main` at 1440 px and 390 px. The round 1 audit and what was done with it are in `docs/audit-2026-09/` (see `IMPLEMENTATION_NOTES.md` there).
 
 ## What the product is
 

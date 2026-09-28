@@ -1,10 +1,10 @@
 # Prompt for Claude Design: DNESKAi review, round 2
 
-Paste everything below the line into Claude Design. Attach the `screens/` folder and `SITE_FACTS.md` from `docs/design-review-r2/`, or point it at the repository `lukaskourilcz/aifirst` and the live site https://caughtup-ai.vercel.app.
+Paste everything below the line into Claude Design. Attach the `screens/` folder and `SITE_FACTS.md` from `docs/design-review-r2/`, or point it at the repository `lukaskourilcz/aifirst` and the live site https://dneskai.vercel.app.
 
 ---
 
-You are reviewing and redesigning **DNESKAi**, a Czech daily publication about AI (Next.js, static, live at https://caughtup-ai.vercel.app, repository `lukaskourilcz/aifirst`). This is round 2. In round 1 you produced a pre-launch audit (`docs/audit-2026-09/`), and it has been implemented and shipped; `docs/audit-2026-09/IMPLEMENTATION_NOTES.md` says what was done and what was skipped. Read `SITE_FACTS.md` first. It holds the current structure, content inventory, cadence and hard constraints. The screenshots in `screens/` show the live site today at 1440 px and 390 px.
+You are reviewing and redesigning **DNESKAi**, a Czech daily publication about AI (Next.js, static, live at https://dneskai.vercel.app, repository `lukaskourilcz/aifirst`). This is round 2. In round 1 you produced a pre-launch audit (`docs/audit-2026-09/`), and it has been implemented and shipped; `docs/audit-2026-09/IMPLEMENTATION_NOTES.md` says what was done and what was skipped. Read `SITE_FACTS.md` first. It holds the current structure, content inventory, cadence and hard constraints. The screenshots in `screens/` show the live site today at 1440 px and 390 px.
 
 Round 1 was cutting and tightening. Round 2 is different: the owner wants the site to **look like a serious, professional news magazine that publishes original articles every day**, and is ready to change layout and navigation to get there. Be decisive. For every question below, give one recommended answer with a short rationale. Show at most two options, and only where the choice depends on something the owner must decide.
 

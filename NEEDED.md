@@ -52,7 +52,7 @@ need the owner:
 ## Pre-launch audit 2026-09 (`docs/audit-2026-09/IMPLEMENTATION_NOTES.md`)
 
 - [ ] **Add a contact line to About › Kdo vydání píše** — fill `about.authorshipContact` in `lib/i18n/dictionaries.ts`; it renders after the responsibility sentence on `/about#redakce`. [imp:3] [owner:me] [time:5m] [kind:content]
-- [ ] **Put the site on its own domain before launch** — set the production domain on the Vercel project and `siteUrl()`, and redirect `caughtup-ai.vercel.app` to it permanently. [imp:4] [owner:me] [time:30m] [kind:deploy]
+- [ ] **Point the canonical URL at dneskai.vercel.app** — the host moved to `https://dneskai.vercel.app` on 28. 9. 2026 and `caughtup-ai.vercel.app` already redirects there (308), but canonicals, Open Graph and feeds still say `caughtup-ai.vercel.app`: set `NEXT_PUBLIC_SITE_URL=https://dneskai.vercel.app` on the Vercel project and redeploy. [imp:4] [owner:me] [time:10m] [kind:deploy]
 - [ ] **Decide the four English May editions** — keep them (marked „anglicky"), have them rewritten in Czech upstream, or retire them. [imp:2] [owner:me] [time:10m] [kind:decision]
 - [ ] **Lift `noindex` on `/weekly` when a new digest ships** — steps in the implementation notes, open decision 4. [imp:2] [owner:me] [time:10m] [kind:decision]
 - [ ] **Give `docs/EDITORIAL_RULES_2026-09.md` to the BoardlessAI writer prompt** — headline and dek limits, banned phrases, weekday checks, Czech `supports`, no URL shared between Briefs and the Watchlist, Czech-first lesson terms. [imp:3] [owner:me] [time:20m] [kind:content]
@@ -86,7 +86,8 @@ need the owner:
 - The retired `ANTHROPIC_API_KEY` Actions secret is deleted, and a history sweep
   found no committed credential.
 - Vercel Pro is confirmed; production is `main` and the reader is at
-  `https://caughtup-ai.vercel.app`.
+  `https://dneskai.vercel.app` (since 28. 9. 2026; the old
+  `caughtup-ai.vercel.app` host redirects there).
 - Visitor analytics: Vercel Web Analytics pageviews only, restored for the
   November launch (#99), plus one `campaign` custom event on a `utm_*`
   landing; no other events, no Speed Insights.
