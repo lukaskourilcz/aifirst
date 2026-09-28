@@ -3,7 +3,7 @@ import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
 import { SectionMasthead } from "./editorial/SectionMasthead";
-import { hostOf, topicLabel } from "@/lib/labels";
+import { briefSectionLabel, hostOf } from "@/lib/labels";
 
 type Props = {
   items: Dispatch[];
@@ -31,7 +31,7 @@ export function Dispatches({ items, locale }: Props) {
           key={i}
           title={d.title}
           summary={d.body}
-          label={d.topic ? topicLabel(d.topic) ?? undefined : undefined}
+          label={briefSectionLabel(d.topic) ?? undefined}
           host={hostOf(d.source_url) || undefined}
           href={d.source_url}
           external={Boolean(d.source_url)}

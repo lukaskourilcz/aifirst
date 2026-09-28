@@ -4,7 +4,7 @@ import { DigestRow } from "./DigestRow";
 import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { hostOf, photoCreditParts, sourceName, topicLabel } from "@/lib/labels";
+import { briefSectionLabel, hostOf, photoCreditParts, sourceName } from "@/lib/labels";
 import { loadSources } from "@/lib/sources";
 import { czechPlural, looksEnglish } from "@/lib/text";
 
@@ -102,7 +102,7 @@ export function DayBriefs({ dispatches, locale }: { dispatches: Dispatch[]; loca
             key={item.title}
             title={item.title}
             summary={item.body}
-            label={item.topic ? topicLabel(item.topic) ?? undefined : undefined}
+            label={briefSectionLabel(item.topic) ?? undefined}
             host={hostOf(item.source_url) || undefined}
             href={item.source_url}
             external={Boolean(item.source_url)}

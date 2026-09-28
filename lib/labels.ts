@@ -6,6 +6,8 @@
 // nothing rather than as the slug.
 
 import type { Source } from "./sources";
+import { sectionLabel, sectionOfTag } from "./sections";
+import { slugify } from "./text";
 
 // Every tag present in content/articles at the time of the 2026-09 audit, plus
 // the legacy English tags of the May and June issues. Slugs lose their
@@ -311,4 +313,16 @@ export function verificationSentence(
     ? t.provenanceSourcesOne
     : t.provenanceSourcesMany.replace("{n}", String(sourceCount));
   return (generation.human_reviewed ? t.verificationReviewed : t.verificationUnreviewed).replace("{sources}", sources);
+}
+
+/**
+ * The section a Brief belongs to, from its free-text or slug `topic`
+ * (round 2, A-11): the topic is slugified and mapped with the same tag table
+ * as articles. A topic that maps to no section gets no label, never the raw
+ * text. Part B replaces this with a delivered `dispatches[].section`.
+ */
+export function briefSectionLabel(topic: string | undefined): string | null {
+  if (!topic) return null;
+  const slug = slugify(topic);
+  return sectionLabel(sectionOfTag(slug) ?? (slug.startsWith("ai-") ? sectionOfTag(slug.slice(3)) : null));
 }

@@ -63,7 +63,7 @@ const SECTION_TAGS: Record<SectionKey, readonly string[]> = {
     "bezpecnost-softwaru", "ai-safety", "safety", "ai-etika", "vojenstvi", "cybersecurity", "autonomni-zbrane",
   ],
   modely: [
-    "ai-models", "models", "llm", "gemini", "google-gemini", "mistral", "mistral-ai", "open-source",
+    "ai-models", "ai-modely", "modely", "models", "llm", "gemini", "google-gemini", "mistral", "mistral-ai", "open-source",
     "oss", "open-source-ai", "otevrene-modely", "ml", "research", "agi", "deepseek", "hlasove-modely",
   ],
   vyvoj: [
