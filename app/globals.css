@@ -558,8 +558,6 @@ hr {
 .editorial-highlight__kicker,
 .rail-module__kicker,
 .lead__kicker,
-.feed-row__kicker,
-.cover-card__kicker,
 .banner-slot__label,
 .footer-nav__heading,
 .lesson-table thead th,
@@ -581,7 +579,6 @@ hr {
 .eyebrow,
 .page-kicker,
 .lead__kicker,
-.feed-row__kicker { color: var(--accent-primary); }
 
 /* Machine values: dates, times, credits, hosts. Lowercase, no tracking. */
 .meta {
@@ -1608,80 +1605,21 @@ svg { max-width: 100%; }
 }
 .cover-grid li { min-width: 0; }
 
-.cover-card {
-  display: flex;
-  min-width: 0;
-  height: 100%;
-  flex-direction: column;
-  color: inherit;
-  text-decoration: none;
-}
 
-.cover-card__media { display: block; min-width: 0; }
-.cover-card__media img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border: 1px solid var(--border-subtle);
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-.cover-card:hover .cover-card__media img { border-color: var(--hover-line); }
 
-.cover-card__plate {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4) var(--space-4);
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-.cover-card:hover .cover-card__plate { border-color: var(--hover-line); }
 
 /* The small-scale hero plate: it rides up over the media's bottom edge, inset
    from the left so the crop still reads as a picture. A drawn .svg cover never
    gets the overlap, so those cards keep the plate directly under the media. */
-.cover-card--overlap .cover-card__plate {
-  position: relative;
-  z-index: 1;
-  margin: calc(-1 * var(--space-6)) 0 0 var(--space-4);
-}
 
 /* No media, no empty box: the plate stands on its own with the same spacing. */
-.cover-card--text-first .cover-card__plate { margin: 0; }
 
 
-.cover-card__title {
-  margin: 0;
-  font-family: var(--font-editorial);
-  font-size: var(--text-row);
-  font-weight: 600;
-  line-height: var(--leading-row);
-  letter-spacing: var(--tracking-row);
-  color: var(--text-primary);
-  overflow-wrap: anywhere;
-}
-.cover-card:hover .cover-card__title { color: var(--accent-primary); }
 
-.cover-card__dek {
-  color: var(--text-secondary);
-  font-family: var(--font-reading);
-  font-size: var(--text-body-sm);
-  line-height: var(--leading-body-sm);
-}
 
-.cover-card__meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
 
 
 /* Grid surfaces: 3:2 covers. */
-.cover-card--card .cover-card__media img { aspect-ratio: 3 / 2; }
 
 /* Archive: a row, media on the left at the 4:3 crop it already used. The plate
    sits beside the media rather than over it — an overlap inside a 140px
@@ -2060,6 +1998,11 @@ svg { max-width: 100%; }
   line-height: 1.45;
   color: var(--text-secondary);
 }
+.card--band { display: block; color: #fff; }
+.card--band:hover { color: #fff; }
+.card--band .card__band { display: block; padding: 22px 26px 26px; }
+.card--band .card__band-title { display: block; font-size: var(--text-lead-2); line-height: 1.04; }
+.card--band:hover .card__band-title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .card--row { grid-template-columns: 240px minmax(0, 1fr); }
 .card--row.card--wide { grid-template-columns: 280px minmax(0, 1fr); }
 .card--cover { grid-template-columns: minmax(0, 1fr); }
@@ -2123,9 +2066,6 @@ svg { max-width: 100%; }
   align-items: start;
   margin-top: var(--space-5);
 }
-.section-lead .img-slot { aspect-ratio: 3 / 2; }
-.section-lead__band { padding: 22px 26px 26px; }
-.section-lead__title { font-size: var(--text-lead-2); line-height: 1.04; }
 .section-top__dek {
   margin: 14px 0 0;
   max-width: 62ch;
@@ -2228,94 +2168,9 @@ svg { max-width: 100%; }
 /* Feed */
 .feed-section { margin-top: var(--section-gap); }
 .feed-list { list-style: none; margin: 0; padding: 0; }
-.feed-row { border-bottom: 1px solid var(--border-subtle); }
-.feed-row__link {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 160px;
-  gap: 20px;
-  padding: 20px 0;
-  color: inherit;
-  align-items: start;
-}
-.feed-row__link:hover {
-  background: var(--surface-hover);
-  margin-inline: -16px;
-  padding-inline: 16px;
-}
-.feed-row__link:focus-visible { outline-offset: -2px; }
-.feed-row__copy { min-width: 0; }
-.feed-row__kicker {
-  margin: 0 0 var(--space-2);
-}
-.feed-row__title {
-  margin: 0;
-  font-family: var(--font-editorial);
-  font-size: var(--text-row);
-  font-weight: 700;
-  line-height: var(--leading-row);
-  letter-spacing: var(--tracking-row);
-  color: var(--text-primary);
-  text-wrap: pretty;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.feed-row__link:hover .feed-row__title { color: var(--accent-primary); }
-.feed-row__dek {
-  margin: var(--space-2) 0 0;
-  font-family: var(--font-reading);
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.feed-row__meta {
-  margin: var(--space-2) 0 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
-.feed-row__thumb {
-  width: 160px;
-  height: 120px;
-  object-fit: cover;
-  border: 1px solid var(--border-subtle);
-}
-.feed-row__link:hover .feed-row__thumb { border-color: var(--hover-line); }
+.row-compact { padding: 12px 0; border-top: 1px solid var(--border-subtle); }
 
-@media (max-width: 1023px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 140px; }
-  .feed-row__thumb { width: 140px; height: 105px; }
-}
 
-/* Past 1280 the main column has width to spare, so the thumbnail takes some of
-   it. The 4:3 ratio and the explicit width/height attributes are unchanged, so
-   nothing shifts while the image loads. */
-@media (min-width: 1280px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 200px; }
-  .feed-row__thumb { width: 200px; height: 150px; }
-}
-@media (max-width: 767px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 120px; }
-  .feed-row__thumb { width: 120px; height: 90px; }
-}
-@media (max-width: 430px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 104px; gap: var(--space-3); }
-  .feed-row__thumb { width: 104px; height: 78px; }
-}
-@media (max-width: 360px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 88px; }
-  .feed-row__thumb { width: 88px; height: 66px; }
-}
-/* At 320 the thumbnail costs more than it tells: headline-only rows. */
-@media (max-width: 320px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr); }
-  .feed-row__thumb { display: none; }
-}
 
 /* Week-boundary action */
 .week-action {

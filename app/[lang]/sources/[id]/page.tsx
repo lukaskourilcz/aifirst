@@ -2,7 +2,7 @@ import { czechDisplayDate } from "@/lib/weeks";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { FeedRow } from "@/components/editorial/FeedRow";
+import { ArticleRow } from "@/components/editorial/Card";
 import { PageShell } from "@/components/PageShell";
 import { listArticlesBySource, sourceCitationStats } from "@/lib/content";
 import { loadSources } from "@/lib/sources";
@@ -62,7 +62,7 @@ export default async function SourceDetailPage({
         {issues.length ? (
           <ul className="feed-list">
             {issues.map((a) => (
-              <FeedRow key={a.slug} article={a} locale={locale} compact />
+              <ArticleRow key={a.slug} article={a} href={lp(`/articles/${a.slug}`)} />
             ))}
           </ul>
         ) : (

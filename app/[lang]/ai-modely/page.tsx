@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
-import { FeedRow } from "@/components/editorial/FeedRow";
+import { ArticleRow } from "@/components/editorial/Card";
 import { RightRail } from "@/components/editorial/RightRail";
 import { listArticles } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
@@ -45,7 +45,7 @@ export default async function ModelsPage({ params }: { params: Promise<{ lang: L
           ) : (
             <ul className="feed-list">
               {filed.map((article) => (
-                <FeedRow key={article.slug} article={article} locale={locale} />
+                <ArticleRow key={article.slug} article={article} href={lp(`/articles/${article.slug}`)} square={96} />
               ))}
             </ul>
           )}

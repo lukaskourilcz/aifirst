@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
-import { Card, ImageOrFallback } from "@/components/editorial/Card";
+import { Card } from "@/components/editorial/Card";
 import { SectionMasthead } from "@/components/editorial/SectionMasthead";
 import { listArticles, type ArticleSummary } from "@/lib/content";
 import { localePath, type Locale } from "@/lib/i18n/config";
@@ -86,13 +86,17 @@ export default async function SectionPage({ params }: { params: Promise<{ lang: 
       {lead ? (
         <div className="section-top">
           <article className="section-top__lead">
-            <Link href={href(lead)} className="lead__media section-lead">
-              <ImageOrFallback src={lead.heroPhoto} ratio="3/2" date={lead.date} eager />
-              <div className="lead__band section-lead__band">
-                <p className="label lead__section">{date(lead)}</p>
-                <h2 className="lead__title section-lead__title" lang={lang(lead)}>{lead.title}</h2>
-              </div>
-            </Link>
+            <Card
+              variant="band"
+              href={href(lead)}
+              title={lead.title}
+              titleLang={lang(lead)}
+              label={date(lead)}
+              image={lead.heroPhoto}
+              date={lead.date}
+              headingLevel={2}
+              eager
+            />
             {lead.dek ? <p className="section-top__dek" lang={lang(lead)}>{lead.dek}</p> : null}
           </article>
           {side.length ? (

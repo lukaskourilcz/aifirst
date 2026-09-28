@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { czechLongDate, czechNumericDate } from "@/lib/weeks";
 import { topicLabel } from "@/lib/labels";
 import { looksEnglish } from "@/lib/text";
-import { FeedRow } from "@/components/editorial/FeedRow";
+import { ArticleRow } from "@/components/editorial/Card";
 import { PageShell } from "@/components/PageShell";
 import { listArticles } from "@/lib/content";
 import { getArticle } from "@/lib/content";
@@ -83,7 +83,7 @@ export default async function WeeklyPage({ params }: { params: Promise<{ lang: L
         <section className="route-section">
           <h2>{t.archive}</h2>
           <ul className="feed-list">
-            {issues.slice(1).map((article) => <FeedRow key={article.slug} article={article} locale={locale} compact />)}
+            {issues.slice(1).map((article) => <ArticleRow key={article.slug} article={article} href={localePath(locale, `/articles/${article.slug}`)} />)}
           </ul>
         </section>
       ) : null}

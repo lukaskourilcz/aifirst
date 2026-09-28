@@ -56,10 +56,12 @@ export function ImageOrFallback({
 }
 
 /**
- * The round-2 card. `row`: a 3:2 image left (240 px; 280 px with `wide`),
- * then label, serif title and a two-line dek. `cover`: the image above.
- * `compact`: title and label with a square on the right. The whole card is
- * one link.
+ * The round-2 card, one anatomy for every list on the site. `row`: a 3:2
+ * image left (240 px; 280 px with `wide`), then label, serif title and a
+ * two-line dek. `cover`: the image above. `compact`: title and label with a
+ * square on the right. `band`: the photo with the label and a Grotesk
+ * headline set white on the ink band, as the front-page lead does. The whole
+ * card is one link; the image is lazy unless `eager`.
  */
 export function Card({
   href,
@@ -75,6 +77,7 @@ export function Card({
   titleSize = 2,
   square,
   labelAfter = false,
+  eager = false,
 }: {
   href: string;
   title: string;
@@ -83,7 +86,7 @@ export function Card({
   dek?: string;
   image?: string | null;
   date?: string;
-  variant?: "row" | "cover" | "compact";
+  variant?: "row" | "cover" | "compact" | "band";
   wide?: boolean;
   headingLevel?: 2 | 3;
   titleSize?: 1 | 2 | 3;
@@ -91,15 +94,28 @@ export function Card({
   square?: 136 | 120 | 96 | 88 | 64 | 56;
   /** Put the label under the title (archive rows). */
   labelAfter?: boolean;
+  /** Above the fold: load the image eagerly. */
+  eager?: boolean;
 }) {
   const Title = headingLevel === 2 ? "h2" : "h3";
   const ratio: Ratio = variant === "compact" ? "1/1" : "3/2";
+  if (variant === "band") {
+    return (
+      <Link href={href} className="card card--band lead__media">
+        <ImageOrFallback src={image} ratio="3/2" date={date} eager={eager} className="card__image" />
+        <span className="lead__band card__band">
+          {label ? <span className="label lead__section">{label}</span> : null}
+          <Title className="lead__title card__band-title" lang={titleLang}>{title}</Title>
+        </span>
+      </Link>
+    );
+  }
   return (
     <Link
       href={href}
       className={`card card--${variant}${wide ? " card--wide" : ""}${square ? ` card--sq-${square}` : ""}`}
     >
-      <ImageOrFallback src={image} ratio={ratio} date={date} className="card__image" />
+      <ImageOrFallback src={image} ratio={ratio} date={date} eager={eager} className="card__image" />
       <span className="card__copy">
         {label && !labelAfter ? <span className="label label--muted card__label">{label}</span> : null}
         <Title className={`h-serif h-serif--${titleSize} card__title`} lang={titleLang}>{title}</Title>
@@ -107,5 +123,31 @@ export function Card({
         {dek && (variant !== "compact" || (square ?? 0) >= 120) ? <span className="card__dek" lang={titleLang}>{dek}</span> : null}
       </span>
     </Link>
+  );
+}
+
+/** A compact article row in a list: title, date, a square on the right. */
+export function ArticleRow({
+  article,
+  href,
+  square = 64,
+}: {
+  article: { slug: string; title: string; date: string; lang?: string; heroPhoto?: string };
+  href: string;
+  square?: 136 | 120 | 96 | 88 | 64 | 56;
+}) {
+  return (
+    <li className="row-compact">
+      <Card
+        variant="compact"
+        square={square}
+        href={href}
+        title={article.title}
+        titleLang={article.lang === "en" ? "en" : undefined}
+        label={<span className="meta"><time dateTime={article.date}>{czechNumericDate(article.date)}</time></span>}
+        image={article.heroPhoto}
+        titleSize={3}
+      />
+    </li>
   );
 }

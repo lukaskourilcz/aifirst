@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { FeedRow } from "@/components/editorial/FeedRow";
+import { ArticleRow } from "@/components/editorial/Card";
 import { listArticlesByTag, listTagsByFrequency } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -49,7 +49,7 @@ export default async function TagPage({
       </p>
       <ul className="feed-list">
         {issues.map((a) => (
-          <FeedRow key={a.slug} article={a} locale={locale} compact />
+          <ArticleRow key={a.slug} article={a} href={lp(`/articles/${a.slug}`)} />
         ))}
       </ul>
     </PageShell>
