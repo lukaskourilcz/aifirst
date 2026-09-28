@@ -157,7 +157,7 @@ export type HomeEditionState = {
 /**
  * What the front page says about today. Only a `no_edition` record that is
  * newer than the latest edition **and** falls on a weekday is a missed day;
- * on a Saturday or Sunday the latest edition leads as „Poslední vydání".
+ * on a Saturday or Sunday the latest edition simply leads.
  * Nothing here reads a clock: the anchor is the newest record's date.
  */
 export function homeEditionState(boards: BoardContext[], latestEditionDate: string): HomeEditionState {
