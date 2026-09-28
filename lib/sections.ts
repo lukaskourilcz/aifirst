@@ -40,6 +40,12 @@ export const SECTION_TO_TOPIC: Record<SectionKey, string> = {
   vyvoj: "developer-tools",
 };
 
+/** Topic routes that no section keeps, and the section route that absorbed them. */
+export const RETIRED_TOPICS: Record<string, string> = {
+  "ai-platforms": SECTION_TO_TOPIC["firmy-a-trh"],
+  "open-source": SECTION_TO_TOPIC.modely,
+};
+
 export function topicToSection(topicSlug: string): SectionKey | null {
   const entry = Object.entries(SECTION_TO_TOPIC).find(([, slug]) => slug === topicSlug);
   return entry ? (entry[0] as SectionKey) : null;

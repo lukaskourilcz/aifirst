@@ -2,20 +2,17 @@ import type { MetadataRoute } from "next";
 import { getArticle, listArticles } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
 import { LOCALES, localePath } from "@/lib/i18n/config";
-import { loadTopicsConfig, publishedTopics } from "@/lib/topics/config";
+import { SECTION_TO_TOPIC } from "@/lib/sections";
 import { loadSources } from "@/lib/sources";
 import { groupByWeek } from "@/lib/weeks";
 import { loadEvents, splitByAnchor } from "@/lib/events";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
-  const [czechArticles, topicsConfig, sources] = await Promise.all([
-    listArticles("cs"),
-    loadTopicsConfig(),
-    loadSources(),
-  ]);
+  const [czechArticles, sources] = await Promise.all([listArticles("cs"), loadSources()]);
   const articles = czechArticles;
-  const topics = publishedTopics(topicsConfig, articles);
+  // The five section pages; the retired topic slugs redirect and stay out.
+  const topics = Object.values(SECTION_TO_TOPIC).map((slug) => ({ topic: { slug } }));
 
   const staticPaths: Array<{
     path: string;
@@ -26,7 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/tyden", changeFrequency: "daily", priority: 0.9 },
     { path: "/o-cem-se-mluvi", changeFrequency: "daily", priority: 0.7 },
     { path: "/podcasty", changeFrequency: "daily", priority: 0.7 },
-    { path: "/topics", changeFrequency: "weekly", priority: 0.8 },
     { path: "/archive", changeFrequency: "daily", priority: 0.8 },
     { path: "/sources", changeFrequency: "weekly", priority: 0.5 },
     { path: "/glossary", changeFrequency: "monthly", priority: 0.4 },

@@ -8,5 +8,5 @@ export const dynamic = "force-static";
 // Every older URL that pointed at it lands on /topics.
 export default async function PulseCompatibility({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
-  permanentRedirect(localePath(lang, "/topics"));
+  permanentRedirect(localePath(lang, "/archive"));
 }

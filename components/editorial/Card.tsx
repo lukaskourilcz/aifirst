@@ -73,6 +73,7 @@ export function Card({
   wide = false,
   headingLevel = 3,
   titleSize = 2,
+  square,
 }: {
   href: string;
   title: string;
@@ -85,16 +86,21 @@ export function Card({
   wide?: boolean;
   headingLevel?: 2 | 3;
   titleSize?: 1 | 2 | 3;
+  /** Compact only: the square's size, 136/120/96/88/64/56 px (88 by default). */
+  square?: 136 | 120 | 96 | 88 | 64 | 56;
 }) {
   const Title = headingLevel === 2 ? "h2" : "h3";
   const ratio: Ratio = variant === "compact" ? "1/1" : "3/2";
   return (
-    <Link href={href} className={`card card--${variant}${wide ? " card--wide" : ""}`}>
+    <Link
+      href={href}
+      className={`card card--${variant}${wide ? " card--wide" : ""}${square ? ` card--sq-${square}` : ""}`}
+    >
       <ImageOrFallback src={image} ratio={ratio} date={date} className="card__image" />
       <span className="card__copy">
         {label ? <span className="label label--muted card__label">{label}</span> : null}
         <Title className={`h-serif h-serif--${titleSize} card__title`} lang={titleLang}>{title}</Title>
-        {dek && variant !== "compact" ? <span className="card__dek" lang={titleLang}>{dek}</span> : null}
+        {dek && (variant !== "compact" || (square ?? 0) >= 120) ? <span className="card__dek" lang={titleLang}>{dek}</span> : null}
       </span>
     </Link>
   );
