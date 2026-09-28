@@ -2,12 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import { ArticleRow } from "@/components/editorial/Card";
-import { RightRail } from "@/components/editorial/RightRail";
 import { listArticles } from "@/lib/content";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
-import { loadEvents, splitByAnchor } from "@/lib/events";
 
 export const dynamic = "force-static";
 
@@ -25,14 +23,12 @@ export default async function ModelsPage({ params }: { params: Promise<{ lang: L
   const lp = localePrefixer(locale);
 
   const articles = await listArticles(locale);
-  const anchor = articles[0]?.date;
   // No day grouping here: the density is too low to earn a heading per day.
   const filed = articles.filter((article) => article.categories?.includes("ai-models"));
-  const { upcoming } = splitByAnchor(loadEvents(), anchor ?? "1970-01-01");
 
   return (
-    <div className="page-with-rail">
-      <div className="page-with-rail__main">
+    <div className="list-page">
+      <div>
         <PageShell kicker={t.modelsKicker} title={t.modelsTitle}>
           {filed.length === 0 ? (
             /* The launch state. No illustration, no skeleton rows, no badge. */
@@ -51,7 +47,6 @@ export default async function ModelsPage({ params }: { params: Promise<{ lang: L
           )}
         </PageShell>
       </div>
-      <RightRail locale={locale} dateKey={anchor} events={upcoming} />
     </div>
   );
 }

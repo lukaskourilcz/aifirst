@@ -1,7 +1,7 @@
 import { lessonOfTheDay } from "@/lib/lessons";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { WidgetModule } from "./RightRail";
+import { WidgetModule } from "./WidgetModule";
 
 /**
  * „Pojem dne": one term a day in the right rail, the term and its one-line

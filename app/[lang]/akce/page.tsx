@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
-import { RightRail } from "@/components/editorial/RightRail";
 import { listArticles } from "@/lib/content";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
@@ -134,8 +133,8 @@ export default async function EventsPage({ params }: { params: Promise<{ lang: L
   ];
 
   return (
-    <div className="page-with-rail">
-      <div className="page-with-rail__main">
+    <div className="list-page">
+      <div>
         <PageShell kicker={t.eventsKicker} title={t.eventsTitle}>
           {/* Stacked sections with anchor navigation, not tabs: real static
               HTML that works with zero JavaScript, keeps both scopes in the
@@ -158,7 +157,6 @@ export default async function EventsPage({ params }: { params: Promise<{ lang: L
           ))}
         </PageShell>
       </div>
-      <RightRail locale={locale} dateKey={articles[0]?.date} events={upcoming} />
     </div>
   );
 }

@@ -188,72 +188,6 @@
 .ledger__meta a { color: inherit; text-decoration: underline; text-decoration-color: var(--border-strong); }
 .ledger__class--primary { color: var(--status-complete); }
 @media (max-width: 640px) { .ledger { grid-template-columns: minmax(0, 1fr); } }
-.provenance {
-  margin-top: var(--section-gap);
-  border: 1px solid var(--border-strong);
-  background: var(--surface-reading);
-}
-.provenance__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-5);
-  padding: var(--space-5);
-  border-bottom: 1px solid var(--border-strong);
-}
-.provenance__header p { margin: 0 0 var(--space-1); }
-.provenance__header h2 { margin: 0; font-size: var(--text-subheading); }
-.provenance__schema {
-  flex: 0 0 auto;
-  padding: 3px 8px;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-.provenance dl {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 0;
-}
-.provenance dl div {
-  display: grid;
-  grid-template-columns: minmax(8.5rem, 0.8fr) minmax(0, 1fr);
-  gap: var(--space-4);
-  min-width: 0;
-  padding: var(--space-3) var(--space-5);
-  border-bottom: 1px solid var(--border-subtle);
-}
-.provenance dl div:nth-child(odd) { border-right: 1px solid var(--border-subtle); }
-.provenance dt,
-.provenance dd {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-}
-.provenance dt {
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-.provenance dd {
-  margin: 0;
-  overflow-wrap: anywhere;
-  color: var(--text-primary);
-  text-align: right;
-}
-.provenance__methodology {
-  display: inline-block;
-  margin: var(--space-4) var(--space-5) var(--space-5);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
 
 .corrections-notice { margin: 32px 0; padding: 20px; border: 1px solid var(--danger-line); background: var(--danger-surface); }
 .corrections-notice ul { list-style: none; margin: 0; padding: 0; }
@@ -267,9 +201,6 @@
 .sponsor-block > .label { grid-column: 1 / -1; margin: 0; }
 .sponsor-block img { width: 72px; height: 72px; object-fit: contain; }
 .sponsor-block p { margin: 4px 0; color: var(--text-tertiary); }
-
-
-
 
 /* The completion mark: one row in the masthead idiom, closing the edition on
    Today. A dot in the completion colour, then the reader's cue on the right. */
@@ -328,24 +259,6 @@
 /* The front-page dateline. A 2px rule over it opens the page the way the
    section mastheads below open each block, so the whole column reads on one
    system of rules. */
-.dateline {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-5);
-  padding: var(--space-3) 0 var(--space-4);
-  border-top: 2px solid var(--border-strong);
-  border-bottom: 1px solid var(--border-subtle);
-}
-.dateline p {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.dateline__name { color: var(--accent-primary); }
-.dateline__edition { color: var(--text-secondary); }
 
 .issue-reference-blocks { margin-top: var(--block-gap); }
 /* Corrections, glossary, topics, ledger and the print link are one stack on
@@ -362,7 +275,6 @@
 .banner-slot__link { max-width: 100%; display: inline-block; border-bottom: none; }
 .banner-slot__creative { display: block; max-width: 100%; height: auto; }
 .banner-slot__creative--mobile { display: none; }
-.right-rail > .banner-slot { margin-top: 0; }
 @media (max-width: 760px) {
   .banner-slot__creative--desktop { display: none; }
   .banner-slot__creative--mobile { display: block; }
@@ -416,14 +328,9 @@
   color: var(--text-secondary);
 }
 .fallback-notice { margin: 0 0 var(--space-5); padding: var(--space-3); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); color: var(--text-primary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
-.recent-issues { margin-top: var(--section-gap); }
-.recent-issues__list { list-style: none; padding: 0; margin: 0; }
 
 @media (max-width: 640px) {
-  .provenance dl div { grid-template-columns: 1fr; gap: 2px; }
   .public-status dl div { grid-template-columns: 1fr; gap: 2px; }
-  .edition-intro { display: block; }
-  .edition-intro > :last-child { margin-top: var(--space-2); text-align: left; }
 }
 
 *,
@@ -553,11 +460,9 @@ hr {
    only their layout; they go as their components are rebuilt. */
 .label,
 .kicker,
-.eyebrow,
 .page-kicker,
 .editorial-highlight__kicker,
 .rail-module__kicker,
-.lead__kicker,
 .banner-slot__label,
 .footer-nav__heading,
 .lesson-table thead th,
@@ -576,9 +481,7 @@ hr {
 .label--section,
 .label--accent,
 .kicker--accent,
-.eyebrow,
-.page-kicker,
-.lead__kicker,
+.page-kicker { color: var(--accent-primary); }
 
 /* Machine values: dates, times, credits, hosts. Lowercase, no tracking. */
 .meta {
@@ -629,12 +532,6 @@ hr {
 }
 
 .label--muted { color: var(--text-tertiary); }
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
 
 .container {
   max-width: var(--container);
@@ -1076,89 +973,6 @@ hr {
 /* Cards (post tiles + sidebar tiles)                                  */
 /* ------------------------------------------------------------------ */
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-}
-
-.card-grid--feed {
-  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
-  gap: var(--space-5);
-}
-
-@media (max-width: 720px) {
-  .card-grid--feed { grid-template-columns: 1fr; }
-}
-
-.post-card {
-  height: 100%;
-  background: var(--surface-reading);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0;
-  padding: 12px;
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition:
-    background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
-}
-
-.post-card:hover {
-  background: var(--surface-reading);
-  border-color: var(--hover-line);
-  color: var(--text-primary);
-}
-
-.post-card__thumb {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--surface-subtle);
-  object-fit: cover;
-  display: block;
-}
-
-.post-card__copy { padding: 0 2px; }
-.post-card__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin: 0 0 9px;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.post-card__meta span:last-child { color: var(--accent-primary); }
-
-.post-card__title {
-  font-family: var(--font-editorial);
-  font-size: 1.1875rem;
-  line-height: 1.24;
-  font-weight: 600;
-  margin: 0;
-  color: var(--text-primary);
-  letter-spacing: -0.022em;
-}
-.post-card__dek {
-  margin: var(--space-2) 0 0;
-  color: var(--text-secondary);
-  font-family: var(--font-reading);
-  font-size: 0.96875rem;
-  line-height: 1.5;
-}
-
-.post-card__chips {
-  display: flex;
-  gap: 12px;
-  margin-top: 4px;
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
-
 .chip {
   display: inline-flex;
   align-items: center;
@@ -1175,20 +989,6 @@ hr {
   text-transform: uppercase;
 }
 a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-.chip--evidence-primary { border-color: currentColor; color: var(--status-complete); }
-.chip--evidence-secondary { color: var(--text-secondary); }
-
-.chip--accent {
-  color: var(--accent-primary);
-}
-
-.chip--dot::before {
-  content: "";
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-}
 
 /* Primary CTA button — the one filled action in the system. */
 .cta {
@@ -1211,24 +1011,6 @@ a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary)
   background: var(--text-primary);
   color: var(--surface-page);
 }
-
-.ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-buttons);
-  font-family: var(--font-mono);
-  font-size: 0.65625rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  cursor: pointer;
-}
-.ghost:hover { border-color: var(--accent-primary); background: transparent; color: var(--text-primary); }
 
 input[type="text"],
 input[type="search"] {
@@ -1282,7 +1064,6 @@ input[type="search"]:focus {
   letter-spacing: -0.02em;
 }
 .article-body h3 { margin-top: 1.9em; }
-
 
 /* ------------------------------------------------------------------ */
 /* Digest rows — Briefs and Watchlist share one anatomy                */
@@ -1479,13 +1260,6 @@ svg { max-width: 100%; }
 /* Legacy layout primitives kept for archive/glossary/sources etc.    */
 /* ------------------------------------------------------------------ */
 
-.split-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: start;
-}
-
 .def-row {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -1495,10 +1269,6 @@ svg { max-width: 100%; }
 .def-row--tight {
   grid-template-columns: 180px 1fr;
   gap: 16px;
-}
-
-@media (max-width: 760px) {
-  .split-2 { grid-template-columns: 1fr; gap: 24px; }
 }
 
 @media (max-width: 640px) {
@@ -1567,13 +1337,9 @@ svg { max-width: 100%; }
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {
-  .page-shell,
-  .enter {
+  .page-shell {
     animation: enter var(--dur-slow) var(--ease-out) both;
   }
-  .enter-1 { animation-delay: 0ms; }
-  .enter-2 { animation-delay: 40ms; }
-  .enter-3 { animation-delay: 80ms; }
 
   @keyframes enter {
     from { opacity: 0; transform: translateY(8px); }
@@ -1595,29 +1361,11 @@ svg { max-width: 100%; }
    surface, which is why the ratio lives on each surface's media rule rather
    than here. */
 
-.cover-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-5);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.cover-grid li { min-width: 0; }
-
-
-
-
 /* The small-scale hero plate: it rides up over the media's bottom edge, inset
    from the left so the crop still reads as a picture. A drawn .svg cover never
    gets the overlap, so those cards keep the plate directly under the media. */
 
 /* No media, no empty box: the plate stands on its own with the same spacing. */
-
-
-
-
-
 
 /* Grid surfaces: 3:2 covers. */
 
@@ -1625,17 +1373,8 @@ svg { max-width: 100%; }
    sits beside the media rather than over it — an overlap inside a 140px
    thumbnail would cover the picture rather than compose with it. */
 
-
-@media (max-width: 700px) {
-  .topic-grid { grid-template-columns: 1fr; }
-}
-
 /* Discovery, trust, and operator-adjacent routes. */
 .route-section { margin-top: var(--section-gap); }
-
-.reference-section { max-width: 78ch; }
-.reference-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-subtle); }
-.reference-list li { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--border-subtle); }
 
 .weekly-cover { position: relative; display: grid; grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr); gap: var(--space-5); margin-top: var(--section-gap); padding: var(--space-6); border: 1px solid var(--border-subtle); background: var(--surface-reading); overflow: hidden; }
 .weekly-cover--with-media { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); align-items: center; }
@@ -1665,37 +1404,6 @@ svg { max-width: 100%; }
 .tag-detail__meta { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
 
-.related-issues { margin-top: var(--gutter-gap); }
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  margin: 0 0 var(--space-7);
-  padding: 1px 0 0 1px;
-}
-.about-stats div {
-  min-width: 0;
-  margin: -1px 0 0 -1px;
-  padding: 14px 16px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-}
-.about-stats dt {
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.about-stats dd {
-  margin: var(--space-2) 0 0;
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  font-variant-numeric: tabular-nums;
-}
-.about-stats dd.about-stats__ok { color: var(--status-complete); }
-
 .about-sections { max-width: 62ch; margin-top: var(--space-6); border-top: 1px solid var(--border-strong); }
 .about-sections section { display: grid; grid-template-columns: minmax(4rem, 0.2fr) minmax(0, 1fr); gap: var(--space-6); max-width: 82ch; padding: var(--space-6) 0; border-bottom: 1px solid var(--border-subtle); scroll-margin-top: var(--space-5); }
 .about-sections h2 { margin: 0 0 var(--space-2); }
@@ -1704,13 +1412,6 @@ svg { max-width: 100%; }
 .board-changelog li { display: grid; grid-template-columns: 7rem minmax(0, 1fr) auto; gap: var(--space-3); color: var(--text-secondary); }
 .board-changelog time { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); }
 .trust-links { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-6); margin-top: var(--space-7); padding: var(--space-5) 0; border-top: 2px solid var(--border-strong); }
-
-.making-of { max-width: 82ch; margin: var(--space-5) 0 var(--space-6); padding: var(--space-4) 0; border-block: 1px solid var(--border-subtle); }
-.making-of p { margin: 0; color: var(--text-secondary); }
-.making-of p + p { margin-top: var(--space-2); }
-.making-of a { margin-right: var(--space-4); }
-.making-of span { color: var(--text-tertiary); }
-
 
 .source-directory { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-5); list-style: none; margin: var(--space-4) 0 0; padding: 0; }
 .source-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-3); height: 100%; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); }
@@ -1742,12 +1443,8 @@ svg { max-width: 100%; }
 .corrections-ledger li > span { display: grid; gap: var(--space-2); }
 .corrections-ledger strong { color: var(--text-tertiary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 
-
 @media (max-width: 760px) {
   .board-changelog li { grid-template-columns: 1fr; gap: var(--space-1); }
-  .provenance dl { grid-template-columns: 1fr; }
-  .provenance dl div:nth-child(odd) { border-right: 0; }
-  .provenance__header { align-items: start; }
   .weekly-cover,
   .weekly-cover--with-media {
     grid-template-columns: 1fr;
@@ -1771,17 +1468,7 @@ svg { max-width: 100%; }
 }
 
 @media (max-width: 560px) {
-  .provenance__header {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .provenance dl div {
-    grid-template-columns: 1fr;
-    gap: var(--space-1);
-  }
-  .provenance dd { text-align: left; }
   .about-sections section, .corrections-ledger > li { grid-template-columns: 1fr; gap: var(--space-2); }
-  .reference-list li { display: block; }
 }
 
 /* ------------------------------------------------------------------ */
@@ -1790,20 +1477,6 @@ svg { max-width: 100%; }
 
 /* The right rail matches the 300px partner creative. It drops
    below 1280 and its modules reflow into the main column in rail order. */
-.page-with-rail {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 40px;
-  align-items: start;
-}
-.page-with-rail__main { min-width: 0; }
-
-@media (max-width: 1279px) {
-  .page-with-rail { grid-template-columns: minmax(0, 1fr); gap: var(--space-7); }
-  .right-rail { display: grid; gap: var(--space-6); }
-}
-
-.right-rail { min-width: 0; }
 
 /* A column of rules, not a stack of boxes. Only the ad has a box. */
 .rail-module {
@@ -1832,18 +1505,6 @@ svg { max-width: 100%; }
   color: var(--text-tertiary);
 }
 .rail-module__action a { color: var(--accent-primary); }
-
-.rail-events { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-.rail-events li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
-.rail-events__date {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-.rail-events__title { font-size: 0.9375rem; color: var(--text-primary); }
 
 /* Front page (round 2): the edition line, then the lead. The lead headline
    always sits on the lead photograph, white on the flat ink band (owner
@@ -1884,7 +1545,6 @@ svg { max-width: 100%; }
   background: var(--band-ink);
 }
 .lead__section { margin: 0 0 10px; color: var(--band-label); }
-.lead__section .lead__time { color: var(--band-meta); font-weight: 500; }
 .lead__title {
   margin: 0;
   max-width: 20ch;
@@ -2166,11 +1826,8 @@ svg { max-width: 100%; }
 }
 
 /* Feed */
-.feed-section { margin-top: var(--section-gap); }
 .feed-list { list-style: none; margin: 0; padding: 0; }
 .row-compact { padding: 12px 0; border-top: 1px solid var(--border-subtle); }
-
-
 
 /* Week-boundary action */
 .week-action {

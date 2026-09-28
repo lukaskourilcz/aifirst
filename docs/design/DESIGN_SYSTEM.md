@@ -34,11 +34,17 @@ the lightest text color; dimmer values may appear only in decoration.
 
 ## Typography
 
-Space Grotesk is self-hosted through `next/font` and used for display hierarchy,
-the wordmark, navigation, controls, tables, and completion. Source Serif 4 is
-self-hosted for deks, article prose, card descriptions, and definitions. IBM
-Plex Mono is self-hosted for identifiers, dates, technical metadata, source IDs,
-navigation indices, and measured values.
+All three faces are self-hosted through `next/font`. Space Grotesk 700 sets the
+lead headline on its photograph, article and page titles; Grotesk 500/600 sets
+the section bar, section labels, controls and footer links. Source Serif 4 sets
+every other headline (600), deks, article prose, glosses and captions. IBM Plex
+Mono is only for dates, times, credits, hosts and ledger numbers.
+
+The scale (report page 07): `--text-lead-1` 60 px (28 px mobile) for a
+one-article lead, `--text-lead-2` 44 px for a section lead, `--text-title`
+52 px for the article `h1`, `--text-page` 48 px for page titles, serif
+headlines at 26/22/18 px (`--text-h-serif-1/2/3`), `--text-dek` 19–20 px,
+body 19 px / 1.7 at 36 em, labels and meta at 12 px.
 
 ### Labels, metadata and serif headlines (round 2)
 
@@ -74,17 +80,24 @@ never the dominant headline language.
 ## Spacing and layout
 
 The spacing scale uses quarter-rem through six-rem steps (`--space-1` through
-`--space-9`). Shared gaps derive from that scale. The main container is 1360px,
-the desktop navigation rail is 244px, and the reading measure is 35em with an
-optional 39em wide state. Mobile gutters are fluid and never collapse below one
-rem.
+`--space-9`). Pages sit in the 1360 px container with a 40 px inset
+(`--page-pad`, 12 px below 960). Layouts use a 12-column grid with a 24 px
+gutter (`--grid-gutter`): the front-page lead spans 12, the day band 8 + 4, the
+article 8 + 4 with the figure at 9 + 3, section pages 8 + 4 then three covers,
+and list pages a fixed 200 px date column beside the day's articles.
 
-Desktop uses a persistent publication rail and flexible content column. Below
-960px the rail becomes a compact top header with horizontally scrollable
-primary navigation. Reading pages use generous vertical rhythm; archive,
-Sources, and reference routes use denser rows. Lists of editions use `FeedRow`;
-its `compact` form (title and date, no dek, no thumbnail) replaces the old
-`IssueRow`/`.entry-row`/`.dense-list` rows.
+The masthead replaces the old sidebar: row 1 is the edition date, the 34 px
+logotype and the search control over a 2 px ink rule; row 2 is the section
+bar (Dnes, Modely, Firmy a trh, Bezpečnost, Regulace, Vývoj, then „Více“). The
+header is sticky with a negative top, so only the section bar stays, condensed
+to 52 px with a small logotype, the short date and a search icon. Below 960 px
+row 1 is a 56 px bar (menu, logotype, search) and the section bar a scrolling
+strip whose „Více“ opens the drawer. There are no numbered indices.
+
+Every list of articles uses `Card` (`components/editorial/Card.tsx`): `row`
+(3:2 image left at 240/280 px), `cover` (image above), `compact` (square on the
+right at 136/120/96/64/56 px) and `band` (headline on the photo's ink band).
+`DayGroup` renders a publishing day on Poslední týden and in the Archive.
 
 ## Surfaces, borders, and shapes
 
@@ -103,31 +116,33 @@ file. `app/icon.svg` is the square mark `DNESKAi-square.svg`; the Apple touch
 icon and the 32 px favicon are its PNGs. `docs/design/BRAND_SYSTEM.md` has the
 usage rules.
 
-Primary navigation uses indexed label rows. Search retains its 16px,
-1.5px-stroke `currentColor` magnifier; utility glyphs remain textual and hidden
-from assistive technology when decorative.
+`BrandLockup` also has `size="masthead"` (34 px) and `size="footer"` (24 px).
+Search is an outlined control („Hledat ⌘K“) with the 16 px, 1.5 px-stroke
+magnifier; utility glyphs stay textual and hidden from assistive technology
+when decorative.
 
 ## Editorial modules and state
 
 Existing domain components remain authoritative: Editorial Highlights, Briefs
 („Krátce“), Watchlist („Ke sledování“), Source Ledger, Corrections,
-Sponsorship, Topics, Issue Navigation (article pages only) and the completion
-row. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong
+Sponsorship, Topics, and the completion row. Legacy MDX may omit schema-v2 modules without fabricated filler. Strong
 boundary colors are reserved for evidence, corrections, sponsorship, warning,
 and completion states.
 
-The source ledger has three columns: number, source (title, then publisher and
-date) and kind of source as a chip. The issue masthead carries one serif
-provenance sentence under the meta row, saying a language model wrote the text
-and whether a person reviewed it, with a link to `/about#redakce`. It is not a
-badge and not coloured.
+The source ledger („Zdroje tohoto článku“, `#zdroje`) is a two-column list:
+number, serif title, then publisher, date and the kind of source, with
+„primární“ in `--status-complete`. The article head has a byline block: an
+empty „Redaktor“ row (owner decision) and „Ověření“, which claims a review only
+when `generation.human_reviewed` is true and links to `/about#redakce`, where
+the language-model statement lives. Neither is a badge.
 
-The completion mark is one row on Today, between a 2px `--border-strong` rule
-and a hairline: a `--status-complete` dot with the kicker „Konec vydání“ on
-the left, „Máte přehled.“ in `--text-primary` on the right.
+The completion row closes the day on Today, between a 2 px `--border-ink` rule
+and a hairline: a `--status-complete` dot with „Konec dnešního vydání“ on the
+left and „Máte přehled.“ in serif italic on the right.
 
-The right rail holds the one configured creative (labelled from
-`config/banner.json`, „Vlastní projekt“ for devShark) and „Pojem dne“. An empty
+The day band's side column (and the article's) holds Ke sledování, „Pojem
+dne“ and the one configured creative (labelled from `config/banner.json`,
+„Vlastní projekt“ for devShark). An empty
 slot renders nothing; there is no reserved advertising box. Every empty state
 is one `.empty-line`, including a missed weekday, which sits above the newest
 edition instead of replacing it.
@@ -136,6 +151,9 @@ Removed in the 2026-09 audit pass, not to be reintroduced without a product
 decision: AI Pulse and Sparkline, FeedActions, ReadingProgress, SocialRow,
 DidYouKnow, the lesson strip variant, the partner belt, AdPlaceholder,
 IssueRow, TagChip, the drop cap, the completion poster and the Radar page.
+Removed in round 2: the sidebar rail and its drawer, the right rail, the
+overlay copy plate, the hero plate, CoverCard, FeedRow, IssueNavigation,
+RelatedIssues, reading time, and index numbers on Briefs and Watchlist rows.
 
 ## Focus, motion, and interaction
 
@@ -149,71 +167,27 @@ gradient is used. `prefers-reduced-motion` removes non-essential animation.
 
 ## Media
 
-Authentic UI is always rendered from production code and data. An optional
-BoardlessAI-delivered article hero uses the existing 21:9 lead, 3:2 related and
-4:3 archive/weekly crops. Missing media renders as no media, never as a fake
-placeholder. DNESKAi does not select providers or produce Topic, campaign or
-social assets; those responsibilities remain in BoardlessAI.
+Authentic UI is always rendered from production code and data. Photographs are
+used at two ratios only: 3:2 (the article figure, covers, week rows; cropped to
+2:1 when the front-page lead spans 12 columns) and 1:1 (squares in rows, the
+mobile lead). Every image carries `width` and `height` and is lazy unless it is
+the lead or the article figure.
 
-### The overlay plate
+A drawn SVG plate, or an illustration whose `origin` is not `photo`, counts as
+no image. `ImageOrFallback` then draws a box at the slot's ratio in
+`--surface-subtle` with a hairline and a meta line „bez fotografie · datum“, so
+nothing shifts and nothing is invented. The lead never shows that box: an
+article without a photo leads typographically, headline on paper. DNESKAi does
+not select providers or produce Topic, campaign or social assets; BoardlessAI
+does (`docs/design-review-r2/handoff/UPSTREAM_REQUIREMENTS.md` §3).
 
-From 768px up, a photographic hero carries its own copy: the image renders
-first at full column width in its 21:9 crop, and the eyebrow, headline and dek
-move onto a plate that overlaps the image's lower left. The plate is solid
-`--surface-reading` with a 1px `--border-subtle` hairline and no radius. It is
-opaque on purpose. Text never sits on photo pixels, so contrast holds on any
-photograph without the scrim `DESIGN_THESIS.md` bans, and the result does not
-depend on how dark a given image happens to be.
+### The headline on the photo
 
-Three rules make the pattern survive real editions:
-
-- **The plate overlaps in normal flow**, pulled up by `--plate-overlap`. It
-  grows downward with the copy rather than being clipped by the image, which is
-  what makes a long Czech headline safe. Everything rendered after the plate
-  clears the overlap, so the article's image credit is a sibling below the
-  plate rather than a caption pinned to the image's bottom edge, where the
-  plate would cover it.
-- **The type steps down inside the plate.** Display size is built for the full
-  column; in a plate roughly 34em wide it wraps to four or five lines and the
-  plate ends up more than twice the height of the 21:9 image it sits on. The
-  headline drops one step and the dek clamps to three lines, which keeps plate
-  and image in the same order of size.
-- **Only a photograph gets a plate.** A delivered `.svg` cover is a drawn plate
-  that arrives already composed, and the oldest ones have the headline burned
-  into the artwork, so laying live text over one would double the title. Those
-  keep the stacked rendering, as do heroes recovered from the og cache's
-  raster fallback (which get a plate, having no caption to clear) and editions
-  with no image at all.
-
-Below 768px there is no overlap: the image renders first and the copy sits
-flush beneath it at full width. At 320–430px a Czech headline needs the whole
-column, and an inset plate would fight it.
-
-Meta rows, the provenance sentence and topic chips stay below the image on every
-variant.
-Only the eyebrow, headline and dek ever move onto the plate.
-
-### Cover cards
-
-Weekly, Archive and Related editions render through one card: media, a mono
-kicker, the title on a paper plate, a hairline, and a `--hover-line` hover.
-Crops stay per surface — 3:2 on the grid surfaces, 4:3 on Archive and Weekly —
-because the crop is what distinguishes them; the anatomy is what unifies them.
-
-Archive is a dense list, so it takes the card's `row` layout: media at 140px on
-the left, copy beside it rather than under a plate. An overlap inside a 140px
-thumbnail would cover the picture instead of composing with it. Below 600px the
-row stacks.
-
-Two rules carry over from the hero plate. A drawn `.svg` cover never gets the
-overlap, for the same reason it never gets a live-text hero. And a card with no
-media renders text-first with the same spacing rather than reserving an empty
-box — historical and legacy issues have no image, and that is a state, not a
-gap to fill.
-
-Every cover image carries explicit `width` and `height` attributes even where
-the crop is set in CSS, so the ratio is known before the stylesheet arrives and
-lists do not shift as covers load.
+The front-page lead, and a section page's newest article, set the section
+label and the headline white on a flat ink band (`--band-ink`) across the
+bottom of the photograph. The band is opaque enough that white holds ≥ 10:1
+whatever the photograph is; it is never a gradient. The rest of the lead (dek,
+source count, credit, „Proč na tom záleží“) sits below the image.
 
 ## Responsive and print rules
 
