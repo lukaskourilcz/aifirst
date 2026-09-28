@@ -1506,21 +1506,10 @@ svg { max-width: 100%; }
 }
 .rail-module__action a { color: var(--accent-primary); }
 
-/* Front page (round 2): the edition line, then the lead. The lead headline
+/* Front page (round 2): the lead. The lead headline
    always sits on the lead photograph, white on the flat ink band (owner
    decision); the band is opaque enough that contrast never depends on the
    photo. Without a photo the lead is typographic, on paper, with no box. */
-.edition-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-4);
-  margin: 0 0 var(--space-4);
-}
-.edition-line .label { margin: 0; font-size: 0.8125rem; }
-.edition-line .meta { margin: 0; text-align: right; }
-
 .lead { margin: 0; }
 .lead__media {
   position: relative;
@@ -1595,7 +1584,6 @@ svg { max-width: 100%; }
 .lead__why li + li { margin-top: var(--space-2); }
 
 @media (max-width: 960px) {
-  .edition-line .meta { text-align: left; }
   .lead__media img { aspect-ratio: 1 / 1; }
   .lead__band { padding: 16px 16px 18px; }
   .lead__title { font-size: 1.75rem; }

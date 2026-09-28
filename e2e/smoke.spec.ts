@@ -81,9 +81,10 @@ test("home: masthead, lead on its photo, the day's band and the week block rende
   if (await cards.count()) await expect(cards.first()).toBeVisible();
 });
 
-test("the edition line dates the edition, and no reading time appears", async ({ page }) => {
+test("the page opens on the lead, with no edition line and no reading time", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".edition-line time")).toHaveText(/\d{1,2}\. \d{1,2}\. \d{4}/);
+  await expect(page.locator(".edition-line")).toHaveCount(0);
+  await expect(page.getByText(/o víkendu nevychází/)).toHaveCount(0);
   const meta = await page.locator(".lead__meta").innerText();
   expect(meta).toMatch(/zdroj/);
   for (const forbidden of ["min čtení", "signál", "USD", "náklad"]) {
@@ -104,7 +105,7 @@ test("the lead goes to the article, and the body renders with no gate", async ({
   expect(await paragraphs.count()).toBeGreaterThan(0);
 });
 
-test("the completion mark closes the edition, above the week feed", async ({ page }) => {
+test("the completion mark closes the edition, above the latest articles", async ({ page }) => {
   await page.goto("/");
   const mark = page.locator(".edition-end");
   await expect(mark).toBeVisible();
@@ -112,6 +113,13 @@ test("the completion mark closes the edition, above the week feed", async ({ pag
   if (await feed.count()) {
     const [markBox, feedBox] = await Promise.all([mark.boundingBox(), feed.boundingBox()]);
     expect(markBox && feedBox && markBox.y).toBeLessThan(feedBox?.y ?? Infinity);
+    await expect(feed.locator(".module-head .label").first()).toHaveText(/Poslední články/i);
+    const cards = await feed.locator(".card").count();
+    expect(cards).toBeGreaterThan(0);
+    expect(cards).toBeLessThanOrEqual(6);
+    // The lead is not repeated below itself.
+    const leadHref = await page.locator(".lead a[href*='/articles/']").first().getAttribute("href");
+    await expect(feed.locator(`a[href="${leadHref}"]`)).toHaveCount(0);
   }
 });
 
