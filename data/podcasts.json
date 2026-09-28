@@ -1,7 +1,7 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-09-26",
+  "updated": "2026-09-28",
   "windowDays": 60,
   "items": [
     {
@@ -123,21 +123,6 @@
       "summary": "AI has moved far beyond chatbots, but what exactly are AI models, agents, agent harnesses, and multi-agent systems, and why do they matter? In this episode, Daniel and Chris break down the terminology behind today's AI landscape, explain the differences between AI features and a…",
       "show": "Practical AI",
       "durationSec": 2998
-    },
-    {
-      "id": "851ae208d4842e47ab6b96bf9d6619d081f49840",
-      "title": "Reconstructing how OpenAI agents attacked Hugging Face",
-      "url": "https://share.transistor.fm/s/9d74230b",
-      "source": {
-        "kind": "rss",
-        "name": "Practical AI",
-        "feed": "https://changelog.com/practicalai/feed"
-      },
-      "author": "Daniel Whitenack and Chris Benson",
-      "published": "2026-07-30",
-      "summary": "What happens when AI agents driven by a top frontier model escape their secure sandbox? Join Daniel and Chris as they unpack the AI wonk's equivalent of a murder mystery! OpenAI agents went rogue and successfully attacked Hugging Face private infrastructure. Our Dynamic Duo unco…",
-      "show": "Practical AI",
-      "durationSec": 2665
     }
   ]
 }

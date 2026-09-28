@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-09-26",
+  "updated": "2026-09-28",
   "windowDays": 60,
   "items": [
+    {
+      "id": "9909928ac3603ae8fae86299edc6bd5ff4fb56dc",
+      "title": "AI Video: Choosing First, Last, and Reference Images",
+      "url": "https://medium.com/@sophiaxu0506/ai-video-choosing-first-last-and-reference-images-6edc1c885369",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sophiaxu",
+      "published": "2026-09-28",
+      "summary": "Two approved stills do not tell you whether the movement between them will make sense. Continue reading on Medium »"
+    },
+    {
+      "id": "115066ec104b6299868bf834034e7254b593b77f",
+      "title": "Claude Opus 5.5 Is Here: 7 Things That Actually Matter",
+      "url": "https://medium.com/@itsabdulbasitbuilds/claude-opus-5-5-things-that-matter-bda479e3402a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Abdul Basit",
+      "published": "2026-09-28",
+      "summary": "Anthropic’s newest Opus is faster, significantly cheaper to run, and better at long-running coding and agentic work. Here’s what changed… Continue reading on Medium »"
+    },
+    {
+      "id": "16ae855e89471677a9294dc35145f6caeb055720",
+      "title": "From ML Theory to an Actual Pipeline: What My First Experiment Taught Me",
+      "url": "https://medium.com/@debby.yeh1994/from-ml-theory-to-an-actual-pipeline-what-my-first-experiment-taught-me-a63e1c3f81b0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "HUEI JYUN DEBBY YEH",
+      "published": "2026-09-28",
+      "summary": "Over the past few weeks, I went from learning a small amount of machine learning theory to actually building my first end-to-end ML… Continue reading on Medium »"
+    },
+    {
+      "id": "3dca37c53df963ebfbf709538379901fba8f8249",
+      "title": "Grok Bot for Solopreneurs: The 5-Bot Roster That Can Replace a $547/Month Tool Stack (Prompts…",
+      "url": "https://medium.com/@a_siamtanis/grok-bot-for-solopreneurs-the-5-bot-roster-that-can-replace-a-547-month-tool-stack-prompts-4356baee7614",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Andreas Siamtanis",
+      "published": "2026-09-28",
+      "summary": "How to Set Up Grok Bot for a One-Person Business: 5 Bots, 5 Copy-Paste System Prompts Continue reading on Medium »"
+    },
+    {
+      "id": "e042b9f219b5cd1b6413804603933c59e5b88558",
+      "title": "How Chat GPT Works: A Beginner-Friendly Guide to Generative AI",
+      "url": "https://medium.com/@harshadayewale11/how-chat-gpt-works-a-beginner-friendly-guide-to-generative-ai-52637f3f313e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "HarshadaYewale",
+      "published": "2026-09-28",
+      "summary": "Artificial Intelligence has become a part of everyday life. One of the most widely known AI tools is Chat GPT. Continue reading on Medium »"
+    },
+    {
+      "id": "010d542f5c47dd5c158d91bb04dc9c8ffe1524b6",
+      "title": "How I’d Choose Between GPT-Image-2.5 and Nano Banana 2 for a Real Image Workflow",
+      "url": "https://medium.com/@claire.bennett_68847/how-id-choose-between-gpt-image-2-5-and-nano-banana-2-for-a-real-image-workflow-f1a71f4d7785",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Claire Bennett",
+      "published": "2026-09-28",
+      "summary": "An AI image model becomes useful to a business when it can produce something people can actually approve, publish, or reuse. For… Continue reading on Medium »"
+    },
+    {
+      "id": "49fa4e03b59c6fcfad849fbc0230553f30a5f7fd",
+      "title": "Maybe AI Doesn’t Need to Be That Big — The world of SLMS",
+      "url": "https://medium.com/@arjunsatheeesan/maybe-ai-doesnt-need-to-be-that-big-the-world-of-slms-29bd829d2c5f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Arjun Satheesan",
+      "published": "2026-09-28",
+      "summary": "Every time I hear about a new AI model, there seems to be a new competition going on. Continue reading on Medium »"
+    },
+    {
+      "id": "9cf914fbe91064574ea8e88029bdc5b7a031d6d4",
+      "title": "Paying for Success, Not Tokens: How I’m Choosing Between GPT-5.6 Sol and Claude Fable 5.1",
+      "url": "https://medium.com/@maya.collins_28553/paying-for-success-not-tokens-how-im-choosing-between-gpt-5-6-sol-and-claude-fable-5-1-3313dcf7de8a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Maya Collins",
+      "published": "2026-09-28",
+      "summary": "If you’re deciding which frontier model should power your product, your internal agents, or your team’s coding assistant, the leaderboard… Continue reading on Medium »"
+    },
+    {
+      "id": "552e8ea3358f06c7671c2b784eb334d32085504c",
+      "title": "The Rise of AI Agents: How AI Is Becoming More Autonomous",
+      "url": "https://medium.com/@harshadayewale11/the-rise-of-ai-agents-how-ai-is-becoming-more-autonomous-1f85d5497044",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "HarshadaYewale",
+      "published": "2026-09-28",
+      "summary": "Artificial Intelligence is changing the way we work, learn, and interact with technology. Continue reading on Medium »"
+    },
+    {
+      "id": "daa3ef68ac4f2efcdaf447f6d798e97f14932e6f",
+      "title": "The Sandbox Blocked HTTPS. The Agent Went Through DNS.",
+      "url": "https://medium.com/@p4prince2/the-sandbox-blocked-https-the-agent-went-through-dns-2b9380416ab7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Prince Kushwaha",
+      "published": "2026-09-28",
+      "summary": "The September 2026 incident was a network-egress failure, not a kernel exploit and that distinction changes how teams should defend agents. Continue reading on Medium »"
+    },
+    {
+      "id": "5513033000100fc2a1600986d901bb677e5362bd",
+      "title": "VIDRAFT Bets on Quantum AI Software Where LLMs Meet Quantum Computing",
+      "url": "https://arxivgpt.medium.com/vidraft-bets-on-quantum-ai-software-where-llms-meet-quantum-computing-0d10198bf548",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "ArXiv",
+      "published": "2026-09-28",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "254dd43cdf28340498e39bf3867bb507c7a7924a",
+      "title": "What Is a KPI and Why Is It Important in UX Design?",
+      "url": "https://medium.com/@designerlifestyle/what-is-a-kpi-and-why-is-it-important-in-ux-design-cf58e7eda24a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Designer Lifestyle",
+      "published": "2026-09-28",
+      "summary": "Photo by Celpax on Unsplash Continue reading on Medium »"
+    },
     {
       "id": "0f349eab476b1386411087afa75670e826be8e98",
       "title": "2026 Mac Guide: How to Configure a Machine for Running Large Language Models",
