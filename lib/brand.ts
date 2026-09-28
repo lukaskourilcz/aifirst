@@ -32,10 +32,10 @@ export const brand = {
   /**
    * Operator identification, limited to what the About page already states
    * (`about.authorshipBody`): the person responsible for sources, rules and
-   * corrections. No company, IČO or address is published until the owner
-   * supplies one (NEEDED.md); nothing here may be guessed.
+   * corrections. The owner supplied the operator identification and approved its publication.
    */
   responsiblePerson: "Lukáš Kouřil",
+  registrationNumber: "04713397",
   /**
    * The publication's own social profiles, linked from the footer. A profile
    * is linked only when `live` is true: the footer never points at an account

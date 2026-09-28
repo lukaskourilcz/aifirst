@@ -73,7 +73,7 @@ Branch `claude/audit-2026-09`. One commit per numbered item, message prefix `aud
 ## Open decisions for the owner
 
 1. **Contact line in About.** `about.authorshipContact` in `lib/i18n/dictionaries.ts` is empty, and `#redakce` renders without it. Add an e-mail or another contact and it appears after the responsibility sentence.
-2. **Custom domain before launch.** `siteUrl()` still resolves to the Vercel host (built metadata shows `aifirst.example` locally). Set the production domain, and make `caughtup-ai.vercel.app` redirect to it permanently so canonicals, OG images and feeds carry one host.
+2. **Custom domain before launch.** `siteUrl()` still resolves to the Vercel host (built metadata shows `aifirst.example` locally). Set the production domain, and make `dneskai.vercel.app` redirect to it permanently so canonicals, OG images and feeds carry one host.
 3. **The four English May editions.** They stay reachable, marked „anglicky“ in the archive and `lang="en"` on their titles. Keep, translate upstream, or retire them.
 4. **When to lift `noindex` on `/weekly`.** Once a new digest ships: delete `robots: { index: false }` in `app/[lang]/weekly/page.tsx`, return `/weekly` to `app/sitemap.ts`, and decide whether it goes back into the rail or the footer.
 5. **Signal strength.** `signal_strength` stays in frontmatter and is not rendered. Whether readers ever see it is a product decision for after launch.

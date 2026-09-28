@@ -21,9 +21,9 @@ async function missedDayScript(): Promise<string> {
 }
 
 describe("daily workflow transition", () => {
-  it("keeps only the 07:00 UTC sentinel after the BoardlessAI cutover", async () => {
+  it("checks publication weekdays at 07:00 UTC after the BoardlessAI cutover", async () => {
     const { raw, workflow } = await readWorkflow();
-    expect(workflow.on.schedule.map((entry: { cron: string }) => entry.cron)).toEqual(["0 7 * * *"]);
+    expect(workflow.on.schedule.map((entry: { cron: string }) => entry.cron)).toEqual(["0 7 * * 1-5"]);
     expect(workflow.jobs.generate).toBeUndefined();
     expect(workflow.permissions).toEqual({ contents: "read", issues: "write" });
     const sentinel = workflow.jobs.sentinel.steps.map((step: Step) => step.run ?? "").join("\n");

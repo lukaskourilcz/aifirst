@@ -214,9 +214,7 @@ const en = {
     problemBody: "AI coverage repeats itself and makes every announcement sound urgent, which makes an overview hard to build. This magazine covers fewer subjects, describes the concrete change, and says plainly what is not yet known.",
     authorshipTitle: "Who writes the editions",
     authorshipBody: "Each edition's text is prepared by a language model, following the editorial rules below and only from the sources it lists. Nobody reads it before publication. Lukáš Kouřil is responsible for the choice of sources, the rules and corrections.",
-    // Left empty until the owner supplies a contact line; the page renders
-    // nothing for an empty string.
-    authorshipContact: "",
+    authorshipContact: "Operator: Lukáš Kouřil, IČO 04713397. Editorial contact: kouril.lukas@gmail.com.",
     methodTitle: "How subjects are chosen",
     methodBody: "An edition covers what changes practice: a model release, a regulation, a safety finding, or a move that shifts the market. Announcements without consequence stay out.",
     sourcesTitle: "Working with sources",
@@ -526,8 +524,7 @@ const cs: Dict = {
     problemBody: "Zprávy o AI se opakují a každé oznámení zní naléhavě, takže se z nich přehled staví těžko. Tenhle magazín pokrývá méně témat, popisuje konkrétní změnu a otevřeně píše, co se zatím neví.",
     authorshipTitle: "Kdo vydání píše",
     authorshipBody: "Text každého vydání připravuje jazykový model podle redakčních pravidel níže a výhradně z uvedených zdrojů. Před zveřejněním ho nikdo nečte. Za výběr zdrojů, pravidla a opravy odpovídá Lukáš Kouřil.",
-    // Prázdné, dokud majitel nedodá kontakt; prázdný řetězec se nevykreslí.
-    authorshipContact: "",
+    authorshipContact: "Provozovatel: Lukáš Kouřil, IČO 04713397. Kontakt na redakci: kouril.lukas@gmail.com.",
     methodTitle: "Jak vybíráme témata",
     methodBody: "Do vydání se dostane to, co mění praxi: vydání modelu, regulace, bezpečnostní zjištění nebo krok, který posune trh. Oznámení bez důsledku zůstávají stranou.",
     sourcesTitle: "Práce se zdroji",
