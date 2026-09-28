@@ -74,6 +74,7 @@ export function Card({
   headingLevel = 3,
   titleSize = 2,
   square,
+  labelAfter = false,
 }: {
   href: string;
   title: string;
@@ -88,6 +89,8 @@ export function Card({
   titleSize?: 1 | 2 | 3;
   /** Compact only: the square's size, 136/120/96/88/64/56 px (88 by default). */
   square?: 136 | 120 | 96 | 88 | 64 | 56;
+  /** Put the label under the title (archive rows). */
+  labelAfter?: boolean;
 }) {
   const Title = headingLevel === 2 ? "h2" : "h3";
   const ratio: Ratio = variant === "compact" ? "1/1" : "3/2";
@@ -98,8 +101,9 @@ export function Card({
     >
       <ImageOrFallback src={image} ratio={ratio} date={date} className="card__image" />
       <span className="card__copy">
-        {label ? <span className="label label--muted card__label">{label}</span> : null}
+        {label && !labelAfter ? <span className="label label--muted card__label">{label}</span> : null}
         <Title className={`h-serif h-serif--${titleSize} card__title`} lang={titleLang}>{title}</Title>
+        {label && labelAfter ? <span className="label label--muted card__label">{label}</span> : null}
         {dek && (variant !== "compact" || (square ?? 0) >= 120) ? <span className="card__dek" lang={titleLang}>{dek}</span> : null}
       </span>
     </Link>

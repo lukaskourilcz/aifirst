@@ -1,13 +1,14 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { PageShell } from "@/components/PageShell";
+import Link from "next/link";
+import { DayGroup } from "@/components/editorial/DayGroup";
+import { SectionMasthead } from "@/components/editorial/SectionMasthead";
+import { SECTIONS, SECTION_TO_TOPIC } from "@/lib/sections";
 import { isPublishingDay, listBoardContexts, type NoEditionBoardContext } from "@/lib/board";
 import { listArticles } from "@/lib/content";
 import { groupBy } from "@/lib/helpers/group";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { czechLongDate, czechMonthLabel } from "@/lib/weeks";
-import { CoverCard } from "@/components/editorial/CoverCard";
+import { czechMonthLabel } from "@/lib/weeks";
 import { localeAlternates } from "@/lib/i18n/metadata";
 
 export const dynamic = "force-static";
@@ -34,51 +35,45 @@ export default async function ArchivePage({
     .filter((context): context is NoEditionBoardContext =>
       context.status === "no_edition" && !publishedDates.has(context.date) && isPublishingDay(context.date))
     .map((context) => ({ kind: "no_edition" as const, ...context }));
-  const byYearMonth = groupBy([...entries, ...noEditions].sort((a, b) => b.date.localeCompare(a.date)), (a) => a.date.slice(0, 7));
+  // Month → day → articles; a weekday without an edition keeps its one line.
+  const days = groupBy([...entries, ...noEditions].sort((a, b) => b.date.localeCompare(a.date)), (a) => a.date);
+  const byMonth = groupBy([...days.entries()], ([date]) => date.slice(0, 7));
 
   return (
-    <PageShell kicker={t.kicker} title={t.title} intro={t.intro}>
-      {[...byYearMonth.entries()].map(([month, issues]) => (
-        <section key={month} className="archive-month">
-          <p className="label archive-month__label">
-            {czechMonthLabel(month)}
-          </p>
-          <ul className="archive-list">
-            {issues.map((a) => a.kind === "article" ? (
-              <li key={a.slug}>
-                <CoverCard
-                  layout="row"
-                  headingLevel={2}
-                  href={lp(`/articles/${a.slug}`)}
-                  kicker={
-                    <>
-                      <time dateTime={a.date}>{czechLongDate(a.date)}</time>
-                      {a.type === "weekly" ? ` · ${t.weeklyMarker}` : null}
-                      {a.lang === "en" ? ` · ${t.englishMarker}` : null}
-                    </>
-                  }
-                  title={a.title}
-                  titleLang={a.lang === "en" ? "en" : undefined}
-                  dek={a.dek}
-                  media={a.heroPhoto}
-                  mediaWidth={140}
-                  mediaHeight={105}
-                />
-              </li>
-            ) : (
-              // One quiet line. The reason, the code and the board room stay
-              // with the operator; the reader only needs to know the day is empty.
-              <li key={`no-edition-${a.date}`} className="archive-system-row">
-                <p className="kicker"><time dateTime={a.date}>{czechLongDate(a.date)}</time> · {locale === "cs" ? "bez vydání" : "no edition"}</p>
-              </li>
-            ))}
-          </ul>
+    <div className="list-page">
+      <header className="list-head">
+        <h1 className="list-head__title">{t.title}</h1>
+        <p className="list-head__scope">{t.intro}</p>
+      </header>
+
+      {/* Part A: the section chips open the section pages; Part B turns them
+          into static per-section archives. */}
+      <nav className="archive-filter" aria-label={t.filterLabel}>
+        <a className="control archive-filter__chip is-current" aria-current="page" href={lp("/archive")}>{t.filterAll}</a>
+        {SECTIONS.map((section) => (
+          <Link key={section.key} className="control archive-filter__chip" href={lp(`/topics/${SECTION_TO_TOPIC[section.key]}`)}>
+            {section.label}
+          </Link>
+        ))}
+      </nav>
+
+      {[...byMonth.entries()].map(([month, monthDays]) => (
+        <section key={month} className="archive-month" aria-labelledby={`month-${month}`}>
+          <SectionMasthead id={`month-${month}`} kicker={czechMonthLabel(month)} />
+          {monthDays.map(([date, items]) => {
+            const articles = items.filter((item) => item.kind === "article");
+            return (
+              <DayGroup key={date} date={date} articles={articles} locale={locale} variant="archive" withYear={false}>
+                {articles.length === 0 ? <p className="meta archive-empty-day">{t.noEdition}</p> : undefined}
+              </DayGroup>
+            );
+          })}
         </section>
       ))}
 
       {all.length === 0 && noEditions.length === 0 && (
         <p className="empty-line">{t.empty}</p>
       )}
-    </PageShell>
+    </div>
   );
 }

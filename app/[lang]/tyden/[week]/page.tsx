@@ -1,21 +1,12 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { PageShell } from "@/components/PageShell";
-import { FeedRow } from "@/components/editorial/FeedRow";
-import { RightRail } from "@/components/editorial/RightRail";
+import { DayGroup } from "@/components/editorial/DayGroup";
 import { ArchiveExhausted, WeekAction } from "@/components/editorial/WeekAction";
 import { listArticles } from "@/lib/content";
 import { LOCALES, type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
-import { loadEvents, splitByAnchor } from "@/lib/events";
-import {
-  czechNumericDate,
-  czechWeekday,
-  groupByDay,
-  groupByWeek,
-  weekTitle,
-} from "@/lib/weeks";
+import { groupByDay, groupByWeek, weekTitle } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -61,47 +52,22 @@ export default async function WeekArchivePage({
   const t = dict(locale).sections;
   const lp = localePrefixer(locale);
   const days = groupByDay(found.week.articles);
-  const articles = await listArticles(locale);
-  const anchor = articles[0]?.date;
-  const { upcoming } = splitByAnchor(loadEvents(), anchor ?? "1970-01-01");
 
   return (
-    <div className="page-with-rail">
-      <div className="page-with-rail__main">
-        <PageShell
-          kicker={weekTitle(found.week).toUpperCase()}
-          title={t.weekTitle}
-          intro={t.weekIntro}
-        >
-          {days.map((day) => (
-            <section key={day.date} className="day-group">
-              <h2 className="day-group__label">
-                {czechWeekday(day.date)}
-                <span aria-hidden> · </span>
-                <time dateTime={day.date}>{czechNumericDate(day.date)}</time>
-              </h2>
-              <ul className="feed-list">
-                {day.articles.map((article) => (
-                  <FeedRow key={article.slug} article={article} locale={locale} />
-                ))}
-              </ul>
-            </section>
-          ))}
+    <div className="list-page">
+      <header className="list-head">
+        <h1 className="list-head__title">{weekTitle(found.week)}</h1>
+        <p className="list-head__scope">{t.weekIntro}</p>
+      </header>
 
-          {/* The chain ends with a quiet line, not a disabled-looking control. */}
-          {found.older ? (
-            <WeekAction
-              locale={locale}
-              href={lp(`/tyden/${found.older.id}`)}
-              kicker={t.previousWeek}
-              label={weekTitle(found.older)}
-            />
-          ) : (
-            <ArchiveExhausted locale={locale} />
-          )}
-        </PageShell>
-      </div>
-      <RightRail locale={locale} dateKey={anchor} events={upcoming} />
+      {days.map((day) => <DayGroup key={day.date} date={day.date} articles={day.articles} locale={locale} variant="week" />)}
+
+      {/* The chain ends with a quiet line, not a disabled-looking control. */}
+      {found.older ? (
+        <WeekAction locale={locale} href={lp(`/tyden/${found.older.id}`)} kicker={t.previousWeek} label={weekTitle(found.older)} />
+      ) : (
+        <ArchiveExhausted locale={locale} />
+      )}
     </div>
   );
 }

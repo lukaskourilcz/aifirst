@@ -1586,17 +1586,8 @@ svg { max-width: 100%; }
 
 /* Editorial archive cards carry enough context to evaluate an issue without
    turning the archive into a second homepage. */
-.archive-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 0;
-  border-top: 2px solid var(--border-strong);
-}
 /* Grid items default to min-width:auto, so a card's min-content width pushed
    it past the list at 320px. */
-.archive-list > li { min-width: 0; }
 
 /* ------------------------------------------------------------------ */
 /* Cover cards — Weekly, Archive and Related share one anatomy         */
@@ -1695,29 +1686,7 @@ svg { max-width: 100%; }
 /* Archive: a row, media on the left at the 4:3 crop it already used. The plate
    sits beside the media rather than over it — an overlap inside a 140px
    thumbnail would cover the picture rather than compose with it. */
-.cover-card--row {
-  flex-direction: row;
-  align-items: start;
-  gap: var(--space-5);
-  padding: var(--space-5) 0 var(--space-6);
-  border-bottom: 1px solid var(--border-subtle);
-}
-.cover-card--row .cover-card__media { flex: none; width: 140px; }
-.cover-card--row .cover-card__media img { aspect-ratio: 4 / 3; }
-.cover-card--row .cover-card__plate {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-}
-.cover-card--row:hover .cover-card__plate { border: 0; }
-.cover-card--row .cover-card__title { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
-.cover-card--row .cover-card__dek { max-width: 70ch; font-size: var(--text-body); }
 
-@media (max-width: 600px) {
-  .cover-card--row { flex-direction: column; gap: var(--space-3); }
-  .cover-card--row .cover-card__media { width: 100%; }
-}
 
 @media (max-width: 700px) {
   .topic-grid { grid-template-columns: 1fr; }
@@ -1755,8 +1724,6 @@ svg { max-width: 100%; }
 .weekly-badge li { padding: var(--space-1) 0; font-size: var(--text-body-sm); }
 .weekly-badge a { color: var(--text-primary); border-bottom: 1px solid var(--border-subtle); }
 
-.archive-month { margin-bottom: var(--space-7); }
-.archive-month__label { margin-bottom: var(--space-4); }
 .tag-detail__meta { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
 
@@ -1806,8 +1773,6 @@ svg { max-width: 100%; }
 .making-of a { margin-right: var(--space-4); }
 .making-of span { color: var(--text-tertiary); }
 
-.archive-system-row { padding: var(--space-3) 0; border-bottom: 1px solid var(--border-subtle); }
-.archive-system-row p { margin: 0; }
 
 .source-directory { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-5); list-style: none; margin: var(--space-4) 0 0; padding: 0; }
 .source-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-3); height: 100%; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); }
@@ -2216,6 +2181,48 @@ svg { max-width: 100%; }
   .section-older__grid { grid-template-columns: minmax(0, 1fr); }
   .card--sq-120 { grid-template-columns: minmax(0, 1fr) 96px; }
   .card--sq-120 .card__dek { display: none; }
+}
+
+/* Poslední týden and the Archive: a fixed 200 px date column and the
+   day's articles beside it. */
+.list-page .week-action { margin-top: var(--space-6); }
+.day-group--week,
+.day-group--archive {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: var(--grid-gutter);
+  margin: 0;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border-strong);
+}
+.day-group--archive { padding: var(--space-3) 0; border-bottom-color: var(--border-subtle); }
+.day-group--week .day-group__label,
+.day-group--archive .day-group__label {
+  position: static;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+}
+.day-group--archive .day-group__label { text-transform: none; letter-spacing: 0; font-size: 0.875rem; }
+.day-group__count { margin: 4px 0 0; }
+.day-group__list { margin: 0; padding: 0; list-style: none; }
+.day-group__list > li + li { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
+.day-group--archive .day-group__list > li + li { margin-top: var(--space-3); padding-top: var(--space-3); }
+.day-group--week .card--row .card__dek { -webkit-line-clamp: 3; line-clamp: 3; }
+.archive-empty-day { margin: 2px 0 0; }
+
+.archive-filter { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-5) 0 var(--space-6); }
+.archive-filter__chip { min-height: 44px; font-weight: 500; border-color: var(--border-strong); }
+.archive-filter__chip.is-current { border-color: var(--border-ink); background: var(--text-primary); color: var(--surface-reading); }
+.archive-month { margin-bottom: var(--space-7); }
+.archive-month .module-head { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .day-group--week,
+  .day-group--archive { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .day-group__count { display: inline; margin-left: var(--space-2); }
+  .day-group__date { display: flex; flex-wrap: wrap; align-items: baseline; }
 }
 
 /* Feed */

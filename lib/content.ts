@@ -179,6 +179,8 @@ export type ArticleSummary = {
   type?: IssueType;
   lang?: ContentLang;
   fallback?: boolean;
+  /** How many Briefs the edition carries, for „1 článek · 4 krátce". */
+  briefCount?: number;
   // Resolved cover thumbnail — real illustration or a cached og:image from
   // the article's sources. Absent when the article has no real picture, so
   // the UI can render text-only cards instead of an empty tile.
@@ -364,6 +366,7 @@ function toSummary(
     lang,
     fallback,
     heroPhoto,
+    briefCount: fm.dispatches?.length ?? 0,
   };
 }
 
