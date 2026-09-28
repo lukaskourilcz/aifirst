@@ -210,7 +210,10 @@ const en = {
     problemTitle: "Why the magazine exists",
     problemBody: "AI coverage repeats itself and makes every announcement sound urgent, which makes an overview hard to build. This magazine covers fewer subjects, describes the concrete change, and says plainly what is not yet known.",
     authorshipTitle: "Who writes the editions",
-    authorshipBody: "Each edition's text is prepared by a language model, following the editorial rules below and only from the sources it lists. Nobody reads it before publication. Lukáš Kouřil is responsible for the choice of sources, the rules and corrections.",
+    authorshipBody: "Each edition's text is prepared by a language model, following the editorial rules below and only from the sources it lists.",
+    authorshipUnreviewed: "Nobody reads it before publication.",
+    authorshipReviewed: "An editor reviews it before publication.",
+    authorshipResponsible: "{who} is responsible for the choice of sources, the rules and corrections.",
     // Left empty until the owner supplies a contact line; the page renders
     // nothing for an empty string.
     authorshipContact: "",
@@ -521,7 +524,10 @@ const cs: Dict = {
     problemTitle: "Proč magazín vznikl",
     problemBody: "Zprávy o AI se opakují a každé oznámení zní naléhavě, takže se z nich přehled staví těžko. Tenhle magazín pokrývá méně témat, popisuje konkrétní změnu a otevřeně píše, co se zatím neví.",
     authorshipTitle: "Kdo vydání píše",
-    authorshipBody: "Text každého vydání připravuje jazykový model podle redakčních pravidel níže a výhradně z uvedených zdrojů. Před zveřejněním ho nikdo nečte. Za výběr zdrojů, pravidla a opravy odpovídá Lukáš Kouřil.",
+    authorshipBody: "Text každého vydání připravuje jazykový model podle redakčních pravidel níže a výhradně z uvedených zdrojů.",
+    authorshipUnreviewed: "Před zveřejněním ho nikdo nečte.",
+    authorshipReviewed: "Před zveřejněním ho kontroluje redaktor.",
+    authorshipResponsible: "Za výběr zdrojů, pravidla a opravy odpovídá {who}.",
     // Prázdné, dokud majitel nedodá kontakt; prázdný řetězec se nevykreslí.
     authorshipContact: "",
     methodTitle: "Jak vybíráme témata",

@@ -4,7 +4,7 @@ Repo `lukaskourilcz/aifirst` (branch `main`), live at https://caughtup-ai.vercel
 
 ## What the product is
 
-A Czech daily publication about AI and technology. A language model writes each edition upstream (BoardlessAI) from 7–8 cited sources. It is published without human review, and the site says so on every edition. Readers: Czech developers, founders, product and tech leads, AI practitioners and informed professionals. Tagline: „To podstatné z AI. Každý den.“ The logo (`public/brand/DNESKAi-logo*.svg`) and the name DNESKAi are fixed.
+A Czech daily publication about AI and technology. A language model writes each edition upstream (BoardlessAI) from 7–8 cited sources. It is published without human review; the site says so on O magazínu (#redakce), in print and in llms.txt, and each article links there. Readers: Czech developers, founders, product and tech leads, AI practitioners and informed professionals. Tagline: „To podstatné z AI. Každý den.“ The logo (`public/brand/DNESKAi-logo*.svg`) and the name DNESKAi are fixed.
 
 Stack: Next.js 15 App Router, all pages static, server components, a single hand-written `app/globals.css` (no Tailwind, no component, chart or motion library). Page JS budget: 110 kB gzip; today's largest page is 103.4 kB. CSP allows images from the site's own origin only.
 
@@ -38,6 +38,6 @@ Tags since August (top): umělá inteligence 25, kybernetická bezpečnost 11, O
 
 1. **Images must be real, licensed, and hosted locally.** Upstream (BoardlessAI) chooses and credits them; the site never generates imagery, hotlinks or uses stock filler. „More pictures“ therefore means **the design specifies image slots and ratios, and upstream must then deliver an image for each**. A design that needs a picture for every Brief creates an upstream requirement; list it explicitly.
 2. **Several articles a day is a contract change.** Today the delivery contract stores `content/articles/<date>.cs.mdx`, one board record per date, keyed by date. Publishing 1–3 articles a day needs a new article identity (slug plus time), probably a publish time, a section and a priority/lead flag, and changes both upstream and in `lib/delivery/`. The design should say exactly which fields it needs.
-3. **Provenance stays visible:** the source ledger, corrections, the one-line statement that a language model wrote the text without human review, and sponsor labelling.
+3. **Provenance stays visible:** the source ledger, corrections and sponsor labelling stay on every article. Since round 2 (owner decision, 28. 9. 2026) the statement that a language model wrote the text, and whether a person reviewed it, lives on O magazínu › „Kdo vydání píše“ (`/about#redakce`), in the print view and in `llms.txt`. Each article carries an „Ověření“ row that links there and claims a review only when `generation.human_reviewed` is true („Sestaveno z N uvedených zdrojů.“ otherwise).
 4. **No fake data:** no invented view counts, trending numbers, author photos, bylines of people who did not write the piece, or comment counts. The byline is the publication.
 5. Accessibility floor: WCAG AA contrast (lightest text `#5f6672`), 44 px touch targets, visible focus, `prefers-reduced-motion`, and one `h1` per page. Czech wraps long; test with real headlines of 70–110 characters.
