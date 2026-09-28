@@ -17,13 +17,11 @@ const CATEGORY_LABELS: Record<string, string> = { "ai-models": "AI modely" };
 export function FeedRow({
   article,
   locale,
-  readingMinutes,
   thumbnail = true,
   compact = false,
 }: {
   article: ArticleSummary;
   locale: Locale;
-  readingMinutes?: number;
   /** False for a plain list of editions, e.g. a topic's archive. */
   thumbnail?: boolean;
   /** Title and date only: no dek, no thumbnail. For dense edition lists. */
@@ -42,12 +40,6 @@ export function FeedRow({
           {article.dek && !compact ? <p className="feed-row__dek">{article.dek}</p> : null}
           <p className="feed-row__meta">
             <time dateTime={article.date}>{czechNumericDate(article.date)}</time>
-            {readingMinutes ? (
-              <>
-                <span aria-hidden> · </span>
-                <span>{readingMinutes} {t.minutesShort} {t.readMinutes}</span>
-              </>
-            ) : null}
           </p>
         </div>
         {thumbnail && !compact && article.heroPhoto ? (

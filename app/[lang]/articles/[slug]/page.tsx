@@ -31,7 +31,6 @@ import {
 } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms } from "@/lib/glossary";
 import { relatedBySimilarity } from "@/lib/embeddings";
-import { readingMinutes } from "@/lib/text";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
@@ -137,7 +136,6 @@ export default async function ArticlePage({
   const fm = article.frontmatter;
   const dispatches = (fm.dispatches ?? []).slice(0, 6);
   const wire = watchlistWithoutBriefs(fm.wire ?? [], fm.dispatches ?? []);
-  const reading = readingMinutes(article.mdx);
   const heroPhoto = resolveHeroPhoto(fm);
   const adjacent = adjacentIssues(article.slug, all);
   const topics = topicsForArticle(topicsConfig, summary);
@@ -193,7 +191,6 @@ export default async function ArticlePage({
         title={fm.title}
         dek={fm.dek}
         date={fm.date}
-        readingMinutes={reading}
         tags={fm.tags}
         heroPhoto={heroPhoto}
         heroAlt={heroPhoto === fm.illustration.path ? czechDatesInText(fm.illustration.alt) : ""}

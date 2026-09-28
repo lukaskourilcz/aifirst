@@ -37,8 +37,6 @@ const en = {
   common: {
     issue: "issue",
     sources: "sources",
-    readMinutes: "read",
-    minutesShort: "min",
     model: "model",
     today: "Today",
     weekly: "weekly",
@@ -51,6 +49,7 @@ const en = {
   sections: {
     todaysEdition: "Today's edition",
     latestEdition: "Latest edition",
+    weekendOff: "no edition at weekends",
     briefs: "Briefly",
     watchlist: "To watch",
     lastWeek: "Last week",
@@ -338,8 +337,6 @@ const cs: Dict = {
   common: {
     issue: "vydání",
     sources: "zdroje",
-    readMinutes: "čtení",
-    minutesShort: "min",
     model: "model",
     today: "Dnes",
     weekly: "týdenní",
@@ -352,6 +349,7 @@ const cs: Dict = {
   sections: {
     todaysEdition: "Dnešní vydání",
     latestEdition: "Poslední vydání",
+    weekendOff: "o víkendu nevychází",
     briefs: "Krátce",
     watchlist: "Ke sledování",
     lastWeek: "Poslední týden",

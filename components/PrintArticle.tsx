@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { Mdx } from "@/components/Mdx";
 import { getArticle, resolveHeroPhoto } from "@/lib/content";
 import { loadGlossary, resolveGlossaryTerms, glossaryDefinition } from "@/lib/glossary";
-import { readingMinutes } from "@/lib/text";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { brand } from "@/lib/brand";
@@ -32,7 +31,7 @@ export async function PrintArticle({ slug, locale }: { slug: string; locale: Loc
       <article className="print-layout">
         <header className="print-masthead">
           <div className="print-masthead-row"><BrandLockup compact tone="mono-black" /><span>{common.issue} {czechNumericDate(article.frontmatter.date)}</span></div>
-          <div className="print-masthead-row"><span>{topicLabels(article.frontmatter.tags).slice(0, 4).join(" · ")}</span><span>{readingMinutes(article.mdx)} {common.minutesShort}</span></div>
+          <div className="print-masthead-row"><span>{topicLabels(article.frontmatter.tags).slice(0, 4).join(" · ")}</span></div>
         </header>
 
         <h1 className="print-title">{article.frontmatter.title}</h1>

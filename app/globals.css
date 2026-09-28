@@ -2181,110 +2181,102 @@ svg { max-width: 100%; }
 }
 .rail-events__title { font-size: 0.9375rem; color: var(--text-primary); }
 
-/* Lead package */
-.lead { padding: 40px 0 0; }
-.lead__kicker {
-  margin: 0 0 18px;
-  border-left: 3px solid var(--accent-primary);
-  padding-left: var(--space-3);
+/* Front page (round 2): the edition line, then the lead. The lead headline
+   always sits on the lead photograph, white on the flat ink band (owner
+   decision); the band is opaque enough that contrast never depends on the
+   photo. Without a photo the lead is typographic, on paper, with no box. */
+.edition-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin: 0 0 var(--space-4);
 }
-.lead__title {
-  margin: 0 0 16px;
-  max-width: 20ch;
-  font-family: var(--font-editorial);
-  font-size: var(--text-display);
-  font-weight: 700;
-  line-height: var(--leading-display);
-  letter-spacing: var(--tracking-display);
-  text-wrap: balance;
-  hyphens: auto;
+.edition-line .label { margin: 0; font-size: 0.8125rem; }
+.edition-line .meta { margin: 0; text-align: right; }
+
+.lead { margin: 0; }
+.lead__media {
+  position: relative;
+  display: block;
+  color: #fff;
+  background: var(--surface-subtle);
 }
-/* Czech lead headlines run long; past 100 characters the display size would
-   push the dek and meta row off a 900px viewport. */
-.lead__title[data-long="true"] { font-size: var(--text-heading); letter-spacing: var(--tracking-heading); }
-.lead__title a { color: var(--text-primary); }
-.lead__title a:hover { color: var(--accent-primary); }
-.lead__dek {
-  margin: 0 0 14px;
-  max-width: 46ch;
-  font-family: var(--font-reading);
-  font-size: var(--text-lead);
-  line-height: var(--leading-lead);
-  color: var(--text-secondary);
-}
-.lead__meta {
-  margin: 0 0 24px;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
-.lead__figure { display: block; }
-.lead__image {
+.lead__media:hover { color: #fff; }
+.lead__media img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 21 / 9;
+  aspect-ratio: 2 / 1;
   object-fit: cover;
-  border: 1px solid var(--border-subtle);
 }
-
-/* The front-page lead uses the same plate as the article masthead. The meta row
-   is already a sibling of the copy, so nothing here has a caption to clear. */
-.lead--overlay .lead__copy { padding-top: var(--space-4); }
-
-@media (min-width: 768px) {
-  .lead--overlay .lead__copy {
-    position: relative;
-    z-index: 1;
-    max-width: min(34em, 85%);
-    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
-    padding: var(--space-4) var(--space-5) var(--space-5);
-    background: var(--surface-reading);
-    border: 1px solid var(--border-subtle);
-  }
-  .lead--overlay .lead__title,
-  .lead--overlay .lead__dek { max-width: none; }
-  /* Display size is built for the full column. Inside a plate roughly 34em
-     wide it wraps to four or five lines, and the plate then stands more than
-     twice as tall as the 21:9 image it is supposed to sit on. One step down
-     keeps the plate and the image in the same order of size, which is what
-     makes the overlap read as composition rather than as a text block with a
-     strip of photograph above it. */
-  .lead--overlay .lead__title {
-    font-size: var(--text-heading);
-    line-height: var(--leading-heading);
-    letter-spacing: var(--tracking-heading);
-  }
-  .lead--overlay .lead__title[data-long="true"] {
-    font-size: var(--text-subheading);
-    line-height: var(--leading-subheading);
-  }
-  /* The dek is a summary here, not the article. Three lines is enough to carry
-     the point and keeps the plate's height predictable across editions. */
-  .lead--overlay .lead__dek {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    overflow: hidden;
-  }
-  .lead--overlay .lead__meta { margin-left: var(--space-5); }
-}
-.hero-plate {
-  position: relative;
-  width: 100%;
-  background: var(--surface-subtle);
-  border: 1px solid var(--border-subtle);
-}
-.hero-plate svg { display: block; width: 100%; height: 100%; }
-.hero-plate__mark {
+.lead__band {
   position: absolute;
-  left: 16px;
-  bottom: 16px;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  color: var(--text-tertiary);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 32px 32px;
+  background: var(--band-ink);
+}
+.lead__section { margin: 0 0 10px; color: var(--band-label); }
+.lead__section .lead__time { color: var(--band-meta); font-weight: 500; }
+.lead__title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-editorial);
+  font-size: var(--text-lead-1);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: inherit;
+}
+.lead__media:hover .lead__title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+.lead--type { padding: var(--space-5) 0 0; border-top: 2px solid var(--border-ink); }
+.lead--type .lead__section { color: var(--accent-primary); }
+.lead--type .lead__title { max-width: 22ch; color: var(--text-primary); }
+.lead--type .lead__title a { color: inherit; }
+
+.lead__below {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--grid-gutter);
+  align-items: start;
+  margin-top: 14px;
+}
+.lead__dek {
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-reading);
+  font-size: var(--text-dek);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.lead__meta { margin: 10px 0 0; }
+.lead__why {
+  padding-left: var(--grid-gutter);
+  border-left: 1px solid var(--border-strong);
+}
+.lead__why .label { margin: 0 0 var(--space-2); }
+.lead__why ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.lead__why li + li { margin-top: var(--space-2); }
+
+@media (max-width: 960px) {
+  .edition-line .meta { text-align: left; }
+  .lead__media img { aspect-ratio: 1 / 1; }
+  .lead__band { padding: 16px 16px 18px; }
+  .lead__title { font-size: 1.75rem; }
+  .lead__below { grid-template-columns: minmax(0, 1fr); }
+  .lead__why { padding-left: 0; padding-top: var(--space-4); border-left: 0; border-top: 1px solid var(--border-strong); }
 }
 
 /* Condensed briefs */
