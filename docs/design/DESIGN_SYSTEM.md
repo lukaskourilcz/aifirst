@@ -40,22 +40,32 @@ self-hosted for deks, article prose, card descriptions, and definitions. IBM
 Plex Mono is self-hosted for identifiers, dates, technical metadata, source IDs,
 navigation indices, and measured values.
 
-### Kickers and chips
+### Labels, metadata and serif headlines (round 2)
 
-Every small uppercase label is one rule: `.kicker` (IBM Plex Mono,
-`--kicker-size` 0.6875rem, `--kicker-tracking` 0.16em, uppercase, weight 500,
-`--text-tertiary`). `.kicker--accent` switches it to `--accent-primary`, and
-`.kicker--accent.kicker--bar` adds the 3px bar. The older kicker classes
-(`.label`, `.eyebrow`, `.page-kicker`, `.masthead__kicker`, `.lead__kicker`,
-`.hero__eyebrow`, `.rail-module__kicker`, `.feed-row__kicker`,
-`.cover-card__kicker`, `.footer-nav__heading` and the rest) share that rule
-through one selector list and keep only their layout. Do not give a kicker its
-own font rules.
+The three typefaces have fixed roles. Space Grotesk carries the lead headline
+on its photograph, page and section titles, the section bar, section labels and
+controls. Source Serif 4 600 carries every other headline (`.h-serif--1/2/3`
+at 26/22/18 px), deks and body. IBM Plex Mono is only for machine values
+(dates, times, credits, hosts, ledger numbers) through `.meta`: 12 px,
+lowercase, no tracking.
+
+`.label` is the section label: Grotesk 600, `--text-label` (12 px), 0.08em,
+uppercase, `--text-primary`; `.label--muted` in `--text-tertiary`,
+`.label--section` in `--accent-primary`. The older kicker classes share that
+rule until their components are rebuilt; do not give a label its own font
+rules, and do not use mono for a label.
+
+`.module-head` opens every block: 12 px padding over a 2 px `--border-ink`
+rule, a 13 px label, an optional blue action on the right and an optional
+one-line serif note below. `SectionMasthead` renders it.
+
+`--border-ink`, `--band-ink`, `--band-label` and `--band-meta` are the four
+colour roles added in round 2: the ink rule, the flat band under a headline on
+a photo, its section label and its time. Blue is for section labels, links and
+the active state only.
 
 There is one chip: `.chip` (4px 10px, `--border-subtle` hairline, mono caption,
-0.08em tracking, uppercase, `--text-secondary`). `.chip--evidence-primary` and
-`.chip--evidence-secondary` mark the source class in the ledger. Topic labels,
-evidence classes and suggestions all use it.
+uppercase, `--text-secondary`), used by the archive filter row.
 
 The fluid type scale runs from `--text-caption` to `--text-display`. Reading
 copy stays near 32–39 em and uses a relaxed 1.68–1.72 line height. Monospace is

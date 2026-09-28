@@ -32,6 +32,13 @@
   --danger-surface: #fdf4f4;
   --sponsor-surface: #fdf7e8;
   --hover-line: #b3b3ab;
+  /* Round 2: one ink rule for mastheads and module heads, and the flat band
+     under a headline set on a photograph. White on the band holds ≥ 10:1
+     whatever the photo is; the band label ≥ 7.8:1. */
+  --border-ink: #14161a;
+  --band-ink: rgba(20, 22, 26, 0.84);
+  --band-label: #9db2ff;
+  --band-meta: #c9c9c3;
   --numeric-ghost: rgba(20, 22, 26, 0.045);
 
   /* Space Grotesk, Source Serif 4 and IBM Plex Mono are self-hosted. */
@@ -66,9 +73,19 @@
   --tracking-row: -0.02em;
   --tracking-label: 0.14em;
   --tracking-kicker: 0.16em;
-  /* The one kicker: every small uppercase label on the site uses these two. */
-  --kicker-size: 0.6875rem;
-  --kicker-tracking: 0.16em;
+
+  /* Round 2 type scale (report page 07). Grotesk carries the lead and page
+     titles; every secondary headline is Source Serif 4 600. */
+  --text-lead-1: clamp(1.75rem, 1rem + 2.6vw, 3.75rem);
+  --text-lead-2: clamp(1.75rem, 1rem + 1.9vw, 2.75rem);
+  --text-title: clamp(2rem, 1.2rem + 2.2vw, 3.25rem);
+  --text-page: clamp(2.125rem, 1.4rem + 2vw, 3rem);
+  --text-h-serif-1: 1.625rem;
+  --text-h-serif-2: 1.375rem;
+  --text-h-serif-3: 1.125rem;
+  --text-dek: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-label: 0.75rem;
+  --text-meta: 0.75rem;
 
   --leading-lead: 1.5;
   --leading-display: 1.02;
@@ -85,7 +102,9 @@
   --container: 1360px;
   --sidebar-width: 244px;
   --rail-width: 300px;
-  --reading: 35em;
+  --reading: 36em;
+  --grid-gutter: 24px;
+  --page-pad: 40px;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -580,13 +599,14 @@ hr {
   margin: 2.4em 0;
 }
 
-/* One kicker. Mono, caption size, tracked uppercase, tertiary. Every small
-   label on the site is this rule; the classes below keep only their layout. */
-.kicker,
+/* Section labels. Space Grotesk 600, 12px, tracked uppercase, in ink. Mono
+   is no longer a label face (round 2): it is kept for dates, times, credits
+   and hosts through .meta. The older label classes share this rule and keep
+   only their layout; they go as their components are rebuilt. */
 .label,
+.kicker,
 .eyebrow,
 .page-kicker,
-.masthead__kicker,
 .editorial-highlight__kicker,
 .rail-module__kicker,
 .lead__kicker,
@@ -596,37 +616,75 @@ hr {
 .banner-slot__label,
 .sidebar__strapline,
 .footer-nav__heading,
-.footer-nav a,
 .source-ledger th,
 .lesson-table thead th,
 .week-action__kicker,
 .day-group__label {
-  font-family: var(--font-mono);
-  font-size: var(--kicker-size);
-  font-weight: 500;
-  letter-spacing: var(--kicker-tracking);
+  font-family: var(--font-editorial);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--text-primary);
+  border-bottom: none;
 }
-.kicker--accent,
+.label--muted { color: var(--text-tertiary); }
+.label--section,
 .label--accent,
+.kicker--accent,
 .eyebrow,
 .page-kicker,
 .hero__eyebrow,
 .lead__kicker,
 .feed-row__kicker { color: var(--accent-primary); }
-.kicker--accent.kicker--bar::before {
-  content: "";
-  display: inline-block;
-  width: 3px;
-  height: 0.95em;
-  margin-right: 6px;
-  background: currentColor;
-  vertical-align: -0.1em;
+
+/* Machine values: dates, times, credits, hosts. Lowercase, no tracking. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tertiary);
 }
 
-.label {
-  border-bottom: none;
+/* Every headline that is not the lead is set in the serif. */
+.h-serif {
+  margin: 0;
+  font-family: var(--font-reading);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.h-serif--1 { font-size: var(--text-h-serif-1); line-height: 1.2; }
+.h-serif--2 { font-size: var(--text-h-serif-2); }
+.h-serif--3 { font-size: var(--text-h-serif-3); line-height: 1.28; }
+
+/* Module head: the 2px ink rule every block on a page opens with. */
+.module-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-4);
+  padding-top: 12px;
+  border-top: 2px solid var(--border-ink);
+}
+.module-head__label { margin: 0; font-size: 0.8125rem; }
+.module-head__action {
+  flex: none;
+  font-family: var(--font-editorial);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+}
+.module-head__note {
+  margin: -8px 0 var(--space-4);
+  font-family: var(--font-reading);
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
 }
 
 .label--muted { color: var(--text-tertiary); }
@@ -635,14 +693,6 @@ hr {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-}
-.eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 3px;
-  height: 0.95em;
-  border-radius: 0;
-  background: var(--accent-primary);
 }
 
 .container {
@@ -675,15 +725,6 @@ hr {
 }
 
 .page-kicker { margin: 0; color: var(--accent-primary); }
-.page-kicker::before {
-  content: "";
-  display: inline-block;
-  width: 3px;
-  height: 0.85em;
-  margin-right: var(--space-2);
-  background: currentColor;
-  vertical-align: -0.04em;
-}
 .page-kicker--warning { color: var(--status-warning); }
 .page-title { margin: 0; max-width: 19ch; }
 .page-intro {
@@ -1469,28 +1510,6 @@ input[type="search"]:focus {
 /* One masthead for every section: mono kicker, 2px rule, optional action. It
    replaced a subheading-and-hairline row on the week feed and three separate
    bare kickers on the digest surfaces. */
-.masthead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-  margin: 0 0 var(--space-4);
-  padding-bottom: var(--space-2);
-  border-bottom: 2px solid var(--border-strong);
-}
-
-.masthead__kicker {
-  margin: 0;
-}
-
-.masthead__action {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--accent-primary);
-}
 
 /* ------------------------------------------------------------------ */
 /* Article body + dispatches sidebar                                   */
