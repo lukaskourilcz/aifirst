@@ -12,6 +12,18 @@ import { czechNumericDate } from "@/lib/weeks";
 
 export type SearchTopic = { href: string; title: string };
 
+export const SEARCH_EVENT = "dneskai:open-search" as const;
+
+/** The 16 px magnifier used by every search control. */
+export function SearchGlyph() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden focusable="false">
+      <circle cx="7" cy="7" r="4" />
+      <path d="m10 10 3.5 3.5" />
+    </svg>
+  );
+}
+
 type Props = { index: SearchEntry[]; topics: SearchTopic[]; locale: Locale };
 
 // How well an entry matches the query: title hits weigh most, then the dek,
@@ -47,6 +59,11 @@ export function SearchPalette({ index, topics, locale }: Props) {
     }
   });
 
+  // Every other search button on the page (the condensed header, the mobile
+  // drawer) opens this one palette through a window event, so ⌘K never opens
+  // two dialogs.
+  useWindowEvent(SEARCH_EVENT, () => setOpen(true));
+
   const results = useMemo(() => {
     if (!query.trim()) return index.slice(0, 8);
     return index
@@ -63,27 +80,12 @@ export function SearchPalette({ index, topics, locale }: Props) {
         ref={triggerRef}
         type="button"
         aria-label={t.open}
-        title={t.open}
         onClick={() => setOpen(true)}
-        className="nav-item nav-item--button"
+        className="control search-trigger"
       >
-        <span aria-hidden className="nav-item__glyph">
-          <svg
-            width={16}
-            height={16}
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
-          >
-            <circle cx="7" cy="7" r="4" />
-            <path d="m10 10 3.5 3.5" />
-          </svg>
-        </span>
-        <span className="nav-item__label">{t.open}</span>
+        <SearchGlyph />
+        <span className="search-trigger__label">{t.open}</span>
+        <kbd className="search-trigger__kbd" aria-hidden>⌘K</kbd>
       </button>
 
       {open && (

@@ -31,3 +31,12 @@ export function useWindowEvent<K extends keyof WindowEventMap>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 }
+
+// The masthead's own events: any search button opens the one search palette,
+// the mobile „Více" opens the menu drawer.
+declare global {
+  interface WindowEventMap {
+    "dneskai:open-search": Event;
+    "dneskai:open-menu": Event;
+  }
+}

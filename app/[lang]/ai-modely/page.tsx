@@ -22,7 +22,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 export default async function ModelsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).sections;
-  const r = dict(locale).rail;
   const lp = localePrefixer(locale);
 
   const articles = await listArticles(locale);
@@ -40,7 +39,7 @@ export default async function ModelsPage({ params }: { params: Promise<{ lang: L
             <>
               <p className="empty-line">{t.modelsEmpty} {t.modelsEmptyBody}</p>
               <p className="empty-line">
-                <Link href={lp("/tyden")}>{r.week} →</Link>
+                <Link href={lp("/tyden")}>{t.lastWeek} →</Link>
               </p>
             </>
           ) : (

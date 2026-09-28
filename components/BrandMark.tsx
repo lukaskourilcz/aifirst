@@ -17,14 +17,20 @@ const logoSource: Record<BrandTone, string> = {
  */
 export function BrandLockup({
   compact = false,
+  size,
   tone = "light",
 }: {
   compact?: boolean;
+  /** `masthead` is the 34 px logotype centred in the site header. */
+  size?: "masthead" | "footer";
   tone?: BrandTone;
 }) {
-  const height = compact ? 18 : 20;
+  const height = size === "masthead" ? 34 : size === "footer" ? 24 : compact ? 18 : 20;
+  const className = ["brand-lockup", compact ? "brand-lockup--compact" : null, size ? `brand-lockup--${size}` : null]
+    .filter(Boolean)
+    .join(" ");
   return (
-    <span className={compact ? "brand-lockup brand-lockup--compact" : "brand-lockup"}>
+    <span className={className}>
       {/* eslint-disable-next-line @next/next/no-img-element -- a static SVG needs no image optimisation */}
       <img
         src={logoSource[tone]}

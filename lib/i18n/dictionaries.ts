@@ -27,24 +27,12 @@ const en = {
     trends: "trends",
     glossary: "glossary",
     health: "health",
-    search: "search",
-  },
-  // Left-rail labels. Separate from nav.* because the rail renders them in
-  // sentence case as running text, while nav.* is uppercased by its consumers.
-  rail: {
-    today: "Today",
-    week: "Last week",
-    topics: "Topics",
-    archive: "Archive",
-    glossary: "Glossary",
-    sources: "Sources",
-    corrections: "Corrections",
-    aboutMagazine: "About the magazine",
     search: "Search",
+    sectionsLabel: "Sections",
+    more: "More",
     menu: "Menu",
     close: "Close menu",
-    primary: "Sections",
-    secondary: "More from the magazine",
+    home: "DNESKAi home",
   },
   common: {
     issue: "issue",
@@ -174,12 +162,11 @@ const en = {
   },
   footer: {
     description:
-      "A selective daily publication that explains the AI developments that actually mattered, with sources and uncertainty kept visible.",
+      "Every day we pick the most important and most interesting from the world of technology and AI. We check every piece of information against trusted sources.",
+    sourcesLink: "Source directory",
+    sections: "Sections",
+    subscribe: "Subscribe",
     read: "Magazine",
-    trust: "About the magazine",
-    follow: "Follow",
-    responsible: "Responsible for the content:",
-    editorialContact: "Who writes the editions",
   },
     archive: {
     kicker: "archive",
@@ -267,7 +254,7 @@ const en = {
   search: {
     noMatch: "Nothing found.",
     placeholder: "Search the editions",
-    open: "search",
+    open: "Search",
     suggestedTags: "Topics",
   },
   health: {
@@ -341,22 +328,12 @@ const cs: Dict = {
     trends: "trendy",
     glossary: "slovník",
     health: "stav",
-    search: "hledat",
-  },
-  rail: {
-    today: "Dnes",
-    week: "Poslední týden",
-    topics: "Témata",
-    archive: "Archiv",
-    glossary: "Slovník",
-    sources: "Zdroje",
-    corrections: "Opravy",
-    aboutMagazine: "O magazínu",
     search: "Hledat",
+    sectionsLabel: "Rubriky",
+    more: "Více",
     menu: "Menu",
     close: "Zavřít menu",
-    primary: "Rubriky",
-    secondary: "Další z magazínu",
+    home: "DNESKAi – domů",
   },
   common: {
     issue: "vydání",
@@ -486,12 +463,11 @@ const cs: Dict = {
   },
   footer: {
     description:
-      "Výběrová denní publikace, která vysvětluje podstatné změny v AI a otevřeně ukazuje zdroje i nejistotu.",
+      "Každý den vybíráme to nejdůležitější a nejzajímavější ze světa technologií a AI. Každou informaci ověřujeme u důvěryhodných zdrojů.",
+    sourcesLink: "Přehled zdrojů",
+    sections: "Rubriky",
+    subscribe: "Odběr",
     read: "Magazín",
-    trust: "O magazínu",
-    follow: "Sledujte",
-    responsible: "Za obsah odpovídá",
-    editorialContact: "Kdo vydání píše",
   },
   archive: {
     kicker: "archiv",
@@ -578,7 +554,7 @@ const cs: Dict = {
   search: {
     noMatch: "Nic nenalezeno.",
     placeholder: "Hledat ve vydáních",
-    open: "hledat",
+    open: "Hledat",
     suggestedTags: "Témata",
   },
   health: {

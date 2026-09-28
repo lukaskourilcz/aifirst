@@ -30,12 +30,11 @@ export const brand = {
     og: "/brand/DNESKAi-og.svg",
   },
   /**
-   * Operator identification, limited to what the About page already states
-   * (`about.authorshipBody`): the person responsible for sources, rules and
-   * corrections. No company, IČO or address is published until the owner
-   * supplies one (NEEDED.md); nothing here may be guessed.
+   * Who answers for sources, rules and corrections, as O magazínu states it.
+   * By the owner's decision (round-2 review) no personal name appears on the
+   * site; the team does.
    */
-  responsiblePerson: "Lukáš Kouřil",
+  responsiblePerson: "tým DNESKAi",
   /**
    * The publication's own social profiles, linked from the footer. A profile
    * is linked only when `live` is true: the footer never points at an account
