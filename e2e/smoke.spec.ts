@@ -66,37 +66,35 @@ for (const route of ROUTES) {
   });
 }
 
-test("home: rail, lead package, condensed briefs and the week feed render", async ({ page }) => {
+test("home: masthead, lead on its photo, the day's band and the week block render", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  await expect(page.locator(".sidebar")).toBeVisible();
-  await expect(page.locator(".lead__title")).toBeVisible();
-  await expect(page.locator(".lead__meta")).toBeVisible();
-  await expect(page.locator(".condensed")).toBeVisible();
-  // The lead headline is a link to the article, not the article itself.
-  await expect(page.locator(".lead__title a")).toHaveAttribute("href", /\/articles\//);
+  await expect(page.locator(".masthead")).toBeVisible();
+  await expect(page.locator(".sidebar")).toHaveCount(0);
+  // The page's one h1 is the lead headline, set on the photo's ink band.
+  await expect(page.locator(".lead__band h1, .lead--type h1")).toHaveCount(1);
+  await expect(page.locator(".lead__dek")).toBeVisible();
+  await expect(page.locator(".day-band")).toBeVisible();
+  await expect(page.locator(".lead a[href*='/articles/']").first()).toBeVisible();
   await expect(page.locator(".article-body")).toHaveCount(0);
-  await expect(page.locator(".publication-data")).toHaveCount(0);
-  const rows = page.locator(".feed-row");
-  expect(await rows.count()).toBeGreaterThan(0);
-  await expect(rows.nth(0)).toBeVisible();
+  const cards = page.locator(".week-block .card");
+  if (await cards.count()) await expect(cards.first()).toBeVisible();
 });
 
-test("the lead meta row carries the reading time and nothing else", async ({ page }) => {
+test("the edition line dates the edition, and no reading time appears", async ({ page }) => {
   await page.goto("/");
-  // The date lives in the lead kicker; the meta row is the reading time alone.
-  await expect(page.locator(".lead__kicker time")).toHaveText(/\d{1,2}\. \d{1,2}\. \d{4}/);
+  await expect(page.locator(".edition-line time")).toHaveText(/\d{1,2}\. \d{1,2}\. \d{4}/);
   const meta = await page.locator(".lead__meta").innerText();
-  expect(meta).not.toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
-  expect(meta).toMatch(/min/);
-  for (const forbidden of ["zdroj", "signál", "USD", "náklad"]) {
+  expect(meta).toMatch(/zdroj/);
+  for (const forbidden of ["min čtení", "signál", "USD", "náklad"]) {
     expect(meta.toLowerCase()).not.toContain(forbidden.toLowerCase());
   }
+  expect(await page.locator("body").innerText()).not.toMatch(/min(\.|\u00a0| )čtení/);
 });
 
-test("the lead headline goes to the article, and the body renders with no gate", async ({ page }) => {
+test("the lead goes to the article, and the body renders with no gate", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".lead__title a")).toHaveAttribute("href", /\/articles\//);
+  await expect(page.locator(".lead a[href*='/articles/']").first()).toHaveAttribute("href", /\/articles\//);
 
   // A fixed edition, so the assertion measures the layout rather than whichever
   // edition happens to be lead on the day the suite runs.
@@ -110,7 +108,7 @@ test("the completion mark closes the edition, above the week feed", async ({ pag
   await page.goto("/");
   const mark = page.locator(".edition-end");
   await expect(mark).toBeVisible();
-  const feed = page.locator(".feed-section");
+  const feed = page.locator(".week-block");
   if (await feed.count()) {
     const [markBox, feedBox] = await Promise.all([mark.boundingBox(), feed.boundingBox()]);
     expect(markBox && feedBox && markBox.y).toBeLessThan(feedBox?.y ?? Infinity);
@@ -142,27 +140,29 @@ test("the devShark house promotion renders without overflow at launch widths", a
   }
 });
 
-test("primary nav lives in the sidebar; ops links in the footer", async ({ page }) => {
-  // The rail only exists above 960; below that the drawer carries the same
-  // items and has its own test.
+test("the section bar carries Dnes and five sections; everything else is under Více", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  const sidebar = page.locator(".sidebar");
-  for (const path of ["/tyden", "/topics", "/archive", "/lekce", "/sources", "/corrections", "/about"]) {
-    await expect(sidebar.locator(`a[href$="${path}"]`)).toBeVisible();
+  const bar = page.locator(".section-bar");
+  await expect(bar.locator(".section-bar__list > li > a")).toHaveText(["Dnes", "Modely", "Firmy a trh", "Bezpečnost", "Regulace", "Vývoj"]);
+  // Archiv is not a section (owner decision); it lives in Více and the footer.
+  await expect(bar.locator(".section-bar__list > li > a", { hasText: "Archiv" })).toHaveCount(0);
+  const more = bar.locator(".more-menu");
+  await more.locator("summary").click();
+  for (const path of ["/tyden", "/archive", "/lekce", "/sources", "/corrections", "/about"]) {
+    await expect(more.locator(`a[href$="${path}"]`)).toBeVisible();
   }
-  // Empty and dormant sections keep their routes but leave the rail.
-  for (const path of ["/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce", "/radar", "/weekly"]) {
-    await expect(sidebar.locator(`a[href$="${path}"]`)).toHaveCount(0);
+  // Empty and dormant sections keep their routes but stay out of the navigation.
+  for (const path of ["/o-cem-se-mluvi", "/ai-modely", "/podcasty", "/akce", "/radar", "/weekly", "/health", "/admin"]) {
+    await expect(page.locator(`.masthead a[href$="${path}"]`)).toHaveCount(0);
   }
   const footer = page.locator("nav.footer-nav");
-  for (const path of ["/tyden", "/topics", "/archive", "/about", "/corrections", "/lekce", "/sources"]) {
+  for (const path of ["/tyden", "/archive", "/about", "/corrections", "/lekce", "/sources"]) {
     await expect(footer.locator(`a[href$="${path}"]`)).toHaveCount(1);
   }
-  await expect(sidebar.locator('a[href$="/health"], a[href$="/admin"]')).toHaveCount(0);
 });
 
-for (const [legacy, current] of [["/search", "/archive"], ["/radar", "/topics"], ["/stats", "/topics"], ["/trends", "/topics"], ["/pulse", "/topics"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
+for (const [legacy, current] of [["/search", "/archive"], ["/topics", "/archive"], ["/radar", "/archive"], ["/stats", "/archive"], ["/trends", "/archive"], ["/pulse", "/archive"], ["/tags", "/archive"], ["/topics/ai-platforms", "/topics/ai-companies"], ["/topics/open-source", "/topics/ai-models"], ["/colophon", "/about"]] as const) {
   test(`${legacy} permanently resolves to ${current}`, async ({ page }) => {
     await page.goto(legacy);
     await expect(page).toHaveURL(new RegExp(`${current}/?$`));
@@ -171,7 +171,7 @@ for (const [legacy, current] of [["/search", "/archive"], ["/radar", "/topics"],
 
 test("issue trust surfaces are semantic and keyboard accessible", async ({ page }) => {
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
-  await expect(page.getByRole("heading", { name: /sources for this edition|zdroje tohoto vydání/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /sources for this article|zdroje tohoto článku/i })).toBeVisible();
   // The run record is operator data and no longer reaches a reader page.
   await expect(page.locator("section.provenance")).toHaveCount(0);
 });
@@ -201,43 +201,44 @@ test("inline links carry the Blueprint Blue (#2f5ae6)", async ({ page }) => {
   );
 });
 
-test("the desktop rail exposes the active section and holds 44px targets", async ({ page }) => {
+test("the section bar marks the current section and holds 44px targets", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/archive");
-  const active = page.locator('.nav-rail a[aria-current="page"]');
-  await expect(active).toHaveAttribute("href", /\/archive$/);
-  // Primary sections are 44px; the secondary group is deliberately 36px and is
-  // not a touch surface at this width.
-  for (const item of await page.locator(".nav-rail > a.nav-item").all()) {
+  await page.goto("/topics/ai-models");
+  await expect(page.locator('.section-bar a[aria-current="page"]')).toHaveText("Modely");
+  // An article marks the section it belongs to.
+  await page.goto("/articles/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot");
+  await expect(page.locator('.section-bar a[aria-current="page"]')).toHaveText("Bezpečnost");
+  for (const item of await page.locator(".section-bar__list > li > a").all()) {
     const box = await item.boundingBox();
     expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
   }
 });
 
-test("the rail contains exactly the sections and search, and no status record", async ({ page }) => {
+test("the masthead holds the date, the logotype and one search control", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  // Four indexed sections as direct children, four secondary links, one search
-  // control, and no status record of any kind.
-  await expect(page.locator(".nav-rail > a.nav-item")).toHaveCount(4);
-  await expect(page.locator(".nav-rail__secondary a.nav-item")).toHaveCount(4);
+  await expect(page.locator(".masthead__date time")).toHaveText(/\d{1,2}\. \d{1,2}\. \d{4}/);
+  await expect(page.locator(".masthead__brand img[alt=\"DNESKAi\"]")).toBeVisible();
+  await expect(page.locator(".search-trigger")).toHaveCount(1);
   await expect(page.locator(".sidebar-status")).toHaveCount(0);
-  await expect(page.locator(".sidebar .nav-item--button")).toHaveCount(1);
+  // Scrolled, the bar condenses and stays on screen.
+  await page.mouse.wheel(0, 1200);
+  await expect(page.locator(".masthead.is-condensed")).toHaveCount(1);
+  await expect(page.locator(".section-bar")).toBeInViewport();
 });
 
-test("below 960 the drawer replaces the rail and behaves for the keyboard", async ({ page }) => {
+test("below 960 the section strip scrolls and the drawer behaves for the keyboard", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/archive");
 
-  await expect(page.locator(".sidebar")).toBeHidden();
-  const trigger = page.locator(".topbar__trigger");
+  await expect(page.locator(".section-bar__more-button")).toBeVisible();
+  const trigger = page.locator(".masthead__menu");
   await expect(trigger).toHaveAttribute("aria-expanded", "false");
 
   await trigger.click();
   const drawer = page.locator('[role="dialog"] .drawer');
   await expect(drawer).toBeVisible();
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
-  await expect(page.locator(".drawer__close")).toBeFocused();
   await expect(page.locator("html")).toHaveCSS("overflow", "hidden");
   await expect(drawer.locator('[aria-current="page"]')).toHaveAttribute("href", /\/archive$/);
 
@@ -250,17 +251,21 @@ test("below 960 the drawer replaces the rail and behaves for the keyboard", asyn
   await expect(drawer).toBeHidden();
   await expect(trigger).toBeFocused();
   await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
+
+  // „Více" at the end of the strip opens the same drawer.
+  await page.locator(".section-bar__more-button").click();
+  await expect(drawer).toBeVisible();
 });
 
-test("the footer has two columns, real social links and no placeholders", async ({ page }) => {
+test("the footer has four columns, the curate-and-verify statement and no personal name", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("nav.footer-nav")).toHaveCount(2);
+  await expect(page.locator(".site-footer__grid > *")).toHaveCount(4);
   await expect(page.locator(".social-row")).toHaveCount(0);
   await expect(page.locator('footer a[href$="/feed.xml"]')).toHaveText(/RSS/);
   await expect(page.locator('footer a[href="https://www.instagram.com/dneskai/"]')).toHaveCount(1);
-  // The person responsible for the content, as About states it.
-  await expect(page.locator(".footer-operator")).toContainText("Lukáš Kouřil");
-  await expect(page.locator('.footer-operator a[href$="/about#redakce"]')).toHaveCount(1);
+  await expect(page.locator(".footer-description")).toContainText("Každou informaci ověřujeme");
+  await expect(page.locator('.footer-description a[href$="/sources"]')).toHaveCount(1);
+  await expect(page.locator("footer")).not.toContainText("jazykový model");
 });
 
 test("campaign links land without a redirect that strips the query", async ({ request }) => {
@@ -315,7 +320,7 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
   await skip.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
 
-  const trigger = page.getByRole("button", { name: /search|hledat/i });
+  const trigger = page.locator(".search-trigger");
   await trigger.click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
@@ -336,11 +341,13 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
   await expect(page.getByRole("dialog").getByRole("textbox")).toBeFocused();
 });
 
-test("topic detail is one list of editions and links no raw tag page", async ({ page }) => {
+test("a section page leads on a photo and lists the section's articles", async ({ page }) => {
   await page.goto("/topics/ai-models");
-  await expect(page.getByRole("heading", { name: /vydání k tématu/i })).toBeVisible();
-  await expect(page.locator(".feed-list .feed-row").first()).toBeVisible();
+  await expect(page.locator("h1")).toHaveText("Modely");
+  await expect(page.locator(".section-head__scope")).toBeVisible();
+  await expect(page.locator(".section-top .card--band")).toHaveCount(1);
   await expect(page.locator('a[href*="/tags/"]')).toHaveCount(0);
+  await expect(page.locator('.section-foot a[href$="/topics/ai-models/feed.xml"]')).toHaveCount(1);
 });
 
 test("feeds expose language, entry links, publication time and categories", async ({ request }) => {
@@ -361,34 +368,30 @@ test("feeds expose language, entry links, publication time and categories", asyn
   expect(await czech.text()).toContain('xml:lang="cs"');
 });
 
-test("source evidence class stays separate and reduced motion disables entrances", async ({ page }) => {
+test("the ledger states each source's kind and reduced motion disables entrances", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/articles/2026-07-05-deepmind-blitz-anthropic-reckoning");
-  await expect(page.locator(".source-ledger")).toBeVisible();
-  const headers = await page.locator(".source-ledger th").allTextContents();
-  expect(headers.join(" ")).toMatch(/kind of source|druh zdroje/i);
-  // Three columns: the curator notes and feed type are not reader data.
-  expect(headers).toHaveLength(3);
-  const entrances = page.locator(".enter");
-  expect(await entrances.count()).toBeGreaterThan(0);
-  const animationName = await entrances.nth(0).evaluate((element) => getComputedStyle(element).animationName);
+  await expect(page.locator("#zdroje")).toBeVisible();
+  const rows = page.locator(".ledger__row");
+  expect(await rows.count()).toBeGreaterThan(0);
+  await expect(rows.first().locator(".ledger__class")).toHaveText(/primární|sekundární|neurčeno/);
+  await page.goto("/about");
+  const animationName = await page.locator(".page-shell").evaluate((element) => getComputedStyle(element).animationName);
   expect(animationName).toBe("none");
 });
 
 test("brand, completion, and no-media states are deterministic", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  // Rail, mobile top bar and footer each carry one lockup. The top bar is in
-  // the DOM at every width and hidden by CSS above 960.
-  await expect(page.locator(".sidebar .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
+  await expect(page.locator(".masthead__brand .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator("footer .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator(".edition-end")).toContainText("přehled");
-  // No-media state: an edition without a photo gets the seeded hairline plate.
-  const figure = page.locator(".lead__figure");
-  await expect(figure).toHaveCount(1);
-  const hasImage = await figure.locator("img").count();
-  const hasPlate = await figure.locator(".hero-plate").count();
-  expect(hasImage + hasPlate, "the lead always resolves to a picture or a plate").toBe(1);
+  // The lead is a photo with the headline on its band, or a typographic lead;
+  // never a drawn plate.
+  const photoLead = await page.locator(".lead__media img").count();
+  const typeLead = await page.locator(".lead--type").count();
+  expect(photoLead + typeLead, "the lead is a photo or typographic").toBe(1);
+  await expect(page.locator('img[src$=".svg"]:not([src*="/brand/"]):not([src*="/banners/"])')).toHaveCount(0);
 });
 
 test("health and operator-adjacent routes remain private", async ({ page, request }) => {
@@ -447,7 +450,7 @@ test("the section routes render their honest empty states", async ({ page }) => 
   }
 
   await page.goto("/ai-modely");
-  if (!(await page.locator(".feed-row").count())) {
+  if (!(await page.locator(".row-compact").count())) {
     await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
   }
 
@@ -459,7 +462,7 @@ test("the section routes render their honest empty states", async ({ page }) => 
 
 test("the week chain reaches back through every published week", async ({ page }) => {
   await page.goto("/tyden");
-  await expect(page.locator(".feed-row").first()).toBeVisible();
+  await expect(page.locator(".day-group .card").first()).toBeVisible();
 
   // Follow the chain to its end; every hop is a static page.
   const seen = new Set<string>();
@@ -502,15 +505,15 @@ test("the new section routes are in the sitemap", async ({ request }) => {
   expect(xml.includes("/akce<"), "/akce sitemap entry must follow its robots state").toBe(!noindex);
 });
 
-test("the rail partner creative holds 300x250 and carries no script", async ({ page }) => {
+test("the house creative holds 300x250 and carries no script", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  const creative = page.locator(".right-rail .banner-slot__creative:visible");
+  const creative = page.locator(".day-band .banner-slot__creative:visible");
   await expect(creative).toBeVisible();
   const rect = await creative.boundingBox();
   expect(rect?.width).toBe(300);
   expect(rect?.height).toBe(250);
-  await expect(page.locator(".right-rail .banner-slot")).toHaveCount(1);
+  await expect(page.locator(".banner-slot")).toHaveCount(1);
   await expect(page.locator(".banner-slot script")).toHaveCount(0);
 });
 
@@ -523,7 +526,7 @@ test("the magazine's own copy carries no em-dash", async ({ page }) => {
     ".empty-line",
     ".week-action",
     ".archive-exhausted",
-    ".section-head",
+    ".module-head",
     ".rail-module__kicker",
     ".event-scope__heading",
     ".scope-nav",
@@ -538,24 +541,78 @@ test("the magazine's own copy carries no em-dash", async ({ page }) => {
   }
 });
 
-test("the article page carries the rail and files chips only when tagged", async ({ page }) => {
+test("the article page: byline, figure, side column and ledger", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  // A schema-v2 edition: the legacy May and July issues predate
-  // why_it_matters, and a missing highlights block is a real legacy state.
   await page.goto("/articles/2026-08-05-spacex-jde-po-operatorech-ai-zlevnuje");
 
-  // Reading spine survives the re-skin.
   await expect(page.locator(".editorial-highlights")).toBeVisible();
   await expect(page.locator(".source-ledger")).toBeVisible();
   await expect(page.locator(".article-body p").first()).toBeVisible();
+  // Redaktor is deliberately empty; Ověření never claims an unrecorded review.
+  await expect(page.locator(".byline dt").first()).toHaveText("Redaktor");
+  await expect(page.locator(".byline")).toContainText(/Sestaveno z|Ověřeno podle/);
+  await expect(page.locator('.byline a[href$="/about#redakce"]')).toHaveCount(1);
+  await expect(page.locator(".article-head")).not.toContainText("jazykový model");
 
-  // Rail: the configured partner creative and related editions, nothing else.
-  const rail = page.locator(".right-rail");
-  await expect(rail.locator('.banner-slot a[href="https://devshark.app"]')).toBeVisible();
-  await expect(rail.locator(".rail-related a").first()).toBeVisible();
+  const side = page.locator(".article-grid__side");
+  await expect(side.locator('.banner-slot a[href="https://devshark.app"]')).toBeVisible();
+  await expect(page.locator(".hero__topics, .hero__categories")).toHaveCount(0);
+});
 
-  // This edition has no category, so the row is absent rather than empty.
-  await expect(page.locator(".hero__categories")).toHaveCount(0);
-  // Topic tags are a separate row and are not conflated with categories.
-  await expect(page.locator(".hero__topics")).toBeVisible();
+test.describe("round 2 invariants", () => {
+  const PAGES = [
+    "/",
+    "/articles/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot",
+    "/tyden",
+    "/archive",
+    "/topics/ai-models",
+    "/about",
+  ];
+
+  test("no sidebar; the masthead carries six section links and Více", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator(".sidebar, .nav-rail")).toHaveCount(0);
+    await expect(page.locator(".section-bar__list > li > a")).toHaveCount(6);
+    await expect(page.locator(".section-bar__more")).toHaveCount(1);
+  });
+
+  test("the front page's h1 is the lead headline on its band", async ({ page }) => {
+    await page.goto("/");
+    const onBand = await page.locator(".lead__band h1").count();
+    const typographic = await page.locator(".lead--type h1").count();
+    expect(onBand + typographic).toBe(1);
+    await expect(page.locator("h1")).toHaveCount(1);
+  });
+
+  test("no reading time and no personal name on any page", async ({ page }) => {
+    for (const path of PAGES) {
+      await page.goto(path);
+      const text = await page.locator("body").innerText();
+      expect(text, path).not.toMatch(/min(\.| | )čtení/);
+      expect(text, path).not.toMatch(/Kouřil|Lukáš/);
+    }
+  });
+
+  test("O magazínu #redakce states that a language model writes the text", async ({ page }) => {
+    await page.goto("/about");
+    const redakce = page.locator("#redakce");
+    await expect(redakce).toContainText("jazykový model");
+    await expect(redakce).toContainText("tým DNESKAi");
+  });
+
+  test("the ledger never lists more rows than the article cites", async ({ page }) => {
+    await page.goto("/articles/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot");
+    const byline = await page.locator(".byline").innerText();
+    const cited = Number(byline.match(/(\d+)\s+uveden/)?.[1] ?? NaN);
+    expect(Number.isFinite(cited)).toBe(true);
+    expect(await page.locator(".ledger__row").count()).toBeLessThanOrEqual(cited);
+  });
+
+  test("every image carries width and height", async ({ page }) => {
+    for (const path of PAGES) {
+      await page.goto(path);
+      const missing = await page.locator("img:not([width]), img:not([height])").count();
+      expect(missing, path).toBe(0);
+    }
+  });
 });

@@ -6,6 +6,8 @@
 // nothing rather than as the slug.
 
 import type { Source } from "./sources";
+import { sectionLabel, sectionOfTag } from "./sections";
+import { slugify } from "./text";
 
 // Every tag present in content/articles at the time of the 2026-09 audit, plus
 // the legacy English tags of the May and June issues. Slugs lose their
@@ -289,4 +291,38 @@ export function monogram(name: string): string {
     ? `${words[0]?.[0] ?? ""}${words[1]?.[0] ?? ""}`
     : (words[0] ?? "").slice(0, 2);
   return letters.toLocaleUpperCase("cs");
+}
+
+/**
+ * The article's „Ověření" line (round 2). It claims a review only when the
+ * generation record says a person reviewed the text; otherwise it states what
+ * the text was assembled from. Null for a legacy edition without a record.
+ */
+export function verificationSentence(
+  generation: { human_reviewed: boolean } | undefined,
+  sourceCount: number,
+  t: {
+    verificationReviewed: string;
+    verificationUnreviewed: string;
+    provenanceSourcesOne: string;
+    provenanceSourcesMany: string;
+  },
+): string | null {
+  if (!generation) return null;
+  const sources = sourceCount === 1
+    ? t.provenanceSourcesOne
+    : t.provenanceSourcesMany.replace("{n}", String(sourceCount));
+  return (generation.human_reviewed ? t.verificationReviewed : t.verificationUnreviewed).replace("{sources}", sources);
+}
+
+/**
+ * The section a Brief belongs to, from its free-text or slug `topic`
+ * (round 2, A-11): the topic is slugified and mapped with the same tag table
+ * as articles. A topic that maps to no section gets no label, never the raw
+ * text. Part B replaces this with a delivered `dispatches[].section`.
+ */
+export function briefSectionLabel(topic: string | undefined): string | null {
+  if (!topic) return null;
+  const slug = slugify(topic);
+  return sectionLabel(sectionOfTag(slug) ?? (slug.startsWith("ai-") ? sectionOfTag(slug.slice(3)) : null));
 }

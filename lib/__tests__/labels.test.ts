@@ -79,3 +79,16 @@ describe("source directory", () => {
     expect(monogram("Digiday")).toBe("DI");
   });
 });
+
+describe("Brief sections", () => {
+  it("maps free-text and slug topics to a section, or to nothing", async () => {
+    const { briefSectionLabel } = await import("../labels");
+    expect(briefSectionLabel("open-source-ai")).toBe("Modely");
+    expect(briefSectionLabel("AI modely")).toBe("Modely");
+    expect(briefSectionLabel("Kybernetická bezpečnost")).toBe("Bezpečnost");
+    expect(briefSectionLabel("AI agenti")).toBe("Vývoj");
+    expect(briefSectionLabel("evropska-ai-politika")).toBe("Regulace");
+    expect(briefSectionLabel("Vesmír")).toBeNull();
+    expect(briefSectionLabel(undefined)).toBeNull();
+  });
+});

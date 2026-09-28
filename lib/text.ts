@@ -47,3 +47,9 @@ export function decodeEntities(text: string): string {
     return NAMED_ENTITIES[code.toLowerCase()] ?? match;
   });
 }
+
+/** Czech plural: 1 zdroj, 2–4 zdroje, 0 or 5+ zdrojů. */
+export function czechPlural(n: number, one: string, few: string, many: string): string {
+  const form = n === 1 ? one : n >= 2 && n <= 4 ? few : many;
+  return `${n} ${form}`;
+}

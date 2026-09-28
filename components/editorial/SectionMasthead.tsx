@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 /**
- * The masthead every section on the front page sits under: a mono kicker, a
- * 2px rule, and an optional action on the right.
+ * The module head every block sits under: a 2px ink rule, a Grotesk section
+ * label, an optional action on the right and an optional one-line serif note
+ * saying what the module is.
  *
  * Sections previously each carried their own heading treatment — a subheading
  * with a hairline for the week feed, a bare mono kicker for the Briefs and
@@ -19,21 +20,26 @@ export function SectionMasthead({
   id,
   action,
   heading = true,
+  note,
 }: {
   kicker: string;
   id?: string;
   action?: { href: string; label: string };
   heading?: boolean;
+  note?: string;
 }) {
   const Kicker = heading ? "h2" : "p";
   return (
-    <div className="masthead">
-      <Kicker id={id} className="masthead__kicker">{kicker}</Kicker>
-      {action ? (
-        <Link href={action.href} className="masthead__action">
-          {action.label} →
-        </Link>
-      ) : null}
-    </div>
+    <>
+      <div className="module-head">
+        <Kicker id={id} className="label module-head__label">{kicker}</Kicker>
+        {action ? (
+          <Link href={action.href} className="module-head__action">
+            {action.label}&nbsp;→
+          </Link>
+        ) : null}
+      </div>
+      {note ? <p className="module-head__note">{note}</p> : null}
+    </>
   );
 }

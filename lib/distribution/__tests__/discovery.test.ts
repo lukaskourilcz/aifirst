@@ -47,7 +47,7 @@ describe("Markdown editions and llms.txt", () => {
     expect(md.startsWith(`# ${article.frontmatter.title}\n`)).toBe(true);
     expect(md).toContain(`/articles/${article.slug}`);
     if (article.frontmatter.why_it_matters?.length) expect(md).toContain("## Proč na tom záleží");
-    if (article.frontmatter.sources.length) expect(md).toContain("## Zdroje tohoto vydání");
+    if (article.frontmatter.sources.length) expect(md).toContain("## Zdroje tohoto článku");
     expect(md).toContain(article.mdx.trim().slice(0, 80));
   });
 

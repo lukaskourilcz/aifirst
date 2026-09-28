@@ -4,7 +4,7 @@ import { dict } from "@/lib/i18n/dictionaries";
 import { practicalTypeLabel, type PracticalBlock } from "@/lib/practical";
 import { czechTypography } from "@/lib/typography";
 import { czechLongDate } from "@/lib/weeks";
-import { WidgetModule } from "./RightRail";
+import { WidgetModule } from "./WidgetModule";
 
 /**
  * „Prakticky": the edition's one actionable item (four on the Friday tools

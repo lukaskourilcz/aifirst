@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Sidebar } from "@/components/Sidebar";
+import { Masthead } from "@/components/Masthead";
 import { Footer } from "@/components/Footer";
 import { KeyboardHelp } from "@/components/KeyboardHelp";
 import { HtmlLang } from "@/components/HtmlLang";
@@ -43,13 +43,11 @@ export default async function LangLayout({
     <>
       <HtmlLang locale={lang} />
       <a className="skip-link" href="#main-content">{dict(lang).common.skipToContent}</a>
-      <div className="shell">
-        <Sidebar locale={lang} />
-        <main className="shell__main" id="main-content" tabIndex={-1}>
-          {children}
-          <Footer locale={lang} />
-        </main>
-      </div>
+      <Masthead locale={lang} />
+      <main className="site-main" id="main-content" tabIndex={-1}>
+        {children}
+      </main>
+      <Footer locale={lang} />
       <KeyboardHelp locale={lang} />
     </>
   );

@@ -5,6 +5,8 @@ import {
   czechMonthLabel,
   czechDatesInText,
   czechWeekdayDate,
+  czechWeekdayGenitiveShort,
+  czechWeekdayShort,
   czechNumericDate,
   czechWeekday,
   groupByDay,
@@ -123,6 +125,12 @@ describe("czech labels", () => {
   it("rewrites dates inside delivered prose but not inside paths", () => {
     expect(czechDatesInText("Obálka DNESKAi k 2026-08-15, témata")).toBe("Obálka DNESKAi k 15. 8. 2026, témata");
     expect(czechDatesInText("/articles/2026-08-15-x")).toBe("/articles/2026-08-15-x");
+  });
+
+  it("writes short weekday labels, including the genitive", () => {
+    expect(czechWeekdayShort("2026-09-22")).toBe("úterý 22. 9.");
+    expect(czechWeekdayGenitiveShort("2026-09-25")).toBe("pátku 25. 9.");
+    expect(czechWeekdayGenitiveShort("2026-09-23")).toBe("středy 23. 9.");
   });
 
   it("writes a weekday date and a month label", () => {

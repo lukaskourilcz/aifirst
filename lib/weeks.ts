@@ -142,6 +142,20 @@ export function czechNumericDate(dateKey: string): string {
   return `${d}. ${m}. ${y}`;
 }
 
+const CS_WEEKDAYS_GENITIVE = ["pondělí", "úterý", "středy", "čtvrtka", "pátku", "soboty", "neděle"] as const;
+
+/** „pátku 25. 9." — for „Konec vydání z pátku 25. 9.". */
+export function czechWeekdayGenitiveShort(dateKey: string): string {
+  const [, m, d] = parts(dateKey);
+  return `${CS_WEEKDAYS_GENITIVE[isoWeekday(dateKey) - 1] ?? ""} ${d}. ${m}.`;
+}
+
+/** „úterý 22. 9." — weekday and day without the year, for labels in a week. */
+export function czechWeekdayShort(dateKey: string): string {
+  const [, m, d] = parts(dateKey);
+  return `${czechWeekday(dateKey)} ${d}. ${m}.`;
+}
+
 /** „čtvrtek 25. 9. 2026". */
 export function czechWeekdayDate(dateKey: string): string {
   return `${czechWeekday(dateKey)} ${czechNumericDate(dateKey)}`;

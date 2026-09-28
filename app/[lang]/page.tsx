@@ -1,25 +1,27 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CondensedBriefs, LeadPackage } from "@/components/editorial/LeadPackage";
+import { DayBriefs, DayWatchlist, LeadPackage } from "@/components/editorial/LeadPackage";
+import { Card } from "@/components/editorial/Card";
+import { DailyLesson } from "@/components/editorial/DailyLesson";
+import { BannerSlot } from "@/components/editorial/BannerSlot";
+import { PracticalTip } from "@/components/editorial/PracticalTip";
 import { SectionMasthead } from "@/components/editorial/SectionMasthead";
 import { PageShell } from "@/components/PageShell";
-import { FeedRow } from "@/components/editorial/FeedRow";
-import { RightRail } from "@/components/editorial/RightRail";
 import { WeekAction } from "@/components/editorial/WeekAction";
 import { CorrectionsNotice } from "@/components/editorial/CorrectionsNotice";
 import { SponsorBlock } from "@/components/editorial/SponsorBlock";
 import { StructuredData } from "@/components/editorial/StructuredData";
-import { getArticle, listArticles, resolveHeroPhoto } from "@/lib/content";
+import { articlePhotos, getArticle, listArticles, watchlistWithoutBriefs } from "@/lib/content";
 import { siteUrl } from "@/lib/config";
-import { readingMinutes } from "@/lib/text";
+import { czechPlural } from "@/lib/text";
+import { sectionLabel, sectionOf } from "@/lib/sections";
 import { type Locale, localePrefixer } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localizedBrand } from "@/lib/brand";
-import { loadEvents, splitByAnchor } from "@/lib/events";
 import { readPractical } from "@/lib/practical";
-import { homeEditionState, listBoardContexts } from "@/lib/board";
-import { czechLongDate, czechWeekday, czechWeekdayDate, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
+import { homeEditionState, isPublishingDay, listBoardContexts } from "@/lib/board";
+import { czechWeekdayDate, czechWeekdayGenitiveShort, czechWeekdayShort, weekBeforeWindow, weekTitle, withinLastDays } from "@/lib/weeks";
 
 export const dynamic = "force-static";
 
@@ -50,8 +52,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
   }
 
   const fm = latest.frontmatter;
-  const heroPhoto = resolveHeroPhoto(fm);
-  const reading = readingMinutes(latest.mdx);
+  const photos = articlePhotos(fm);
+  const heroPhoto = photos.hero;
   const base = siteUrl();
   const articleHref = lp(`/articles/${latest.slug}`);
 
@@ -62,7 +64,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
   // builds the same HTML.
   const { anchor, missedDay, leadIsEarlier } = homeEditionState(await listBoardContexts(), fm.date);
   const week = withinLastDays(allArticles, anchor, 7).filter((a) => a.slug !== latest.slug);
-  const { upcoming } = splitByAnchor(loadEvents(), anchor);
+  const briefCount = (fm.dispatches ?? []).length;
+  const watchCount = watchlistWithoutBriefs(fm.wire ?? [], fm.dispatches ?? []).length;
+  const weekend = !isPublishingDay(anchor);
   const older = weekBeforeWindow(allArticles, anchor);
 
   const lastCorrection = [...(fm.corrections ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
@@ -105,16 +109,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
         }}
       />
 
-      <div className="page-with-rail">
-        <div className="page-with-rail__main">
-          {/* The front page dateline: who is publishing and for which day. */}
-          <header className="dateline">
-            <p className="dateline__edition">
-              <span className="dateline__name">{publication.name}</span>
-              <span aria-hidden> · </span>
-              <time dateTime={anchor}>{czechWeekday(anchor)} {czechLongDate(anchor)}</time>
+      <div className="front">
+        <div className="front__edition">
+          {/* Which edition this is, and what it holds. The date is the
+              edition's own; on a weekend the line says the paper is off. */}
+          <div className="edition-line">
+            <p className="label">
+              {leadIsEarlier ? t.latestEdition : t.todaysEdition} ·{" "}
+              <time dateTime={fm.date}>{czechWeekdayDate(fm.date)}</time>
             </p>
-          </header>
+            <p className="meta">
+              {czechPlural(1, "článek", "články", "článků")}
+              {briefCount ? ` · ${briefCount} krátce` : null}
+              {watchCount ? ` · ${watchCount} ke sledování` : null}
+              {weekend ? ` · ${t.weekendOff}` : null}
+            </p>
+          </div>
 
           {/* A missed weekday is one quiet line, not a headline: the newest
               edition still leads. Tertiary, not warning amber, because a day
@@ -125,34 +135,59 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
             </p>
           ) : null}
 
-          <LeadPackage article={latest} locale={locale} heroPhoto={heroPhoto} readingMinutes={reading} earlier={leadIsEarlier} />
+          <LeadPackage article={latest} locale={locale} photos={photos} section={sectionLabel(sectionOf(fm.tags))} />
 
           <SponsorBlock sponsor={fm.sponsor} />
-          <CondensedBriefs
-            dispatches={fm.dispatches ?? []}
-            wire={fm.wire ?? []}
-            locale={locale}
-            articleHref={articleHref}
-          />
+
+          {/* The day's fixed modules: Krátce beside Ke sledování, Pojem dne
+              and the house creative. */}
+          <div className="day-band">
+            <DayBriefs dispatches={fm.dispatches ?? []} locale={locale} />
+            <div className="day-band__aside">
+              <PracticalTip practical={readPractical(fm.practical, fm.date)} locale={locale} />
+              <DayWatchlist wire={fm.wire ?? []} dispatches={fm.dispatches ?? []} locale={locale} />
+              <DailyLesson dateKey={fm.date} locale={locale} />
+              <BannerSlot id="rail-square" locale={locale} />
+            </div>
+          </div>
           <CorrectionsNotice corrections={fm.corrections} locale={locale} />
 
-          {/* The mark closes the edition, not the page: everything above is
-              the edition, everything below is recirculation. */}
+          {/* The completion row closes the day's edition, not the page. */}
           <p className="edition-end">
-            <span className="kicker edition-end__done">{d.home.editionComplete}</span>
-            <span className="kicker edition-end__message">{publication.completion}</span>
+            <span className="label edition-end__done">
+              {weekend ? `${d.home.editionCompleteFrom} ${czechWeekdayGenitiveShort(fm.date)}` : d.home.editionCompleteToday}
+            </span>
+            <span className="edition-end__message">{publication.completion}</span>
           </p>
 
           {week.length > 0 ? (
-            <section className="feed-section" aria-labelledby="last-week">
+            <section className="week-block" aria-labelledby="last-week">
               <SectionMasthead
                 id="last-week"
-                kicker={t.lastWeek}
+                kicker={weekend ? t.lastWeekPast : t.lastWeek}
                 action={{ href: lp("/tyden"), label: t.all }}
               />
-              <ul className="feed-list">
+              <ul className="week-block__grid">
                 {week.map((article) => (
-                  <FeedRow key={article.slug} article={article} locale={locale} />
+                  <li key={article.slug}>
+                    <Card
+                      href={lp(`/articles/${article.slug}`)}
+                      title={article.title}
+                      titleLang={article.lang === "en" ? "en" : undefined}
+                      label={
+                        <>
+                          {sectionLabel(sectionOf(article.tags)) ? (
+                            <span className="label--section">{sectionLabel(sectionOf(article.tags))}</span>
+                          ) : null}
+                          {sectionLabel(sectionOf(article.tags)) ? " · " : null}
+                          {czechWeekdayShort(article.date)}
+                        </>
+                      }
+                      dek={article.dek}
+                      image={article.heroPhoto}
+                      date={article.date}
+                    />
+                  </li>
                 ))}
               </ul>
               {older ? (
@@ -165,10 +200,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: Loc
               ) : null}
             </section>
           ) : null}
-
         </div>
-
-        <RightRail locale={locale} dateKey={fm.date} events={upcoming} practical={readPractical(fm.practical, fm.date)} />
       </div>
     </>
   );

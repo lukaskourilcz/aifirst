@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
-import { RightRail } from "@/components/editorial/RightRail";
 import { listArticles } from "@/lib/content";
 import { type Locale } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
-import { loadEvents, splitByAnchor } from "@/lib/events";
 import { czechRelativeDate, groupStreamByDay, loadStream, type StreamItem } from "@/lib/streams";
 import { czechNumericDate, czechWeekday } from "@/lib/weeks";
 import { looksEnglish } from "@/lib/text";
@@ -71,11 +69,10 @@ export default async function TalkedAboutPage({ params }: { params: Promise<{ la
   const articles = await listArticles(locale);
   const anchor = articles[0]?.date ?? "1970-01-01";
   const days = groupStreamByDay(loadStream("talked-about"));
-  const { upcoming } = splitByAnchor(loadEvents(), anchor);
 
   return (
-    <div className="page-with-rail">
-      <div className="page-with-rail__main">
+    <div className="list-page">
+      <div>
         <PageShell kicker={t.talkedKicker} title={t.talkedTitle} intro={t.talkedIntro}>
           {days.length === 0 ? (
             <p className="empty-line">{t.talkedEmpty}</p>
@@ -97,7 +94,6 @@ export default async function TalkedAboutPage({ params }: { params: Promise<{ la
           )}
         </PageShell>
       </div>
-      <RightRail locale={locale} dateKey={articles[0]?.date} events={upcoming} />
     </div>
   );
 }

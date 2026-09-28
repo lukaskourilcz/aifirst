@@ -17,7 +17,7 @@ export function BannerSlot({ id, locale }: { id: string; locale: Locale }) {
 
   return (
     <aside className="banner-slot" aria-label={`${label}: ${slot.advertiser}`}>
-      <p className="banner-slot__label">{label}</p>
+      <p className="meta banner-slot__label">{label}</p>
       <a
         href={slot.href}
         rel="sponsored noopener noreferrer"

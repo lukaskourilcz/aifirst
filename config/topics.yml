@@ -3,7 +3,7 @@ minimumIssues: 3
 topics:
   - id: ai-models
     slug: ai-models
-    title: { en: AI Models, cs: AI modely }
+    title: { en: AI Models, cs: Modely }
     description:
       en: Model releases, capabilities, evaluations and the practical changes behind the benchmarks.
       cs: Vydání modelů, jejich schopnosti, hodnocení a praktické změny za benchmarky.
@@ -14,7 +14,7 @@ topics:
     enabled: true
   - id: ai-regulation
     slug: ai-regulation
-    title: { en: AI Regulation, cs: Regulace AI }
+    title: { en: AI Regulation, cs: Regulace }
     description:
       en: Rules, policy decisions and governance changes that alter how AI can be built or deployed.
       cs: Pravidla, politická rozhodnutí a změny správy, které ovlivňují vývoj a nasazení AI.
@@ -47,7 +47,7 @@ topics:
     enabled: true
   - id: developer-tools
     slug: developer-tools
-    title: { en: Developer Tools, cs: Nástroje pro vývojáře }
+    title: { en: Developer Tools, cs: Vývoj }
     description:
       en: Coding agents, APIs and infrastructure that change day-to-day software work.
       cs: Programovací agenti, API a infrastruktura, které mění každodenní vývoj softwaru.
@@ -58,7 +58,7 @@ topics:
     enabled: true
   - id: research
     slug: research
-    title: { en: Research, cs: Výzkum }
+    title: { en: Research, cs: Bezpečnost }
     description:
       en: Research results, safety work and evidence that may shape the next generation of systems.
       cs: Výsledky výzkumu, bezpečnost a důkazy, které mohou ovlivnit další generaci systémů.
@@ -69,7 +69,7 @@ topics:
     enabled: true
   - id: ai-companies
     slug: ai-companies
-    title: { en: AI Companies, cs: AI firmy }
+    title: { en: AI Companies, cs: Firmy a trh }
     description:
       en: The labs and companies whose decisions materially shape the AI market.
       cs: Laboratoře a firmy, jejichž rozhodnutí podstatně formují trh s AI.

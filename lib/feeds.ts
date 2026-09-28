@@ -12,6 +12,7 @@ import { DEFAULT_LOCALE, localePath, type Locale } from "./i18n/config";
 import { dict } from "./i18n/dictionaries";
 import { brand } from "./brand";
 import { articlesForTopic, loadTopicsConfig } from "./topics/config";
+import { SECTION_TO_TOPIC, sectionOf, topicToSection } from "./sections";
 
 function correctedAt(article: Article): string {
   const correction = [...(article.frontmatter.corrections ?? [])]
@@ -133,16 +134,25 @@ export async function buildWeeklyFeed(locale: Locale): Promise<string> {
 
 export async function topicFeedParams() {
   const [config, articles] = await Promise.all([loadTopicsConfig(), listArticles()]);
-  return config.topics
-    .filter((topic) => topic.enabled && articlesForTopic(topic, articles).length >= config.minimumIssues)
-    .map((topic) => ({ slug: topic.slug }));
+  // The five section feeds always exist; other topic feeds keep their
+  // publication threshold as a compatibility contract.
+  const slugs = new Set(Object.values(SECTION_TO_TOPIC));
+  for (const topic of config.topics) {
+    if (topic.enabled && articlesForTopic(topic, articles).length >= config.minimumIssues) slugs.add(topic.slug);
+  }
+  return [...slugs].map((slug) => ({ slug }));
 }
 
 export async function buildTopicFeed(locale: Locale, slug: string): Promise<string> {
   const base = siteUrl();
   const [config, all] = await Promise.all([loadTopicsConfig(), listArticles(locale)]);
   const topic = config.topics.find((item) => item.slug === slug && item.enabled);
-  const issues = topic ? articlesForTopic(topic, all).filter((article) => !article.fallback) : [];
+  // A section's feed follows the one-section rule, like its page.
+  const sectionKey = topicToSection(slug);
+  const members = sectionKey
+    ? all.filter((article) => sectionOf(article.tags) === sectionKey)
+    : topic ? articlesForTopic(topic, all) : [];
+  const issues = members.filter((article) => !article.fallback);
   const entries: string[] = [];
   const updated: string[] = [];
   for (const issue of issues.slice(0, 50)) {

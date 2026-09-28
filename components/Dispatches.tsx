@@ -3,7 +3,7 @@ import { type Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { DigestRow } from "./editorial/DigestRow";
 import { SectionMasthead } from "./editorial/SectionMasthead";
-import { topicLabel } from "@/lib/labels";
+import { briefSectionLabel, hostOf } from "@/lib/labels";
 
 type Props = {
   items: Dispatch[];
@@ -26,29 +26,18 @@ export function Dispatches({ items, locale }: Props) {
 
   const rows = (
     <ol className="digest-list">
-      {shown.map((d, i) =>
-        d.source_url ? (
-          <DigestRow
-            key={i}
-            index={i + 1}
-            title={d.title}
-            summary={d.body}
-            meta={d.topic ? topicLabel(d.topic) ?? undefined : undefined}
-            href={d.source_url}
-            external
-            locale={locale}
-          />
-        ) : (
-          <li key={i} className="digest-row digest-row--plain">
-            <span aria-hidden className="digest-row__index">{String(i + 1).padStart(2, "0")}</span>
-            <span className="digest-row__copy">
-              <span className="digest-row__title">{d.title}</span>
-              <span className="digest-row__summary">{d.body}</span>
-              {d.topic && topicLabel(d.topic) ? <span className="digest-row__meta">{topicLabel(d.topic)}</span> : null}
-            </span>
-          </li>
-        ),
-      )}
+      {shown.map((d, i) => (
+        <DigestRow
+          key={i}
+          title={d.title}
+          summary={d.body}
+          label={briefSectionLabel(d.topic) ?? undefined}
+          host={hostOf(d.source_url) || undefined}
+          href={d.source_url}
+          external={Boolean(d.source_url)}
+          locale={locale}
+        />
+      ))}
     </ol>
   );
 

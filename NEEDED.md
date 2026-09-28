@@ -7,3 +7,9 @@
 - [ ] **Replace the outdated delivered cover plates upstream** — request corrected covers for 3, 14, 15, 17, 18, 19 and 28 August, plus 16 September, through BoardlessAI's media/delivery boundary. The 3 August image also embeds the retired brand. Preserve provenance and validate the replacement package. [imp:2] [owner:ai] [time:1h] [kind:content]
 - [ ] **Create the Threads profile before using it in a campaign** — create or confirm ownership of @dneskai, then set `brand.social`'s Threads entry to `live: true` after verifying the profile. [imp:3] [owner:me] [time:10m] [kind:setup]
 - [ ] **Deploy BoardlessAI’s domain-link update after its release gate passes** — quorum PR #593 is merged and the Actions site URL is updated, but its full production build repeatedly timed out while prerendering historical meeting pages. Fix that build failure, validate a clean current main, then use the existing guarded deployment command. The old public link remains covered by the permanent redirect. [imp:2] [owner:ai] [time:1h] [kind:deploy]
+
+## Round-2 redesign (`docs/design-review-r2/handoff/IMPLEMENTATION_NOTES_PART_A.md`)
+
+- [x] **Operator identification** — decided 2026-09-28: no personal name, IČO or e-mail on the site; the publication sells nothing, and „tým DNESKAi" answers for the content on O magazínu.
+- [ ] **Check the derived sections** — until `edition-package/2`, each article's section is its lead story's first mapped tag; review `/topics/*` and flag misfiled editions. [imp:2] [owner:me] [time:15m] [kind:decision]
+- [ ] **Deliver `edition-package/2` for Part B** — 1–3 articles per day, `section`, `priority`, `published_at`, a 3:2 hero and 1:1 thumb per article (UPSTREAM_REQUIREMENTS §1–3). [imp:4] [owner:ai] [time:1d] [kind:deploy]

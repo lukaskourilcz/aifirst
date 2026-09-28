@@ -8,6 +8,7 @@ import { groupBy } from "./helpers/group";
 import { CONTENT_LANGS, DEFAULT_LOCALE, isContentLang, isLocale, type ContentLang, type Locale } from "./i18n/config";
 import { ogImageFor } from "./og";
 import { hostOf, topicLabels } from "./labels";
+import { sectionLabel, sectionOf } from "./sections";
 import { czechTypography, czechTypographyAll } from "./typography";
 
 // Czech typography for the delivered text a reader sees, applied on read. The
@@ -179,6 +180,8 @@ export type ArticleSummary = {
   type?: IssueType;
   lang?: ContentLang;
   fallback?: boolean;
+  /** How many Briefs the edition carries, for „1 článek · 4 krátce". */
+  briefCount?: number;
   // Resolved cover thumbnail — real illustration or a cached og:image from
   // the article's sources. Absent when the article has no real picture, so
   // the UI can render text-only cards instead of an empty tile.
@@ -225,6 +228,28 @@ export function isDrawnPlate(heroPath: string | null | undefined): boolean {
   return typeof heroPath === "string" && heroPath.toLowerCase().endsWith(".svg");
 }
 
+/**
+ * The photographs a reader may see for an article (round 2). A drawn SVG
+ * plate, or an illustration whose `origin` is anything but a photo, counts as
+ * no image: the layout shows its labelled fallback instead. `thumb` is the
+ * delivered square crop when there is one, else the hero.
+ */
+export function articlePhotos(fm: Partial<ArticleFrontmatter>): {
+  hero: string | null;
+  thumb: string | null;
+  own: boolean;
+} {
+  const origin = fm.illustration?.origin as string | undefined;
+  if (origin !== undefined && origin !== "photo") return { hero: null, thumb: null, own: false };
+  const resolved = resolveHeroPhoto(fm);
+  const hero = resolved && !isDrawnPlate(resolved) ? resolved : null;
+  const ownThumb = fm.illustration?.thumbnail_path;
+  const thumb = ownThumb && hasRealIllustration(ownThumb) && !isDrawnPlate(ownThumb) && hero === fm.illustration?.path
+    ? ownThumb
+    : hero;
+  return { hero, thumb, own: hero !== null && hero === fm.illustration?.path };
+}
+
 // Best available cover for frontmatter: prefer a real delivered illustration,
 // otherwise a cached og:image from one of the article's own
 // sources or wire items. Returns null when nothing usable is available.
@@ -240,12 +265,6 @@ export function resolveHeroPhoto(fm: Partial<ArticleFrontmatter>): string | null
     if (img) return img;
   }
   return null;
-}
-
-function resolveThumbnailPhoto(fm: Partial<ArticleFrontmatter>): string | null {
-  const thumbnail = fm.illustration?.thumbnail_path;
-  if (hasRealIllustration(thumbnail)) return thumbnail ?? null;
-  return resolveHeroPhoto(fm);
 }
 
 export async function readMdxFiles(dir: string): Promise<string[]> {
@@ -332,7 +351,8 @@ function toSummary(
   fallback: boolean,
 ): ArticleSummary | null {
   if (!fm.slug || !fm.date || !fm.title || editorialHold(fm.slug)) return null;
-  const heroPhoto = resolveThumbnailPhoto(fm) ?? undefined;
+  // Lists use the delivered thumbnail; a drawn plate or non-photo is no image.
+  const heroPhoto = articlePhotos(fm).thumb ?? undefined;
   return {
     slug: fm.slug,
     date: fm.date,
@@ -347,6 +367,7 @@ function toSummary(
     lang,
     fallback,
     heroPhoto,
+    briefCount: fm.dispatches?.length ?? 0,
   };
 }
 
@@ -577,6 +598,8 @@ export type SearchEntry = {
   tags: string[];
   /** Czech display labels for `tags`, resolved on the server. */
   topics: string[];
+  /** The article's one section label (round 2), or null. */
+  section: string | null;
 };
 
 export async function buildSearchIndex(
@@ -591,5 +614,6 @@ export async function buildSearchIndex(
     dek: a.dek ?? "",
     tags: a.tags ?? [],
     topics: topicLabels(a.tags),
+    section: sectionLabel(sectionOf(a.tags)),
   }));
 }

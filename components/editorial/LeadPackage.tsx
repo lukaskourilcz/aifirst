@@ -1,177 +1,160 @@
 import Link from "next/link";
-import { isDrawnPlate, watchlistWithoutBriefs, type Article, type Dispatch, type WireItem } from "@/lib/content";
+import { watchlistWithoutBriefs, type Article, type Dispatch, type WireItem } from "@/lib/content";
 import { DigestRow } from "./DigestRow";
 import { SectionMasthead } from "./SectionMasthead";
 import { type Locale, localePath } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
-import { czechNumericDate, czechWeekdayDate } from "@/lib/weeks";
-import { sourceName, topicLabel } from "@/lib/labels";
+import { briefSectionLabel, hostOf, photoCreditParts, sourceName } from "@/lib/labels";
 import { loadSources } from "@/lib/sources";
-import { looksEnglish } from "@/lib/text";
+import { czechPlural, looksEnglish } from "@/lib/text";
 
 /**
- * A deterministic 45° hairline plate, seeded from the slug so one article
- * always gets the same one. Decorative by construction: no icon, no
- * illustration, no headline burned in.
- */
-function HeroPlate({ slug, ratio }: { slug: string; ratio: string }) {
-  const seed = [...slug].reduce((total, character) => total + character.charCodeAt(0), 0);
-  const id = `plate-${seed % 997}`;
-  return (
-    <div className="hero-plate" style={{ aspectRatio: ratio }} role="presentation" aria-hidden="true">
-      <svg width="100%" height="100%" preserveAspectRatio="none">
-        <defs>
-          <pattern id={id} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform={`rotate(45 0 0) translate(${seed % 6} 0)`}>
-            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--border-subtle)" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill={`url(#${id})`} />
-      </svg>
-      <span className="hero-plate__mark">DNESKAi</span>
-    </div>
-  );
-}
-
-/**
- * The front page lead: today's edition as a headline that goes to the article,
- * not as the article itself. The meta row is date and reading minutes, and
- * nothing else.
+ * The front-page lead (round 2). With a photograph, the whole block is one
+ * link: the photo at 2:1 (1:1 from the delivered square below 960 px) with
+ * the section label and the headline set white on the flat ink band. Without
+ * one it is a typographic lead on paper; never a plate, never a box.
  *
- * Czech lead headlines run long, so past 100 characters the hero drops from
- * display size to heading size. That keeps the dek and the meta row above the
- * fold on a 900px viewport instead of pushing them off it.
+ * Below it: the dek with the source count and photo credit, and beside it the
+ * article's „Proč na tom záleží". There is no reading time anywhere.
  */
 export function LeadPackage({
   article,
   locale,
-  heroPhoto,
-  readingMinutes,
-  earlier = false,
+  photos,
+  section,
 }: {
   article: Article;
   locale: Locale;
-  heroPhoto: string | null;
-  readingMinutes: number;
-  /** The lead is an earlier day's edition, e.g. Friday's on a Saturday. */
-  earlier?: boolean;
+  photos: { hero: string | null; thumb: string | null; own: boolean };
+  section: string | null;
 }) {
   const fm = article.frontmatter;
-  const t = dict(locale).sections;
-  const common = dict(locale).common;
+  const t = dict(locale);
   const href = localePath(locale, `/articles/${article.slug}`);
-  const long = fm.title.length > 100;
-  // The copy plate composites over a photograph only. A drawn .svg cover is
-  // already composed upstream, and the oldest ones burn the headline into the
-  // artwork, so those keep the stacked rendering and the title is never doubled.
-  const overlay = heroPhoto !== null && !isDrawnPlate(heroPhoto);
-
-  const figure = (
-    <Link href={href} className="lead__figure" tabIndex={-1} aria-hidden="true">
-      {heroPhoto ? (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={heroPhoto}
-          alt=""
-          width={680}
-          height={291}
-          decoding="async"
-          className="lead__image"
-        />
-      ) : (
-        <HeroPlate slug={article.slug} ratio="21 / 9" />
-      )}
-    </Link>
-  );
+  const credit = photos.own && fm.illustration.attribution ? photoCreditParts(fm.illustration.attribution) : null;
+  const sourceCount = (fm.sources ?? []).length;
+  const why = fm.why_it_matters ?? [];
 
   return (
-    <section className={overlay ? "lead lead--overlay" : "lead"} aria-labelledby="lead-title">
-      {overlay ? figure : null}
+    <section className={photos.hero ? "lead" : "lead lead--type"} aria-labelledby="lead-title">
+      {photos.hero ? (
+        <Link href={href} className="lead__media">
+          <picture>
+            {photos.thumb ? <source media="(max-width: 960px)" srcSet={photos.thumb} /> : null}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={photos.hero} alt="" width={1600} height={800} decoding="async" fetchPriority="high" />
+          </picture>
+          <div className="lead__band">
+            {section ? <p className="label lead__section">{section}</p> : null}
+            <h1 id="lead-title" className="lead__title">{fm.title}</h1>
+          </div>
+        </Link>
+      ) : (
+        <>
+          {section ? <p className="label lead__section">{section}</p> : null}
+          <h1 id="lead-title" className="lead__title">
+            <Link href={href}>{fm.title}</Link>
+          </h1>
+        </>
+      )}
 
-      <div className="lead__copy">
-        <p className="lead__kicker">
-          {earlier ? t.latestEdition : t.todaysEdition}
-          <span aria-hidden> · </span>
-          <time dateTime={fm.date}>{earlier ? czechWeekdayDate(fm.date) : czechNumericDate(fm.date)}</time>
-        </p>
-        <h1 id="lead-title" className="lead__title" data-long={long ? "true" : undefined}>
-          <Link href={href}>{fm.title}</Link>
-        </h1>
-        <p className="lead__dek">{fm.dek}</p>
+      <div className="lead__below">
+        <div>
+          <p className="lead__dek">{fm.dek}</p>
+          <p className="meta lead__meta">
+            {czechPlural(sourceCount, "zdroj", "zdroje", "zdrojů")}
+            {credit ? ` · ${credit.prefix} ${credit.author}${credit.host ? ` / ${credit.host}` : ""}` : null}
+          </p>
+        </div>
+        {why.length ? (
+          <aside className="lead__why" aria-labelledby="lead-why">
+            <p id="lead-why" className="label">{t.article.whyItMatters}</p>
+            <ul>
+              {why.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </aside>
+        ) : null}
       </div>
+    </section>
+  );
+}
 
-      {/* Outside the plate by contract: the plate carries the headline, the
-          meta row stays on the page under the image. The date is already in
-          the kicker, so the row is the reading time alone. */}
-      <p className="lead__meta">
-        <span>{readingMinutes} {common.minutesShort} {common.readMinutes}</span>
-      </p>
+const COUNT_WORDS = ["", "Jedna zpráva", "Dvě zprávy", "Tři zprávy", "Čtyři zprávy", "Pět zpráv", "Šest zpráv"];
 
-      {overlay ? null : figure}
+/**
+ * „Krátce": the day's Briefs in two columns, each linking to its own source.
+ */
+export function DayBriefs({ dispatches, locale }: { dispatches: Dispatch[]; locale: Locale }) {
+  const t = dict(locale).sections;
+  const briefs = dispatches.slice(0, 6);
+  if (briefs.length === 0) return null;
+  const count = COUNT_WORDS[briefs.length];
+  return (
+    <section className="day-briefs" aria-labelledby="day-briefs">
+      <SectionMasthead
+        id="day-briefs"
+        kicker={t.briefs}
+        note={count ? `${count} dne, každá s\u00a0odkazem na zdroj.` : undefined}
+      />
+      <ol className="digest-list digest-list--grid">
+        {briefs.map((item) => (
+          <DigestRow
+            key={item.title}
+            title={item.title}
+            summary={item.body}
+            label={briefSectionLabel(item.topic) ?? undefined}
+            host={hostOf(item.source_url) || undefined}
+            href={item.source_url}
+            external={Boolean(item.source_url)}
+            locale={locale}
+          />
+        ))}
+      </ol>
     </section>
   );
 }
 
 /**
- * „Ve zkratce" and „Na radaru" beside the lead: four headline links each, the
- * rest of what mattered without leaving the front page.
+ * „Ke sledování": links without commentary, in their original wording. A story
+ * already told as a Brief is left out.
  */
-export async function CondensedBriefs({
-  dispatches,
+export async function DayWatchlist({
   wire,
+  dispatches,
   locale,
-  articleHref,
+  limit = 4,
 }: {
-  dispatches: Dispatch[];
   wire: WireItem[];
+  dispatches: Dispatch[];
   locale: Locale;
-  articleHref: string;
+  limit?: number;
 }) {
   const t = dict(locale).sections;
-  const briefs = dispatches.slice(0, 4);
-  const watch = watchlistWithoutBriefs(wire, dispatches).slice(0, 4);
-  if (briefs.length === 0 && watch.length === 0) return null;
-  const registry = watch.length ? await loadSources() : [];
-
+  const watch = watchlistWithoutBriefs(wire, dispatches).slice(0, limit);
+  if (watch.length === 0) return null;
+  const registry = await loadSources();
   return (
-    <div className="condensed">
-      {briefs.length > 0 ? (
-        <section className="condensed__column" aria-labelledby="condensed-briefs">
-          <SectionMasthead id="condensed-briefs" kicker={t.briefs} />
-          <ol className="digest-list">
-            {briefs.map((item, i) => (
-              <DigestRow
-                key={item.title}
-                index={i + 1}
-                title={item.title}
-                summary={item.body}
-                meta={item.topic ? topicLabel(item.topic) ?? undefined : undefined}
-                href={articleHref}
-                locale={locale}
-              />
-            ))}
-          </ol>
-        </section>
-      ) : null}
-
-      {watch.length > 0 ? (
-        <section className="condensed__column" aria-labelledby="condensed-watchlist">
-          <SectionMasthead id="condensed-watchlist" kicker={t.watchlist} />
-          <ol className="digest-list">
-            {watch.map((item, i) => (
-              <DigestRow
-                key={item.url}
-                index={i + 1}
-                title={item.title}
-                titleLang={looksEnglish(item.title) ? "en" : undefined}
-                meta={sourceName(item.source, registry, item.url) || undefined}
-                href={item.url}
-                external
-                locale={locale}
-              />
-            ))}
-          </ol>
-        </section>
-      ) : null}
-    </div>
+    <section className="day-watch" aria-labelledby="day-watch">
+      <SectionMasthead id="day-watch" kicker={t.watchlist} note={"Odkazy bez komentáře, v\u00a0původním znění."} />
+      <ol className="digest-list">
+        {watch.map((item) => {
+          const host = hostOf(item.url);
+          const via = sourceName(item.source, registry, item.url);
+          return (
+            <DigestRow
+              key={item.url}
+              variant="watch"
+              title={item.title}
+              titleLang={looksEnglish(item.title) ? "en" : undefined}
+              host={host || undefined}
+              via={via && via !== host ? via : undefined}
+              href={item.url}
+              external
+              locale={locale}
+            />
+          );
+        })}
+      </ol>
+    </section>
   );
 }

@@ -6,6 +6,8 @@ import { localePath } from "@/lib/i18n/config";
 import { localeAlternates } from "@/lib/i18n/metadata";
 import { dict } from "@/lib/i18n/dictionaries";
 import { githubRepo } from "@/lib/config";
+import { brand } from "@/lib/brand";
+import { getArticle, listArticles } from "@/lib/content";
 
 export const dynamic = "force-static";
 
@@ -17,15 +19,27 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 
 // What a reader needs from an About page: what the magazine covers, who
 // writes it, how it picks, how it treats sources and mistakes, and what it
-// does with their attention. That a language model writes the text without
-// human review is stated here once, as #redakce, and every edition links to
-// it. Run records and model names stay operator data.
+// does with their attention. That a language model writes the text, and
+// whether a person reviews it, is stated here (#redakce) rather than on every
+// article (owner decision, round 2); each article's „Ověření" row links here,
+// and the print view and llms.txt repeat it. Run records and model names stay
+// operator data.
 export default async function AboutPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang: locale } = await params;
   const t = dict(locale).about;
+  // The review sentence follows the newest edition's own generation record,
+  // so the page never claims a review the pipeline did not do.
+  const newest = (await listArticles(locale)).find((article) => (article.type ?? "daily") === "daily");
+  const reviewed = newest ? (await getArticle(newest.slug, locale))?.frontmatter.generation?.human_reviewed === true : false;
+  const authorship = [
+    t.authorshipBody,
+    reviewed ? t.authorshipReviewed : t.authorshipUnreviewed,
+    t.authorshipResponsible.replace("{who}", brand.responsiblePerson),
+    t.authorshipContact,
+  ].filter(Boolean).join(" ");
   const sections = [
     ["problem", t.problemTitle, t.problemBody],
-    ["redakce", t.authorshipTitle, t.authorshipContact ? `${t.authorshipBody} ${t.authorshipContact}` : t.authorshipBody],
+    ["redakce", t.authorshipTitle, authorship],
     ["methodology", t.methodTitle, t.methodBody],
     ["sources", t.sourcesTitle, t.sourcesBody],
     ["editorial", t.editorialTitle, t.editorialBody],

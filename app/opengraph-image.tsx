@@ -82,7 +82,7 @@ export default async function Image() {
             letterSpacing: 2,
             textTransform: "uppercase",
             color: OG.slate,
-            borderTop: `2px solid ${OG.ink}`,
+            borderTop: `2px solid ${OG.borderInk}`,
             paddingTop: 24,
           }}
         >

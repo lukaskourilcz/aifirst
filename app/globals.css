@@ -32,6 +32,13 @@
   --danger-surface: #fdf4f4;
   --sponsor-surface: #fdf7e8;
   --hover-line: #b3b3ab;
+  /* Round 2: one ink rule for mastheads and module heads, and the flat band
+     under a headline set on a photograph. White on the band holds ≥ 10:1
+     whatever the photo is; the band label ≥ 7.8:1. */
+  --border-ink: #14161a;
+  --band-ink: rgba(20, 22, 26, 0.84);
+  --band-label: #9db2ff;
+  --band-meta: #c9c9c3;
   --numeric-ghost: rgba(20, 22, 26, 0.045);
 
   /* Space Grotesk, Source Serif 4 and IBM Plex Mono are self-hosted. */
@@ -66,9 +73,19 @@
   --tracking-row: -0.02em;
   --tracking-label: 0.14em;
   --tracking-kicker: 0.16em;
-  /* The one kicker: every small uppercase label on the site uses these two. */
-  --kicker-size: 0.6875rem;
-  --kicker-tracking: 0.16em;
+
+  /* Round 2 type scale (report page 07). Grotesk carries the lead and page
+     titles; every secondary headline is Source Serif 4 600. */
+  --text-lead-1: clamp(1.75rem, 1rem + 2.6vw, 3.75rem);
+  --text-lead-2: clamp(1.75rem, 1rem + 1.9vw, 2.75rem);
+  --text-title: clamp(2rem, 1.2rem + 2.2vw, 3.25rem);
+  --text-page: clamp(2.125rem, 1.4rem + 2vw, 3rem);
+  --text-h-serif-1: 1.625rem;
+  --text-h-serif-2: 1.375rem;
+  --text-h-serif-3: 1.125rem;
+  --text-dek: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-label: 0.75rem;
+  --text-meta: 0.75rem;
 
   --leading-lead: 1.5;
   --leading-display: 1.02;
@@ -83,9 +100,9 @@
 
   /* Layout */
   --container: 1360px;
-  --sidebar-width: 244px;
-  --rail-width: 300px;
-  --reading: 35em;
+  --reading: 36em;
+  --grid-gutter: 24px;
+  --page-pad: 40px;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -127,157 +144,50 @@
    paper/ink tokens so the rebrand adds no client-side bundle cost. */
 .editorial-highlights {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-6);
-  margin: var(--space-7) 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  margin: 0;
+  padding: 12px 0 var(--space-5);
+  border-top: 2px solid var(--border-ink);
+  border-bottom: 1px solid var(--border-strong);
 }
-
-.editorial-highlights section {
-  position: relative;
-  border: 1px solid var(--border-subtle);
-  border-top: 2px solid var(--accent-primary);
-  padding: var(--space-4);
-  background: var(--surface-reading);
-}
-/* Scoped to the grid so these beat `.editorial-highlights section`, whose
-   element selector would otherwise outrank a bare class. That is what the
-   !important these rules used to carry was compensating for. */
-.editorial-highlights .editorial-highlight--changed { border-top-color: var(--border-strong); }
-.editorial-highlights .editorial-highlight--uncertainty { border-top-color: var(--status-warning); }
-
-/* Uncertainty is the one panel a reader must not mistake for a finding, so it
-   cannot rest on its amber rule alone: a second hairline under the top border
-   marks it by count as well as by colour. */
-.editorial-highlights .editorial-highlight--uncertainty::before {
-  content: "";
-  position: absolute;
-  inset: 3px 0 auto;
-  height: 1px;
-  background: var(--status-warning);
-}
-
-/* Mono kickers turn three headed panels into one instrument cluster, matching
-   the section mastheads that open every other block on the page. The ledger
-   and corrections headings used to share this rule; they render through
-   SectionMasthead now, and keeping it would have overridden the masthead's own
-   type with a subheading size. */
-.editorial-highlight__kicker {
-  margin: 0 0 var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--border-subtle);
-}
-
+.editorial-highlight__kicker { margin: 0 0 var(--space-3); }
+.editorial-highlight--uncertainty .editorial-highlight__kicker { color: var(--status-warning); }
 .editorial-highlights ul {
   margin: 0;
-  padding-left: 1.2em;
+  padding-left: 1.1em;
   color: var(--text-secondary);
   font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  line-height: 1.5;
 }
+@media (max-width: 760px) { .editorial-highlights { grid-template-columns: minmax(0, 1fr); } }
 
 .editorial-highlights li + li { margin-top: 8px; }
 
-.source-ledger {
-  margin-top: var(--section-gap);
-  padding-top: 24px;
-  border-top: 2px solid var(--border-strong);
-}
-
-.table-scroll { overflow-x: auto; }
-.table-scroll:focus-visible { outline-offset: 3px; }
-/* 640px squeezed the two prose columns into six-line stacks in the main
-   column once the rail was present. The table already lives in an accessible
-   scroll region, so giving it the width its content needs costs nothing but
-   the scroll it was already doing. */
-.source-ledger table { width: 100%; border-collapse: collapse; }
-.source-ledger th,
-.source-ledger td { padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
-.source-ledger td:first-child {
-  color: var(--accent-primary);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-.source-ledger__publisher {
-  display: block;
-  margin-top: 4px;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.source-ledger td:last-child { white-space: nowrap; }
-.source-ledger td:nth-child(2) > a {
-  color: var(--text-primary);
-  font-family: var(--font-editorial);
-  font-size: 1rem;
-  font-weight: 600;
-}
-.provenance {
-  margin-top: var(--section-gap);
-  border: 1px solid var(--border-strong);
-  background: var(--surface-reading);
-}
-.provenance__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-5);
-  padding: var(--space-5);
-  border-bottom: 1px solid var(--border-strong);
-}
-.provenance__header p { margin: 0 0 var(--space-1); }
-.provenance__header h2 { margin: 0; font-size: var(--text-subheading); }
-.provenance__schema {
-  flex: 0 0 auto;
-  padding: 3px 8px;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-.provenance dl {
+.source-ledger { scroll-margin-top: 72px; }
+.ledger {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.provenance dl div {
+.ledger__row {
   display: grid;
-  grid-template-columns: minmax(8.5rem, 0.8fr) minmax(0, 1fr);
-  gap: var(--space-4);
-  min-width: 0;
-  padding: var(--space-3) var(--space-5);
-  border-bottom: 1px solid var(--border-subtle);
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--space-2);
+  padding: 12px 0;
+  border-top: 1px solid var(--border-subtle);
 }
-.provenance dl div:nth-child(odd) { border-right: 1px solid var(--border-subtle); }
-.provenance dt,
-.provenance dd {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-}
-.provenance dt {
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-.provenance dd {
-  margin: 0;
-  overflow-wrap: anywhere;
-  color: var(--text-primary);
-  text-align: right;
-}
-.provenance__methodology {
-  display: inline-block;
-  margin: var(--space-4) var(--space-5) var(--space-5);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+.ledger__index { padding-top: 2px; }
+.ledger__copy { display: grid; gap: 4px; min-width: 0; }
+.ledger__title { font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere; }
+.ledger__title:hover { color: var(--accent-primary-hover); }
+.ledger__meta a { color: inherit; text-decoration: underline; text-decoration-color: var(--border-strong); }
+.ledger__class--primary { color: var(--status-complete); }
+@media (max-width: 640px) { .ledger { grid-template-columns: minmax(0, 1fr); } }
 
 .corrections-notice { margin: 32px 0; padding: 20px; border: 1px solid var(--danger-line); background: var(--danger-surface); }
 .corrections-notice ul { list-style: none; margin: 0; padding: 0; }
@@ -292,19 +202,6 @@
 .sponsor-block img { width: 72px; height: 72px; object-fit: contain; }
 .sponsor-block p { margin: 4px 0; color: var(--text-tertiary); }
 
-.issue-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: var(--section-gap); }
-.issue-navigation a { display: flex; flex-direction: column; gap: 6px; padding: 16px 0; border-top: 1px solid var(--border-strong); background: transparent; }
-.issue-navigation a:last-child { text-align: right; }
-.issue-navigation span { font-size: var(--text-caption); color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; }
-
-.topic-grid { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(276px, 1fr)); gap: var(--space-5); }
-.topic-card { display: flex; height: 100%; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); color: var(--text-primary); }
-.topic-card:hover { border-color: var(--hover-line); color: var(--text-primary); }
-.topic-card h2 { margin: 0; font-size: 1.35rem; }
-.topic-card p { margin: 0; color: var(--text-secondary); font-family: var(--font-reading); }
-.topic-card .label { margin-top: auto; padding-top: 12px; color: var(--accent-primary); }
-
-
 /* The completion mark: one row in the masthead idiom, closing the edition on
    Today. A dot in the completion colour, then the reader's cue on the right. */
 .edition-end {
@@ -313,9 +210,9 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2) var(--space-4);
-  margin: var(--section-gap) 0 0;
+  margin: var(--space-7) 0 0;
   padding: var(--space-3) 0;
-  border-top: 2px solid var(--border-strong);
+  border-top: 2px solid var(--border-ink);
   border-bottom: 1px solid var(--border-subtle);
 }
 .edition-end__done { display: inline-flex; align-items: center; gap: var(--space-2); }
@@ -326,7 +223,12 @@
   border-radius: 50%;
   background: var(--status-complete);
 }
-.edition-end__message { color: var(--text-primary); }
+.edition-end__message {
+  font-family: var(--font-reading);
+  font-size: 1.0625rem;
+  font-style: italic;
+  color: var(--text-primary);
+}
 
 /* 404 and 500: centred, the code in display type, one line of explanation. */
 .status-page { padding: var(--space-9) var(--space-5); text-align: center; }
@@ -357,42 +259,22 @@
 /* The front-page dateline. A 2px rule over it opens the page the way the
    section mastheads below open each block, so the whole column reads on one
    system of rules. */
-.dateline {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-5);
-  padding: var(--space-3) 0 var(--space-4);
-  border-top: 2px solid var(--border-strong);
-  border-bottom: 1px solid var(--border-subtle);
-}
-.dateline p {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.dateline__name { color: var(--accent-primary); }
-.dateline__edition { color: var(--text-secondary); }
 
 .issue-reference-blocks { margin-top: var(--block-gap); }
 /* Corrections, glossary, topics, ledger and the print link are one stack on
    one ladder; each previously carried its own top margin or inline style. */
 .issue-reference-blocks > * + * { margin-top: var(--section-gap); }
 .issue-glossary { margin: 0; }
-.source-ledger { margin-top: 0; padding-top: 0; border-top: 0; }
 
 /* The rail's one creative. An empty config returns null, so these rules apply
    only when a creative is present. */
-.banner-slot { margin-top: var(--section-gap); text-align: center; }
+.banner-slot { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
 .banner-slot__label {
   margin: 0 0 var(--space-2);
 }
 .banner-slot__link { max-width: 100%; display: inline-block; border-bottom: none; }
 .banner-slot__creative { display: block; max-width: 100%; height: auto; }
 .banner-slot__creative--mobile { display: none; }
-.right-rail > .banner-slot { margin-top: 0; }
 @media (max-width: 760px) {
   .banner-slot__creative--desktop { display: none; }
   .banner-slot__creative--mobile { display: block; }
@@ -445,18 +327,10 @@
   line-height: var(--leading-body);
   color: var(--text-secondary);
 }
-.issue-topics { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .fallback-notice { margin: 0 0 var(--space-5); padding: var(--space-3); border-left: 3px solid var(--accent-primary); background: var(--surface-reading); color: var(--text-primary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
-.recent-issues { margin-top: var(--section-gap); }
-.recent-issues__list { list-style: none; padding: 0; margin: 0; }
 
 @media (max-width: 640px) {
-  .issue-navigation { grid-template-columns: 1fr; }
-  .issue-navigation a:last-child { text-align: left; }
-  .provenance dl div { grid-template-columns: 1fr; gap: 2px; }
   .public-status dl div { grid-template-columns: 1fr; gap: 2px; }
-  .edition-intro { display: block; }
-  .edition-intro > :last-child { margin-top: var(--space-2); text-align: left; }
 }
 
 *,
@@ -580,70 +454,84 @@ hr {
   margin: 2.4em 0;
 }
 
-/* One kicker. Mono, caption size, tracked uppercase, tertiary. Every small
-   label on the site is this rule; the classes below keep only their layout. */
-.kicker,
+/* Section labels. Space Grotesk 600, 12px, tracked uppercase, in ink. Mono
+   is no longer a label face (round 2): it is kept for dates, times, credits
+   and hosts through .meta. The older label classes share this rule and keep
+   only their layout; they go as their components are rebuilt. */
 .label,
-.eyebrow,
+.kicker,
 .page-kicker,
-.masthead__kicker,
 .editorial-highlight__kicker,
 .rail-module__kicker,
-.lead__kicker,
-.hero__eyebrow,
-.feed-row__kicker,
-.cover-card__kicker,
 .banner-slot__label,
-.sidebar__strapline,
 .footer-nav__heading,
-.footer-nav a,
-.source-ledger th,
 .lesson-table thead th,
 .week-action__kicker,
 .day-group__label {
-  font-family: var(--font-mono);
-  font-size: var(--kicker-size);
-  font-weight: 500;
-  letter-spacing: var(--kicker-tracking);
+  font-family: var(--font-editorial);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
   text-transform: uppercase;
+  color: var(--text-primary);
+  border-bottom: none;
+}
+.label--muted { color: var(--text-tertiary); }
+.label--section,
+.label--accent,
+.kicker--accent,
+.page-kicker { color: var(--accent-primary); }
+
+/* Machine values: dates, times, credits, hosts. Lowercase, no tracking. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text-tertiary);
 }
-.kicker--accent,
-.label--accent,
-.eyebrow,
-.page-kicker,
-.hero__eyebrow,
-.lead__kicker,
-.feed-row__kicker { color: var(--accent-primary); }
-.kicker--accent.kicker--bar::before {
-  content: "";
-  display: inline-block;
-  width: 3px;
-  height: 0.95em;
-  margin-right: 6px;
-  background: currentColor;
-  vertical-align: -0.1em;
-}
 
-.label {
-  border-bottom: none;
+/* Every headline that is not the lead is set in the serif. */
+.h-serif {
+  margin: 0;
+  font-family: var(--font-reading);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.h-serif--1 { font-size: var(--text-h-serif-1); line-height: 1.2; }
+.h-serif--2 { font-size: var(--text-h-serif-2); }
+.h-serif--3 { font-size: var(--text-h-serif-3); line-height: 1.28; }
+
+/* Module head: the 2px ink rule every block on a page opens with. */
+.module-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-4);
+  padding-top: 12px;
+  border-top: 2px solid var(--border-ink);
+}
+.module-head__label { margin: 0; font-size: 0.8125rem; }
+.module-head__action {
+  flex: none;
+  font-family: var(--font-editorial);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+}
+.module-head__note {
+  margin: -8px 0 var(--space-4);
+  font-family: var(--font-reading);
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
 }
 
 .label--muted { color: var(--text-tertiary); }
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 3px;
-  height: 0.95em;
-  border-radius: 0;
-  background: var(--accent-primary);
-}
 
 .container {
   max-width: var(--container);
@@ -675,15 +563,6 @@ hr {
 }
 
 .page-kicker { margin: 0; color: var(--accent-primary); }
-.page-kicker::before {
-  content: "";
-  display: inline-block;
-  width: 3px;
-  height: 0.85em;
-  margin-right: var(--space-2);
-  background: currentColor;
-  vertical-align: -0.04em;
-}
 .page-kicker--warning { color: var(--status-warning); }
 .page-title { margin: 0; max-width: 19ch; }
 .page-intro {
@@ -716,257 +595,245 @@ hr {
 }
 
 /* ------------------------------------------------------------------ */
-/* Shell — left sidebar + main column                                  */
+/* Masthead and section bar (round 2)                                  */
 /* ------------------------------------------------------------------ */
 
-.shell {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-  gap: clamp(1.75rem, 3.5vw, 3.25rem);
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 var(--mobile-gutter);
-  min-height: 100vh;
-}
-
-.shell__main {
-  padding: 30px 0 var(--space-8);
-  min-width: 0;
-}
-
+/* Row 1 is date · logotype · search; row 2 the section bar over a 2 px ink
+   rule. The header is sticky with a negative top equal to row 1, so only the
+   section bar stays on screen; StickyHeader toggles .is-condensed, which
+   brings the small logotype, the short date and a search button into it. */
+:root { --masthead-top: 92px; }
 @media (max-width: 960px) {
-  .shell {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  :root { --masthead-top: 56px; --page-pad: 12px; }
 }
 
-/* Sidebar */
-
-.sidebar {
-  border-right: 1px solid var(--border-subtle);
-  padding: 30px 26px 30px 0;
-  position: sticky;
+.masthead__sentinel {
+  position: absolute;
   top: 0;
-  align-self: start;
-  height: 100vh;
-  overflow-y: auto;
+  left: 0;
+  width: 1px;
+  height: var(--masthead-top);
+  pointer-events: none;
+}
+
+.masthead {
+  position: sticky;
+  top: calc(-1 * var(--masthead-top));
+  z-index: 15;
+  background: var(--surface-page);
+}
+/* Page width: the 1360 px container with a 40 px inset (12 px below 960).
+   Rules drawn on these boxes span the content, not the viewport. */
+.masthead__top,
+.masthead__bar,
+.site-main,
+.site-footer {
+  width: min(var(--container), 100% - 2 * var(--page-pad));
+  margin-inline: auto;
+}
+.masthead__top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: var(--masthead-top);
+}
+.masthead__top .masthead__menu { display: none; }
+.masthead__date { margin: 0; font-size: 0.8125rem; }
+.masthead__brand { justify-self: center; line-height: 0; }
+.masthead__search { justify-self: end; }
+
+.masthead__bar {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-  font-size: 13px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-top: 2px solid var(--border-ink);
+  box-shadow: 0 1px 0 var(--border-strong);
+  background: var(--surface-page);
 }
+/* The ink rule spans the container, not the viewport padding. */
+.masthead__bar { background-clip: padding-box; }
 
-.sidebar__head {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 10px;
-}
-
-@media (max-width: 960px) {
-  .sidebar {
-    position: relative;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--border-strong);
-    padding: var(--space-4) 0 var(--space-3);
-    background: var(--surface-page);
-    gap: var(--space-3);
-  }
-}
-
-.sidebar__brand {
+.masthead__mini-brand,
+.masthead__mini-tools {
+  position: absolute;
+  top: 50%;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text-primary);
+  gap: var(--space-3);
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
 }
-.sidebar__brand:hover { color: var(--text-primary); }
+.masthead__mini-brand { left: 0; line-height: 0; }
+.masthead__mini-tools { right: 0; }
+.masthead.is-condensed .masthead__bar { height: 52px; }
+.masthead.is-condensed .masthead__mini-brand,
+.masthead.is-condensed .masthead__mini-tools { opacity: 1; visibility: visible; }
+@media (prefers-reduced-motion: no-preference) {
+  .masthead__mini-brand,
+  .masthead__mini-tools { transition: opacity var(--dur-fast) var(--ease-out), visibility var(--dur-fast); }
+  .masthead__bar { transition: height var(--dur-fast) var(--ease-out); }
+}
 
-.sidebar__strapline {
+.section-bar__list {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-5);
   margin: 0;
-  line-height: 1.5;
+  padding: 0;
+  list-style: none;
+}
+.section-bar__list > li { display: flex; }
+.section-bar__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text-secondary);
+  font-family: var(--font-editorial);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.section-bar__link:hover { color: var(--text-primary); }
+.section-bar__link[aria-current="page"] {
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom-color: var(--border-ink);
+}
+.section-bar__more {
+  position: relative;
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--border-strong);
+}
+.section-bar__more-button { display: none; }
+
+.more-menu > summary { list-style: none; gap: 6px; }
+.more-menu > summary::-webkit-details-marker { display: none; }
+.more-menu > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.more-menu[open] > summary { color: var(--text-primary); }
+.more-menu__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 16;
+  min-width: 13rem;
+  margin: 0;
+  padding: var(--space-2) 0;
+  list-style: none;
+  border: 1px solid var(--border-strong);
+  border-top: 2px solid var(--border-ink);
+  background: var(--surface-reading);
+}
+.more-menu__list a {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+.more-menu__list a:hover,
+.more-menu__list a[aria-current="page"] { color: var(--text-primary); background: var(--surface-subtle); }
+
+/* Controls: the outlined search button and the icon buttons. */
+.control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-control);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-editorial);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.control:hover { border-color: var(--text-primary); }
+.search-trigger__kbd {
+  margin-left: var(--space-1);
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+}
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
 }
 
 .brand-lockup { display: inline-flex; align-items: center; }
 .brand-lockup img { display: block; height: 20px; width: auto; }
 .brand-lockup--compact img { height: 18px; }
+.brand-lockup--masthead img { height: 34px; }
+.brand-lockup--footer img { height: 24px; }
 
-.nav-rail {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.site-main {
+  min-height: 60vh;
+  padding: var(--space-5) 0 var(--space-8);
 }
-
-.nav-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  padding: 0 12px 0 0;
-  font-family: var(--font-editorial);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--text-secondary);
-  border-radius: 0;
-  position: relative;
-  border-left: 2px solid transparent;
-  transition:
-    background var(--dur-instant) var(--ease-out),
-    border-left-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out);
-  min-height: 44px;
-}
-
-.nav-item--button {
-  width: 100%;
-  border-top: 0;
-  border-right: 0;
-  border-bottom: 0;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-}
-
-.nav-item:hover {
-  background: var(--surface-hover);
-  color: var(--text-primary);
-}
-
-.nav-item--active {
-  background: var(--surface-reading);
-  color: var(--accent-primary);
-  border-left-color: var(--accent-primary);
-  font-weight: 500;
-}
-
-.nav-item__glyph {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  color: inherit;
-  opacity: 0.85;
-}
-.nav-item__index {
-  width: 1.75rem;
-  flex: 0 0 auto;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-}
-
-/* Secondary group: the rest of the magazine. No index, one step quieter, and
-   36px tall so the six primary sections keep the visual weight. */
-.nav-rail__secondary {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.nav-rail__secondary .nav-item {
-  min-height: 36px;
-  font-size: 0.8125rem;
-  color: var(--text-tertiary);
-  padding-left: 1.75rem;
-}
-.nav-rail__secondary .nav-item:hover { color: var(--text-primary); }
-.nav-rail__secondary .nav-item--active { color: var(--accent-primary); }
-.nav-item--active .nav-item__index { color: var(--accent-primary); }
-.nav-item__glyph svg {
-  width: 16px;
-  height: 16px;
-  display: block;
-}
-.nav-item:hover .nav-item__glyph,
-.nav-item--active .nav-item__glyph {
-  opacity: 1;
-}
-
-.nav-divider {
-  border-top: 1px solid var(--border-subtle);
-  margin: 12px 0;
-}
-
-
-/* ------------------------------------------------------------------ */
-/* Mobile top bar and drawer (below 960)                               */
-/* ------------------------------------------------------------------ */
-
-.topbar { display: none; }
 
 @media (max-width: 960px) {
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 12;
-    display: grid;
-    grid-template-columns: 44px minmax(0, 1fr) 44px;
-    align-items: center;
-    height: 56px;
-    margin: 0 calc(-1 * var(--mobile-gutter));
-    padding: 0 var(--mobile-gutter);
-    border-bottom: 1px solid var(--border-subtle);
-    background: var(--surface-page);
-  }
-  .topbar__brand {
-    justify-self: center;
-    display: inline-flex;
-    align-items: center;
-    /* The wordmark is a link home, so it is a touch target like the two
-       triggers beside it and takes the same 44px minimum. */
-    min-height: 44px;
-    padding: 0 var(--space-2);
-    color: var(--text-primary);
-  }
-  .topbar__trigger {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--text-primary);
-    cursor: pointer;
-  }
-  /* Three 2px bars, 18px wide, 5px apart, drawn from currentColor. */
-  .topbar__bars,
-  .topbar__bars::before,
-  .topbar__bars::after {
+  .masthead__top { grid-template-columns: 44px 1fr 44px; }
+  .masthead__top .masthead__menu { display: inline-grid; margin-left: -10px; }
+  .masthead__date { display: none; }
+  .brand-lockup--masthead img { height: 20px; }
+  .masthead__search { margin-right: -10px; }
+  .search-trigger { width: 44px; height: 44px; min-height: 0; padding: 0; justify-content: center; border: 0; }
+  .search-trigger__label,
+  .search-trigger__kbd { display: none; }
+  .masthead__menu .masthead__bars,
+  .masthead__menu .masthead__bars::before,
+  .masthead__menu .masthead__bars::after {
     display: block;
     width: 18px;
-    height: 2px;
+    height: 1.5px;
     background: currentColor;
   }
-  .topbar__bars {
-    position: relative;
-  }
-  .topbar__bars::before,
-  .topbar__bars::after {
-    content: "";
-    position: absolute;
-    left: 0;
-  }
-  .topbar__bars::before { top: -5px; }
-  .topbar__bars::after { top: 5px; }
+  .masthead__bars { position: relative; }
+  .masthead__bars::before,
+  .masthead__bars::after { content: ""; position: absolute; left: 0; }
+  .masthead__bars::before { top: -6px; }
+  .masthead__bars::after { top: 6px; }
 
-  /* The palette trigger is a full nav row in the rail; in the bar it is the
-     44x44 magnifier alone. */
-  .topbar__search { justify-self: end; }
-  .topbar__search .nav-item {
-    justify-content: center;
-    width: 44px;
+  .masthead__bar {
+    justify-content: flex-start;
+    width: 100%;
     height: 44px;
-    min-height: 44px;
-    padding: 0;
-    border-left: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
-  .topbar__search .nav-item__label { display: none; }
+  .masthead__bar::-webkit-scrollbar { display: none; }
+  .masthead.is-condensed .masthead__bar { height: 44px; }
+  .masthead__mini-brand,
+  .masthead__mini-tools { display: none; }
+  .section-bar__list { gap: var(--space-4); padding: 0 var(--page-pad); }
+  .section-bar__more { padding-left: var(--space-4); }
+  .more-menu { display: none; }
+  .section-bar__more-button { display: inline-flex; }
 }
 
 .modal-overlay[data-align="drawer"] {
@@ -991,386 +858,120 @@ hr {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding: 0 var(--mobile-gutter);
+  padding: 0 var(--page-pad) var(--space-6);
 }
 .drawer__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 56px;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-ink);
 }
-.drawer__close {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  margin-right: -10px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text-primary);
-  font-size: 1.125rem;
-  cursor: pointer;
-}
-.drawer__nav { display: flex; flex-direction: column; }
+.drawer__head .meta { margin: 0; }
+.drawer__nav { display: flex; flex-direction: column; padding: var(--space-3) 0; }
+.drawer__nav--more { border-top: 1px solid var(--border-strong); }
 .drawer__item {
   display: flex;
   align-items: center;
-  min-height: 56px;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-  font-family: var(--font-editorial);
-  font-size: 1.125rem;
-  font-weight: 500;
-}
-.drawer__item[aria-current="page"] { color: var(--accent-primary); }
-.drawer__index {
-  width: 2.25rem;
-  flex: 0 0 auto;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-}
-.drawer__item--secondary {
   min-height: 48px;
-  padding-left: 2.25rem;
-  font-size: 1rem;
-  color: var(--text-secondary);
-}
-.drawer__divider {
-  border-top: 1px solid var(--border-strong);
-  margin: var(--space-4) 0 0;
-}
-.drawer__search { margin-top: auto; padding: var(--space-5) 0; }
-.drawer__search .nav-item { padding-left: 0; }
-
-.sidebar__heading {
-  font-family: var(--font-suisse-intl);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin: 0 0 8px;
-}
-
-.sidebar__card {
-  background: var(--surface-page);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  padding: 16px;
-}
-
-.sidebar__card-title {
-  font-family: var(--font-suisse-intl);
-  font-size: var(--text-body-sm);
-  font-weight: 600;
-  margin: 0 0 4px;
   color: var(--text-primary);
-}
-
-.sidebar__card-body {
-  font-size: var(--text-caption);
-  line-height: 1.5;
-  color: var(--text-tertiary);
-  margin: 0;
-}
-
-/* Below 960 the rail is replaced outright by the top bar and the drawer, not
-   flattened into a scrolling strip. */
-@media (max-width: 960px) {
-  .sidebar { display: none; }
-}
-
-
-/* ------------------------------------------------------------------ */
-/* Hero Panel — top of the feed                                        */
-/* ------------------------------------------------------------------ */
-
-.hero {
-  padding: 38px 0 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-  margin: 0 0 var(--section-gap);
-}
-
-/* Meta, category chips and topics left .hero__copy so the plate can carry the
-   eyebrow, headline and dek alone. The spacing they had inside the copy block
-   is reproduced here, so the stacked variant is unchanged. */
-/* The opening band: meta, chips and topics under one hairline, so the eyebrow,
-   headline and dek above read as the opening and everything here reads as the
-   record. */
-.hero__details {
-  margin-top: var(--space-5);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--border-subtle);
-}
-.hero__provenance,
-.print-provenance {
-  max-width: 62ch;
-  margin: var(--space-3) 0 0;
-  color: var(--text-tertiary);
-  font-family: var(--font-reading);
-  font-size: var(--text-body-sm);
-  line-height: var(--leading-body-sm);
-}
-
-.hero--no-photo {
-  grid-template-columns: 1fr;
-  padding: 38px 0 var(--space-7);
-  border-bottom: 1px solid var(--border-strong);
-}
-
-.hero--no-photo .hero__title { max-width: 24ch; }
-.hero--no-photo .hero__dek { max-width: 62ch; }
-
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 0 18px;
-}
-.hero__eyebrow::before {
-  content: "";
-  width: 3px;
-  height: 0.95em;
-  border-radius: 0;
-  background: var(--accent-primary);
-}
-
-.hero__title {
   font-family: var(--font-editorial);
-  font-size: var(--text-display);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.drawer__item--more { min-height: 44px; font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
+.drawer__item[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.drawer__search { align-self: flex-start; margin-top: var(--space-4); min-height: 44px; }
+
+/* ------------------------------------------------------------------ */
+/* Article head, byline and figure (round 2)                            */
+/* ------------------------------------------------------------------ */
+
+.article-head { max-width: calc(8 / 12 * 100%); padding-top: var(--space-5); }
+.article-head__label { margin: 0 0 var(--space-3); }
+.article-head__title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-editorial);
+  font-size: var(--text-title);
   font-weight: 700;
-  margin: 0 0 12px;
-  max-width: 24ch;
-  overflow-wrap: anywhere;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
-
-.hero__dek {
+.article-head__dek {
+  margin: var(--space-4) 0 0;
+  max-width: 62ch;
   font-family: var(--font-reading);
-  font-size: var(--text-lead);
-  line-height: 1.55;
+  font-size: var(--text-dek);
+  line-height: 1.5;
   color: var(--text-secondary);
-  margin: 20px 0 0;
-  max-width: 56ch;
 }
+.byline {
+  display: grid;
+  gap: 6px;
+  max-width: 62ch;
+  margin: var(--space-5) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-strong);
+  font-size: 0.875rem;
+}
+.byline__row { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
+.byline dt { color: var(--text-tertiary); }
+.byline dd { margin: 0; color: var(--text-primary); }
+.byline__blank { width: 180px; height: 1em; border-bottom: 1px dashed var(--border-strong); }
 
-.hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: 12px;
-  row-gap: 8px;
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
+.article-figure {
+  display: grid;
+  grid-template-columns: minmax(0, 9fr) minmax(0, 3fr);
+  gap: var(--grid-gutter);
+  align-items: end;
+  margin: var(--space-6) 0 0;
 }
-.hero__topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
+.article-figure__img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: var(--surface-subtle); }
+.article-figure__caption { display: grid; gap: var(--space-2); }
+.article-figure__alt { font-family: var(--font-reading); font-size: 0.875rem; line-height: 1.45; color: var(--text-secondary); }
+.article-figure__caption a { color: inherit; text-decoration: underline; }
+
+.article-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: var(--grid-gutter);
+  align-items: start;
+  margin-top: var(--space-6);
+}
+.article-grid__main { min-width: 0; }
+.article-grid__side {
+  min-width: 0;
+  padding-left: var(--grid-gutter);
+  border-left: 1px solid var(--border-strong);
+}
+.article-grid__side > * + * { margin-top: var(--space-6); }
+.article-grid__side .digest--aside { margin-top: var(--space-6); }
+.side-module .card--compact { padding-top: var(--space-2); }
+.article-main { max-width: var(--reading); margin-top: var(--space-6); }
+
+.more-editions { margin-top: var(--space-8); }
+.more-editions__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5) var(--grid-gutter);
+  margin: 0;
+  padding: 0;
   list-style: none;
-  margin: 0;
-  padding: var(--space-4) 0 0;
-  color: var(--text-secondary);
 }
 
-.hero__figure {
-  margin: 32px 0 0;
-  padding: 10px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-}
-
-.hero__photo {
-  width: 100%;
-  aspect-ratio: 21 / 9;
-  object-fit: cover;
-  background: var(--surface-subtle);
-  display: block;
-}
-.hero__figure figcaption {
-  margin: 10px 2px 2px;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  line-height: 1.55;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-/* ------------------------------------------------------------------ */
-/* Overlay masthead — the headline sits inside the lead image          */
-/* ------------------------------------------------------------------ */
-/* The copy rides up onto an opaque --surface-reading plate that overlaps the
-   image. Opaque, not a scrim: DESIGN_THESIS bans decorative gradients, and a
-   solid plate holds text contrast on any photograph instead of depending on
-   how dark that photograph happens to be.
-
-   The plate overlaps in normal flow, which is what keeps long Czech headlines
-   safe: the plate grows downward with the copy instead of being clipped by the
-   image. It also means everything after the plate clears the overlap, which is
-   why the image credit is a sibling below the plate rather than a caption
-   pinned to the image's bottom edge, where the plate would cover it. */
-
-.hero--overlay {
-  display: flex;
-  flex-direction: column;
-}
-
-.hero--overlay .hero__media {
-  order: 1;
-  padding: 10px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-}
-
-.hero__credit {
-  order: 2;
-  margin: 10px 2px 0;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  line-height: 1.55;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.hero--overlay .hero__copy { order: 3; padding-top: var(--space-4); }
-.hero--overlay .hero__details { order: 4; }
-
-@media (min-width: 768px) {
-  /* Past 768px the plate overlaps. The credit moves back under the plate so it
-     stays fully visible below the image edge. */
-  .hero--overlay .hero__copy {
-    order: 2;
-    position: relative;
-    z-index: 1;
-    max-width: min(34em, 85%);
-    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
-    padding: var(--space-4) var(--space-5) var(--space-5);
-    background: var(--surface-reading);
-    border: 1px solid var(--border-subtle);
-  }
-  .hero--overlay .hero__credit { order: 3; margin: var(--space-3) 2px 0 var(--space-5); }
-  .hero--overlay .hero__details { margin-left: var(--space-5); }
-  /* The plate is the measure now, so the copy's own caps would double-constrain
-     it into a narrow column. */
-  .hero--overlay .hero__title,
-  .hero--overlay .hero__dek { max-width: none; }
-  /* Same reason as the front-page plate: display size overruns a 34em plate and
-     leaves the image a strip. */
-  .hero--overlay .hero__title {
-    font-size: var(--text-heading);
-    line-height: var(--leading-heading);
-  }
-  .hero--overlay .hero__dek {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    overflow: hidden;
-    margin-top: var(--space-4);
-  }
+@media (max-width: 960px) {
+  .article-head { max-width: none; }
+  .article-figure { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .article-grid { grid-template-columns: minmax(0, 1fr); }
+  .article-grid__side { padding-left: 0; border-left: 0; }
+  .more-editions__grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ------------------------------------------------------------------ */
 /* Cards (post tiles + sidebar tiles)                                  */
 /* ------------------------------------------------------------------ */
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-}
-
-.card-grid--feed {
-  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
-  gap: var(--space-5);
-}
-
-@media (max-width: 720px) {
-  .card-grid--feed { grid-template-columns: 1fr; }
-}
-
-.post-card {
-  height: 100%;
-  background: var(--surface-reading);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0;
-  padding: 12px;
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition:
-    background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
-}
-
-.post-card:hover {
-  background: var(--surface-reading);
-  border-color: var(--hover-line);
-  color: var(--text-primary);
-}
-
-.post-card__thumb {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--surface-subtle);
-  object-fit: cover;
-  display: block;
-}
-
-.post-card__copy { padding: 0 2px; }
-.post-card__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin: 0 0 9px;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.post-card__meta span:last-child { color: var(--accent-primary); }
-
-.post-card__title {
-  font-family: var(--font-editorial);
-  font-size: 1.1875rem;
-  line-height: 1.24;
-  font-weight: 600;
-  margin: 0;
-  color: var(--text-primary);
-  letter-spacing: -0.022em;
-}
-.post-card__dek {
-  margin: var(--space-2) 0 0;
-  color: var(--text-secondary);
-  font-family: var(--font-reading);
-  font-size: 0.96875rem;
-  line-height: 1.5;
-}
-
-.post-card__chips {
-  display: flex;
-  gap: 12px;
-  margin-top: 4px;
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
 
 .chip {
   display: inline-flex;
@@ -1388,20 +989,6 @@ hr {
   text-transform: uppercase;
 }
 a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-.chip--evidence-primary { border-color: currentColor; color: var(--status-complete); }
-.chip--evidence-secondary { color: var(--text-secondary); }
-
-.chip--accent {
-  color: var(--accent-primary);
-}
-
-.chip--dot::before {
-  content: "";
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-}
 
 /* Primary CTA button — the one filled action in the system. */
 .cta {
@@ -1424,24 +1011,6 @@ a.chip:hover { border-color: var(--accent-primary); color: var(--accent-primary)
   background: var(--text-primary);
   color: var(--surface-page);
 }
-
-.ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-buttons);
-  font-family: var(--font-mono);
-  font-size: 0.65625rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  cursor: pointer;
-}
-.ghost:hover { border-color: var(--accent-primary); background: transparent; color: var(--text-primary); }
 
 input[type="text"],
 input[type="search"] {
@@ -1469,28 +1038,6 @@ input[type="search"]:focus {
 /* One masthead for every section: mono kicker, 2px rule, optional action. It
    replaced a subheading-and-hairline row on the week feed and three separate
    bare kickers on the digest surfaces. */
-.masthead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-  margin: 0 0 var(--space-4);
-  padding-bottom: var(--space-2);
-  border-bottom: 2px solid var(--border-strong);
-}
-
-.masthead__kicker {
-  margin: 0;
-}
-
-.masthead__action {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--accent-primary);
-}
 
 /* ------------------------------------------------------------------ */
 /* Article body + dispatches sidebar                                   */
@@ -1500,61 +1047,23 @@ input[type="search"]:focus {
 /* column rather than dragging past it.                                */
 /* ------------------------------------------------------------------ */
 
-.article-with-aside {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 44px 52px;
-  align-items: flex-start;
-}
-
-.article-with-aside__main {
-  flex: 1 1 32em;
-  min-width: 0;
-  max-width: min(var(--reading), 100%);
-}
-
 .article-body {
-  counter-reset: article-section;
   font-family: var(--font-reading);
   font-size: 1.1875rem;
   line-height: 1.7;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .article-body p { margin-bottom: 1.25em; }
 .article-body h2 {
-  counter-increment: article-section;
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-  margin-top: 2.2em;
+  margin-top: 2em;
   font-family: var(--font-editorial);
-  font-size: 1.6875rem;
+  font-size: 1.5rem;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
-.article-body h2::before {
-  content: counter(article-section, decimal-leading-zero);
-  flex: 0 0 auto;
-  color: var(--accent-primary);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-}
 .article-body h3 { margin-top: 1.9em; }
-
-.article-with-aside__side {
-  flex: 1 1 272px;
-  width: 100%;
-  max-width: 344px;
-  align-self: start;
-}
-
-@media (max-width: 940px) {
-  .article-with-aside__side {
-    max-width: 344px;
-  }
-}
 
 /* ------------------------------------------------------------------ */
 /* Digest rows — Briefs and Watchlist share one anatomy                */
@@ -1565,89 +1074,52 @@ input[type="search"]:focus {
    two lines, an optional mono meta line, hairline dividers between rows. The
    whole row is the link, which is what carries the 44px target. */
 
-.digest { margin-top: var(--section-gap); }
-.digest--aside { margin-top: 30px; }
-.digest--wire { padding: var(--space-5) 0 0; border-top: 2px solid var(--border-strong); }
-
+.digest { margin-top: var(--space-6); }
+.digest--aside { margin-top: var(--space-6); }
 
 .digest-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--border-subtle);
 }
-
-.digest-row { border-bottom: 1px solid var(--border-subtle); }
-
-.digest-row__link,
-.digest-row--plain {
+.digest-list--grid {
   display: grid;
-  grid-template-columns: 1.75rem minmax(0, 1fr);
-  gap: var(--space-2);
-  /* 12px each side plus the row's own content clears 44px comfortably; the
-     title's line box alone would not. */
-  padding: 12px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+}
+@media (max-width: 640px) { .digest-list--grid { grid-template-columns: minmax(0, 1fr); } }
+
+.digest-row { border-top: 1px solid var(--border-subtle); }
+.digest-row__link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   min-height: 44px;
+  padding: 14px 0;
   color: var(--text-primary);
-  transition: background var(--dur-fast) var(--ease-out);
 }
-.digest-row__link { align-items: start; }
-.digest-row--plain { align-items: start; }
-
-.digest-row__link:hover { background: var(--surface-hover); }
-.digest-row__link:hover .digest-row__title { color: var(--accent-primary); }
-
-.digest-row__index {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-tertiary);
-  padding-left: var(--space-2);
-  /* The index sits on the title's first line rather than the row's top edge. */
-  line-height: 1.55;
-}
-
-.digest-row__copy { display: block; min-width: 0; }
-
-.digest-row__title {
-  display: block;
+.digest-row__link:hover .digest-row__title { color: var(--accent-primary-hover); }
+.digest-row__title { overflow-wrap: anywhere; }
+.digest-row__title--watch {
   font-family: var(--font-editorial);
-  font-size: var(--text-row);
-  font-weight: 600;
-  line-height: var(--leading-row);
-  letter-spacing: var(--tracking-row);
-  color: inherit;
-  /* Long Czech compounds must break rather than push the row wide. */
-  overflow-wrap: anywhere;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
 }
-
 .digest-row__summary {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
-  margin-top: var(--space-2);
   font-family: var(--font-reading);
-  font-size: var(--text-body-sm);
-  line-height: var(--leading-body-sm);
+  font-size: 0.9375rem;
+  line-height: 1.45;
   color: var(--text-secondary);
 }
-
-.digest-row__meta {
-  display: block;
-  margin-top: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-
-/* The aside is a bounded column, so its titles step down one size. The summary
-   stays: a two-line clamp is what makes the row worth reading. */
-.digest--aside .digest-row__title { font-size: 1rem; }
-
+.digest-row__foot { display: block; margin-top: 2px; }
+.digest-row__label { font-size: 0.6875rem; }
+.digest--aside .digest-row__title.h-serif--3 { font-size: 1rem; }
 
 .modal-overlay {
   position: fixed;
@@ -1788,13 +1260,6 @@ svg { max-width: 100%; }
 /* Legacy layout primitives kept for archive/glossary/sources etc.    */
 /* ------------------------------------------------------------------ */
 
-.split-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: start;
-}
-
 .def-row {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -1806,10 +1271,6 @@ svg { max-width: 100%; }
   gap: 16px;
 }
 
-@media (max-width: 760px) {
-  .split-2 { grid-template-columns: 1fr; gap: 24px; }
-}
-
 @media (max-width: 640px) {
   .def-row,
   .def-row--tight {
@@ -1819,57 +1280,56 @@ svg { max-width: 100%; }
   }
 }
 
-/* Footer block (lives inside shell main column). It sits inside the main
-   column, so the collapse points are earlier than the raw viewport widths
-   suggest. */
-.site-footer { margin-top: var(--gutter-gap); }
-.footer-grid {
+/* Footer: four columns under a 2 px ink rule, then one meta line. */
+.site-footer {
+  margin-top: var(--space-8);
+  padding-bottom: var(--space-6);
+}
+.site-footer__grid {
   display: grid;
-  grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(140px, 0.6fr));
-  gap: 32px;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: var(--space-6) var(--grid-gutter);
   align-items: start;
-  padding-top: 48px;
-  padding-bottom: 64px;
-  border-top: 1px solid var(--border-strong);
+  padding: var(--space-6) 0 var(--space-7);
+  border-top: 2px solid var(--border-ink);
 }
-.footer-grid > * { min-width: 0; }
-
-@media (max-width: 1200px) {
-  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .footer-grid > :first-child { grid-column: 1 / -1; }
-}
-@media (max-width: 430px) {
-  .footer-grid { grid-template-columns: minmax(0, 1fr); }
-}
-
-.footer-brand { margin: 0 0 var(--space-3); }
+.site-footer__grid > * { min-width: 0; }
+.footer-brand { margin: 0 0 var(--space-3); line-height: 0; }
 .footer-description {
   margin: 0;
-  max-width: 40ch;
+  max-width: 36ch;
   color: var(--text-secondary);
   font-family: var(--font-reading);
-  font-size: 0.9375rem;
+  font-size: 1rem;
+  line-height: 1.55;
 }
-
+.footer-description a { color: var(--accent-primary); }
 .footer-nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 7px;
-  text-align: left;
+  gap: 4px;
 }
-.footer-nav__heading {
-  margin: 0 0 var(--space-2);
-  color: var(--text-primary);
+.footer-nav__heading { margin: 0 0 var(--space-2); }
+.footer-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--text-secondary);
+  font-family: var(--font-editorial);
+  font-size: 0.9375rem;
 }
 .footer-nav a:hover { color: var(--accent-primary-hover); }
+.site-footer__line {
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
 
-@media (max-width: 640px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .footer-nav { align-items: flex-start; text-align: left; }
+@media (max-width: 960px) {
+  .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-footer__brand { grid-column: 1 / -1; }
+  .footer-nav a { min-height: 44px; }
 }
 
 /* ------------------------------------------------------------------ */
@@ -1877,13 +1337,9 @@ svg { max-width: 100%; }
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {
-  .page-shell,
-  .enter {
+  .page-shell {
     animation: enter var(--dur-slow) var(--ease-out) both;
   }
-  .enter-1 { animation-delay: 0ms; }
-  .enter-2 { animation-delay: 40ms; }
-  .enter-3 { animation-delay: 80ms; }
 
   @keyframes enter {
     from { opacity: 0; transform: translateY(8px); }
@@ -1893,17 +1349,8 @@ svg { max-width: 100%; }
 
 /* Editorial archive cards carry enough context to evaluate an issue without
    turning the archive into a second homepage. */
-.archive-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 0;
-  border-top: 2px solid var(--border-strong);
-}
 /* Grid items default to min-width:auto, so a card's min-content width pushed
    it past the list at 320px. */
-.archive-list > li { min-width: 0; }
 
 /* ------------------------------------------------------------------ */
 /* Cover cards — Weekly, Archive and Related share one anatomy         */
@@ -1914,128 +1361,20 @@ svg { max-width: 100%; }
    surface, which is why the ratio lives on each surface's media rule rather
    than here. */
 
-.cover-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-5);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.cover-grid li { min-width: 0; }
-
-.cover-card {
-  display: flex;
-  min-width: 0;
-  height: 100%;
-  flex-direction: column;
-  color: inherit;
-  text-decoration: none;
-}
-
-.cover-card__media { display: block; min-width: 0; }
-.cover-card__media img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border: 1px solid var(--border-subtle);
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-.cover-card:hover .cover-card__media img { border-color: var(--hover-line); }
-
-.cover-card__plate {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4) var(--space-4);
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-.cover-card:hover .cover-card__plate { border-color: var(--hover-line); }
-
 /* The small-scale hero plate: it rides up over the media's bottom edge, inset
    from the left so the crop still reads as a picture. A drawn .svg cover never
    gets the overlap, so those cards keep the plate directly under the media. */
-.cover-card--overlap .cover-card__plate {
-  position: relative;
-  z-index: 1;
-  margin: calc(-1 * var(--space-6)) 0 0 var(--space-4);
-}
 
 /* No media, no empty box: the plate stands on its own with the same spacing. */
-.cover-card--text-first .cover-card__plate { margin: 0; }
-
-
-.cover-card__title {
-  margin: 0;
-  font-family: var(--font-editorial);
-  font-size: var(--text-row);
-  font-weight: 600;
-  line-height: var(--leading-row);
-  letter-spacing: var(--tracking-row);
-  color: var(--text-primary);
-  overflow-wrap: anywhere;
-}
-.cover-card:hover .cover-card__title { color: var(--accent-primary); }
-
-.cover-card__dek {
-  color: var(--text-secondary);
-  font-family: var(--font-reading);
-  font-size: var(--text-body-sm);
-  line-height: var(--leading-body-sm);
-}
-
-.cover-card__meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
-
 
 /* Grid surfaces: 3:2 covers. */
-.cover-card--card .cover-card__media img { aspect-ratio: 3 / 2; }
 
 /* Archive: a row, media on the left at the 4:3 crop it already used. The plate
    sits beside the media rather than over it — an overlap inside a 140px
    thumbnail would cover the picture rather than compose with it. */
-.cover-card--row {
-  flex-direction: row;
-  align-items: start;
-  gap: var(--space-5);
-  padding: var(--space-5) 0 var(--space-6);
-  border-bottom: 1px solid var(--border-subtle);
-}
-.cover-card--row .cover-card__media { flex: none; width: 140px; }
-.cover-card--row .cover-card__media img { aspect-ratio: 4 / 3; }
-.cover-card--row .cover-card__plate {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-}
-.cover-card--row:hover .cover-card__plate { border: 0; }
-.cover-card--row .cover-card__title { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
-.cover-card--row .cover-card__dek { max-width: 70ch; font-size: var(--text-body); }
-
-@media (max-width: 600px) {
-  .cover-card--row { flex-direction: column; gap: var(--space-3); }
-  .cover-card--row .cover-card__media { width: 100%; }
-}
-
-@media (max-width: 700px) {
-  .topic-grid { grid-template-columns: 1fr; }
-}
 
 /* Discovery, trust, and operator-adjacent routes. */
 .route-section { margin-top: var(--section-gap); }
-
-.reference-section { max-width: 78ch; }
-.reference-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-subtle); }
-.reference-list li { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--border-subtle); }
 
 .weekly-cover { position: relative; display: grid; grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr); gap: var(--space-5); margin-top: var(--section-gap); padding: var(--space-6); border: 1px solid var(--border-subtle); background: var(--surface-reading); overflow: hidden; }
 .weekly-cover--with-media { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); align-items: center; }
@@ -2062,41 +1401,8 @@ svg { max-width: 100%; }
 .weekly-badge li { padding: var(--space-1) 0; font-size: var(--text-body-sm); }
 .weekly-badge a { color: var(--text-primary); border-bottom: 1px solid var(--border-subtle); }
 
-.archive-month { margin-bottom: var(--space-7); }
-.archive-month__label { margin-bottom: var(--space-4); }
 .tag-detail__meta { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 .admin-migration__action { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
-
-.related-issues { margin-top: var(--gutter-gap); }
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  margin: 0 0 var(--space-7);
-  padding: 1px 0 0 1px;
-}
-.about-stats div {
-  min-width: 0;
-  margin: -1px 0 0 -1px;
-  padding: 14px 16px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-reading);
-}
-.about-stats dt {
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.59375rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.about-stats dd {
-  margin: var(--space-2) 0 0;
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  font-variant-numeric: tabular-nums;
-}
-.about-stats dd.about-stats__ok { color: var(--status-complete); }
 
 .about-sections { max-width: 62ch; margin-top: var(--space-6); border-top: 1px solid var(--border-strong); }
 .about-sections section { display: grid; grid-template-columns: minmax(4rem, 0.2fr) minmax(0, 1fr); gap: var(--space-6); max-width: 82ch; padding: var(--space-6) 0; border-bottom: 1px solid var(--border-subtle); scroll-margin-top: var(--space-5); }
@@ -2105,17 +1411,7 @@ svg { max-width: 100%; }
 .board-changelog { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
 .board-changelog li { display: grid; grid-template-columns: 7rem minmax(0, 1fr) auto; gap: var(--space-3); color: var(--text-secondary); }
 .board-changelog time { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-caption); }
-.topic-feed { margin: var(--space-7) 0 0; }
 .trust-links { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-6); margin-top: var(--space-7); padding: var(--space-5) 0; border-top: 2px solid var(--border-strong); }
-
-.making-of { max-width: 82ch; margin: var(--space-5) 0 var(--space-6); padding: var(--space-4) 0; border-block: 1px solid var(--border-subtle); }
-.making-of p { margin: 0; color: var(--text-secondary); }
-.making-of p + p { margin-top: var(--space-2); }
-.making-of a { margin-right: var(--space-4); }
-.making-of span { color: var(--text-tertiary); }
-
-.archive-system-row { padding: var(--space-3) 0; border-bottom: 1px solid var(--border-subtle); }
-.archive-system-row p { margin: 0; }
 
 .source-directory { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-5); list-style: none; margin: var(--space-4) 0 0; padding: 0; }
 .source-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-3); height: 100%; padding: 14px; border: 1px solid var(--border-subtle); background: var(--surface-reading); }
@@ -2147,12 +1443,8 @@ svg { max-width: 100%; }
 .corrections-ledger li > span { display: grid; gap: var(--space-2); }
 .corrections-ledger strong { color: var(--text-tertiary); font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.05em; }
 
-
 @media (max-width: 760px) {
   .board-changelog li { grid-template-columns: 1fr; gap: var(--space-1); }
-  .provenance dl { grid-template-columns: 1fr; }
-  .provenance dl div:nth-child(odd) { border-right: 0; }
-  .provenance__header { align-items: start; }
   .weekly-cover,
   .weekly-cover--with-media {
     grid-template-columns: 1fr;
@@ -2176,17 +1468,7 @@ svg { max-width: 100%; }
 }
 
 @media (max-width: 560px) {
-  .provenance__header {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .provenance dl div {
-    grid-template-columns: 1fr;
-    gap: var(--space-1);
-  }
-  .provenance dd { text-align: left; }
   .about-sections section, .corrections-ledger > li { grid-template-columns: 1fr; gap: var(--space-2); }
-  .reference-list li { display: block; }
 }
 
 /* ------------------------------------------------------------------ */
@@ -2195,27 +1477,15 @@ svg { max-width: 100%; }
 
 /* The right rail matches the 300px partner creative. It drops
    below 1280 and its modules reflow into the main column in rail order. */
-.page-with-rail {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--rail-width);
-  gap: 40px;
-  align-items: start;
-}
-.page-with-rail__main { min-width: 0; }
-
-@media (max-width: 1279px) {
-  .page-with-rail { grid-template-columns: minmax(0, 1fr); gap: var(--space-7); }
-  .right-rail { display: grid; gap: var(--space-6); }
-}
-
-.right-rail { min-width: 0; }
 
 /* A column of rules, not a stack of boxes. Only the ad has a box. */
 .rail-module {
-  padding: 16px 0;
-  border-top: 1px solid var(--border-strong);
+  padding: 12px 0 0;
+  border-top: 2px solid var(--border-ink);
 }
-.rail-module + .rail-module { border-top-color: var(--border-subtle); }
+.rail-module + .rail-module,
+.day-watch + .rail-module,
+.rail-module + .day-watch { margin-top: var(--space-6); }
 .rail-module__kicker {
   margin: 0 0 var(--space-3);
 }
@@ -2226,242 +1496,338 @@ svg { max-width: 100%; }
   line-height: 1.5;
   color: var(--text-secondary);
 }
-.rail-module__term { display: block; color: var(--text-primary); font-family: var(--font-editorial); }
+.rail-module__term { color: var(--text-primary); font-weight: 600; }
 .rail-module__meta,
 .rail-module__action {
-  margin: var(--space-3) 0 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
   color: var(--text-tertiary);
 }
 .rail-module__action a { color: var(--accent-primary); }
 
-.rail-events { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-.rail-events li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
-.rail-events__date {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
+/* Front page (round 2): the edition line, then the lead. The lead headline
+   always sits on the lead photograph, white on the flat ink band (owner
+   decision); the band is opaque enough that contrast never depends on the
+   photo. Without a photo the lead is typographic, on paper, with no box. */
+.edition-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin: 0 0 var(--space-4);
 }
-.rail-events__title { font-size: 0.9375rem; color: var(--text-primary); }
+.edition-line .label { margin: 0; font-size: 0.8125rem; }
+.edition-line .meta { margin: 0; text-align: right; }
 
-/* Lead package */
-.lead { padding: 40px 0 0; }
-.lead__kicker {
-  margin: 0 0 18px;
-  border-left: 3px solid var(--accent-primary);
-  padding-left: var(--space-3);
+.lead { margin: 0; }
+.lead__media {
+  position: relative;
+  display: block;
+  color: #fff;
+  background: var(--surface-subtle);
 }
-.lead__title {
-  margin: 0 0 16px;
-  max-width: 20ch;
-  font-family: var(--font-editorial);
-  font-size: var(--text-display);
-  font-weight: 700;
-  line-height: var(--leading-display);
-  letter-spacing: var(--tracking-display);
-  text-wrap: balance;
-  hyphens: auto;
-}
-/* Czech lead headlines run long; past 100 characters the display size would
-   push the dek and meta row off a 900px viewport. */
-.lead__title[data-long="true"] { font-size: var(--text-heading); letter-spacing: var(--tracking-heading); }
-.lead__title a { color: var(--text-primary); }
-.lead__title a:hover { color: var(--accent-primary); }
-.lead__dek {
-  margin: 0 0 14px;
-  max-width: 46ch;
-  font-family: var(--font-reading);
-  font-size: var(--text-lead);
-  line-height: var(--leading-lead);
-  color: var(--text-secondary);
-}
-.lead__meta {
-  margin: 0 0 24px;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
-}
-.lead__figure { display: block; }
-.lead__image {
+.lead__media:hover { color: #fff; }
+.lead__media img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 21 / 9;
+  aspect-ratio: 2 / 1;
   object-fit: cover;
-  border: 1px solid var(--border-subtle);
 }
-
-/* The front-page lead uses the same plate as the article masthead. The meta row
-   is already a sibling of the copy, so nothing here has a caption to clear. */
-.lead--overlay .lead__copy { padding-top: var(--space-4); }
-
-@media (min-width: 768px) {
-  .lead--overlay .lead__copy {
-    position: relative;
-    z-index: 1;
-    max-width: min(34em, 85%);
-    margin: calc(-1 * var(--plate-overlap)) 0 0 var(--space-5);
-    padding: var(--space-4) var(--space-5) var(--space-5);
-    background: var(--surface-reading);
-    border: 1px solid var(--border-subtle);
-  }
-  .lead--overlay .lead__title,
-  .lead--overlay .lead__dek { max-width: none; }
-  /* Display size is built for the full column. Inside a plate roughly 34em
-     wide it wraps to four or five lines, and the plate then stands more than
-     twice as tall as the 21:9 image it is supposed to sit on. One step down
-     keeps the plate and the image in the same order of size, which is what
-     makes the overlap read as composition rather than as a text block with a
-     strip of photograph above it. */
-  .lead--overlay .lead__title {
-    font-size: var(--text-heading);
-    line-height: var(--leading-heading);
-    letter-spacing: var(--tracking-heading);
-  }
-  .lead--overlay .lead__title[data-long="true"] {
-    font-size: var(--text-subheading);
-    line-height: var(--leading-subheading);
-  }
-  /* The dek is a summary here, not the article. Three lines is enough to carry
-     the point and keeps the plate's height predictable across editions. */
-  .lead--overlay .lead__dek {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    overflow: hidden;
-  }
-  .lead--overlay .lead__meta { margin-left: var(--space-5); }
-}
-.hero-plate {
-  position: relative;
-  width: 100%;
-  background: var(--surface-subtle);
-  border: 1px solid var(--border-subtle);
-}
-.hero-plate svg { display: block; width: 100%; height: 100%; }
-.hero-plate__mark {
+.lead__band {
   position: absolute;
-  left: 16px;
-  bottom: 16px;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  color: var(--text-tertiary);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 32px 32px;
+  background: var(--band-ink);
 }
-
-/* Condensed briefs */
-.condensed {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6);
-  /* One ladder between front-page sections: every gap is --section-gap, so the
-     rhythm is a system rather than a per-section number. */
-  margin-top: var(--section-gap);
-}
-@media (max-width: 1023px) { .condensed { grid-template-columns: minmax(0, 1fr); } }
-/* Today's two columns are narrower than the main measure, so their titles
-   step down as well. Briefs carry a body and show a summary; Watchlist items
-   have only a source, and their rows are shorter for it. */
-.condensed .digest-row__title { font-size: 1rem; }
-
-/* No-edition day */
-
-/* Feed */
-.feed-section { margin-top: var(--section-gap); }
-.feed-list { list-style: none; margin: 0; padding: 0; }
-.feed-row { border-bottom: 1px solid var(--border-subtle); }
-.feed-row__link {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 160px;
-  gap: 20px;
-  padding: 20px 0;
-  color: inherit;
-  align-items: start;
-}
-.feed-row__link:hover {
-  background: var(--surface-hover);
-  margin-inline: -16px;
-  padding-inline: 16px;
-}
-.feed-row__link:focus-visible { outline-offset: -2px; }
-.feed-row__copy { min-width: 0; }
-.feed-row__kicker {
-  margin: 0 0 var(--space-2);
-}
-.feed-row__title {
+.lead__section { margin: 0 0 10px; color: var(--band-label); }
+.lead__title {
   margin: 0;
+  max-width: 20ch;
   font-family: var(--font-editorial);
-  font-size: var(--text-row);
+  font-size: var(--text-lead-1);
   font-weight: 700;
-  line-height: var(--leading-row);
-  letter-spacing: var(--tracking-row);
-  color: var(--text-primary);
-  text-wrap: pretty;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: inherit;
 }
-.feed-row__link:hover .feed-row__title { color: var(--accent-primary); }
-.feed-row__dek {
-  margin: var(--space-2) 0 0;
+.lead__media:hover .lead__title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+.lead--type { padding: var(--space-5) 0 0; border-top: 2px solid var(--border-ink); }
+.lead--type .lead__section { color: var(--accent-primary); }
+.lead--type .lead__title { max-width: 22ch; color: var(--text-primary); }
+.lead--type .lead__title a { color: inherit; }
+
+.lead__below {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--grid-gutter);
+  align-items: start;
+  margin-top: 14px;
+}
+.lead__dek {
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-reading);
+  font-size: var(--text-dek);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.lead__meta { margin: 10px 0 0; }
+.lead__why {
+  padding-left: var(--grid-gutter);
+  border-left: 1px solid var(--border-strong);
+}
+.lead__why .label { margin: 0 0 var(--space-2); }
+.lead__why ul {
+  margin: 0;
+  padding-left: 1.1em;
   font-family: var(--font-reading);
   font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--text-secondary);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
-.feed-row__meta {
-  margin: var(--space-2) 0 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-tertiary);
+.lead__why li + li { margin-top: var(--space-2); }
+
+@media (max-width: 960px) {
+  .edition-line .meta { text-align: left; }
+  .lead__media img { aspect-ratio: 1 / 1; }
+  .lead__band { padding: 16px 16px 18px; }
+  .lead__title { font-size: 1.75rem; }
+  .lead__below { grid-template-columns: minmax(0, 1fr); }
+  .lead__why { padding-left: 0; padding-top: var(--space-4); border-left: 0; border-top: 1px solid var(--border-strong); }
 }
-.feed-row__thumb {
-  width: 160px;
-  height: 120px;
-  object-fit: cover;
+
+/* The day's band under the lead: Krátce in two columns (8 of 12), and
+   beside it, behind a column rule, Ke sledování, Pojem dne and the house
+   creative (4 of 12). */
+.day-band {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: var(--grid-gutter);
+  align-items: start;
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-strong);
+}
+.day-band__aside {
+  min-width: 0;
+  padding-left: var(--grid-gutter);
+  border-left: 1px solid var(--border-strong);
+}
+.day-band .module-head { border-top-color: transparent; padding-top: 0; }
+.day-band__aside > * + * { margin-top: var(--space-6); }
+.day-band__aside > .rail-module { border-top: 2px solid var(--border-ink); }
+@media (max-width: 960px) {
+  .day-band { grid-template-columns: minmax(0, 1fr); }
+  .day-band__aside { padding-left: 0; border-left: 0; }
+  .day-band .day-watch .module-head { border-top: 2px solid var(--border-ink); padding-top: 12px; }
+}
+
+/* No-edition day */
+
+/* Round-2 cards and image slots. A slot always has its ratio, so a missing
+   photo becomes a labelled box of the same size, never a gap. */
+.img-slot { display: block; width: 100%; height: auto; object-fit: cover; background: var(--surface-subtle); }
+.img-slot--3-2 { aspect-ratio: 3 / 2; }
+.img-slot--2-1 { aspect-ratio: 2 / 1; }
+.img-slot--1-1 { aspect-ratio: 1 / 1; }
+.img-fallback {
+  position: relative;
   border: 1px solid var(--border-subtle);
 }
-.feed-row__link:hover .feed-row__thumb { border-color: var(--hover-line); }
+.img-fallback__text { position: absolute; left: 12px; bottom: 10px; }
 
-@media (max-width: 1023px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 140px; }
-  .feed-row__thumb { width: 140px; height: 105px; }
+.card { display: grid; gap: var(--space-2) var(--space-4); align-items: start; color: var(--text-primary); }
+.card:hover .card__title { color: var(--accent-primary-hover); }
+.card__copy { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card__label { font-size: 0.6875rem; }
+.card__dek {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.card--band { display: block; color: #fff; }
+.card--band:hover { color: #fff; }
+.card--band .card__band { display: block; padding: 22px 26px 26px; }
+.card--band .card__band-title { display: block; font-size: var(--text-lead-2); line-height: 1.04; }
+.card--band:hover .card__band-title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.card--row { grid-template-columns: 240px minmax(0, 1fr); }
+.card--row.card--wide { grid-template-columns: 280px minmax(0, 1fr); }
+.card--cover { grid-template-columns: minmax(0, 1fr); }
+.card--compact { grid-template-columns: minmax(0, 1fr) 88px; }
+.card--compact .card__image { grid-column: 2; grid-row: 1; }
+.card--compact .card__copy { grid-column: 1; grid-row: 1; }
+@media (max-width: 640px) {
+  .card--row,
+  .card--row.card--wide { grid-template-columns: minmax(0, 1fr) 96px; }
+  .card--row .card__image { grid-column: 2; grid-row: 1; aspect-ratio: 1 / 1; }
+  .card--row .card__copy { grid-column: 1; grid-row: 1; }
+  .card--row .card__dek { display: none; }
 }
 
-/* Past 1280 the main column has width to spare, so the thumbnail takes some of
-   it. The 4:3 ratio and the explicit width/height attributes are unchanged, so
-   nothing shifts while the image loads. */
-@media (min-width: 1280px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 200px; }
-  .feed-row__thumb { width: 200px; height: 150px; }
+.week-block { margin-top: var(--space-7); }
+.week-block__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-@media (max-width: 767px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 120px; }
-  .feed-row__thumb { width: 120px; height: 90px; }
+@media (max-width: 960px) { .week-block__grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Section pages (round 2): title and scope on one row, then the newest
+   article on its photo with the headline on the band, two more as rows with
+   120 px squares, three 3:2 covers, and older articles as compact rows. */
+.section-head,
+.list-head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--grid-gutter);
+  align-items: end;
+  padding: var(--space-5) 0 var(--space-4);
+  border-bottom: 1px solid var(--border-strong);
 }
-@media (max-width: 430px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 104px; gap: var(--space-3); }
-  .feed-row__thumb { width: 104px; height: 78px; }
+.section-head__title,
+.list-head__title {
+  margin: 0;
+  font-family: var(--font-editorial);
+  font-size: var(--text-page);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
-@media (max-width: 360px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr) 88px; }
-  .feed-row__thumb { width: 88px; height: 66px; }
+.section-head__scope,
+.list-head__scope {
+  margin: 0;
+  max-width: 52ch;
+  font-family: var(--font-reading);
+  font-size: var(--text-dek);
+  line-height: 1.45;
+  color: var(--text-secondary);
 }
-/* At 320 the thumbnail costs more than it tells: headline-only rows. */
-@media (max-width: 320px) {
-  .feed-row__link { grid-template-columns: minmax(0, 1fr); }
-  .feed-row__thumb { display: none; }
+
+.section-top {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: var(--grid-gutter);
+  align-items: start;
+  margin-top: var(--space-5);
 }
+.section-top__dek {
+  margin: 14px 0 0;
+  max-width: 62ch;
+  font-family: var(--font-reading);
+  font-size: var(--text-dek);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.section-top__side {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0 0 0 var(--grid-gutter);
+  list-style: none;
+  border-left: 1px solid var(--border-strong);
+}
+.section-covers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-4) 0 0;
+  list-style: none;
+  border-top: 2px solid var(--border-ink);
+}
+.section-older { margin-top: var(--space-7); }
+.section-older .module-head { border-top: 1px solid var(--border-strong); }
+.section-older__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.section-older__grid > li { padding: 12px 0; border-top: 1px solid var(--border-subtle); }
+.section-foot { margin: var(--space-6) 0 0; font-family: var(--font-editorial); font-size: 0.875rem; }
+.section-foot a { color: var(--accent-primary); }
+
+.card--sq-136 { grid-template-columns: minmax(0, 1fr) 136px; }
+.card--sq-120 { grid-template-columns: minmax(0, 1fr) 120px; }
+.card--sq-96 { grid-template-columns: minmax(0, 1fr) 96px; }
+.card--sq-64 { grid-template-columns: minmax(0, 1fr) 64px; }
+.card--sq-56 { grid-template-columns: minmax(0, 1fr) 56px; }
+.card--sq-120 .card__dek { -webkit-line-clamp: 3; line-clamp: 3; }
+
+@media (max-width: 960px) {
+  .section-head,
+  .list-head { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .section-top { grid-template-columns: minmax(0, 1fr); }
+  .section-top__side { padding-left: 0; border-left: 0; }
+  .section-covers,
+  .section-older__grid { grid-template-columns: minmax(0, 1fr); }
+  .card--sq-120 { grid-template-columns: minmax(0, 1fr) 96px; }
+  .card--sq-120 .card__dek { display: none; }
+}
+
+/* Poslední týden and the Archive: a fixed 200 px date column and the
+   day's articles beside it. */
+.list-page .week-action { margin-top: var(--space-6); }
+.day-group--week,
+.day-group--archive {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: var(--grid-gutter);
+  margin: 0;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border-strong);
+}
+.day-group--archive { padding: var(--space-3) 0; border-bottom-color: var(--border-subtle); }
+.day-group--week .day-group__label,
+.day-group--archive .day-group__label {
+  position: static;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+}
+.day-group--archive .day-group__label { text-transform: none; letter-spacing: 0; font-size: 0.875rem; }
+.day-group__count { margin: 4px 0 0; }
+.day-group__list { margin: 0; padding: 0; list-style: none; }
+.day-group__list > li + li { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
+.day-group--archive .day-group__list > li + li { margin-top: var(--space-3); padding-top: var(--space-3); }
+.day-group--week .card--row .card__dek { -webkit-line-clamp: 3; line-clamp: 3; }
+.archive-empty-day { margin: 2px 0 0; }
+
+.archive-filter { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-5) 0 var(--space-6); }
+.archive-filter__chip { min-height: 44px; font-weight: 500; border-color: var(--border-strong); }
+.archive-filter__chip.is-current { border-color: var(--border-ink); background: var(--text-primary); color: var(--surface-reading); }
+.archive-month { margin-bottom: var(--space-7); }
+.archive-month .module-head { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .day-group--week,
+  .day-group--archive { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .day-group__count { display: inline; margin-left: var(--space-2); }
+  .day-group__date { display: flex; flex-wrap: wrap; align-items: baseline; }
+}
+
+/* Feed */
+.feed-list { list-style: none; margin: 0; padding: 0; }
+.row-compact { padding: 12px 0; border-top: 1px solid var(--border-subtle); }
 
 /* Week-boundary action */
 .week-action {
@@ -2471,28 +1837,23 @@ svg { max-width: 100%; }
   gap: var(--space-4);
   min-height: 64px;
   margin-top: var(--space-5);
-  padding: 0 20px;
-  border: 1px solid var(--border-control);
-  background: var(--surface-reading);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
   color: inherit;
 }
-.week-action:hover {
-  background: var(--surface-hover);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-}
+.week-action:hover { color: var(--accent-primary-hover); }
 .week-action__copy { display: grid; gap: 2px; min-width: 0; }
 .week-action__kicker {
   color: var(--text-tertiary);
 }
 .week-action__label {
-  font-family: var(--font-editorial);
-  font-size: 1.25rem;
+  font-family: var(--font-reading);
+  font-size: 1.125rem;
   font-weight: 600;
   color: inherit;
 }
-.week-action:hover .week-action__kicker,
-.week-action:hover .week-action__label { color: var(--accent-primary); }
+.week-action:hover .week-action__label { color: var(--accent-primary-hover); }
 .week-action__arrow { font-size: 1.25rem; color: var(--text-tertiary); transition: transform var(--dur-fast) var(--ease-out); }
 .week-action:hover .week-action__arrow { color: var(--accent-primary); transform: translateX(4px); }
 @media (max-width: 430px) { .week-action { min-height: 56px; } }
@@ -2748,31 +2109,6 @@ svg { max-width: 100%; }
 }
 
 /* Related editions in the article rail */
-.rail-related { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-.rail-related li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-2); }
-.rail-related__index {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-tertiary);
-}
-.rail-related a {
-  font-family: var(--font-editorial);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--text-primary);
-}
-.rail-related a:hover { color: var(--accent-primary); }
-
-/* Footer operator line: who answers for the content (issue #99). */
-.footer-operator {
-  margin: var(--space-3) 0 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-secondary);
-}
-.footer-operator a { color: var(--accent-primary); }
 
 /* „1 praktická věc dnes" in the rail (issue #99). */
 .rail-practical { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }

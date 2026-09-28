@@ -107,9 +107,11 @@ edition pipeline. They add no client JavaScript and make no network or model cal
 ## Footer and operator identification
 
 The footer links only live social profiles from `brand.social` (Instagram
-today; Threads flips `live` when the owner creates it) and names the person
-responsible for the content exactly as About states it. The owner-approved operator is Lukáš Kouřil, IČO 04713397; the editorial
-contact is kouril.lukas@gmail.com. The canonical origin is https://dneskai.vercel.app.
+today; Threads flips `live` when the owner creates it). By the owner's decision
+(28. 9. 2026) the site publishes no personal name, IČO or personal e-mail: the
+publication sells nothing, and „tým DNESKAi" answers for sources, rules and
+corrections on O magazínu (#redakce). The canonical origin is
+https://dneskai.vercel.app.
 
 ## Important paths and reuse
 
@@ -141,10 +143,15 @@ Use the logotype from `public/brand/DNESKAi-logo*.svg` through `BrandLockup`, th
 
 **The reader shows no production instrumentation.** No run costs, model names,
 candidate counts, signal scores, agent references or build vocabulary in reader
-copy. The one provenance fact it does state, plainly and once per edition, is
-that a language model wrote the text and whether a person reviewed it
-(`generation.human_reviewed`), linking to `/about#redakce`. Never hide it and
-never dress it up as a badge. Telemetry lives only in `/health`,
+copy. The one provenance fact it does state is that a language model wrote the
+text and whether a person reviewed it (`generation.human_reviewed`). Since the
+round-2 redesign (owner decision) that statement lives on O magazínu
+(`/about#redakce`), in the print view and in `llms.txt`; every article carries
+an „Ověření" row that links there and says „Ověřeno … zkontroloval tým
+DNESKAi" only when `human_reviewed` is true, „Sestaveno z N uvedených zdrojů"
+otherwise. Never claim a review that did not happen, never hide the #redakce
+statement, and never dress either up as a badge. No personal name appears on
+the site; the team („tým DNESKAi") answers for sources, rules and corrections. Telemetry lives only in `/health`,
 `/api/health.json` and the BoardlessAI admin. Keep the journalism trust
 surfaces: source ledger, corrections, sponsor labelling, the completion mark.
 

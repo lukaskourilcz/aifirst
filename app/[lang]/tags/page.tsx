@@ -6,5 +6,5 @@ export const metadata = { robots: { index: false } };
 
 export default async function TagsCompatibility({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
-  permanentRedirect(localePath(lang, "/topics"));
+  permanentRedirect(localePath(lang, "/archive"));
 }
