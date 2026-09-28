@@ -1,5 +1,7 @@
 # DNESKAi
 
+Production: https://dneskai.vercel.app
+
 **To podstatné z AI. Každý den.** Jedno vydání a máte přehled.
 
 DNESKAi is a Czech, Git-native AI publication. Czech is the only published

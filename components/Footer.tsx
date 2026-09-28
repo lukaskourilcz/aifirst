@@ -24,7 +24,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <p className="footer-brand"><BrandLockup compact /></p>
           <p className="footer-description">{d.footer.description}</p>
           <p className="footer-operator">
-            {d.footer.responsible} {brand.responsiblePerson}
+            {d.footer.responsible} {brand.responsiblePerson}, IČO {brand.registrationNumber}
             {" · "}
             <Link href={`${lp("/about")}#redakce`}>{d.footer.editorialContact}</Link>
           </p>

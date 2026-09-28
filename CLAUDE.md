@@ -108,8 +108,8 @@ edition pipeline. They add no client JavaScript and make no network or model cal
 
 The footer links only live social profiles from `brand.social` (Instagram
 today; Threads flips `live` when the owner creates it) and names the person
-responsible for the content exactly as About states it. No company name, IČO,
-address or contact is shown until the owner supplies one (`NEEDED.md`).
+responsible for the content exactly as About states it. The owner-approved operator is Lukáš Kouřil, IČO 04713397; the editorial
+contact is kouril.lukas@gmail.com. The canonical origin is https://dneskai.vercel.app.
 
 ## Important paths and reuse
 

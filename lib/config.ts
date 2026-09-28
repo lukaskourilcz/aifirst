@@ -1,7 +1,7 @@
 // Resolves the canonical site URL and GitHub repo at build time.
 //
 // Why this exists: a fresh fork shouldn't need to grep through files
-// to change "https://aifirst.example" everywhere. Configure once via
+// to change "https://dneskai.vercel.app" everywhere. Configure once via
 // environment variables and every route picks it up.
 //
 // Env vars (set in Vercel and locally):
@@ -11,7 +11,7 @@
 // Vercel auto-injects VERCEL_URL for preview deploys; we use it as a
 // fallback so preview deploys get sensible (if not canonical) URLs.
 
-const FALLBACK_SITE = "https://aifirst.example";
+const FALLBACK_SITE = "https://dneskai.vercel.app";
 const FALLBACK_REPO = "lukaskourilcz/aifirst";
 
 export function siteUrl(): string {

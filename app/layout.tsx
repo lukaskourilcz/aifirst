@@ -53,6 +53,7 @@ export const metadata: Metadata = {
   },
   description: d.meta.siteDescription,
   metadataBase: new URL(siteUrl()),
+  verification: { google: "kgo4KpUqh98jk472pguPCxUfKSIzFjWXlyzA8K6ODik" },
   openGraph: {
     type: "website",
     siteName: brand.name,
