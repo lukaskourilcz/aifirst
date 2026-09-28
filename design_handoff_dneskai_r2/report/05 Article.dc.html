@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="padding:0 24px 80px">
+  <div style="max-width:1180px"><dc-import name="R2 Nav" current="05" hint-size="100%,44px"></dc-import></div>
+  <header style="max-width:1180px;padding:40px 0 28px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">05 · Article page · before / after · 1440 and 390</p>
+    <h1 style="margin:0 0 16px;font-size:34px;font-weight:600;letter-spacing:-.01em;max-width:24ch">Headline first, photo second, the day's other articles beside the text</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;max-width:72ch;color:#3c4149">Before: a 21:9 photo in a padded box with a copy plate riding over it, the headline one step down to fit the plate, three boxed highlight panels, a 35 em body with the Briefs aside, then a three-column table of sources. After: the section and time, the headline at 52 px, the dek, a byline block with an empty „Redaktor“ row and an „Ověření“ line, then the 3:2 photo across 9 columns with its caption and credit beside it; the highlights become three columns under a 2 px ink rule; the body keeps a 36 em serif measure; the right column holds „Dále v dnešním vydání“ (the day's other articles with 1:1 thumbnails), Krátce, Ke sledování and the house creative; sources are a two-column numbered ledger; the page ends with „Další z dnešního vydání“ as 3:2 cards.</p>
+    <p style="margin:12px 0 0;font-size:14px;line-height:1.55;max-width:72ch;color:#8a5a0d"><strong>Owner decision recorded here:</strong> the sentence „Text připravil jazykový model … neprošel lidskou kontrolou“ is removed from the article page and replaced with „Ověřeno podle 8 uvedených zdrojů, zkontroloval tým DNESKAi“. Reading time and „článek 1 ze 3“ are dropped as noise. This overrides SITE_FACTS.md hard constraint 3 and the <code>generation.human_reviewed</code> rule in CLAUDE.md; DECISIONS.md and CLAUDE_CODE_PROMPT.md say what that implies (the statement moves to O magazínu, and the „zkontroloval tým“ wording must be true, i.e. a review step exists upstream or the wording is „sestaveno z … zdrojů“).</p>
+  </header>
+  <section style="padding:32px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Before · /articles/2026-09-25-… · 1440 / 390</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Current Pages" page="article" hint-size="1440px,1600px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Current Pages" page="article" mobile="{{ true }}" hint-size="390px,1600px"></dc-import></div>
+    </div>
+  </section>
+  <section style="padding:56px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">After · 1440 / 390</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Article" hint-size="1440px,1800px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Article" mobile="{{ true }}" hint-size="390px,1800px"></dc-import></div>
+    </div>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>

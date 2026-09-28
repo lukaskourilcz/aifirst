@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#f7f7f5;color:#14161a} a{color:#14161a;text-decoration:none} a:hover{color:#1d43bb}</style>
+</helmet>
+<div style="width:{{ pageWidth }};background:#f7f7f5;color:#14161a;font-family:'Space Grotesk',sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased">
+  <dc-import name="Masthead" variant="{{ mastVariant }}" active="security" date-line="pátek 25. 9. 2026" hint-size="100%,144px"></dc-import>
+  <div style="max-width:1360px;margin:0 auto;padding:{{ pagePad }}">
+
+    <header style="padding:{{ headPad }}">
+      <p style="margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2f5ae6">Bezpečnost<span style="color:#5f6672;font-weight:500"> · pátek 25. 9. 2026, 6.05</span></p>
+      <h1 style="margin:0;font-size:{{ titleSize }};font-weight:700;line-height:1.04;letter-spacing:-.03em;max-width:20ch;text-wrap:balance">AI agenti spáchali první velký průmyslový útok. Stál 25 dolarů za cíl</h1>
+      <p style="margin:18px 0 0;max-width:62ch;font-family:'Source Serif 4',serif;font-size:{{ dekSize }};line-height:1.5;color:#3c4149">Čínsky mluvící útočník propojil tři open-source nástroje a napadl přes 27 organizací včetně aerolinek a hotelového řetězce z Fortune 500. Téhož dne Google ukázal animovaný obličej svého asistenta a Microsoft tiše pohřbil značku Copilot Plus PC.</p>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:baseline;margin-top:20px;padding-top:14px;border-top:1px solid #c9c9c3;font-size:14px;max-width:62ch">
+        <span style="color:#5f6672">Redaktor</span><span style="display:block;height:1em;border-bottom:1px dashed #c9c9c3;max-width:180px"></span>
+        <span style="color:#5f6672">Ověření</span><span style="color:#14161a">Ověřeno podle 8 uvedených zdrojů, zkontroloval tým DNESKAi. <a href="#" style="color:#2f5ae6">Zdroje ↓</a></span>
+      </div>
+    </header>
+
+    <figure style="margin:0;display:grid;grid-template-columns:{{ figCols }};gap:24px;align-items:end">
+      <img src="public/images/editions/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/hero.webp" alt="Ruce pájí součástky na základní desce počítače" width="1600" height="1067" style="display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;background:#efefec">
+      <figcaption style="font-family:'Source Serif 4',serif;font-size:14px;line-height:1.5;color:#5f6672;padding-bottom:4px">Ruce pájí součástky na základní desce počítače.<span style="display:block;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px">Foto: <a href="#" style="color:#5f6672;text-decoration:underline">Mikhail Nilov</a> / Pexels</span></figcaption>
+    </figure>
+
+    <div style="display:grid;grid-template-columns:{{ bodyCols }};gap:24px;margin-top:{{ bodyTop }}">
+      <div style="min-width:0">
+        <section aria-label="Shrnutí" style="display:grid;grid-template-columns:{{ hlCols }};gap:24px;padding:20px 0 24px;border-top:2px solid #14161a;border-bottom:1px solid #c9c9c3">
+          <div><h2 style="margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Proč na tom záleží</h2><ul style="margin:0;padding-left:1.1em;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:grid;gap:6px"><li>První zdokumentovaný případ koordinovaného průmyslového útoku pomocí open-source AI agentů mění bezpečnostní kalkulaci pro každou firmu s veřejně dostupnými systémy.</li><li>Útočná bariéra klesla: propojit hotové nástroje a útočit na korporace stojí průměrně 25 dolarů za cíl, bez hlubokých technických znalostí.</li><li>Agentní AI se dostává na obě strany bezpečnostní rovnice současně – útočníci ji nasazují, Docker i Anthropic hledají, jak ji zadržet.</li></ul></div>
+          <div><h2 style="margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Co se změnilo</h2><ul style="margin:0;padding-left:1.1em;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:grid;gap:6px"><li>Útočník propojil tři open-source agenty Strix, Cairn a Hermes a pronikl do nejméně 27 organizací.</li><li>Google zpřístupnil Live Avatar v Gemini 3.8 Live zákazníkům Enterprise.</li><li>Microsoft potvrdil, že nové počítače Surface již nenesou označení Copilot Plus PC.</li><li>Docker spustil Cloud Sandboxes jako hostovanou izolaci pro AI agenty.</li></ul></div>
+          <div><h2 style="margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8a5a0d">Co zůstává nejisté</h2><ul style="margin:0;padding-left:1.1em;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:grid;gap:6px"><li>Totožnost útočníka ani jeho přesná lokace nebyly k datu publikace zveřejněny.</li><li>Google nespecifikoval, jaké záruky proti zneužití Live Avatara pro deepfake chystá.</li><li>WSJ neuvádí ve veřejně dostupné části článku konkrétní součet investic.</li></ul></div>
+        </section>
+
+        <article style="max-width:{{ measure }};margin-top:32px;font-family:'Source Serif 4',serif;font-size:{{ bodySize }};line-height:1.7;color:#14161a">
+          <p style="margin:0 0 1.2em">Mezi 10. a 15. zářím spustil dosud neidentifikovaný útočník nejméně 105 kybernetických útoků na stovky online prodejců a dalších společností. Výsledek: přes 600 000 odcizených čísel platebních karet, instalace skimmerů na platební brány a průniky do nejméně 27 organizací. Cena jednoho průzkumného skenu? Průměrně 25 amerických dolarů.</p>
+          <p style="margin:0 0 1.2em">Bezpečnostní firma Gambit získala přístup k útočníkovu staging serveru a z něj rekonstruovala celou kampaň. Oběťmi jsou mimo jiné hotelový řetězec z žebříčku Fortune 500, velká americká letecká společnost, velký soukromý distributor průmyslového zboží a americký módní e-shop. Útočník, jehož komunikace nasvědčuje čínštině, sestavil poloautomatický systém ze tří open-source nástrojů – Strix, Cairn a Hermes – a ke správě tras přidružil směrovací službu OpenRoute.</p>
+          <p style="margin:0 0 1.2em">Případ je prvním zdokumentovaným trestním případem, kdy pachatel propojil hotové open-source agentní nástroje do koordinovaného průmyslového útoku. Agenti nevyžadují hluboké technické znalosti; stačí je nastavit, pustit a zaplatit malý účet za výpočetní výkon.</p>
+          <p style="margin:0;color:#8e8e88;font-style:italic">… (článek pokračuje, cca 900 slov)</p>
+        </article>
+
+        <section aria-labelledby="ledger" style="margin-top:48px;padding-top:16px;border-top:2px solid #14161a">
+          <h2 id="ledger" style="margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Zdroje tohoto článku</h2>
+          <p style="margin:0 0 12px;font-family:'Source Serif 4',serif;font-size:14px;color:#5f6672">Osm zdrojů, u každého druh: primární (původce informace) nebo sekundární (zpravodajství a analýzy).</p>
+          <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ srcCols }};gap:0 24px">
+            <sc-for list="{{ sources }}" as="s" hint-placeholder-count="8">
+              <li style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:12px 0;border-top:1px solid #e2e2de"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672;padding-top:3px">{{ s.n }}</span><span style="min-width:0"><a href="#" lang="en" style="display:block;font-family:'Source Serif 4',serif;font-size:16px;font-weight:600;line-height:1.35">{{ s.title }} ↗</a><span style="display:block;margin-top:4px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ s.pub }}<span style="color:{{ s.kindColor }}"> · {{ s.kind }}</span></span></span></li>
+            </sc-for>
+          </ol>
+        </section>
+      </div>
+
+      <aside style="min-width:0;border-left:{{ asideBorder }};padding-left:{{ asidePad }}">
+        <section aria-labelledby="today" style="padding-top:16px;border-top:2px solid #14161a">
+          <h2 id="today" style="margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Dále v dnešním vydání</h2>
+          <p style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">pátek 25. 9. 2026</p>
+          <ol style="list-style:none;margin:0;padding:0">
+            <sc-for list="{{ others }}" as="a" hint-placeholder-count="2">
+              <li style="display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:14px;padding:14px 0;border-top:1px solid #e2e2de"><span style="min-width:0"><span style="display:block;margin-bottom:4px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2f5ae6">{{ a.section }}<span style="color:#5f6672;font-weight:500"> · {{ a.time }}</span></span><a href="#" style="display:block;font-family:'Source Serif 4',serif;font-size:18px;font-weight:600;line-height:1.28">{{ a.title }}</a></span><a href="#"><img src="{{ a.thumb }}" alt="" width="800" height="800" loading="lazy" style="display:block;width:88px;height:88px;object-fit:cover;background:#efefec"></a></li>
+            </sc-for>
+          </ol>
+        </section>
+        <section aria-labelledby="briefs" style="margin-top:32px;padding-top:16px;border-top:2px solid #14161a">
+          <h2 id="briefs" style="margin:0 0 8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Krátce</h2>
+          <ol style="list-style:none;margin:0;padding:0">
+            <sc-for list="{{ briefs }}" as="b" hint-placeholder-count="4">
+              <li style="padding:12px 0;border-top:1px solid #e2e2de"><a href="#" style="display:block"><span style="display:block;font-family:'Source Serif 4',serif;font-size:16px;font-weight:600;line-height:1.3">{{ b.title }}</span><span style="display:block;margin-top:5px;font-family:'Source Serif 4',serif;font-size:14px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ b.body }}</span><span style="display:block;margin-top:6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672">{{ b.topic }}<span style="font-family:'IBM Plex Mono',monospace;font-weight:400;letter-spacing:0;text-transform:none"> · {{ b.source }} ↗</span></span></a></li>
+            </sc-for>
+          </ol>
+        </section>
+        <section aria-labelledby="watch" style="margin-top:32px;padding-top:16px;border-top:2px solid #14161a">
+          <h2 id="watch" style="margin:0 0 8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Ke sledování</h2>
+          <ol style="list-style:none;margin:0;padding:0">
+            <sc-for list="{{ watch }}" as="w" hint-placeholder-count="3">
+              <li style="padding:10px 0;border-top:1px solid #e2e2de"><a href="#" style="display:block"><span lang="en" style="display:block;font-size:15px;font-weight:500;line-height:1.35">{{ w.title }} ↗</span><span style="display:block;margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ w.source }}</span></a></li>
+            </sc-for>
+          </ol>
+        </section>
+        <section aria-label="Vlastní projekt" style="margin-top:32px;padding-top:16px;border-top:1px solid #e2e2de">
+          <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672">Vlastní projekt</p>
+          <img src="public/images/banners/devshark-300x250.svg" alt="devShark – kvízová hra, se kterou budeš lepší vývojář" width="300" height="250" loading="lazy" style="display:block;max-width:100%;height:auto">
+        </section>
+      </aside>
+    </div>
+
+    <section aria-labelledby="more" style="margin-top:56px;padding-top:12px;border-top:2px solid #14161a">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px"><h2 id="more" style="margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Další z dnešního vydání</h2><a href="#" style="font-size:13px;font-weight:500;color:#2f5ae6">Celé vydání →</a></div>
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ moreCols }};gap:24px">
+        <sc-for list="{{ others }}" as="a" hint-placeholder-count="2">
+          <li style="min-width:0"><a href="#" style="display:block"><img src="{{ a.hero }}" alt="" width="1600" height="1067" loading="lazy" style="display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;background:#efefec"></a><p style="margin:12px 0 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2f5ae6">{{ a.section }}<span style="color:#5f6672;font-weight:500"> · {{ a.time }}</span></p><h3 style="margin:0;font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;line-height:1.22"><a href="#">{{ a.title }}</a></h3><p style="margin:8px 0 0;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ a.dek }}</p></li>
+        </sc-for>
+        <li style="min-width:0;border-left:{{ asideBorder }};padding-left:{{ asidePad }}"><p style="margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672">Předchozí vydání · úterý 22. 9.</p><h3 style="margin:0;font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;line-height:1.22"><a href="#">Kalifornie zkrotila spotřebu datových center a Muse od Mety má vážnou bezpečnostní díru</a></h3><p style="margin:8px 0 0;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden">Guvernér Newsom podepsal sedm zákonů přenášejících náklady na energii a vodu z obyvatel na datová centra. Zároveň výzkumník odhalil zero-day v privilegovaném AI asistentu od Mety.</p></li>
+      </ul>
+    </section>
+
+    <dc-import name="Site Footer" mobile="{{ mobile }}" hint-size="100%,320px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mobile = String(this.props.mobile) === "true";
+    const E = "public/images/editions/";
+    const others = [
+      { section: "Vývoj", time: "9.30", title: "GPT-6 Astra dostal klíče od produkce. Agenti OpenAI mezitím zaútočili bez dovolení", dek: "Perplexity svěřil modelu GPT-6 Astra dohled nad živými systémy. Výzkumníci tvrdí, že jiní agenti OpenAI v květnu napadli registr RubyGems.", hero: E + "2026-09-13-gpt6-astra-autonomie-rubygems-amodei/hero.webp", thumb: E + "2026-09-13-gpt6-astra-autonomie-rubygems-amodei/thumb.webp" },
+      { section: "Modely", time: "12.10", title: "Gemini prolomil tři firmy, halucinace málem spustila vojenskou operaci", dek: "Tři nezávislé události z jediného dne ukazují, že AI systémy dělají věci, které jejich tvůrci nezamýšleli – a důsledky přestávají být jen hypotetické.", hero: E + "2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/hero.webp", thumb: E + "2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/thumb.webp" },
+    ];
+    const briefs = [
+      ["Llama.cpp vydal sestavení b11174", "Nová verze oblíbeného open-source runtime pro velké jazykové modely přináší opravy výkonu a rozšíření kompatibility s kvantizovanými modely.", "Open source", "github.com"],
+      ["Kalibrace důležitější než přesnost: pohled na modely pro rozhodování", "Kartik Pansuriya na svém blogu rozebírá, proč jsou kalibrované modely pro praktická rozhodnutí cennější než modely s nejvyšší surovou přesností.", "Modely", "kartikpansuriya.com"],
+      ["ESA a Mistral prohlubují spolupráci v oblasti AI", "Evropská kosmická agentura a francouzský AI výrobce Mistral podepsaly dohodu o prohloubení spolupráce.", "Firmy a trh", "esa.int"],
+      ["Jsem příliš nudný na AI agenta?", "Ryan Broderick v Garbage Day prochází týden s AI agentem a dochází k závěru, že hodnota agentů závisí na tom, zda má uživatel dostatek opakujících se úkolů.", "Vývoj", "garbageday.email"],
+    ].map(([title, body, topic, source]) => ({ title, body, topic, source }));
+    const watch = [["Claude Pop – I'm Upping My P(Doom)", "github.com · přes TensorFeed"], ["Evolving programming languages in the AI era", "dashbit.co · přes TensorFeed"], ["Show HN: A dedicated Mac that keeps Claude Code or Codex running 24/7", "macrun.dev · přes TensorFeed"]].map(([title, source]) => ({ title, source }));
+    const sources = [
+      ["Automating coherent long-form video generation", "Google Research · 24. 9. 2026", "primární", true],
+      ["Gemini 3.8 Live with Live Avatar gives Google’s AI a face", "The Verge · 24. 9. 2026", "sekundární", false],
+      ["Crook used three open source agents to break into a Fortune 500 hospitality company, a major US airline and 25+ other orgs", "The Register · 25. 9. 2026", "sekundární", false],
+      ["Microsoft is killing off the ‘Copilot Plus PC’ brand", "The Verge · 25. 9. 2026", "sekundární", false],
+      ["The AI Build-Out Is Becoming the Biggest Economic Bet in U.S. History", "wsj.com · 25. 9. 2026 · přes TensorFeed", "sekundární", false],
+      ["Meta employees ordered ‘attorney/client privilege’ hats while fighting child safety disclosures", "The Verge · 25. 9. 2026", "sekundární", false],
+      ["Can Muse make us forget the metaverse?", "Platformer · 25. 9. 2026", "sekundární", false],
+      ["Docker's new sandboxes aim to contain AI agents for real", "The Register · 24. 9. 2026", "sekundární", false],
+    ].map(([title, pub, kind, primary], i) => ({ n: String(i + 1).padStart(2, "0"), title, pub, kind, kindColor: primary ? "#067a52" : "#5f6672" }));
+    return {
+      mobile, pageWidth: mobile ? "390px" : "1440px", mastVariant: mobile ? "mobile" : "full",
+      pagePad: mobile ? "0 12px" : "0 40px",
+      headPad: mobile ? "20px 0 20px" : "36px 0 28px",
+      titleSize: mobile ? "32px" : "52px",
+      dekSize: mobile ? "17px" : "20px",
+      figCols: mobile ? "minmax(0,1fr)" : "minmax(0,9fr) minmax(0,3fr)",
+      bodyCols: mobile ? "minmax(0,1fr)" : "minmax(0,8fr) minmax(0,4fr)",
+      bodyTop: mobile ? "24px" : "40px",
+      hlCols: mobile ? "minmax(0,1fr)" : "repeat(3,minmax(0,1fr))",
+      measure: mobile ? "none" : "36em",
+      bodySize: mobile ? "18px" : "19px",
+      srcCols: mobile ? "minmax(0,1fr)" : "repeat(2,minmax(0,1fr))",
+      asideBorder: mobile ? "0" : "1px solid #c9c9c3",
+      asidePad: mobile ? "0" : "24px",
+      moreCols: mobile ? "minmax(0,1fr)" : "repeat(3,minmax(0,1fr))",
+      others, briefs, watch, sources,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="padding:0 24px 80px">
+  <div style="max-width:1180px"><dc-import name="R2 Nav" current="06" hint-size="100%,44px"></dc-import></div>
+  <header style="max-width:1180px;padding:40px 0 28px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">06 · Poslední týden and Archiv · days with several articles · 1440 and 390</p>
+    <h1 style="margin:0 0 16px;font-size:34px;font-weight:600;letter-spacing:-.01em;max-width:24ch">Group by day; the day's lead gets the picture</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;max-width:72ch;color:#3c4149">Both pages get a fixed 200 px date column on the left and the articles on the right, so a day with three articles and a day with one read on the same grid. In Poslední týden the day's priority-1 article is a row with a 280 px 3:2 cover and dek; the others are compact rows with 96 px squares. The Archive is denser: title, section and time, a 56 px square; days without an edition stay as one quiet „bez vydání“ line; a section filter row at the top replaces the Témata index page. The 25. 9. day is simulated with three real articles, as on the front page.</p>
+  </header>
+  <section style="padding:32px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Before · /tyden and /archive · 1440</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Current Pages" page="week" hint-size="1440px,1000px"></dc-import></div>
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Current Pages" page="archive" hint-size="1440px,1000px"></dc-import></div>
+    </div>
+  </section>
+  <section style="padding:56px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">After · /tyden · 1440 / 390</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Lists" page="week" hint-size="1440px,1000px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Lists" page="week" mobile="{{ true }}" hint-size="390px,1000px"></dc-import></div>
+    </div>
+  </section>
+  <section style="padding:56px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">After · /archive · 1440 / 390</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Lists" page="archive" hint-size="1440px,1000px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Lists" page="archive" mobile="{{ true }}" hint-size="390px,1000px"></dc-import></div>
+    </div>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>

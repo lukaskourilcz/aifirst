@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="padding:0 24px 80px">
+  <div style="max-width:1180px"><dc-import name="R2 Nav" current="02" hint-size="100%,44px"></dc-import></div>
+  <header style="max-width:1180px;padding:40px 0 28px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">02 · Front page · before / after · 1440 px and 390 px</p>
+    <h1 style="margin:0 0 16px;font-size:34px;font-weight:600;letter-spacing:-.01em;max-width:24ch">One day, one to three articles, and a Saturday</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;max-width:72ch;color:#3c4149">The „before“ is the live front page of 26. 9. 2026 recreated from source. The „after“ mockups use the real 25. 9. edition (headline, dek, Briefs, Watchlist, photo). The 2- and 3-article days are simulations that borrow the real 13. 9. and 19. 9. editions as the day's second and third articles, because no real day has more than one yet. Section labels follow the assignment rule in DECISIONS.md. Where a slot has no real image (16. 9., a drawn plate), the mockup shows the honest fallback, not a picture.</p>
+    <p style="margin:12px 0 0;font-size:14px;line-height:1.55;max-width:72ch;color:#3c4149"><strong>Rules illustrated:</strong> the lead headline always sits on the lead photo, in white Space Grotesk 700 on a flat ink band (rgba(20,22,26,.84); white on it measures ≥ 10:1 even over white pixels), so contrast never depends on the photograph. Secondary headlines are Source Serif 4 600. Mono is reserved for dates, times and credits. Section names replace the numbered rail. Briefs and Watchlist belong to the day, not to an article, so they stay in one place whatever the article count.</p>
+  </header>
+
+  <section style="padding:32px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Before · live front page, Saturday 26. 9. 2026 · 1440 / 390</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Current Home" hint-size="1440px,1400px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Current Home" mobile="{{ true }}" hint-size="390px,1400px"></dc-import></div>
+    </div>
+  </section>
+
+  <sc-for list="{{ scenarios }}" as="s" hint-placeholder-count="4">
+    <section style="padding:56px 0 0">
+      <h2 style="margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">{{ s.label }}</h2>
+      <p style="margin:0 0 14px;font-size:14px;line-height:1.5;max-width:80ch;color:#3c4149">{{ s.note }}</p>
+      <div style="display:flex;gap:32px;align-items:flex-start">
+        <div style="width:1440px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Front Page" count="{{ s.count }}" saturday="{{ s.saturday }}" hint-size="1440px,1600px"></dc-import></div>
+        <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="New Front Page" count="{{ s.count }}" saturday="{{ s.saturday }}" mobile="{{ true }}" hint-size="390px,1600px"></dc-import></div>
+      </div>
+    </section>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      scenarios: [
+        { count: "1", saturday: false, label: "After · 1 article today · pátek 25. 9. 2026", note: "The lead takes the full 12 columns at 2:1 with the headline on the ink band. Below it, the dek and meta on the left and the article's own „Proč na tom záleží“ bullets on the right, so a one-article day still reads as a full front. Then Briefs (8 cols, two columns) beside Watchlist, Pojem dne and the house creative (4 cols); the completion row; the last seven days as two rows with 3:2 covers." },
+        { count: "2", saturday: false, label: "After · 2 articles today (simulated with the 13. 9. edition as the second article)", note: "Lead at 8 columns, 3:2, headline on the band. The second article takes 4 columns with its own 3:2 cover and a serif headline, separated by a column rule. The lead is whichever article carries priority 1 upstream; the second is ordered by publish time." },
+        { count: "3", saturday: false, label: "After · 3 articles today (simulated with 13. 9. and 19. 9.)", note: "Lead at 7 columns. The right 5-column stack holds the second article with a 3:2 cover and the third as a row with a 1:1 thumbnail — the square crop is what makes the third slot possible without a fourth photo ratio. Because 19. 9. is used as today's third article, the week block shows 22. 9. and 16. 9.; 16. 9. has only a drawn plate, so it renders text-first with a labelled „bez fotografie“ box, never a generated filler." },
+        { count: "1", saturday: true, label: "After · Saturday 26. 9. 2026 (no edition; Friday's leads)", note: "Same layout, different words: the dateline says „Poslední vydání · pátek 25. 9. 2026“ and „o víkendu nevychází“, the completion row closes Friday's edition, the week block becomes „Uplynulý týden“. The masthead date is Saturday's. No empty state, no apology." },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

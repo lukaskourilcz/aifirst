@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#f7f7f5;color:#14161a} a{color:#2f5ae6;text-decoration:none} a:hover{color:#1d43bb}</style>
+</helmet>
+<div style="width:{{ pageWidth }};background:#f7f7f5;color:#14161a;font-family:'Space Grotesk',sans-serif;font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased">
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+    <div style="position:sticky;top:0;display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;height:56px;padding:0 16px;border-bottom:1px solid #e2e2de;background:#f7f7f5">
+      <span style="display:grid;place-items:center;width:44px;height:44px"><span style="display:block;width:18px;height:2px;background:#14161a;box-shadow:0 -5px 0 #14161a,0 5px 0 #14161a"></span></span>
+      <span style="justify-self:center;display:inline-flex;align-items:center;min-height:44px;padding:0 8px"><img src="public/brand/DNESKAi-logo.svg" alt="DNESKAi" style="display:block;height:18px"></span>
+      <span style="justify-self:end;display:grid;place-items:center;width:44px;height:44px;color:#3c4149"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.5"></circle><line x1="10.5" y1="10.5" x2="14" y2="14"></line></svg></span>
+    </div>
+  </sc-if>
+  <div style="display:flex;gap:{{ shellGap }};padding:{{ shellPad }}">
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <dc-import name="Current Sidebar" active="today" hint-size="244px,900px"></dc-import>
+    </sc-if>
+    <main style="flex:1;min-width:0;padding:30px 0 64px">
+      <div style="display:grid;grid-template-columns:{{ railCols }};gap:40px;align-items:start">
+        <div style="min-width:0">
+          <header style="display:flex;align-items:baseline;justify-content:space-between;padding:12px 0 16px;border-top:2px solid #c9c9c3;border-bottom:1px solid #e2e2de">
+            <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#3c4149"><span style="color:#2f5ae6">DNESKAi</span> · sobota 26. září 2026</p>
+          </header>
+
+          <section style="padding:40px 0 0;display:flex;flex-direction:column">
+            <a href="#" style="display:block;padding:10px;border:1px solid #e2e2de;background:#fff"><img src="public/images/editions/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/hero.webp" alt="" style="display:block;width:100%;aspect-ratio:21/9;object-fit:cover"></a>
+            <div style="position:relative;z-index:1;max-width:{{ plateMax }};margin:{{ plateMargin }};padding:{{ platePad }};background:{{ plateBg }};border:{{ plateBorder }}">
+              <p style="margin:0 0 18px;padding-left:12px;border-left:3px solid #2f5ae6;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#2f5ae6">Poslední vydání · pátek 25. 9. 2026</p>
+              <h1 style="margin:0 0 16px;font-family:'Space Grotesk',sans-serif;font-size:{{ leadSize }};font-weight:700;line-height:1.06;letter-spacing:-.035em;text-wrap:balance"><a href="#" style="color:#14161a">AI agenti spáchali první velký průmyslový útok. Stál 25 dolarů za cíl</a></h1>
+              <p style="margin:0;font-family:'Source Serif 4',serif;font-size:{{ dekSize }};line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:{{ dekClamp }};overflow:hidden">Čínsky mluvící útočník propojil tři open-source nástroje a napadl přes 27 organizací včetně aerolinek a hotelového řetězce z Fortune 500. Téhož dne Google ukázal animovaný obličej svého asistenta a Microsoft tiše pohřbil značku Copilot Plus PC.</p>
+            </div>
+            <p style="margin:8px 0 24px {{ metaIndent }};font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672">3 min čtení</p>
+          </section>
+
+          <div style="display:grid;grid-template-columns:{{ condensedCols }};gap:32px;margin-top:48px">
+            <section>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #c9c9c3"><h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">Krátce</h2></div>
+              <ol style="list-style:none;margin:0;padding:0;border-top:1px solid #e2e2de">
+                <sc-for list="{{ briefs }}" as="b" hint-placeholder-count="4">
+                  <li style="border-bottom:1px solid #e2e2de"><a href="#" style="display:grid;grid-template-columns:1.75rem minmax(0,1fr);gap:8px;padding:12px 0;color:#14161a">
+                    <span style="padding-left:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672;line-height:1.55">{{ b.n }}</span>
+                    <span style="display:block;min-width:0"><span style="display:block;font-size:16px;font-weight:600;line-height:1.22;letter-spacing:-.02em">{{ b.title }}</span><span style="display:block;margin-top:8px;font-family:'Source Serif 4',serif;font-size:14.4px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ b.body }}</span><span style="display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5f6672">{{ b.topic }}</span></span>
+                  </a></li>
+                </sc-for>
+              </ol>
+            </section>
+            <section>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #c9c9c3"><h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">Ke sledování</h2></div>
+              <ol style="list-style:none;margin:0;padding:0;border-top:1px solid #e2e2de">
+                <sc-for list="{{ watch }}" as="w" hint-placeholder-count="3">
+                  <li style="border-bottom:1px solid #e2e2de"><a href="#" style="display:grid;grid-template-columns:1.75rem minmax(0,1fr);gap:8px;padding:12px 0;color:#14161a">
+                    <span style="padding-left:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672;line-height:1.55">{{ w.n }}</span>
+                    <span style="display:block;min-width:0"><span style="display:block;font-size:16px;font-weight:600;line-height:1.22;letter-spacing:-.02em" lang="en">{{ w.title }} ↗</span><span style="display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5f6672">TensorFeed</span></span>
+                  </a></li>
+                </sc-for>
+              </ol>
+            </section>
+          </div>
+
+          <p style="display:flex;justify-content:space-between;align-items:center;margin:48px 0 0;padding:12px 0;border-top:2px solid #c9c9c3;border-bottom:1px solid #e2e2de;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">
+            <span style="display:inline-flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#067a52"></span>Konec vydání</span><span style="color:#14161a">Máte přehled.</span>
+          </p>
+
+          <section style="margin-top:48px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #c9c9c3"><h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">Poslední týden</h2><a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase">Celý týden →</a></div>
+            <ul style="list-style:none;margin:0;padding:0">
+              <li style="border-bottom:1px solid #e2e2de"><a href="#" style="display:grid;grid-template-columns:minmax(0,1fr) {{ thumbW }};gap:20px;padding:20px 0;color:inherit;align-items:start">
+                <div style="min-width:0"><h3 style="margin:0;font-size:{{ rowTitle }};font-weight:700;line-height:1.22;letter-spacing:-.02em;color:#14161a;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden">Kalifornie zkrotila spotřebu datových center a Muse od Mety má vážnou bezpečnostní díru</h3><p style="margin:8px 0 0;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">Guvernér Newsom podepsal sedm zákonů přenášejících náklady na energii a vodu z obyvatel na datová centra. Zároveň výzkumník odhalil zero-day v privilegovaném AI asistentu od Mety, který útočníkovi otevírá přístup ke všemu, co uživatel svěřil aplikaci.</p><p style="margin:8px 0 0;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672">22. 9. 2026</p></div>
+                <img src="public/images/editions/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/thumb.webp" alt="" style="width:{{ thumbW }};height:{{ thumbH }};object-fit:cover;border:1px solid #e2e2de">
+              </a></li>
+            </ul>
+            <a href="#" style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:32px;padding:14px 20px;border:1px solid #8e8e88;background:#fff;color:#14161a"><span><span style="display:block;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">Předchozí týden</span><span style="font-size:20px;font-weight:500">Týden 7. 9. – 13. 9. 2026</span></span><span style="font-size:24px">→</span></a>
+          </section>
+        </div>
+
+        <aside style="min-width:0;padding-top:{{ railTop }}">
+          <div style="text-align:center"><p style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">Vlastní projekt</p><img src="public/images/banners/devshark-300x250.svg" alt="devShark" width="300" height="250" style="display:inline-block;max-width:100%;height:auto"></div>
+          <section style="margin-top:16px;padding:16px 0;border-top:1px solid #c9c9c3">
+            <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#5f6672">Pojem dne</p>
+            <p style="margin:0;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149"><span style="display:block;color:#14161a;font-family:'Space Grotesk',sans-serif;font-weight:600">Teplota (temperature)</span>Kolečko náhodnosti: nízká = předvídatelné a opakovatelné, vysoká = pestré a kreativní</p>
+            <p style="margin:12px 0 0;font-family:'IBM Plex Mono',monospace;font-size:11px"><a href="#">Celé heslo →</a></p>
+          </section>
+        </aside>
+      </div>
+      <dc-import name="Current Footer" mobile="{{ mobile }}" hint-size="100%,260px"></dc-import>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mobile = String(this.props.mobile) === "true";
+    const briefs = [
+      ["01", "Llama.cpp vydal sestavení b11174", "Nová verze oblíbeného open-source runtime pro velké jazykové modely přináší opravy výkonu a rozšíření kompatibility s kvantizovanými modely.", "Open source"],
+      ["02", "Kalibrace důležitější než přesnost: pohled na modely pro rozhodování", "Kartik Pansuriya na svém blogu rozebírá, proč jsou kalibrované modely – tedy takové, jejichž vyjádřená jistota odpovídá skutečné chybovosti – pro praktická rozhodnutí cennější než modely s nejvyšší surovou přesností.", "AI modely"],
+      ["03", "ESA a Mistral prohlubují spolupráci v oblasti AI", "Evropská kosmická agentura a francouzský AI výrobce Mistral podepsaly dohodu o prohloubení spolupráce.", "Evropská politika"],
+      ["04", "Jsem příliš nudný na AI agenta?", "Ryan Broderick v Garbage Day prochází týden s AI agentem a dochází k závěru, že hodnota agentů závisí na tom, zda má uživatel dostatek opakujících se, dobře definovaných úkolů.", "AI agenti"],
+    ].map(([n, title, body, topic]) => ({ n, title, body, topic }));
+    const watch = [["01", "Claude Pop – I'm Upping My P(Doom)"], ["02", "Evolving programming languages in the AI era"], ["03", "Show HN: A dedicated Mac that keeps Claude Code or Codex running 24/7"]].map(([n, title]) => ({ n, title }));
+    return {
+      mobile, desktop: !mobile,
+      pageWidth: mobile ? "390px" : "1440px",
+      shellGap: mobile ? "0" : "50px",
+      shellPad: mobile ? "0 16px" : "0 64px",
+      railCols: mobile ? "minmax(0,1fr)" : "minmax(0,1fr) 300px",
+      plateMax: mobile ? "none" : "min(34em,85%)",
+      plateMargin: mobile ? "0" : "-72px 0 0 24px",
+      platePad: mobile ? "16px 0 0" : "16px 24px 24px",
+      plateBg: mobile ? "transparent" : "#fff",
+      plateBorder: mobile ? "0" : "1px solid #e2e2de",
+      leadSize: mobile ? "38px" : "38px",
+      dekSize: mobile ? "17px" : "20px",
+      dekClamp: mobile ? 12 : 3,
+      metaIndent: mobile ? "0" : "24px",
+      condensedCols: mobile ? "minmax(0,1fr)" : "repeat(2,minmax(0,1fr))",
+      thumbW: mobile ? "104px" : "200px",
+      thumbH: mobile ? "78px" : "150px",
+      rowTitle: mobile ? "18px" : "21.6px",
+      railTop: mobile ? "16px" : "0",
+      briefs, watch,
+    };
+  }
+}
+</script>
+</body>
+</html>

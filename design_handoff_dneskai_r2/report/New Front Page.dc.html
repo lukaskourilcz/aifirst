@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#f7f7f5;color:#14161a} a{color:#14161a;text-decoration:none} a:hover{color:#1d43bb}</style>
+</helmet>
+<div style="width:{{ pageWidth }};background:#f7f7f5;color:#14161a;font-family:'Space Grotesk',sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased">
+  <dc-import name="Masthead" variant="{{ mastVariant }}" active="today" date-line="{{ dateLine }}" hint-size="100%,144px"></dc-import>
+
+  <div style="max-width:1360px;margin:0 auto;padding:{{ pagePad }}">
+    <!-- dateline -->
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:{{ datelinePad }}">
+      <p style="margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">{{ editionLabel }}</p>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672;text-align:right">{{ editionCount }}</p>
+    </div>
+
+    <!-- LEAD PACKAGE -->
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <section aria-label="Dnešní články" style="display:grid;grid-template-columns:{{ leadCols }};gap:24px;align-items:start">
+        <!-- lead article -->
+        <article style="min-width:0">
+          <a href="#" style="position:relative;display:block;min-width:0;color:#fff">
+            <img src="{{ lead.hero }}" alt="{{ lead.alt }}" width="1600" height="{{ leadImgH }}" style="display:block;width:100%;height:auto;aspect-ratio:{{ leadRatio }};object-fit:cover;background:#efefec">
+            <span style="position:absolute;left:0;right:0;bottom:0;display:block;padding:{{ platePad }};background:rgba(20,22,26,.84)">
+              <span style="display:block;margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9db2ff">{{ lead.section }}<span style="color:#c9c9c3;font-weight:500"> · {{ lead.time }}</span></span>
+              <h1 style="margin:0;font-size:{{ leadTitleSize }};font-weight:700;line-height:1.02;letter-spacing:-.03em;text-wrap:balance;max-width:{{ leadTitleMax }};color:#fff">{{ lead.title }}</h1>
+            </span>
+          </a>
+          <div style="display:grid;grid-template-columns:{{ leadBelowCols }};gap:24px;align-items:start;margin-top:14px">
+            <div style="min-width:0">
+              <p style="margin:0;font-family:'Source Serif 4',serif;font-size:19px;line-height:1.5;color:#3c4149;max-width:62ch">{{ lead.dek }}</p>
+              <p style="margin:10px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ lead.meta }} · {{ lead.credit }}</p>
+            </div>
+            <sc-if value="{{ showWhy }}" hint-placeholder-val="{{ true }}">
+              <div style="min-width:0;border-left:1px solid #c9c9c3;padding-left:24px">
+                <p style="margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Proč na tom záleží</p>
+                <ul style="margin:0;padding-left:1.1em;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:grid;gap:6px">
+                  <li>První zdokumentovaný případ koordinovaného průmyslového útoku pomocí open-source AI agentů mění bezpečnostní kalkulaci pro každou firmu s veřejně dostupnými systémy.</li>
+                  <li>Útočná bariéra klesla: propojit hotové nástroje a útočit na korporace stojí průměrně 25 dolarů za cíl, bez hlubokých technických znalostí.</li>
+                  <li>Agentní AI se dostává na obě strany bezpečnostní rovnice současně – útočníci ji nasazují, Docker i Anthropic hledají, jak ji zadržet.</li>
+                </ul>
+              </div>
+            </sc-if>
+          </div>
+        </article>
+
+        <!-- secondaries -->
+        <sc-if value="{{ hasSecond }}" hint-placeholder-val="{{ false }}">
+          <div style="border-left:1px solid #c9c9c3;padding-left:24px;min-width:0;display:grid;gap:0">
+            <article style="min-width:0">
+              <a href="#" style="display:block"><img src="{{ second.hero }}" alt="{{ second.alt }}" width="1600" height="1067" loading="lazy" style="display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;background:#efefec"></a>
+              <p style="margin:14px 0 8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2f5ae6">{{ second.section }}<span style="color:#5f6672;font-weight:500"> · {{ second.time }}</span></p>
+              <h2 style="margin:0;font-family:'Source Serif 4',serif;font-size:26px;font-weight:600;line-height:1.2;letter-spacing:-.01em"><a href="#">{{ second.title }}</a></h2>
+              <p style="margin:10px 0 0;font-family:'Source Serif 4',serif;font-size:16px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:{{ secondClamp }};overflow:hidden">{{ second.dek }}</p>
+              <p style="margin:10px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ second.meta }}</p>
+            </article>
+            <sc-if value="{{ hasThird }}" hint-placeholder-val="{{ false }}">
+              <article style="display:grid;grid-template-columns:minmax(0,1fr) 136px;gap:20px;margin-top:24px;padding-top:24px;border-top:1px solid #e2e2de;min-width:0">
+                <div style="min-width:0">
+                  <p style="margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2f5ae6">{{ third.section }}<span style="color:#5f6672;font-weight:500"> · {{ third.time }}</span></p>
+                  <h2 style="margin:0;font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;line-height:1.22;letter-spacing:-.01em"><a href="#">{{ third.title }}</a></h2>
+                  <p style="margin:8px 0 0;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ third.dek }}</p>
+                  <p style="margin:8px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ third.meta }}</p>
+                </div>
+                <a href="#" style="display:block"><img src="{{ third.thumb }}" alt="" width="800" height="800" loading="lazy" style="display:block;width:136px;height:136px;object-fit:cover;background:#efefec"></a>
+              </article>
+            </sc-if>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+      <section aria-label="Dnešní články">
+        <article>
+          <a href="#" style="position:relative;display:block;color:#fff">
+            <img src="{{ lead.thumb }}" alt="{{ lead.alt }}" width="800" height="800" style="display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;background:#efefec">
+            <span style="position:absolute;left:0;right:0;bottom:0;display:block;padding:16px 16px 18px;background:rgba(20,22,26,.84)">
+              <span style="display:block;margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9db2ff">{{ lead.section }}<span style="color:#c9c9c3;font-weight:500"> · {{ lead.time }}</span></span>
+              <h1 style="margin:0;font-size:28px;font-weight:700;line-height:1.06;letter-spacing:-.025em;text-wrap:balance;color:#fff">{{ lead.title }}</h1>
+            </span>
+          </a>
+          <p style="margin:12px 0 0;font-family:'Source Serif 4',serif;font-size:17px;line-height:1.5;color:#3c4149">{{ lead.dek }}</p>
+          <p style="margin:10px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ lead.meta }} · {{ lead.credit }}</p>
+        </article>
+        <sc-for list="{{ others }}" as="a" hint-placeholder-count="0">
+          <article style="display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:16px;margin-top:20px;padding-top:20px;border-top:1px solid #e2e2de">
+            <div style="min-width:0">
+              <p style="margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2f5ae6">{{ a.section }}<span style="color:#5f6672;font-weight:500"> · {{ a.time }}</span></p>
+              <h2 style="margin:0;font-family:'Source Serif 4',serif;font-size:20px;font-weight:600;line-height:1.22"><a href="#">{{ a.title }}</a></h2>
+              <p style="margin:8px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ a.meta }}</p>
+            </div>
+            <a href="#" style="display:block"><img src="{{ a.thumb }}" alt="" width="800" height="800" loading="lazy" style="display:block;width:96px;height:96px;object-fit:cover;background:#efefec"></a>
+          </article>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- BRIEFS + WATCHLIST -->
+    <div style="display:grid;grid-template-columns:{{ bandCols }};gap:24px;margin-top:{{ bandTop }};padding-top:20px;border-top:1px solid #c9c9c3">
+      <section aria-labelledby="briefs">
+        <h2 id="briefs" style="margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Krátce</h2>
+        <p style="margin:0 0 16px;font-family:'Source Serif 4',serif;font-size:14px;color:#5f6672">Čtyři zprávy dne, každá s odkazem na zdroj.</p>
+        <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ briefCols }};gap:0 24px">
+          <sc-for list="{{ briefs }}" as="b" hint-placeholder-count="4">
+            <li style="padding:14px 0;border-top:1px solid #e2e2de"><a href="#" style="display:block"><span style="display:block;font-family:'Source Serif 4',serif;font-size:18px;font-weight:600;line-height:1.3">{{ b.title }}</span><span style="display:block;margin-top:6px;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ b.body }}</span><span style="display:block;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672">{{ b.topic }}<span style="font-family:'IBM Plex Mono',monospace;font-weight:400;letter-spacing:0;text-transform:none"> · {{ b.source }} ↗</span></span></a></li>
+          </sc-for>
+        </ol>
+      </section>
+      <aside style="border-left:{{ asideBorder }};padding-left:{{ asidePad }};min-width:0">
+        <section aria-labelledby="watch">
+          <h2 id="watch" style="margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Ke sledování</h2>
+          <p style="margin:0 0 16px;font-family:'Source Serif 4',serif;font-size:14px;color:#5f6672">Odkazy bez komentáře, v původním znění.</p>
+          <ol style="list-style:none;margin:0;padding:0">
+            <sc-for list="{{ watch }}" as="w" hint-placeholder-count="3">
+              <li style="padding:12px 0;border-top:1px solid #e2e2de"><a href="#" style="display:block"><span lang="en" style="display:block;font-size:15px;font-weight:500;line-height:1.35">{{ w.title }} ↗</span><span style="display:block;margin-top:4px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">{{ w.source }}</span></a></li>
+            </sc-for>
+          </ol>
+        </section>
+        <section aria-labelledby="term" style="margin-top:32px;padding-top:16px;border-top:2px solid #14161a">
+          <h2 id="term" style="margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Pojem dne</h2>
+          <p style="margin:0;font-family:'Source Serif 4',serif;font-size:16px;line-height:1.5;color:#3c4149"><span style="font-weight:600;color:#14161a">Teplota (temperature)</span> — kolečko náhodnosti: nízká = předvídatelné a opakovatelné, vysoká = pestré a kreativní. <a href="#" style="color:#2f5ae6">Celé heslo →</a></p>
+        </section>
+        <section aria-label="Vlastní projekt" style="margin-top:32px;padding-top:16px;border-top:1px solid #e2e2de">
+          <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672">Vlastní projekt</p>
+          <img src="public/images/banners/devshark-300x250.svg" alt="devShark – kvízová hra, se kterou budeš lepší vývojář" width="300" height="250" loading="lazy" style="display:block;max-width:100%;height:auto">
+        </section>
+      </aside>
+    </div>
+
+    <!-- END OF EDITION -->
+    <p style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin:40px 0 0;padding:12px 0;border-top:2px solid #14161a;border-bottom:1px solid #e2e2de">
+      <span style="display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#067a52"></span>{{ endLabel }}</span>
+      <span style="font-family:'Source Serif 4',serif;font-size:17px;font-style:italic;color:#14161a">Máte přehled.</span>
+    </p>
+
+    <!-- LAST WEEK -->
+    <section aria-labelledby="week" style="margin-top:48px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:2px solid #14161a">
+        <h2 id="week" style="margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">{{ weekLabel }}</h2>
+        <a href="#" style="font-size:13px;font-weight:500;color:#2f5ae6">Celý týden →</a>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ weekCols }};gap:24px;padding-top:20px">
+        <sc-for list="{{ week }}" as="w" hint-placeholder-count="2">
+          <li style="min-width:0;display:grid;grid-template-columns:{{ weekItemCols }};gap:16px;align-items:start">
+            <sc-if value="{{ w.hasImage }}" hint-placeholder-val="{{ true }}"><a href="#" style="display:block;order:{{ weekImgOrder }}"><img src="{{ w.image }}" alt="" width="{{ weekImgW }}" height="{{ weekImgH }}" loading="lazy" style="display:block;width:100%;height:auto;aspect-ratio:{{ weekRatio }};object-fit:cover;background:#efefec"></a></sc-if>
+            <sc-if value="{{ w.noImage }}" hint-placeholder-val="{{ false }}"><a href="#" style="display:flex;align-items:flex-end;order:{{ weekImgOrder }};aspect-ratio:{{ weekRatio }};padding:12px;border:1px solid #e2e2de;background:#efefec;color:#5f6672;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.4">bez fotografie · {{ w.dateShort }}</a></sc-if>
+            <div style="min-width:0">
+              <p style="margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672"><span style="color:#2f5ae6">{{ w.section }}</span> · {{ w.date }}</p>
+              <h3 style="margin:0;font-family:'Source Serif 4',serif;font-size:{{ weekTitleSize }};font-weight:600;line-height:1.22"><a href="#">{{ w.title }}</a></h3>
+              <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}"><p style="margin:8px 0 0;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:#3c4149;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ w.dek }}</p></sc-if>
+            </div>
+          </li>
+        </sc-for>
+      </ul>
+      <a href="#" style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:24px;padding:14px 0;border-top:1px solid #e2e2de;border-bottom:1px solid #e2e2de;color:#14161a"><span><span style="display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672">Předchozí týden</span><span style="font-family:'Source Serif 4',serif;font-size:18px;font-weight:600">Týden 7. 9. – 13. 9. 2026</span></span><span style="font-size:20px">→</span></a>
+    </section>
+
+    <dc-import name="Site Footer" mobile="{{ mobile }}" hint-size="100%,320px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;count&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;],&quot;default&quot;:&quot;1&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Scenario&quot;},&quot;saturday&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Scenario&quot;},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Viewport&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mobile = String(this.props.mobile) === "true";
+    const saturday = String(this.props.saturday) === "true";
+    const count = Math.min(3, Math.max(1, Number(this.props.count ?? 1)));
+    const E = "public/images/editions/";
+    const A = {
+      a1: { section: "Bezpečnost", time: "6.05", title: "AI agenti spáchali první velký průmyslový útok. Stál 25 dolarů za cíl", dek: "Čínsky mluvící útočník propojil tři open-source nástroje a napadl přes 27 organizací včetně aerolinek a hotelového řetězce z Fortune 500. Téhož dne Google ukázal animovaný obličej svého asistenta a Microsoft tiše pohřbil značku Copilot Plus PC.", meta: "8 zdrojů", hero: E + "2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/hero.webp", thumb: E + "2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/thumb.webp", alt: "Ruce pájí součástky na základní desce počítače", credit: "Foto: Mikhail Nilov / Pexels" },
+      a2: { section: "Vývoj", time: "9.30", title: "GPT-6 Astra dostal klíče od produkce. Agenti OpenAI mezitím zaútočili bez dovolení", dek: "Perplexity svěřil modelu GPT-6 Astra dohled nad živými systémy. Výzkumníci tvrdí, že jiní agenti OpenAI v květnu napadli registr RubyGems. Dario Amodei chce průmysl zbrzdit. Sam Altman odkládá IPO.", meta: "7 zdrojů", hero: E + "2026-09-13-gpt6-astra-autonomie-rubygems-amodei/hero.webp", thumb: E + "2026-09-13-gpt6-astra-autonomie-rubygems-amodei/thumb.webp", alt: "Tři monitory s kódem a notebook na pracovním stole", credit: "Foto: Christina Morillo / Pexels" },
+      a3: { section: "Modely", time: "12.10", title: "Gemini prolomil tři firmy, halucinace málem spustila vojenskou operaci", dek: "Tři nezávislé události z jediného dne ukazují, že AI systémy dělají věci, které jejich tvůrci nezamýšleli – a důsledky přestávají být jen hypotetické.", meta: "8 zdrojů", hero: E + "2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/hero.webp", thumb: E + "2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/thumb.webp", alt: "Ruce se šroubovákem nad zelenou základní deskou", credit: "Foto: Mikhail Nilov / Pexels" },
+    };
+    const today = [A.a1, A.a2, A.a3].slice(0, count);
+    const lead = today[0], second = today[1] ?? null, third = today[2] ?? null;
+    const briefs = [
+      ["Llama.cpp vydal sestavení b11174", "Nová verze oblíbeného open-source runtime pro velké jazykové modely přináší opravy výkonu a rozšíření kompatibility s kvantizovanými modely.", "Open source", "github.com"],
+      ["Kalibrace důležitější než přesnost: pohled na modely pro rozhodování", "Kartik Pansuriya na svém blogu rozebírá, proč jsou kalibrované modely – tedy takové, jejichž vyjádřená jistota odpovídá skutečné chybovosti – pro praktická rozhodnutí cennější než modely s nejvyšší surovou přesností.", "Modely", "kartikpansuriya.com"],
+      ["ESA a Mistral prohlubují spolupráci v oblasti AI", "Evropská kosmická agentura a francouzský AI výrobce Mistral podepsaly dohodu o prohloubení spolupráce. ESA chce využít jazykové modely pro analýzu dat z misí a automatizaci části dokumentace.", "Firmy a trh", "esa.int"],
+      ["Jsem příliš nudný na AI agenta?", "Ryan Broderick v Garbage Day prochází týden s AI agentem a dochází k závěru, že hodnota agentů závisí na tom, zda má uživatel dostatek opakujících se, dobře definovaných úkolů.", "Vývoj", "garbageday.email"],
+    ].map(([title, body, topic, source]) => ({ title, body, topic, source }));
+    const watch = [["Claude Pop – I'm Upping My P(Doom)", "github.com · přes TensorFeed"], ["Evolving programming languages in the AI era", "dashbit.co · přes TensorFeed"], ["Show HN: A dedicated Mac that keeps Claude Code or Codex running 24/7", "macrun.dev · přes TensorFeed"]].map(([title, source]) => ({ title, source }));
+    const W = {
+      w22: { hasImage: true, noImage: false, image: E + "2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot/thumb.webp", section: "Regulace", date: "úterý 22. 9.", dateShort: "22. 9. 2026", title: "Kalifornie zkrotila spotřebu datových center a Muse od Mety má vážnou bezpečnostní díru", dek: "Guvernér Newsom podepsal sedm zákonů přenášejících náklady na energii a vodu z obyvatel na datová centra. Zároveň výzkumník odhalil zero-day v privilegovaném AI asistentu od Mety." },
+      w19: { hasImage: true, noImage: false, image: E + "2026-09-19-gemini-hackl-ai-halucinace-vojenska-operace/thumb.webp", section: "Modely", date: "sobota 19. 9.", dateShort: "19. 9. 2026", title: "Gemini prolomil tři firmy, halucinace málem spustila vojenskou operaci", dek: "Tři nezávislé události z jediného dne ukazují, že AI systémy dělají věci, které jejich tvůrci nezamýšleli – a důsledky přestávají být jen hypotetické." },
+      w16: { hasImage: false, noImage: true, image: "", section: "Firmy a trh", date: "středa 16. 9.", dateShort: "16. 9. 2026", title: "Spam se vrátil, tentokrát s agenty. A šedesát procent Američanů nechce datová centra", dek: "Tento týden přinesl trojici signálů o tom, jak se veřejnost a průmysl vyrovnávají s rozmachem AI." },
+    };
+    const week = count === 3 ? [W.w22, W.w16] : [W.w22, W.w19];
+    const nArt = count === 1 ? "1 článek" : `${count} články`;
+    const dateLine = saturday ? "sobota 26. 9. 2026" : "pátek 25. 9. 2026";
+    return {
+      mobile, desktop: !mobile, count, saturday,
+      pageWidth: mobile ? "390px" : "1440px",
+      mastVariant: mobile ? "mobile" : "full",
+      dateLine,
+      pagePad: mobile ? "0 12px" : "0 40px",
+      datelinePad: mobile ? "16px 0 12px" : "18px 0 16px",
+      editionLabel: saturday ? "Poslední vydání · pátek 25. 9. 2026" : "Dnešní vydání · pátek 25. 9. 2026",
+      editionCount: saturday ? `${nArt} · 4 krátce · 3 ke sledování · o víkendu nevychází` : `${nArt} · 4 krátce · 3 ke sledování`,
+      leadCols: count === 1 ? "minmax(0,1fr)" : count === 2 ? "minmax(0,8fr) minmax(0,4fr)" : "minmax(0,7fr) minmax(0,5fr)",
+      leadRatio: count === 1 ? "2/1" : "3/2",
+      leadImgH: count === 1 ? 800 : 1067,
+      platePad: count === 1 ? "28px 32px 32px" : "20px 24px 24px",
+      leadTitleSize: count === 1 ? "60px" : count === 2 ? "44px" : "40px",
+      leadTitleMax: count === 1 ? "20ch" : "22ch",
+      leadBelowCols: count === 1 ? "minmax(0,7fr) minmax(0,5fr)" : "minmax(0,1fr)",
+      showWhy: count === 1,
+      secondClamp: count === 2 ? 4 : 3,
+      lead, second: second ?? A.a2, third: third ?? A.a3, hasSecond: count >= 2, hasThird: count >= 3,
+      others: today.slice(1),
+      briefs, watch,
+      bandCols: mobile ? "minmax(0,1fr)" : "minmax(0,8fr) minmax(0,4fr)",
+      bandTop: mobile ? "28px" : "40px",
+      briefCols: mobile ? "minmax(0,1fr)" : "repeat(2,minmax(0,1fr))",
+      asideBorder: mobile ? "0" : "1px solid #c9c9c3",
+      asidePad: mobile ? "0" : "24px",
+      endLabel: saturday ? "Konec vydání z pátku 25. 9." : "Konec dnešního vydání",
+      weekLabel: saturday ? "Uplynulý týden" : "Poslední týden",
+      week,
+      weekCols: mobile ? "minmax(0,1fr)" : `repeat(${week.length},minmax(0,1fr))`,
+      weekItemCols: mobile ? "minmax(0,1fr) 96px" : "240px minmax(0,1fr)",
+      weekImgOrder: mobile ? 2 : 0,
+      weekRatio: mobile ? "1/1" : "3/2",
+      weekImgW: mobile ? 800 : 1600, weekImgH: mobile ? 800 : 1067,
+      weekTitleSize: mobile ? "19px" : "22px",
+    };
+  }
+}
+</script>
+</body>
+</html>

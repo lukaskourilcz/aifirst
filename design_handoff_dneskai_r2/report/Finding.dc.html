@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:grid;grid-template-columns:76px minmax(0,1fr) 30px;gap:14px;padding:11px 0;border-top:1px solid #d9d5cc;align-items:start">
+  <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding-top:4px;color:{{ color }}">{{ kind }}</span>
+  <div style="min-width:0;font-size:14px;line-height:1.5;color:#1c1b19">
+    <span style="font-weight:600">{{ where }}</span><span style="color:#8a867e"> · </span><span>{{ text }}</span>
+    <sc-if value="{{ hasFix }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:3px;color:#3c4149"><span style="color:#1d43bb">→ </span><span>{{ fix }}</span></div>
+    </sc-if>
+  </div>
+  <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1;padding:4px 5px;text-align:center;justify-self:end;color:#fff;background:{{ pBg }}">{{ p }}</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:720,&quot;height&quot;:80},&quot;kind&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;delete&quot;,&quot;move&quot;,&quot;fix&quot;,&quot;keep&quot;,&quot;ux&quot;,&quot;visual&quot;,&quot;upstream&quot;,&quot;not verified&quot;],&quot;default&quot;:&quot;fix&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;where&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Front page&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;text&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;What is wrong and where.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;fix&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;p&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;P0&quot;,&quot;P1&quot;,&quot;P2&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const kind = this.props.kind ?? "fix";
+    const colors = { delete: "#c0272c", move: "#8a5a0d", fix: "#1d43bb", keep: "#067a52", ux: "#3c4149", visual: "#3c4149", upstream: "#8a5a0d", "not verified": "#8a867e" };
+    const p = this.props.p ?? "";
+    const pBg = { P0: "#c0272c", P1: "#8a5a0d", P2: "#5f6672" }[p] ?? "transparent";
+    return { kind, color: colors[kind] ?? "#3c4149", where: this.props.where ?? "", text: this.props.text ?? "", fix: this.props.fix ?? "", hasFix: Boolean(this.props.fix), p, pBg };
+  }
+}
+</script>
+</body>
+</html>

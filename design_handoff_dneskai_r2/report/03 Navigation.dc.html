@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#e9e6df;color:#1c1b19;font-family:"Helvetica Neue",Helvetica,sans-serif;-webkit-font-smoothing:antialiased} a{color:#1d43bb} a:hover{color:#14161a}</style>
+</helmet>
+<div style="padding:0 24px 80px">
+  <div style="max-width:1180px"><dc-import name="R2 Nav" current="03" hint-size="100%,44px"></dc-import></div>
+  <header style="max-width:1180px;padding:40px 0 28px;border-bottom:1px solid #cfcbc2">
+    <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">03 · Navigation · masthead, section bar, sticky state, mobile</p>
+    <h1 style="margin:0 0 16px;font-size:34px;font-weight:600;letter-spacing:-.01em;max-width:24ch">From a numbered rail to a masthead with sections</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;max-width:72ch;color:#3c4149">Recommendation: a centred masthead (date left, logotype 34 px centre, search right) over a 2 px ink rule, then one row of section names with an ink underline on the active one, then a hairline. It reads as a publication because the first thing the page states is its name and the day, not a menu. The left rail returned 244 px of every viewport to eight links; the masthead gives the whole 1360 px grid to the reporting. Below 960 px the bar becomes a 56 px top bar and a horizontally scrolling section strip; the drawer holds the same list plus „Více“.</p>
+    <p style="margin:12px 0 0;font-size:14px;line-height:1.55;max-width:72ch;color:#3c4149">Sections in the bar: <strong>Dnes · Modely · Firmy a trh · Bezpečnost · Regulace · Vývoj</strong>, then a divider and „Více“ (Poslední týden, Archiv, Slovník, Zdroje, Opravy, O magazínu). Archiv is not in the bar by the owner's decision; it lives in „Více“ and the footer. The section list, scope and tag mapping are in DECISIONS.md.</p>
+  </header>
+
+  <section style="padding:32px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">Before · persistent rail (desktop) and drawer (mobile)</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:320px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5;padding:0 0 0 64px"><dc-import name="Current Sidebar" active="today" hint-size="244px,600px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5"><img src="public/screens/nav-drawer-mobile.png" alt="Current mobile drawer" style="display:block;width:100%;height:auto"></div>
+      <div style="max-width:420px;font-size:14px;line-height:1.55;color:#3c4149"><p style="margin:0 0 8px"><strong>What reads as unfinished:</strong> a documentation-style index (01–04) for four items; the strapline set as a 11 px mono kicker; „hledat“ in lowercase; the 1 px column rule running the full viewport height beside 1000 px of empty rail on every page; and a white active tile with a blue left bar – a component from admin UIs.</p></div>
+    </div>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">After · desktop masthead at 1440 (page top)</h2>
+    <div style="width:1440px;border:1px solid #cfcbc2;background:#f7f7f5;padding-bottom:24px"><dc-import name="Masthead" variant="full" active="today" hint-size="1440px,144px"></dc-import></div>
+    <ul style="margin:14px 0 0;padding-left:1.1em;font-size:14px;line-height:1.55;color:#3c4149;max-width:80ch">
+      <li>Row 1: 92 px. Date in IBM Plex Mono 13 px (the one mono element in the chrome), logotype 34 px, „Hledat ⌘K“ as a 40 px outlined control (border #8e8e88).</li>
+      <li>2 px ink rule (#14161a). This is the new „masthead rule“ token; the grey #c9c9c3 rule stays for grouping.</li>
+      <li>Row 2: 50 px. Space Grotesk 500 15 px, #3c4149; active item 600 #14161a with a 2 px ink underline. Hairline #c9c9c3 below.</li>
+      <li>Every target ≥ 44 px tall; focus ring unchanged (2 px blueprint, 2 px offset).</li>
+    </ul>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">After · sticky condensed header (after 120 px of scroll)</h2>
+    <div style="width:1440px;border:1px solid #cfcbc2;background:#f7f7f5"><dc-import name="Masthead" variant="sticky" active="security" hint-size="1440px,52px"></dc-import><div style="height:120px;background:repeating-linear-gradient(0deg,#f7f7f5 0 15px,#efefec 15px 16px)"></div></div>
+    <p style="margin:14px 0 0;font-size:14px;line-height:1.55;color:#3c4149;max-width:80ch">52 px, paper background, hairline below, no shadow. Logotype 20 px left, the same section row centred at 14 px, short date and a 40 px search icon right. It appears with a 150 ms translate once the full masthead has scrolled out; <code>prefers-reduced-motion</code> shows it without the transition. Implemented with <code>position: sticky</code> on a wrapper and one <code>IntersectionObserver</code> toggling a class – the only client JS the navigation needs.</p>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <h2 style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5751">After · mobile 390: top bar + section strip, and the drawer</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5;padding-bottom:24px"><dc-import name="Masthead" variant="mobile" active="today" hint-size="390px,104px"></dc-import></div>
+      <div style="width:390px;flex:none;border:1px solid #cfcbc2;background:#f7f7f5;font-family:'Space Grotesk',sans-serif;color:#14161a;min-height:720px">
+        <div style="display:flex;justify-content:space-between;align-items:center;height:56px;padding:0 12px 0 16px"><img src="public/brand/DNESKAi-logo.svg" alt="DNESKAi" style="height:20px"><span style="display:grid;place-items:center;width:44px;height:44px;font-size:18px">✕</span></div>
+        <div style="margin:0 16px;border-top:2px solid #14161a"></div>
+        <p style="margin:16px 16px 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672">Rubriky</p>
+        <nav style="padding:0 16px;display:flex;flex-direction:column">
+          <sc-for list="{{ drawerPrimary }}" as="d" hint-placeholder-count="6"><a href="#" style="display:flex;align-items:center;min-height:52px;border-bottom:1px solid #e2e2de;font-size:20px;font-weight:{{ d.weight }};color:#14161a;text-decoration:none">{{ d.label }}</a></sc-for>
+        </nav>
+        <p style="margin:24px 16px 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5f6672">Více</p>
+        <nav style="padding:0 16px;display:flex;flex-direction:column">
+          <sc-for list="{{ drawerSecondary }}" as="d" hint-placeholder-count="6"><a href="#" style="display:flex;align-items:center;min-height:44px;border-bottom:1px solid #e2e2de;font-size:16px;color:#3c4149;text-decoration:none">{{ d }}</a></sc-for>
+        </nav>
+        <div style="margin:24px 16px 0"><a href="#" style="display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border:1px solid #8e8e88;color:#14161a;font-size:15px;font-weight:500;text-decoration:none"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"></circle><line x1="10.5" y1="10.5" x2="14" y2="14"></line></svg>Hledat v archivu</a></div>
+        <p style="margin:24px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5f6672">pátek 25. 9. 2026</p>
+      </div>
+      <div style="max-width:420px;font-size:14px;line-height:1.55;color:#3c4149"><p style="margin:0 0 8px"><strong>Top bar</strong> 56 px: menu, logotype 20 px, search. A 2 px ink rule, then the section strip at 44 px, horizontally scrollable, active item underlined; it is not sticky (the top bar is). <strong>Drawer</strong>: the six sections at 20 px, then „Více“, then search, then the date. No numbers.</p><p style="margin:0">The strip replaces the drawer as the primary way to change section on a phone: one thumb move instead of open → find → tap → close.</p></div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      drawerPrimary: ["Dnes", "Modely", "Firmy a trh", "Bezpečnost", "Regulace", "Vývoj"].map((label, i) => ({ label, weight: i === 0 ? 700 : 500 })),
+      drawerSecondary: ["Poslední týden", "Archiv", "Slovník", "Zdroje", "Opravy", "O magazínu"],
+    };
+  }
+}
+</script>
+</body>
+</html>

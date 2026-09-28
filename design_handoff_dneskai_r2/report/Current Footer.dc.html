@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<footer style="margin-top:64px;font-family:'Space Grotesk',sans-serif">
+  <div style="display:grid;grid-template-columns:{{ cols }};gap:32px;align-items:start;padding:48px 0 64px;border-top:1px solid #c9c9c3">
+    <div style="grid-column:{{ brandSpan }}">
+      <p style="margin:0 0 12px"><img src="public/brand/DNESKAi-logo.svg" alt="DNESKAi" style="display:block;height:18px;width:auto"></p>
+      <p style="margin:0;max-width:40ch;color:#3c4149;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.68">Výběrová denní publikace, která vysvětluje podstatné změny v AI a otevřeně ukazuje zdroje i nejistotu.</p>
+      <p style="margin:16px 0 0;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f6672">Za obsah odpovídá tým DNESKAi · <a href="#" style="color:#2f5ae6;text-decoration:none">Kdo vydání píše</a></p>
+    </div>
+    <nav style="display:flex;flex-direction:column;align-items:flex-start;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase">
+      <p style="margin:0 0 8px;color:#14161a">Magazín</p>
+      <a href="#" style="color:#5f6672;text-decoration:none">Dnes</a><a href="#" style="color:#5f6672;text-decoration:none">Poslední týden</a><a href="#" style="color:#5f6672;text-decoration:none">Témata</a><a href="#" style="color:#5f6672;text-decoration:none">Archiv</a>
+    </nav>
+    <nav style="display:flex;flex-direction:column;align-items:flex-start;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase">
+      <p style="margin:0 0 8px;color:#14161a">O magazínu</p>
+      <a href="#" style="color:#5f6672;text-decoration:none">O magazínu</a><a href="#" style="color:#5f6672;text-decoration:none">Zdroje</a><a href="#" style="color:#5f6672;text-decoration:none">Opravy</a><a href="#" style="color:#5f6672;text-decoration:none">Slovník</a><a href="#" style="color:#5f6672;text-decoration:none">RSS ↗</a><a href="#" style="color:#5f6672;text-decoration:none">Instagram ↗</a>
+    </nav>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1000,&quot;height&quot;:300},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mobile = String(this.props.mobile) === "true";
+    return { cols: mobile ? "minmax(0,1fr)" : "minmax(220px,1.4fr) repeat(2,minmax(140px,.6fr))", brandSpan: mobile ? "1" : "auto" };
+  }
+}
+</script>
+</body>
+</html>
