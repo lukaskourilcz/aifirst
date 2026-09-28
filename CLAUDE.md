@@ -107,9 +107,11 @@ edition pipeline. They add no client JavaScript and make no network or model cal
 ## Footer and operator identification
 
 The footer links only live social profiles from `brand.social` (Instagram
-today; Threads flips `live` when the owner creates it) and names the person
-responsible for the content exactly as About states it. No company name, IČO,
-address or contact is shown until the owner supplies one (`NEEDED.md`).
+today; Threads flips `live` when the owner creates it). By the owner's decision
+(28. 9. 2026) the site publishes no personal name, IČO or personal e-mail: the
+publication sells nothing, and „tým DNESKAi" answers for sources, rules and
+corrections on O magazínu (#redakce). The canonical origin is
+https://dneskai.vercel.app.
 
 ## Important paths and reuse
 

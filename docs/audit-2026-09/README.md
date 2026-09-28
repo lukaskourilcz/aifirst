@@ -1,6 +1,6 @@
 # Handoff: DNESKAi pre-launch audit — implementation package
 
-Repo: `lukaskourilcz/aifirst` (Next.js 15 App Router, React 19, static). Live: caughtup-ai.vercel.app.
+Repo: `lukaskourilcz/aifirst` (Next.js 15 App Router, React 19, static). Live: dneskai.vercel.app.
 Audit date: 2026-09-27. Report language English; every reader-facing string in the fixes is Czech.
 
 ## What this bundle is
