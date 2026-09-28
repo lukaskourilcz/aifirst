@@ -1,135 +1,84 @@
-import type { Locale } from "@/lib/i18n/config";
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/config";
 import { dict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/config";
-import { isDrawnPlate } from "@/lib/content";
-import { czechLongDate } from "@/lib/weeks";
-import { photoCreditParts, topicLabels } from "@/lib/labels";
+import { photoCreditParts } from "@/lib/labels";
 
-
+/**
+ * The article head (round 2): section label and date, the headline, the dek,
+ * then a byline block. „Redaktor" is deliberately empty (owner decision: no
+ * name, no avatar). „Ověření" says what the text rests on, and only claims a
+ * review when `generation.human_reviewed` is true; it links to the sources and
+ * to O magazínu (#redakce), where the language-model statement lives.
+ *
+ * The photograph follows at 3:2 over nine columns with its caption beside it:
+ * the alt text as the caption, then the credit. A drawn plate or a missing
+ * photo means no figure at all.
+ */
 export function IssueMasthead({
   label,
   title,
   dek,
-  date,
-  tags,
-  heroPhoto,
-  heroAlt,
-  heroCaption,
-  heroAttribution,
-  provenance,
+  verification,
+  photo,
+  photoAlt,
+  attribution,
   locale,
 }: {
   label: string;
   title: string;
   dek: string;
-  date: string;
-  tags?: string[];
-  heroPhoto: string | null;
-  heroAlt: string;
-  heroCaption?: string;
-  heroAttribution?: { author: string; license: string; sourceUrl: string; text: string };
-  /** The provenance sentence, already composed; absent on legacy editions. */
-  provenance?: string | null;
+  /** The „Ověření" sentence, or null for a legacy edition without a generation record. */
+  verification: string | null;
+  photo: string | null;
+  photoAlt: string;
+  attribution?: { author: string; license: string; sourceUrl: string };
   locale: Locale;
 }) {
-  const t = dict(locale).common;
-  // Same rule as the front-page lead: the plate composites over a photograph
-  // only, never over a drawn .svg cover that arrives already composed.
-  const overlay = heroPhoto !== null && !isDrawnPlate(heroPhoto);
-  // Czech labels only; a slug without one is left out rather than shown raw.
-  const topics = topicLabels(tags).slice(0, 3);
-  // Rebuilt from the structured fields: upstream's `text` is English. The link
-  // sits on the author's name only.
-  const creditParts = heroAttribution ? photoCreditParts(heroAttribution) : null;
-  const credit = heroAttribution && creditParts
-    ? <>
-        {creditParts.prefix}{" "}
-        <a href={heroAttribution.sourceUrl} target="_blank" rel="noopener noreferrer">{creditParts.author}</a>
-        {creditParts.host ? ` / ${creditParts.host}` : null}
-      </>
-    : heroCaption ?? null;
-
-  // Meta, provenance and topics sit under the image on both variants; only the
-  // eyebrow, headline and dek ever move onto the plate.
-  const details = (
-    <div className="hero__details">
-      <div className="hero__meta">
-        <time dateTime={date}>{czechLongDate(date)}</time>
-      </div>
-      {/* Stated once, plainly, where the reader meets the edition: who wrote
-          it and whether a person read it. Not a badge and not coloured. */}
-      {provenance ? (
-        <p className="hero__provenance">
-          {provenance}{" "}
-          <Link href={`${localePath(locale, "/about")}#redakce`}>{dict(locale).article.provenanceLink}&nbsp;→</Link>
-        </p>
-      ) : null}
-      {/* Absent, not empty: many editions have no category and the row simply
-          does not exist for them. */}
-      {topics.length ? (
-        <ul className="hero__topics" aria-label={locale === "cs" ? "Témata vydání" : "Issue topics"}>
-          {topics.map((topic) => <li key={topic} className="chip">{topic}</li>)}
-        </ul>
-      ) : null}
-    </div>
-  );
-
-  const copy = (
-    <div className="hero__copy">
-      <p className="hero__eyebrow">{label}</p>
-      <h1 id="issue-title" className="hero__title">{title}</h1>
-      <p className="hero__dek">{dek}</p>
-    </div>
-  );
-
-  if (overlay) {
-    return (
-      <section className="hero hero--overlay enter enter-1" aria-labelledby="issue-title">
-        {/* The plate overlaps the image in normal flow, so anything rendered
-            after it clears the overlap. That is why the credit is a sibling
-            below the plate rather than a figcaption inside the image's box:
-            a caption pinned to the image's bottom edge would sit underneath
-            the plate, and the attribution has to stay fully readable. */}
-        <div className="hero__media">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={heroPhoto}
-            alt={heroAlt}
-            className="hero__photo"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-        </div>
-        {copy}
-        {credit ? <p className="hero__credit">{credit}</p> : null}
-        {details}
-      </section>
-    );
-  }
+  const t = dict(locale).article;
+  const credit = attribution ? photoCreditParts(attribution) : null;
 
   return (
-    <section
-      className={heroPhoto ? "hero enter enter-1" : "hero hero--no-photo enter enter-1"}
-      aria-labelledby="issue-title"
-    >
-      {copy}
-      {details}
-      {heroPhoto ? (
-        <figure className="hero__figure">
+    <>
+      <header className="article-head">
+        <p className="label label--section article-head__label">{label}</p>
+        <h1 id="issue-title" className="article-head__title">{title}</h1>
+        <p className="article-head__dek">{dek}</p>
+        <dl className="byline">
+          <div className="byline__row">
+            <dt>{t.editor}</dt>
+            <dd className="byline__blank"><span className="sr-only">{t.editorBlank}</span></dd>
+          </div>
+          {verification ? (
+            <div className="byline__row">
+              <dt>{t.verification}</dt>
+              <dd>
+                {verification}{" "}
+                <a href="#zdroje">{t.sourcesDown}</a>
+                <span aria-hidden> · </span>
+                <Link href={`${localePath(locale, "/about")}#redakce`}>{t.provenanceLink}&nbsp;→</Link>
+              </dd>
+            </div>
+          ) : null}
+        </dl>
+      </header>
+
+      {photo ? (
+        <figure className="article-figure">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={heroPhoto}
-            alt={heroAlt}
-            className="hero__photo"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-          {credit ? <figcaption>{credit}</figcaption> : null}
+          <img src={photo} alt={photoAlt} width={1600} height={1067} className="article-figure__img" fetchPriority="high" decoding="async" />
+          <figcaption className="article-figure__caption">
+            {photoAlt ? <span className="article-figure__alt">{photoAlt}</span> : null}
+            {credit && attribution ? (
+              <span className="meta">
+                {credit.prefix}{" "}
+                <a href={attribution.sourceUrl} target="_blank" rel="noopener noreferrer">{credit.author}</a>
+                {credit.host ? ` / ${credit.host}` : null}
+              </span>
+            ) : null}
+          </figcaption>
         </figure>
       ) : null}
-    </section>
+    </>
   );
 }

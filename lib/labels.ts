@@ -290,3 +290,25 @@ export function monogram(name: string): string {
     : (words[0] ?? "").slice(0, 2);
   return letters.toLocaleUpperCase("cs");
 }
+
+/**
+ * The article's „Ověření" line (round 2). It claims a review only when the
+ * generation record says a person reviewed the text; otherwise it states what
+ * the text was assembled from. Null for a legacy edition without a record.
+ */
+export function verificationSentence(
+  generation: { human_reviewed: boolean } | undefined,
+  sourceCount: number,
+  t: {
+    verificationReviewed: string;
+    verificationUnreviewed: string;
+    provenanceSourcesOne: string;
+    provenanceSourcesMany: string;
+  },
+): string | null {
+  if (!generation) return null;
+  const sources = sourceCount === 1
+    ? t.provenanceSourcesOne
+    : t.provenanceSourcesMany.replace("{n}", String(sourceCount));
+  return (generation.human_reviewed ? t.verificationReviewed : t.verificationUnreviewed).replace("{sources}", sources);
+}
