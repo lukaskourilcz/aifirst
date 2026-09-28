@@ -273,7 +273,7 @@ const en = {
     noMatch: "Nothing found.",
     placeholder: "Search the editions",
     open: "Search",
-    suggestedTags: "Topics",
+    suggestedTags: "Sections",
   },
   health: {
     kicker: "publication status",
@@ -591,7 +591,7 @@ const cs: Dict = {
     noMatch: "Nic nenalezeno.",
     placeholder: "Hledat ve vydáních",
     open: "Hledat",
-    suggestedTags: "Témata",
+    suggestedTags: "Rubriky",
   },
   health: {
     kicker: "stav publikace",

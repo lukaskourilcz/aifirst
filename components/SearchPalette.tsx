@@ -149,7 +149,7 @@ export function SearchPalette({ index, topics, locale }: Props) {
                   className="search-dialog__result-link"
                 >
                   <p className="label search-dialog__result-meta">
-                    {[czechNumericDate(r.date), ...r.topics.slice(0, 2)].join(" · ")}
+                    {[czechNumericDate(r.date), r.section].filter(Boolean).join(" · ")}
                   </p>
                   <p className="search-dialog__result-title">
                     {r.title}

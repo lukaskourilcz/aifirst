@@ -8,6 +8,7 @@ import { groupBy } from "./helpers/group";
 import { CONTENT_LANGS, DEFAULT_LOCALE, isContentLang, isLocale, type ContentLang, type Locale } from "./i18n/config";
 import { ogImageFor } from "./og";
 import { hostOf, topicLabels } from "./labels";
+import { sectionLabel, sectionOf } from "./sections";
 import { czechTypography, czechTypographyAll } from "./typography";
 
 // Czech typography for the delivered text a reader sees, applied on read. The
@@ -597,6 +598,8 @@ export type SearchEntry = {
   tags: string[];
   /** Czech display labels for `tags`, resolved on the server. */
   topics: string[];
+  /** The article's one section label (round 2), or null. */
+  section: string | null;
 };
 
 export async function buildSearchIndex(
@@ -611,5 +614,6 @@ export async function buildSearchIndex(
     dek: a.dek ?? "",
     tags: a.tags ?? [],
     topics: topicLabels(a.tags),
+    section: sectionLabel(sectionOf(a.tags)),
   }));
 }
