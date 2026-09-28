@@ -162,7 +162,7 @@ test("the section bar carries Dnes and five sections; everything else is under V
   }
 });
 
-for (const [legacy, current] of [["/search", "/archive"], ["/radar", "/topics"], ["/stats", "/topics"], ["/trends", "/topics"], ["/pulse", "/topics"], ["/tags", "/topics"], ["/colophon", "/about"]] as const) {
+for (const [legacy, current] of [["/search", "/archive"], ["/topics", "/archive"], ["/radar", "/archive"], ["/stats", "/archive"], ["/trends", "/archive"], ["/pulse", "/archive"], ["/tags", "/archive"], ["/topics/ai-platforms", "/topics/ai-companies"], ["/topics/open-source", "/topics/ai-models"], ["/colophon", "/about"]] as const) {
   test(`${legacy} permanently resolves to ${current}`, async ({ page }) => {
     await page.goto(legacy);
     await expect(page).toHaveURL(new RegExp(`${current}/?$`));
@@ -341,11 +341,13 @@ test("skip link and keyboard search work, trap focus, and restore the trigger", 
   await expect(page.getByRole("dialog").getByRole("textbox")).toBeFocused();
 });
 
-test("topic detail is one list of editions and links no raw tag page", async ({ page }) => {
+test("a section page leads on a photo and lists the section's articles", async ({ page }) => {
   await page.goto("/topics/ai-models");
-  await expect(page.getByRole("heading", { name: /vydání k tématu/i })).toBeVisible();
-  await expect(page.locator(".feed-list .feed-row").first()).toBeVisible();
+  await expect(page.locator("h1")).toHaveText("Modely");
+  await expect(page.locator(".section-head__scope")).toBeVisible();
+  await expect(page.locator(".section-top .card--band")).toHaveCount(1);
   await expect(page.locator('a[href*="/tags/"]')).toHaveCount(0);
+  await expect(page.locator('.section-foot a[href$="/topics/ai-models/feed.xml"]')).toHaveCount(1);
 });
 
 test("feeds expose language, entry links, publication time and categories", async ({ request }) => {
@@ -448,7 +450,7 @@ test("the section routes render their honest empty states", async ({ page }) => 
   }
 
   await page.goto("/ai-modely");
-  if (!(await page.locator(".feed-row").count())) {
+  if (!(await page.locator(".row-compact").count())) {
     await expect(page.getByText("Zatím tu není žádné vydání zaměřené na modely.")).toBeVisible();
   }
 
@@ -460,7 +462,7 @@ test("the section routes render their honest empty states", async ({ page }) => 
 
 test("the week chain reaches back through every published week", async ({ page }) => {
   await page.goto("/tyden");
-  await expect(page.locator(".feed-row").first()).toBeVisible();
+  await expect(page.locator(".day-group .card").first()).toBeVisible();
 
   // Follow the chain to its end; every hop is a static page.
   const seen = new Set<string>();
@@ -555,4 +557,62 @@ test("the article page: byline, figure, side column and ledger", async ({ page }
   const side = page.locator(".article-grid__side");
   await expect(side.locator('.banner-slot a[href="https://devshark.app"]')).toBeVisible();
   await expect(page.locator(".hero__topics, .hero__categories")).toHaveCount(0);
+});
+
+test.describe("round 2 invariants", () => {
+  const PAGES = [
+    "/",
+    "/articles/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot",
+    "/tyden",
+    "/archive",
+    "/topics/ai-models",
+    "/about",
+  ];
+
+  test("no sidebar; the masthead carries six section links and Více", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator(".sidebar, .nav-rail")).toHaveCount(0);
+    await expect(page.locator(".section-bar__list > li > a")).toHaveCount(6);
+    await expect(page.locator(".section-bar__more")).toHaveCount(1);
+  });
+
+  test("the front page's h1 is the lead headline on its band", async ({ page }) => {
+    await page.goto("/");
+    const onBand = await page.locator(".lead__band h1").count();
+    const typographic = await page.locator(".lead--type h1").count();
+    expect(onBand + typographic).toBe(1);
+    await expect(page.locator("h1")).toHaveCount(1);
+  });
+
+  test("no reading time and no personal name on any page", async ({ page }) => {
+    for (const path of PAGES) {
+      await page.goto(path);
+      const text = await page.locator("body").innerText();
+      expect(text, path).not.toMatch(/min(\.| | )čtení/);
+      expect(text, path).not.toMatch(/Kouřil|Lukáš/);
+    }
+  });
+
+  test("O magazínu #redakce states that a language model writes the text", async ({ page }) => {
+    await page.goto("/about");
+    const redakce = page.locator("#redakce");
+    await expect(redakce).toContainText("jazykový model");
+    await expect(redakce).toContainText("tým DNESKAi");
+  });
+
+  test("the ledger never lists more rows than the article cites", async ({ page }) => {
+    await page.goto("/articles/2026-09-25-ai-agenti-zlocin-google-avatar-microsoft-copilot");
+    const byline = await page.locator(".byline").innerText();
+    const cited = Number(byline.match(/(\d+)\s+uveden/)?.[1] ?? NaN);
+    expect(Number.isFinite(cited)).toBe(true);
+    expect(await page.locator(".ledger__row").count()).toBeLessThanOrEqual(cited);
+  });
+
+  test("every image carries width and height", async ({ page }) => {
+    for (const path of PAGES) {
+      await page.goto(path);
+      const missing = await page.locator("img:not([width]), img:not([height])").count();
+      expect(missing, path).toBe(0);
+    }
+  });
 });
