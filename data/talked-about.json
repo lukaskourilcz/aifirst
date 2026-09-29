@@ -1,9 +1,201 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-09-28",
+  "updated": "2026-09-29",
   "windowDays": 60,
   "items": [
+    {
+      "id": "33e6711b7576ea7c220e3303696b1de45aafdeb2",
+      "title": "[AINews] AMD buys World Labs for $8.2B, as Atlas solves sparse reconstruction problem for robotics, design and more",
+      "url": "https://latent.space/p/ainews-amd-buys-world-labs-for-82b",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-29",
+      "summary": "Congrats team!"
+    },
+    {
+      "id": "866d74891372bcfa1ae2961a1ea4091e838e160c",
+      "title": "[AINews] Opus 5.5 is good at explainer videos",
+      "url": "https://latent.space/p/ainews-opus-55-is-good-at-explainer",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-29",
+      "summary": "a rare feature of a capability"
+    },
+    {
+      "id": "ade28dc740755002130d54f4391ea57314f9a481",
+      "title": "# I Used Hindsight to Reuse a Past Incident",
+      "url": "https://medium.com/@linganollaganesh/i-used-hindsight-to-reuse-a-past-incident-88aca3155963",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "L Ganesh",
+      "published": "2026-09-29",
+      "summary": "**Author: Ganesh Linganolla** Continue reading on Medium »"
+    },
+    {
+      "id": "2eec26fb5e2eddc5b93938291a484730b7d9247c",
+      "title": "13 AI Updates You Should Know: From Claude Opus 5.5 to AI Agents Everywhere",
+      "url": "https://dibishks.medium.com/13-ai-updates-you-should-know-from-claude-opus-5-5-to-ai-agents-everywhere-3352ba4125d6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Dibeesh KS",
+      "published": "2026-09-29",
+      "summary": "AI is moving incredibly fast. Continue reading on Medium »"
+    },
+    {
+      "id": "5bdd572c4c745f1e24eac1eac4662c6c61c391e0",
+      "title": "Agent Memory Explained: How AI Agents Remember, Learn, and Use Context",
+      "url": "https://johirbuet.medium.com/agent-memory-explained-how-ai-agents-remember-learn-and-use-context-1a7c00102167",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Md Johirul Islam",
+      "published": "2026-09-29",
+      "summary": "Agentic AI Interview Preparation Series — Part 4 Continue reading on Medium »"
+    },
+    {
+      "id": "3e755b20ecd6648a65c9c31122ab01a4d03a9588",
+      "title": "AI World Media Group Launches AI World Publishing to Help Authors Bring Books to Market",
+      "url": "https://medium.com/@aiworldJournal/ai-world-media-group-launches-ai-world-publishing-to-help-authors-bring-books-to-market-3079fd99633d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "AI World Journal",
+      "published": "2026-09-29",
+      "summary": "New division supports independent authors from first idea through editing, design, publishing, and distribution, with a focus on AI… Continue reading on Medium »"
+    },
+    {
+      "id": "251ef6521f8b0784b1561908ea17e03adde3a7ef",
+      "title": "Claude Code’s Next Era — Thariq Shihipar, Anthropic",
+      "url": "https://latent.space/p/thariq",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-29",
+      "summary": "Shipping Opus/Sonnet 5.5, Mods, Plugins, Projects, Tag while Pacing the Frontier"
+    },
+    {
+      "id": "82ba5423145c1bbbbe36649398050ddd4e7de206",
+      "title": "DeepSeek Harness Is Becoming a Runtime for Agents That Outlive the Chat Window",
+      "url": "https://nookenter.medium.com/deepseek-harness-is-becoming-a-runtime-for-agents-that-outlive-the-chat-window-522e83ad1ab1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Nook.Enter",
+      "published": "2026-09-29",
+      "summary": "The v0.1.7-rc.2 prerelease adds schedules, restart persistence, background execution, and human override — small controls that together… Continue reading on Medium »"
+    },
+    {
+      "id": "90e1dd9a92dfc482382cbb11befb1071c9e97bb4",
+      "title": "Embeddings Explained: The Hidden Language of AI",
+      "url": "https://medium.com/aegisops/embeddings-explained-the-hidden-language-of-ai-4bf27607ef18",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Jaswinder Kumar",
+      "published": "2026-09-29",
+      "summary": "How machines convert words, images, and knowledge into mathematical meaning Continue reading on AegisOps »"
+    },
+    {
+      "id": "f3ff57fa09e05a60f123c0371ec8d6fa86e974f1",
+      "title": "From Stateless Chat to Customer Memory: Building a Support Agent with Hindsight",
+      "url": "https://medium.com/@siddudursetti1065/from-stateless-chat-to-customer-memory-building-a-support-agent-with-hindsight-a1bc5ae1efd9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "siddu dursetti",
+      "published": "2026-09-29",
+      "summary": "The hardest part of a customer-support chatbot is not generating a response. It is knowing which information from a customer’s past is… Continue reading on Medium »"
+    },
+    {
+      "id": "8880bf30aca8e652d02970d6eb70f3c6108ee56d",
+      "title": "Naver Map Learned to Plan Your Trip on September 17. October Gives It Two Long Weekends.",
+      "url": "https://medium.com/@kidscarebridge/naver-map-learned-to-plan-your-trip-on-september-17-october-gives-it-two-long-weekends-fbe9de8b36a0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Haru Kim",
+      "published": "2026-09-29",
+      "summary": "Seoul flight bookings for China’s National Day week are up 91% year over year. The new planners don’t know that yet. Continue reading on Medium »"
+    },
+    {
+      "id": "5eabb16de8eaf1343e643dbf6b5080c388389ae5",
+      "title": "TalkToMe: I made my coding agent call me",
+      "url": "https://medium.com/@rohanprichard/talktome-i-made-my-coding-agent-call-me-60b6ecdc3c78",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Rohan Richard",
+      "published": "2026-09-29",
+      "summary": "Why open another app when the agent already working in your project can just call you? Continue reading on Medium »"
+    },
+    {
+      "id": "a0110dbc3c5e29944171b835c0bfafb76f08955f",
+      "title": "The Best Python Libraries for Data Analysis in 2026 (With Tested Code)",
+      "url": "https://lemmaandloop.medium.com/the-best-python-libraries-for-data-analysis-in-2026-with-tested-code-5d0bd071dffc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Lemma & Loop",
+      "published": "2026-09-29",
+      "summary": "The best Python libraries for data analysis in 2026: pandas, NumPy, Matplotlib, Seaborn, Polars, scikit-learn — when to use each, with… Continue reading on Medium »"
+    },
+    {
+      "id": "cbcdb2f44e195a9def09f78962574de7e8d524ef",
+      "title": "The Simplest Roadmap to Learn AI By the End of 2026",
+      "url": "https://sankalpsatpute.medium.com/the-simplest-roadmap-to-learn-ai-by-the-end-of-2026-d5553db667ab",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sankalp satpute",
+      "published": "2026-09-29",
+      "summary": "Most people will spend the next 2 years consuming AI content. A small group will build with AI. That second group will quietly take the… Continue reading on Medium »"
+    },
+    {
+      "id": "233e89659a3353348167197e2f9395bd5b283ed4",
+      "title": "Transcripts aren’t memory: what I store in Hindsight instead",
+      "url": "https://medium.com/@bhanuteja.amula/transcripts-arent-memory-what-i-store-in-hindsight-instead-7828918b6050",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Bhanuteja Amula",
+      "published": "2026-09-29",
+      "summary": "The most expensive mistake my AI coding agents make isn’t a syntax error. It’s plausible code that quietly breaks a decision the team… Continue reading on Medium »"
+    },
     {
       "id": "9909928ac3603ae8fae86299edc6bd5ff4fb56dc",
       "title": "AI Video: Choosing First, Last, and Reference Images",
@@ -81,6 +273,19 @@
       "author": "Claire Bennett",
       "published": "2026-09-28",
       "summary": "An AI image model becomes useful to a business when it can produce something people can actually approve, publish, or reuse. For… Continue reading on Medium »"
+    },
+    {
+      "id": "39c6d9fc9c0d3f6a8b7ae91d8cdfdc5fc350cb6a",
+      "title": "I Have Been Writing About AI For 6 Years: Something Changed This Summer",
+      "url": "https://thealgorithmicbridge.com/p/i-have-been-writing-about-ai-for",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-09-28",
+      "summary": "Notes on becoming, like everyone else, obsolete"
     },
     {
       "id": "49fa4e03b59c6fcfad849fbc0230553f30a5f7fd",
@@ -1159,19 +1364,6 @@
       "author": "Florian Brand",
       "published": "2026-08-02",
       "summary": "Capacity to train strong models is proliferating."
-    },
-    {
-      "id": "2baa8213907d63b2b5b61f3d38ff9f8e767dc01a",
-      "title": "The Genius of Leopold Aschenbrenner",
-      "url": "https://ai-supremacy.com/p/the-genius-of-leopold-aschenbrenner",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-07-31",
-      "summary": "Fame, fortune, prophecy, leverage and controversy. A real 'Nostradamus of AI' if you will."
     }
   ]
 }
