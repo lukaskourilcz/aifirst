@@ -5,6 +5,18 @@
   "windowDays": 60,
   "items": [
     {
+      "id": "3fc2aadd486060fa9ded61d8de447754ff7b5450",
+      "title": "[AINews] OpenAI DevDay 2026: Dots, 6.1 Sol, Ultrafast, Decisions API, Agents API, Spaces, Marketplace, and 1.2 Billion ChatGPT WAU",
+      "url": "https://latent.space/p/ainews-openai-devday-2026-dots-61",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-30",
+      "summary": "the most confident DevDay yet."
+    },
+    {
       "id": "91e0ab1e4d0008c9b6152a378f9e340319ef78a7",
       "title": "Building an AI Incident Response Agent with Persistent Memory",
       "url": "https://medium.com/@uvtanishqudatha219/building-an-ai-incident-response-agent-with-persistent-memory-a0ebe43c5ba4",
