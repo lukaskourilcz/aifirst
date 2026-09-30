@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "windowDays": 60,
   "items": [
+    {
+      "id": "91e0ab1e4d0008c9b6152a378f9e340319ef78a7",
+      "title": "Building an AI Incident Response Agent with Persistent Memory",
+      "url": "https://medium.com/@uvtanishqudatha219/building-an-ai-incident-response-agent-with-persistent-memory-a0ebe43c5ba4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Uvtanishqudatha",
+      "published": "2026-09-30",
+      "summary": "Introduction Continue reading on Medium »"
+    },
+    {
+      "id": "fd6c57e3c92f78a21d41a799e463a71c47afc9ef",
+      "title": "ChatGPT Dots Changes the Question We Ask AI",
+      "url": "https://medium.com/@praneethCodes/chatgpt-dots-changes-the-question-we-ask-ai-d103a32a9dc6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Praneeth",
+      "published": "2026-09-30",
+      "summary": "Yesterday, using AI meant opening ChatGPT and asking a question. Continue reading on Medium »"
+    },
+    {
+      "id": "83fbc2290704bc2be82149e691d4117d954fb8ff",
+      "title": "Cheaper Model First, Premium Model on Demand: What I Learned Comparing Claude Opus 5.5",
+      "url": "https://medium.com/@claire.bennett_68847/cheaper-model-first-premium-model-on-demand-what-i-learned-comparing-claude-opus-5-5-a65510dfa1b0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Claire Bennett",
+      "published": "2026-09-30",
+      "summary": "If you are paying for AI models, Continue reading on Medium »"
+    },
+    {
+      "id": "da526bf95a775ed40a33cac93ec9bb1d0126fc2e",
+      "title": "From Awesome Jev to a Prototype You Can Evaluate",
+      "url": "https://medium.com/@tarundagar2001/from-awesome-jev-to-a-prototype-you-can-evaluate-e4abcf60c3a7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Tarun Dagar",
+      "published": "2026-09-30",
+      "summary": "A curated repository can leave you with more tabs open and no clearer idea of what to build. The useful next step is to choose a decision… Continue reading on Medium »"
+    },
+    {
+      "id": "2b1a9b986f1a1594d36a2a38fb29640f051aad24",
+      "title": "GLM-5.3 Flash vs GLM-5.3: Notes From a Developer Trying to Keep Costs Sane",
+      "url": "https://medium.com/@sophie.warren/glm-5-3-flash-vs-glm-5-3-notes-from-a-developer-trying-to-keep-costs-sane-3a2658290e4e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sophie Warren",
+      "published": "2026-09-30",
+      "summary": "If you’re deploying AI in production — as an agent, a coding assistant, a document pipeline, or anything in between — the model you pick… Continue reading on Medium »"
+    },
+    {
+      "id": "66e43eafbcdf7b27fe71ae90c6bb29837b7a4f4f",
+      "title": "GPT-6.1 Sol Is Here, and GPT-6.1 Astra Isn’t. Here’s Why.",
+      "url": "https://generativeai.pub/gpt-6-1-sol-is-here-and-gpt-6-1-astra-isnt-here-s-why-c689930e4ab0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "ambuj singh",
+      "published": "2026-09-30",
+      "summary": "Launched at DevDay 2026, GPT-6.1 Sol nearly matches GPT-6 Astra on coding, computer use and professional work, at one-fifth of Astra’s… Continue reading on Generative AI »"
+    },
+    {
+      "id": "4cee70b3c84eff98dab205c96dc938809dd718e6",
+      "title": "How Hindsight Helped My Agent Recall Old Company Decisions",
+      "url": "https://medium.com/@soulsociety170/how-hindsight-helped-my-agent-recall-old-company-decisions-4ce19ba4fbde",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Soulsociety",
+      "published": "2026-09-30",
+      "summary": "Building operational memory into a multi-agent incident response system | | | — — -| Stateless LLMs fail at incident response… Continue reading on Medium »"
+    },
+    {
+      "id": "0602589ce17b83f698b365cdc77f1868d9775fdd",
+      "title": "How to Write a Basic BIOS",
+      "url": "https://medium.com/data-science-collective/how-to-write-a-basic-bios-bd58638b6d18",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "seanchang",
+      "published": "2026-09-30",
+      "summary": "No, it’s not that hard Continue reading on Data Science Collective »"
+    },
+    {
+      "id": "086dda7ab86f1a5cc15002754c1934e39f3a44a3",
+      "title": "OpenAI Just Launched a $500-a-Month AI Plan and Gave Agents Their Own Computers",
+      "url": "https://medium.com/@krunalkrish123/openai-just-launched-a-500-a-month-ai-plan-and-gave-agents-their-own-computers-d0418154ee14",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Krish",
+      "published": "2026-09-30",
+      "summary": "Yesterday, at DevDay 2026 in San Francisco, OpenAI dropped one of its biggest announcement batches of the year — over 20 updates in a… Continue reading on Medium »"
+    },
+    {
+      "id": "1cce9731556a7ef4639a2ec1de64fe56e62e97fb",
+      "title": "RLHF Series: 7/17 [Reasoning and Inference-Time Scaling]",
+      "url": "https://medium.com/@deepakcse2k5/rlhf-series-7-17-reasoning-and-inference-time-scaling-a836c5d19428",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-09-30",
+      "summary": "How RLVR Is Changing LLM Post-Training Continue reading on Medium »"
+    },
+    {
+      "id": "f5316ef6deb9229f48b7a710bae51bf50e30846f",
+      "title": "RLHF Series: 8/17[Direct-Alignment Algorithms]",
+      "url": "https://medium.com/@deepakcse2k5/rlhf-series-8-17-direct-alignment-algorithms-d6872239d105",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-09-30",
+      "summary": "From DPO Mathematics to Production LLM Systems Continue reading on Medium »"
+    },
+    {
+      "id": "8b1da76609a5512270139672b18655152f81becd",
+      "title": "What is Proximal Policy Optimization?",
+      "url": "https://medium.com/data-science-collective/what-is-proximal-policy-optimization-fd7b0a5c2300",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "seanchang",
+      "published": "2026-09-30",
+      "summary": "The backbone of modern reinforcement learning Continue reading on Data Science Collective »"
+    },
     {
       "id": "33e6711b7576ea7c220e3303696b1de45aafdeb2",
       "title": "[AINews] AMD buys World Labs for $8.2B, as Atlas solves sparse reconstruction problem for robotics, design and more",
@@ -169,6 +325,19 @@
       "author": "Lemma & Loop",
       "published": "2026-09-29",
       "summary": "The best Python libraries for data analysis in 2026: pandas, NumPy, Matplotlib, Seaborn, Polars, scikit-learn — when to use each, with… Continue reading on Medium »"
+    },
+    {
+      "id": "afd0772a5e9a5966f451d3b7cce54dec4a029ac3",
+      "title": "The Era of Personal Super-Intelligent Agents",
+      "url": "https://ai-supremacy.com/p/the-era-of-personal-super-intelligent-agents-muse-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-09-29",
+      "summary": "Meta spent over $180 Bn. in compute, talent, training, data, security and ops to usher in Muse."
     },
     {
       "id": "cbcdb2f44e195a9def09f78962574de7e8d524ef",
