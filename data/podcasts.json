@@ -1,7 +1,7 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "windowDays": 60,
   "items": [
     {

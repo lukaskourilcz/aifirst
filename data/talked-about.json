@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "windowDays": 60,
   "items": [
+    {
+      "id": "2a9bc65d8878bbe450f23ce06c3b141f593e506c",
+      "title": "3–22. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.01",
+      "url": "https://medium.com/@ghvitra/3-22-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-ga-01-b021b46e8f15",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Indriya",
+      "published": "2026-10-01",
+      "summary": "Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.01 Continue reading on Medium »"
+    },
+    {
+      "id": "8d6c52b60ce930b5eeecc7bad76291e2063f3db7",
+      "title": "7 AI Skills That Could Become Valuable in the Digital Economy",
+      "url": "https://medium.com/@danialbagusfebrianto/7-ai-skills-that-could-become-valuable-in-the-digital-economy-cac117d4c526",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Danial Febrianto",
+      "published": "2026-10-01",
+      "summary": "AI is changing faster than most people realize. Continue reading on Medium »"
+    },
+    {
+      "id": "0562a08e0dce062c531a44325e80769baebdf544",
+      "title": "A-Z with MLflow : Autologging",
+      "url": "https://medium.com/@shrinath.suresh/mlflow-a-z-series-autologging-41a7e13cdc3b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Shrinath Suresh",
+      "published": "2026-10-01",
+      "summary": "I’m excited to start a new series called “MLflow A–Z”, where we’ll explore 26 powerful MLflow features and capabilities, from A to Z, with… Continue reading on Medium »"
+    },
+    {
+      "id": "fadc63d9ea5a7f33b2c94824d5bd4ced1723d1b7",
+      "title": "AI Agents Are Changing the Way We Work — Here’s What You Need to Know",
+      "url": "https://medium.com/@hanifislam5121212/ai-agents-are-changing-the-way-we-work-heres-what-you-need-to-know-88aef7b66128",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Hanif Islam",
+      "published": "2026-10-01",
+      "summary": "Artificial intelligence is no longer just a tool that answers questions or generates text. A new generation of AI agents is emerging —… Continue reading on Medium »"
+    },
+    {
+      "id": "5982ecf94add8bdec8748abba090a1de0fb069ef",
+      "title": "Designed ChatGPT Uber System Design Interview | 80 LPA",
+      "url": "https://iffywhy.medium.com/designed-chatgpt-uber-system-design-interview-80-lpa-7c65e3ee9ce4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sakshi",
+      "published": "2026-10-01",
+      "summary": "The exact framework I used, in order, with the trade-offs, including one I nearly got backwards Continue reading on Medium »"
+    },
+    {
+      "id": "7cd22f85248d6c6f7174c7a49a8d5cd91956bb57",
+      "title": "Fine-Tuning an LLM on Azure Foundry for Under $10",
+      "url": "https://medium.com/@krishnan.srm/fine-tuning-an-llm-on-azure-foundry-for-under-10-982229e2fd9c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Krishnan Sriram",
+      "published": "2026-10-01",
+      "summary": "A fine-tuned gpt-4.1 learned a fictional company’s ticket categories and priority rules from examples alone, scoring 57 of 58 on both… Continue reading on Medium »"
+    },
+    {
+      "id": "1817c07fb9322023a5e675c21fc93febf9c2539d",
+      "title": "How to Steal an AI’s “Brain”",
+      "url": "https://medium.com/@go2mahesh/how-to-steal-an-ais-brain-3c72e717cd28",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Mahesh Shivaswamy",
+      "published": "2026-10-01",
+      "summary": "The controversial engineering loophole allowing underfunded startups to copy the world’s most expensive AI models. Continue reading on Medium »"
+    },
+    {
+      "id": "3c3bbce2cf0071118a0f326f288267bc18d6e888",
+      "title": "I Benchmarked 27 LLM Configurations Across Two Machines and a Zero-Retention Cloud Tier",
+      "url": "https://generativeai.pub/i-benchmarked-27-llm-configurations-across-two-machines-and-a-zero-retention-cloud-tier-b1eaf323b22b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Ivan Ruzic, Ph.D.",
+      "published": "2026-10-01",
+      "summary": "A frozen 42-task suite across a 128GB Strix Halo system, a Blackwell GPU workstation, and LM Studio Bionic’s cloud showed why model… Continue reading on Generative AI »"
+    },
+    {
+      "id": "7e848b18f820f974abb279bab87e6e66ec161252",
+      "title": "Taxi",
+      "url": "https://medium.com/@bofeni3335/taxi-473f598473c7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "bofeni3335",
+      "published": "2026-10-01",
+      "summary": "taxi Utrecht Schiphol Continue reading on Medium »"
+    },
+    {
+      "id": "d682cb6e094bae1789228d6eaaedb97919b8e22c",
+      "title": "The Council That Never Forgets",
+      "url": "https://medium.com/ai-simplified-in-plain-english/the-council-that-never-forgets-69d9c78d1cf2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Frank Morales Aguilera",
+      "published": "2026-10-01",
+      "summary": "Frank Morales Aguilera, BEng, MEng, SMIEEE Continue reading on AI Simplified in Plain English »"
+    },
+    {
+      "id": "bfca76283e30c60d011b7289d92711386b022594",
+      "title": "The Panic Had a Publicist",
+      "url": "https://medium.com/@arisnovar/the-panic-had-a-publicist-34d8f7a86003",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Aris Novar",
+      "published": "2026-10-01",
+      "summary": "How AI risk warnings were professionally amplified — and why visibility is not the same as evidence. Continue reading on Medium »"
+    },
+    {
+      "id": "9fb21d24d58a33a22b0dd2f64d6d58475c85ddb5",
+      "title": "What Happens When an LLM Guesses Ahead",
+      "url": "https://ankitgoelcmu.medium.com/what-happens-when-an-llm-guesses-ahead-70514d25164d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ankit Goel",
+      "published": "2026-10-01",
+      "summary": "I tested speculative decoding in vLLM on one L4. One user got 3.4x faster, and 32 users still got 2x. Continue reading on Medium »"
+    },
     {
       "id": "3fc2aadd486060fa9ded61d8de447754ff7b5450",
       "title": "[AINews] OpenAI DevDay 2026: Dots, 6.1 Sol, Ultrafast, Decisions API, Agents API, Spaces, Marketplace, and 1.2 Billion ChatGPT WAU",
@@ -160,6 +316,19 @@
       "summary": "From DPO Mathematics to Production LLM Systems Continue reading on Medium »"
     },
     {
+      "id": "f4737ba3affbbb85570435bd17561e40ad0b4501",
+      "title": "The State of Chinese Physical AI",
+      "url": "https://ai-supremacy.com/p/the-state-of-chinese-physical-ai-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Dermot McGrath",
+      "published": "2026-09-30",
+      "summary": "Robotics deep dive. A nearly 9,000 word report. How China became the factory for humanity's last machine."
+    },
+    {
       "id": "8b1da76609a5512270139672b18655152f81becd",
       "title": "What is Proximal Policy Optimization?",
       "url": "https://medium.com/data-science-collective/what-is-proximal-policy-optimization-fd7b0a5c2300",
@@ -171,6 +340,18 @@
       "author": "seanchang",
       "published": "2026-09-30",
       "summary": "The backbone of modern reinforcement learning Continue reading on Data Science Collective »"
+    },
+    {
+      "id": "97e9b56df7eddc3d176c26c5daea0de0c031f153",
+      "title": "Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week",
+      "url": "https://latent.space/p/devday-2026",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-09-30",
+      "summary": "Our DevDay coverage - the first pod on the DevDay lineup - dives in with the leaders of OpenAI’s CUA team and API platform."
     },
     {
       "id": "33e6711b7576ea7c220e3303696b1de45aafdeb2",
@@ -1532,19 +1713,6 @@
       "author": "Nathan Lambert",
       "published": "2026-08-03",
       "summary": "Scaling our curation and measurement of the open ecosystem."
-    },
-    {
-      "id": "678a4cafe4da1bc51a58265bc4467b3034fc24d8",
-      "title": "Latest open artifacts (#23): Laguna S2.1, Inkling, & Kimi K3 show the utility of open models on the Pareto frontier",
-      "url": "https://interconnects.ai/p/latest-open-artifacts-23-laguna-s21",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Florian Brand",
-      "published": "2026-08-02",
-      "summary": "Capacity to train strong models is proliferating."
     }
   ]
 }
