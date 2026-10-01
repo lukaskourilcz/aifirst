@@ -5,6 +5,18 @@
   "windowDays": 60,
   "items": [
     {
+      "id": "d843c4e067908c96191bc80808ad27dc8879a4a8",
+      "title": "[AINews] Gemini 4 Argon: GDM’s answer to Astra/Fable, with 1M output",
+      "url": "https://latent.space/p/ainews-gemini-4-argon-gdms-answer",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-01",
+      "summary": "... but you can’t try it yet unless you are “government users and trusted cyber defenders in the Fairwind Program”"
+    },
+    {
       "id": "2a9bc65d8878bbe450f23ce06c3b141f593e506c",
       "title": "3–22. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.01",
       "url": "https://medium.com/@ghvitra/3-22-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-ga-01-b021b46e8f15",
