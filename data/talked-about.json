@@ -5,6 +5,18 @@
   "windowDays": 60,
   "items": [
     {
+      "id": "50f5964b1c5672fb08cc1302550ab9148b69702a",
+      "title": "[AINews] Pi 1.0, Pi Durable, and AIE NYC",
+      "url": "https://latent.space/p/ainews-pi-10-pi-durable-and-aie-nyc",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-02",
+      "summary": "the minimalist harness goes stable... and TypeScript!"
+    },
+    {
       "id": "b36cc622f93dd04aa14cde28895b9facb2edc601",
       "title": "3–23. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.02",
       "url": "https://medium.com/@ghvitra/3-23-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-ga-02-77e91bb162bd",
