@@ -1,9 +1,177 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "windowDays": 60,
   "items": [
+    {
+      "id": "b36cc622f93dd04aa14cde28895b9facb2edc601",
+      "title": "3–23. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.02",
+      "url": "https://medium.com/@ghvitra/3-23-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-ga-02-77e91bb162bd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Indriya",
+      "published": "2026-10-02",
+      "summary": "Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.02 Continue reading on Medium »"
+    },
+    {
+      "id": "4c88c50de35eaed3dfdef6c7494924fe36df1436",
+      "title": "A indústria aprendeu com o Lean uma ideia simples: não importa fazer mais.",
+      "url": "https://medium.com/@augusto_46731/a-ind%C3%BAstria-aprendeu-com-o-lean-uma-ideia-simples-n%C3%A3o-importa-fazer-mais-c694abf62f95",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Augusto Mangeth",
+      "published": "2026-10-02",
+      "summary": "Em Wealth Management, ainda operamos muitas vezes pela lógica contrária: a indústria produz informação, narrativas e oportunidades – e… Continue reading on Medium »"
+    },
+    {
+      "id": "627faaa1300a48d207c5e4f398e838a42069e5c2",
+      "title": "Academia is for Ambition — Alex Zhang, MIT",
+      "url": "https://latent.space/p/rlm",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-02",
+      "summary": "We catch up with RLM first author Alex Zhang, MIT PhD, on Jev, PhD masxing, and the future of harnesses."
+    },
+    {
+      "id": "07330529bf88dd97a9da45dabcc927ce12db0621",
+      "title": "Do Developers Really Need 32GB of RAM in 2027?",
+      "url": "https://medium.com/@rothyyorn99/do-developers-really-need-32gb-of-ram-in-2027-5ea26f125e17",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Yorn Rothy",
+      "published": "2026-10-02",
+      "summary": "The answer isn’t “yes.” It depends on what you’re running while you code. Continue reading on Medium »"
+    },
+    {
+      "id": "2d92d18033340d7eda78b2a0da792b058bc0c08d",
+      "title": "How to Make a Vox-Style Video: The Storytelling Framework Behind Great Explainers",
+      "url": "https://medium.com/@tamzidulhaque/how-to-make-a-vox-style-video-the-storytelling-framework-behind-great-explainers-d4c18316cc82",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tamzidul Haque",
+      "published": "2026-10-02",
+      "summary": "You don’t need a giant newsroom to make a compelling explainer video. Continue reading on Medium »"
+    },
+    {
+      "id": "66847091c303df4a1db4b601869bc31fdf3e6882",
+      "title": "Jev AI: Five Questions Every Enterprise Should Ask",
+      "url": "https://medium.com/@mpmab1/jev-ai-five-questions-every-enterprise-should-ask-957fcf3fbd5a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Mehdi",
+      "published": "2026-10-02",
+      "summary": "Jev is fast. Jev is cheap. The real question is whether its decisions, and confidence in those decisions, can be trusted. Continue reading on Medium »"
+    },
+    {
+      "id": "ed435341ff2ea1b099360a2c320acb7d309559e7",
+      "title": "LLM training and Confucian ideas of self-cultivation.",
+      "url": "https://medium.com/@jallenswrx2016/llm-training-and-confucian-ideas-of-self-cultivation-4f1e7eb04c80",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "jon allen",
+      "published": "2026-10-02",
+      "summary": "Why model training must be done carefully. Continue reading on Medium »"
+    },
+    {
+      "id": "52f565afc27a7694d731abcafc547a25f8a92a7b",
+      "title": "Microsoft Just Launched a \"Super App\" to Compete With ChatGPT. Here’s What’s Actually Different",
+      "url": "https://medium.com/@krunalkrish123/microsoft-just-launched-a-super-app-to-compete-with-chatgpt-heres-what-s-actually-different-f0899e8ca507",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Krish",
+      "published": "2026-10-02",
+      "summary": "Microsoft unveiled a major redesign of its Copilot app this past week, rebranding it as a \"super app\" — a single interface meant to handle… Continue reading on Medium »"
+    },
+    {
+      "id": "ab3df19ba05230c184217035ad655393eb698969",
+      "title": "My AI Had Perfect Instructions and Still Got It Wrong",
+      "url": "https://123sarang.medium.com/my-ai-had-perfect-instructions-and-still-got-it-wrong-278ffe42b3e4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarang",
+      "published": "2026-10-02",
+      "summary": "In my last piece, The Strict Teacher and the Fair Teacher: How AI Decides It Is Wrong, I looked at how a model measures its own mistakes… Continue reading on Medium »"
+    },
+    {
+      "id": "2c183faa8542155658e108e296af1ef006d80268",
+      "title": "RLHF Series: 12/17 [Synthetic Data, Knowledge Distillation, and AI Feedback]",
+      "url": "https://medium.com/@deepakcse2k5/rlhf-series-12-17-synthetic-data-knowledge-distillation-and-ai-feedback-aba1f9463768",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-02",
+      "summary": "A Deep Dive into Modern LLM Post-Training Continue reading on Medium »"
+    },
+    {
+      "id": "f28bd6331900c690c698bea75ca175b02ab581ac",
+      "title": "RLHF Series: 13/17 [Tool Use and Function Calling in LLMs]",
+      "url": "https://medium.com/@deepakcse2k5/rlhf-series-13-17-tool-use-and-function-calling-in-llms-30cd5cc26b6f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-02",
+      "summary": "From Structured Outputs to Multi-Step AI Agents Continue reading on Medium »"
+    },
+    {
+      "id": "5ac626bfedd67cb85d6509fbb1743b4b1c59c596",
+      "title": "The New Global Divide May Be Between People Who Can Adapt and People Who Cannot",
+      "url": "https://medium.com/@shabnamkanwar/the-new-global-divide-may-be-between-people-who-can-adapt-and-people-who-cannot-86b72098966d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "UMM-E-ALI",
+      "published": "2026-10-02",
+      "summary": "Image created using Gemini Continue reading on Medium »"
+    },
+    {
+      "id": "797598253e2c9e19f407074bd8fc48b096c1e549",
+      "title": "Your Harness Is Generic on Purpose. Your Agent OS Is What Makes It Yours.",
+      "url": "https://tarunsukhani.medium.com/your-harness-is-generic-on-purpose-your-agent-os-is-what-makes-it-yours-8875f7cf802b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Tarun Sukhani",
+      "published": "2026-10-02",
+      "summary": "The distinction everyone is conflating right now and why the next generation of harnesses makes the question unavoidable. Continue reading on Medium »"
+    },
     {
       "id": "d843c4e067908c96191bc80808ad27dc8879a4a8",
       "title": "[AINews] Gemini 4 Argon: GDM’s answer to Astra/Fable, with 1M output",
@@ -67,6 +235,19 @@
       "author": "Hanif Islam",
       "published": "2026-10-01",
       "summary": "Artificial intelligence is no longer just a tool that answers questions or generates text. A new generation of AI agents is emerging —… Continue reading on Medium »"
+    },
+    {
+      "id": "0e25bc2e1685b52291d5329f7555182768659c18",
+      "title": "AI Frontier: Google Gemini-4 Argon",
+      "url": "https://ai-supremacy.com/p/ai-frontier-google-gemini-4-argon",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-01",
+      "summary": "The era of almost frontier models means we only have one leader. SI insanity, DevDay confusion, price increases and token share disruption. Also Hegseth American Protectionism."
     },
     {
       "id": "5982ecf94add8bdec8748abba090a1de0fb069ef",
@@ -145,6 +326,19 @@
       "author": "Frank Morales Aguilera",
       "published": "2026-10-01",
       "summary": "Frank Morales Aguilera, BEng, MEng, SMIEEE Continue reading on AI Simplified in Plain English »"
+    },
+    {
+      "id": "ae4b31c0a883f8c6b39caefbf1e8c1b551d60d30",
+      "title": "The Dot and the Swarm",
+      "url": "https://oneusefulthing.org/p/the-dot-and-the-swarm",
+      "source": {
+        "kind": "substack",
+        "name": "One Useful Thing",
+        "feed": "https://www.oneusefulthing.org/feed"
+      },
+      "author": "Ethan Mollick",
+      "published": "2026-10-01",
+      "summary": "Benefitting from the Bitter Lesson"
     },
     {
       "id": "bfca76283e30c60d011b7289d92711386b022594",
@@ -1712,19 +1906,6 @@
       "author": "Alberto Romero",
       "published": "2026-08-05",
       "summary": "The story of July 2026: the conjectures that fell, the humans who celebrate and mourn them, and the limits of what machines can conquer"
-    },
-    {
-      "id": "425bafd1a9bc072516df9f9e3bae59ddb4d218c2",
-      "title": "Introducing our Artifacts Hub and Adoption Dashboard",
-      "url": "https://interconnects.ai/p/introducing-our-artifacts-hub-and",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-08-03",
-      "summary": "Scaling our curation and measurement of the open ecosystem."
     }
   ]
 }

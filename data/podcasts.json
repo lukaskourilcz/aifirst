@@ -1,9 +1,24 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "windowDays": 60,
   "items": [
+    {
+      "id": "9f5705c70fed97998c2b971de922ab4b0464526f",
+      "title": "Open models and the future of Physical AI with NVIDIA",
+      "url": "https://share.transistor.fm/s/217445d3",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-10-01",
+      "summary": "As AI moves beyond the cloud and into robots, vehicles, and other physical systems, new approaches to models, simulation, and inference are emerging. Daniel and Chris are joined by Ming-Yu Liu, Vice President of Cosmos Lab at NVIDIA, who shares his perspective on open models, wo…",
+      "show": "Practical AI",
+      "durationSec": 2839
+    },
     {
       "id": "1eb51accd6476effa6c4eff2d538b7463000594a",
       "title": "The Ezra Klein Show: Jensen Huang Thinks A.I. Alarmism Has Gone Too Far",
