@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-02",
+  "updated": "2026-10-03",
   "windowDays": 60,
   "items": [
+    {
+      "id": "0d255311fa43c086a9049c78043cee329f2fbd96",
+      "title": "3–24. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.03",
+      "url": "https://medium.com/@ghvitra/3-24-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-ga-03-0067baecbc8d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Indriya",
+      "published": "2026-10-03",
+      "summary": "Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.03 Continue reading on Medium »"
+    },
+    {
+      "id": "c46ca8b935bba454dc9ce2856d8f78b3172a4534",
+      "title": "A Little Magic at the Table: A Glimpse Inside JIN FOODIE",
+      "url": "https://medium.com/@mkymf/a-little-magic-at-the-table-a-glimpse-inside-jin-foodie-e5bfbf39cb62",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Jin /west covina",
+      "published": "2026-10-03",
+      "summary": "A flower-filled room sets the scene, but the table soon takes over. Continue reading on Medium »"
+    },
+    {
+      "id": "6ae1c6b46a358fbea6f1a0640bcda7d65d83fe87",
+      "title": "Best CFD Brokers of 2026: Ranked by What AI Actually Recommends",
+      "url": "https://medium.com/@diana.sterling1981/best-cfd-brokers-of-2026-ranked-by-what-ai-actually-recommends-f34728598ec0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Diana Sterling",
+      "published": "2026-10-03",
+      "summary": "Most “best broker” lists are built the same way. Someone compares spreads, checks regulatory licenses, reads a stack of Trustpilot reviews… Continue reading on Medium »"
+    },
+    {
+      "id": "fc4a0ef1432a05e95e1294d34883aa8babc5ace7",
+      "title": "From Almost Dropping Out to Submitting My Take-Home: A Week 2 Story",
+      "url": "https://medium.com/@rosemaryogbodo671/from-almost-dropping-out-to-submitting-my-take-home-a-week-2-story-041f57891078",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Chisom Rosemary Ogbodo",
+      "published": "2026-10-03",
+      "summary": "My laptop had broken down at the worst possible time, and no matter how much I explained the situation, I was told that a broken laptop… Continue reading on Medium »"
+    },
+    {
+      "id": "a0d819e840120227ec69e09b690cb18cd755fd10",
+      "title": "Giving Multimodal Models Eyes That Remember: Inside Kaiming He’s VISTA",
+      "url": "https://medium.com/@ai4medical/giving-multimodal-models-eyes-that-remember-inside-kaiming-hes-vista-e16fbfa02733",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "ComfyAI",
+      "published": "2026-10-03",
+      "summary": "A new paper signed by Kaiming He makes a pointed argument: today’s multimodal models already reason reasonably well, and when they fail at… Continue reading on Medium »"
+    },
+    {
+      "id": "f6535a8834949673fe8516ffa75e7a30dfb296a7",
+      "title": "Google Search Could Change in the UK as AI Assistants Enter the Choice Screen",
+      "url": "https://medium.com/@khalidkhan3398/google-search-could-change-in-the-uk-as-ai-assistants-enter-the-choice-screen-25edbd663d06",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Kristen Belly ☄️",
+      "published": "2026-10-03",
+      "summary": "Google Search Could Change in the UK as AI Assistants Enter the Choice Screen Continue reading on Medium »"
+    },
+    {
+      "id": "1793881b6de0de9629daa4fa2cdc12d4592c51fe",
+      "title": "How to save tokens in an LLM app — 9 changes that actually move the bill",
+      "url": "https://medium.com/@axdliu/how-to-save-tokens-in-an-llm-app-9-changes-that-actually-move-the-bill-430be8a6c6fe",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Arnold Liu",
+      "published": "2026-10-03",
+      "summary": "In most agent apps, the bill grows because every step resends the full conversation, every request includes every tool schema, every… Continue reading on Medium »"
+    },
+    {
+      "id": "6c9dbc11e5f1f7fe8bb9c5b394096682625f976a",
+      "title": "OpenAI Scrapped GPT-6.1 Astra. Search for “GPT 6” and “Astra” Exploded Anyway.",
+      "url": "https://medium.com/@maverickwestinghouse/openai-scrapped-gpt-6-1-astra-search-for-gpt-6-and-astra-exploded-anyway-40e2d9892ce0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Maverick Westinghouse",
+      "published": "2026-10-03",
+      "summary": "October 1, 2026 · Byte&Beyond home edition Continue reading on Medium »"
+    },
+    {
+      "id": "6ef5cb40e5fc8a4f234c64136ea72653399845c4",
+      "title": "PERSISTENT CONTACTS, COMPLEMENTARY COMPUTATIONS Memory, mixing and developmental topology in a toy…",
+      "url": "https://medium.com/@tmcrg85/persistent-contacts-complementary-computations-memory-mixing-and-developmental-topology-in-a-toy-d66717f3068d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Xenonostra'",
+      "published": "2026-10-03",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "41fd030f8607dc935ba73ab9c842507174505bfa",
+      "title": "Scikit-learn Tutorial: The Complete Guide to Classical Machine Learning in Python",
+      "url": "https://medium.com/@khayyamshah2007/scikit-learn-tutorial-the-complete-guide-to-classical-machine-learning-in-python-6f50df5b55d0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Khayyamshah",
+      "published": "2026-10-03",
+      "summary": "Learn how to use Scikit-learn to build classical machine learning models in Python. This complete beginner-friendly guide covers data… Continue reading on Medium »"
+    },
+    {
+      "id": "bfbdde7531b63916d1d350edc61d8107905cca02",
+      "title": "Spec-Driven Development for AI App Building: A Practical Start-to-Ship Workflow",
+      "url": "https://medium.com/@tayoodukoya/spec-driven-development-for-ai-app-building-a-practical-start-to-ship-workflow-a34221c963a2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "David Odukoya",
+      "published": "2026-10-03",
+      "summary": "Unstructured prompting hurts software quality. AI tools speed up initial code generation, but telemetry shows they correlate with lower… Continue reading on Medium »"
+    },
+    {
+      "id": "595a207e48d8cc91b708d97e0b4a31a4f79a4b7f",
+      "title": "The Sad Truth About 1-Bit Models",
+      "url": "https://medium.com/@ceo_44783/the-sad-truth-about-1-bit-models-6e4e5b3b96ca",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Tech Talk with Tyler",
+      "published": "2026-10-03",
+      "summary": "I spent two days testing 1-bit AI models against ordinary 4-bit ones, on a regular computer and on a chip I could measure with a power… Continue reading on Medium »"
+    },
     {
       "id": "50f5964b1c5672fb08cc1302550ab9148b69702a",
       "title": "[AINews] Pi 1.0, Pi Durable, and AIE NYC",
@@ -79,6 +235,19 @@
       "author": "Tamzidul Haque",
       "published": "2026-10-02",
       "summary": "You don’t need a giant newsroom to make a compelling explainer video. Continue reading on Medium »"
+    },
+    {
+      "id": "10932e825b10f7843b20040879464108f71688c3",
+      "title": "Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience",
+      "url": "https://latent.space/p/airbnb",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-10-02",
+      "summary": "After leading Meta’s Llama models, Ahmad Al-Dahle is now transforming Airbnb with AI — from how its teams develop products to how it serves guests."
     },
     {
       "id": "66847091c303df4a1db4b601869bc31fdf3e6882",
