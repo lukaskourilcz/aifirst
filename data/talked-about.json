@@ -1,9 +1,178 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-03",
+  "updated": "2026-10-04",
   "windowDays": 60,
   "items": [
+    {
+      "id": "f9a9a8b0e655bd8e222798d1e7bbdbabfbf1db62",
+      "title": "3–25. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.04",
+      "url": "https://medium.com/@ghvitra/3-25-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-ga-04-f7a0bac90870",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Indriya",
+      "published": "2026-10-04",
+      "summary": "Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.04 Continue reading on Medium »"
+    },
+    {
+      "id": "4906561420a736a7833e5db59a321ee731f080e5",
+      "title": "Anthropic’s $100M Training Pledge and Supabase’s Database Bet",
+      "url": "https://aidevelopercode.medium.com/anthropics-100m-training-pledge-and-supabase-s-database-bet-3801c4da0909",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "AI & Data Engineer",
+      "published": "2026-10-04",
+      "summary": "Five developments for teams choosing how to train engineers, store agent work, retrieve evidence and protect learning data. Continue reading on Medium »"
+    },
+    {
+      "id": "9526a7b807bc7465eb0eabc9e0f645db81706e28",
+      "title": "Global AI Governance for Courts 2026: Strengthening Breach Reporting and Vendor Accountability in…",
+      "url": "https://medium.com/@drsskro/global-ai-governance-for-courts-2026-strengthening-breach-reporting-and-vendor-accountability-in-a6eedb9feb57",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "drsskro",
+      "published": "2026-10-04",
+      "summary": "Introduction: A New Era of Judicial Technology Governance Continue reading on Medium »"
+    },
+    {
+      "id": "a312bc1bc6dbc300e3c983fe20866a36a9b3661a",
+      "title": "GPT-6.1 Sol vs Claude Opus 5.5: 3 Cache Rules That Decide Your Agent Bill",
+      "url": "https://medium.com/@akshaybuilds/gpt-6-1-sol-vs-claude-opus-5-5-3-cache-rules-that-decide-your-agent-bill-5ab976bde080",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Akshay Singh",
+      "published": "2026-10-04",
+      "summary": "Both rate cards say Sol costs half as much. The caching docs say your pauses decide the real gap, and Sonnet 5.5 sneaks in. Continue reading on Medium »"
+    },
+    {
+      "id": "290753a3945bb5318978c19c88d6bb2372a5aba1",
+      "title": "How to Build a Small Language Model from Scratch in Python",
+      "url": "https://medium.com/@afcanrelief/how-to-build-a-small-language-model-from-scratch-in-python-50bd4d503e7c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Ifeanyi Ogbuehi",
+      "published": "2026-10-04",
+      "summary": "Today we’re going to build and train a small language model that runs entirely on your own computer. No APIs. No downloading a pre-trained… Continue reading on Medium »"
+    },
+    {
+      "id": "bca5162a51aec65804ee402c7ca85908550b6e0b",
+      "title": "If your LLM never says “I can’t answer that”, be worried",
+      "url": "https://medium.com/@loverain9113/if-your-llm-never-says-i-cant-answer-that-be-worried-29efae42d0eb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Loverain",
+      "published": "2026-10-04",
+      "summary": "Disclosure: I am an AI agent helping a solo human maker run manjangilchi.com, a service that sends one question to several AI models and… Continue reading on Medium »"
+    },
+    {
+      "id": "088becd46669e4bb3c94459c5b4508bd093e9774",
+      "title": "Implementing Semantic Caching for LLM Responses with Vector Search",
+      "url": "https://medium.com/@erwindev/implementing-semantic-caching-for-llm-responses-with-vector-search-8f2bac726fe6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Erwin Hermanto",
+      "published": "2026-10-04",
+      "summary": "A few months back, our LLM API bill did something I still don’t like admitting out loud: it tripled in three weeks. Nobody had touched… Continue reading on Medium »"
+    },
+    {
+      "id": "ee386cb655dcf72d8a2d58c122b64d4bfd0173b1",
+      "title": "LLM vs AI Agent: What's the Difference? A Simple Visual Explanation",
+      "url": "https://ai.plainenglish.io/llm-vs-ai-agent-whats-the-difference-a-simple-visual-explanation-59ae8e6a452e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Zayd Islam",
+      "published": "2026-10-04",
+      "summary": "Master Modern AI Concepts Series Part 2 Continue reading on Artificial Intelligence in Plain English »"
+    },
+    {
+      "id": "fe24f1bf5927b161db91159159c22c026feeaab7",
+      "title": "Sucking Sound (The Sequel)",
+      "url": "https://medium.com/@unaimi/sucking-sound-the-sequel-c67a55eb3d7b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Unai Montes-Irueste",
+      "published": "2026-10-04",
+      "summary": "What free trade did to the assembly line, artificial intelligence is doing to the desk — and the people who thought education would… Continue reading on Medium »"
+    },
+    {
+      "id": "199cdd01a7e7544aa7bd6b925388eaaf3cb1c7bc",
+      "title": "supernote-cli: pen, paper, and a pipe",
+      "url": "https://borismus.medium.com/supernote-cli-pen-paper-and-a-pipe-44def6aa1f5a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Boris Smus",
+      "published": "2026-10-04",
+      "summary": "A recent NYT piece argued we need a mental fitness revolution to combat the cognitive decay caused by algorithmic feeds and generative AI… Continue reading on Medium »"
+    },
+    {
+      "id": "8953fa39af121412fa3536ed0fbea8eaf7b12c6d",
+      "title": "What is Strata? Making 125B AI Models Run on Gaming PCs",
+      "url": "https://medium.com/data-science-in-your-pocket/what-is-strata-making-125b-ai-models-run-on-gaming-pcs-44d0ea98c025",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Mehul Gupta",
+      "published": "2026-10-04",
+      "summary": "The viral inference engine on social media Continue reading on Data Science in Your Pocket »"
+    },
+    {
+      "id": "ac78c2a28072b61b50ab71b977cfc61bac039ee8",
+      "title": "Why StarRocks Is Better Than Druid for ML Model Monitoring and Production Model Performance…",
+      "url": "https://medium.com/@indomitability/why-starrocks-is-better-than-druid-for-ml-model-monitoring-and-production-model-performance-7fd5397d0b30",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Mark Anderson",
+      "published": "2026-10-04",
+      "summary": "Every machine-learning model that makes real decisions (approving a loan, flagging a login, ranking a feed, pricing a ride) eventually… Continue reading on Medium »"
+    },
+    {
+      "id": "6f506837167178c1acc0f0c24818269d1168acc9",
+      "title": "[AINews] not much happened today",
+      "url": "https://latent.space/p/ainews-not-much-happened-today-cee",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Latent.Space",
+      "published": "2026-10-03",
+      "summary": "a quiet day."
+    },
     {
       "id": "0d255311fa43c086a9049c78043cee329f2fbd96",
       "title": "3–24. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.03",
@@ -2074,19 +2243,6 @@
       "author": "Michael Spencer",
       "published": "2026-08-06",
       "summary": "Google Gemini Robotics 2, Unitree and AgiBot IPOs, Robot and optical transceiver bans, the compute cost problem, Negative FCF dilemma, mounting debt, circular revenue."
-    },
-    {
-      "id": "35aa235dbfbaf6635dfad8981051070a68da4d1e",
-      "title": "The Month AI Conquered Math: The Full Story",
-      "url": "https://thealgorithmicbridge.com/p/the-month-ai-conquered-math-the-full",
-      "source": {
-        "kind": "substack",
-        "name": "The Algorithmic Bridge",
-        "feed": "https://www.thealgorithmicbridge.com/feed"
-      },
-      "author": "Alberto Romero",
-      "published": "2026-08-05",
-      "summary": "The story of July 2026: the conjectures that fell, the humans who celebrate and mourn them, and the limits of what machines can conquer"
     }
   ]
 }
