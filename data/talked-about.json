@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-04",
+  "updated": "2026-10-05",
   "windowDays": 60,
   "items": [
+    {
+      "id": "609b853b3eb1483c19dac3cd094d0c397e3c5541",
+      "title": "[Day 23/100] Designing State Schemas for Complex Agents",
+      "url": "https://medium.com/@mmcse19/day-23-100-designing-state-schemas-for-complex-agents-abda1dbdbd93",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Montasir Mahmud",
+      "published": "2026-10-05",
+      "summary": "Yesterday’s AgentState had one field. That was enough to rebuild the agent loop, but it undersells what state is actually for. The state… Continue reading on Medium »"
+    },
+    {
+      "id": "86887d7da733a156a8cbd0476960bb3bebe4acc1",
+      "title": "as soon as shit not going your way no more, you gotta get on.",
+      "url": "https://medium.com/@themaidencharacter/as-soon-as-shit-not-going-your-way-no-more-you-gotta-get-on-3a895a7cac05",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "colorful",
+      "published": "2026-10-05",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "cdf13616f21abc1a986ae4cc47e2ea1702f47355",
+      "title": "Attention Is All You Need — The Paper That Created the Transformer",
+      "url": "https://medium.com/@prateekparhi936/attention-is-all-you-need-the-paper-that-created-the-transformer-e5eebc12ad8d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Prateek Parhi",
+      "published": "2026-10-05",
+      "summary": "From 2017 to current day advancements on the concepts introduced in the paper Continue reading on Medium »"
+    },
+    {
+      "id": "73e33302a47181fc71ddf4cb4debeeecb6bda408",
+      "title": "Cafeteria Bins Now Have Cameras. Vendors Claim Cuts of 40% to 50%.",
+      "url": "https://medium.com/@kidscarebridge/cafeteria-bins-now-have-cameras-vendors-claim-cuts-of-40-to-50-e3a2b678df62",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Haru Kim",
+      "published": "2026-10-05",
+      "summary": "The numbers are real claims. The question is what they were measured against. Continue reading on Medium »"
+    },
+    {
+      "id": "87c5353a5800e9f13d612b93adeabe877dc09f11",
+      "title": "I Built a Transformer From Scratch to Turn English Into SQL.",
+      "url": "https://medium.com/@yaqoobhanzala/i-built-a-transformer-from-scratch-to-turn-english-into-sql-7ff977f36e34",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Muhammad Hanzala",
+      "published": "2026-10-05",
+      "summary": "A 7.5M-parameter encoder-decoder in raw PyTorch, trained on WikiSQL in 22 minutes, with attention maps that show exactly where it breaks. Continue reading on Medium »"
+    },
+    {
+      "id": "e22e047c1fb72b38170b64c8aa1c2905b6ca9e6e",
+      "title": "I Trusted My Own AI Agent. That Was the Bug.",
+      "url": "https://ntrongtin11702.medium.com/i-trusted-my-own-ai-agent-that-was-the-bug-0a6fa89f22cc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tinguyen",
+      "published": "2026-10-05",
+      "summary": "A hidden instruction asked for my secrets. The model complied because my code had already said yes. Continue reading on Medium »"
+    },
+    {
+      "id": "18c013e3eb95d9428fe8a8adcf937b628cb98347",
+      "title": "LLMs & AI Agents: Agentes de IA en acción (4/5)",
+      "url": "https://medium.com/@towers.dev/llms-ai-agents-agentes-de-ia-en-acci%C3%B3n-4-5-3d312165c298",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Towers",
+      "published": "2026-10-05",
+      "summary": "🚀 AI Agents Continue reading on Medium »"
+    },
+    {
+      "id": "f0d21cb9df7430314df66bd9072860c5c1bd95b7",
+      "title": "Lost in AI Buzzwords? Let’s Make Them Simple",
+      "url": "https://jshindems.medium.com/lost-in-ai-buzzwords-lets-make-them-simple-95e884965117",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Jyoti Shinde",
+      "published": "2026-10-05",
+      "summary": "LLMs, RAG, Agents, MCP and More: What They Mean and Why They Matter Continue reading on Medium »"
+    },
+    {
+      "id": "8a309119fd103971668615b82f014d45719ea61e",
+      "title": "The Agentic Commerce Shift: AI Is Changing Who Gets the Customer",
+      "url": "https://medium.com/@darren_83346/the-agentic-commerce-shift-ai-is-changing-who-gets-the-customer-0a6c9b62a366",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Darren Swayne",
+      "published": "2026-10-05",
+      "summary": "The next battle in digital commerce won’t be for the click. It will be for the decision. Continue reading on Medium »"
+    },
+    {
+      "id": "ab42f1cb0e8a8f9e22996055af55b4b1e26ff82c",
+      "title": "Transcribing the Cairo Genizah with Multimodal AI: Vision-Language Models for Medieval Manuscripts",
+      "url": "https://medium.com/deep-data-science/transcribing-the-cairo-genizah-with-multi-modal-ai-ad4cd9cbe980",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Isaac Godfried",
+      "published": "2026-10-05",
+      "summary": "What can medieval documents teach us about 21st century large language models and what can AI teach us about them Continue reading on Deep Data Science »"
+    },
+    {
+      "id": "e9c8ac1301f80fb514d7927c1d6f527d167ff23e",
+      "title": "Your Agent Retries Because It Can’t Tell a Timeout From a Failure | HackerNoon",
+      "url": "https://medium.com/@sakti.bagchi/your-agent-retries-because-it-cant-tell-a-timeout-from-a-failure-hackernoon-f9ec9f3bb6ef",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sakti Bagchi",
+      "published": "2026-10-05",
+      "summary": "My agent read every error correctly and still re-ran a finished task four times. Why a timeout needs its own state, and how to enforce it… Continue reading on Medium »"
+    },
+    {
+      "id": "8cedee499c917ed647f505feb9b77ee82144a806",
+      "title": "Your Streaming Pipeline Is Running. Is the Data Still Good?",
+      "url": "https://medium.com/@onurd80/your-streaming-pipeline-is-running-is-the-data-still-good-fbc416850d83",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Onur Dincol",
+      "published": "2026-10-05",
+      "summary": "Bad data is quieter than bad code. Here’s how to make it loud. Continue reading on Medium »"
+    },
     {
       "id": "f9a9a8b0e655bd8e222798d1e7bbdbabfbf1db62",
       "title": "3–25. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Ga.04",
@@ -2230,19 +2386,6 @@
       "author": "Nathan Lambert",
       "published": "2026-08-09",
       "summary": "Musings on model alignment, what determines safety, and where we go from here."
-    },
-    {
-      "id": "606d14618264b2906405a1676410ee6699afe713",
-      "title": "The Year AI Science and the Physical AI Industry Came Alive",
-      "url": "https://ai-supremacy.com/p/the-year-ai-science-and-the-physical-ai-went-mainstream-humanoid-robotics",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-06",
-      "summary": "Google Gemini Robotics 2, Unitree and AgiBot IPOs, Robot and optical transceiver bans, the compute cost problem, Negative FCF dilemma, mounting debt, circular revenue."
     }
   ]
 }

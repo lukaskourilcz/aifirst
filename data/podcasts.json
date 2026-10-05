@@ -1,7 +1,7 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-04",
+  "updated": "2026-10-05",
   "windowDays": 60,
   "items": [
     {
@@ -123,21 +123,6 @@
       "summary": "As AI continues to reshape how organizations work, companies are increasingly asking what AI proficiency should look like across their workforce, and how they can help employees adapt without simply mandating AI adoption. Our returning guest Mike Lewis, Chief AI Architect at TiE…",
       "show": "Practical AI",
       "durationSec": 3373
-    },
-    {
-      "id": "760a4e366ee7e2e8e8d6615cdd00363e0763b23f",
-      "title": "Models, Harnesses, and Multi-Agent Systems",
-      "url": "https://share.transistor.fm/s/063cfaad",
-      "source": {
-        "kind": "rss",
-        "name": "Practical AI",
-        "feed": "https://changelog.com/practicalai/feed"
-      },
-      "author": "Daniel Whitenack and Chris Benson",
-      "published": "2026-08-06",
-      "summary": "AI has moved far beyond chatbots, but what exactly are AI models, agents, agent harnesses, and multi-agent systems, and why do they matter? In this episode, Daniel and Chris break down the terminology behind today's AI landscape, explain the differences between AI features and a…",
-      "show": "Practical AI",
-      "durationSec": 2998
     }
   ]
 }
