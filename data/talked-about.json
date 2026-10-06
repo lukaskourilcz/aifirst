@@ -1,9 +1,177 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-05",
+  "updated": "2026-10-06",
   "windowDays": 60,
   "items": [
+    {
+      "id": "0fece73e7bef3f4d8a08886fc41c451ca7885b5e",
+      "title": "[AINews] Reflection Beam - 501B-A23B American Open Model",
+      "url": "https://latent.space/p/ainews-reflection-beam-501b-a23b",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-06",
+      "summary": "A small win for US open source"
+    },
+    {
+      "id": "505f36bb84547ae349f9c0ab3023959eebf3003f",
+      "title": "A Convincing AI Space Still Needs a Tape Measure",
+      "url": "https://medium.com/@ai_93276/a-convincing-ai-space-still-needs-a-tape-measure-4528aebf660e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "The Ai Consultancy",
+      "published": "2026-10-06",
+      "summary": "An attractive image of a proposed workplace can settle a conversation before the practical questions have been asked. People can see… Continue reading on Medium »"
+    },
+    {
+      "id": "db91bc7f9580eeca879fe38437787f8096b821bf",
+      "title": "Beyond the BAA: Five Places PHI Leaks in Agentic AI Systems",
+      "url": "https://medium.com/@surabhinarenderrao/beyond-the-baa-five-places-phi-leaks-in-agentic-ai-systems-b9421cef793f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Narender Rao Surabhi",
+      "published": "2026-10-06",
+      "summary": "A signed BAA covers the contract. It doesn't cover what your agents do with the data. Continue reading on Medium »"
+    },
+    {
+      "id": "e6f18b5821e39b2692379cd3b880a2fb0efe4177",
+      "title": "I Replaced My $200/Month Claude Code with This Open-Source Stack.",
+      "url": "https://medium.com/data-science-collective/i-replaced-my-200-month-claude-code-with-this-open-source-stack-ca24f67eded5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Anubhav",
+      "published": "2026-10-06",
+      "summary": "One model for the agent, one for coding, one for autocomplete, and what fits on 24GB, 48GB and 64GB Macs. Continue reading on Data Science Collective »"
+    },
+    {
+      "id": "0178fcb1e604e07d88637c837a26f698378c85ef",
+      "title": "If AI Turns My Photo Into Anime, Can Another AI Turn It Back?",
+      "url": "https://medium.com/@maneaditya478/if-ai-turns-my-photo-into-anime-can-another-ai-turn-it-back-250acae9c5f6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Maneaditya",
+      "published": "2026-10-06",
+      "summary": "Imagine you take a normal photograph of yourself. Continue reading on Medium »"
+    },
+    {
+      "id": "273c4bbf3e01a7c09fa2bbece3b285203500e79f",
+      "title": "LLMs Are Better at Coding Than You’ll Ever Be. Stop Fighting It.",
+      "url": "https://adam-drake-frontend-developer.medium.com/llms-are-better-at-coding-than-youll-ever-be-stop-fighting-it-6c6e391d6bad",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Adam Drake",
+      "published": "2026-10-06",
+      "summary": "Hand-written code was never as good as we pretended, and with Opus 5.5 there's no more denying LLMs. Continue reading on Medium »"
+    },
+    {
+      "id": "a15f1f2730f83c3803e815dc081a5505de56ba36",
+      "title": "Make Your Wellness Data More Meaningful",
+      "url": "https://medium.com/@saurabhsinghania531/make-your-wellness-data-more-meaningful-94712212ee5b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Saurabh Singhania",
+      "published": "2026-10-06",
+      "summary": "Health technology has made it easier than ever to collect personal data. But having more information doesn’t necessarily mean having more… Continue reading on Medium »"
+    },
+    {
+      "id": "0d0802da3c888f46e49305339f39bb97571a202f",
+      "title": "Our profile README was live and invisible. For days.",
+      "url": "https://medium.com/@dzyatkovskiy.a2/our-profile-readme-was-live-and-invisible-for-days-b96fac12af3a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Dz Anton",
+      "published": "2026-10-06",
+      "summary": "Published is not the same as visible. Here is the one button nobody clicks, and the auditor we built the day we found it. Continue reading on Medium »"
+    },
+    {
+      "id": "70604dd862f442dc467702ce7482d8c10c82cc76",
+      "title": "Prompting, RAG, and Fine-Tuning: Different Ways to Make Large Language Models Useful",
+      "url": "https://medium.com/@nivedita.home/prompting-rag-and-fine-tuning-different-ways-to-make-large-language-models-useful-7ac36b80dda6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Nivedita Bhadra",
+      "published": "2026-10-06",
+      "summary": "What actually changes when we prompt, retrieve external knowledge, or retrain an AI model Continue reading on Medium »"
+    },
+    {
+      "id": "41d7ae5b83411c26dd27bcbd0595ba135ef998c2",
+      "title": "The Cost of Capital Is Coming for AI Metrics",
+      "url": "https://medium.com/@tim_62250/the-cost-of-capital-is-coming-for-ai-metrics-208a4fce3608",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Tim de Rosen",
+      "published": "2026-10-06",
+      "summary": "Higher bond yields are putting a price on the AI buildout. Boards will soon ask the same question of brand measurement. Continue reading on Medium »"
+    },
+    {
+      "id": "669e4f48c61aae3222454e0ffa0e77bfddd4a6fa",
+      "title": "Three Macs Are Coming. One Finally Has a Touchscreen",
+      "url": "https://medium.com/@simpleandkind788/three-macs-are-coming-one-finally-has-a-touchscreen-03f1891fc53f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Zeeshan Saghir",
+      "published": "2026-10-06",
+      "summary": "The M6 is nice. The touchscreen is what really matters. Continue reading on Medium »"
+    },
+    {
+      "id": "34814ee790c342ffb130c41b51611ee4b33a5b22",
+      "title": "Why Are Your Competitors Using AI More Effectively Than You?",
+      "url": "https://medium.com/@hsbinfotech.com/why-are-your-competitors-using-ai-more-effectively-than-you-980ab56714aa",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "HSB Infotech",
+      "published": "2026-10-06",
+      "summary": "AI is no longer a future technology. Businesses are already using AI for businesses to automate processes, improve customer experiences… Continue reading on Medium »"
+    },
+    {
+      "id": "00b661db08e424ba5716c31ff6920af2a331301b",
+      "title": "Why my crons could not see a key that was lying right there",
+      "url": "https://medium.com/@dzyatkovskiy.a2/why-my-crons-could-not-see-a-key-that-was-lying-right-there-99bde77577ae",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Dz Anton",
+      "published": "2026-10-06",
+      "summary": "Two Windows traps in one incident, both reproducible. Continue reading on Medium »"
+    },
     {
       "id": "609b853b3eb1483c19dac3cd094d0c397e3c5541",
       "title": "[Day 23/100] Designing State Schemas for Complex Agents",
@@ -109,6 +277,19 @@
       "summary": "LLMs, RAG, Agents, MCP and More: What They Mean and Why They Matter Continue reading on Medium »"
     },
     {
+      "id": "143765092cf4d0f882ceaf6ae9ce43f93ea9803e",
+      "title": "Something Has Gone Terribly Wrong at Anthropic",
+      "url": "https://thealgorithmicbridge.com/p/this-wasnt-supposed-to-happen-to",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-10-05",
+      "summary": "Nothing lasts"
+    },
+    {
       "id": "8a309119fd103971668615b82f014d45719ea61e",
       "title": "The Agentic Commerce Shift: AI Is Changing Who Gets the Customer",
       "url": "https://medium.com/@darren_83346/the-agentic-commerce-shift-ai-is-changing-who-gets-the-customer-0a6c9b62a366",
@@ -120,6 +301,19 @@
       "author": "Darren Swayne",
       "published": "2026-10-05",
       "summary": "The next battle in digital commerce won’t be for the click. It will be for the decision. Continue reading on Medium »"
+    },
+    {
+      "id": "ea07b4a4ceb32a8d97cedce17e9929616105ef5c",
+      "title": "The United States is Militarizing and Weaponizing AI",
+      "url": "https://ai-supremacy.com/p/the-united-states-is-militarizing-and-weaponizing-ai-2026-pentagon",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-05",
+      "summary": "AI might be accelerating the potential and increasing the probability of conflict between the U.S. and China, the West with the Eastern Block or BRICS. The Pentagon is betting on something called SI."
     },
     {
       "id": "ab42f1cb0e8a8f9e22996055af55b4b1e26ff82c",
