@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-06",
+  "updated": "2026-10-07",
   "windowDays": 60,
   "items": [
+    {
+      "id": "da697cc60de8aab12a0e621fbb3f9c49828e6b84",
+      "title": "10 Open-Source GitHub Repos Turning One Powerful LLM Into an Autonomous AI System",
+      "url": "https://medium.com/coding-nexus/10-open-source-github-repos-turning-one-powerful-llm-into-an-autonomous-ai-system-551f494d0402",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Civil Learning",
+      "published": "2026-10-07",
+      "summary": "A few years ago, building an AI application mostly meant this: Continue reading on Coding Nexus »"
+    },
+    {
+      "id": "69eb961f3b3029749f37d69e4fd19b235c11f260",
+      "title": "Anthropic’s Finding is Not Novel. Is It?",
+      "url": "https://medium.com/@im-sanka/anthropics-finding-is-not-novel-is-it-3d9c16d80608",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Immanuel Sanka",
+      "published": "2026-10-07",
+      "summary": "Let’s check it with me! Continue reading on Medium »"
+    },
+    {
+      "id": "2aacb6ed007db454b5dc3b3c07376c9303f13d69",
+      "title": "Data Science Fundamentals for Neural Networks Explained: A Beginner’s Guide",
+      "url": "https://medium.com/@khayyamshah2007/data-science-fundamentals-for-neural-networks-explained-a-beginners-guide-4cb83a112c29",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Khayyamshah",
+      "published": "2026-10-07",
+      "summary": "Learn the essential data science concepts behind neural networks, including datasets, features, preprocessing, vectors, weights, biases… Continue reading on Medium »"
+    },
+    {
+      "id": "b493d375e0ba8f08bca4a969d1361d96a7bba6a4",
+      "title": "I Learned More Python From Breaking Code Than Watching Tutorials",
+      "url": "https://medium.com/codetodeploy/i-learned-more-python-from-breaking-code-than-watching-tutorials-33ad48d7da1a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Maria Ali",
+      "published": "2026-10-07",
+      "summary": "For a long time, I thought learning Python meant watching tutorials, taking notes, and trying to remember what the instructor had just… Continue reading on CodeToDeploy »"
+    },
+    {
+      "id": "5c692a9244ba9ad415d007ffa0129afc8094abb0",
+      "title": "I Rewrote the Prompt Six Times. The Examples Won.",
+      "url": "https://ntrongtin11702.medium.com/i-rewrote-the-prompt-six-times-the-examples-won-7b4b7f888692",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tinguyen",
+      "published": "2026-10-07",
+      "summary": "I kept making one instruction louder while the rest of the context quietly taught the model to do the opposite. Continue reading on Medium »"
+    },
+    {
+      "id": "8ab4b8f0bd6ce051719a708d18747a21176b06fb",
+      "title": "Korean Households Pay a Third of Germany’s Power Bill. AI Data Centers Are Testing That.",
+      "url": "https://medium.com/@kidscarebridge/korean-households-pay-a-third-of-germanys-power-bill-ai-data-centers-are-testing-that-5b87e8604684",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Haru Kim",
+      "published": "2026-10-07",
+      "summary": "Samsung and SK Hynix reportedly refused to prepay 25 trillion won for grid links. Someone else may end up paying. Continue reading on Medium »"
+    },
+    {
+      "id": "f922ec4e60aefa3d6d97d35d1dc9133ce60c546e",
+      "title": "OOB Score vs. GridSearchCV: Picking Random Forest Hyperparameters in a Fraction of the Time",
+      "url": "https://medium.com/@Kaiziferr/oob-score-vs-gridsearchcv-picking-random-forest-hyperparameters-in-a-fraction-of-the-time-6d19aeec74c6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Steven Bernal",
+      "published": "2026-10-07",
+      "summary": "Tuning a Random Forest with GridSearchCV works, but on a sizeable grid the wait gets old: the 648 combinations in this article took about… Continue reading on Medium »"
+    },
+    {
+      "id": "29c3cf95a7d1e0ce46ad3184b7a77ad4a518efe2",
+      "title": "Security Engineering for .NET AI Systems",
+      "url": "https://medium.com/@oshadhaj/security-engineering-for-net-ai-systems-ecfaa743be52",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Oshadha Thrimavithana",
+      "published": "2026-10-07",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "b3831401d1e0c04b425b5318743ae688b1e1ea36",
+      "title": "Small Models, Honest Model Cards: What Desert Ant Labs’ On-Device AI Actually Delivers",
+      "url": "https://medium.com/@nuthalapativarun/small-models-honest-model-cards-what-desert-ant-labs-on-device-ai-actually-delivers-1e74dc278c25",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Varun Nuthalapati",
+      "published": "2026-10-07",
+      "summary": "A Parakeet port that lives entirely on the Neural Engine, a clip picker built on interval scheduling, and documentation that’s more… Continue reading on Medium »"
+    },
+    {
+      "id": "52c69651d1f1f45f804e79c78b64206401b53a73",
+      "title": "The Claude Prompt That Writes a Full Ebook in Minutes",
+      "url": "https://blogattu.medium.com/the-claude-prompt-that-writes-a-full-ebook-in-minutes-3207d80f21a1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Iamgohel",
+      "published": "2026-10-07",
+      "summary": "You don’t need to stare at a blank page anymore. Continue reading on Medium »"
+    },
+    {
+      "id": "98e36ce361d36cc8a5ae3292ba61764e468d3cdb",
+      "title": "What broke first when our AI agents started working as a team",
+      "url": "https://medium.com/@nuveki.ai/what-broke-first-when-our-ai-agents-started-working-as-a-team-1bea43b0de71",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Nuveki Ai",
+      "published": "2026-10-07",
+      "summary": "Nuveki is a chat where you work with a team of AI agents instead of one assistant. You describe the work, a planner splits it into steps… Continue reading on Medium »"
+    },
+    {
+      "id": "3cf73463f5ff639323ba7e7b4455a5bf42b267aa",
+      "title": "Why Accuracy Can Lie: Understanding Small-Sample Class Imbalance in Machine Learning",
+      "url": "https://medium.com/@9navya9/why-accuracy-can-lie-understanding-small-sample-class-imbalance-in-machine-learning-b0975e1bed89",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Navya Illa",
+      "published": "2026-10-07",
+      "summary": "Introduction Continue reading on Medium »"
+    },
     {
       "id": "0fece73e7bef3f4d8a08886fc41c451ca7885b5e",
       "title": "[AINews] Reflection Beam - 501B-A23B American Open Model",
@@ -132,6 +288,19 @@
       "author": "Tim de Rosen",
       "published": "2026-10-06",
       "summary": "Higher bond yields are putting a price on the AI buildout. Boards will soon ask the same question of brand measurement. Continue reading on Medium »"
+    },
+    {
+      "id": "7c267aa07d2a02a723163b5abb1735366062c6f7",
+      "title": "The Cyber Risk Discourse is Broken",
+      "url": "https://interconnects.ai/p/the-cyber-risk-discourse-is-broken",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-10-06",
+      "summary": "Open-weights, ideology, and acknowledging trade-offs."
     },
     {
       "id": "669e4f48c61aae3222454e0ffa0e77bfddd4a6fa",
