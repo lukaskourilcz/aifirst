@@ -5,6 +5,18 @@
   "windowDays": 60,
   "items": [
     {
+      "id": "264cab26a08dfb8e666b53a8d0b6981d690cb769",
+      "title": "[AINews] Quasi-Riemann-Hypothesis: OpenAI publishes 722 math papers solving 90 of the top 500 open math problems; “the most significant moment” in >100 years of mathematics",
+      "url": "https://latent.space/p/ainews-quasi-riemann-hypothesis-openai",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-07",
+      "summary": "Our head hurts."
+    },
+    {
       "id": "da697cc60de8aab12a0e621fbb3f9c49828e6b84",
       "title": "10 Open-Source GitHub Repos Turning One Powerful LLM Into an Autonomous AI System",
       "url": "https://medium.com/coding-nexus/10-open-source-github-repos-turning-one-powerful-llm-into-an-autonomous-ai-system-551f494d0402",
