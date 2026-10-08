@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-07",
+  "updated": "2026-10-08",
   "windowDays": 60,
   "items": [
+    {
+      "id": "f89cb27d67ef2602e5fdea2331557b531ce2a56f",
+      "title": "5 MCP Security Tests to Run Before Your AI Agent Gets Tool Access",
+      "url": "https://medium.com/@itpro677/5-mcp-security-tests-to-run-before-your-ai-agent-gets-tool-access-f6ef145575ad",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "MrDuc",
+      "published": "2026-10-08",
+      "summary": "Your LLM passed every prompt-injection test. Your agent can still be hijacked. Continue reading on Medium »"
+    },
+    {
+      "id": "d9d8258e05d8814a4e4bc7e263a8d0ce2748979a",
+      "title": "Benchmarking Apodex: Apodex 1.1 Mini (free on openrouter)",
+      "url": "https://alanrobinsonphd.medium.com/benchmarking-apodex-apodex-1-1-mini-free-on-openrouter-f0d39af99006",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Alan Robinson",
+      "published": "2026-10-08",
+      "summary": "Since Oct 1st, there’s a new free model on OpenRouter: Apodex 1.1 Mini. On OpenRouter, new free models often appear with almost no… Continue reading on Medium »"
+    },
+    {
+      "id": "f5c9e418e42c3624097e91ccd62629f686f22c12",
+      "title": "Could AI Build a Company – from an Idea to a Working Prototype?",
+      "url": "https://medium.com/@ntmbdzmpnk/could-ai-build-a-company-from-an-idea-to-a-working-prototype-d50530308429",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Inzamam ul Haq",
+      "published": "2026-10-08",
+      "summary": "I have a question: how much of the process of creating a company could artificial intelligence handle? Continue reading on Medium »"
+    },
+    {
+      "id": "830112a8ee9cfd7d0da611e7c90396b64d1a7950",
+      "title": "GPT-4o Scored 89% on Korean Instructions. Then Korean-Only Rules Dropped It to 61%.",
+      "url": "https://medium.com/@kidscarebridge/gpt-4o-scored-89-on-korean-instructions-then-korean-only-rules-dropped-it-to-61-e8496a737ec0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Haru Kim",
+      "published": "2026-10-08",
+      "summary": "Hangul Day is October 9. A new benchmark shows where chatbots still stumble in Korean: respect levels, number systems, and wordplay. Continue reading on Medium »"
+    },
+    {
+      "id": "28fb6bdf90ed1837509e7ec84895a0040fc8cc9d",
+      "title": "How an AI Agent Chooses Which Tool to Use",
+      "url": "https://medium.com/codex/how-an-ai-agent-chooses-which-tool-to-use-8c6cb2e7b2ea",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Zayd Islam",
+      "published": "2026-10-08",
+      "summary": "Master Modern AI Concepts Series Part 5 Continue reading on CodeX »"
+    },
+    {
+      "id": "a24df9cff6d6f537747a56b1ccedcdd0f228b16b",
+      "title": "I got tired of re-explaining my heatsink problem to AI, so I built a calculator",
+      "url": "https://medium.com/@marsyin5791/i-got-tired-of-re-explaining-my-heatsink-problem-to-ai-so-i-built-a-calculator-e9ce1fc8155f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "YinOnMars",
+      "published": "2026-10-08",
+      "summary": "A free extruded heatsink calculator that runs in your browser Continue reading on Medium »"
+    },
+    {
+      "id": "3436574a6fe34f6b2a48ab2bd553bd5e70b1b559",
+      "title": "O‘zbekistonda Buxgalteriya Hisobi va Soliq Tizimini Sun’iy Intellekt Orqali Avtomatlashtirish…",
+      "url": "https://medium.com/@suvonov2310/o-zbekistonda-buxgalteriya-hisobi-va-soliq-tizimini-suniy-intellekt-orqali-avtomatlashtirish-ac30cbf56c23",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Suvonov Sherzod Alijonovich",
+      "published": "2026-10-08",
+      "summary": "Zamonaviy moliya va iqtisodiyot olamida buxgalteriya hisobini yuritish hamda soliq hisobotlarini tayyorlash tezkorlik va yuqori aniqlikni… Continue reading on Medium »"
+    },
+    {
+      "id": "f05447ac5deb0affc9154083981b720914826739",
+      "title": "Perfect guests!",
+      "url": "https://medium.com/@demoore_94503/perfect-guests-a750fd51ad04",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Derek Moore",
+      "published": "2026-10-08",
+      "summary": "Who needs humans? Continue reading on Medium »"
+    },
+    {
+      "id": "196635f0be06b29729a9003def1790697efc7b58",
+      "title": "SliteView — Forecasting Electrical Motor Signals with Bi-LSTM",
+      "url": "https://nitarithm.medium.com/sliteview-forecasting-electrical-motor-signals-with-bi-lstm-b9c810d58e6d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Nita Ratnawaty",
+      "published": "2026-10-08",
+      "summary": "Notes on FFT, Simulation Modeling, and Time-Series Forecasting Continue reading on Medium »"
+    },
+    {
+      "id": "d7018c4a0ab5b8d17a3c588b660a33eb7923e5ec",
+      "title": "What are Ai Agents ?",
+      "url": "https://medium.com/@info_53217/what-are-ai-agents-80699253ba40",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Varun & Saurabh",
+      "published": "2026-10-08",
+      "summary": "I could have ended this post in one line: James Bond. Continue reading on Medium »"
+    },
+    {
+      "id": "3c93b6b45c2265313c1f370688dc4f09b4ec2f81",
+      "title": "What Happens When You Talk to AI?",
+      "url": "https://pawannatekar220.medium.com/what-happens-when-you-talk-to-ai-5e0263df334f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Pawan Natekar | Devops | AWS | K8s | Linux",
+      "published": "2026-10-08",
+      "summary": "How AI training works, how the model thinks, and four habits for better results Continue reading on Medium »"
+    },
+    {
+      "id": "48d4468fc07ff36bdddbb2724c69c89a50f5dcfe",
+      "title": "Why Business Context May Be More Valuable Than a Bigger AI Model",
+      "url": "https://medium.com/@twenty_lily811/why-business-context-may-be-more-valuable-than-a-bigger-ai-model-a1d1d2bf56e4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Arthur Pendelton",
+      "published": "2026-10-08",
+      "summary": "We’ve all been there. Continue reading on Medium »"
+    },
     {
       "id": "264cab26a08dfb8e666b53a8d0b6981d690cb769",
       "title": "[AINews] Quasi-Riemann-Hypothesis: OpenAI publishes 722 math papers solving 90 of the top 500 open math problems; “the most significant moment” in >100 years of mathematics",
@@ -30,6 +186,19 @@
       "summary": "A few years ago, building an AI application mostly meant this: Continue reading on Coding Nexus »"
     },
     {
+      "id": "0b5142d2fd55cab5a9fdb450a23dc9f772f44c3a",
+      "title": "AI: Off the Charts",
+      "url": "https://ai-supremacy.com/p/ai-off-the-charts-personal-assistants-top-ai-apps-open-source-models",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-07",
+      "summary": "Western Open-Source models, a new Personal Assistant race, Top Gen AI products, AI adoption questions."
+    },
+    {
       "id": "69eb961f3b3029749f37d69e4fd19b235c11f260",
       "title": "Anthropic’s Finding is Not Novel. Is It?",
       "url": "https://medium.com/@im-sanka/anthropics-finding-is-not-novel-is-it-3d9c16d80608",
@@ -41,6 +210,32 @@
       "author": "Immanuel Sanka",
       "published": "2026-10-07",
       "summary": "Let’s check it with me! Continue reading on Medium »"
+    },
+    {
+      "id": "f2aec101ad7890b259ffa50968686ce76a9ca12f",
+      "title": "Audience at a Magic Show",
+      "url": "https://thealgorithmicbridge.com/p/audience-at-a-magic-show",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-10-07",
+      "summary": "This is what the future holds"
+    },
+    {
+      "id": "10c96a2b3658d6d258f803791ee320dcb96fd004",
+      "title": "Can a Cloud-Native Harness Make Agents Reliable Beyond the Desktop?",
+      "url": "https://latent.space/p/stacklok",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-10-07",
+      "summary": "Kubernetes co-creators Craig McLuckie and Joe Beda aim to bring agent harnesses fully into the cloud."
     },
     {
       "id": "2aacb6ed007db454b5dc3b3c07376c9303f13d69",
@@ -2748,19 +2943,6 @@
       "author": "Michael Spencer",
       "published": "2026-08-10",
       "summary": "The spectre of AI, labor participation churn, worker slice of GPD, an ageist AI, a debt binge, a cartel in waiting. An accelerating demand for compute that eats at the fabric of society."
-    },
-    {
-      "id": "e5dc0aabf9cb5fd2c50016d3ac5a23bfdf53b40e",
-      "title": "Lessons from the hacks",
-      "url": "https://interconnects.ai/p/lessons-from-the-hacks",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-08-09",
-      "summary": "Musings on model alignment, what determines safety, and where we go from here."
     }
   ]
 }
