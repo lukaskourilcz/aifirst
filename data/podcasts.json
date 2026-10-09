@@ -1,9 +1,24 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "windowDays": 60,
   "items": [
+    {
+      "id": "cb22648a6a15211a2cdaf30c67d193fca7000d91",
+      "title": "Narrative intelligence and the human advantage",
+      "url": "https://share.transistor.fm/s/f2fcb677",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-10-08",
+      "summary": "As AI reshapes how we work, create, and think about our roles, staying adaptable means understanding not just the technology, but our own stories and identities. Reed Frerichs joins Daniel and Chris to explore narrative intelligence, storytelling, leadership, and personal growth…",
+      "show": "Practical AI",
+      "durationSec": 2664
+    },
     {
       "id": "9f5705c70fed97998c2b971de922ab4b0464526f",
       "title": "Open models and the future of Physical AI with NVIDIA",

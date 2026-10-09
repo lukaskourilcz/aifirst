@@ -1,9 +1,189 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "windowDays": 60,
   "items": [
+    {
+      "id": "88d907dd85ea36f005305c4c43df01b6c61863a0",
+      "title": "#065 — The AI Industries Shift",
+      "url": "https://medium.com/@peternunes/065-the-ai-industries-shift-0ea54de5277c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Peter Nunes",
+      "published": "2026-10-09",
+      "summary": "Let’s Talk FinTech! Machine Learning or AI will disrupt this decade and will re-design many industries, that shift has already begun. Continue reading on Medium »"
+    },
+    {
+      "id": "c36a4e7e81d0bdc84c88a9dda10eeb31e0713c0f",
+      "title": "16 GB of VRAM Is Enough to Load a Local AI Model. Is It Enough to Finish the Work?",
+      "url": "https://medium.com/@loengnavy/16-gb-of-vram-is-enough-to-load-a-local-ai-model-is-it-enough-to-finish-the-work-d00b637cbc81",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Loengnavy",
+      "published": "2026-10-09",
+      "summary": "What the viral “16 GB is all you need” demos leave out, and how to size a GPU for real local AI work. Continue reading on Medium »"
+    },
+    {
+      "id": "cebc57cefb0340a38a8297cfd948649d660a79f9",
+      "title": "Blind Spots in Silicon: How AI Gets Fooled by Jamming and Spoofing",
+      "url": "https://medium.com/@AlDhabi/blind-spots-in-silicon-how-ai-gets-fooled-by-jamming-and-spoofing-d9e869fdea76",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "AlDhabi AlMheiri",
+      "published": "2026-10-09",
+      "summary": "Autonomous machines are taking over our world.. Under the hood their sensors are terrifyingly easy to lie to. Continue reading on Medium »"
+    },
+    {
+      "id": "a87cad37af15bcb4feb5c7e188584c8315322ac8",
+      "title": "Custom AI Engineering Agents with OpenCode",
+      "url": "https://medium.com/@brunomacedolemos15/custom-ai-engineering-agents-with-opencode-6b3dc4ef60fc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Bruno Macedo Lemos",
+      "published": "2026-10-09",
+      "summary": "I’ll walk through a step-by-step guide how to create & run Custom engineering agents to help you develop your system assisted by AI and… Continue reading on Medium »"
+    },
+    {
+      "id": "660520aa9e13f37acd730a5736b11de2f0edaa6e",
+      "title": "Don’t trust the agent’s PASS: a locked-test bench you can build in an hour",
+      "url": "https://medium.com/@sairamkotha/dont-trust-the-agent-s-pass-a-locked-test-bench-you-can-build-in-an-hour-fed46f2e420a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sai Ram Kotha",
+      "published": "2026-10-09",
+      "summary": "Every coding-agent comparison ends with a number. Most of them can’t be checked. Here is a small bench design where every number can be… Continue reading on Medium »"
+    },
+    {
+      "id": "ceae95f832f7601de7b648d9bdefe7c80f53e548",
+      "title": "Function Calling vs. Tool Calling: What's Really Happening Inside an AI Agent?",
+      "url": "https://medium.com/@zaydislam25/function-calling-vs-tool-calling-whats-really-happening-inside-an-ai-agent-1a560dbd8ef5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Zayd Islam",
+      "published": "2026-10-09",
+      "summary": "Master Modern AI Concepts Series Part 6 Continue reading on Medium »"
+    },
+    {
+      "id": "4099cd27a765a1db341916b209c6fb0a8b297191",
+      "title": "How to Do the AI Zombie Trend: Photos, Prompts and Fixes",
+      "url": "https://medium.com/@hello_90273/how-to-do-the-ai-zombie-trend-photos-prompts-and-fixes-c6353ed66e2e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "AI-Zombie",
+      "published": "2026-10-09",
+      "summary": "You’ve probably seen it by now. The world has ended. Someone stands in an empty, ash-covered street. A few metres away is the person they… Continue reading on Medium »"
+    },
+    {
+      "id": "ee050bf10ceee3cfdf8497f21a00050999bc6039",
+      "title": "I Gave My AI Less to Read, and It Did Better",
+      "url": "https://123sarang.medium.com/i-gave-my-ai-less-to-read-and-it-did-better-057239603f80",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarang",
+      "published": "2026-10-09",
+      "summary": "In my last piece, My AI Had Perfect Instructions and Still Got It Wrong, I split an AI system into what we give it to read and the system… Continue reading on Medium »"
+    },
+    {
+      "id": "f01d12e20a16af6bb9d74fbdf77d243ce35a391a",
+      "title": "Mistral vs Beam vs Kimi: Which Open AI Model Is Actually Worth Using?",
+      "url": "https://medium.com/@highsongs2020/mistral-vs-beam-vs-kimi-which-open-ai-model-is-actually-worth-using-b1c5c53694cb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "SOVANNARO",
+      "published": "2026-10-09",
+      "summary": "Three labs, three continents, one week. Here’s what was really released, what’s only promised, and how to choose. Continue reading on Medium »"
+    },
+    {
+      "id": "3317c7034da80186e5145cf5345ec768add2dab5",
+      "title": "SayGM Desktop: One AI Assistant App for Every Model",
+      "url": "https://medium.com/@say_gm_/saygm-desktop-one-ai-assistant-app-for-every-model-d5ef90ee850d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "SayGm",
+      "published": "2026-10-09",
+      "summary": "SayGM Desktop is an AI assistant app for your Mac, Windows or Linux computer that gives you Claude, GPT, Gemini and other leading models… Continue reading on Medium »"
+    },
+    {
+      "id": "2174f68ca5aefdeb3e7e88f16ae4464e4bf3936c",
+      "title": "The Clock Is Ticking: Can AI Find the Weakness Resistance Creates?",
+      "url": "https://medium.com/@a.mohamed.benharkat/the-clock-is-ticking-can-ai-find-the-weakness-resistance-creates-322373a911ac",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "A Mohamed Benharkat",
+      "published": "2026-10-09",
+      "summary": "I rarely had pneumonia as a kid, but when I did, it was bad. Continue reading on Medium »"
+    },
+    {
+      "id": "62199dd8ffa24726da5a0ef2681565d9a5dd28ab",
+      "title": "把判斷交給決策模型 #05：判斷沒過線不是丟掉：AI 判定資產的上線、下線與復活",
+      "url": "https://medium.com/@hohshencode/%E6%8A%8A%E5%88%A4%E6%96%B7%E4%BA%A4%E7%B5%A6%E6%B1%BA%E7%AD%96%E6%A8%A1%E5%9E%8B-05-%E5%88%A4%E6%96%B7%E6%B2%92%E9%81%8E%E7%B7%9A%E4%B8%8D%E6%98%AF%E4%B8%9F%E6%8E%89-ai-%E5%88%A4%E5%AE%9A%E8%B3%87%E7%94%A2%E7%9A%84%E4%B8%8A%E7%B7%9A-%E4%B8%8B%E7%B7%9A%E8%88%87%E5%BE%A9%E6%B4%BB-c357231b7465",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "後端里長伯-hohshen",
+      "published": "2026-10-09",
+      "summary": "我親手下線了一題 jev 判斷：in-sample 一度過線，之後幾輪和留出的 case 都沒過。下線關掉的是行為，題目、樣本、評測紀錄照留，補樣本或換引擎後用同一組 evals 決定能不能回來 Continue reading on Medium »"
+    },
+    {
+      "id": "9fa009655eac92fd7a2382f1fd8bcbaebf774eb0",
+      "title": "[AINews] Claude Haiku 5.5 — better than GPT-6 Luna at the same pricing",
+      "url": "https://latent.space/p/ainews-claude-haiku-55-better-than",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-08",
+      "summary": "yay small models"
+    },
+    {
+      "id": "2d2415fa4281819ea0b38cdf6530cfaa12aff87a",
+      "title": "[AINews] not much happened today",
+      "url": "https://latent.space/p/ainews-not-much-happened-today-60f",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-08",
+      "summary": "a quiet day."
+    },
     {
       "id": "f89cb27d67ef2602e5fdea2331557b531ce2a56f",
       "title": "5 MCP Security Tests to Run Before Your AI Agent Gets Tool Access",
@@ -120,6 +300,18 @@
       "author": "Nita Ratnawaty",
       "published": "2026-10-08",
       "summary": "Notes on FFT, Simulation Modeling, and Time-Series Forecasting Continue reading on Medium »"
+    },
+    {
+      "id": "f5415a0e9da60a56e9336f5a44f00ed939a33608",
+      "title": "Synthesis Superintelligence: from Semiconductors to Superconductors — Periodic Labs’ Liam Fedus and Ekin Dogus Cubuk",
+      "url": "https://latent.space/p/periodic",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-08",
+      "summary": "A special Science pod and Engineering pod crossover.. with Forward Deployed Engineering kicker!"
     },
     {
       "id": "d7018c4a0ab5b8d17a3c588b660a33eb7923e5ec",
@@ -2917,32 +3109,6 @@
       "author": "Michael Spencer",
       "published": "2026-08-11",
       "summary": "Mid 2026 AI News in a nutshell. Issue #1. 📰"
-    },
-    {
-      "id": "e873b18ddb1c7df0249a074a98e4e80603ef9f3a",
-      "title": "5 useful things you'll learn in my new post-training textbook (shipping now!)",
-      "url": "https://interconnects.ai/p/5-useful-things-youll-learn-in-my",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-08-10",
-      "summary": "After a few long years of finding time to document my lessons from training open models, my post-training book is done!"
-    },
-    {
-      "id": "b1c1cd80e7d4988899fdc936431c15d60e1e68fb",
-      "title": "How AI's Demand for Compute could Disrupt America",
-      "url": "https://ai-supremacy.com/p/how-ai-demand-for-compute-could-disrupt-america-debt-crisis",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-10",
-      "summary": "The spectre of AI, labor participation churn, worker slice of GPD, an ageist AI, a debt binge, a cartel in waiting. An accelerating demand for compute that eats at the fabric of society."
     }
   ]
 }
