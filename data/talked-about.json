@@ -1,9 +1,177 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-09",
+  "updated": "2026-10-10",
   "windowDays": 60,
   "items": [
+    {
+      "id": "58ad54d8e2a0e2b2ae976d0a5eb619268de4eee7",
+      "title": "“We Do Not Have a Decade”: Hegseth Launches the Era of Autonomous Warfare",
+      "url": "https://medium.com/@jens_sorensen_geopol./we-do-not-have-a-decade-hegseth-launches-the-era-of-autonomous-warfare-f54cd95e4bde",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Jens Sorensen, Geopolitics",
+      "published": "2026-10-10",
+      "summary": "AUTOWARCOM will command drones and robots with service-like authority, while experts in Washington and Beijing warn that an unchecked AI… Continue reading on Medium »"
+    },
+    {
+      "id": "f2d245ea926c9b6b8845c3264caaa7554213dd86",
+      "title": "⚡ Every AI Data Center Challenge Can Become a Local Prosperity Opportunity",
+      "url": "https://medium.com/@aixnetwork/every-ai-data-center-challenge-can-become-a-local-prosperity-opportunity-2948abbfb203",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Matt Fok, CEO & Founder - AI X Network, HE365",
+      "published": "2026-10-10",
+      "summary": "The conversation around AI data centers is changing. Continue reading on Medium »"
+    },
+    {
+      "id": "036ff191335fff9e1c02b5f7f2f332b870a5a6cb",
+      "title": "California Banned AI-Only Firings. The Fine Is $500 Per Violation, and It Starts in 2027.",
+      "url": "https://medium.com/@kidscarebridge/california-banned-ai-only-firings-the-fine-is-500-per-violation-and-it-starts-in-2027-5abb18ea4d82",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Haru Kim",
+      "published": "2026-10-10",
+      "summary": "Three laws signed September 30 cover firing, layoff notices and workplace surveillance. Two start January 1. Continue reading on Medium »"
+    },
+    {
+      "id": "b8e1a6a523d25a23e33d96ca2c1e5f14cdd926a2",
+      "title": "From Jev-style decisions to EEG: when should a decoder abstain?",
+      "url": "https://medium.com/@rayroy31/from-jev-style-decisions-to-eeg-when-should-a-decoder-abstain-db75fd01d895",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Tianyao Wu",
+      "published": "2026-10-10",
+      "summary": "AI-assisted: this article was drafted with AI assistance and checked against BCI Report’s published results. It was first published on… Continue reading on Medium »"
+    },
+    {
+      "id": "147709656a09b5f773bd1cb00fb7deafc16c2a11",
+      "title": "LLM Coding Interview Series: 1/30 [Tensor Thinking]",
+      "url": "https://medium.com/models-to-systems/llm-coding-interview-series-1-30-tensor-thinking-66d2c218760b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-10",
+      "summary": "NumPy and PyTorch Skills Every LLM Interview Tests Continue reading on Models to Systems »"
+    },
+    {
+      "id": "35c1d397b2dffce5723dde32bbd1ac00b498f852",
+      "title": "LLM Coding Interview Series: 2/30",
+      "url": "https://medium.com/models-to-systems/llm-coding-interview-series-2-30-8c2dcc138ba5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-10",
+      "summary": "Softmax, Log-Softmax, and Cross-Entropy from Scratch Continue reading on Models to Systems »"
+    },
+    {
+      "id": "7bd76146fdf2241a111f2d3248e6d7cb97969c43",
+      "title": "Nietzsche, a.i. and “alignment” of LLMs",
+      "url": "https://medium.com/@electricity98/nietzsche-a-i-and-alignment-of-llms-bef33cb7a3a4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Dr Frances J Armstrong, Structuralist",
+      "published": "2026-10-10",
+      "summary": "What Cybernetics proves Continue reading on Medium »"
+    },
+    {
+      "id": "2adaaa5bc7624add61cb0f0d590141b5072d3ec2",
+      "title": "Running Open Models on Everyday Hardware: Why Llama.cpp Matters — and Why Models Still Hallucinate",
+      "url": "https://medium.com/@afcanrelief/running-open-models-on-everyday-hardware-why-llama-cpp-matters-and-why-models-still-hallucinate-7334843dfb5c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Ifeanyi Ogbuehi",
+      "published": "2026-10-10",
+      "summary": "You can download a large language model from the internet, but downloading the weights alone is not enough. To actually use the model, you… Continue reading on Medium »"
+    },
+    {
+      "id": "58a98207fcd9f11b85d728c891fbcc1fc27e03e9",
+      "title": "Stop Staring at Logs: Pivot Any Dataset in One Line with bts-pivot",
+      "url": "https://medium.com/@terps6767/stop-staring-at-logs-pivot-any-dataset-in-one-line-with-bts-pivot-0999fc1b72e4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Terps",
+      "published": "2026-10-10",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "cd8812625053736dc922e4cf9ccfec6097ba5c13",
+      "title": "The Brain Renewal",
+      "url": "https://medium.com/health-science/the-brain-renewal-3c3992e3beb5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Brian Rosta",
+      "published": "2026-10-10",
+      "summary": "Unfamiliar skills challenge your aging brain Continue reading on Health and Science »"
+    },
+    {
+      "id": "4228a9fc2235923fdde60eb0db69d45cb27b26e4",
+      "title": "Weekend Project: Run Your Own LLM on Amazon EKS with vLLM!",
+      "url": "https://devopslearning.medium.com/weekend-project-run-your-own-llm-on-amazon-eks-with-vllm-044ae63435e9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Prashant Lakhera",
+      "published": "2026-10-10",
+      "summary": "Calling an LLM API is easy. But can you deploy, serve, and manage your own LLM on Kubernetes? Continue reading on Medium »"
+    },
+    {
+      "id": "e6cbd947c4882878a602a93e027fd253557e162b",
+      "title": "What AI Couldn’t Do Was Teach Me to Think",
+      "url": "https://ntrongtin11702.medium.com/what-ai-couldnt-do-was-teach-me-to-think-e9d190a010aa",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tinguyen",
+      "published": "2026-10-10",
+      "summary": "The test passed in seconds. Realizing I couldn’t explain why took the rest of the night. Continue reading on Medium »"
+    },
+    {
+      "id": "acc65b95cb5138c3fe9ad8037d4731ce58fe3aeb",
+      "title": "Why AlphaFold Didn't Solve Protein Folding — Pushmeet Kohli, Google DeepMind & Sal Candido, Biohub",
+      "url": "https://latent.space/p/biohub-deepmind",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-10",
+      "summary": "From the Bitter Lesson of AI scaling to the unsolved mysteries of protein folding, Google DeepMind’s Pushmeet Kohli and Biohub’s Sal Candido are rethinking what it takes to build AI that truly understands biology."
+    },
     {
       "id": "88d907dd85ea36f005305c4c43df01b6c61863a0",
       "title": "#065 — The AI Industries Shift",
@@ -29,6 +197,19 @@
       "author": "Loengnavy",
       "published": "2026-10-09",
       "summary": "What the viral “16 GB is all you need” demos leave out, and how to size a GPU for real local AI work. Continue reading on Medium »"
+    },
+    {
+      "id": "6aafe26fbc433fb5c8b5f16942014156db9b2251",
+      "title": "AI off the Charts II",
+      "url": "https://ai-supremacy.com/p/ai-off-the-charts-ii-state-of-ai-2026-chart-summary",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-09",
+      "summary": "State of AI 2026 Report selections, debates and margin notes."
     },
     {
       "id": "cebc57cefb0340a38a8297cfd948649d660a79f9",
@@ -96,6 +277,19 @@
       "summary": "You’ve probably seen it by now. The world has ended. Someone stands in an empty, ash-covered street. A few metres away is the person they… Continue reading on Medium »"
     },
     {
+      "id": "2affe4da8255287ec5783d9e33b846af57413794",
+      "title": "I expect rapid progress but not towards general superintelligence",
+      "url": "https://interconnects.ai/p/i-expect-rapid-progress-but-not-towards",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-10-09",
+      "summary": "I’ve often been surprised when I hear from top researchers in industry that they think AI will be better than them at their job in a few years, and I didn’t really know why I doubted it."
+    },
+    {
       "id": "ee050bf10ceee3cfdf8497f21a00050999bc6039",
       "title": "I Gave My AI Less to Read, and It Did Better",
       "url": "https://123sarang.medium.com/i-gave-my-ai-less-to-read-and-it-did-better-057239603f80",
@@ -133,6 +327,19 @@
       "author": "SayGm",
       "published": "2026-10-09",
       "summary": "SayGM Desktop is an AI assistant app for your Mac, Windows or Linux computer that gives you Claude, GPT, Gemini and other leading models… Continue reading on Medium »"
+    },
+    {
+      "id": "7c24096eedd5d485d72e4add7dcfecf7c30394f1",
+      "title": "The Actual Reason Why Meta Got Back in the AI Race Changes Everything",
+      "url": "https://thealgorithmicbridge.com/p/the-actual-reason-why-meta-got-back",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-10-09",
+      "summary": "An unlikely friendship; a predictable outcome"
     },
     {
       "id": "2174f68ca5aefdeb3e7e88f16ae4464e4bf3936c",
@@ -3096,19 +3303,6 @@
       "author": "Alberto Romero",
       "published": "2026-08-12",
       "summary": "A bunch of false positives for a slop-free internet? Yeah, you can count me in"
-    },
-    {
-      "id": "f19bf4f6e4edd8992384e4a5fee49e8948a55d34",
-      "title": "AI Things, Bits and Bites",
-      "url": "https://ai-supremacy.com/p/ai-things-bits-and-bites-2026-1",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-11",
-      "summary": "Mid 2026 AI News in a nutshell. Issue #1. 📰"
     }
   ]
 }
