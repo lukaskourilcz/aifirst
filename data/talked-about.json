@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-10",
+  "updated": "2026-10-11",
   "windowDays": 60,
   "items": [
+    {
+      "id": "05ad339fccad116ead42ee080dff792b8b92be1a",
+      "title": "#1 LLMs vs AI Agents: What Actually Makes an LLM an Agent?",
+      "url": "https://medium.com/@aryancodes.tech/1-llms-vs-ai-agents-what-actually-makes-an-llm-an-agent-795b35509d42",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Aryan Gupta",
+      "published": "2026-10-11",
+      "summary": "Day 1 of Learning Tech Through Tweets — understanding AI agents through a simple travel-planning example. Continue reading on Medium »"
+    },
+    {
+      "id": "b2c718ade0723f9a91f228045204da2d6a8d1a00",
+      "title": "Alone",
+      "url": "https://medium.com/illumination/alone-ca77032017f8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Dr Jeff W Welsh",
+      "published": "2026-10-11",
+      "summary": "How AI Impacts the Silent Epidemic Continue reading on ILLUMINATION »"
+    },
+    {
+      "id": "174eba9041e9923be4579956452958d2dcd2272a",
+      "title": "Deep Agents Demystified: The Architecture of Complex AI",
+      "url": "https://medium.com/@nageshchauhanc4/deep-agents-demystified-the-architecture-of-complex-ai-9abb03ba6118",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Nagesh Singh Chauhan",
+      "published": "2026-10-11",
+      "summary": "A practical deep dive into planning, subagents, context engineering, memory, tools, and autonomous execution. Continue reading on Medium »"
+    },
+    {
+      "id": "401d5e33cf84bf7ee7e79372ebdb754636b692b4",
+      "title": "Do We Need a Million-Dollar Contract to Serve LLM’s?",
+      "url": "https://medium.com/@willyouzhizou/do-we-need-a-million-dollar-contract-to-serve-llms-cf21d1202112",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Will Youzhi Zou",
+      "published": "2026-10-11",
+      "summary": "How we stood up Qwen3 on a single A10 or A100 from a plain Ubuntu box, benchmarked it, and opened up FlashInfer to see why it works. All… Continue reading on Medium »"
+    },
+    {
+      "id": "654b1c29e202ee1dac0cf36d79b8719b5846e724",
+      "title": "Eleven Number-One Records: One Self-Improving Model Swept Math, Science, Law and Decisions",
+      "url": "https://arxivgpt.medium.com/eleven-number-one-records-one-self-improving-model-swept-math-science-law-and-decisions-fdb9bc8ea9a2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "ArXiv",
+      "published": "2026-10-11",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "17983c6f7574eba7d74aa3f64abcff9a5648ae72",
+      "title": "I Checked Every Single Day You Could Have Bought Nifty Since 2005.",
+      "url": "https://future-hacker.medium.com/i-checked-every-single-day-you-could-have-bought-nifty-since-2005-d05f1ee1d471",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sanjay Mehta",
+      "published": "2026-10-11",
+      "summary": "2,860 buy days, three indices, and one number that changes depending only on how long you waited. Spoiler: at seven years, it is zero. Continue reading on Medium »"
+    },
+    {
+      "id": "75eb6501f74c88280c2a8323495b4ef1977b9db1",
+      "title": "OpenAI’s Decisions API looked at a clean egg and said 47% dirty.",
+      "url": "https://systemdesignacademy.medium.com/openais-decisions-api-looked-at-a-clean-egg-and-said-47-dirty-16a916cf2518",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Roni Das",
+      "published": "2026-10-11",
+      "summary": "I ran the new endpoint on 33 egg photos from VS Code: 0.2 seconds a call, a probability for every answer, and one near tie that taking the… Continue reading on Medium »"
+    },
+    {
+      "id": "c3110a78e769c6dbecbc2b223698de46dbef8945",
+      "title": "Rust’s Best Use Case Isn’t What You Think. It’s Building Agents",
+      "url": "https://medium.com/solo-devs/rusts-best-use-case-isn-t-what-you-think-it-s-building-agents-8b2d775fe174",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sreeved Vp",
+      "published": "2026-10-11",
+      "summary": "Not web servers. Not CLIs. Not a rewrite for sport. I think the agentic OS is coming to your terminal by the end of 2027, and Rust is the… Continue reading on solo devs »"
+    },
+    {
+      "id": "3ced516a97c8a0b52bb4aef1894b15de2d254856",
+      "title": "S1MB Number One: A Zero-Token Judge That Won the Decision-Engine Leaderboard",
+      "url": "https://arxivgpt.medium.com/s1mb-number-one-a-zero-token-judge-that-won-the-decision-engine-leaderboard-a9ea278aade5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "ArXiv",
+      "published": "2026-10-11",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "17fef47a86dbb894b2a0199bfc5002a44a482f26",
+      "title": "The Architecture of an Artificial Organization",
+      "url": "https://medium.com/@cheng.cesar/the-architecture-of-an-artificial-organization-bce73b69bbd0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "cesar cheng",
+      "published": "2026-10-11",
+      "summary": "The solution isn’t more intelligence. It’s architecture. Continue reading on Medium »"
+    },
+    {
+      "id": "798717e21bed5faa2ee84d74c42d79e17cce754f",
+      "title": "The Result Is Out. Before You Judge Yourself, Review the Work.",
+      "url": "https://medium.com/@vishal_kamath/the-result-is-out-before-you-judge-yourself-review-the-work-e308e6d4ed62",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Vishal Kamath",
+      "published": "2026-10-11",
+      "summary": "The result appears on the screen. Continue reading on Medium »"
+    },
+    {
+      "id": "86ff2b09aeb7538507713dc0f84eaa0435a566dd",
+      "title": "When to Avoid an AI Agent",
+      "url": "https://medium.com/@aiflownote/when-to-avoid-an-ai-agent-3566f61e8ba3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "AI Flow Note",
+      "published": "2026-10-11",
+      "summary": "Three checks before you add autonomy to a workflow. Continue reading on Medium »"
+    },
     {
       "id": "58ad54d8e2a0e2b2ae976d0a5eb619268de4eee7",
       "title": "“We Do Not Have a Decade”: Hegseth Launches the Era of Autonomous Warfare",
@@ -18,6 +174,30 @@
       "summary": "AUTOWARCOM will command drones and robots with service-like authority, while experts in Washington and Beijing warn that an unchecked AI… Continue reading on Medium »"
     },
     {
+      "id": "a77859e4336cb4a4818540c29ca4374b1cb71925",
+      "title": "[AINews] TypeSafe/Jev at >$100M ARR, $7.5B valuation 3 weeks after launch",
+      "url": "https://latent.space/p/ainews-typesafejev-at-100m-arr-75b",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-10",
+      "summary": "Wow."
+    },
+    {
+      "id": "45bc2fccc930f51751163591b5807fca42d28c2b",
+      "title": "[Subscriber Exclusive] NYC Subscriber Meetups!",
+      "url": "https://latent.space/p/nyc2026",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-10",
+      "summary": "Tomorrow and Tuesday. If you see this you’re in!"
+    },
+    {
       "id": "f2d245ea926c9b6b8845c3264caaa7554213dd86",
       "title": "⚡ Every AI Data Center Challenge Can Become a Local Prosperity Opportunity",
       "url": "https://medium.com/@aixnetwork/every-ai-data-center-challenge-can-become-a-local-prosperity-opportunity-2948abbfb203",
@@ -29,6 +209,19 @@
       "author": "Matt Fok, CEO & Founder - AI X Network, HE365",
       "published": "2026-10-10",
       "summary": "The conversation around AI data centers is changing. Continue reading on Medium »"
+    },
+    {
+      "id": "06d39cf072ff31d83ce42e66a7e24d686709a12f",
+      "title": "Building AI for Reliable Execution: Lessons From Industrial Robotics",
+      "url": "https://latent.space/p/standard-bots",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-10-10",
+      "summary": "Inside Standard Bots’ AI stack, pretrained models learn factory tasks from demonstrations and improve through corrections from real deployments."
     },
     {
       "id": "036ff191335fff9e1c02b5f7f2f332b870a5a6cb",
@@ -3277,32 +3470,6 @@
       "author": "Michael Spencer",
       "published": "2026-08-13",
       "summary": "Igor Babuschkin's new startup profiled. Issue #1"
-    },
-    {
-      "id": "822acd1a4708135ff2c69ff4fee78539cacb2405",
-      "title": "I wrote an AI textbook — how long until AI can do it better?",
-      "url": "https://interconnects.ai/p/i-wrote-an-ai-textbook-how-long-until",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-08-12",
-      "summary": "Reflections on AI's writing ability and how AI models get more capable."
-    },
-    {
-      "id": "41fc8b828bb4d448678e3d01922793c9af605577",
-      "title": "On Substack-Pangram Partnership: It's About Sending a Message",
-      "url": "https://thealgorithmicbridge.com/p/on-substack-pangram-partnership-its",
-      "source": {
-        "kind": "substack",
-        "name": "The Algorithmic Bridge",
-        "feed": "https://www.thealgorithmicbridge.com/feed"
-      },
-      "author": "Alberto Romero",
-      "published": "2026-08-12",
-      "summary": "A bunch of false positives for a slop-free internet? Yeah, you can count me in"
     }
   ]
 }
