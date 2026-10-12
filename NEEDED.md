@@ -13,3 +13,7 @@
 - [x] **Operator identification** — decided 2026-09-28: no personal name, IČO or e-mail on the site; the publication sells nothing, and „tým DNESKAi" answers for the content on O magazínu.
 - [ ] **Check the derived sections** — until `edition-package/2`, each article's section is its lead story's first mapped tag; review `/topics/*` and flag misfiled editions. [imp:2] [owner:me] [time:15m] [kind:decision]
 - [ ] **Deliver `edition-package/2` for Part B** — 1–3 articles per day, `section`, `priority`, `published_at`, a 3:2 hero and 1:1 thumb per article (UPSTREAM_REQUIREMENTS §1–3). [imp:4] [owner:ai] [time:1d] [kind:deploy]
+
+## Apple Design refresh, 12 October 2026
+
+- [x] **Refresh the complete reader interface** — applied the requested Apple Design guidance to shared typography, navigation, lead, cards, article, reference pages, dialogs and footer. Verified 311 unit tests, 246 browser tests, 96 responsive combinations and the 110 kB bundle guard. Local branch: `design/apple-interface`. [imp:3] [owner:ai] [time:2h] [kind:decision]

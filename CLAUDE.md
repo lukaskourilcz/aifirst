@@ -205,7 +205,7 @@ Before editing, inspect branch/status/staged and unstaged diffs/recent log. Pres
 Tokens live in the palette block at the top of `app/globals.css`. Prefer the
 semantic roles (`--surface-*`, `--text-*`, `--border-*`, `--accent-*`,
 `--status-*`, `--focus-ring`) in new rules. The light palette's metadata floor is
-`#5f6672`, which holds 5.02:1 on its worst surface; do not introduce dimmer
+`#5f6672`, which holds 4.91:1 on its worst surface; do not introduce dimmer
 text. Controls whose border carries the affordance use `--border-control`
 (`#85858c`), because the grouping hairlines cannot reach 3:1 on paper without
 becoming noise. Re-measure text and status contrast

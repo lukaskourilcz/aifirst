@@ -1,91 +1,68 @@
 # DNESKAi visual QA
 
-Status: light newsroom redesign, 2026-08-09.
+Apple Design refresh, 12 October 2026. Tested against the local production
+build in Chromium. The current visual contract is `DESIGN_SYSTEM.md`.
 
-This is the evidence record for the shipped interface. It is not a screenshot
-baseline: temporary captures, traces and Playwright output stay ignored and are
-never production assets.
+## Release checks
 
-## Responsive matrix
+- `pnpm verify`: passed. Lint, TypeScript, 311 tests in 32 files, 39 MDX files,
+  43 board context files and configuration checks passed.
+- Production build: 644 static pages generated.
+- Bundle guard: all 31 page entries below 110 kB gzip; maximum 103.4 kB.
+- `pnpm e2e --workers=4`: 246 tests passed across desktop, tablet and mobile.
+- `git diff --check`: passed.
 
-Measured against the production build in Chromium, eight widths by eight
-routes, sixty-four combinations. Each cell records horizontal overflow, which
-navigation surface is present, whether the right rail is in the layout, the
-count of level-one headings, and the number of touch targets under 44px.
+No dependency, runtime service, media-production path or analytics event was
+added. Native font stacks replace the three downloaded web-font families.
+Feeds, JSON, canonical/legacy routes, CSP and print checks remain in the suite.
 
-| Width | Left rail | Top bar | Right rail | Overflow | `h1` | Targets under 44px |
-| --- | --- | --- | --- | --- | --- | --- |
-| 320 | hidden | yes | reflowed into main | 0 | 1 | 0 |
-| 360 | hidden | yes | reflowed into main | 0 | 1 | 0 |
-| 430 | hidden | yes | reflowed into main | 0 | 1 | 0 |
-| 768 | hidden | yes | reflowed into main | 0 | 1 | 0 |
-| 820 | hidden | yes | reflowed into main | 0 | 1 | 0 |
-| 1024 | yes | hidden | reflowed into main | 0 | 1 | 0 |
-| 1280 | yes | hidden | own column | 0 | 1 | 0 |
-| 1600 | yes | hidden | own column | 0 | 1 | 0 |
+## Responsive and visual review
 
-Routes covered: `/`, `/tyden`, `/akce`, `/podcasty`, `/o-cem-se-mluvi`,
-`/ai-modely`, `/about` and an article page. `/about` has no right rail by
-design; every other route carries one.
+The additional matrix covered 12 routes at 320, 360, 430, 768, 1024, 1280,
+1440 and 1600px: 96 combinations. Each returned HTTP 200, rendered one `h1`
+and had no horizontal document overflow.
 
-Two defects the matrix found and this release fixed:
+Routes: `/`, `/tyden`, `/archive`, `/topics`, `/topics/ai-models`, `/sources`,
+`/about`, `/lekce`, `/glossary`, `/akce`, the 25 September article and the
+legacy 10 May article. The review included missing photographs and long Czech
+headlines. Screenshots of the home page, topic, article, archive, about page,
+search and navigation drawer were inspected at desktop and mobile widths.
+Temporary evidence lives in ignored `audit-screens/apple/`.
 
-- The mobile top-bar wordmark was a 20px touch target at every width below 960.
-  It is a link home, so it now takes the same 44px minimum as the menu and
-  search triggers beside it.
-- The social row is 200px of 44px targets and overflowed its footer column by
-  35px at 1280. The column is sized for it and the row wraps as a safety net.
+The matrix found a missing overflow rule on the lessons table wrapper. The
+wrapper now scrolls independently, retains its accessible region name and
+keyboard focus, and `/lekce` is included in the smoke route list.
 
-The secondary rail group is 36px by design (spec §5) and is deliberately
-excluded from the 44px rule: it is a pointer surface only, because below 960 the
-rail is replaced by the drawer, whose items are 48px and 56px.
+## Keyboard and dialog behavior
+
+The browser suite checks search focus, Tab containment, Escape, focus
+restoration, current navigation, the mobile drawer and semantic trust surfaces.
+The added regression checks that search renders under `body`, covers the full
+viewport despite the filtered header, locks background scrolling, and closes
+through its labelled button while restoring focus.
+
+## User preferences and print
+
+- Reduced motion: the page entrance reports `animation-name: none`.
+- Reduced transparency: the masthead reports `backdrop-filter: none`.
+- Increased contrast: the masthead is white with no backdrop filter.
+- 200% root text size: the about page reflows without document overflow.
+- Print emulation on an article: masthead hidden, sources retained, no overflow.
+  Dedicated print routes also pass the browser suite.
+
+These are Chromium checks; no Safari, Firefox or physical-device result is
+claimed.
 
 ## Contrast
 
-Verified by computation against the tokens as they exist in
-`app/globals.css`, not against the spec table. All forty text/surface pairs
-clear AA 4.5:1. The metadata floor `#5f6672` holds 5.02:1 on its worst surface
-(`--surface-subtle`). `--border-control` reaches 3.29:1 on the reading surface
-and 3.07:1 on the page, so the search field and week action meet
-1.4.11. Reversed and tinted pairs clear as well: white on accent 5.64:1, the
-correction colour on its danger surface 5.44:1, the warning colour on the
-sponsor surface 5.54:1.
+Computed from the current semantic palette:
 
-## Keyboard and semantics
+| Pair | Ratio |
+| --- | --- |
+| Metadata against the four opaque surfaces, minimum | 4.91:1 |
+| White on the brand accent | 5.64:1 |
+| Control border on the page | 3.37:1 |
+| Completion text on white | 5.37:1 |
 
-- The skip link moves focus to `#main-content`.
-- The rail marks the active section with `aria-current="page"`. This release
-  fixed a defect where no rail item was ever marked current on any non-home
-  route, because only the home href accounted for the `/cs` prefix the router
-  reports.
-- The mobile drawer traps focus, moves focus to its close button, closes on
-  Escape, restores focus to the menu trigger, and locks body scroll while open.
-- Headings run without skips and every route has exactly one `h1`.
-- `/akce` uses a labelled `nav` for its scope anchors and works with zero
-  JavaScript.
-- Outbound links carry `rel="noopener noreferrer"` and a screen-reader note
-  that they open a new window. English stream titles carry `lang="en"`.
-- The social row exposes accessible names and is deliberately not focusable
-  while the accounts do not exist.
-
-## States inspected
-
-No-edition day, empty streams, empty events, an uncategorised edition, a legacy
-edition with no highlights block, an edition with no hero photo, and the
-archive-exhausted end of the week chain. Each renders one honest sentence rather
-than a skeleton, a badge or a placeholder row.
-
-## Motion
-
-Colour transitions survive `prefers-reduced-motion: reduce`, because they are
-not motion. The drawer slide, the entry translate and the week-action arrow
-nudge do not. The status pulse was deleted with the status record.
-
-## Known and accepted
-
-- Three published editions and one dataset entry carry an em-dash in their own
-  prose. Editions and dataset entries are immutable; the rule is enforced going
-  forward in the upstream writer prompt.
-- The `2026-08-08` edition renders with no body. Its delivered MDX wraps the
-  whole body in a JSX expression. This is a content defect filed for the owner,
-  not a layout defect.
+The primary/secondary text colors and status colors are unchanged. The high
+contrast preference strengthens grouping borders and secondary text.
