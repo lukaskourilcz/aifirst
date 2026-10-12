@@ -139,7 +139,7 @@ The design thesis is **editorial intelligence presented as a precise publishing 
 - `docs/design/DESIGN_SYSTEM.md`
 - `docs/design/VISUAL_QA.md`
 
-Use the logotype from `public/brand/DNESKAi-logo*.svg` through `BrandLockup`, the square mark `DNESKAi-square.svg` for icons and avatars, a light paper canvas, white reading surfaces, blueprint blue `#2f5ae6`, restrained semantic status colors, Space Grotesk for display/interface hierarchy, IBM Plex Mono for machine metadata, and Source Serif 4 for reading prose. Use semantic custom properties, flat zero-radius surfaces, one-pixel hairlines, measured reading widths, accessible focus, and purposeful density.
+Use the logotype from `public/brand/DNESKAi-logo*.svg` through `BrandLockup`, the square mark `DNESKAi-square.svg` for icons and avatars, a light paper canvas, white reading surfaces, blueprint blue `#2f5ae6`, restrained semantic status colors, native system typography for display/interface hierarchy, system monospace for evidence metadata, and a local serif stack for long-form prose. The owner requested an Apple Design refresh on 12 October 2026: use semantic custom properties, rounded white reading surfaces, a translucent masthead, restrained elevation, measured reading widths and accessible focus. The current design contract is `docs/design/DESIGN_SYSTEM.md`; earlier round-2 visuals are historical.
 
 **The reader shows no production instrumentation.** No run costs, model names,
 candidate counts, signal scores, agent references or build vocabulary in reader
@@ -157,7 +157,7 @@ surfaces: source ledger, corrections, sponsor labelling, the completion mark.
 
 Today is the product, not a marketing landing page. Topics are curated, Weekly is a distinct edition, Archive/Search/reference surfaces are compact, and completion is meaningful rather than gamified.
 
-The public reader uses one light theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, glass, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
+The public reader uses one light theme; print remains black on white. Avoid terminal cosplay, neon, scanlines, parallax, glow, startup gradients, decorative glass stacks, fake interfaces, robots/brains/circuits, excessive pills, fake charts or metrics, mascots, testimonials, and infinite-feed styling. Do not use generated imagery as filler or replace authentic UI with generated UI.
 
 Copy is concise, calm, direct, evidence-aware, and honest about uncertainty. Avoid startup hype and generic “AI-powered” language.
 
@@ -207,7 +207,7 @@ semantic roles (`--surface-*`, `--text-*`, `--border-*`, `--accent-*`,
 `--status-*`, `--focus-ring`) in new rules. The light palette's metadata floor is
 `#5f6672`, which holds 5.02:1 on its worst surface; do not introduce dimmer
 text. Controls whose border carries the affordance use `--border-control`
-(`#8e8e88`), because the grouping hairlines cannot reach 3:1 on paper without
+(`#85858c`), because the grouping hairlines cannot reach 3:1 on paper without
 becoming noise. Re-measure text and status contrast
 before changing gray or status colors, and mirror palette changes in
 `lib/og-theme.ts` because `next/og` cannot read CSS variables.

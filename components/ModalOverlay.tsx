@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type ReactNode, type RefObject } from "react";
+import { createPortal } from "react-dom";
 import { useWindowEvent } from "@/lib/hooks/useWindowEvent";
 
 type Props = {
@@ -53,8 +54,11 @@ export function ModalOverlay({
     const first = panel?.querySelector<HTMLElement>(
       'input:not([disabled]), button:not([disabled]), a[href], select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
-    requestAnimationFrame(() => (first ?? panel)?.focus());
-    return () => previous?.focus();
+    const frame = requestAnimationFrame(() => (first ?? panel)?.focus());
+    return () => {
+      cancelAnimationFrame(frame);
+      previous?.focus();
+    };
   }, [returnFocusRef]);
 
   useWindowEvent("keydown", (e) => {
@@ -79,7 +83,10 @@ export function ModalOverlay({
     }
   });
 
-  return (
+  // Keep fixed dialogs outside the translucent sticky header
+  // (backdrop-filter creates a containing block for fixed descendants).
+  if (typeof document === "undefined") return null;
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -97,6 +104,7 @@ export function ModalOverlay({
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

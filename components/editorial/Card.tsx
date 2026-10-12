@@ -19,13 +19,12 @@ const RATIO_DIMENSIONS: Record<Ratio, { width: number; height: number }> = {
 export function ImageOrFallback({
   src,
   ratio,
-  date,
   eager = false,
   className,
 }: {
   src: string | null | undefined;
   ratio: Ratio;
-  /** Shown in the fallback: „bez fotografie · 22. 9. 2026". */
+  /** Retained for callers that also use the edition date as metadata. */
   date?: string;
   eager?: boolean;
   className?: string;
@@ -36,7 +35,7 @@ export function ImageOrFallback({
     return (
       <span className={`${classes} img-fallback`} aria-hidden="true">
         {ratio !== "1/1" ? (
-          <span className="meta img-fallback__text">bez fotografie{date ? ` · ${czechNumericDate(date)}` : ""}</span>
+          <span className="meta img-fallback__text">bez fotografie</span>
         ) : null}
       </span>
     );
@@ -59,8 +58,7 @@ export function ImageOrFallback({
  * The round-2 card, one anatomy for every list on the site. `row`: a 3:2
  * image left (240 px; 280 px with `wide`), then label, serif title and a
  * two-line dek. `cover`: the image above. `compact`: title and label with a
- * square on the right. `band`: the photo with the label and a Grotesk
- * headline set white on the ink band, as the front-page lead does. The whole
+ * square on the right. `band`: a large photo with the heading below it. The whole
  * card is one link; the image is lazy unless `eager`.
  */
 export function Card({

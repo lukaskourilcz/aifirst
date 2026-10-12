@@ -3,15 +3,10 @@
 Status: canonical direction. Token and component mappings are updated with the
 production implementation.
 
-## Two names, on purpose
+## Public and internal names
 
-`brand.wordmark` is **DNESKAi** and is what a reader sees: the navigation lockup,
-the footer and print. `brand.name` is **DNESKAi** too, and carries everything a
-machine reads or a link previews — page titles, Open Graph and Twitter cards,
-`openGraph.siteName`, structured data, the JSON endpoints, the Atom feeds and the
-drawn covers, as do the repository, the venture id and the Actions variables.
-Moving `name` renames every indexed title and every social card in one commit; that
-is the owner's call and it has not been made. Do not "re-align" the two.
+Both `brand.wordmark` and `brand.name` are **DNESKAi**. Stable internal ids
+remain `aifirst` and `caught-up`; the legal name remains Caught Up.
 
 ## Positioning
 
@@ -40,7 +35,7 @@ Poppins is not a web font here and does not need to be added.
 
 | File | Use |
 | --- | --- |
-| `DNESKAi-logo.svg` | white or paper surfaces (`#ffffff`, `#f7f7f5`) |
+| `DNESKAi-logo.svg` | white or paper surfaces (`#ffffff`, `#f5f5f7`) |
 | `DNESKAi-logo-dark.svg` | `#14161A` surfaces |
 | `DNESKAi-logo-mono-white.svg` | solid blue or a photograph |
 | `DNESKAi-logo-mono-black.svg` | one-colour print |
@@ -53,8 +48,8 @@ are `#14161A` or `#ffffff` with no overlap shade; the K and A join in one colour
 - Clear space on every side equals the height of the dot over the i, about 27 %
   of the logotype's height.
 - Minimum height is 16 px; below that, use the square mark.
-- Navigation: 20 px on desktop, 18 px on mobile. Footer and other compact
-  places: 16 to 18 px. Print uses the black mono version at 16 px.
+- Masthead: 28 px on desktop, 22 px on mobile; condensed navigation: 20 px.
+  Footer: 24 px; compact places: 18 px. Print uses the black mono version at 16 px.
 - Never recolour it, add shadows or gradients, resize the Ai, or set the name in
   a font.
 
@@ -87,25 +82,21 @@ All production use maps through semantic tokens documented in
 
 ## Typography
 
-- Space Grotesk: display headlines, editorial section headings,
-  navigation, controls, and completion.
-- Source Serif 4: article prose, deks, definitions, and descriptive card copy.
-- IBM Plex Mono: dates, issue identifiers, source IDs, run records, tags,
-  captions, prices, and measured values.
-
-Fonts are self-hosted by `next/font`; no runtime font request is introduced.
-Both faces include Latin Extended for Czech.
+The October 2026 Apple Design refresh uses native system sans-serif for
+headlines, navigation and controls; local serif for long prose; and system
+monospace for code and evidence metadata. No web-font downloads are required.
+The outlined brand artwork remains unchanged.
 
 ## Visual language
 
 - Finite edition, magazine on paper, evidence kept visible, source
   annotation, issue filing, and the completion state.
-- Flat surfaces, collapsing hairline grids, controlled crops, zero radii, no
-  decorative elevation.
+- White rounded surfaces, controlled crops, subtle grouping borders and
+  restrained elevation; translucency belongs to the sticky masthead.
 - Serious and concise voice; uncertainty and evidence remain explicit.
 
 ## Anti-positioning
 
 Never introduce robots, brains, neural webs, circuitry, holograms, gradients,
-glass, glow, cyberpunk ornament, fake charts, fake UI, mascots, confetti,
+decorative glass stacks, glow, cyberpunk ornament, fake charts, fake UI, mascots, confetti,
 generic SaaS copy, or marketing urgency.

@@ -95,6 +95,7 @@ export function SearchPalette({ index, topics, locale }: Props) {
           align="start"
           zIndex={20}
           width={640}
+          lockScroll
           returnFocusRef={triggerRef}
         >
           <div className="search-dialog__query">
@@ -107,9 +108,9 @@ export function SearchPalette({ index, topics, locale }: Props) {
               placeholder={t.placeholder}
               className="search-dialog__input"
             />
-            <kbd className="keycap label">
-              Esc
-            </kbd>
+            <button type="button" className="icon-button" aria-label={t.close} onClick={() => setOpen(false)}>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><path d="m5 5 8 8M13 5l-8 8" /></svg>
+            </button>
           </div>
           <p className="sr-only" role="status" aria-live="polite">
             {locale === "cs" ? `${results.length} výsledků` : `${results.length} results`}

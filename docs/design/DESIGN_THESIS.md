@@ -24,15 +24,17 @@ The publication does not present itself as a system. A reader gets a magazine.
 
 ## The visual system
 
-Light canvas, zero radius, one-pixel hairlines, three families with fixed jobs,
-and one accent. Density comes from rules and spacing, not from boxes: the right
-rail is a column of rules, and the only boxed thing on the page is the ad
-reservation, which is what marks it as not editorial.
+A soft gray canvas, white rounded reading surfaces and native system typography
+support a finite edition. The owner requested the Apple Design refresh on
+12 October 2026. The sticky masthead uses restrained translucency; content
+surfaces stay opaque. Space and type establish hierarchy without heavy rules.
+Dense archive rows preserve scanning speed. See `DESIGN_SYSTEM.md` for the
+current component contract.
 
 ## What it is not
 
 Not a SaaS landing page, not a chatbot, not a terminal, not a dashboard. No
-neon, scanlines, parallax, glow, gradients, glass, mascots, testimonials,
+neon, scanlines, parallax, glow, gradients, decorative glass stacks, mascots, testimonials,
 fake charts, invented metrics or infinite-feed styling. No generated imagery as
 filler, and no generated UI standing in for real UI.
 

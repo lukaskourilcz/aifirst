@@ -8,15 +8,8 @@ import { briefSectionLabel, hostOf, photoCreditParts, sourceName } from "@/lib/l
 import { loadSources } from "@/lib/sources";
 import { czechPlural, looksEnglish } from "@/lib/text";
 
-/**
- * The front-page lead (round 2). With a photograph, the whole block is one
- * link: the photo at 2:1 (1:1 from the delivered square below 960 px) with
- * the section label and the headline set white on the flat ink band. Without
- * one it is a typographic lead on paper; never a plate, never a box.
- *
- * Below it: the dek with the source count and photo credit, and beside it the
- * article's „Proč na tom záleží". There is no reading time anywhere.
- */
+/** The lead pairs native display type with a separately framed photograph.
+ * The source count, credit, and context remain visible beneath it. */
 export function LeadPackage({
   article,
   locale,
@@ -47,6 +40,7 @@ export function LeadPackage({
           <div className="lead__band">
             {section ? <p className="label lead__section">{section}</p> : null}
             <h1 id="lead-title" className="lead__title">{fm.title}</h1>
+            <span className="lead__read">{locale === "cs" ? "Přečíst vydání" : "Read the edition"}<span aria-hidden="true">↗</span></span>
           </div>
         </Link>
       ) : (

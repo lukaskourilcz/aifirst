@@ -269,6 +269,7 @@ const en = {
   search: {
     noMatch: "Nothing found.",
     placeholder: "Search the editions",
+    close: "Close search",
     open: "Search",
     suggestedTags: "Sections",
   },
@@ -584,6 +585,7 @@ const cs: Dict = {
   search: {
     noMatch: "Nic nenalezeno.",
     placeholder: "Hledat ve vydáních",
+    close: "Zavřít vyhledávání",
     open: "Hledat",
     suggestedTags: "Rubriky",
   },

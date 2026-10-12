@@ -17,6 +17,7 @@ const ROUTES = [
   "/corrections",
   "/sources",
   "/glossary",
+  "/lekce",
   "/health",
   "/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
   "/cs/articles/2026-07-05-deepmind-blitz-anthropic-reckoning/print",
@@ -66,12 +67,12 @@ for (const route of ROUTES) {
   });
 }
 
-test("home: masthead, lead on its photo, the day's band and the week block render", async ({ page }) => {
+test("home: masthead, lead with photo, the day's band and the week block render", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   await expect(page.locator(".masthead")).toBeVisible();
   await expect(page.locator(".sidebar")).toHaveCount(0);
-  // The page's one h1 is the lead headline, set on the photo's ink band.
+  // The page's one h1 is the lead headline in its own reading surface.
   await expect(page.locator(".lead__band h1, .lead--type h1")).toHaveCount(1);
   await expect(page.locator(".lead__dek")).toBeVisible();
   await expect(page.locator(".day-band")).toBeVisible();
@@ -394,7 +395,7 @@ test("brand, completion, and no-media states are deterministic", async ({ page }
   await expect(page.locator(".masthead__brand .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator("footer .brand-lockup img[alt=\"DNESKAi\"]")).toHaveCount(1);
   await expect(page.locator(".edition-end")).toContainText("přehled");
-  // The lead is a photo with the headline on its band, or a typographic lead;
+  // The lead pairs a photo with a headline, or renders a typographic lead;
   // never a drawn plate.
   const photoLead = await page.locator(".lead__media img").count();
   const typeLead = await page.locator(".lead--type").count();
@@ -584,7 +585,7 @@ test.describe("round 2 invariants", () => {
     await expect(page.locator(".section-bar__more")).toHaveCount(1);
   });
 
-  test("the front page's h1 is the lead headline on its band", async ({ page }) => {
+  test("the front page's h1 is the lead headline", async ({ page }) => {
     await page.goto("/");
     const onBand = await page.locator(".lead__band h1").count();
     const typographic = await page.locator(".lead--type h1").count();
@@ -623,4 +624,25 @@ test.describe("round 2 invariants", () => {
       expect(missing, path).toBe(0);
     }
   });
+});
+
+test("search floats above the glass header and closes from its visible button", async ({ page }) => {
+  await page.goto("/");
+  const trigger = page.locator(".search-trigger");
+  await trigger.click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  const dimensions = await dialog.evaluate((node) => ({
+    parent: node.parentElement?.tagName,
+    height: node.getBoundingClientRect().height,
+    viewport: window.innerHeight,
+    scrollLocked: document.documentElement.style.overflow === "hidden",
+  }));
+  expect(dimensions.parent).toBe("BODY");
+  expect(dimensions.height).toBe(dimensions.viewport);
+  expect(dimensions.scrollLocked).toBe(true);
+  await dialog.getByRole("button", { name: "Zavřít vyhledávání", exact: true }).click();
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+  expect(await page.evaluate(() => document.documentElement.style.overflow)).not.toBe("hidden");
 });

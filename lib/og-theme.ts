@@ -1,8 +1,8 @@
 // Shared palette for deterministic Open Graph images. Keep these literal
 // values aligned with the semantic tokens in app/globals.css.
 export const OG = {
-  page: "#f7f7f5",
-  bg: "#f7f7f5",
+  page: "#f5f5f7",
+  bg: "#f5f5f7",
   paper: "#ffffff",
   panel: "#ffffff",
   ink: "#14161a",
@@ -10,8 +10,8 @@ export const OG = {
   muted: "#3c4149",
   slate: "#5f6672",
   dim: "#5f6672",
-  fog: "#e2e2de",
-  rule: "#c9c9c3",
+  fog: "#e2e2e7",
+  rule: "#c8c8ce",
   /** --border-ink: the 2 px rule under mastheads and module heads (round 2). */
   borderInk: "#14161a",
   accent: "#2f5ae6",
