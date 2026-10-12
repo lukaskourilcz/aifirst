@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-11",
+  "updated": "2026-10-12",
   "windowDays": 60,
   "items": [
+    {
+      "id": "fb07c89c02ceab1e251fb7e45ac6d4428a67244f",
+      "title": "# AI Is Changing Our Technology – and Our Way of Thinking",
+      "url": "https://medium.com/@ntmbdzmpnk/ai-is-changing-our-technology-and-our-way-of-thinking-f074573a1ac6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Inzamam ul Haq",
+      "published": "2026-10-12",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "8e3aae4856988c52b76b709371ad1ac1d0aaf3fd",
+      "title": "AI Agents Under the Hood: 20 LLM and Reasoning Interview Questions with Expert Answers",
+      "url": "https://medium.com/@zaydislam25/ai-agents-under-the-hood-20-llm-and-reasoning-interview-questions-with-expert-answers-ba409ae43784",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Zayd Islam",
+      "published": "2026-10-12",
+      "summary": "Welcome to Part 2 of the Agentic AI Interview Master Series. Continue reading on Medium »"
+    },
+    {
+      "id": "344a40c505bcddaec653c7f9b5489584cf63736b",
+      "title": "AI Labs Spend Millions on GPUs",
+      "url": "https://symprioblog.medium.com/ai-labs-spend-millions-on-gpus-ab6d7d4a2b03",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Symprio Blogs",
+      "published": "2026-10-12",
+      "summary": "Everyone quotes what it costs to train a frontier model. Continue reading on Medium »"
+    },
+    {
+      "id": "a354624ef700ad815ebbdbd02b1a50e52146f54b",
+      "title": "GLM-5.3-Flash on a Mac Studio with oMLX: 61 tok/s and a 29K-token prompt in 15 seconds",
+      "url": "https://medium.com/@jvlewis.dev/glm-5-3-flash-on-a-mac-studio-with-omlx-61-tok-s-and-a-29k-token-prompt-in-15-seconds-44a79d4a216d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "JV",
+      "published": "2026-10-12",
+      "summary": "TL;DR Continue reading on Medium »"
+    },
+    {
+      "id": "01fba7b6915f7232edbf4a1d82c104632fbf49b7",
+      "title": "How to run GLM-5.3-Flash on a Mac Studio with oMLX: install, serve, DFlash and a coding agent",
+      "url": "https://medium.com/@jvlewis.dev/how-to-run-glm-5-3-flash-on-a-mac-studio-with-omlx-install-serve-dflash-and-a-coding-agent-31267524b3d6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "JV",
+      "published": "2026-10-12",
+      "summary": "TL;DR Continue reading on Medium »"
+    },
+    {
+      "id": "8a8f12fa8222a6495c2810d1912d383a09081dd4",
+      "title": "If You Use AI to Write, Are You Still a Real Writer?",
+      "url": "https://medium.com/write-a-catalyst/if-you-use-ai-to-write-are-you-still-a-real-writer-c3079e1649ab",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "John Doe",
+      "published": "2026-10-12",
+      "summary": "What happens when AI starts doing your thinking? Continue reading on Write A Catalyst »"
+    },
+    {
+      "id": "2dfa55a187bb3f3a984dbeda86c4673fca70ba6c",
+      "title": "One API for 34 Free LLM Providers: How FreeLLMAPI Works",
+      "url": "https://medium.com/coding-nexus/one-api-for-34-free-llm-providers-how-freellmapi-works-9dab359ce944",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Code Coup",
+      "published": "2026-10-12",
+      "summary": "Most LLM applications start the same way. You pick a provider, get an API key, install its SDK, and start sending requests. Continue reading on Coding Nexus »"
+    },
+    {
+      "id": "39f394d8528f5616587454dbfb769a59a1e94ca9",
+      "title": "Papers Explained 636: DR Tulu",
+      "url": "https://ritvik19.medium.com/papers-explained-636-dr-tulu-17f13ca39293",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ritvik Rastogi",
+      "published": "2026-10-12",
+      "summary": "DR Tulu-8B is the first fully open deep research agent trained end-to-end for open-ended, long-form tasks using Reinforcement Learning… Continue reading on Medium »"
+    },
+    {
+      "id": "399a6ad24e77898125c09cbce2e16c89357a5689",
+      "title": "The AI’s Index Looked Right. Postgres Ignored It.",
+      "url": "https://ntrongtin11702.medium.com/the-ais-index-looked-right-postgres-ignored-it-8282b20e89e1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tinguyen",
+      "published": "2026-10-12",
+      "summary": "A faster query nearly fooled me into keeping an index that had done nothing. Continue reading on Medium »"
+    },
+    {
+      "id": "c4e16e7111f53423cb048479ceaa28fe5ce6d4b0",
+      "title": "The End of the Monolithic LLM: Why Enterprise Software Is Quietly Pivoting to Compound AI Systems",
+      "url": "https://medium.com/tech-and-business/the-end-of-the-monolithic-llm-why-enterprise-software-is-quietly-pivoting-to-compound-ai-systems-349cc56787fb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Nexus Growth",
+      "published": "2026-10-12",
+      "summary": "Frontier foundation models capture headlines, but production engineering teams are replacing single-prompt wrappers with dynamic routing… Continue reading on Tech and Business »"
+    },
+    {
+      "id": "42d9925fa500026a1846839f6df5a1dc9748cd7a",
+      "title": "The Plan Has Twelve Tabs. The Idea Has Not Met One Real Person.",
+      "url": "https://medium.com/@vishal_kamath/the-plan-has-twelve-tabs-the-idea-has-not-met-one-real-person-774000762270",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Vishal Kamath",
+      "published": "2026-10-12",
+      "summary": "The plan is impressive. Continue reading on Medium »"
+    },
+    {
+      "id": "9c731553a9775a034c6f5fd5ef073d516325e249",
+      "title": "What Is Generative Engine Optimization and Why Should Businesses Care?",
+      "url": "https://medium.com/@BusinessTrendsPH/what-is-generative-engine-optimization-and-why-should-businesses-care-aae17e7c95fa",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Business Trends PH",
+      "published": "2026-10-12",
+      "summary": "Search behavior is changing. Continue reading on Medium »"
+    },
     {
       "id": "05ad339fccad116ead42ee080dff792b8b92be1a",
       "title": "#1 LLMs vs AI Agents: What Actually Makes an LLM an Agent?",
@@ -3457,19 +3613,6 @@
       "author": "Nathan Lambert",
       "published": "2026-08-14",
       "summary": "Hint: It’s really not a distillation story."
-    },
-    {
-      "id": "b0d8ebca8612b1479794c7cd63a036941a0d96d6",
-      "title": "Visions of AI: Personal Intelligence",
-      "url": "https://ai-supremacy.com/p/visions-of-ai-personal-intelligence",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-13",
-      "summary": "Igor Babuschkin's new startup profiled. Issue #1"
     }
   ]
 }
