@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-12",
+  "updated": "2026-10-13",
   "windowDays": 60,
   "items": [
+    {
+      "id": "e74fe3a22f8fca77d4fbc0cae773907dcf15cc80",
+      "title": "Everyone Else Learned the App Years Ago. You Are Starting Today.",
+      "url": "https://medium.com/@vishal_kamath/everyone-else-learned-the-app-years-ago-you-are-starting-today-f3873fbb875d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Vishal Kamath",
+      "published": "2026-10-13",
+      "summary": "The screen asks you to create a folder, share a link, or join a call. Continue reading on Medium »"
+    },
+    {
+      "id": "8eb3851b618d01e5643aba9163de4e5a750a5c01",
+      "title": "From Chatbots to Coworkers: How We Got from LLMs to Agentic AI",
+      "url": "https://medium.com/@ajithkumar.proff/from-chatbots-to-coworkers-how-we-got-from-llms-to-agentic-ai-62e6dff9e376",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Ajith Kumar",
+      "published": "2026-10-13",
+      "summary": "A couple of years ago, I asked a chatbot to plan my weekend trip. It gave me a lovely itinerary. It also confidently included a restaurant… Continue reading on Medium »"
+    },
+    {
+      "id": "cfa5c432dae2a47e00cfc434efd145980a78bedf",
+      "title": "Graph Neural Networks (GNNs) and Their Application in Molecular Property Prediction",
+      "url": "https://medium.com/@nageshchauhanc4/graph-neural-networks-gnns-and-their-application-in-molecular-property-prediction-69dd706fbeda",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Nagesh Singh Chauhan",
+      "published": "2026-10-13",
+      "summary": "The article contains an introduction to Graph Neural Networks(GNNs) and their applications in Molecular Property Prediction. Continue reading on Medium »"
+    },
+    {
+      "id": "24c5f5b200a8165a51a62bb2339c7d88240e6f1d",
+      "title": "https://teleplay7.gumroad.com/l/AI",
+      "url": "https://medium.com/@teleplay535/https-teleplay7-gumroad-com-l-ai-9c5274069f38",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "play tele",
+      "published": "2026-10-13",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "979ab5ac4ea4bdbb8afac20b52593e1daffd0d70",
+      "title": "I Gave Claude a Real Astrology Engine So It Would Stop Guessing",
+      "url": "https://i-kaboom.medium.com/i-gave-claude-a-real-astrology-engine-so-it-would-stop-guessing-df7a972eb3b2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "ABHITEJ SUDDHA",
+      "published": "2026-10-13",
+      "summary": "Building Astro MCP: a Vedic chart engine exposed over the Model Context Protocol, validated to sub-arcsecond accuracy, and tuned to cost… Continue reading on Medium »"
+    },
+    {
+      "id": "8bef605ee610f4bb055be7bc204084d99aa3369e",
+      "title": "Jev 沒有比 reranker 快",
+      "url": "https://medium.com/@changtimwu/jev-%E6%B2%92%E6%9C%89%E6%AF%94-reranker-%E5%BF%AB-58374712df9c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tim Wu",
+      "published": "2026-10-13",
+      "summary": "但它把「這堆資料夠不夠回答」從 65% 救到 99.2%。RAG 的四個位置，我只留一個給它。 Continue reading on Medium »"
+    },
+    {
+      "id": "10f097ecc41cedf1ae771577c9fa9ce649f0d38a",
+      "title": "LLM Coding Interview Series: 9/30:[Building a GPT from Scratch]",
+      "url": "https://medium.com/models-to-systems/llm-coding-interview-series-9-30-building-a-gpt-from-scratch-12431c270594",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-13",
+      "summary": "Assembling the Transformer Decoder Continue reading on Models to Systems »"
+    },
+    {
+      "id": "26d59188a4ba89906bac49fe01b768e167e0ed78",
+      "title": "Mixture-of-Experts, Explained: Why “1 Trillion Parameters” Is Misleading",
+      "url": "https://medium.com/@dhirendrac/mixture-of-experts-explained-why-1-trillion-parameters-is-misleading-6e66f6af3451",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Dhirendra Choudhary",
+      "published": "2026-10-13",
+      "summary": "A trillion-parameter model doesn’t run like a trillion-parameter model. The gap between what it stores and what it uses is the whole idea… Continue reading on Medium »"
+    },
+    {
+      "id": "d71e37a2df8f4c9c64322a0342e29da624e0cc30",
+      "title": "Papers Explained 637: DeepSearchQA",
+      "url": "https://ritvik19.medium.com/papers-explained-637-deepsearchqa-f8e42f211c50",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ritvik Rastogi",
+      "published": "2026-10-13",
+      "summary": "DeepSearchQA is a 900-prompt benchmark of challenging, hand-crafted tasks for evaluating agents on difficult multi-step… Continue reading on Medium »"
+    },
+    {
+      "id": "1dfba9ab0af3cf95c2e35b7dc9c0fd1795a98705",
+      "title": "Parkinson Tidak Selalu Sama: Bagaimana Machine Learning Menemukan 3 Tipe Pasien yang Berbeda",
+      "url": "https://medium.com/@idrakifalha/parkinson-tidak-selalu-sama-bagaimana-machine-learning-menemukan-3-tipe-pasien-yang-berbeda-1e59e5600991",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Idraki Falha",
+      "published": "2026-10-13",
+      "summary": "Bedah paper: Chen et al. (2023), “Data-driven subtyping of Parkinson’s disease: comparison of current methodologies and application to the… Continue reading on Medium »"
+    },
+    {
+      "id": "cb337617d11596cb3d0d3fd9b7a774c25d95a030",
+      "title": "SEO’s Biggest Scam: How Fake Proof, Manipulated Metrics, and Shortcuts Sell the Illusion of Success",
+      "url": "https://medium.com/@zaheeruddin1973222/seos-biggest-scam-how-fake-proof-manipulated-metrics-and-shortcuts-sell-the-illusion-of-success-277d9b1e979c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Zaheeruddin Khurram",
+      "published": "2026-10-13",
+      "summary": "An explanatory guide to deceptive SEO practices, manufactured authority, misleading performance reports, and the fundamentals that build… Continue reading on Medium »"
+    },
+    {
+      "id": "588a99f71955ff0c13d8db206f2c0a7f46d0eb3d",
+      "title": "Your Hard Drive, Pendrive and iPhone Cost More Because of LLMs",
+      "url": "https://iffywhy.medium.com/your-hard-drive-pendrive-and-iphone-cost-more-because-of-llms-7b7508d6ff29",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sakshi",
+      "published": "2026-10-13",
+      "summary": "How the hardware behind large language models drained the supply of memory and storage and landed the bill on your desk Continue reading on Medium »"
+    },
     {
       "id": "fb07c89c02ceab1e251fb7e45ac6d4428a67244f",
       "title": "# AI Is Changing Our Technology – and Our Way of Thinking",
@@ -44,6 +200,19 @@
       "summary": "Everyone quotes what it costs to train a frontier model. Continue reading on Medium »"
     },
     {
+      "id": "96c48aee5342c1f4b3e9e476b0bb51bc25a5039e",
+      "title": "Borrowed Time: How Rising Rates Reach the AI Build-Out",
+      "url": "https://ai-supremacy.com/p/how-rising-rates-reach-the-ai-infra-buildout-2026-october",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-12",
+      "summary": "Guest post: Big Tech is borrowing and leasing its way through the AI boom. Higher rates, the midterms and the war will show who can afford to keep going."
+    },
+    {
       "id": "a354624ef700ad815ebbdbd02b1a50e52146f54b",
       "title": "GLM-5.3-Flash on a Mac Studio with oMLX: 61 tok/s and a 29K-token prompt in 15 seconds",
       "url": "https://medium.com/@jvlewis.dev/glm-5-3-flash-on-a-mac-studio-with-omlx-61-tok-s-and-a-29k-token-prompt-in-15-seconds-44a79d4a216d",
@@ -55,6 +224,19 @@
       "author": "JV",
       "published": "2026-10-12",
       "summary": "TL;DR Continue reading on Medium »"
+    },
+    {
+      "id": "13b0230e9df62ae9998f3f7ba429ef0d0250e3a4",
+      "title": "How Anthropic’s Dynamic Workflows Coordinate Claude Agents",
+      "url": "https://latent.space/p/claude-dynamic-workflows",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-10-12",
+      "summary": "At AI Engineer New York, Anthropic drew on lessons from Unix and Linux to explain how agents can tackle bigger projects without overwhelming developers."
     },
     {
       "id": "01fba7b6915f7232edbf4a1d82c104632fbf49b7",
@@ -3600,19 +3782,6 @@
       "author": "Nathan Lambert",
       "published": "2026-08-17",
       "summary": "Nvidia wants you building your own model, not buying from Anthropic/OpenAI."
-    },
-    {
-      "id": "f7617e4b22758ba93f18b884100d1ef70968faf8",
-      "title": "GLM-5.3: How Chinese labs keep stride with the frontier",
-      "url": "https://interconnects.ai/p/glm-53-how-chinese-labs-keep-stride",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-08-14",
-      "summary": "Hint: It’s really not a distillation story."
     }
   ]
 }
