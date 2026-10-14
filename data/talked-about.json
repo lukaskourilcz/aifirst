@@ -5,6 +5,19 @@
   "windowDays": 60,
   "items": [
     {
+      "id": "2c1c2c493e6e992d79539dce3b409ea71919bda2",
+      "title": "[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks",
+      "url": "https://latent.space/p/ainews-ai-engineer-nyc-gemini-4-argon",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Latent.Space",
+      "published": "2026-10-14",
+      "summary": "Gemini 4 Argon went GA today, but we already gave it title story 2 weeks ago and most benchmarks, like CursorBench, simply independently confirm their claims."
+    },
+    {
       "id": "25d34767cc27f75d63de53df69b177ea6060f4fb",
       "title": "7 AI Automation Projects That Feel Like Cheating (And Can Save Hours Every Week)",
       "url": "https://python.plainenglish.io/7-ai-automation-projects-that-feel-like-cheating-and-can-save-hours-every-week-276daee31c95",
