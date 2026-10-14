@@ -1,9 +1,189 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-13",
+  "updated": "2026-10-14",
   "windowDays": 60,
   "items": [
+    {
+      "id": "25d34767cc27f75d63de53df69b177ea6060f4fb",
+      "title": "7 AI Automation Projects That Feel Like Cheating (And Can Save Hours Every Week)",
+      "url": "https://python.plainenglish.io/7-ai-automation-projects-that-feel-like-cheating-and-can-save-hours-every-week-276daee31c95",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Mohsin Abro",
+      "published": "2026-10-14",
+      "summary": "7 AI Automation Projects That Feel Like Cheating at Work Continue reading on Python in Plain English »"
+    },
+    {
+      "id": "0e25bdbab4af2e6752dcdfaa5f0c33fb5c368972",
+      "title": "A free local model matched paid ones on coding tasks, once the harness gave it feedback",
+      "url": "https://medium.com/@mlemes_78277/a-free-local-model-matched-paid-ones-on-coding-tasks-once-the-harness-gave-it-feedback-330390bdfe95",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Marcus Vinicius Lemes de Oliveira",
+      "published": "2026-10-14",
+      "summary": "Can a small open model on a gaming GPU take routine coding work off a paid hosted model? In a harness that ran the tests and retried, it… Continue reading on Medium »"
+    },
+    {
+      "id": "81473b0b5176b164de0519e1d395894ba2947e79",
+      "title": "AI로 개발을 통제하려다 실패했다",
+      "url": "https://medium.com/@uhmhaha/ai%EB%A1%9C-%EA%B0%9C%EB%B0%9C%EC%9D%84-%ED%86%B5%EC%A0%9C%ED%95%98%EB%A0%A4%EB%8B%A4-%EC%8B%A4%ED%8C%A8%ED%96%88%EB%8B%A4-ff0ff86bf55c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "양승권",
+      "published": "2026-10-14",
+      "summary": "AI 게이트웨이 실패기 0 — 왜 실패를 쓰는가 Continue reading on Medium »"
+    },
+    {
+      "id": "dce75990284e3a366acab7a8c9c1b0a36e2eb5b4",
+      "title": "Beyond the AI Chatbot: How I Built DataGuard AI, an Agentic Data Security Platform",
+      "url": "https://medium.com/@shirazcse/beyond-the-ai-chatbot-how-i-built-dataguard-ai-an-agentic-data-security-platform-cb14eb1fb809",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Shirazcse",
+      "published": "2026-10-14",
+      "summary": "A hands-on journey through AI agents, machine learning, RAG, multi-agent orchestration, evaluation, guardrails, and responsible AI. Continue reading on Medium »"
+    },
+    {
+      "id": "2b7e1bde39efaba6ced73998e64d4df9c93d0b6d",
+      "title": "Explore 39 Blogs for Advanced AI and Technology Guides",
+      "url": "https://medium.com/@khayyamshah2007/explore-39-blogs-for-advanced-ai-and-technology-guides-e604fee98a9b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Khayyamshah",
+      "published": "2026-10-14",
+      "summary": "Looking for advanced guides on Artificial Intelligence, Machine Learning, Neural Networks, AI Agents, Automation, Programming, and… Continue reading on Medium »"
+    },
+    {
+      "id": "5c43e67135238b28e99ee571a6e7160656054b82",
+      "title": "From Calling a Model to Building a System: What You Hand Over When AI Takes the Repetitive Work",
+      "url": "https://medium.com/jin-system-architect/from-calling-a-model-to-building-a-system-what-you-hand-over-when-ai-takes-the-repetitive-work-2b336068593c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "JIN",
+      "published": "2026-10-14",
+      "summary": "Python, structured prompts and API orchestration, then reliability engineering, cost control, and commercial delivery. Read as five… Continue reading on JIN System Architect »"
+    },
+    {
+      "id": "6e399c3b18ba11d4d7b48b343d1adc925ec5e596",
+      "title": "LLM Coding Interview Series:12/30[KV Cache and Efficient Autoregressive Inference]",
+      "url": "https://medium.com/@deepakcse2k5/llm-coding-interview-series-12-30-kv-cache-and-efficient-autoregressive-inference-aa4eb1de9832",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-14",
+      "summary": "Part 12 of the LLM Coding Interview Series · 🔴 Advanced Continue reading on Medium »"
+    },
+    {
+      "id": "24a3ce56a0bf576be8c950e86d03bf445d793888",
+      "title": "Sharing a Databricks Genie Agent: Who Can See What?",
+      "url": "https://medium.com/@ankity09/sharing-a-databricks-genie-agent-who-can-see-what-6cf7a158e651",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Ankit Yadav",
+      "published": "2026-10-14",
+      "summary": "Follow a regional briefing from shared agent access to each analyst’s data, documents, and write approvals. Continue reading on Medium »"
+    },
+    {
+      "id": "f556bd2a39e7d6017dd2f738cbab4724c7a59636",
+      "title": "Stop Paying for API Keys? The Real Win Is Making LLM Cost an Engineering System",
+      "url": "https://medium.com/jin-system-architect/stop-paying-for-api-keys-the-real-win-is-making-llm-cost-an-engineering-system-8809c3fcbaff",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "JIN",
+      "published": "2026-10-14",
+      "summary": "From Groq’s fast inference to free tiers, model routing, local deployment, and graceful degradation: a practical guide to making LLM spend… Continue reading on JIN System Architect »"
+    },
+    {
+      "id": "a24f84e95a6e9c95930f002029edcaf7f978bed7",
+      "title": "Swap 1 Word in 4 and an AI Text Watermark Can Mostly Disappear",
+      "url": "https://medium.com/@vepanjerigovind/swap-1-word-in-4-and-an-ai-text-watermark-can-mostly-disappear-2ea14826170f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Govinda Reddy",
+      "published": "2026-10-14",
+      "summary": "How text watermarking uses word-choice patterns, what published evaluations suggest, and why a missing watermark cannot establish who… Continue reading on Medium »"
+    },
+    {
+      "id": "d98721cc3bf76f86fad5d16d1aebf1ed38536b0a",
+      "title": "Week 5, Day 12: My First Steps into Power BI",
+      "url": "https://medium.com/@idrisyusuff/week-5-day-12-my-first-steps-into-power-bi-9fdafce2dd33",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Idris Yusuff",
+      "published": "2026-10-14",
+      "summary": "As I continue my Data Analytics journey at Apex Tech Forge Academy, we have now started exploring Power BI, a business intelligence tool… Continue reading on Medium »"
+    },
+    {
+      "id": "84c1c1a418346e9a09a33830af4519155d010ba1",
+      "title": "Xiaomi MiMo-V2.6: Training in Public, and Why the Model Race Is Still Open",
+      "url": "https://medium.com/@a1078636609/xiaomi-mimo-v2-6-training-in-public-and-why-the-model-race-is-still-open-7182ce712ac2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Jacky Chang",
+      "published": "2026-10-14",
+      "summary": "Xiaomi has released MiMo-V2.6, a native multimodal agent family in two sizes, Pro and Flash, under the MIT License. The headline number is… Continue reading on Medium »"
+    },
+    {
+      "id": "a2c304623a61d6cf82e35f0b69ad27b773367dfd",
+      "title": "[AINews] Meta Muse Wonder & Wonder Full: MSL’s Claude 5.5-tier Frontier Model",
+      "url": "https://latent.space/p/ainews-meta-muse-wonder-and-wonder",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-13",
+      "summary": "MSL’s emergence as a frontier lab is finally complete."
+    },
+    {
+      "id": "51d4d67553279daf06b7e68df66c346706db62a8",
+      "title": "Dyna-2: General Purpose Physical Agents with Hour-Long Autonomy — Jason Ma, Dyna Robotics",
+      "url": "https://latent.space/p/dyna",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-13",
+      "summary": "Our first robotics pod with Dyna’s Chief Scientist on their big bet on World Action Models & the Next Frontier of Physical AI"
+    },
     {
       "id": "e74fe3a22f8fca77d4fbc0cae773907dcf15cc80",
       "title": "Everyone Else Learned the App Years Ago. You Are Starting Today.",
