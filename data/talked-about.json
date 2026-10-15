@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-14",
+  "updated": "2026-10-15",
   "windowDays": 60,
   "items": [
+    {
+      "id": "c083bd79ae9e75ecde4a794b8db0b816de5d426b",
+      "title": "09370673570شماره خاله #شماره خاله# تهران #شماره خاله# اصفهان شماره خاله #شماره خاله# تهران #شماره…",
+      "url": "https://medium.com/@zzzxx7mm/09370673570%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-031f93bb2baf",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "7",
+      "published": "2026-10-15",
+      "summary": "شماره خاله #شماره خاله# تهران #شماره خاله# اصفهان شماره خاله #شماره خاله# تهران #شماره خاله# اصفهانf شماره خاله #شماره خاله# تهران #شماره… Continue reading on Medium »"
+    },
+    {
+      "id": "04b4cbace9c84dea69f0b498497aef44ce2d914b",
+      "title": "09370673570شماره خاله #شماره خاله# تهران #شماره خاله# اصفهان شماره خاله #شماره خاله# تهران #شماره…",
+      "url": "https://medium.com/@zzzxx7mm/09370673570%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-%D8%AE%D8%A7%D9%84%D9%87-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-065423c23106",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "7",
+      "published": "2026-10-15",
+      "summary": "شماره خاله #شماره خاله# تهران #شماره خاله# اصفهان شماره خاله #شماره خاله# تهران #شماره خاله# اصفهانf شماره خاله #شماره خاله# تهران #شماره… Continue reading on Medium »"
+    },
+    {
+      "id": "72cf91baea4783a747072f9c81103cb58c240c31",
+      "title": "AI Assurance Discusses Industrial Competitiveness in the AI Era with Japan’s MIC and Hiroshima…",
+      "url": "https://medium.com/@hide.pollini.kenkou/ai-assurance-discusses-industrial-competitiveness-in-the-ai-era-with-japans-mic-and-hiroshima-7ec917606bf2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "AI Assurance , Inc.",
+      "published": "2026-10-15",
+      "summary": "AI Assurance, Inc. participated in a conference session exploring quality and trust in the AI era from three distinct perspectives… Continue reading on Medium »"
+    },
+    {
+      "id": "ef2e455b50ac0cd4cf9100bdab4b7496a729ba79",
+      "title": "Bagaimana Cara Membuat Sistem Rekomendasi seperti Netflix dengan Deep Learning?",
+      "url": "https://medium.com/@ditafebywordpress/bagaimana-cara-membuat-sistem-rekomendasi-seperti-netflix-dengan-deep-learning-8330c42b70e3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Ditafeby",
+      "published": "2026-10-15",
+      "summary": "The takeaway Continue reading on Medium »"
+    },
+    {
+      "id": "be7864d99b6373b7de8a3a0ae1b76d8a73a6d702",
+      "title": "Beyond the Window: Engineering Autonomous Systems with Meta’s Muse Wonder",
+      "url": "https://medium.com/ai-simplified-in-plain-english/beyond-the-window-engineering-autonomous-systems-with-metas-muse-wonder-0b5bc60bcb2a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Frank Morales Aguilera",
+      "published": "2026-10-15",
+      "summary": "Frank Morales Aguilera, BEng, MEng, SMIEEE Continue reading on AI Simplified in Plain English »"
+    },
+    {
+      "id": "f52efefe8143ebc38e63b2ebcb0680957942c7ef",
+      "title": "LLM Coding Interview Series: 14/30 [Efficient Attention]",
+      "url": "https://medium.com/@deepakcse2k5/llm-coding-interview-series-14-30-efficient-attention-c816415b6b04",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-15",
+      "summary": "Online Softmax and the Idea Behind FlashAttention Continue reading on Medium »"
+    },
+    {
+      "id": "1d00a1bc2d17aff193b8afe087252137dbaa17a6",
+      "title": "SARIMA, Prophet and DeepAR Head-to-Head: Load History and Dates Only, against the Same Day Last…",
+      "url": "https://medium.com/@sakamoto2000.kim/sarima-prophet-and-deepar-head-to-head-load-history-and-dates-only-against-the-same-day-last-9c235aa6ecb4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Kasumi",
+      "published": "2026-10-15",
+      "summary": "Part 5 of the ARIMA, GluonTS and fbprophet series Continue reading on Medium »"
+    },
+    {
+      "id": "c9a90bffe61cf891bba089ea829d744f0fc129dc",
+      "title": "SARIMA、Prophet、DeepAR 同場回測：只用負載歷史與日期，對照「上週同一天」",
+      "url": "https://medium.com/@sakamoto2000.kim/sarima-prophet-deepar-%E5%90%8C%E5%A0%B4%E5%9B%9E%E6%B8%AC-%E5%8F%AA%E7%94%A8%E8%B2%A0%E8%BC%89%E6%AD%B7%E5%8F%B2%E8%88%87%E6%97%A5%E6%9C%9F-%E5%B0%8D%E7%85%A7-%E4%B8%8A%E9%80%B1%E5%90%8C%E4%B8%80%E5%A4%A9-6c1964d4febb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Kasumi",
+      "published": "2026-10-15",
+      "summary": "SARIMA, Prophet and DeepAR Head-to-Head: Load History and Dates Only, against the Same Day Last Week — Part 5 of the ARIMA, GluonTS and… Continue reading on Medium »"
+    },
+    {
+      "id": "c42e959230fe1c04d8935f925de2cda26af932bb",
+      "title": "Suno Can Now Talk, and It Scores Its Own Soundtrack. Here’s How to Get Good Results From Speech",
+      "url": "https://medium.com/@krunalkrish123/suno-can-now-talk-and-it-scores-its-own-soundtrack-heres-how-to-get-good-results-from-speech-379278eb42c7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Krish",
+      "published": "2026-10-15",
+      "summary": "Suno has always been about songs. On October 1, it opened a beta of something different: Speech, a mode that generates a spoken voice and… Continue reading on Medium »"
+    },
+    {
+      "id": "d5773b2f60b8071c950e7345268d40cf6c7f99f3",
+      "title": "Teaching Machines What Similarity Means: A 2005 Paper That Helps Explain Representation Learning",
+      "url": "https://vnaghshin.medium.com/teaching-machines-what-similarity-means-a-2005-paper-that-helps-explain-representation-learning-5e2e752748bc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Vahid Naghshin",
+      "published": "2026-10-15",
+      "summary": "What a 2005 face verification paper teaches us about what neural networks learn to care about Continue reading on Medium »"
+    },
+    {
+      "id": "cdb01fe8cb1e2de2a1f424e7164af86f2e24d640",
+      "title": "The Smarter Model Made Your Feature Worse",
+      "url": "https://medium.com/@jaberadam2001/the-smarter-model-made-your-feature-worse-ef97f7ceaacd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Adam Jaber",
+      "published": "2026-10-15",
+      "summary": "Picture a pull request with a one-line diff. Continue reading on Medium »"
+    },
+    {
+      "id": "dc8e4ddf028e7cb6e04035a347b26e10c7fc21f5",
+      "title": "Turn Insights Into Real Website Growth!",
+      "url": "https://medium.com/@aiseoandgeo/turn-insights-into-real-website-growth-311a65f23d7f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "AISEOgic - AI SEO & GEO Growth Audit",
+      "published": "2026-10-15",
+      "summary": "Want better rankings, more relevant visitors, and stronger online visibility? The key is understanding what’s holding your website back… Continue reading on Medium »"
+    },
     {
       "id": "2c1c2c493e6e992d79539dce3b409ea71919bda2",
       "title": "[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks",
@@ -70,6 +226,19 @@
       "summary": "A hands-on journey through AI agents, machine learning, RAG, multi-agent orchestration, evaluation, guardrails, and responsible AI. Continue reading on Medium »"
     },
     {
+      "id": "f992f00e022a5af818f8a6c243325e52279b6c28",
+      "title": "Crossing the Threshold: How OpenAI and Anthropic Approach Autonomy and Safety in Financial Agents",
+      "url": "https://latent.space/p/crossing-the-threshold",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Richard MacManus",
+      "published": "2026-10-14",
+      "summary": "At AI Engineer New York, frontier labs and financial firms explored how to give agents useful autonomy while keeping consequential decisions under control."
+    },
+    {
       "id": "2b7e1bde39efaba6ced73998e64d4df9c93d0b6d",
       "title": "Explore 39 Blogs for Advanced AI and Technology Guides",
       "url": "https://medium.com/@khayyamshah2007/explore-39-blogs-for-advanced-ai-and-technology-guides-e604fee98a9b",
@@ -94,6 +263,32 @@
       "author": "JIN",
       "published": "2026-10-14",
       "summary": "Python, structured prompts and API orchestration, then reliability engineering, cost control, and commercial delivery. Read as five… Continue reading on JIN System Architect »"
+    },
+    {
+      "id": "d6ae05888890416206b7eedbd7f3d17c17418104",
+      "title": "Is Meta Muse Too Good to be True?",
+      "url": "https://ai-supremacy.com/p/is-meta-muse-too-good-to-be-true-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-14",
+      "summary": "Argon, Anthropic and the great AI Boom risk factors. AI in Infographics continued. October theme."
+    },
+    {
+      "id": "b6bc6eaa39157467e94a1f34f971cb5e2a21be42",
+      "title": "Lab-in-the-Loop at Compute Speed — Ian Quigley, Leash Bio",
+      "url": "https://latent.space/p/lab-in-the-loop-at-compute-speed",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Brandon Anderson",
+      "published": "2026-10-14",
+      "summary": "How Leash Bio tamed DELs, the assay that traumatizes everyone, and used the data to catch cheating models. And why that same data is perfect for AI agents learning to think like chemists."
     },
     {
       "id": "6e399c3b18ba11d4d7b48b343d1adc925ec5e596",
