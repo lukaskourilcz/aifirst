@@ -1,9 +1,24 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-15",
+  "updated": "2026-10-16",
   "windowDays": 60,
   "items": [
+    {
+      "id": "52a5853f378feb2a8bbeb7642d9fd1def796fbfb",
+      "title": "Education is Failing our Students in this AI-Driven World",
+      "url": "https://share.transistor.fm/s/4f81adfa",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-10-15",
+      "summary": "Schools and universities are failing to adapt to our modern world, in which AI is becoming increasingly pervasive in all aspects of life and work. In fact, AI may be changing what should be considered foundational knowledge that all students must learn. In this Fully Connected e…",
+      "show": "Practical AI",
+      "durationSec": 2631
+    },
     {
       "id": "cb22648a6a15211a2cdaf30c67d193fca7000d91",
       "title": "Narrative intelligence and the human advantage",

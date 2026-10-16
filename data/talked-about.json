@@ -1,9 +1,177 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-15",
+  "updated": "2026-10-16",
   "windowDays": 60,
   "items": [
+    {
+      "id": "b7d65282369f2e5c9638d13f16083d3dace75638",
+      "title": "4 Under-the-Radar AI Tools",
+      "url": "https://medium.com/git-connected/4-under-the-radar-ai-tools-ee091f076fe5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Graham Waters",
+      "published": "2026-10-16",
+      "summary": "Number 3 surprised me Continue reading on GlassBox »"
+    },
+    {
+      "id": "d22d7952b0647578256dec61d344485819d54cae",
+      "title": "5 Remote Jobs So Desperate for Workers (They’ll Hire You on the Spot)",
+      "url": "https://medium.com/@its4everyone0/5-remote-jobs-so-desperate-for-workers-theyll-hire-you-on-the-spot-cd32a0e7a0c2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Its4everyone",
+      "published": "2026-10-16",
+      "summary": "Discover five remote job opportunities. Continue reading on Medium »"
+    },
+    {
+      "id": "112fe4a81c68ce43c105c19384a91e7432964c04",
+      "title": "Beyond Deployment: Building Self-Healing Machine Learning Pipelines with MLOps",
+      "url": "https://medium.com/@faisaldarjee9/beyond-deployment-building-self-healing-machine-learning-pipelines-with-mlops-0db0fb21fad1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Faisaldarjee",
+      "published": "2026-10-16",
+      "summary": "Deploying your model is not the finish line. It’s the moment it starts to decay. Continue reading on Medium »"
+    },
+    {
+      "id": "dfe3f7e135b5c3fb9d5c832cdf9bf73a0dc0bb32",
+      "title": "Canary Deployment: Safer Releases for Machine Learning Models",
+      "url": "https://medium.com/@khanmantasha67890/canary-deployment-safer-releases-for-machine-learning-models-9b33b1dc1aa1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Khan Mantasha",
+      "published": "2026-10-16",
+      "summary": "Your new model beat the old one in the notebook. Production might disagree. Here’s how to release ML models to 5% of traffic first, and… Continue reading on Medium »"
+    },
+    {
+      "id": "620f76b6b533549d7433687cbda4591a8d15a24a",
+      "title": "Inside the Machine: How LLMs and Small Language Models Really Work",
+      "url": "https://medium.com/@pabodha726/inside-the-machine-how-llms-and-small-language-models-really-work-018f985d3cd2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Pabodha Wanniarachchi",
+      "published": "2026-10-16",
+      "summary": "A simple guide for people who use AI but wonder what is happening inside it. Continue reading on Medium »"
+    },
+    {
+      "id": "f402f3e5404844ad735fc0120ba30a3b95635cb7",
+      "title": "LLM Coding Interview Series: 16/30 [Parameter-Efficient Fine-Tuning]",
+      "url": "https://medium.com/models-to-systems/llm-coding-interview-series-16-30-parameter-efficient-fine-tuning-cd882b18519b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-16",
+      "summary": "Implementing LoRA from Scratch Continue reading on Models to Systems »"
+    },
+    {
+      "id": "8a1a9164fd94bdcd8651b7ac503eb96c9ca7d9f6",
+      "title": "ML Technical Debt: The Hidden Cost of Machine Learning Systems",
+      "url": "https://medium.com/@ayeshakhatoon.c/ml-technical-debt-the-hidden-cost-of-machine-learning-systems-ea3c8a1439a0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ayesha Khatoon",
+      "published": "2026-10-16",
+      "summary": "Why a model that works today can become difficult and expensive to maintain tomorrow Continue reading on Medium »"
+    },
+    {
+      "id": "82d0ec8479de2685ad87d4a4bf4804efa33a22f3",
+      "title": "NVIDIA Nemotron 3.5",
+      "url": "https://medium.com/codetodeploy/nvidia-nemotron-3-5-96b97f5f01b6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Greek Ai",
+      "published": "2026-10-16",
+      "summary": "With 120 billion parameters, multimodal reasoning, customizable open weights, and a new 24GB local model, NVIDIA is making a strong case… Continue reading on CodeToDeploy »"
+    },
+    {
+      "id": "af4e8727cf0bd1fb49c19e8ddf2938e7b6c63e4a",
+      "title": "Opus 5.5 Is 20% Cheaper Than Opus 5. But Browser-Based Scraping Can Cost 17× More in One Scenario.",
+      "url": "https://medium.com/@andywilson0924/opus-5-5-is-20-cheaper-than-opus-5-but-browser-based-scraping-can-cost-17-more-in-one-scenario-c0c1b9b26853",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Andy Wilson",
+      "published": "2026-10-16",
+      "summary": "Claude Opus 5.5 is 20% cheaper than Opus 5 at the API list-price level. Anthropic also reports that a typical workload in its own tests… Continue reading on Medium »"
+    },
+    {
+      "id": "018aaa4d53437c77bf1cd6ec34a9c918e88de329",
+      "title": "Prompt Versioning and Regression Testing in LLMOps: Treat Your Prompts Like Production Code",
+      "url": "https://medium.com/@mhp2/prompt-versioning-and-regression-testing-in-llmops-treat-your-prompts-like-production-code-4d1f6929cb63",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Mhp",
+      "published": "2026-10-16",
+      "summary": "Subtitle: Why “I just tweaked the wording” is the most dangerous sentence in an LLM team, and how to make it safe. Continue reading on Medium »"
+    },
+    {
+      "id": "a628aea274c5c693e3214d5c8a1c5eff3ab41cfb",
+      "title": "Shadow Deployment: Testing ML Models Without Affecting Users",
+      "url": "https://medium.com/@ayeshakhatoon.c/shadow-deployment-testing-ml-models-without-affecting-users-7c7707494347",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ayesha Khatoon",
+      "published": "2026-10-16",
+      "summary": "A practical look at testing a new model before letting it make real decisions Continue reading on Medium »"
+    },
+    {
+      "id": "6d7d5393d0578997b341d4afea5c3a0071840bfc",
+      "title": "What Is Structured Prompting? A Practical Guide for QA Engineers",
+      "url": "https://medium.com/@rohithgowda1993/what-is-structured-prompting-a-practical-guide-for-qa-engineers-fc57f1ff446a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Rohith P",
+      "published": "2026-10-16",
+      "summary": "Learn how to organize AI instructions using role, context, task, constraints, and output format to generate more useful testing results. Continue reading on Medium »"
+    },
+    {
+      "id": "7908d899cb3e3fcc9a4b43b847f9c3f2a54fd87f",
+      "title": "[AINews] Modal’s $1B ARR, $16B Series D makes it NYC’s newest AI Infra Decacorn, 3x usage and 3x valuation in 5 months, 15x in 1 yr",
+      "url": "https://latent.space/p/ainews-modals-1b-arr-16b-series-d",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-15",
+      "summary": "Sandboxes are all you need."
+    },
     {
       "id": "c083bd79ae9e75ecde4a794b8db0b816de5d426b",
       "title": "09370673570شماره خاله #شماره خاله# تهران #شماره خاله# اصفهان شماره خاله #شماره خاله# تهران #شماره…",
@@ -159,6 +327,19 @@
       "author": "AISEOgic - AI SEO & GEO Growth Audit",
       "published": "2026-10-15",
       "summary": "Want better rankings, more relevant visitors, and stronger online visibility? The key is understanding what’s holding your website back… Continue reading on Medium »"
+    },
+    {
+      "id": "41c3c04694055f9db1d85fa2334efad46b7af29c",
+      "title": "You Have No Idea How Close the AI Bubble Is to Popping",
+      "url": "https://thealgorithmicbridge.com/p/you-have-no-idea-how-close-the-ai",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-10-15",
+      "summary": "The signs have aligned"
     },
     {
       "id": "2c1c2c493e6e992d79539dce3b409ea71919bda2",
@@ -4157,19 +4338,6 @@
       "author": "Michael Spencer",
       "published": "2026-08-20",
       "summary": "Anthropic’s IPO is going to leave OpenAI in the past."
-    },
-    {
-      "id": "9281ee7ce82e1245ad33dfbd41d68b1246ff801a",
-      "title": "Teaching Everyone to Fish for Tokens",
-      "url": "https://interconnects.ai/p/teaching-everyone-to-fish-for-tokens",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-08-17",
-      "summary": "Nvidia wants you building your own model, not buying from Anthropic/OpenAI."
     }
   ]
 }
