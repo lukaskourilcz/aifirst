@@ -1,9 +1,177 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-16",
+  "updated": "2026-10-17",
   "windowDays": 60,
   "items": [
+    {
+      "id": "bc208933ecc5142d1495b57427f776c0ec2b0267",
+      "title": "3–49. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Go.05",
+      "url": "https://medium.com/@ghvitra/3-49-generation-of-the-actuation-vector-symbolic-vector-and-etymon-numbering-go-05-791c8b9a28fb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Indriya",
+      "published": "2026-10-17",
+      "summary": "Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Go.05 Continue reading on Medium »"
+    },
+    {
+      "id": "c81516ce0bcbe24ad42827020c2b08dca68e2134",
+      "title": "Create High-Performing X (Twitter) Posts in 1 Minute Using Grok & AI: The Ultimate Rewriting Guide",
+      "url": "https://medium.com/@kmal777/create-high-performing-x-twitter-posts-in-1-minute-using-grok-ai-the-ultimate-rewriting-guide-74403aa56b27",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tessa kss",
+      "published": "2026-10-17",
+      "summary": "Prologue: Why Is Your X Account Stuck Despite Hours of Work? Continue reading on Medium »"
+    },
+    {
+      "id": "1be51fb890e337531d728f0e0c8c7ffa7aca4ce6",
+      "title": "How I Built an AI Trading Bot That Turns Plain English Into Backtested Strategies",
+      "url": "https://medium.com/@kefibechir36/how-i-built-an-ai-trading-bot-that-turns-plain-english-into-backtested-strategies-23e7ad8ee342",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Mohamed Bechir Kefi",
+      "published": "2026-10-17",
+      "summary": "LLM to JSON, schema validation, a self-repair loop and an event-driven backtester in Python. What worked, what broke, and what my logs… Continue reading on Medium »"
+    },
+    {
+      "id": "26acdbb473887b9aed435dfe1cbe06e205cceeaa",
+      "title": "How to build AI systems that remember the right things at the right time",
+      "url": "https://medium.com/@kundanscode/how-to-build-ai-systems-that-remember-the-right-things-at-the-right-time-ef0154e1b1e7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "~Kundan",
+      "published": "2026-10-17",
+      "summary": "Core idea: A language model can use the context supplied to it, but the application must decide what to preserve, where to store it, when… Continue reading on Medium »"
+    },
+    {
+      "id": "25ae03e2bf6fdc350585d53f4ace7d72d488650a",
+      "title": "LangChain Part 7: Middleware Untuk Mengendalikan Agen di Setiap Titik Eksekusi",
+      "url": "https://medium.com/@fikarchamiiiim/langchain-part-7-middleware-untuk-mengendalikan-agen-di-setiap-titik-eksekusi-d4f523a1c3d1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Zulfikar Chamim",
+      "published": "2026-10-17",
+      "summary": "Pada bagian sebelumnya, anda sudah membuat agen yang mampu menjawab pertanyaan berdasarkan dokumen milik sendiri. Namun, semakin dekat… Continue reading on Medium »"
+    },
+    {
+      "id": "3e230293fdca34a2e709cfa1b8ad11e6ecabc742",
+      "title": "LLM Coding Interview Series: 18/30 [Retrieval-Augmented Generation (RAG)]",
+      "url": "https://medium.com/models-to-systems/llm-coding-interview-series-18-30-retrieval-augmented-generation-rag-00864084fcf8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-10-17",
+      "summary": "Chunking, Retrieval, BM25, and Reranking from Scratch Continue reading on Models to Systems »"
+    },
+    {
+      "id": "b76ad812f94bab008ad5c4cdc9cd2ec687c197fb",
+      "title": "MCP Explained: What Happens When AI Connects to the Outside World?",
+      "url": "https://medium.com/@sameerathore4624/mcp-explained-what-happens-when-ai-connects-to-the-outside-world-f9adfbf22393",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sameer Rathore",
+      "published": "2026-10-17",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "a82684974ac624727ae15e4b75d546a13b6270eb",
+      "title": "SARIMAX Load Forecasting (2): Load plus Temperature and Calendar, against SARIMA and the Same Day…",
+      "url": "https://medium.com/@sakamoto2000.kim/sarimax-load-forecasting-2-load-plus-temperature-and-calendar-against-sarima-and-the-same-day-bffc7984a5c8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Kasumi",
+      "published": "2026-10-17",
+      "summary": "Part 7 of the ARIMA, GluonTS, and fbprophet Series Continue reading on Medium »"
+    },
+    {
+      "id": "365068ef34e73ecac8781584808dc66a61119171",
+      "title": "SARIMAX 用電預測（二）：負載加氣溫與日曆，對照 SARIMA 與「上週同一天」",
+      "url": "https://medium.com/@sakamoto2000.kim/sarimax-%E7%94%A8%E9%9B%BB%E9%A0%90%E6%B8%AC-%E4%BA%8C-%E8%B2%A0%E8%BC%89%E5%8A%A0%E6%B0%A3%E6%BA%AB%E8%88%87%E6%97%A5%E6%9B%86-%E5%B0%8D%E7%85%A7-sarima-%E8%88%87-%E4%B8%8A%E9%80%B1%E5%90%8C%E4%B8%80%E5%A4%A9-293d4a3b0c3c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Kasumi",
+      "published": "2026-10-17",
+      "summary": "SARIMAX Load Forecasting (2): Load plus Temperature and Calendar, against SARIMA and the Same Day Last Week — Part 7 of the ARIMA, GluonTS… Continue reading on Medium »"
+    },
+    {
+      "id": "49f61e5e7b47ee25e71c37ca9b25b8f2f1d8ff70",
+      "title": "The Abundance Paradox: When Intelligence Belongs to Everyone, What Matters to Anyone?",
+      "url": "https://medium.com/@adityaaundhekar311/the-abundance-paradox-when-intelligence-belongs-to-everyone-what-matters-to-anyone-40b97a961ec9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "aditya aundhekar",
+      "published": "2026-10-17",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "230c0daeb25cc106ef7f1e6d2137aa9b5ecfd493",
+      "title": "The Most Useful Thing You Can Give AI Is a Better Brief",
+      "url": "https://medium.com/@andiebuk/the-most-useful-thing-you-can-give-ai-is-a-better-brief-dbf85ca923bc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Andiebuk",
+      "published": "2026-10-17",
+      "summary": "There’s a particular kind of disappointment that comes from asking AI to make something. Continue reading on Medium »"
+    },
+    {
+      "id": "a982fa5e58df119cd0f87bb1847f665d7aed5439",
+      "title": "What My First CTF Taught Me About Cybersecurity",
+      "url": "https://medium.com/@chaudharysaksham980/what-my-first-ctf-taught-me-about-cybersecurity-087eaddb89c6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Saksham Chaudhary",
+      "published": "2026-10-17",
+      "summary": "Lessons from my first Capture The Flag competition as a beginner. Continue reading on Medium »"
+    },
+    {
+      "id": "483d6307e687a2d8c3a870289c58f09535bb969c",
+      "title": "[AINews] Agents disprove Polysemanticity; greatly improve Interpretability & Alignment",
+      "url": "https://latent.space/p/ainews-agents-disprove-polysemanticity",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-16",
+      "summary": "Nick Cammarata out of nowhere with some major claims!"
+    },
     {
       "id": "b7d65282369f2e5c9638d13f16083d3dace75638",
       "title": "4 Under-the-Radar AI Tools",
