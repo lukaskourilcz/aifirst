@@ -1,9 +1,177 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-17",
+  "updated": "2026-10-18",
   "windowDays": 60,
   "items": [
+    {
+      "id": "d235d10aa195ec9e032f9746c5e33697db9b23ba",
+      "title": "¿Qué modelo clasifica mejor tumores cerebrales? Comparación de CNN, EfficientNet y Swin-Tiny",
+      "url": "https://medium.com/@mario_alejandro_estrada_ayala/qu%C3%A9-modelo-clasifica-mejor-tumores-cerebrales-comparaci%C3%B3n-de-cnn-efficientnet-y-swin-tiny-62ebec5a414e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Mario Alejandro Estrada Ayala",
+      "published": "2026-10-18",
+      "summary": "Un estudio experimental sobre 6.000 imágenes de resonancia magnética: control de fuga de datos, optimización de hiperparámetros… Continue reading on Medium »"
+    },
+    {
+      "id": "391963a9a871487f0b35b666d00d00c364f81b8f",
+      "title": "Agent2Agent (A2A) protocol clearly explained",
+      "url": "https://charanteja1005.medium.com/agent2agent-a2a-protocol-3b1648c597d2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "charanteja1005",
+      "published": "2026-10-18",
+      "summary": "I’ve heard quite a lot about A2A protocol, when it was launched, but didn’t quite pay attention to it, since it sounded very gimmicky to… Continue reading on Medium »"
+    },
+    {
+      "id": "9065e60f28af2f34c2a7592e9063af005a1f9827",
+      "title": "I added Rasa Mantle to my VS Code extension: tool calling, memory and LLMs",
+      "url": "https://medium.com/@mdpeter28/i-added-rasa-mantle-to-my-vs-code-extension-tool-calling-memory-and-llms-7cef9b30fabe",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Mdpeter",
+      "published": "2026-10-18",
+      "summary": "I keep my project notes inside VS Code with an extension I built called… Continue reading on Medium »"
+    },
+    {
+      "id": "859e25b5efc9aef848c240a003ed2117b8576a56",
+      "title": "I Almost Fell for My Own Rebrand",
+      "url": "https://ntrongtin11702.medium.com/i-almost-fell-for-my-own-rebrand-e0b3bf01524a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tinguyen",
+      "published": "2026-10-18",
+      "summary": "I gave one missing test a more impressive name. For an afternoon, the new language felt like progress. Continue reading on Medium »"
+    },
+    {
+      "id": "471c9d4a1441f0def9a948f8dd9a1f1920a60c04",
+      "title": "LangChain Part 8: LangGraph Untuk Membangun Alur Agen Sendiri dengan State, Node, dan Edge",
+      "url": "https://medium.com/@fikarchamiiiim/langchain-part-8-langgraph-untuk-membangun-alur-agen-sendiri-dengan-state-node-dan-edge-563d252e1173",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Zulfikar Chamim",
+      "published": "2026-10-18",
+      "summary": "Pada bagian sebelumnya, saya memusatkan aturan cross-cutting agen ke dalam middleware. create_agent membuat pekerjaan itu rapi sebab ia… Continue reading on Medium »"
+    },
+    {
+      "id": "f4c75b9eed7fd0d730952af9a3d9a1fce37fca64",
+      "title": "LLM Agents and Recursive Self-Improvement: how it works and how it evolved",
+      "url": "https://medium.com/@wszjzhang/llm-agents-and-recursive-self-improvement-how-it-works-and-how-it-evolved-27990524961b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "intelligentLearn",
+      "published": "2026-10-18",
+      "summary": "What self-improving agents can rewrite about themselves today, what each method costs, and why the gains that held up left the judge alone Continue reading on Medium »"
+    },
+    {
+      "id": "f635ff1863d6a9db571cf492da723597fafa55b5",
+      "title": "Mac mini for Local AI: Which LLM Fits Your RAM Best?",
+      "url": "https://joets.medium.com/mac-mini-for-local-ai-which-llm-fits-your-ram-best-530184e05875",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Joe T. Santhanavanich",
+      "published": "2026-10-18",
+      "summary": "A friendly pick-by-memory guide for the M6 and M5 Pro Mac mini | 16 GB to 64 GB | Qwen, Gemma, gpt-oss and more Continue reading on Medium »"
+    },
+    {
+      "id": "54892532c49cc9a9a7283b6108b94ea8ee4a0885",
+      "title": "PacifIA: ¿puede una red neuronal clasificar las masas de agua del Pacífico ecuatoriano?",
+      "url": "https://medium.com/@descalan96/pacifia-puede-una-red-neuronal-clasificar-las-masas-de-agua-del-pac%C3%ADfico-ecuatoriano-a7c23e0ba5a3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Descalan",
+      "published": "2026-10-18",
+      "summary": "PacifIA: cómo un análisis exploratorio riguroso, una evaluación entre años y tres modelos de referencia ayudaron a poner a prueba el valor… Continue reading on Medium »"
+    },
+    {
+      "id": "18120156ce1b1d692ce567d1f64fdc625a5a2162",
+      "title": "Peptides kopen",
+      "url": "https://medium.com/@rabewe2811/peptides-kopen-493f9e3c768b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "alberto",
+      "published": "2026-10-18",
+      "summary": "Retatrutide kopen Continue reading on Medium »"
+    },
+    {
+      "id": "0fb18b1398fcf4ef68cc324a6339cb659f66c07b",
+      "title": "Prophet Load Forecasting: Dates plus Holiday Calendar and Temperature, against the Same Day Last…",
+      "url": "https://medium.com/@sakamoto2000.kim/prophet-load-forecasting-dates-plus-holiday-calendar-and-temperature-against-the-same-day-last-6df1e1eb5edf",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Kasumi",
+      "published": "2026-10-18",
+      "summary": "Part 8 of the ARIMA, GluonTS, and fbprophet Series Continue reading on Medium »"
+    },
+    {
+      "id": "698f08fb179c4a96ee1b8056e937a69b43405e48",
+      "title": "Setting Up Hindsight Memory for Hermes — The Right Way",
+      "url": "https://medium.com/practical-llm-systems/setting-up-hindsight-memory-for-hermes-the-right-way-42673dcee1e7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Rost Glukhov",
+      "published": "2026-10-18",
+      "summary": "A long context window is not memory. If you run Hermes Agent for more than one session, you need a store that keeps decisions, facts, and… Continue reading on Practical LLM Systems »"
+    },
+    {
+      "id": "fddb22dea0dc62ab159c80c33e1d9931c57469e4",
+      "title": "逐字稿是錯的，訂單是對的",
+      "url": "https://medium.com/@changtimwu/%E9%80%90%E5%AD%97%E7%A8%BF%E6%98%AF%E9%8C%AF%E7%9A%84-%E8%A8%82%E5%96%AE%E6%98%AF%E5%B0%8D%E7%9A%84-9af88bba7069",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Tim Wu",
+      "published": "2026-10-18",
+      "summary": "客人說「我要一碗鱸魚粥」。 Continue reading on Medium »"
+    },
+    {
+      "id": "dc3d830e0a0da47370bc164d94efeb764de46e29",
+      "title": "[AINews] High Taste Testers Ep. 1",
+      "url": "https://latent.space/p/ainews-high-taste-testers-ep-1",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-17",
+      "summary": "a quiet day lets us pilot a new show"
+    },
     {
       "id": "bc208933ecc5142d1495b57427f776c0ec2b0267",
       "title": "3–49. Generation of the Actuation Vector–Symbolic Vector and Etymon Numbering / Go.05",
@@ -94,6 +262,19 @@
       "author": "Sameer Rathore",
       "published": "2026-10-17",
       "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "2524f385929c5deba54e1ed1e1c150c7e8846203",
+      "title": "Meta shakes up the frontiers, open and closed",
+      "url": "https://interconnects.ai/p/meta-shakes-up-the-frontiers-open",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-10-17",
+      "summary": "US open weights are back!"
     },
     {
       "id": "a82684974ac624727ae15e4b75d546a13b6270eb",
