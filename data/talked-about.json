@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-18",
+  "updated": "2026-10-19",
   "windowDays": 60,
   "items": [
+    {
+      "id": "406488da13c8393047489463b69d124e08dcaf33",
+      "title": "DeepSeek V4.1",
+      "url": "https://medium.com/@lvyang860/deepseek-v4-1-fe516cb4b85f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Wilson LU",
+      "published": "2026-10-19",
+      "summary": "A 510 GB, 763B-parameter model squeezed to 114 GB and run on one Mac Studio at 35 tokens a second. On 20 recent LiveCodeBench problems it… Continue reading on Medium »"
+    },
+    {
+      "id": "28db528fb44ef88d8510ed8008b33b8b5fcf9d50",
+      "title": "Deezer Is Letting Listeners Exclude AI Music",
+      "url": "https://medium.com/@lemuelmaraan/deezer-is-letting-listeners-exclude-ai-music-29f68419c06c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Santelmo ⭐",
+      "published": "2026-10-19",
+      "summary": "So!! Continue reading on Medium »"
+    },
+    {
+      "id": "7835b701a9168b3927344e7575143bd9554afbd9",
+      "title": "Financial Crime in a Changing World | 1/5",
+      "url": "https://medium.com/@khiter.s/financial-crime-in-a-changing-world-1-5-bcd276c3116a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Samir K",
+      "published": "2026-10-19",
+      "summary": "Are Financial Crime Controls Changing Fast Enough? Continue reading on Medium »"
+    },
+    {
+      "id": "c743cad90ab10a00e1e4f4ab0ffcb14c3b88f798",
+      "title": "From Blocked to Confident: How I Cut QA Out of the Deploy-Time Critical Path",
+      "url": "https://medium.com/a-a-brothers/from-blocked-to-confident-how-i-cut-qa-out-of-the-deploy-time-critical-path-8007cef02897",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Andika Bhaskara",
+      "published": "2026-10-19",
+      "summary": "What if the pipeline itself could tell the developer what a failure means? Continue reading on A&A Brothers »"
+    },
+    {
+      "id": "8f3458910153885e414f746115961b44ed2c5026",
+      "title": "Machine Ethics in the Information Era",
+      "url": "https://heartistheart.medium.com/machine-ethics-in-the-information-era-538284c27dd7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "DR. HEāRT",
+      "published": "2026-10-19",
+      "summary": "A framework inquiry in the philosophy of psychology & human machine ethics the school of Acādemia | Human & Machine Ethics, since 2022 Continue reading on Medium »"
+    },
+    {
+      "id": "28b6b3085a27f3aee95df6e1ff50f9a5cab2eccf",
+      "title": "My Journey to Completing All 4 Claude Certifications by Anthropic — From AI Curiosity to Agentic AI…",
+      "url": "https://medium.com/@rohit.tripathisg/my-journey-to-completing-all-4-claude-certifications-by-anthropic-from-ai-curiosity-to-agentic-ai-34111253fa0b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Rohit Tripathi",
+      "published": "2026-10-19",
+      "summary": "How I expanded my journey from Java, cloud architecture, and microservices into Claude, AI-powered development, and agentic systems. Continue reading on Medium »"
+    },
+    {
+      "id": "c424ccc4962f311a5db3187ec08e889b55c8202b",
+      "title": "Quantization Showdown: Running Llama 3 on Consumer Hardware",
+      "url": "https://medium.com/@erwindev/quantization-showdown-running-llama-3-on-consumer-hardware-5b33c3aae8df",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Erwin Hermanto",
+      "published": "2026-10-19",
+      "summary": "GGUF vs. GPTQ vs. AWQ — quality, speed, and memory benchmarks on a MacBook M3 Continue reading on Medium »"
+    },
+    {
+      "id": "a63343996c77f2ab0095acb733218bc215cc210a",
+      "title": "Rules vs Examples for In-Context Learning Across 5 Task Types",
+      "url": "https://medium.com/@gene.rastignac8/rules-vs-examples-for-in-context-learning-across-5-task-types-0fa8db747095",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Eugène Rastignac",
+      "published": "2026-10-19",
+      "summary": "You can state the rule or show worked examples. One study measured which one the model follows more accurately. Continue reading on Medium »"
+    },
+    {
+      "id": "bca987bb13ca66d698882b8a193dd92256fc78da",
+      "title": "Testing AI Agents — Part 2",
+      "url": "https://medium.com/@sha.jamdar/testing-ai-agents-part-2-003c02319ba2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Shashavali J",
+      "published": "2026-10-19",
+      "summary": "Can an AI Agent Understand What You Actually Want? Continue reading on Medium »"
+    },
+    {
+      "id": "61cbded3a150df201c428f4a509bd44b71679d31",
+      "title": "The Economics of Small Language Models: Why Enterprise AI Is Downsizing",
+      "url": "https://medium.com/tech-and-business/the-economics-of-small-language-models-why-enterprise-ai-is-downsizing-c19e872a3560",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Nexus Growth",
+      "published": "2026-10-19",
+      "summary": "Frontier models capture headlines, but specialized, sub-10-billion-parameter architectures are quietly reshaping corporate balance sheets. Continue reading on Tech and Business »"
+    },
+    {
+      "id": "f50b1c06ebccf69a84b760c3a0a00c1c0fc4137d",
+      "title": "Why Agricultural Waste Is Becoming a Real Business in Rural Areas",
+      "url": "https://medium.com/@jopgbanbnhuop/why-agricultural-waste-is-becoming-a-real-business-in-rural-areas-2acd73b3c6f5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "richipelletmaker",
+      "published": "2026-10-19",
+      "summary": "Rural economies have always produced waste. Stalks, husks, manure, and crop residues were part of farming long before anyone thought about… Continue reading on Medium »"
+    },
+    {
+      "id": "a5e621e0f6e1fface12979d61eafae1c74e66fd1",
+      "title": "You Can Patent the Algorithm. Can You Stop the Clone?",
+      "url": "https://medium.com/@arturormk/you-can-patent-the-algorithm-can-you-stop-the-clone-857af0a38f9c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Arturo R Montesinos",
+      "published": "2026-10-19",
+      "summary": "How AI-generated software could turn patents into engineering challenges — and proprietary applications into reproducible products. Continue reading on Medium »"
+    },
     {
       "id": "d235d10aa195ec9e032f9746c5e33697db9b23ba",
       "title": "¿Qué modelo clasifica mejor tumores cerebrales? Comparación de CNN, EfficientNet y Swin-Tiny",
@@ -4661,32 +4817,6 @@
       "author": "Alberto Romero",
       "published": "2026-08-21",
       "summary": "Is this the final chapter of the story?"
-    },
-    {
-      "id": "8b541b5ecc28c498c8dff0d0476730b779d48974",
-      "title": "Visions of AI: Automating repetitive grunt Coding tasks",
-      "url": "https://ai-supremacy.com/p/visions-of-ai-automating-repetitive-grunt-coding-tasks-2026-devin",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-20",
-      "summary": "In an era of rapid consolidation and M&A, one Coding AI startup is growing their Enterprise base at a startling pace. The era of hyper specialized routing is creating autonomous SaaS AI winners."
-    },
-    {
-      "id": "70e2efbaaf54d90492c519bbe643ce8952fbb89e",
-      "title": "We’ve never seen an Anthropic before",
-      "url": "https://ai-supremacy.com/p/we-have-never-seen-an-anthropic-before-2026-revenue-ipo",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-20",
-      "summary": "Anthropic’s IPO is going to leave OpenAI in the past."
     }
   ]
 }
