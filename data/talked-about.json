@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-19",
+  "updated": "2026-10-20",
   "windowDays": 60,
   "items": [
+    {
+      "id": "3a64f32311178d1294c66b43508892c32aa2725e",
+      "title": "Building a Cost-Aware LLM Router: Cheapest Model That Still Works",
+      "url": "https://medium.com/@erwindev/building-a-cost-aware-llm-router-cheapest-model-that-still-works-2211066b4156",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Erwin Hermanto",
+      "published": "2026-10-20",
+      "summary": "A few months into running two different products that both talk to LLMs, I noticed something embarrassing in my OpenAI bill: I was paying… Continue reading on Medium »"
+    },
+    {
+      "id": "3b1c007f9b70ecfbab11fbf36bbb88c11d9e2ee9",
+      "title": "I Told My AI to Stop Thinking. It Kept Thinking.",
+      "url": "https://srikanthdoddi.medium.com/i-told-my-ai-to-stop-thinking-it-kept-thinking-80a310f91f31",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Srikanth Doddi",
+      "published": "2026-10-20",
+      "summary": "I flipped the “thinking off” switch to save tokens. A new NeurIPS 2026 paper explains why the model ignored me. Continue reading on Medium »"
+    },
+    {
+      "id": "19b57cb7c0514ff56b917087e22c174368922c32",
+      "title": "Papers Explained 642: Iris",
+      "url": "https://ritvik19.medium.com/papers-explained-642-iris-d362822b3a0d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ritvik Rastogi",
+      "published": "2026-10-20",
+      "summary": "Iris is a family of search agents (Iris-mini and Iris-pro initialized from Qwen3.6–35B-A3B and Qwen3.5–397B-A17B respectively) trained… Continue reading on Medium »"
+    },
+    {
+      "id": "7e9f269df8e85b31e89831117759511b3d60f1e4",
+      "title": "Perch’s Blind 70 Clip Drug Name Test",
+      "url": "https://mohammedusama-56107.medium.com/perchs-blind-70-clip-drug-name-test-008b5f848640",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Mohammed Usama",
+      "published": "2026-10-20",
+      "summary": "What happens when an AI scribe has to hear a drug name it cannot make out Continue reading on Medium »"
+    },
+    {
+      "id": "7abafc64ae22c8c9052e50ad28daff6dfae36b70",
+      "title": "Power BI Copilot: What It Does Well and Where It Falls Short",
+      "url": "https://abhiks1999.medium.com/power-bi-copilot-what-it-does-well-and-where-it-falls-short-74483051a7dc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "The OutLook",
+      "published": "2026-10-20",
+      "summary": "An honest review after 11+ years of building reports: where Copilot saves me time, where it still gets things wrong, and who should switch… Continue reading on Medium »"
+    },
+    {
+      "id": "379b257eb0352286d8bd7adf39f780d743a85430",
+      "title": "Serving LLMs on Two Free Tesla T4s: A Measurement Study of Batching, KV Cache, Quantization and…",
+      "url": "https://medium.com/@allam.satyanarayana/serving-llms-on-two-free-tesla-t4s-a-measurement-study-of-batching-kv-cache-quantization-and-6528581f392c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Allam Satyanarayana",
+      "published": "2026-10-20",
+      "summary": "What a 1.5B and a 7B model taught me about GPU inference, using only a free Kaggle notebook and vLLM Continue reading on Medium »"
+    },
+    {
+      "id": "3712a63c7d805e8eb79abc8e9fbbae3fc5566551",
+      "title": "The golden triangle.",
+      "url": "https://medium.com/@akashmaitreya36/the-golden-triangle-0fe29ff85890",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Akashmaitreya",
+      "published": "2026-10-20",
+      "summary": "The line between the two summations x+y=x.y and x+y=x/y are divergent but at 0 or the origin. Continue reading on Medium »"
+    },
+    {
+      "id": "30137ff8d2735f67d5ed893064901e40c7732459",
+      "title": "The Handoffs Deserve More Attention: A Biopharma Perspective",
+      "url": "https://medium.com/@otlen/the-handoffs-deserve-more-attention-a-biopharma-perspective-f1e1a7de30f1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "OTLEN",
+      "published": "2026-10-20",
+      "summary": "Biopharma depends on specialization. Research teams investigate the science. Clinical teams manage development. Finance teams oversee… Continue reading on Medium »"
+    },
+    {
+      "id": "38861c58fc934b67de9dee6b5c439b487180cb45",
+      "title": "The Side Door Breach: What the ARTEX Bank Attacks Teach Us About AI-Assisted Hacking",
+      "url": "https://gohsoonheng00.medium.com/the-side-door-breach-what-the-artex-bank-attacks-teach-us-about-ai-assisted-hacking-9f9ed0db9565",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Goh Soon Heng",
+      "published": "2026-10-20",
+      "summary": "Recently, hackers used a Chinese artificial-intelligence agent to attack South Korea’s biggest banks and steal the personal information of… Continue reading on Medium »"
+    },
+    {
+      "id": "8d2d6a7ce56564942ad89140a41a6e3e02535f6b",
+      "title": "The War Against AI: The Nuclear Option",
+      "url": "https://medium.com/the-haven/the-war-against-ai-the-nuclear-option-386906a9bfea",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Christine Stevens",
+      "published": "2026-10-20",
+      "summary": "Christine Stevens finally acquires the ultimate weapon against artificial intelligence. Unfortunately, artificial intelligence is… Continue reading on The Haven »"
+    },
+    {
+      "id": "18c305018ea37acc0af3552a200c9672d68af34a",
+      "title": "What is ARTEX and how does it work?",
+      "url": "https://gohsoonheng00.medium.com/what-is-artex-and-how-does-it-work-12d7d19acb08",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Goh Soon Heng",
+      "published": "2026-10-20",
+      "summary": "Following up on my previous blog about ARTEX’s infiltration of a Korean bank, this article provides some fundamental background on ARTEX… Continue reading on Medium »"
+    },
+    {
+      "id": "b5b5a045c194e9cf15ca1951335255bacf400fa1",
+      "title": "Why Does an AI Bubble Seem Likely Even Though AI Progress Is Accelerating Smoothly?",
+      "url": "https://medium.com/@outermostkt/why-does-an-ai-bubble-seem-likely-even-though-ai-progress-is-accelerating-smoothly-f6b57304aad2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Outermostkt",
+      "published": "2026-10-20",
+      "summary": "Technological progress and investment returns are separate matters. Bubble concerns mainly stem from the latter. The fact that AI is… Continue reading on Medium »"
+    },
     {
       "id": "406488da13c8393047489463b69d124e08dcaf33",
       "title": "DeepSeek V4.1",
@@ -4804,19 +4960,6 @@
       "author": "Michael Spencer",
       "published": "2026-08-26",
       "summary": "Following the breadcrumbs of Nvidia."
-    },
-    {
-      "id": "72343fccb5b0e9987685e3aacf6cb6262ec7bcef",
-      "title": "How America Turned Against the AI Industry",
-      "url": "https://thealgorithmicbridge.com/p/how-america-turned-against-the-ai",
-      "source": {
-        "kind": "substack",
-        "name": "The Algorithmic Bridge",
-        "feed": "https://www.thealgorithmicbridge.com/feed"
-      },
-      "author": "Alberto Romero",
-      "published": "2026-08-21",
-      "summary": "Is this the final chapter of the story?"
     }
   ]
 }
