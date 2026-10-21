@@ -1,9 +1,190 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "windowDays": 60,
   "items": [
+    {
+      "id": "44c97fdbfd6045bf567c024aafc3541e85ea537c",
+      "title": "AWS PyTorch: Build, Train, and Deploy Deep Learning Models in the Cloud",
+      "url": "https://medium.com/@omayr.qureshi/aws-pytorch-build-train-and-deploy-deep-learning-models-in-the-cloud-23f4234c8ca9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Muhammad Umair Ashraf",
+      "published": "2026-10-21",
+      "summary": "PyTorch makes it easier to experiment with neural networks, computer vision, natural language processing, and deep learning. But moving a… Continue reading on Medium »"
+    },
+    {
+      "id": "d44c58508886ac085869383ae380791f883606bd",
+      "title": "Constrained Decoding Models: What If AI Didn’t Need to Generate Every Token?",
+      "url": "https://medium.com/@TheFutureWorkforce/constrained-decoding-models-what-if-ai-didnt-need-to-generate-every-token-b5e79042d219",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "The Future Workforce",
+      "published": "2026-10-21",
+      "summary": "As AI systems move from chat interfaces into real-world workflows, a different question is emerging: do we need a general-purpose language… Continue reading on Medium »"
+    },
+    {
+      "id": "8c95c2986d0b92dd8a0af0fdf769ee8ee6ca78b1",
+      "title": "How to Scope a 30-Day MVP: One User, One Loop, and Five Things You Never Cut",
+      "url": "https://medium.com/@hello_18940/how-to-scope-a-30-day-mvp-one-user-one-loop-and-five-things-you-never-cut-d6cde8342efd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Mansoori Technologies",
+      "published": "2026-10-21",
+      "summary": "A fast MVP is not a smaller version of your roadmap. Fix the date, shrink the scope, and protect the few pieces that keep it safe to… Continue reading on Medium »"
+    },
+    {
+      "id": "243e87792fc08988278d99b3d8c40a45b4b3be2f",
+      "title": "Interpolating Stars",
+      "url": "https://medium.com/stellar-priors/interpolating-stars-7ad053151d3e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Victor Astren",
+      "published": "2026-10-21",
+      "summary": "Reconstructing a telescope’s point spread function at galaxy positions using PCA and spatial interpolation. Continue reading on Stellar Priors »"
+    },
+    {
+      "id": "8daeff6ac5a6211314b7403605b92f003b0d9ab6",
+      "title": "LangChain vs LangGraph vs LlamaIndex: The AI Trio That’s About to Change How You Build Stuff",
+      "url": "https://medium.com/@dilipnswamy/langchain-vs-langgraph-vs-llamaindex-the-ai-trio-thats-about-to-change-how-you-build-stuff-1231b3e92648",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Dilip Kumar Narayanaswamy",
+      "published": "2026-10-21",
+      "summary": "TL;DR: LangChain = the starter pack. LangGraph = the boss level. LlamaIndex = the document whisperer. Pick your fighter. Continue reading on Medium »"
+    },
+    {
+      "id": "8782e88383a83c94acb145cee300a7ee247c4c67",
+      "title": "Liquid Says Its New Local LLM Hits 184 Tokens a Second on a Mac. It Never Says How.",
+      "url": "https://medium.com/macoclock/liquid-says-its-new-local-llm-hits-184-tokens-a-second-on-a-mac-it-never-says-how-294764379bfe",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Andrus",
+      "published": "2026-10-21",
+      "summary": "Liquid AI released LFM2.5–24B-A2B on 13 October, and the number that travelled furthest was the one in the second paragraph of its… Continue reading on Mac O’Clock »"
+    },
+    {
+      "id": "9f1c8bc981bb0e4ee06bee7993552bb37c34c555",
+      "title": "My Small Neural Network Scored 100%. The Test Was Missing a Case.",
+      "url": "https://medium.com/@dorangao/my-small-neural-network-scored-100-the-test-was-missing-a-case-bd2f94a7653a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Doran Gao",
+      "published": "2026-10-21",
+      "summary": "An experiment with two comparisons, ten trained models, and a lesson about what an impressive score actually establishes. Continue reading on Medium »"
+    },
+    {
+      "id": "7630752e4f827c1087eecced9cb32701fa9ea9de",
+      "title": "Spotify Cut Claude Code’s File-Reading Tokens by 90% by Not Letting It Read Big Files",
+      "url": "https://medium.com/@speedcraft21/spotify-cut-claude-codes-file-reading-tokens-by-90-by-not-letting-it-read-big-files-99f079a88d99",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "The Speedcraft Lab",
+      "published": "2026-10-21",
+      "summary": "One engineer’s test: a 350-line hook sends big reads to Gemini Flash, at 10 to 30 seconds each Continue reading on Medium »"
+    },
+    {
+      "id": "af2feb870999bfd0371445787c21cafced0badcb",
+      "title": "Spotting Fake Videos: How Companies Fight Back Against Deepfakes",
+      "url": "https://medium.com/@talegaonkarsarves/spotting-fake-videos-how-companies-fight-back-against-deepfakes-21459516fcdb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sarvesh Talegaonkar",
+      "published": "2026-10-21",
+      "summary": "Introduction Continue reading on Medium »"
+    },
+    {
+      "id": "28f6a5f69e2c609ddcfb5646dfe71e7aeef729fa",
+      "title": "The Only Rare Skills You Need in the AI Era: How to Stay Valuable as Careers Change",
+      "url": "https://medium.com/@gawaisgtasleem/the-only-rare-skills-you-need-in-the-ai-era-how-to-stay-valuable-as-careers-change-379416a8f897",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "perfcalcpro",
+      "published": "2026-10-21",
+      "summary": "AI can write, code, analyze, and automate. But the people who know how to think, communicate, adapt, and solve meaningful problems may… Continue reading on Medium »"
+    },
+    {
+      "id": "fa5dc6c6cc43b25f4dba46b1d7f54b87ec660178",
+      "title": "Unknown Price Is Not Free: How My LLM Router Rejects Models Before It Ranks Them",
+      "url": "https://medium.com/@gangulysourik/unknown-price-is-not-free-how-my-llm-router-rejects-models-before-it-ranks-them-326acc3e710a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sourik",
+      "published": "2026-10-21",
+      "summary": "In Accension’s model routing, every “no” comes with a reason code. Here’s the code, run on a clean checkout. Continue reading on Medium »"
+    },
+    {
+      "id": "8e668f65de120e37212b870dfbc073d1634ec028",
+      "title": "What the field actually built on: 127 LLM serving works, by citations and engineering uptake",
+      "url": "https://medium.com/@wszjzhang/what-the-field-actually-built-on-127-llm-serving-works-by-citations-and-engineering-uptake-44ae0c574d32",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "intelligentLearn",
+      "published": "2026-10-21",
+      "summary": "How to rank a field when two thirds of it is preprints that citation metrics cannot see. Continue reading on Medium »"
+    },
+    {
+      "id": "4d5d66fe73afb35f97cece1893fd40c20ce24f34",
+      "title": "[AINews] not much happened today",
+      "url": "https://latent.space/p/ainews-not-much-happened-today-f09",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-20",
+      "summary": "Congrats to DeepSeek V4.1 Flash 1017, MiniMax M3.1 Flash, and Mercury 3 (details below) but they’re not going to be in super wide use just yet."
+    },
+    {
+      "id": "ecfa38b3d9901c2e06e2b83e44ea5685f7bc2517",
+      "title": "30 Months on the Exponential (in Charts)",
+      "url": "https://oneusefulthing.org/p/30-months-on-the-exponential-in-charts",
+      "source": {
+        "kind": "substack",
+        "name": "One Useful Thing",
+        "feed": "https://www.oneusefulthing.org/feed"
+      },
+      "author": "Ethan Mollick",
+      "published": "2026-10-20",
+      "summary": "My new book is out today... what happened since the last one"
+    },
     {
       "id": "3a64f32311178d1294c66b43508892c32aa2725e",
       "title": "Building a Cost-Aware LLM Router: Cheapest Model That Still Works",
@@ -18,6 +199,19 @@
       "summary": "A few months into running two different products that both talk to LLMs, I noticed something embarrassing in my OpenAI bill: I was paying… Continue reading on Medium »"
     },
     {
+      "id": "aea6963511b40a68eb8b78bbd5a52d287183c2ac",
+      "title": "Full Guide to OpenAI dots",
+      "url": "https://ai-supremacy.com/p/full-guide-to-openai-dots-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-20",
+      "summary": "How to set up your Dot, connect it to Slack, and 4 real use cases from X."
+    },
+    {
       "id": "3b1c007f9b70ecfbab11fbf36bbb88c11d9e2ee9",
       "title": "I Told My AI to Stop Thinking. It Kept Thinking.",
       "url": "https://srikanthdoddi.medium.com/i-told-my-ai-to-stop-thinking-it-kept-thinking-80a310f91f31",
@@ -29,6 +223,19 @@
       "author": "Srikanth Doddi",
       "published": "2026-10-20",
       "summary": "I flipped the “thinking off” switch to save tokens. A new NeurIPS 2026 paper explains why the model ignored me. Continue reading on Medium »"
+    },
+    {
+      "id": "064ad9927d51a30c6d33e3e3ccd71f15c94ef826",
+      "title": "Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China",
+      "url": "https://interconnects.ai/p/latest-open-artifacts-25-deepseek",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Florian Brand",
+      "published": "2026-10-20",
+      "summary": "Western open models strike back"
     },
     {
       "id": "19b57cb7c0514ff56b917087e22c174368922c32",
@@ -107,6 +314,18 @@
       "author": "OTLEN",
       "published": "2026-10-20",
       "summary": "Biopharma depends on specialization. Research teams investigate the science. Clinical teams manage development. Finance teams oversee… Continue reading on Medium »"
+    },
+    {
+      "id": "977d926a0cb6cc70b5f1bc1c64563d503273be51",
+      "title": "The Programmable Data Center — Evan Conrad, SF Compute",
+      "url": "https://latent.space/p/sfcompute2",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-20",
+      "summary": "From GPU trading to physical settlement, independent markets, and programmable compute"
     },
     {
       "id": "38861c58fc934b67de9dee6b5c439b487180cb45",
