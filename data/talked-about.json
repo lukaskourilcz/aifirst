@@ -1,9 +1,189 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "windowDays": 60,
   "items": [
+    {
+      "id": "f6a45b1c5b4ed90c445b61dbb549b844f3b1fc4a",
+      "title": "Agentic AI in Action, Part 31: Hands On with Temporary, Secure, and Personal Agents in Cortex",
+      "url": "https://pub.towardsai.net/agentic-ai-in-action-part-32-hands-on-with-temporary-secure-and-personal-agents-in-cortex-03b23a1f7ec5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Krishnan Srinivasan",
+      "published": "2026-10-22",
+      "summary": "What temporary, secure, and personal database agents actually do, plus the smaller COPY GRANTS change that rides along with them. Continue reading on Towards AI »"
+    },
+    {
+      "id": "9485b9f8444dfb49235b190f5cf75cda20604005",
+      "title": "Can Your Agent Remember? The Hidden Costs of Token Pressure",
+      "url": "https://techwithram.medium.com/can-your-agent-remember-the-hidden-costs-of-token-pressure-ec1fb3d2fdc2",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Ramakrushna Mohapatra",
+      "published": "2026-10-22",
+      "summary": "Every assistant with memory makes a quiet promise: tell me once, and I will remember. Continue reading on Medium »"
+    },
+    {
+      "id": "503c65eff98d7eb0d81cd3c0f90f2535440068db",
+      "title": "EmbeddingGemma 2: One On-Device Model for Text, Images, Audio and Video (Read the Fine Print)",
+      "url": "https://thejenildgohel.medium.com/embeddinggemma-2-one-on-device-model-for-text-images-audio-and-video-read-the-fine-print-eb829d18bee6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Jenil D Gohel",
+      "published": "2026-10-22",
+      "summary": "“Wait. All of that fits in about 567MB of RAM?” Continue reading on Medium »"
+    },
+    {
+      "id": "0484293591a6387ff6c0fe20451fafb7014d01cc",
+      "title": "From Raw Data to Business Insights: My ShopKart E-Commerce Analytics Project",
+      "url": "https://medium.com/@gevariyadenil0055/from-raw-data-to-business-insights-my-shopkart-e-commerce-analytics-project-32257398616f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Gevariyadenil",
+      "published": "2026-10-22",
+      "summary": "A practical walkthrough of data preparation, Tableau dashboards, order and payment analysis, product insights, and customer analytics. Continue reading on Medium »"
+    },
+    {
+      "id": "34dd10ddab81e5f1da4e699b2ad69fa9b815abb0",
+      "title": "How to Prepare Layered Art for Games and Animation with AI",
+      "url": "https://medium.com/@social_12824/how-to-prepare-layered-art-for-games-and-animation-with-ai-52e18f67bbb9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Vince Carter",
+      "published": "2026-10-22",
+      "summary": "A practical workflow for turning a finished illustration into parts you can edit, move, and test. Continue reading on Medium »"
+    },
+    {
+      "id": "f9ae1212430c3bc7edbb914c92fd4a26fd73eb25",
+      "title": "iFixAi Gives Your AI Agent a Report Card",
+      "url": "https://medium.com/@lince-mathew/ifixai-gives-your-ai-agent-a-report-card-d38c6c8b27bd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Lince Mathew",
+      "published": "2026-10-22",
+      "summary": "You build a support agent. It answers questions well, it’s fast, and the demo goes great. Continue reading on Medium »"
+    },
+    {
+      "id": "4b5b5f34490826c86058ece911859fc58f32295e",
+      "title": "In psychoanalysis, third party authority, engineering of consensus and the psychology of a crowd…",
+      "url": "https://medium.com/@denisovarsene/in-psychoanalysis-third-party-authority-engineering-of-consensus-and-the-psychology-of-a-crowd-6e9e571396d5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Denisov Arsene",
+      "published": "2026-10-22",
+      "summary": "In psychoanalysis, third party authority, engineering of consensus and the psychology of a crowd for a coup d’etat with a lot of love and… Continue reading on Medium »"
+    },
+    {
+      "id": "025e6c8a5ebb911e2b8002302baf083b37983212",
+      "title": "Learn About AI Agents: How AI Is Moving From Chat to Action",
+      "url": "https://vijayasekhar-deepak.medium.com/learn-about-ai-agents-how-ai-is-moving-from-chat-to-action-15b6c45a4a65",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Vijayasekhar Deepak",
+      "published": "2026-10-22",
+      "summary": "Not a Member? Read for FREE here. Continue reading on Medium »"
+    },
+    {
+      "id": "af285f0206e039343cd120d66d3f34037c84b0cb",
+      "title": "ROC Curve AUC Calculator: A Simple Guide to Evaluating Machine Learning Models",
+      "url": "https://medium.com/@chandanavyasakumar/roc-curve-auc-calculator-a-simple-guide-to-evaluating-machine-learning-models-73012004c599",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "chandana mv",
+      "published": "2026-10-22",
+      "summary": "In machine learning, evaluating the performance of a classification model is important. One commonly used method is the Receiver Operating… Continue reading on Medium »"
+    },
+    {
+      "id": "8407004d370ec7c120d10856324b580f95304d96",
+      "title": "What I Learned Building Emotion Lab, an Emotion AI That Admits When It’s Not Sure",
+      "url": "https://medium.com/@achunrjneeraj/what-i-learned-building-emotion-lab-an-emotion-ai-that-admits-when-its-not-sure-8adbc57bb1f1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Neeraj Pillai",
+      "published": "2026-10-22",
+      "summary": "My first TKS Replicate, and how it tested the questions from my Learn Article. Continue reading on Medium »"
+    },
+    {
+      "id": "d8b881b3e80eadf3e806dec002f9b71990a5fe10",
+      "title": "Your RAG Found the Right Chunk. The Chunk Forgot Where It Came From.",
+      "url": "https://medium.com/@jaberadam2001/your-rag-found-the-right-chunk-the-chunk-forgot-where-it-came-from-0d243dfbf108",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Adam Jaber",
+      "published": "2026-10-22",
+      "summary": "Picture a support assistant built on a company handbook. Someone asks it a simple question: can a contractor carry over unused leave days? Continue reading on Medium »"
+    },
+    {
+      "id": "911de83a1964d3082be25904399d2b440db47463",
+      "title": "صیغه حلال اسلامی ساری09379054611 صیغه حلال اسلامی رشت09379054611 صیغه حلال اسلامی آستارا…",
+      "url": "https://medium.com/@hlalwmwqtsyghh/%D8%B5%DB%8C%D8%BA%D9%87-%D8%AD%D9%84%D8%A7%D9%84-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-%D8%B3%D8%A7%D8%B1%DB%8C09379054611-%D8%B5%DB%8C%D8%BA%D9%87-%D8%AD%D9%84%D8%A7%D9%84-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-%D8%B1%D8%B4%D8%AA09379054611-%D8%B5%DB%8C%D8%BA%D9%87-%D8%AD%D9%84%D8%A7%D9%84-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-%D8%A2%D8%B3%D8%AA%D8%A7%D8%B1%D8%A7-bd9bc0749772",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "صیغه حلال اسلامی شماره صیغه حلال همسریابی",
+      "published": "2026-10-22",
+      "summary": "صیغه حلال اسلامی ساری09379054611 صیغه حلال اسلامی رشت09379054611 صیغه حلال اسلامی آستارا 09379054611 صیغه حلال اسلامی چالوس09379054611… Continue reading on Medium »"
+    },
+    {
+      "id": "f8078d89c26a395a1328ea191a7ce33b4a2f9c3d",
+      "title": "[AINews] DeepSeek DeepInfer: Open Source SOTA Inference running 155T toks/day/cluster making $22m/day at ~80% margin for a 81 day payback",
+      "url": "https://latent.space/p/ainews-deepseek-deepinfer-open-source",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-21",
+      "summary": "An open source “bomb” drops from China"
+    },
+    {
+      "id": "27ced8676a2635d4f780ae3cef4f9837d3e92193",
+      "title": "AI for the Fortune 2000: How Tenex Builds an AI-Native SDLC — Alex Lieberman & CJ Hess",
+      "url": "https://latent.space/p/tenex",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "published": "2026-10-21",
+      "summary": "Listen now (44 mins) | Paying for outcomes, building with agents, and the last mile of enterprise AI adoption"
+    },
     {
       "id": "44c97fdbfd6045bf567c024aafc3541e85ea537c",
       "title": "AWS PyTorch: Build, Train, and Deploy Deep Learning Models in the Cloud",
@@ -16,6 +196,19 @@
       "author": "Muhammad Umair Ashraf",
       "published": "2026-10-21",
       "summary": "PyTorch makes it easier to experiment with neural networks, computer vision, natural language processing, and deep learning. But moving a… Continue reading on Medium »"
+    },
+    {
+      "id": "5c33d37c37b5fa3cddd8ba4c3688466dc1349d90",
+      "title": "Claude Mods: Flipping the Harness Inside Out",
+      "url": "https://latent.space/p/claude-mods",
+      "source": {
+        "kind": "substack",
+        "name": "Latent Space",
+        "feed": "https://www.latent.space/feed"
+      },
+      "author": "Dan McAteer",
+      "published": "2026-10-21",
+      "summary": "Claude Mods is an early form of the Attention Interface. It flips the agent harness paradigm from the harness facing the machine, to the harness facing the human."
     },
     {
       "id": "d44c58508886ac085869383ae380791f883606bd",
@@ -96,6 +289,19 @@
       "summary": "An experiment with two comparisons, ten trained models, and a lesson about what an impressive score actually establishes. Continue reading on Medium »"
     },
     {
+      "id": "46f7819adb72d7dcba8ba1d8f100d30b539c6937",
+      "title": "Put Some Brain in Your Thinking",
+      "url": "https://thealgorithmicbridge.com/p/put-some-brain-in-your-thinking",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-10-21",
+      "summary": "Life advice from a 7-year-old"
+    },
+    {
       "id": "7630752e4f827c1087eecced9cb32701fa9ea9de",
       "title": "Spotify Cut Claude Code’s File-Reading Tokens by 90% by Not Letting It Read Big Files",
       "url": "https://medium.com/@speedcraft21/spotify-cut-claude-codes-file-reading-tokens-by-90-by-not-letting-it-read-big-files-99f079a88d99",
@@ -120,6 +326,19 @@
       "author": "Sarvesh Talegaonkar",
       "published": "2026-10-21",
       "summary": "Introduction Continue reading on Medium »"
+    },
+    {
+      "id": "6b01727daea13c59e23c8f8d8aba595fd2513693",
+      "title": "The Great AI Financing Push-Back",
+      "url": "https://ai-supremacy.com/p/the-great-ai-financing-push-back-2026-ai-inflation-ramps",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-21",
+      "summary": "Open-Source AI battles, Muse Spark Open, the “CoreWeave Coup”, in Infographics."
     },
     {
       "id": "28f6a5f69e2c609ddcfb5646dfe71e7aeef729fa",
