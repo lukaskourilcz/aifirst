@@ -66,3 +66,18 @@ Computed from the current semantic palette:
 
 The primary/secondary text colors and status colors are unchanged. The high
 contrast preference strengthens grouping borders and secondary text.
+
+## Privacy notice, 23 October 2026
+
+Added `/privacy` with the existing PageShell, trust links and reference-page
+sections; linked it from the shared footer and sitemap. The notice covers
+OwnDashboard DNESKAi and @dneskai as well as the public reader. It adds no
+client boundary, dependency, tracking or runtime service.
+
+`pnpm verify` passed: lint, TypeScript, 311 unit tests, 39 MDX files and 47 board
+records validated, 645 static pages built, and 32 page entries within the
+110 kB gzip guard (maximum 103.4 kB). `pnpm e2e` passed all 252 checks, including
+`/privacy` and the `/cs/privacy` redirect at desktop, tablet and mobile sizes;
+the route checks found no document overflow or console errors. The existing
+responsive audit reported no findings. The privacy page and its footer link
+were also inspected in the owner's Chrome. No new CSS or colors were needed.

@@ -14,6 +14,8 @@ const ROUTES = [
   "/cs/topics",
   "/weekly",
   "/about",
+  "/privacy",
+  "/cs/privacy",
   "/corrections",
   "/sources",
   "/glossary",

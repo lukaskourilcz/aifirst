@@ -1,5 +1,7 @@
 # NEEDED — remaining tasks
 
+- [x] **Publish the Instagram privacy and deletion notice** — `/privacy` covers the reader website, OwnDashboard DNESKAi and @dneskai, with a footer link and a deletion-request section at `/privacy#vymaz-udaju`. The notice preserves the owner's team-only public identity and uses Instagram DM as the contact channel. Keep it aligned with permissions, processors and retention when the integration changes. [imp:5] [owner:ai] [time:30m] [kind:legal]
+
 - [ ] **Finish weekday delivery acceptance upstream (#96)** — verify a `cu-day` run delivers a matching Czech article/board record before the 07:00 UTC sentinel. The newest observed receipt is 26 September; no 28 September receipt was present during this review. The 28 September cu-day log records a failed selection stage despite workflow success; diagnose that stage before triggering paid generation. [imp:5] [owner:ai] [time:30m] [kind:deploy]
 - [ ] **Resolve the remaining historical publication gaps (#64)** — reconcile 9–11 and 29 August plus 31 August–7 September against BoardlessAI run evidence. Deliver only authentic packages or honest NO_EDITION records with real hashes and reasons; never invent them in this reader repository. [imp:3] [owner:ai] [time:30m] [kind:content]
 - [ ] **Correct the withdrawn 8 August edition upstream (#72)** — the reader quarantine protects discovery, but the source/claim mismatch still needs an evidence-backed editorial correction and validated re-delivery. Preserve the original delivery hashes. [imp:5] [owner:ai] [time:1h] [kind:content]

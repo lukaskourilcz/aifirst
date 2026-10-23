@@ -38,6 +38,7 @@ export function Footer({ locale }: { locale: Locale }) {
           {moreNav(locale).map((item) => (
             <Link key={item.key} href={item.href}>{item.label}</Link>
           ))}
+          <Link href={lp("/privacy")}>Ochrana soukromí</Link>
         </nav>
         <nav aria-label={d.footer.subscribe} className="footer-nav">
           <p className="label footer-nav__heading">{d.footer.subscribe}</p>

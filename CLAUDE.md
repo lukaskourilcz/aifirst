@@ -113,6 +113,12 @@ publication sells nothing, and „tým DNESKAi" answers for sources, rules and
 corrections on O magazínu (#redakce). The canonical origin is
 https://dneskai.vercel.app.
 
+`/privacy` covers this reader website and the separate OwnDashboard DNESKAi
+integration for @dneskai. The footer links it; `#vymaz-udaju` gives manual
+deletion-request instructions through Instagram DM. Keep actual processing,
+retention and service providers accurate when the integration changes. This
+notice does not add a reader login or an OwnDashboard runtime dependency.
+
 ## Important paths and reuse
 
 - `app/`: App Router pages, feeds, JSON, metadata, OG, print
