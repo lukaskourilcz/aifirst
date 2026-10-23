@@ -1,9 +1,24 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-22",
+  "updated": "2026-10-23",
   "windowDays": 60,
   "items": [
+    {
+      "id": "f046c69816ab88bb62b9a1f46512217efeb06109",
+      "title": "Exploit Development, Agentic Vulnerability Discovery, and Fake PoCs",
+      "url": "https://share.transistor.fm/s/9a42098b",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-10-22",
+      "summary": "AI is changing cybersecurity, accelerating vulnerability research and exploit development while raising new questions about reliability, risk, and guardrails. Daniel and Chris talk with Spencer McIntyre, Director of Exploit Development at VulnCheck, about how agents are being us…",
+      "show": "Practical AI",
+      "durationSec": 2713
+    },
     {
       "id": "52a5853f378feb2a8bbeb7642d9fd1def796fbfb",
       "title": "Education is Failing our Students in this AI-Driven World",
