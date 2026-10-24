@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "windowDays": 60,
   "items": [
+    {
+      "id": "97885321bd73afd51826b10982cd8cbb8e2a1c28",
+      "title": "Anatomy of a Production Customer Support Agent",
+      "url": "https://medium.com/@thimayarohit/anatomy-of-a-production-customer-support-agent-4a9fed2ee05d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Rohit Thimaya",
+      "published": "2026-10-24",
+      "summary": "Everything you need for an agentic AI system design interview, through one production design: fundamentals, patterns, RAG, tools, memory… Continue reading on Medium »"
+    },
+    {
+      "id": "603edb47958f73cc804bab510080123dc801bd7c",
+      "title": "Before You Upgrade Claude Code, Run This 10-Minute Context Audit",
+      "url": "https://medium.com/@everythingtechandAI/before-you-upgrade-claude-code-run-this-10-minute-context-audit-03c14369fb3a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Tech Alien",
+      "published": "2026-10-24",
+      "summary": "Five small checks, two copyable prompts, and a better way to tell what is eating your session. Continue reading on Medium »"
+    },
+    {
+      "id": "9fb01657aa03c34298a5c569c7ee2a079773cebd",
+      "title": "Data Leakage in Machine Learning: Why My Model Looked Almost Perfect",
+      "url": "https://medium.com/@khawajalaeeq2/data-leakage-in-machine-learning-why-my-model-looked-almost-perfect-a38fb1144566",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Khawaja Muhammad Laeeq",
+      "published": "2026-10-24",
+      "summary": "Data Leakage in Machine Learning: Why My Model Looked Almost Perfect Continue reading on Medium »"
+    },
+    {
+      "id": "893b13f17d663d84f9464d0d43af4b014c81a5e0",
+      "title": "Google’s AI Game Maker Isn’t Open to Everyone Yet.",
+      "url": "https://medium.com/@krunalkrish123/googles-ai-game-maker-isn-t-open-to-everyone-yet-909fb11606e8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Krish",
+      "published": "2026-10-24",
+      "summary": "Since Google launched Playground on October 7, a lot of people have gone looking for it, tried to open it, and hit a wall. If that’s you… Continue reading on Medium »"
+    },
+    {
+      "id": "e12a1f8b191101c3051254d2e954a0c818edee07",
+      "title": "How to Write SQL Queries That Catch One-to-Many Join Fan-Outs Before You Double-Count Critical…",
+      "url": "https://medium.com/@Rohan_Dutt/how-to-write-sql-queries-that-catch-one-to-many-join-fan-outs-before-you-double-count-critical-a8d36313e55d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Rohan Dutt",
+      "published": "2026-10-24",
+      "summary": "Detect one-to-many join fan-outs early to prevent double-counting critical business metrics Continue reading on Medium »"
+    },
+    {
+      "id": "ac45edb3f2cae4d0beeb3d665c7367f3560ce913",
+      "title": "I simulated 2,999 buyers with three AI models.",
+      "url": "https://medium.com/@ayushniroula08/i-simulated-2-999-buyers-with-three-ai-models-566808e7c40e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Ayush Niroula",
+      "published": "2026-10-24",
+      "summary": "Watch the 60-second launch film Continue reading on Medium »"
+    },
+    {
+      "id": "c66961ee0576693c1a4a2a95056d3cbc914e46fd",
+      "title": "PHP2Shell Explained: How an AI-Discovered Bug Put 70% of the Internet on Emergency Lockdown",
+      "url": "https://medium.com/@mr.f00l210/php2shell-explained-how-an-ai-discovered-bug-put-70-of-the-internet-on-emergency-lockdown-7a58fc6a55cb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Mr.Milan",
+      "published": "2026-10-24",
+      "summary": "When I woke up on October 21, 2026, large swathes of the public internet were vanishing into maintenance mode right before our eyes. Continue reading on Medium »"
+    },
+    {
+      "id": "6e788079d63c001c0fd11edc3a2e402485b915c1",
+      "title": "Terminal-Bench 4.0 Ranks 35 Setups, Not 23 Models",
+      "url": "https://pub.towardsai.net/terminal-bench-4-0-ranks-35-setups-not-23-models-b2c8e62ea927",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Chew Loong Nian - AI ENGINEER",
+      "published": "2026-10-24",
+      "summary": "​ Continue reading on Towards AI »"
+    },
+    {
+      "id": "529dfc43a2c0da415eaf5fd743e46c73adc98704",
+      "title": "The Illusion of Intelligence: Why We Must Kill the “Mega-Prompt” and Build Autonomous Workflows",
+      "url": "https://engineer-logs.medium.com/the-illusion-of-intelligence-why-we-must-kill-the-mega-prompt-and-build-autonomous-workflows-8a4aa53d6dee",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "My Logs",
+      "published": "2026-10-24",
+      "summary": "We spent three years treating large language models like digital deities, begging them to solve complex problems in a single breath. The… Continue reading on Medium »"
+    },
+    {
+      "id": "6da58f2d002fac35bdc7dda6d2866a3e51e60615",
+      "title": "What Is RAG in AI? Retrieval-Augmented Generation, Explained With One Real Query (2026)",
+      "url": "https://medium.com/@connectwithjalal/what-is-rag-in-ai-retrieval-augmented-generation-explained-with-one-real-query-2026-be590fec1d7d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Jalal Mustafa",
+      "published": "2026-10-24",
+      "summary": "RAG gives a chatbot an open book. It makes answers cheaper and better grounded, but it does not make them true, and the numbers show where… Continue reading on Medium »"
+    },
+    {
+      "id": "386d3f45c543a77334af26da137ba3c021e299c4",
+      "title": "When Robots Do Everything, Land Is the Last Scarce Thing",
+      "url": "https://shiva-verma.medium.com/when-robots-do-everything-land-is-the-last-scarce-thing-4bfe30f34c98",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Shiva Verma",
+      "published": "2026-10-24",
+      "summary": "The question I keep asking Continue reading on Medium »"
+    },
+    {
+      "id": "981241b14928865e4a9908137460aff94d514e2c",
+      "title": "You don’t learn RAG by just watching tutorials. You learn it by building one!",
+      "url": "https://devopslearning.medium.com/you-dont-learn-rag-by-just-watching-tutorials-you-learn-it-by-building-one-d9e429df796f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Prashant Lakhera",
+      "published": "2026-10-24",
+      "summary": "Today is a break day in our Cracking the GenAI Interview for DevOps, SRE, Platform & Forward-Deployed Engineers program. Continue reading on Medium »"
+    },
     {
       "id": "9b9508dd9e3b5f66e89c28549ad844697ad60cac",
       "title": "AI vs Machine Learning vs Deep Learning vs Generative AI: What Every .NET Developer Should Know",
@@ -94,6 +250,19 @@
       "author": "Ray Hu",
       "published": "2026-10-23",
       "summary": "The whole trick is one while loop and one streaming bug. Continue reading on Medium »"
+    },
+    {
+      "id": "bb519de98836622c557afceffebc15aa3e80179c",
+      "title": "SpaceX merge with Tesla is on the Horizon",
+      "url": "https://ai-supremacy.com/p/spacex-merge-with-tesla-is-on-the-horizon-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-23",
+      "summary": "Is this more about the future of space, or the future of AI? 🤖👀Or a man whose legacy casts no shadow."
     },
     {
       "id": "183cda3ff4362e32f9c3105359781784fa017ccf",

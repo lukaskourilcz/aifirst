@@ -1,7 +1,7 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "windowDays": 60,
   "items": [
     {
@@ -153,21 +153,6 @@
       "summary": "How do we build an AI ecosystem where agents, tools, and systems can work together at scale? Angie Jones, VP of the Agentic AI Foundation, joins Chris to discuss the open standards and projects shaping the agentic future, including MCP, A2A, Goose, etc. They also explore what it…",
       "show": "Practical AI",
       "durationSec": 2712
-    },
-    {
-      "id": "764cd4482f98e3235040c8b52e45cccfeacdf913",
-      "title": "AI Proficiency: From Users to Builders",
-      "url": "https://share.transistor.fm/s/0f57c0bc",
-      "source": {
-        "kind": "rss",
-        "name": "Practical AI",
-        "feed": "https://changelog.com/practicalai/feed"
-      },
-      "author": "Daniel Whitenack and Chris Benson",
-      "published": "2026-08-25",
-      "summary": "As AI continues to reshape how organizations work, companies are increasingly asking what AI proficiency should look like across their workforce, and how they can help employees adapt without simply mandating AI adoption. Our returning guest Mike Lewis, Chief AI Architect at TiE…",
-      "show": "Practical AI",
-      "durationSec": 3373
     }
   ]
 }
