@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "windowDays": 60,
   "items": [
+    {
+      "id": "99494af56ff49c30ac82c1a8cc5c176510889ff6",
+      "title": "10 AI-Generated React Patterns I Would Never Ship Without Reviewing",
+      "url": "https://medium.com/skillstuff/10-ai-generated-react-patterns-i-would-never-ship-without-reviewing-1e9c2c923b04",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Shayan Ali",
+      "published": "2026-10-25",
+      "summary": "AI can generate React components in seconds. But clean-looking code isn’t always safe, maintainable, or production-ready. Here are 10… Continue reading on Skill Stuff »"
+    },
+    {
+      "id": "f19cc230f9769598fd46115dba380fb89b60671f",
+      "title": "30 AI Concepts I Tested Instead of Just Explaining",
+      "url": "https://medium.com/@hari12.nhk/30-ai-concepts-i-tested-instead-of-just-explaining-871ad955b032",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Nandigam Hari Krishna",
+      "published": "2026-10-25",
+      "summary": "Every list of AI concepts gives you definitions. This one gives you receipts: a number I measured for each. Continue reading on Medium »"
+    },
+    {
+      "id": "7343834b620cd157d82bdf4eb830a3c15bcfc972",
+      "title": "Broad Categories of Machine-Learning Models: Supervised Learning Models — Part e",
+      "url": "https://medium.com/@xnkxhb/broad-categories-of-machine-learning-models-supervised-learning-models-part-e-9ab4614e949e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Deepak Mehta",
+      "published": "2026-10-25",
+      "summary": "Article 2e of 25 — Regression Model Families Continue reading on Medium »"
+    },
+    {
+      "id": "5747d2a308ff4c2efd98ff3f8813228bfd338c7f",
+      "title": "How to Research a Digital Project Without Falling for the Hype",
+      "url": "https://medium.com/@mebelesaci/how-to-research-a-digital-project-without-falling-for-the-hype-661118d97dcd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Starlingnoble",
+      "published": "2026-10-25",
+      "summary": "The digital world is full of exciting ideas, ambitious projects, and promises of a better future. Continue reading on Medium »"
+    },
+    {
+      "id": "5fead4e9ed5b36ea8e8640c6ba25b021350cfb96",
+      "title": "No More Temperature in Gemini: Smart Simplification or Lost Control?",
+      "url": "https://python.plainenglish.io/no-more-temperature-in-gemini-smart-simplification-or-lost-control-4919a565beeb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Mounica Kommajosyula",
+      "published": "2026-10-25",
+      "summary": "Temperature, top-p and top-k, the three settings that controlled how “creative” AI could be, are on their way out. Here’s what that means… Continue reading on Python in Plain English »"
+    },
+    {
+      "id": "50d3904d8ef8a783fceadc3bc7f44a35920674f6",
+      "title": "Parakeet AI Costs $149.90",
+      "url": "https://medium.com/@florinaregius/parakeet-ai-costs-149-90-c94b8c0b4661",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Florina",
+      "published": "2026-10-25",
+      "summary": "The full story of VEENA.AI: a local-first desktop AI copilot that listens, reads the screen you choose, answers from your own documents… Continue reading on Medium »"
+    },
+    {
+      "id": "443fc3325706df6bc641b2c430799f2ac0e0d263",
+      "title": "ResNet Model and Its Implementation Using Python",
+      "url": "https://medium.com/@iqramultaji/resnet-model-and-its-implementation-using-python-44ccb24fda2a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Iqra Mahmood",
+      "published": "2026-10-25",
+      "summary": "Before 2015, conventional deep learning wisdom held that stacking more layers onto a Convolutional Neural Network (CNN) would naturally… Continue reading on Medium »"
+    },
+    {
+      "id": "dfc5d23eb285d09755a2db445dbf4238774f5a2c",
+      "title": "Simple Linear Regression using RMSE as Cost Function",
+      "url": "https://medium.com/@priyasimranpriya/simple-linear-regression-using-rmse-as-cost-function-bc4633c86f1c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "simran",
+      "published": "2026-10-25",
+      "summary": "Linear Regression is one of the foundation algorithm of Machine Learning. Its intuitive and easy to understand. It is a Supervised Machine… Continue reading on Medium »"
+    },
+    {
+      "id": "d85d03b4c507eb0db34d6ceccb58ee4e5b3d51cf",
+      "title": "State Space Models: Why Enterprise Leaders and Developers Should Pay Attention",
+      "url": "https://medium.com/@balajibal/state-space-models-why-enterprise-leaders-and-developers-should-pay-attention-96e8b0ff6c5f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "balaji bal",
+      "published": "2026-10-25",
+      "summary": "For the last several years, the technology conversation around modern AI has been dominated by one architectural idea: the Transformer… Continue reading on Medium »"
+    },
+    {
+      "id": "9372a304c8f65e36ce539e910be16cb426e7f234",
+      "title": "System Design Distributed Consensus Protocols Explained, Paxos, Raft, and How Systems Agree",
+      "url": "https://medium.com/@karan.vish17/system-design-distributed-consensus-protocols-explained-paxos-raft-and-how-systems-agree-2fdde1293a69",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Karan Vishwakarma",
+      "published": "2026-10-25",
+      "summary": "A practical guide to how etcd, Kubernetes, Kafka, and Spanner keep your data consistent when servers crash and networks fail. Continue reading on Medium »"
+    },
+    {
+      "id": "a64a2fcbf60d68540c739372b367a745e3d6d784",
+      "title": "The Weekend App Playbook: How Vibe Coders Are Turning $100 Ideas Into $10K/Month Utilities",
+      "url": "https://medium.com/@thebruteforceartist/the-weekend-app-playbook-how-vibe-coders-are-turning-100-ideas-into-10k-month-utilities-b9c1d2d332ed",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "bruteforceartist",
+      "published": "2026-10-25",
+      "summary": "There is a massive misconception among new developers and vibe coders that your first software product needs to be a venture-scale SaaS… Continue reading on Medium »"
+    },
+    {
+      "id": "c08db37180aa9606e752129a9544e6772a57ebcc",
+      "title": "What Comes After LLMs? Meet the Rise of CDMs",
+      "url": "https://medium.com/@moonharshal12/what-comes-after-llms-meet-the-rise-of-cdms-4b49fb0f9822",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Harshal Moon",
+      "published": "2026-10-25",
+      "summary": "Large language models can write, reason, and explain. But what if a task does not need another paragraph of text? What if it simply needs… Continue reading on Medium »"
+    },
     {
       "id": "97885321bd73afd51826b10982cd8cbb8e2a1c28",
       "title": "Anatomy of a Production Customer Support Agent",
@@ -5747,32 +5903,6 @@
       "author": "Ethan Mollick",
       "published": "2026-08-31",
       "summary": "From the Hugging Face Incident to Twilight Factories"
-    },
-    {
-      "id": "7627adb78a7860e6c37f5663520db8356133348e",
-      "title": "The AI Backlash is Accelerating",
-      "url": "https://ai-supremacy.com/p/the-ai-backlash-is-accelerating-datacenters-2026",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-26",
-      "summary": "The most important AI bottleneck, is human."
-    },
-    {
-      "id": "7458c7d57acc301db6e5a289e25afa11fdc39623",
-      "title": "Visions of AI: the advent of world models",
-      "url": "https://ai-supremacy.com/p/visions-of-ai-the-advent-of-world",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-08-26",
-      "summary": "Following the breadcrumbs of Nvidia."
     }
   ]
 }
