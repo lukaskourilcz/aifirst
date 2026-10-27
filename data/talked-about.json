@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-25",
+  "updated": "2026-10-27",
   "windowDays": 60,
   "items": [
+    {
+      "id": "30d6955389b123f9678c571a2ecb87e6a7e874c0",
+      "title": "Anthropic Interview Question: Every Batch Takes 100 ms. Why Is the API Slow?",
+      "url": "https://medium.com/@emilyhustlenyc/anthropic-interview-question-every-batch-takes-100-ms-why-is-the-api-slow-2448c63b8606",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Emily",
+      "published": "2026-10-27",
+      "summary": "A worked system-design problem about the waiting time your architecture diagram forgot. Continue reading on Medium »"
+    },
+    {
+      "id": "fc1e2ac4ef51eb2b6280ae7bde1e4475336d9aad",
+      "title": "Building RETINA-AI: From a CNN Training Pipeline to a Retinoblastoma Screening App",
+      "url": "https://medium.com/@mochammadyahya002/building-retina-ai-from-a-cnn-training-pipeline-to-a-retinoblastoma-screening-app-81379067c0cd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Moch Yahya",
+      "published": "2026-10-27",
+      "summary": "How we trained three CNN architectures on 278 fundus images, then wrapped the result into a web app you can try. Continue reading on Medium »"
+    },
+    {
+      "id": "ad2391c547861fc998973a11f42594ac3865fc19",
+      "title": "GenLayer Validators Bring Consensus Where Code Alone Cannot",
+      "url": "https://medium.com/coinmonks/genlayer-validators-bring-consensus-where-code-alone-cannot-750c2cd9c294",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "PVMihalache",
+      "published": "2026-10-27",
+      "summary": "We need an “oracle” to sort those debates that are not yes or no! Imagine thousands of AI agents making deals, signing contracts, or… Continue reading on Coinmonks »"
+    },
+    {
+      "id": "cf6044fafb7760539b5e35cb9e9e78f9f54adbcd",
+      "title": "GPT-6.1 Terra Costs a Tenth of the Flagship and Runs Three Times Faster. The Bottleneck Moved.",
+      "url": "https://medium.com/@pangmengting520/gpt-6-1-terra-costs-a-tenth-of-the-flagship-and-runs-three-times-faster-the-bottleneck-moved-95a690b156be",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Marita",
+      "published": "2026-10-27",
+      "summary": "OpenAI’s new mid-tier model matches its flagship on computer use at a fraction of the price. The interesting question is no longer what a… Continue reading on Medium »"
+    },
+    {
+      "id": "6c30fa95527386ed3d96ccd63d8ab7f370b6d340",
+      "title": "How Do You Prevent Reward Model Overoptimization in RLHF?",
+      "url": "https://medium.com/@sarathc225/how-do-you-prevent-reward-model-overoptimization-in-rlhf-4ea672b05a27",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarathc",
+      "published": "2026-10-27",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "dcf613e4dbbd165fb0a8052d0e87cd29d2cec104",
+      "title": "How Many RL Environments Do You Need to Train a General Agent?",
+      "url": "https://medium.com/@sarathc225/how-many-rl-environments-do-you-need-to-train-a-general-agent-ac3a3f36637d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarathc",
+      "published": "2026-10-27",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "eafac5b2c0a28d3fcd4d18395f953d1e60f2c4fe",
+      "title": "Implementación de algoritmos de búsqueda ciega (BFS y DFS) en Python",
+      "url": "https://medium.com/@cupilmarisa18/implementaci%C3%B3n-de-algoritmos-de-b%C3%BAsqueda-ciega-bfs-y-dfs-en-python-f175b413df1d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Cupilmarisa",
+      "published": "2026-10-27",
+      "summary": "Introducción Continue reading on Medium »"
+    },
+    {
+      "id": "6b9884c8df986985f78f6fe19eaa5434c4f3b881",
+      "title": "Limite-1B-Violetto: The Tiny AI Model Taking on Much Larger Models at Math",
+      "url": "https://medium.com/coding-nexus/limite-1b-violetto-the-tiny-ai-model-taking-on-much-larger-models-at-math-391620a92f55",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Civil Learning",
+      "published": "2026-10-27",
+      "summary": "Most people assume that better AI requires bigger models, more training data, and more computing power. Continue reading on Coding Nexus »"
+    },
+    {
+      "id": "d1e0f2047061b7ad467c56e603e1e621fcdf5335",
+      "title": "LLM: Steering the Dice",
+      "url": "https://medium.com/@shubham.patel191295/llm-steering-the-dice-c7ab6c13c6b8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Shubham Patel",
+      "published": "2026-10-27",
+      "summary": "Every token is a weighted random pick. Here’s what each setting really changes, why temperature 0 still drifts, and what no setting can… Continue reading on Medium »"
+    },
+    {
+      "id": "eef7f45078a8ac8bc40428d1574343cb8b32a237",
+      "title": "Same Walker, Different Bill: What 57,000 Medicare Suppliers Reveal About Who Accepts Medicare’s…",
+      "url": "https://medium.com/@sultanbahamburah/same-walker-different-bill-what-57-000-medicare-suppliers-reveal-about-who-accepts-medicares-7a858556a7fb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sultanbahamburah",
+      "published": "2026-10-27",
+      "summary": "Your bill for the same piece of medical equipment can depend on the brand of the store. Here’s what the data shows, and how to stay on the… Continue reading on Medium »"
+    },
+    {
+      "id": "c6b21148cd9a1b4074af4668c3383349a9f649ec",
+      "title": "The AI Deleted One Ingredient From My Grandmother's Recipe. Then I Discovered Why.",
+      "url": "https://medium.com/@vitthalhainalkar2193/the-ai-deleted-one-ingredient-from-my-grandmothers-recipe-then-i-discovered-why-c983aedd4646",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Vitthalhainalkar",
+      "published": "2026-10-27",
+      "summary": "An emotional technology mystery about a forgotten family recipe, a suspicious AI-generated cookbook, and the one ingredient that was never… Continue reading on Medium »"
+    },
+    {
+      "id": "a6b05b3dc95fd650b5070d0f7a22dd7e5fcfdf45",
+      "title": "When a Memory Mismatch Leaked Other Users’ Data: Lessons from Cloudflare’s GLM-5.3 Incident",
+      "url": "https://medium.com/@sumitv8004/when-a-memory-mismatch-leaked-other-users-data-lessons-from-cloudflare-s-glm-5-3-incident-666aa35405a3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sumit Verma",
+      "published": "2026-10-27",
+      "summary": "Based on Cloudflare’s October 26, 2026 disclosure Continue reading on Medium »"
+    },
     {
       "id": "99494af56ff49c30ac82c1a8cc5c176510889ff6",
       "title": "10 AI-Generated React Patterns I Would Never Ship Without Reviewing",
@@ -81,6 +237,19 @@
       "author": "Florina",
       "published": "2026-10-25",
       "summary": "The full story of VEENA.AI: a local-first desktop AI copilot that listens, reads the screen you choose, answers from your own documents… Continue reading on Medium »"
+    },
+    {
+      "id": "36a01b353c30be0afecd11801ea9c23bf478840f",
+      "title": "Podcast: Kimi K3.1 Pro, the new cyber reality, and Muse musings",
+      "url": "https://interconnects.ai/p/podcast-kimi-k31-pro-the-new-cyber",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-10-25",
+      "summary": "#20"
     },
     {
       "id": "443fc3325706df6bc641b2c430799f2ac0e0d263",
