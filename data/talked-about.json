@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "windowDays": 60,
   "items": [
+    {
+      "id": "f9895de377a9dee991faa7f280b51256d50faab1",
+      "title": "Does This Task Actually Need an Agent?",
+      "url": "https://pub.towardsai.net/does-this-task-actually-need-an-agent-5a5bfc668f1c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Rittika Jindal",
+      "published": "2026-10-28",
+      "summary": "Choosing between a script, RAG, a fixed workflow, and an AI agent using four requests to the same support team. Continue reading on Towards AI »"
+    },
+    {
+      "id": "7d35c8c88c183e94e2a3725cdba8d924692ce932",
+      "title": "FLUX 3 Image Klein Runs on an 8GB GPU. Here’s What That Promise Actually Includes.",
+      "url": "https://medium.com/@harish_75257/flux-3-image-klein-runs-on-an-8gb-gpu-heres-what-that-promise-actually-includes-47d611a6676c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Harish",
+      "published": "2026-10-28",
+      "summary": "Black Forest Labs’ new 5.6B open-weights image model brings bounding-box layouts and multi-reference editing to consumer cards. The model… Continue reading on Medium »"
+    },
+    {
+      "id": "b75b8e02be5a7d55e554773887aad5184291b9f1",
+      "title": "From PHP2Shell and WordPress backdoors to eMudhra’s SSL exit, SBI vishing scams, and ₹2,00,000…",
+      "url": "https://medium.com/@mathispaceboy/from-php2shell-and-wordpress-backdoors-to-emudhras-ssl-exit-sbi-vishing-scams-and-2-00-000-43a9d5eb5a04",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Mathivanan Thangavel",
+      "published": "2026-10-28",
+      "summary": "If you run a small or medium business in India — whether you manage a manufacturing or export unit in Coimbatore, a D2C WooCommerce store… Continue reading on Medium »"
+    },
+    {
+      "id": "71d90b4b2b789404f952e6cfd62479485ba2b8bb",
+      "title": "From Problem Statement to System Design: How to Build Better AI and Software Projects",
+      "url": "https://medium.com/@sales_95773/from-problem-statement-to-system-design-how-to-build-better-ai-and-software-projects-2555e10652fd",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Nooral.ai - Data & AI Company",
+      "published": "2026-10-28",
+      "summary": "A practical guide to turning ideas into structured, testable, and maintainable software systems. Continue reading on Medium »"
+    },
+    {
+      "id": "1f19e1c72a6efd8aa69a5a13bab10de94cf79f3e",
+      "title": "GPT Prompt Maker MCP vs Chrome Extension: Which One Should Developers Actually Use?",
+      "url": "https://medium.com/@shraddha262370/gpt-prompt-maker-mcp-vs-chrome-extension-which-one-should-developers-actually-use-514fd6cc136f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Shraddha Bhat",
+      "published": "2026-10-28",
+      "summary": "Both connect to the same Vault. Both run workflows. But they work very differently. Continue reading on Medium »"
+    },
+    {
+      "id": "30c6c400b28e6a1c668d02dd8721d987d034dabb",
+      "title": "How I Automate My Instagram Content With AI (Without Sounding Like a Robot)",
+      "url": "https://kotakmdshahil.medium.com/how-i-automate-my-instagram-content-with-ai-without-sounding-like-a-robot-48698f93e8bf",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Md shahil",
+      "published": "2026-10-28",
+      "summary": "One post a day, every day — and nobody can tell a machine helped. Here’s the exact workflow. Continue reading on Medium »"
+    },
+    {
+      "id": "fcb5373b3e8e5bbf7e9d8a218a244b98e517a587",
+      "title": "Hugging Face’s Open-Source Team Built a Free Demo for Darwin-35B-ZTC-Vision",
+      "url": "https://arxivgpt.medium.com/hugging-faces-open-source-team-built-a-free-demo-for-darwin-35b-ztc-vision-6ee5217b6db8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "ArXiv",
+      "published": "2026-10-28",
+      "summary": "Continue reading on Medium »"
+    },
+    {
+      "id": "2f5c05b8be1094ea370b1c63468ed06c15d86776",
+      "title": "If AI does the work and people lose their income, who buys the products?",
+      "url": "https://medium.com/@villajebe/if-ai-does-the-work-and-people-lose-their-income-who-buys-the-products-c742ff1add1a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Muhammad Villa Jabbar, S. Sos.",
+      "published": "2026-10-28",
+      "summary": "An economics paper about AI layoffs made me ask a simple question, and then a harder one about the communities I work with. Continue reading on Medium »"
+    },
+    {
+      "id": "c26de9a1d0d20f02ecf01d3925e1a218885f2cdb",
+      "title": "Information Architecture: Is Suing AI an Absurdity or the New Normal?",
+      "url": "https://medium.com/@pborisp_55851/information-architecture-is-suing-ai-an-absurdity-or-the-new-normal-7210e2032518",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Pupchenko boris Petrovich",
+      "published": "2026-10-28",
+      "summary": "Imagine this scene: a guy buys a hammer at a hardware store, closes his eyes, smashes his own laptop with it, and then sues the hammer for… Continue reading on Medium »"
+    },
+    {
+      "id": "1af055f25f475f31a09ddfbcb3c09aaa0c15cb72",
+      "title": "Machine Learning in NDR: Smarter Threat Detection",
+      "url": "https://medium.com/@netwitness/machine-learning-in-ndr-smarter-threat-detection-c739f7276e57",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "NetWitness",
+      "published": "2026-10-28",
+      "summary": "With the rise of cyber threats associated with increased use of digital technology, implementation of cloud services and increased number… Continue reading on Medium »"
+    },
+    {
+      "id": "8e93f911f3477ef71c632810d945885a111096af",
+      "title": "Teaching an Embedding Model Finance Jargon: Fine-Tuning vs. a Glossary",
+      "url": "https://medium.com/@fmoudoute/teaching-an-embedding-model-finance-jargon-fine-tuning-vs-a-glossary-33196a8e0cde",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Frantz Moudoute",
+      "published": "2026-10-28",
+      "summary": "Introduction Continue reading on Medium »"
+    },
+    {
+      "id": "6aa363365a909ffe58ded6ef3f786ba42b6e4342",
+      "title": "Why AI Fraud Detection Is Becoming a $38 Billion Global Opportunity by 2030",
+      "url": "https://medium.com/@santhoshtbrc111/why-ai-fraud-detection-is-becoming-a-38-billion-global-opportunity-by-2030-fe4e9483e406",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "santhoshtbrc111@gmail.com",
+      "published": "2026-10-28",
+      "summary": "Driven by the rapid globalization of sophisticated cyber fraud, stringent global compliance mandates, and the integration of real-time… Continue reading on Medium »"
+    },
     {
       "id": "30d6955389b123f9678c571a2ecb87e6a7e874c0",
       "title": "Anthropic Interview Question: Every Batch Takes 100 ms. Why Is the API Slow?",
@@ -16,6 +172,19 @@
       "author": "Emily",
       "published": "2026-10-27",
       "summary": "A worked system-design problem about the waiting time your architecture diagram forgot. Continue reading on Medium »"
+    },
+    {
+      "id": "3645b03044a04b4378cff25a1ef4441621e63495",
+      "title": "Anthropic S-1 & Datacenters are Politically Unsustainable in 2026",
+      "url": "https://ai-supremacy.com/p/anthropic-s-1-and-datacenters-are-unsustainable-ant-ipo-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-27",
+      "summary": "It’s official: Democracy and low AI sentiment is now an AI bottleneck. AI Infrastructure is hitting a consumer and voter snag."
     },
     {
       "id": "fc1e2ac4ef51eb2b6280ae7bde1e4475336d9aad",
