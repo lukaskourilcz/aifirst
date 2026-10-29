@@ -1,9 +1,178 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "windowDays": 60,
   "items": [
+    {
+      "id": "a239bea3cca32d53facc95b64b53fabcf349141e",
+      "title": "10 Essential AI Terms Everyone Should Know in 2026",
+      "url": "https://cloudstakestechnology.medium.com/10-essential-ai-terms-everyone-should-know-in-2026-1fc30191a112",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Cloudstakes Technology",
+      "published": "2026-10-29",
+      "summary": "If you’ve ever nodded along in a meeting while someone said “we’ll fix it with RAG and a better context window,” and quietly wondered what… Continue reading on Medium »"
+    },
+    {
+      "id": "8661a3ca7d37e52fa2ae40331f3a057d611be0a0",
+      "title": "China’s AI Bubble Burst: What Every AI Builder Needs to Know",
+      "url": "https://pub.towardsai.net/chinas-ai-bubble-burst-what-every-ai-builder-needs-to-know-8019b80b7e9a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Rohan Mistry",
+      "published": "2026-10-29",
+      "summary": "For two years, China’s AI stocks only went one way. Continue reading on Towards AI »"
+    },
+    {
+      "id": "bc379c3878ba7509e7cacdba44e7d09d76c02f64",
+      "title": "Chunk Size vs Answer Quality in RAG: How to Evaluate Retrieval-Augmented Generation",
+      "url": "https://medium.com/@sales_95773/chunk-size-vs-answer-quality-in-rag-how-to-evaluate-retrieval-augmented-generation-3532b2935255",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Nooral.ai - Data & AI Company",
+      "published": "2026-10-29",
+      "summary": "A practical guide to RAG chunking strategies, retrieval metrics, and controlled experiments for building more reliable AI applications. Continue reading on Medium »"
+    },
+    {
+      "id": "6943bb73f2ca96c5954b3d575e38b3953c5e6740",
+      "title": "Gemini 4 Carbon: Google’s New AI Model for Advanced Cybersecurity",
+      "url": "https://medium.com/@sumitv8004/gemini-4-carbon-googles-new-ai-model-for-advanced-cybersecurity-283b595a686d",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sumit Verma",
+      "published": "2026-10-29",
+      "summary": "Artificial intelligence is moving beyond answering questions and generating code. The next generation of AI models is being designed to… Continue reading on Medium »"
+    },
+    {
+      "id": "e9bae9312c9ba9b5909791a4ec92d31f66b74060",
+      "title": "Genie 4 Makes Interactive Prototypes More Convincing — and Harder to Judge",
+      "url": "https://generativeai.pub/genie-4-makes-interactive-prototypes-more-convincing-and-harder-to-judge-1962cc5d8ec7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Marcus Ma",
+      "published": "2026-10-29",
+      "summary": "Google DeepMind’s latest world model adds interactive audio and richer environments, but realistic simulations still need careful… Continue reading on Generative AI »"
+    },
+    {
+      "id": "6c1a33836e1c132b98d8c0067043c0e40c6d2655",
+      "title": "How Are Text-to-SQL RL Environments Built?",
+      "url": "https://medium.com/@sarathc225/how-are-text-to-sql-rl-environments-built-e17f4ed730ce",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarathc",
+      "published": "2026-10-29",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "b4278ed2b6eb4e4b9796750b681c4575f28a6056",
+      "title": "How Do You Evaluate AI on Real Professional Work?",
+      "url": "https://medium.com/@sarathc225/how-do-you-evaluate-ai-on-real-professional-work-4450054f44f7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarathc",
+      "published": "2026-10-29",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "2e5c7d6d250f3c83184fb5f3444f6beadbc0265d",
+      "title": "How to Stop Repeating Yourself to Claude: 6 Lessons from Anthropic’s Own Workflow",
+      "url": "https://medium.com/@amitsrivastava115/how-to-stop-repeating-yourself-to-claude-6-lessons-from-anthropics-own-workflow-306cca210362",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Amit Shrivastava",
+      "published": "2026-10-29",
+      "summary": "In July 2026, Anthropic reported removing more than 80 percent of Claude Code’s system prompt, the standing instructions given to the… Continue reading on Medium »"
+    },
+    {
+      "id": "5bca695cb8cfa1945c1ec8d685ceaeb299a0b14d",
+      "title": "Human-Centred Design in the Age of Generative AI",
+      "url": "https://medium.com/axonect-blog/human-centred-design-in-the-age-of-generative-ai-f6ea7136ecad",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Pravindhya Pussepitiya",
+      "published": "2026-10-29",
+      "summary": "Generative artificial intelligence (AI) is consistently changing how digital products are imagined, designed, built, and experienced. In… Continue reading on Axonect Blog »"
+    },
+    {
+      "id": "e15780d8389ab255915af5da6fd36a7f2024cead",
+      "title": "Scaling Compute Without Cloning Your Data",
+      "url": "https://medium.com/@abubakar133/scaling-compute-without-cloning-your-data-b8fbf7d3fdd5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Abubakar Modu",
+      "published": "2026-10-29",
+      "summary": "Scaling infrastructure should be simple. Adding more compute shouldn't mean rebuilding your data setup every time. 🚫 Continue reading on Medium »"
+    },
+    {
+      "id": "77dbd3f2595d4ab2559547f2effe1d89c7b03764",
+      "title": "Vibe Coding: How AI Is Changing the Way We Build Software",
+      "url": "https://medium.com/@haideralitips_45366/vibe-coding-how-ai-is-changing-the-way-we-build-software-fb84809fa3a1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Haider Ali Tips",
+      "published": "2026-10-29",
+      "summary": "What if you could build a website, mobile app, or simple software project without knowing every line of code? Continue reading on Medium »"
+    },
+    {
+      "id": "f39e2f59309a396f6d3f5a2504a36a001bdd1646",
+      "title": "Why Is Cyber Security a Valuable Career Skill for the Future?",
+      "url": "https://medium.com/@karthikanivas17/why-is-cyber-security-a-valuable-career-skill-for-the-future-d47babf375c4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Karthikanivas",
+      "published": "2026-10-29",
+      "summary": "Cyber Security is a valuable career skill because businesses, organizations, and individuals increasingly depend on digital technologies… Continue reading on Medium »"
+    },
+    {
+      "id": "65e05126788df454924a4cbb9041acfb67c96d7c",
+      "title": "Artificial Analysis v5 and the benchmarker's dilemma",
+      "url": "https://interconnects.ai/p/artificial-analysis-v5-and-the-benchmarkers",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-10-28",
+      "summary": "A sort of review of the benchmarking industry and what's missing."
+    },
     {
       "id": "f9895de377a9dee991faa7f280b51256d50faab1",
       "title": "Does This Task Actually Need an Agent?",
@@ -81,6 +250,19 @@
       "author": "Md shahil",
       "published": "2026-10-28",
       "summary": "One post a day, every day — and nobody can tell a machine helped. Here’s the exact workflow. Continue reading on Medium »"
+    },
+    {
+      "id": "35143c8eb50dbca5e7a2613a41c9b5b71d62e824",
+      "title": "How to use Claude AI for Investing and Equity Research",
+      "url": "https://ai-supremacy.com/p/how-to-use-claude-ai-for-equity-research-late-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-28",
+      "summary": "Anthropic Token inflection point post Opus 5.5 is now live. How to use Claude for Investing and Equity research. a guest post from an experienced Equity research analyst."
     },
     {
       "id": "fcb5373b3e8e5bbf7e9d8a218a244b98e517a587",
