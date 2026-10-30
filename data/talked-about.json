@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "windowDays": 60,
   "items": [
+    {
+      "id": "ade81c4ddb9aedb7740a4f5f060cca700860aa47",
+      "title": "“Linear Regression: How Machines Find the Best-Fit Line to Predict the Future”",
+      "url": "https://medium.com/@nagavedasreethota012/linear-regression-how-machines-find-the-best-fit-line-to-predict-the-future-dcc1721748e4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Thota Nagavedasree",
+      "published": "2026-10-30",
+      "summary": "“Understand the mathematics behind linear regression, explore its types, and build a predictive model using Python.” Continue reading on Medium »"
+    },
+    {
+      "id": "3ef81c64b5c546e0e128ebcb82c9d5376e5b33ed",
+      "title": "AI Training Gap 2026: Your Employer Wants You to Use AI but Won’t Train You (Here’s a Self-Teaching…",
+      "url": "https://medium.com/@syamkumar0418/ai-training-gap-2026-your-employer-wants-you-to-use-ai-but-wont-train-you-here-s-a-self-teaching-b71a8a8b10d5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Syamkumar S",
+      "published": "2026-10-30",
+      "summary": "This draft includes AI assistance. Add your own stories before publishing. Continue reading on Medium »"
+    },
+    {
+      "id": "481176bc1a0889402e3eeb11e55fc0179703dc23",
+      "title": "Designing an Enterprise Agentic Chat Platform on Azure Databricks for 20,000 Users",
+      "url": "https://medium.com/@syedjunaidiqbal/designing-an-enterprise-agentic-chat-platform-on-azure-databricks-for-20-000-users-59c6556d4496",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "SYED JUNAID IQBAL",
+      "published": "2026-10-30",
+      "summary": "A reference architecture for RAG, a Spark agent and skills, and the cost and latency levers that keep it affordable at scale Continue reading on Medium »"
+    },
+    {
+      "id": "30ed00d43eba42c74183362c26ff8879dab4ce93",
+      "title": "From Rules to Learning: Understanding Machine Learning",
+      "url": "https://medium.com/@sreehari6301/from-rules-to-learning-understanding-machine-learning-533f65d1e78e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sreehari",
+      "published": "2026-10-30",
+      "summary": "Machine learning (ML) is the branch of AI in which systems improve at a task by learning patterns from data rather than following only… Continue reading on Medium »"
+    },
+    {
+      "id": "6570459c7e3bf52f7249e9b017cc734d52ba0f10",
+      "title": "I Built an AIOps Platform for Azure With a Local LLM. Here’s What Actually Worked.",
+      "url": "https://medium.com/@harshpardhi477/i-built-an-aiops-platform-for-azure-with-a-local-llm-heres-what-actually-worked-7235ec8b3808",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Harsh Pardhi",
+      "published": "2026-10-30",
+      "summary": "“AIOps” usually means a vendor deck. I wanted the engineering version: a system where an engineer describes infrastructure in plain… Continue reading on Medium »"
+    },
+    {
+      "id": "4df18bb2ee7003fac2b9f15aedfda0ffa85a9f29",
+      "title": "Jev and the Rise of System One Models: Why Fast, Typed Decisions Matter More Than Another Chatbot",
+      "url": "https://medium.com/@afcanrelief/jev-and-the-rise-of-system-one-models-why-fast-typed-decisions-matter-more-than-another-chatbot-382043babd5c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Ifeanyi Ogbuehi",
+      "published": "2026-10-30",
+      "summary": "A new class of AI model is forcing a rethink of how we allocate work between large language models and lighter, more specialized systems… Continue reading on Medium »"
+    },
+    {
+      "id": "6f9eaca45a2a9f75684742fd7f70670f496f55a1",
+      "title": "Medicare 2027: Costs, Dates, Tools",
+      "url": "https://medium.com/@sumbalabbas45/medicare-2027-costs-dates-tools-29ed378b01c9",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sumbalabbas",
+      "published": "2026-10-30",
+      "summary": "By Syeda | Reporting on U.S. Consumer Policy and Technology Published: October 30, 2026 | Last updated: October 30, 2026 Continue reading on Medium »"
+    },
+    {
+      "id": "3822ae3d136386b28743f751e21a143af1229e67",
+      "title": "Modelando el laberinto: cómo enseñarle las reglas del juego a una IA",
+      "url": "https://medium.com/@viviana.cl.635/modelando-el-laberinto-c%C3%B3mo-ense%C3%B1arle-las-reglas-del-juego-a-una-ia-ba45b9dfeea0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Viviana Cl",
+      "published": "2026-10-30",
+      "summary": "Formalización de un problema de búsqueda en Python Continue reading on Medium »"
+    },
+    {
+      "id": "6748fcfb1088f3b8a06ab1cdd996ca4f81c557f9",
+      "title": "Ollama vs LM Studio: Choose by the Machine You Already Own",
+      "url": "https://medium.com/@connectwithjalal/ollama-vs-lm-studio-choose-by-the-machine-you-already-own-b76f475e71b6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Jalal Mustafa",
+      "published": "2026-10-30",
+      "summary": "On most laptops both tools run the same engine on the same model file. What separates them is memory floors, licences, server defaults and… Continue reading on Medium »"
+    },
+    {
+      "id": "b1e2cf9db372e2a1b4268b66da6d7e8cce67c5aa",
+      "title": "Stop Paying Monthly for AI: Run Your Own LLM for Free",
+      "url": "https://shiv-jani.medium.com/stop-paying-monthly-for-ai-run-your-own-llm-for-free-8c600c3c9beb",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Shiv Jani",
+      "published": "2026-10-30",
+      "summary": "You don’t always need an AI subscription to build with artificial intelligence. Continue reading on Medium »"
+    },
+    {
+      "id": "6149586c0f191777ea9be69c748deee93e8c0564",
+      "title": "The 2026 Shift: How Creators Are Automating Faceless YouTube Shorts Using AI (Without Getting…",
+      "url": "https://medium.com/@charitygoad807/the-2026-shift-how-creators-are-automating-faceless-youtube-shorts-using-ai-without-getting-0de61d77c862",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Emma Watson",
+      "published": "2026-10-30",
+      "summary": "Starting a content channel used to follow a predictable script: invest thousands in cameras, adjust lighting for hours, overcome camera… Continue reading on Medium »"
+    },
+    {
+      "id": "f34f850befd266c5d4bcb3be7cb8e07aeee1e35b",
+      "title": "Why MCP Finally Makes Sense in 2026",
+      "url": "https://devopslearning.medium.com/why-mcp-finally-makes-sense-in-2026-9856ecf19a33",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Prashant Lakhera",
+      "published": "2026-10-30",
+      "summary": "In 2025, MCP (Model Context Protocol) was primarily about connecting AI agents to external tools and applications. Continue reading on Medium »"
+    },
     {
       "id": "a239bea3cca32d53facc95b64b53fabcf349141e",
       "title": "10 Essential AI Terms Everyone Should Know in 2026",
@@ -70,6 +226,19 @@
       "summary": "Google DeepMind’s latest world model adds interactive audio and richer environments, but realistic simulations still need careful… Continue reading on Generative AI »"
     },
     {
+      "id": "f64782ec5824d68137728e8dead9d19bb862e8cc",
+      "title": "Google has Succeeded in Disrupting Itself",
+      "url": "https://ai-supremacy.com/p/google-has-succeeded-in-disrupting-itself-as-search-declines",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-10-29",
+      "summary": "Google’s negative FCF and Search decline is concerning. Google bets on TPUs being an Nvidia competitor."
+    },
+    {
       "id": "6c1a33836e1c132b98d8c0067043c0e40c6d2655",
       "title": "How Are Text-to-SQL RL Environments Built?",
       "url": "https://medium.com/@sarathc225/how-are-text-to-sql-rl-environments-built-e17f4ed730ce",
@@ -120,6 +289,19 @@
       "author": "Pravindhya Pussepitiya",
       "published": "2026-10-29",
       "summary": "Generative artificial intelligence (AI) is consistently changing how digital products are imagined, designed, built, and experienced. In… Continue reading on Axonect Blog »"
+    },
+    {
+      "id": "0aab88e24825247c8690953062351915019fd8c4",
+      "title": "New Study: Anthropic Just Gave You a Reason to Stop Working With AI",
+      "url": "https://thealgorithmicbridge.com/p/new-study-anthropic-just-gave-you",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-10-29",
+      "summary": "The machine is secretly making up your mind"
     },
     {
       "id": "e15780d8389ab255915af5da6fd36a7f2024cead",
@@ -6410,19 +6592,6 @@
       "author": "Michael Spencer",
       "published": "2026-09-01",
       "summary": "How to understand China’s buzzy Physical AI and AI chip IPOs. Behind DeepSeek, humanoid robots and AI chips is a stock market reshaped by semiconductors, supply chains and a new wave of tech momentum."
-    },
-    {
-      "id": "43c454f4aa358bf31d99ac806bfbccef8aa2841c",
-      "title": "Agency and Agents",
-      "url": "https://oneusefulthing.org/p/agency-and-agents",
-      "source": {
-        "kind": "substack",
-        "name": "One Useful Thing",
-        "feed": "https://www.oneusefulthing.org/feed"
-      },
-      "author": "Ethan Mollick",
-      "published": "2026-08-31",
-      "summary": "From the Hugging Face Incident to Twilight Factories"
     }
   ]
 }

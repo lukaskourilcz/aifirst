@@ -1,9 +1,24 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "windowDays": 60,
   "items": [
+    {
+      "id": "0a7d4dd62c3146c9116f4aeb4ec9537a0de5008a",
+      "title": "Abundant Intelligence at the Midwest AI Summit",
+      "url": "https://share.transistor.fm/s/37a0c3e9",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-10-29",
+      "summary": "In this special episode, we bring you highlights from three talks at the Midwest AI Summit. Heidi Porter explores how to build reliable AI-augmented workflows using the right tools, evaluations, and guardrails. Kevin Solorio shares why building AI with frontline workers, not jus…",
+      "show": "Practical AI",
+      "durationSec": 3254
+    },
     {
       "id": "f046c69816ab88bb62b9a1f46512217efeb06109",
       "title": "Exploit Development, Agentic Vulnerability Discovery, and Fake PoCs",
