@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "windowDays": 60,
   "items": [
+    {
+      "id": "506c9588716f30f92cd02ef1426690d2cd06aa80",
+      "title": "30 Tech Concepts I Learned in October as a New AI Engineer",
+      "url": "https://iffywhy.medium.com/30-tech-concepts-i-learned-in-october-as-a-new-ai-engineer-0607f385e874",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sakshi",
+      "published": "2026-10-31",
+      "summary": "Tokens, RAG, embeddings, vector databases, agents and the mental model shifts nobody warned me about. Continue reading on Medium »"
+    },
+    {
+      "id": "daad3d08b8b1d6d14171cb6f3eab94920bd64c5d",
+      "title": "AI Didn't Take My Job. But It Changed What the Job Is.",
+      "url": "https://gauravkrvish.medium.com/ai-didnt-take-my-job-but-it-changed-what-the-job-is-c726107a6322",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Gaurav Kumar Vishvakarma",
+      "published": "2026-10-31",
+      "summary": "Every week my LinkedIn feed has the same two kinds of posts. One says AI is about to take everyone’s job. The other says AI is overhyped… Continue reading on Medium »"
+    },
+    {
+      "id": "c4eb3c5fa5105da7dd880237eb4c0ae9fa2affb9",
+      "title": "Crypto Never Sleeps! Can AI Help You Find the Next Big Breakout?",
+      "url": "https://pgeller103.medium.com/crypto-never-sleeps-can-ai-help-you-find-the-next-big-breakout-bf5a15a7c156",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Paul Geller",
+      "published": "2026-10-31",
+      "summary": "Imagine waking up, grabbing your coffee ☕, and instead of spending three hours searching through hundreds of cryptocurrency charts, you… Continue reading on Medium »"
+    },
+    {
+      "id": "f3f5579aadcef29504dcf4bac82831c7aa56ad65",
+      "title": "Deep Learning Belum Tentu Menang: Meramal Saham BBCA dan Apple dengan ARIMA, RNN, LSTM, dan GRU",
+      "url": "https://medium.com/@fanyashelena/deep-learning-belum-tentu-menang-meramal-saham-bbca-dan-apple-dengan-arima-rnn-lstm-dan-gru-add20f1242fa",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Fanya Shelena Sepdianti",
+      "published": "2026-10-31",
+      "summary": "Perbandingan model statistik dan machine learning pada harga penutupan harian lima tahun terakhir, lengkap dengan forecast dua pekan ke… Continue reading on Medium »"
+    },
+    {
+      "id": "5f6bd570f8b468c316df3eac75ef69db114fac48",
+      "title": "Harness Engineering, Part 5: Security, Evals and Building Your Own",
+      "url": "https://medium.com/@anubhavbhatt/harness-engineering-part-5-security-evals-and-building-your-own-408cdb09798c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Anubhav Bhatt",
+      "published": "2026-10-31",
+      "summary": "Part 5 of 5 in the harness engineering series. Continue reading on Medium »"
+    },
+    {
+      "id": "f5a716ed2041fdfbe68aa40807984de5ae7eef7b",
+      "title": "How I Learned To Hate AI “Art”",
+      "url": "https://medium.com/@sparrow_starfire/how-i-learned-to-hate-ai-art-8d96e1658821",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Liam Kaplan",
+      "published": "2026-10-31",
+      "summary": "At This Point, I wonder How I Could Ever Have Seen It Any Differently. Continue reading on Medium »"
+    },
+    {
+      "id": "f5bcb085638ab5691726f1f9952b10d153a21e45",
+      "title": "How to Use AI to Learn Any Skill Faster",
+      "url": "https://medium.com/@gulfamhussaingulfam345/how-to-use-ai-to-learn-any-skill-faster-ebfc8ce87d81",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Gulfam Hussain",
+      "published": "2026-10-31",
+      "summary": "Simple Ways to Use Artificial Intelligence for Learning, Creativity, and Personal Growth Continue reading on Medium »"
+    },
+    {
+      "id": "08c6fd51695a698b70217200a12cb8543b90aca9",
+      "title": "Linear Regression Is More Than Drawing a Straight Line",
+      "url": "https://medium.com/@its.shoryabisht/linear-regression-is-more-than-drawing-a-straight-line-3501b04abdc5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Shorya Bisht",
+      "published": "2026-10-31",
+      "summary": "Understanding how machines learn relationships, interpret patterns, and make predictions from data. Continue reading on Medium »"
+    },
+    {
+      "id": "47d647282661501f13d3661f859cf4a90eb051c7",
+      "title": "More Computing Power Doesn’t Automatically Mean Smarter AI",
+      "url": "https://medium.com/future-actually/more-computing-power-doesnt-automatically-mean-smarter-ai-7a7179c2c772",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Kesavan R",
+      "published": "2026-10-31",
+      "summary": "Sometimes, the biggest improvement in AI doesn’t come from a bigger model. It comes from solving the right problem. Continue reading on Future, Actually »"
+    },
+    {
+      "id": "aad42759de18f7b831c5d799e9a5a325d8da2356",
+      "title": "Raising an Independent Thinker in the Age of AI",
+      "url": "https://medium.com/@sgzhengao/raising-an-independent-thinker-in-the-age-of-ai-c9a4b790b33c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Alfie in Singapore",
+      "published": "2026-10-31",
+      "summary": "My son is 16. After finishing middle school, he didn’t continue along the traditional school path. But that doesn’t mean he stopped… Continue reading on Medium »"
+    },
+    {
+      "id": "1a2bf5f773a3905fcce4ef6e773cb13e04ad2275",
+      "title": "Why Hardcoding One LLM API Key in Production Is a Ticking Time Bomb",
+      "url": "https://alexapinotes.medium.com/why-hardcoding-one-llm-api-key-in-production-is-a-ticking-time-bomb-6f282c8d47b8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Alex | API Notes",
+      "published": "2026-10-31",
+      "summary": "Field notes on surviving 429 rate limits, silent latency spikes, and the hidden mess of multi-provider API routing. Continue reading on Medium »"
+    },
+    {
+      "id": "a86e8f9197e085ebd48f8b78991ece2abf461083",
+      "title": "Your Chatbot Says ‘Resolved’. Your Customer Says ‘Forget It’.",
+      "url": "https://medium.com/@blumintdigital/ai-chatbot-resolution-rates-customer-service-1c1603d700ef",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Blu Mint Digital",
+      "published": "2026-10-31",
+      "summary": "Before adding AI customer service to your website, check what counts as a resolution and what happens when someone needs a person. Continue reading on Medium »"
+    },
     {
       "id": "ade81c4ddb9aedb7740a4f5f060cca700860aa47",
       "title": "“Linear Regression: How Machines Find the Best-Fit Line to Predict the Future”",
@@ -146,6 +302,19 @@
       "author": "Emma Watson",
       "published": "2026-10-30",
       "summary": "Starting a content channel used to follow a predictable script: invest thousands in cameras, adjust lighting for hours, overcome camera… Continue reading on Medium »"
+    },
+    {
+      "id": "21d66635327b13923864d7a80b972a77f62c00ef",
+      "title": "Was I wrong about open models & cyber risks?",
+      "url": "https://interconnects.ai/p/was-i-wrong-about-open-models-and",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-10-30",
+      "summary": "Last week coined the term “Black October“ after an onslaught of critical vulnerability disclosures, including PHP2Shell and GitLab, signified the moment when the cyber risks of AI models started to materialize."
     },
     {
       "id": "f34f850befd266c5d4bcb3be7cb8e07aeee1e35b",
@@ -6579,19 +6748,6 @@
       "author": "Alberto Romero",
       "published": "2026-09-02",
       "summary": "Review of and thoughts on the Hugging Face incident"
-    },
-    {
-      "id": "0a16ab443341ba3400012b17c653804888c827d6",
-      "title": "China’s AI Rally Is Real. Most Global Investors Are Missing It.",
-      "url": "https://ai-supremacy.com/p/chinas-ai-rally-is-real-china-ai-physicalai-ipos-2026",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-09-01",
-      "summary": "How to understand China’s buzzy Physical AI and AI chip IPOs. Behind DeepSeek, humanoid robots and AI chips is a stock market reshaped by semiconductors, supply chains and a new wave of tech momentum."
     }
   ]
 }
