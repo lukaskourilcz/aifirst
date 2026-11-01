@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "windowDays": 60,
   "items": [
+    {
+      "id": "880d760a4f95557b125a676c59911e4884a939ea",
+      "title": "A Learning Platform Worth Exploring",
+      "url": "https://devskills.medium.com/a-learning-platform-worth-exploring-d1508294da7e",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "DevSkills",
+      "published": "2026-11-01",
+      "summary": "Want to Learn Machine Learning? Continue reading on Medium »"
+    },
+    {
+      "id": "703c06b94eb7d21a7b308eb37584871279032dc5",
+      "title": "Agents that are actually deterministic",
+      "url": "https://medium.com/@dev_86786/agents-that-are-actually-deterministic-9dfcc1854cd8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "aigenos",
+      "published": "2026-11-01",
+      "summary": "How aigenos/flow makes an agent run the same steps every time, and why that is hard to get from a prompt or a hand-built graph. Continue reading on Medium »"
+    },
+    {
+      "id": "2d6add7c92b4db58600f4a6a58c91d5bf909c7da",
+      "title": "Evaluating AI Agents: Why the Right Result Is Not Enough?",
+      "url": "https://medium.com/@sainitesh/evaluating-ai-agents-why-the-right-result-is-not-enough-235f49b1ba58",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sai Nitesh Palamakula",
+      "published": "2026-11-01",
+      "summary": "When we evaluate an AI agent, what should we check: the result it produced, or the steps it took to get there? Continue reading on Medium »"
+    },
+    {
+      "id": "00f30b5465beb65351e339f5e6b7993ceb9f6e11",
+      "title": "Google Just Lost $500 Billion. Maybe AI Isn’t the Business Everyone Thought It Was.",
+      "url": "https://ankitmohanta.medium.com/google-just-lost-500-billion-maybe-ai-isnt-the-business-everyone-thought-it-was-6204daa7f0ab",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "ANKIT MOHANTA",
+      "published": "2026-11-01",
+      "summary": "On October 29, 2026, something unusual happened to one of the most powerful technology companies in the world. Alphabet, Google’s parent… Continue reading on Medium »"
+    },
+    {
+      "id": "73967bba850c04d1b282a802c4e9d38ba204c445",
+      "title": "How Are Financial AI Benchmarks Built?",
+      "url": "https://medium.com/@sarathc225/how-are-financial-ai-benchmarks-built-c38b93e92985",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sarathc",
+      "published": "2026-11-01",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "e81934e9c52319305a16d3aaf4672d5b57e906c4",
+      "title": "How Are Prompt-Injection Benchmarks for AI Agents Built?",
+      "url": "https://medium.com/@sarathc225/how-are-prompt-injection-benchmarks-for-ai-agents-built-731a7e435c90",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Sarathc",
+      "published": "2026-11-01",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "8bcd4299c520eb2123ff64a22941dc0aa1f03287",
+      "title": "How to Survive the Next Two Years of AI",
+      "url": "https://medium.com/@anujlabs/how-to-survive-the-next-two-years-of-ai-c2d366add3c5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Anuj Kumar",
+      "published": "2026-11-01",
+      "summary": "You don’t need to predict the future of AI. You need to prepare yourself to live and work in it. Continue reading on Medium »"
+    },
+    {
+      "id": "64d2a7015513d1b597261a1b502fb55c6d2fae22",
+      "title": "Scholarly Sidequests 2: More Peterson & Lonergan; AI & the Humanities",
+      "url": "https://daviddennen.medium.com/scholarly-sidequests-2-more-peterson-lonergan-ai-the-humanities-4042b5d129ff",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "David Dennen",
+      "published": "2026-11-01",
+      "summary": "It’s already been a month since my first Scholarly Sidequests — time flies like a banana, I always say! Continue reading on Medium »"
+    },
+    {
+      "id": "979fe0ad409624155488646cbfea12e590cd0b65",
+      "title": "The Cloud AI Bubble is Hitting a Wall: Why My New App is 100% Offline",
+      "url": "https://medium.com/@navgankarakshay/the-cloud-ai-bubble-is-hitting-a-wall-why-my-new-app-is-100-offline-b7ea12e7b353",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Akshay Navgankar",
+      "published": "2026-11-01",
+      "summary": "In today’s world, data privacy is a massive concern. People want to use AI in apps but don’t want to share their private data to… Continue reading on Medium »"
+    },
+    {
+      "id": "9f80526134b4a6376a583a8219c84c62b7798838",
+      "title": "The Mathematics Behind Linear Regression: Understanding RSS, TSS, and R²",
+      "url": "https://medium.com/@its.shoryabisht/the-mathematics-behind-linear-regression-understanding-rss-tss-and-r%C2%B2-00a30999f03f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Shorya Bisht",
+      "published": "2026-11-01",
+      "summary": "From prediction errors to explained variance — the intuition, equations, and Python behind regression model evaluation. Continue reading on Medium »"
+    },
+    {
+      "id": "b26f84d0bff0055ab72d90b6d7d0524fef821995",
+      "title": "When Your AI Agent Keeps Calling a Dead API: Why Fallback and Circuit Breakers Matter",
+      "url": "https://medium.com/@connectwidamit/when-your-ai-agent-keeps-calling-a-dead-api-why-fallback-and-circuit-breakers-matter-b591ef594dcc",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Amith KS",
+      "published": "2026-11-01",
+      "summary": "Building AI agents is easy. Building AI agents that survive production failures is a different story. Continue reading on Medium »"
+    },
+    {
+      "id": "fa338e370dfd62988629c5d1c390a83d5fe751c9",
+      "title": "Your AI Chatbot Is Fast. But Is It Helpful? 7 Ways to Improve Customer Support",
+      "url": "https://medium.com/@saifkhantoru/your-ai-chatbot-is-fast-but-is-it-helpful-7-ways-to-improve-customer-support-eb1d7b64736a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Saif Khan",
+      "published": "2026-11-01",
+      "summary": "Faster replies matter. Solving the customer’s problem matters more. Continue reading on Medium »"
+    },
     {
       "id": "506c9588716f30f92cd02ef1426690d2cd06aa80",
       "title": "30 Tech Concepts I Learned in October as a New AI Engineer",
@@ -6735,19 +6891,6 @@
       "author": "Michael Spencer",
       "published": "2026-09-03",
       "summary": "Google’s Waymo leads an all-out expansion of Robotaxis that will shift gears starting in 2027."
-    },
-    {
-      "id": "5820f02a67a36023b321a31c2449d2a64c7f6eaf",
-      "title": "The AI Industry Has a Really Dark Secret You Should Know About",
-      "url": "https://thealgorithmicbridge.com/p/the-ai-industry-has-a-really-dark-70d",
-      "source": {
-        "kind": "substack",
-        "name": "The Algorithmic Bridge",
-        "feed": "https://www.thealgorithmicbridge.com/feed"
-      },
-      "author": "Alberto Romero",
-      "published": "2026-09-02",
-      "summary": "Review of and thoughts on the Hugging Face incident"
     }
   ]
 }
