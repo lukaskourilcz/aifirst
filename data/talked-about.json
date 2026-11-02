@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-11-01",
+  "updated": "2026-11-02",
   "windowDays": 60,
   "items": [
+    {
+      "id": "a72316f370fdb8b464f002992b2a20deea8c0ea5",
+      "title": "Can an AI Trading Agent Check a Token’s Liquidity Before It Buys?",
+      "url": "https://medium.com/@FereAI/can-an-ai-trading-agent-check-a-tokens-liquidity-before-it-buys-791ba1817180",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Fere AI",
+      "published": "2026-11-02",
+      "summary": "Partly. You can put liquidity conditions in your instruction, such as a maximum slippage and a minimum pool size, and the agent will work… Continue reading on Medium »"
+    },
+    {
+      "id": "66d247f7913b0dae1a30dcf1231bb5e86431a9d0",
+      "title": "Every final year brings the same question: what should we build?",
+      "url": "https://ecefinalyearprojectseee.medium.com/every-final-year-brings-the-same-question-what-should-we-build-3be45bf43f8f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "ECEProjectKart",
+      "published": "2026-11-02",
+      "summary": "This 2026 guide collects practical project ideas grouped by area, along with advice on choosing, planning, and presenting your work. It is… Continue reading on Medium »"
+    },
+    {
+      "id": "940d74a6db48dee2eaca716218b69a4661ab1deb",
+      "title": "Graph RAG Series:14/15 [Production Architecture, Deployment and Real-World Use Cases]",
+      "url": "https://medium.com/models-to-systems/graph-rag-series-14-15-production-architecture-deployment-and-real-world-use-cases-b9744e6a454f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-11-02",
+      "summary": "Putting it together, and knowing when to stop adding components. Continue reading on Models to Systems »"
+    },
+    {
+      "id": "32e03b1de5ee5b430cf23f09b6d73ef167432d7f",
+      "title": "Graph RAG Series:15/15 [Advanced Approaches and Open Research Challenges]",
+      "url": "https://medium.com/models-to-systems/graph-rag-series-15-15-advanced-approaches-and-open-research-challenges-b03223971f0b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Deepak Mishra",
+      "published": "2026-11-02",
+      "summary": "What’s emerging, what’s unproven, and what to watch. Continue reading on Models to Systems »"
+    },
+    {
+      "id": "972ad660171b65b3cd284ae54b38f6b3418d3117",
+      "title": "How Are Cybersecurity RL Environments and CTF Benchmarks Built?",
+      "url": "https://medium.com/@sarathc225/how-are-cybersecurity-rl-environments-and-ctf-benchmarks-built-752246e69431",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sarathc",
+      "published": "2026-11-02",
+      "summary": "AI-assisted; reviewed and fact-checked by the author. Continue reading on Medium »"
+    },
+    {
+      "id": "f49171786fe56d2777c81ca1782333369d045da8",
+      "title": "How to Add AI Features to Your Existing Software Without Rebuilding It",
+      "url": "https://medium.com/@anshul.nema23/how-to-add-ai-features-to-your-existing-software-without-rebuilding-it-afea0a3aaa57",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Good Opportunity",
+      "published": "2026-11-02",
+      "summary": "A practical playbook for product teams: pick one workflow, add an AI layer, test it properly, then scale Continue reading on Medium »"
+    },
+    {
+      "id": "af48b916424f65a0b4ab47cc75a1999298776b4d",
+      "title": "I Built a 100 Crore AI Services Company | The Complete Enterprise Playbook",
+      "url": "https://medium.com/@devwebtesting151/i-built-a-100-crore-ai-services-company-the-complete-enterprise-playbook-9af04f6d37a6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "offlegal",
+      "published": "2026-11-02",
+      "summary": "A young firm crossed the “dead zone” that kills most services businesses by selling outcomes, not people. Here’s the playbook, distilled… Continue reading on Medium »"
+    },
+    {
+      "id": "4523bf92817a1d708abea14829980fcd7e2a8268",
+      "title": "I Gave AI a 20 File Project. Then I Changed One Requirement.",
+      "url": "https://medium.com/@pythonadvisor/i-gave-ai-a-20-file-project-then-i-changed-one-requirement-a87dd62c6ae3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Pythonadvisor",
+      "published": "2026-11-02",
+      "summary": "Writing code from scratch is easy for AI now. Changing a working multi file app without breaking it is the real test. Here’s how I ran it… Continue reading on Medium »"
+    },
+    {
+      "id": "8130aadf5fd538d9dcf64ca7e7a68ef6f675c8db",
+      "title": "Iran Talks, Brent Crude and U.S. Gas Prices: Calculators",
+      "url": "https://medium.com/@sumbalabbas45/iran-talks-brent-crude-and-u-s-gas-prices-calculators-c91c1c1505d8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Sumbalabbas",
+      "published": "2026-11-02",
+      "summary": "By Syeda | Reporting on US Business & International Policy Continue reading on Medium »"
+    },
+    {
+      "id": "506be03c8c53bf21be48dc5c929c19bd0d092737",
+      "title": "The Data Science Skills That Will Matter Most in 2027",
+      "url": "https://medium.com/@psaumya567/the-data-science-skills-that-will-matter-most-in-2027-1db8f2b89957",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Saumya Patel",
+      "published": "2026-11-02",
+      "summary": "A few years ago, “learn Python, learn SQL, build a model” was a complete roadmap. Today it’s the starting line. Continue reading on Medium »"
+    },
+    {
+      "id": "731e038cb713d2cdff4967396c158add6cb572d9",
+      "title": "Why Does Linear Regression Square Its Mistakes?",
+      "url": "https://medium.com/@its.shoryabisht/why-does-linear-regression-square-its-mistakes-34ae05271d5a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Shorya Bisht",
+      "published": "2026-11-02",
+      "summary": "From residual cancellation to geometric projection, discover why minimizing squared errors produces the ordinary least squares regression… Continue reading on Medium »"
+    },
+    {
+      "id": "14d924c6104756e18f703f002e55db4746299b56",
+      "title": "Your architecture doesn’t need another thumbs-up. It needs a roast.",
+      "url": "https://medium.com/@sudhirshetty/your-architecture-doesnt-need-another-thumbs-up-it-needs-a-roast-36ad8c959a68",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Sudhir Shetty",
+      "published": "2026-11-02",
+      "summary": "Engineering Against Sycophancy: How to Stop Your AI From Being a Yes-Man Continue reading on Medium »"
+    },
     {
       "id": "880d760a4f95557b125a676c59911e4884a939ea",
       "title": "A Learning Platform Worth Exploring",
@@ -6878,19 +7034,6 @@
       "author": "Alberto Romero",
       "published": "2026-09-04",
       "summary": "The only test that we have left is reality"
-    },
-    {
-      "id": "160508ce6373d96ce3571aae69f37b1b66c16909",
-      "title": "Visions of AI: An Inflection Point in Robotaxis in 2027",
-      "url": "https://ai-supremacy.com/p/visions-of-ai-an-inflection-point-for-waymo-robotaxi-launches-in-2027",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-09-03",
-      "summary": "Google’s Waymo leads an all-out expansion of Robotaxis that will shift gears starting in 2027."
     }
   ]
 }
