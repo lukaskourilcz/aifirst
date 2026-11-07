@@ -1,9 +1,243 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-11-02",
+  "updated": "2026-11-07",
   "windowDays": 60,
   "items": [
+    {
+      "id": "83ad28619be2afaa75a295f7e52229dc5368dc4c",
+      "title": "AI Is More Than LLMs: The 70-Year Story From Turing to Agent",
+      "url": "https://medium.com/@xrhstinanb/ai-is-more-than-llms-the-70-year-story-from-turing-to-agent-32544e4aa7a1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Christina Nektaria Vlasi",
+      "published": "2026-11-07",
+      "summary": "Machine learning, deep learning, the transformer and agents: how each one works, explained simply. Continue reading on Medium »"
+    },
+    {
+      "id": "28bbd4dd50ddff2b50e0be6bf889c973776873d5",
+      "title": "Can Classical Logic Keep Modern AI in Check?",
+      "url": "https://medium.com/@cher.lim8/can-classical-logic-keep-modern-ai-in-check-50e9add69a0c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Cher Lim",
+      "published": "2026-11-07",
+      "summary": "How Knowledge Bases can help control the actions of AI agents Continue reading on Medium »"
+    },
+    {
+      "id": "c1fc05f1a5f752cf0082452e653ec0e2f3860347",
+      "title": "Combinatorial Optimization with Pointer Networks: Theory, Benchmarks, and Limitations",
+      "url": "https://medium.com/@an2ancan/combinatorial-optimization-with-pointer-networks-theory-benchmarks-and-limitations-405ebd41a2f4",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Anton Elphimov",
+      "published": "2026-11-07",
+      "summary": "Solving the Travelling Salesman Problem with Pointer Networks, REINFORCE, and benchmarks against Google OR-Tools. Continue reading on Medium »"
+    },
+    {
+      "id": "38596388c49375f53e0bcbb9bc31d49e95626b24",
+      "title": "Fine-Tuning Explained Like You’re Five (With Code)",
+      "url": "https://alexandra272003.medium.com/fine-tuning-explained-like-youre-five-with-code-f24fdf0f37aa",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Alexandra Pratap Singh",
+      "published": "2026-11-07",
+      "summary": "Full fine-tuning, LoRA, QLoRA and friends Continue reading on Medium »"
+    },
+    {
+      "id": "6d1f2bbbe4e98ae8e473647b237e7d781f1a54ba",
+      "title": "Free Lorentzian Classification Machine Learning Indicator for TradingView (No-Code Setup)",
+      "url": "https://medium.com/@fabrizegna/free-lorentzian-classification-machine-learning-indicator-for-tradingview-no-code-setup-a3076b039886",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Quantum-Code",
+      "published": "2026-11-07",
+      "summary": "Hey everyone, Continue reading on Medium »"
+    },
+    {
+      "id": "b0415dc28e4358d0bded68edadbd9fdb13329f5d",
+      "title": "LoRA by hand: the format transferred, and some of the content followed",
+      "url": "https://medium.com/@tiwariadarshformal/lora-by-hand-the-format-transferred-and-the-content-started-to-ab8c9e7becb0",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Adarsh Tiwari",
+      "published": "2026-11-07",
+      "summary": "I wrote LoRA from scratch for my own GPT-2 and trained just 0.238% of its weights in under five minutes. Perplexity on Shakespeare fell… Continue reading on Medium »"
+    },
+    {
+      "id": "0c3711024c630032696ff5e98ae8cb18edb15395",
+      "title": "Most \"Big Data\" Teams Don’t Have Big Data (They Just Have Big Cloud Bills)",
+      "url": "https://medium.com/@Yunakimuiux/most-big-data-teams-dont-have-big-data-they-just-have-big-cloud-bills-6f5838cda3f6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Yuna Kim",
+      "published": "2026-11-07",
+      "summary": "The median company’s data fits on a laptop. So why does the architecture diagram look like a subway map? Continue reading on Medium »"
+    },
+    {
+      "id": "6a3fa5e0e1a98bf1dbcbbc345c31587d5ebf85b1",
+      "title": "Open-Source and Source-Available Text-to-SQL Tools in 2026: License and Self-Hosting Scorecard",
+      "url": "https://medium.com/@pankaj_goswami/open-source-and-source-available-text-to-sql-tools-in-2026-license-and-self-hosting-scorecard-9e23350e655c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Pankaj Goswami",
+      "published": "2026-11-07",
+      "summary": "Picture a product team two sprints away from shipping a “just ask your data” box inside their SaaS app. Continue reading on Medium »"
+    },
+    {
+      "id": "b830f2a72f8c1c41301753c8030b60875f99c53d",
+      "title": "The Student Knew the Formula. So Why Couldn’t They Solve the Problem?",
+      "url": "https://medium.com/@ypleong123/the-student-knew-the-formula-so-why-couldnt-they-solve-the-problem-64661807e2d7",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "YP Leong | AI Learning Educator",
+      "published": "2026-11-07",
+      "summary": "The teacher watched the student work through ten area problems without a single mistake. Continue reading on Medium »"
+    },
+    {
+      "id": "6ac16d11b2b5a9c0631e81e37a298700ec6200be",
+      "title": "What is osFoundry? A guided tour of the desktop AI workspace and its main areas",
+      "url": "https://medium.com/@tauchiii/what-is-osfoundry-a-guided-tour-of-the-desktop-ai-workspace-and-its-main-areas-9be86fdce4e3",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "tauchiii",
+      "published": "2026-11-07",
+      "summary": "It is Monday, 9:40, and you have four browser tabs open: one chatbot for questions, a second one because you don’t fully trust the first… Continue reading on Medium »"
+    },
+    {
+      "id": "1f5db7eff6f6fb3e31de892d8abb36780221cf4c",
+      "title": "Which AEO Tools Do AI Assistants Recommend? 741 Answers Across 8 Platforms (2026)",
+      "url": "https://pub.aeosoup.com/which-aeo-tools-do-ai-assistants-recommend-741-answers-across-8-platforms-2026-a66a1c6d6c43",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "MaxAEO",
+      "published": "2026-11-07",
+      "summary": "Profound leads. HubSpot is the surprise: it nearly disappears when the question says GEO. Continue reading on AEO Soup »"
+    },
+    {
+      "id": "449877b451a8934e0ce86ff48a29e1c1a3d78cde",
+      "title": "Why We Stopped Doing One-Shot Scrapes and Built an Agent That Never Forgets",
+      "url": "https://medium.com/@am.ayushmansharma/why-we-stopped-doing-one-shot-scrapes-and-built-an-agent-that-never-forgets-be1f986d6a1c",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Am Ayushmansharma",
+      "published": "2026-11-07",
+      "summary": "Every product marketer, strategist, and founder has the same Monday morning ritual: opening 15 browser tabs, checking competitor pricing… Continue reading on Medium »"
+    },
+    {
+      "id": "1acca94ab4e1af38a7819fc51ad5dcb8434a2bed",
+      "title": "Is Recursive Self-Improvement the Moat of Anthropic?",
+      "url": "https://ai-supremacy.com/p/is-recursive-self-improvement-the-moat-of-claude-and-anthropic",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-11-05",
+      "summary": "BigTech ownership, the concentration of spending in AI coding and circular financing as the status quo, also helps."
+    },
+    {
+      "id": "5aa9e22347f22af001bb037952152d853030918f",
+      "title": "The AI Industry Thinks It Has a PR Problem. The Actual Problem Is Much Worse",
+      "url": "https://thealgorithmicbridge.com/p/the-ai-industry-thinks-it-has-a-pr",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-11-05",
+      "summary": "The Democrats swept the midterms and owe their victory to the AI industry"
+    },
+    {
+      "id": "93ee83f44d2970b9521fa4253db9289b9f0db48f",
+      "title": "How big is the open model economy today?",
+      "url": "https://interconnects.ai/p/how-well-can-we-measure-open-model",
+      "source": {
+        "kind": "substack",
+        "name": "Interconnects",
+        "feed": "https://www.interconnects.ai/feed"
+      },
+      "author": "Nathan Lambert",
+      "published": "2026-11-04",
+      "summary": "Our first open model economy research note for paid subscribers."
+    },
+    {
+      "id": "bb0930113a4cfafbc96c0afeccd6a055c7c08971",
+      "title": "How to Use Meta Muse as Your Personal AI Assistant",
+      "url": "https://ai-supremacy.com/p/how-to-use-meta-muse-as-your-personal-assisant-november-2026",
+      "source": {
+        "kind": "substack",
+        "name": "AI Supremacy",
+        "feed": "https://www.ai-supremacy.com/feed"
+      },
+      "author": "Michael Spencer",
+      "published": "2026-11-03",
+      "summary": "AI news tidbits + 5 Jobs to Hand It, and Where It Breaks (guide)."
+    },
+    {
+      "id": "088ab14ac700ea23c9d2b70e9ad8b871e20d717e",
+      "title": "The Dawn of a New AI Paradigm: Weight-Space Programming",
+      "url": "https://thealgorithmicbridge.com/p/the-dawn-of-a-new-ai-paradigm-weight",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-11-03",
+      "summary": "Why do AI research like a human when you’re a machine?"
+    },
+    {
+      "id": "2551d91380540cd09167511c6036cfce669275d8",
+      "title": "AI Won't Kill Math But Empty Classrooms Will",
+      "url": "https://thealgorithmicbridge.com/p/new-survey-math-students-are-giving",
+      "source": {
+        "kind": "substack",
+        "name": "The Algorithmic Bridge",
+        "feed": "https://www.thealgorithmicbridge.com/feed"
+      },
+      "author": "Alberto Romero",
+      "published": "2026-11-02",
+      "summary": "This is what a dying field looks like"
+    },
     {
       "id": "a72316f370fdb8b464f002992b2a20deea8c0ea5",
       "title": "Can an AI Trading Agent Check a Token’s Liquidity Before It Buys?",
@@ -6982,58 +7216,6 @@
       "author": "Nathan Lambert",
       "published": "2026-09-09",
       "summary": "We’re <5 years into a compounding revolution which could take a century, and how the AI industry should manage this."
-    },
-    {
-      "id": "8d81999a86daa23b75488d3d33cbe8cb4b80a84c",
-      "title": "A Bad Day For Humans, a Worse Day For Humanity",
-      "url": "https://thealgorithmicbridge.com/p/a-bad-day-for-humans-a-worse-day",
-      "source": {
-        "kind": "substack",
-        "name": "The Algorithmic Bridge",
-        "feed": "https://www.thealgorithmicbridge.com/feed"
-      },
-      "author": "Alberto Romero",
-      "published": "2026-09-08",
-      "summary": "A quick thought on the top stories this week"
-    },
-    {
-      "id": "200f6c6e67c9b3e08b3cf8fd397771cddfea3341",
-      "title": "GPT-6 Astra’s Achilles Heel, Trust in OpenAI is Fading",
-      "url": "https://ai-supremacy.com/p/gpt-6-astra-hugging-face-incident-2026-review",
-      "source": {
-        "kind": "substack",
-        "name": "AI Supremacy",
-        "feed": "https://www.ai-supremacy.com/feed"
-      },
-      "author": "Michael Spencer",
-      "published": "2026-09-08",
-      "summary": "GPT-6 Astra’s get out of jail card: OpenAI’s imminent IPO has so many legal risks, it’s adding up. The Hugging Face incident is highly concerning."
-    },
-    {
-      "id": "0b82f3a3b822f138437c8e95be2a304779577162",
-      "title": "Latest open artifacts (#24): Motif-3, GLM-5.3, Hy4-preview and open model licenses",
-      "url": "https://interconnects.ai/p/latest-open-artifacts-24-motif-3",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Florian Brand",
-      "published": "2026-09-08",
-      "summary": "The open model ecosystem continues to expand in its breadth"
-    },
-    {
-      "id": "8481f18fd845e821b763109f8cca63eeba966411",
-      "title": "GPT-6 Astra: Too Good",
-      "url": "https://thealgorithmicbridge.com/p/gpt-6-astra-too-good",
-      "source": {
-        "kind": "substack",
-        "name": "The Algorithmic Bridge",
-        "feed": "https://www.thealgorithmicbridge.com/feed"
-      },
-      "author": "Alberto Romero",
-      "published": "2026-09-04",
-      "summary": "The only test that we have left is reality"
     }
   ]
 }

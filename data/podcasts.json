@@ -1,9 +1,24 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "podcasts",
-  "updated": "2026-11-02",
+  "updated": "2026-11-07",
   "windowDays": 60,
   "items": [
+    {
+      "id": "ed7bed4ad263654969d239f285abc77f2a9ac396",
+      "title": "Abundant Intelligence at the Midwest AI Summit Part 2",
+      "url": "https://share.transistor.fm/s/1b301bdc",
+      "source": {
+        "kind": "rss",
+        "name": "Practical AI",
+        "feed": "https://changelog.com/practicalai/feed"
+      },
+      "author": "Daniel Whitenack and Chris Benson",
+      "published": "2026-11-05",
+      "summary": "How do organizations decide what AI should do, where to set boundaries, and when to keep humans in control? In this special episode, we bring you three more talks from the Midwest AI Summit, exploring how organizations are putting AI into practice. Don Barger of the Internationa…",
+      "show": "Practical AI",
+      "durationSec": 2873
+    },
     {
       "id": "0a7d4dd62c3146c9116f4aeb4ec9537a0de5008a",
       "title": "Abundant Intelligence at the Midwest AI Summit",
