@@ -1,9 +1,165 @@
 {
   "schemaVersion": "boardless-stream/1",
   "stream": "talked-about",
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "windowDays": 60,
   "items": [
+    {
+      "id": "ef3b37893e06e1c9632f37370d9d6b16ee5dd6f4",
+      "title": "10 Practical Ways to Speed Up LLM Inference",
+      "url": "https://medium.com/@jiminlee-ai/10-practical-ways-to-speed-up-llm-inference-3a713edf8ed1",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Jimin Lee",
+      "published": "2026-11-08",
+      "summary": "You’re building an LLM-powered service. Continue reading on Medium »"
+    },
+    {
+      "id": "6082219a081a98ca007af363c888a8977eb7c6b3",
+      "title": "A Free GitHub Hack Nearly Doubled NVIDIA’s RTX 4090 AI Performance. But There’s a Catch.",
+      "url": "https://medium.com/data-science-collective/a-free-github-hack-nearly-doubled-nvidias-rtx-4090-ai-performance-but-there-s-a-catch-0bc53b17afa6",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "MayhemCode",
+      "published": "2026-11-08",
+      "summary": "The ASUS TUF number made me stop scrolling. Somebody with a TUF A15 and an RTX 3060 Laptop GPU reported 25.86 TFLOPS before a small… Continue reading on Data Science Collective »"
+    },
+    {
+      "id": "05ccc9e8d87111e7e9cf18e1e0cee3d74f146ef7",
+      "title": "Be Your Own Fish: 6 Lessons from Olympic Champion Eileen Gu on Human Potential, AI and Personal…",
+      "url": "https://medium.com/@daryl-goh/be-your-own-fish-6-lessons-from-olympic-champion-eileen-gu-on-human-potential-ai-and-personal-11a1d9308614",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Daryl Goh",
+      "published": "2026-11-08",
+      "summary": "An inspiring conversation at SMU about challenging our limits, embracing technology, developing independence and finding our own path. Continue reading on Medium »"
+    },
+    {
+      "id": "4d3d73dc31f97483df918e1b5f473be62364e8e0",
+      "title": "Castov: A Unified Developer Toolkit to Make Coding Simpler, Faster, and More Efficient",
+      "url": "https://medium.com/@abdelmalikbenidir/castov-a-unified-developer-toolkit-to-make-coding-simpler-faster-and-more-efficient-963a47bcd34a",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Abdelmalikbenidir",
+      "published": "2026-11-08",
+      "summary": "Castov: A Unified Developer Toolkit to Make Coding Simpler, Faster, and More Efficient Continue reading on Medium »"
+    },
+    {
+      "id": "0d886604a64dca00d9e07f107d066f08f5e64b95",
+      "title": "D3 Decision Models: Build Fast, Multimodal AI Applications Locally with vLLM",
+      "url": "https://medium.com/@anooshmughal471/d3-decision-models-build-fast-multimodal-ai-applications-locally-with-vllm-266490e8c70f",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "Qaiser Anoosh Mughal",
+      "published": "2026-11-08",
+      "summary": "An end-to-end guide to running open-weight decision models, performing probabilistic AI classification, and building practical… Continue reading on Medium »"
+    },
+    {
+      "id": "9c34a0a16c09baf74ef2d2123850e647ee386885",
+      "title": "Every hash is a training step: the engineering behind NEB",
+      "url": "https://medium.com/@neuralenginebyte/every-hash-is-a-training-step-the-engineering-behind-neb-6f0a97714ff8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Neural Engine Byte",
+      "published": "2026-11-08",
+      "summary": "How a proof-of-work chain trains neural networks on NASA and medical data, in exact integer arithmetic, so that every node ends up with… Continue reading on Medium »"
+    },
+    {
+      "id": "fd496ab8afd050b5cd9b81da96e0681d46bedf72",
+      "title": "How we introduced Codex beyond Engineering at Magnet.me",
+      "url": "https://medium.com/@Rogier.Slag/how-we-introduced-codex-beyond-engineering-at-magnet-me-8b628beed904",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Rogier Slag",
+      "published": "2026-11-08",
+      "summary": "“First, close your laptop.” Continue reading on Medium »"
+    },
+    {
+      "id": "0f105b76a60424ad728a446e8f2ec76760eef705",
+      "title": "Karpathy Says: Stop Reading AI Text. Ask for ASD STE100 or a Visual Instead",
+      "url": "https://blog.stackademic.com/karpathy-says-stop-reading-ai-text-ask-for-asd-ste100-or-a-visual-instead-e378a084ade5",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · LLM",
+        "feed": "https://medium.com/feed/tag/llm"
+      },
+      "author": "inprogrammer",
+      "published": "2026-11-08",
+      "summary": "A few days ago, Andrej Karpathy shared an idea that matched exactly how my own work has been changing. Continue reading on Stackademic »"
+    },
+    {
+      "id": "f4a654205fbb70b12f23e514b574f2e0bb2cf20f",
+      "title": "Open Source AI Is Ready, Is Your Infrastructure?",
+      "url": "https://medium.com/@TesseractAcade1/open-source-ai-is-ready-is-your-infrastructure-1200ea10e3e8",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "The Tesseract Academy",
+      "published": "2026-11-08",
+      "summary": "Open-source foundation models have reached parity with proprietary APIs across complex reasoning, code generation, and multi-turn… Continue reading on Medium »"
+    },
+    {
+      "id": "785a0e392e20c22ddcffcd48e48d97769faa6600",
+      "title": "Quantum-Enhanced Leukemia Detection: Teaching AI to Explain Itself",
+      "url": "https://medium.com/@preethidavupatii/quantum-enhanced-leukemia-detection-teaching-ai-to-explain-itself-4a7ae2bc6c9b",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Machine Learning",
+        "feed": "https://medium.com/feed/tag/machine-learning"
+      },
+      "author": "Preethidavupatii",
+      "published": "2026-11-08",
+      "summary": "A hybrid pipeline that combines a biomedical vision-language model, a small quantum circuit and explainable AI to tell leukemic cells from… Continue reading on Medium »"
+    },
+    {
+      "id": "d773fddc88d6801f591a073e4a190efc4592c4ce",
+      "title": "When Your Customer Is No Longer Human",
+      "url": "https://medium.com/@harald.maderbacher/when-your-customer-is-no-longer-human-bbb792e49f17",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Harald Henry Maderbacher",
+      "published": "2026-11-08",
+      "summary": "How AI agents could change the way companies compete for business — and who controls the decisions that matter. Continue reading on Medium »"
+    },
+    {
+      "id": "64ccb21a3cd47ad7ff2a6c1cbb3c9d0311095c65",
+      "title": "Yapay Zekâ Doğruyu Bulabilir. Ama Doğru Olduğunu Kanıtlayabilir mi?",
+      "url": "https://medium.com/@ismailsabany/yapay-zek%C3%A2-do%C4%9Fruyu-bulabilir-ama-do%C4%9Fru-oldu%C4%9Funu-kan%C4%B1tlayabilir-mi-32ebfec98796",
+      "source": {
+        "kind": "medium",
+        "name": "Medium · Artificial Intelligence",
+        "feed": "https://medium.com/feed/tag/artificial-intelligence"
+      },
+      "author": "Ismailsabany",
+      "published": "2026-11-08",
+      "summary": "Yapay zekâ yeni hipotezler kurabiliyor. Ama bir fikrin bilgi sayılması için kanıt gerekiyor. Mata v. Avianca’dan AlphaFold’a, tümevarım… Continue reading on Medium »"
+    },
     {
       "id": "83ad28619be2afaa75a295f7e52229dc5368dc4c",
       "title": "AI Is More Than LLMs: The 70-Year Story From Turing to Agent",
@@ -7203,19 +7359,6 @@
       "author": "Alberto Romero",
       "published": "2026-09-10",
       "summary": "Or: why the singularity might not happen"
-    },
-    {
-      "id": "0512b5a83e4bd8d57e72e696ed57acc45016d106",
-      "title": "When will average people feel AI’s impact?",
-      "url": "https://interconnects.ai/p/when-will-average-people-feel-ais",
-      "source": {
-        "kind": "substack",
-        "name": "Interconnects",
-        "feed": "https://www.interconnects.ai/feed"
-      },
-      "author": "Nathan Lambert",
-      "published": "2026-09-09",
-      "summary": "We’re <5 years into a compounding revolution which could take a century, and how the AI industry should manage this."
     }
   ]
 }
